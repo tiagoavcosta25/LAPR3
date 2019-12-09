@@ -13,9 +13,9 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module-library">
-      <library name="Maven: lapr3:ride-sharing-assessment-interfaces:1.0">
+      <library name="Maven: lapr3:ride-sharing-assessment-interfaces:1.1">
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/third-parties/ride-sharing-assessment-interfaces-1.0.jar!/" />
+          <root url="jar://$MODULE_DIR$/third-parties/ride-sharing-assessment-interfaces-1.1.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
