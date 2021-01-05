@@ -1,0 +1,60 @@
+@startuml
+autonumber
+actor "Administrator" as ADMIN
+
+participant ":RegisterCourierUI" as UI
+participant ":RegisterCourierController" as CTRL
+participant ":Platform" as PLAT
+participant "oCourierList : CourierList" as RF
+participant "oCourier: Courier" as CR
+participant "oAddress: Address" as A
+
+
+
+activate ADMIN
+
+ADMIN -> UI : initializes the register of a new Courier
+activate UI
+UI -> ADMIN : asks for the data that features the Courier (i.e., name, e-mail, NIF, bank account (IBAN) and address)
+deactivate UI
+
+ADMIN -> UI : inserts the required data
+activate UI
+UI -> CTRL : newCourier(strId, strName,strEmail, strNIF, strIBAN, oAddress)
+activate CTRL
+CTRL -> PLAT : oCourierList = getCourierList()
+activate PLAT
+deactivate PLAT
+CTRL -> RF : newCourier(strId, strName, strEmail, strNIF, strIBAN, oAddress)
+activate RF
+RF -> CR** : create(strId, strName, strEmail, strNIF, strIBAN, oAddress)
+activate CR
+CR -> A** : create(oAddress)
+deactivate CR
+deactivate RF
+
+CTRL -> RF : validatesCourier(oCourier)
+activate RF
+deactivate RF
+deactivate CTRL
+
+
+UI -> ADMIN : validates, presents the data and asks for a confirmation
+deactivate UI
+
+ADMIN -> UI : confirms
+activate UI
+UI -> CTRL : registersCourier()
+activate CTRL
+CTRL -> RF : registersCourier(oCourier)
+activate RF
+RF -> RF : validatesCourier(oCourier)
+RF -> RF : addCourier(oCourier)
+UI -> ADMIN : informs the success of the operation
+deactivate RF
+deactivate CTRL
+deactivate UI
+
+deactivate ADMIN
+
+@enduml

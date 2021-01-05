@@ -1,0 +1,41 @@
+@startuml
+skinparam classAttributeIconSize 0
+hide methods
+left to right direction
+
+class Platform {
+  -String strDesignation
+}
+
+class Courier {
+      -String strId
+      -String strName
+      -String strEmail
+      -String strNIF
+      -String strIBAN
+      -Address oAddress
+}
+
+class Organization {
+  -String strName
+  -String strNIF
+  -String strWebsite
+  -String strPhoneNumber
+  -String strEmail
+}
+
+class Address{
+  -String strStreet
+  -String strDoorNum
+  -String strLocality
+  -String strCountry
+
+}
+
+
+
+Platform "1" -- "*" Organization : has >
+Organization "1" -- "*" Courier : has registered >
+Courier "1" -- "1" Address: has  >
+@enduml
+
