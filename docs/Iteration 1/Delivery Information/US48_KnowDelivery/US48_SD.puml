@@ -10,9 +10,11 @@ participant "PotApplication" as _APP
 participant "app\n:PotApplication" as APP
 participant "session\n:UserSession" as SESSION
 participant "plat\n:Platform" as PLAT
-participant "courReg\n:CourierRegistry" as COURREG
-participant "ordReg\n:OrdersRegistry" as ORDREG
-participant "ordList\n:OrdersList" as ORDLIST
+participant "courReg\n:CourierRegistration" as COURREG
+participant "ordReg\n:OrdersRegistration" as ORDREG
+participant "Database" as DB
+participant "cour\n:Courier" as C
+participant "order\n:Order" as O
 
 activate COUR
 
@@ -40,6 +42,11 @@ activate PLAT
 deactivate PLAT
 CTRL -> COURREG : cour = getCourByEmail(email)
 activate COURREG
+COURREG -> DB : executeQuery(query)
+activate DB
+DB -> DB : openConnection()
+DB -> DB : closeAll()
+deactivate DB
 deactivate COURREG
 deactivate CTRL
 UI -> COUR : Shows the information about the courier, requesting verification
@@ -51,19 +58,19 @@ activate CTRL
 CTRL -> PLAT : ordReg = getOrdReg()
 activate PLAT
 deactivate PLAT
-CTRL -> ORDREG : ordList = getOrdersList()
+CTRL -> ORDREG : order = getOrderByCourier(cour)
 activate ORDREG
+ORDREG -> DB : executeQuery(query)
+activate DB
+DB -> DB : openConnection()
+DB -> DB : closeAll()
+deactivate DB
 deactivate ORDREG
-CTRL -> ORDLIST : getOrderByCourier(cour)
-activate ORDLIST
-ORDLIST -> ORDLIST : hasOrder(cour)
-opt [ hasOrder(cour) == true]
-ORDLIST -> ORDLIST : getOrderByCour(cour)
-deactivate ORDLIST
-UI -> COUR : Returns the order, informing of the success of the operation
-end opt
-UI -> COUR : Informs that doesn't exist any order
 deactivate CTRL
+opt [ order == null]
+UI -> COUR : Informs that doesn't exist any order
+end opt
+UI -> COUR : Returns the order, informing of the success of the operation
 deactivate UI
 deactivate COUR
 

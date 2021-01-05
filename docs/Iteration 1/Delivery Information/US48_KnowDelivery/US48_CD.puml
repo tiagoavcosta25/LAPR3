@@ -4,12 +4,17 @@ skinparam classAttributeIconSize 0
 class PotApplication
 {
   +static getInstance()
+  +getPlatform()
   +getCurrentSession()
 }
-
+class Database{
+   +static executeQuery(query)
+   +openConnection()
+   +closeAll()
+}
 class UserSession
 {
-  +getEmailUser()
+  +getUserEmail()
 }
 class KnowDeliveryUI{
 
@@ -17,7 +22,6 @@ class KnowDeliveryUI{
 
 class KnowDeliveryController{
 +getCourierInfo()
-+getPlatform()
 +getOrderByCour()
 }
 
@@ -34,11 +38,6 @@ class OrdersRegistry{
 +getOrdersList()
 }
 
-class OrdersList{
-+getOrderByCourier(cour)
-+hasOrder(cour)
-+getOrderByCour(cour)
-}
 
 KnowDeliveryUI ..> KnowDeliveryController
 KnowDeliveryController ..> Platform
@@ -46,6 +45,7 @@ KnowDeliveryController ..> PotApplication
 KnowDeliveryController ..> UserSession
 Platform "1" --> "1" CourierRegistry : has
 Platform "1" --> "1" OrdersRegistry : has
-OrdersRegistry "1" --> "1" OrdersList : has
+CourierRegistry "1" --> "1" Database : connects to
+OrdersRegistry "1" --> "1" Database : connects to
 
 @enduml

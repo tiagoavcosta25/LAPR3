@@ -15,7 +15,7 @@ deactivate SYST
 
 COUR -> SYST : Verifies the information
 activate SYST
-SYST -> COUR : If there is any task associated to the courier, the \nsystem returns it, informing of the success of the operation.
+SYST -> COUR : If there is any order associated to the courier, the \nsystem returns it, informing of the success of the operation.
 deactivate SYST
 
 deactivate COUR
