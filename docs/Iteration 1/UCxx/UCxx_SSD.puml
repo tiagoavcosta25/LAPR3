@@ -10,12 +10,7 @@ activate COUR
 
 COUR -> SYST : Sends a request regarding what delivery will be done
 activate SYST
-SYST -> COUR : Requests the information about the Courier (id)
-deactivate SYST
-
-COUR -> SYST : Introduces the required information
-activate SYST
-SYST -> COUR : Shows the information, requesting verification
+SYST -> COUR : Shows the information about the courier, requesting verification
 deactivate SYST
 
 COUR -> SYST : Verifies the information
