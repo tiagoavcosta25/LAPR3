@@ -8,13 +8,22 @@ public class Product {
     private String productId;
     private String name;
     private String description;
-    private Double price;
+    private double unitaryPrice;
+    private double unitaryWeight;
 
-    public Product(String productId, String name, String description, Double price) {
+    public Product(String productId, String name, String description, double unitaryPrice, double unitaryWeight) {
         this.productId = productId;
         this.name = name;
         this.description = description;
-        this.price = price;
+        this.unitaryPrice = unitaryPrice;
+        this.unitaryWeight = unitaryWeight;
+    }
+
+    public Product(String name, String description, double unitaryPrice, double unitaryWeight) {
+        this.name = name;
+        this.description = description;
+        this.unitaryPrice = unitaryPrice;
+        this.unitaryWeight = unitaryWeight;
     }
 
     public String getProductId() {
@@ -29,8 +38,12 @@ public class Product {
         return description;
     }
 
-    public Double getPrice() {
-        return price;
+    public double getUnitaryPrice() {
+        return unitaryPrice;
+    }
+
+    public double getUnitaryWeight() {
+        return unitaryWeight;
     }
 
     @Override
@@ -45,23 +58,4 @@ public class Product {
     public int hashCode() {
         return Objects.hash(productId);
     }
-
-    public static Product getProduct(String id) {
-        return new ProductDB().getProduct(id);
-    }
-
-    public void save() {
-        try {
-            getProduct(this.getProductId());
-            new ProductDB().updateProduct(this); //Verificar
-        } catch (IllegalArgumentException ex) {
-            //Of the record does not exist, save it
-            new ProductDB().addProduct(this);
-        }
-    }
-
-    public void delete(){
-        new ProductDB().removeProduct(this.productId);
-    }
-
 }
