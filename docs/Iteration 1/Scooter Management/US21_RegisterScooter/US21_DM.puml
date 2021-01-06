@@ -1,0 +1,41 @@
+@startuml
+skinparam classAttributeIconSize 0
+hide methods
+left to right direction
+
+class Platform {
+  -String designation
+}
+
+class Pharmacy {
+  -int id
+  -String name
+  -int parkingSlots
+  -int chargingSlots
+}
+
+class Scooter{
+  -int id
+  -String battery
+  -float battery_capacity
+  -String status
+  -float potency
+  -float maxWeight
+}
+
+class Address{
+  -String streetName
+  -String doorNumber
+  -String locality
+  -String country
+  -float longitude
+  -float latitude
+}
+
+
+
+Platform "1" -- "*" Pharmacy : has >
+Pharmacy "1" -- "*" Scooter : has registered >
+Pharmacy "1" -- "1" Address : has >
+@enduml
+

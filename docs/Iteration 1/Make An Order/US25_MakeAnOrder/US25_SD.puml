@@ -42,9 +42,8 @@ activate PLAT
 deactivate PLAT
 CTRL -> CR : client = getUserByEmail(email)
 activate CR
-CR -> CR : getConnection()
 ref over CR
-SD_connectionDataBase
+SD_CONNECTIONS
 end ref
 deactivate CR
 
@@ -53,9 +52,8 @@ activate PLAT
 deactivate PLAT
 CTRL -> PR : lstProd = getAvailableProducts()
 activate PR
-PR -> PR : getConnection()
 ref over PR
-SD_connectionDataBase
+SD_CONNECTIONS
 end ref
 deactivate PR
 deactivate CTRL
@@ -85,9 +83,8 @@ UI -> CTRL : registerOrder()
 activate CTRL
 CTRL -> OR : registerOrder(order)
 activate OR
-OR -> OR : getConnection()
 ref over OR
-SD_connectionDataBase
+SD_CONNECTIONS
 end ref
 deactivate OR
 deactivate CTRL
