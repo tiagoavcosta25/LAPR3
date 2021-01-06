@@ -1,7 +1,5 @@
 package lapr.project.model;
 
-import lapr.project.data.ClientDB;
-
 public class Client extends User {
 
     private String m_name;
@@ -20,7 +18,7 @@ public class Client extends User {
     }
 
     public Client(String name, String email, String password, float latitude, float longitude,String streetName,
-                  Integer doorNumber, String postalCode, String locality, String country, Integer creditCardNr,
+                  String doorNumber, String postalCode, String locality, String country, Integer creditCardNr,
                   String validityDate, Integer CCV) {
         super(email,password);
         this.m_name = name;
@@ -50,23 +48,4 @@ public class Client extends User {
         return m_CCV;
     }
 
-    public static Client getClient(String id) {
-        return new ClientDB().getClient(id);
-    }
-
-    public String getId() {
-        return this.getStrEmail();
-    }
-
-    public void save() {
-
-        try {
-            getClient(this.getId());
-        } catch (IllegalArgumentException ex) {
-            //Of the record does not exist, save it
-            new ClientDB().addClientToDB(this);
-        }
-
-        //TODO: implement the update method
-    }
 }
