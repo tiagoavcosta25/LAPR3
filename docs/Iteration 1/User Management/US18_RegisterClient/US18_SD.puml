@@ -6,12 +6,13 @@ actor "Client" as U
 
 participant "RegisterClientUI" as UI
 participant "RegisterClientController" as CTRL
-participant "PotApplication" as _APP
-participant "app\n:PotApplication" as APP
+participant "ApplicationPOT" as _APP
+participant "app\n:ApplicationPOT" as APP
 participant "plat\n:Platform" as PLAT
 participant "clientReg\n:ClientRegistration" as UREG
 
 participant "client\n:Client" as USER
+participant Address as ADD
 
 participant "ClientDB" as DB
 participant "DataHandler" as DH
@@ -45,9 +46,9 @@ activate UREG
 
 
 UREG -> USER** : create(name,email,password,address,gpsLocation,creditCardNr,validityDate,CCV)
-
-
-
+activate USER
+USER -> ADD** : create(address,gpsLocation)
+deactivate USER
 
 
 

@@ -2,8 +2,8 @@
 skinparam classAttributeIconSize 0
 
 
-package "Model" #DDDDDD {
-class PotApplication
+package "Controller" #DDDDDD {
+class ApplicationPOT
 {
   +static getInstance()
   +getPlatform()
@@ -60,6 +60,12 @@ class Client{
 +save()
 }
 
+class Address{
+-String address
+-String gpsLocation
++create(address,gpsLocation)
+}
+
 }
 
 
@@ -76,10 +82,11 @@ class DataHandler{
 
 RegisterClientUI ..> RegisterClientController
 RegisterClientController ..> Platform
-RegisterClientController ..> PotApplication
+RegisterClientController ..> ApplicationPOT
 Platform "1" --> "1" ClientRegistration : has
 ClientRegistration "1" --> "*" Client : creates
 Client "1" --> "1" ClientDB : connects to
+Client "1" --> "1" Address : has
 ClientDB "1" --> "1" DataHandler : uses
 
 @enduml
