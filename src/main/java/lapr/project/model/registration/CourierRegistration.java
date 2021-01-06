@@ -1,7 +1,6 @@
 package lapr.project.model.registration;
 
 import lapr.project.data.DataHandler;
-import lapr.project.model.Client;
 import lapr.project.model.Courier;
 import oracle.jdbc.OracleTypes;
 

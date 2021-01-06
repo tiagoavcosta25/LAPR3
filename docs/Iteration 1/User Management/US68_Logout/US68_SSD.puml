@@ -1,0 +1,25 @@
+@startuml
+autonumber
+hide footbox
+
+actor "User" as U
+
+participant ":System" as SYST
+
+activate U
+
+U -> SYST : Engages the logout feature/button
+activate SYST
+SYST --> U : Asks for confirmation
+deactivate SYST
+
+U -> SYST : Confirms
+activate SYST
+SYST --> U : Deallocates the current session from the user and\ninforms about the success of the operation
+deactivate SYST
+
+
+
+deactivate U
+
+@enduml

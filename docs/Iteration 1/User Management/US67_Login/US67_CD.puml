@@ -1,0 +1,82 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+
+package "Controller" #DDDDDD {
+class ApplicationPOT
+{
+  +static getInstance()
+  +getPlatform()
+  +setCurrentSession(session)
+}
+}
+
+
+package "UI" #DDDDDD {
+class LoginUI{
+
+}
+}
+
+
+package "Controller" #DDDDDD {
+class LoginController{
++login(email,password)
+}
+}
+
+
+package "Model" #DDDDDD {
+class Platform {
+  -String designation
+  +getUserReg()
+}
+package "Registration" #DDDDDD {
+ class UserRegistration{
+ +login(email,password)
+ +checkIfUserExistsInDB(user)
+ }
+ }
+}
+
+
+
+
+package "Model" #DDDDDD {
+abstract class User{
+-String email
+-String password
++User(email,password)
+}
+
+class UserSession{
+-String email
++UserSession(email)
+}
+
+
+
+
+}
+
+
+package "Data" #DDDDDD {
+class DataHandler{
++openConnection()
++closeAll()
+}
+
+}
+
+
+LoginUI ..> LoginController
+LoginController ..> Platform
+LoginController ..> ApplicationPOT
+Platform "1" --> "1" UserRegistration : has
+UserRegistration "1" --> "*" User : creates
+class UserRegistration extends DataHandler
+ApplicationPOT "1" --> "1" UserSession : has
+UserSession "1" --> "1" User : allocates
+
+
+@enduml
