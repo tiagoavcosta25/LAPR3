@@ -50,22 +50,22 @@ package "Registration" #DDDDDD {
 package "Model" #DDDDDD {
 class Scooter{
   -int id
-  -String battery
-  -float battery_capacity
-  -String status
-  -float potency
-  -float maxWeight
+  -int batteryPerc
+  -int charginStatus
+  -int potency
+  -int weight
+  -int batteryCapacity
   +Scooter(maxWeight, battery,\nbatteryCapacity, status, potency, pharmacyId)
-
 }
 
 class Address{
--String streetName
--String doorNumber
--String locality
--String country
--float longitude
--float latitude
+  -float longitude
+  -float latitude
+  -String doorNumber
+  -String streetName
+  -String postalCode
+  -String locality
+  -String country
 }
 
 class Pharmacy {

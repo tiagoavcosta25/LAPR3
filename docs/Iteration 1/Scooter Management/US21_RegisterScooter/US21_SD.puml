@@ -23,7 +23,7 @@ deactivate UI
 
 ADMIN -> UI : inserts the required data
 activate UI
-UI -> CTRL : newScooter(maxWeight, battery,\n batteryCapacity, status, potency, pharmacyId)
+UI -> CTRL : newScooter(batteryPerc, chargingStatus,\n potency, weight, batteryCapacity, pharmacyId)
 activate CTRL
 CTRL -> PA : app = getInstance()
 activate PA
@@ -49,9 +49,9 @@ deactivate PH
 CTRL -> PLAT : scootReg = getScootReg()
 activate PLAT
 deactivate PLAT
-CTRL -> RS : newScooter(maxWeight, battery, batteryCapacity, status, potency, pharmacyId)
+CTRL -> RS : newScooter(batteryPerc, chargingStatus,\n potency, weight, batteryCapacity, pharmacyId)
 activate RS
-RS -> SC ** : create(maxWeight, battery,\nbatteryCapacity, status, potency, pharmacyId)
+RS -> SC ** : create(batteryPerc, chargingStatus,\n potency, weight, batteryCapacity, pharmacyId)
 RS -> RS : validateScooter(scoot)
 ref over RS
 SD_Connections
