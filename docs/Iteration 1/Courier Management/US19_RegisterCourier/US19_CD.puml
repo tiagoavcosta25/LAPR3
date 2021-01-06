@@ -1,0 +1,80 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+
+class RegisterCourierUI {
+    
+}
+
+class RegisterCourierController {
+    
+  +newCourier(id, name, email, nif, iban, address)
+  +registersCourier()
+}
+
+class Platform {
+  -String strDesignation
+  +getCourReg()
+  +CourierDB getCourDB()
+}
+
+class CourierRegistration {
+
+  +generatePassword()
+  +Courier newCourier(name, email, nif, iban, address)
+  +registersCourier(courier)
+
+}
+
+
+class Courier {
+    -int id
+    -String name
+    -int nif
+    -String iban
+
+   +Courier(name, email, password, nif, iban, address)
+   +Courier(id, name, email, password, nif, iban, address)
+
+}
+
+class Address{
+ -String fullAddress
+ -String postalCode
+ -String locality
+ -String country
+ -float longitude
+ -float latitude
+
+  +Address(fullAddress,postalCode,locality,country,longitude,latitude)
+
+}
+
+class PotApplication
+{
+  +static getInstance()
+  +getPlatform()
+  +getCurrentSession()
+}
+
+class UserSession
+{
+  +getUserEmail()
+}
+
+Platform "1" -- "1" CourierRegistration: has >
+
+CourierRegistration "1" -- "1" Courier : creates and adds to DataBase
+
+RegisterCourierUI ..> RegisterCourierController
+
+RegisterCourierController ..> Platform
+RegisterCourierController ..> CourierRegistration
+RegisterCourierController ..> PotApplication
+RegisterCourierController ..> UserSession
+
+Courier "1" -- "1" Address: has  >
+
+@enduml
+
+
