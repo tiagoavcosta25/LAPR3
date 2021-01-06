@@ -1,6 +1,5 @@
 package lapr.project.data;
 
-import lapr.project.model.Client;
 import oracle.jdbc.OracleTypes;
 
 import java.sql.CallableStatement;

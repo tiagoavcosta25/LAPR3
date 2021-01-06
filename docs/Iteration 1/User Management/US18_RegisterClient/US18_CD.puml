@@ -20,7 +20,8 @@ class RegisterClientUI{
 
 package "Controller" #DDDDDD {
 class RegisterClientController{
-+registerNewUser(name,email,password,address,gpsLocation,creditCardNr,validityDate,CCV)
++validateInput(name,email,password,latitude,longitude,streetName,\ndoorNumber,postalCode,locality,country,creditCardNr,validityDate,CCV)
++registerNewUser(name,email,password,latitude,longitude,streetName,\ndoorNumber,postalCode,locality,country,creditCardNr,validityDate,CCV)
 }
 }
 
@@ -32,7 +33,8 @@ class Platform {
 }
 package "Registration" #DDDDDD {
  class ClientRegistration{
- +registerNewClient(name,email,password,address,gpsLocation,creditCardNr,validityDate,CCV)
+ +registerNewClient(name,email,password,latitude,longitude,streetName,\ndoorNumber,postalCode,locality,country,creditCardNr,validityDate,CCV)
+ +addClientToDB(client)
  }
  }
 }
@@ -44,7 +46,7 @@ package "Model" #DDDDDD {
 abstract class User{
 -String email
 -String password
-+create(email,password)
++User(email,password)
 }
 
 class Client extends User
@@ -54,16 +56,21 @@ class Client{
 -Address address;
 -String gpsLocation;
 -Integer creditCardNr;
--Integer validityDate;
+-String validityDate;
 -Integer CCV;
-+create(name,email,password,address,gpsLocation,creditCardNr,validityDate,CCV)
-+save()
++Client(name,email,password,latitude,longitude,streetName,doorNumber,postalCode,locality,country,
+                        creditCardNr,validityDate,CCV)
 }
 
 class Address{
--String address
--String gpsLocation
-+create(address,gpsLocation)
+-float latitude
+-float longitude
+-String streetName
+-Integer doorNumber
+-String postalCode
+-String locality
+-String country
++Address(latitude,longitude,streetName,doorNumber,postalCode,locality,country)
 }
 
 }
@@ -74,9 +81,7 @@ class DataHandler{
 +openConnection()
 +closeAll()
 }
-    class ClientDB{
-   +addClientToDB(client)
-}
+
 }
 
 
@@ -85,8 +90,8 @@ RegisterClientController ..> Platform
 RegisterClientController ..> ApplicationPOT
 Platform "1" --> "1" ClientRegistration : has
 ClientRegistration "1" --> "*" Client : creates
-Client "1" --> "1" ClientDB : connects to
+class ClientRegistration extends DataHandler
 Client "1" --> "1" Address : has
-ClientDB "1" --> "1" DataHandler : uses
+
 
 @enduml

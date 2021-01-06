@@ -14,7 +14,6 @@ participant "clientReg\n:ClientRegistration" as UREG
 participant "client\n:Client" as USER
 participant Address as ADD
 
-participant "ClientDB" as DB
 participant "DataHandler" as DH
 
 activate U
@@ -27,9 +26,22 @@ UI --> U : Asks for all the information required \nfor the register (i.e. name,e
 
 deactivate UI
 U -> UI : Fills all the information required
+
+
 activate UI
-UI -> CTRL : registerNewUser(name,email,password,address,gpsLocation,creditCardNr,validityDate,CCV)
+
+
+UI --> U : Validates, presents the data and asks for a confirmation
+
+deactivate UI
+U -> UI : Confirms
+activate UI
+UI -> CTRL : registerNewUser(name,email,password,latitude,longitude,streetName,\ndoorNumber,postalCode,locality,country,creditCardNr,validityDate,CCV)
 activate CTRL
+CTRL -> CTRL : validateInput(name,email,password,latitude,longitude,streetName,\ndoorNumber,postalCode,locality,country,creditCardNr,validityDate,CCV)
+
+opt if all the information given as input has a valid format
+
 CTRL -> _APP: app = getInstance()
 activate _APP
 deactivate _APP
@@ -41,39 +53,36 @@ CTRL -> PLAT : clientReg = getClientReg()
 activate PLAT
 deactivate PLAT
 
-CTRL -> UREG : client = registerNewClient(name,email,password,address,gpsLocation,creditCardNr,validityDate,CCV)
+CTRL -> UREG : registerNewClient(name,email,password,latitude,longitude,streetName,\ndoorNumber,postalCode,locality,country,creditCardNr,validityDate,CCV)
 activate UREG
 
 
-UREG -> USER** : create(name,email,password,address,gpsLocation,creditCardNr,validityDate,CCV)
+UREG -> USER** : create(name,email,password,latitude,longitude,streetName,\ndoorNumber,postalCode,locality,country,creditCardNr,validityDate,CCV)
 activate USER
-USER -> ADD** : create(address,gpsLocation)
+USER -> ADD** : create(latitude,longitude,streetName,doorNumber,postalCode,locality,country)
 deactivate USER
 
 
 
 
-UREG -> USER : save()
+UREG -> UREG : addClientToDB(client)
+ref over UREG
+SD_CONNECTIONS
+end ref
 
 
-activate USER
-
-USER -> DB : addClientToDB(client)
-deactivate USER
-activate DB
-DB -> DH : openConnection()
-activate DH
-deactivate DH
-DB -> DH : closeAll()
-activate DH
-deactivate DH
-deactivate DB
 deactivate UREG
 
 
 
 deactivate CTRL
-UI --> U : Validates all the information, informing of the success of the operation
+
+UI --> U : Informs about the success of the operation
+
+end opt
+
+
+
 deactivate UI
 deactivate U
 

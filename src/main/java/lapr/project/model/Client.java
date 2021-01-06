@@ -7,7 +7,7 @@ public class Client extends User {
     private String m_name;
     private Address m_address;
     private Integer m_creditCardNr;
-    private Integer m_validityDate;
+    private String m_validityDate;
     private Integer m_CCV;
 
     public Client() {
@@ -15,15 +15,16 @@ public class Client extends User {
         this.m_name = "No name";
         this.m_address = new Address();
         this.m_creditCardNr = 0;
-        this.m_validityDate = 0;
+        this.m_validityDate = "No Validity Date";
         this.m_CCV = 0;
     }
 
-    public Client(String name, String email, String password,String address, String gpsLocation,
-                  Integer creditCardNr, Integer validityDate, Integer CCV) {
+    public Client(String name, String email, String password, float latitude, float longitude,String streetName,
+                  Integer doorNumber, String postalCode, String locality, String country, Integer creditCardNr,
+                  String validityDate, Integer CCV) {
         super(email,password);
         this.m_name = name;
-        this.m_address = new Address(address,gpsLocation);
+        this.m_address = new Address(latitude,longitude,streetName,doorNumber,postalCode,locality,country);
         this.m_creditCardNr = creditCardNr;
         this.m_validityDate = validityDate;
         this.m_CCV = CCV;
@@ -41,7 +42,7 @@ public class Client extends User {
         return m_creditCardNr;
     }
 
-    public Integer getM_validityDate() {
+    public String getM_validityDate() {
         return m_validityDate;
     }
 
