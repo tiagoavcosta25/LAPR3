@@ -72,6 +72,9 @@ activate OR
 OR -> O** : create(amount, additionalFee, dateOrder, description, mapProducts, client, streetName,doorNumber,locality,country,longitude,longitude)
 O -> AD** : create(streetName,doorNumber,locality,country,longitude,longitude)
 OR -> OR : validateOrder(order)
+ref over OR
+SD_CONNECTIONS
+end ref
 deactivate OR
 deactivate CTRL
 UI -> CL : validates, presents the order and asks for a confirmation
