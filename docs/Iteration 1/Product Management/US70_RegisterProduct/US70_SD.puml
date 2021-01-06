@@ -2,7 +2,74 @@
 autonumber
 hide footbox
 
-actor "Admin" as ADM
+actor "Admin" as U
 
+participant "RegisterProductUI" as UI
+participant "RegisterProductController" as CTRL
+participant "ApplicationPOT" as _APP
+participant "app\n:ApplicationPOT" as APP
+participant "plat\n:Platform" as PLAT
+participant "ProductReg\n:ProductRegistration" as PREG
+
+participant "Product\n:Product" as PROD
+
+participant "ProductDB" as DB
+participant "DataHandler" as DH
+
+activate U
+
+U -> UI : Engages the register feature/button
+activate UI
+
+UI --> U : Asks for all the information required for the register (i.e. name,description,price)
+
+
+deactivate UI
+U -> UI : Fills all the information required
+activate UI
+UI -> CTRL : registerNewProduct(name,description,price)
+activate CTRL
+CTRL -> _APP: app = getInstance()
+activate _APP
+deactivate _APP
+
+CTRL -> APP: plat = getPlaform()
+activate APP
+deactivate APP
+CTRL -> PLAT : ProductReg = getProductReg()
+activate PLAT
+deactivate PLAT
+
+CTRL -> PREG : Product = registerNewProduct(name,description,price)
+activate PREG
+
+
+PREG -> PROD** : create(name,description,price)
+
+
+
+PREG -> PROD : save()
+
+
+activate PROD
+
+PROD -> DB : addProductToDB(Product)
+deactivate PROD
+activate DB
+DB -> DH : openConnection()
+activate DH
+deactivate DH
+DB -> DH : closeAll()
+activate DH
+deactivate DH
+deactivate DB
+deactivate PREG
+
+
+
+deactivate CTRL
+UI --> U : Validates all the information, informing of the success of the operation
+deactivate UI
+deactivate U
 
 @enduml

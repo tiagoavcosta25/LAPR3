@@ -17,7 +17,6 @@
 
 ![US70_SD.svg](US70_SD.svg)
 
-
 ###	Class Diagram
 
 ![US70_CD.svg](US70_CD.svg)
