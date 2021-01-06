@@ -1,0 +1,85 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+
+package "Model" #DDDDDD {
+class PotApplication
+{
+  +static getInstance()
+  +getPlatform()
+}
+}
+
+
+package "UI" #DDDDDD {
+class RegisterClientUI{
+
+}
+}
+
+
+package "Controller" #DDDDDD {
+class RegisterClientController{
++registerNewUser(name,email,password,address,gpsLocation,creditCardNr,validityDate,CCV)
+}
+}
+
+
+package "Model" #DDDDDD {
+class Platform {
+  -String designation
+  +getClientReg()
+}
+package "Registration" #DDDDDD {
+ class ClientRegistration{
+ +registerNewClient(name,email,password,address,gpsLocation,creditCardNr,validityDate,CCV)
+ }
+ }
+}
+
+
+
+
+package "Model" #DDDDDD {
+abstract class User{
+-String email
+-String password
++create(email,password)
+}
+
+class Client extends User
+
+class Client{
+-String name;
+-Address address;
+-String gpsLocation;
+-Integer creditCardNr;
+-Integer validityDate;
+-Integer CCV;
++create(name,email,password,address,gpsLocation,creditCardNr,validityDate,CCV)
++save()
+}
+
+}
+
+
+package "Data" #DDDDDD {
+class DataHandler{
++openConnection()
++closeAll()
+}
+    class ClientDB{
+   +addClientToDB(client)
+}
+}
+
+
+RegisterClientUI ..> RegisterClientController
+RegisterClientController ..> Platform
+RegisterClientController ..> PotApplication
+Platform "1" --> "1" ClientRegistration : has
+ClientRegistration "1" --> "*" Client : creates
+Client "1" --> "1" ClientDB : connects to
+ClientDB "1" --> "1" DataHandler : uses
+
+@enduml

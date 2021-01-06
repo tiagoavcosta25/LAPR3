@@ -1,0 +1,23 @@
+@startuml
+autonumber
+hide footbox
+
+actor "Client" as U
+
+participant ":System" as SYST
+
+activate U
+
+U -> SYST : Engages the register feature/button
+activate SYST
+SYST --> U : Asks for all the information required \nfor the register (i.e. name,email,password,address,\ngpsLocation,creditCardNr,validityDate,CCV)
+deactivate SYST
+
+U -> SYST : Fills all the information required
+activate SYST
+SYST --> U : Validates all the information, informing of the success of the operation
+deactivate SYST
+
+deactivate U
+
+@enduml
