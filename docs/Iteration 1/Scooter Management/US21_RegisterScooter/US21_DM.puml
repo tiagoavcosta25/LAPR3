@@ -23,7 +23,6 @@ class Scooter{
   -float maxWeight
 }
 
-
 class Address{
   -String streetName
   -String doorNumber
