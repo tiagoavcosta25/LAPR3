@@ -21,7 +21,7 @@ class RegisterClientUI{
 package "Controller" #DDDDDD {
 class RegisterClientController{
 +validateInput(name,email,password,latitude,longitude,streetName,\ndoorNumber,postalCode,locality,country,creditCardNr,validityDate,CCV)
-+registerNewUser(name,email,password,latitude,longitude,streetName,\ndoorNumber,postalCode,locality,country,creditCardNr,validityDate,CCV)
++registerNewClient(name,email,password,latitude,longitude,streetName,\ndoorNumber,postalCode,locality,country,creditCardNr,validityDate,CCV)
 }
 }
 
