@@ -11,13 +11,10 @@ participant "app\n:PotApplication" as APP
 participant "session\n:UserSession" as SESSION
 participant "plat\n:Platform" as PLAT
 participant "clientReg\n:ClientRegistration" as CR
-participant "clientDB\n:ClientDB" as CDB
 participant "prodReg\n:ProductRegistration" as PR
-participant "prodDB\n:ProductDB" as PDB
-participant "prodReg\n:OrderRegistration" as OR
-participant "orderDB\n:OrdersDB" as ODB
-participant "DataHandler" as DH
+participant "orderReg\n:OrderRegistration" as OR
 participant "order\n:Order" as O
+participant "address\n:Address" as AD
 
 activate CL
 
@@ -40,18 +37,15 @@ deactivate APP
 CTRL -> SESSION: email = getUserEmail()
 activate SESSION
 deactivate SESSION
-CTRL -> PLAT : clienteReg = getClient()
+CTRL -> PLAT : clienteReg = getClientReg()
 activate PLAT
 deactivate PLAT
-CTRL -> CR : client = getUserByEmail()
+CTRL -> CR : client = getUserByEmail(email)
 activate CR
-CR -> CDB : client = getUserByEmail()
-activate CDB
-CDB -> DH : getConnection()
-activate DH
-DH -> DH : openConnection()
-deactivate DH
-deactivate CDB
+CR -> CR : getConnection()
+ref over CR
+SD_connectionDataBase
+end ref
 deactivate CR
 
 CTRL -> PLAT : prodReg = getProductReg()
@@ -59,13 +53,10 @@ activate PLAT
 deactivate PLAT
 CTRL -> PR : lstProd = getAvailableProducts()
 activate PR
-PR -> PDB : lstProd = getAvailableProducts()
-activate PDB
-PDB -> DH : getConnection()
-activate DH
-DH -> DH : openConnection()
-deactivate DH
-deactivate PDB
+PR -> PR : getConnection()
+ref over PR
+SD_connectionDataBase
+end ref
 deactivate PR
 deactivate CTRL
 
@@ -78,9 +69,10 @@ activate CTRL
 CTRL -> PLAT : ordReg = getOrderReg()
 activate PLAT
 deactivate PLAT
-CTRL -> OR : order = addOrder(address, amount, additionalFee, dateOrder, description, mapProducts, client)
+CTRL -> OR : order = addOrder(amount, additionalFee, dateOrder, description, mapProducts, client, streetName,doorNumber,locality,country,longitude,longitude)
 activate OR
-OR -> O** : create(address, amount, additionalFee, dateOrder, description, mapProducts, client)
+OR -> O** : create(amount, additionalFee, dateOrder, description, mapProducts, client, streetName,doorNumber,locality,country,longitude,longitude)
+O -> AD** : create(streetName,doorNumber,locality,country,longitude,longitude)
 OR -> OR : validateOrder(order)
 deactivate OR
 deactivate CTRL
@@ -93,14 +85,10 @@ UI -> CTRL : registerOrder()
 activate CTRL
 CTRL -> OR : registerOrder(order)
 activate OR
-OR -> ODB : addOrder(order)
-ODB -> ODB : addOrder(order)
-activate ODB
-ODB -> DH : getConnection()
-activate DH
-DH -> DH : openConnection()
-deactivate DH
-deactivate ODB
+OR -> OR : getConnection()
+ref over OR
+SD_connectionDataBase
+end ref
 deactivate OR
 deactivate CTRL
 UI -> CL : registers the order and informs of the success of the operation
