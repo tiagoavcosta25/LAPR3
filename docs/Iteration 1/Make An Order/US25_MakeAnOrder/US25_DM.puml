@@ -7,9 +7,10 @@ class Platform {
 -   String designation
 }
 class Client{
--   String email
--   String nome
 -   int IBAN
+-   long creditCardNumber
+-   int validityDate
+-   int CCV
 }
 
 class User{
