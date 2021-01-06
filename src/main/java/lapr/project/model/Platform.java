@@ -1,12 +1,12 @@
 package lapr.project.model;
 
-import lapr.project.model.registration.ClientRegistration;
 import lapr.project.model.registration.CourierRegistration;
 
 public class Platform {
     private String m_designation;
-    private final ClientRegistration m_clientReg;
-    private final CourierRegistration m_courReg;
+    private YUse
+    private ClientRegistration m_clientReg;
+    private CourierRegistration m_courReg;
 
     public Platform() {
         this.m_designation = "plat";

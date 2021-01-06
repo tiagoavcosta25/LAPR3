@@ -1,7 +1,6 @@
 package lapr.project.controller;
 
 import lapr.project.model.Courier;
-import lapr.project.model.Platform;
 import lapr.project.model.registration.CourierRegistration;
 
 import java.io.Serializable;

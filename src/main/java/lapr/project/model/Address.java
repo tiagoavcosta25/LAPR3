@@ -1,18 +1,62 @@
 package lapr.project.model;
 
 public class Address {
-    private String address;
-    private String gpsLocation;
+
+    private float m_latitude;
+    private float m_longitude;
+    private String m_streetName;
+    private Integer m_doorNumber;
+    private String m_postalCode;
+    private String m_locality;
+    private String m_country;
 
     public Address() {
-        this.address = "No Address";
-        this.gpsLocation = "No GPS Location";
+
+        this.m_latitude = -1;
+        this.m_longitude = -1;
+        this.m_streetName = "No Address";
+        this.m_doorNumber = -1;
+        this.m_postalCode = "No Postal Code";
+        this.m_locality = "No Locality";
+        this.m_country = "No Country";
     }
 
-    public Address(String address, String gpsLocation) {
-        this.address = address;
-        this.gpsLocation = gpsLocation;
+    public Address(float latitude, float longitude, String streetName, Integer doorNumber,
+            String postalCode, String locality, String country) {
+        this.m_latitude = latitude;
+        this.m_longitude = longitude;
+        this.m_streetName = streetName;
+        this.m_doorNumber = doorNumber;
+        this.m_postalCode = postalCode;
+        this.m_locality = locality;
+        this.m_country = country;
     }
 
+    public float getM_latitude() {
+        return m_latitude;
+    }
 
+    public float getM_longitude() {
+        return m_longitude;
+    }
+
+    public String getM_streetName() {
+        return m_streetName;
+    }
+
+    public Integer getM_doorNumber() {
+        return m_doorNumber;
+    }
+
+    public String getM_postalCode() {
+        return m_postalCode;
+    }
+
+    public String getM_locality() {
+        return m_locality;
+    }
+
+    public String getM_country() {
+        return m_country;
+    }
 }
