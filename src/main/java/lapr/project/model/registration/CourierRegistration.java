@@ -1,24 +1,18 @@
-package lapr.project.data;
+package lapr.project.model.registration;
 
-import lapr.project.model.Sailor;
+import lapr.project.data.DataHandler;
+import lapr.project.model.Client;
+import lapr.project.model.Courier;
 import oracle.jdbc.OracleTypes;
 
 import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class SailorDB extends DataHandler {
-    /**
-     * Exemplo de invocação de uma "stored function".
-     * <p>
-     * Devolve o registo do marinheiro especificado existente na tabela
-     * "Sailors".
-     *
-     * @param id o identificador do marinheiro.
-     * @return o registo do id especificado ou null, se esse registo não
-     * existir.
-     */
-    public Sailor getSailor(long id) {
+public class CourierRegistration extends DataHandler {
+
+
+    public Courier getCourier(int id) {
 
         /* Objeto "callStmt" para invocar a função "getSailor" armazenada na BD.
          *
@@ -27,12 +21,12 @@ public class SailorDB extends DataHandler {
          */
         CallableStatement callStmt = null;
         try {
-            callStmt = getConnection().prepareCall("{ ? = call getSailor(?) }");
+            callStmt = getConnection().prepareCall("{ ? = call getCourier(?) }");
 
             // Regista o tipo de dados SQL para interpretar o resultado obtido.
             callStmt.registerOutParameter(1, OracleTypes.CURSOR);
             // Especifica o parâmetro de entrada da função "getSailor".
-            callStmt.setLong(2, id);
+            callStmt.setInt(id, 1);
 
             // Executa a invocação da função "getSailor".
             callStmt.execute();
@@ -41,19 +35,17 @@ public class SailorDB extends DataHandler {
             ResultSet rSet = (ResultSet) callStmt.getObject(1);
 
             if (rSet.next()) {
-                long sailorID = rSet.getLong(1);
-                String sailorName = rSet.getString(2);
+                int courierID = rSet.getInt(1);
+                String clientName = rSet.getString(2);
+                String nif = rSet.getString(3);
+                String iban = rSet.getString(4);
 
-                return new Sailor(sailorID, sailorName);
+                return new Courier(courierID, clientName, nif, iban);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        throw new IllegalArgumentException("No Sailor with ID:" + id);
-    }
-
-    public void addSailor(Sailor sailor) {
-        addSailor(sailor.getId(), sailor.getName(), sailor.getRating(), sailor.getAge());
+        throw new IllegalArgumentException("No Courier with ID:" + id);
     }
 
     /**
@@ -61,12 +53,11 @@ public class SailorDB extends DataHandler {
      * <p>
      * Adiciona o marinheiro especificado à tabela "Sailors".
      *
-     * @param sid    o identificador do marinheiro.
-     * @param sname  o nome do marinheiro.
-     * @param rating o "rating" do marinheiro.
-     * @param age    a idade do marinheiro.
+     * @param strName o identificador do marinheiro.
+     * @param strNif  o nome do marinheiro.
+     * @param strIban o "rating" do marinheiro.
      */
-    private void addSailor(long sid, String sname, long rating, long age) {
+    private void addCourierToDB(String strName, String strNif, String strIban) {
         try {
             openConnection();
             /*
@@ -76,12 +67,11 @@ public class SailorDB extends DataHandler {
              *  PROCEDURE addSailor(sid NUMBER, sname VARCHAR, rating NUMBER, age NUMBER)
              *  PACKAGE pkgSailors AS TYPE ref_cursor IS REF CURSOR; END pkgSailors;
              */
-            CallableStatement callStmt = getConnection().prepareCall("{ call addSailor(?,?,?,?) }");
+            CallableStatement callStmt = getConnection().prepareCall("{ call addCourier(?,?,?) }");
 
-            callStmt.setLong(1, sid);
-            callStmt.setString(2, sname);
-            callStmt.setLong(3, rating);
-            callStmt.setLong(4, age);
+            callStmt.setString(1, strName);
+            callStmt.setString(2, strNif);
+            callStmt.setString(3, strIban);
 
             callStmt.execute();
 
@@ -96,9 +86,9 @@ public class SailorDB extends DataHandler {
      * <p>
      * Remove o marinheiro especificado da tabela "Sailors".
      *
-     * @param sid o identificador do marinheiro a remover.
+     * @param intId o identificador do marinheiro a remover.
      */
-    public void removeSailor(long sid) {
+    public void removeSailor(int intId) {
 
         try {
             openConnection();
@@ -109,9 +99,9 @@ public class SailorDB extends DataHandler {
              *  PROCEDURE removeSailor(sid NUMBER)
              *  PACKAGE pkgSailors AS TYPE ref_cursor IS REF CURSOR; END pkgSailors;
              */
-            CallableStatement callStmt = getConnection().prepareCall("{ call removeSailor(?) }");
+            CallableStatement callStmt = getConnection().prepareCall("{ call removeCourier(?) }");
 
-            callStmt.setLong(1, sid);
+            callStmt.setInt(1, intId);
 
             callStmt.execute();
 
@@ -122,4 +112,12 @@ public class SailorDB extends DataHandler {
 
     }
 
+    public Courier newCourier(String strName, String strEmail, String strNIF, String strIBAN) {
+        String password = "";
+        return new Courier(strName,strEmail,password,strNIF,strIBAN);
+    }
+
+    public void registersCourier(Courier oCourier) {
+        addCourierToDB(oCourier.getM_name(), oCourier.getM_nif(), oCourier.getM_iban());
+    }
 }

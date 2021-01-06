@@ -4,8 +4,8 @@ hide footbox
 
 actor "Courier" as COUR
 
-participant "CalculateMostEfficientPahtUI" as UI
-participant "CalculateMostEfficientPaht" as CTRL
+participant "KnowDeliveryUI" as UI
+participant "KnowDeliveryController" as CTRL
 participant "PotApplication" as _APP
 participant "app\n:PotApplication" as APP
 participant "session\n:UserSession" as SESSION
@@ -16,7 +16,7 @@ participant "ordList\n:OrdersList" as ORDLIST
 
 activate COUR
 
-COUR -> UI : Sends a request regarding what is the shortest \nand efficient path to the destiny
+COUR -> UI : Sends a request regarding what delivery will be done
 activate UI
 UI -> CTRL : getCourierInfo()
 activate CTRL
@@ -41,6 +41,13 @@ deactivate PLAT
 CTRL -> COURREG : cour = getCourByEmail(email)
 activate COURREG
 deactivate COURREG
+deactivate CTRL
+UI -> COUR : Shows the information about the courier, requesting verification
+deactivate UI
+COUR -> UI : Verifies the information
+activate UI
+UI -> CTRL : getOrderByCour()
+activate CTRL
 CTRL -> PLAT : ordReg = getOrdReg()
 activate PLAT
 deactivate PLAT
@@ -50,7 +57,12 @@ deactivate ORDREG
 CTRL -> ORDLIST : getOrderByCourier(cour)
 activate ORDLIST
 ORDLIST -> ORDLIST : hasOrder(cour)
-UI -> COUR : Shows the shortest and most efficient path, \ninforming of the success of the operation.
+opt [ hasOrder(cour) == true]
+ORDLIST -> ORDLIST : getOrderByCour(cour)
+deactivate ORDLIST
+UI -> COUR : Returns the order, informing of the success of the operation
+end opt
+UI -> COUR : Informs that doesn't exist any order
 deactivate CTRL
 deactivate UI
 deactivate COUR
