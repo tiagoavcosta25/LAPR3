@@ -22,6 +22,7 @@ class User{
 class Address{
 -   String streetName
 -   String doorNumber
+-   String postalCode
 -   String locality
 -   String country
 -   float longitude
@@ -31,16 +32,19 @@ class Address{
 class Order{
 -   int id
 -   float amount
+-   float totalWeight
 -   float additionalFee
--   Date dateOrder
+-   Date orderDate
 -   String description
--   String orderStatus
+-   String status
 }
 
 class Product{
 -   int id
 -   String name
+-   String description
 -   float unitaryPrice
+-   float unitaryWeight
 }
 
 Platform "1" -- "*" Client : has registered >
