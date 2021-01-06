@@ -25,7 +25,7 @@ public class RegisterClientController {
      * @return              True if Client was registered, false if otherwise
      */
     public boolean registerNewClient(String name, String email, String password, float latitude, float longitude, String streetName,
-                                     Integer doorNumber, String postalCode, String locality, String country, Integer creditCardNr,
+                                     String doorNumber, String postalCode, String locality, String country, Integer creditCardNr,
                                      String validityDate, Integer CCV) {
 
         if (validateInput(name,email,password,latitude,longitude,streetName,doorNumber,postalCode,locality,country,
@@ -60,11 +60,11 @@ public class RegisterClientController {
      * @return              True if input is valid, false if otherwise
      */
     public boolean validateInput(String name, String email, String password, float latitude, float longitude, String streetName,
-                                 Integer doorNumber, String postalCode, String locality, String country, Integer creditCardNr,
+                                 String doorNumber, String postalCode, String locality, String country, Integer creditCardNr,
                                  String validityDate, Integer CCV) {
 
         if (name.isEmpty() || email.isEmpty() || password.isEmpty() || streetName.isEmpty() || postalCode.isEmpty()
-                || locality.isEmpty() || country.isEmpty() || doorNumber <= 0 || latitude <= 0 || longitude <= 0
+                || locality.isEmpty() || country.isEmpty() || doorNumber.isEmpty() || latitude <= 0 || longitude <= 0
                 || creditCardNr <= 0 || validityDate.isEmpty() || CCV <= 0) return false;
 
         if (!email.contains("@")) return false;

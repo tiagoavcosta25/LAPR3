@@ -13,32 +13,29 @@ public class ClientRegistration extends DataHandler {
     /**
      * Registers a new Client in the Database
      *
-     * @param name          Client's name
-     * @param email         Client's email
-     * @param password      Client's password
-     * @param latitude      Client's latitude
-     * @param longitude     Client's longitude
-     * @param streetName    Client's street name
-     * @param doorNumber    Client's door number
-     * @param postalCode    Client's postal code
-     * @param locality      Client's locality
-     * @param country       Client's country
-     * @param creditCardNr  Client's credit card number
-     * @param validityDate  Client's credit card's validity date
-     * @param CCV           Client's credit card's CCV
-     * @return              True if Client was registered, false if otherwise
+     * @param name         Client's name
+     * @param email        Client's email
+     * @param password     Client's password
+     * @param latitude     Client's latitude
+     * @param longitude    Client's longitude
+     * @param streetName   Client's street name
+     * @param doorNumber   Client's door number
+     * @param postalCode   Client's postal code
+     * @param locality     Client's locality
+     * @param country      Client's country
+     * @param creditCardNr Client's credit card number
+     * @param validityDate Client's credit card's validity date
+     * @param CCV          Client's credit card's CCV
+     * @return True if Client was registered, false if otherwise
      */
     public boolean registerNewClient(String name, String email, String password, float latitude, float longitude, String streetName,
-                                     Integer doorNumber, String postalCode, String locality, String country, Integer creditCardNr,
+                                     String doorNumber, String postalCode, String locality, String country, Integer creditCardNr,
                                      String validityDate, Integer CCV) {
         Client client = new Client(name, email, password, latitude, longitude, streetName, doorNumber, postalCode, locality, country,
                 creditCardNr, validityDate, CCV);
-        addClientToDB(client);
-
-        return true;
+        return addClientToDB(client);
 
     }
-
 
 
     /**
@@ -57,11 +54,19 @@ public class ClientRegistration extends DataHandler {
         try {
             openConnection();
 
-            CallableStatement callStmt = getConnection().prepareCall("{ call addProduct(?,?,?) }");
+            CallableStatement callStmt = getConnection().prepareCall("{ call addProduct(?,?,?,?,?,?,?,?,?,?,?) }");
 
             callStmt.setString(1, name);
-            callStmt.setString(2, m_validityDate);
-            callStmt.setDouble(3, m_creditCardNr);
+            callStmt.setFloat(2, address.getM_latitude());
+            callStmt.setFloat(3, address.getM_longitude());
+            callStmt.setString(4, address.getM_streetName());
+            callStmt.setString(5, address.getM_doorNumber());
+            callStmt.setString(6, address.getM_postalCode());
+            callStmt.setString(7, address.getM_locality());
+            callStmt.setString(8, address.getM_country());
+            callStmt.setInt(9, m_creditCardNr);
+            callStmt.setString(10, m_validityDate);
+            callStmt.setFloat(11, m_CCV);
 
             callStmt.execute();
 
