@@ -1,0 +1,10 @@
+@startuml
+autonumber
+hide footbox
+
+actor "Admin" as ADM
+participant ":System" as SYST
+
+
+
+@enduml

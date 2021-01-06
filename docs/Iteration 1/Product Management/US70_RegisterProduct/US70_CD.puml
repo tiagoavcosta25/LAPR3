@@ -1,0 +1,69 @@
+@startuml
+skinparam classAttributeIconSize 0
+package "UI" #DDDDDD {
+    class ProductRegistrationUI{
+    }
+}
+
+package "Controller" #DDDDDD {
+    class ProductRegistrationController{
+        +addProduct()
+        +updateProduct()
+        +deleteProduct()
+    }
+}
+
+package "Model" #DDDDDD {
+    class Platform {
+        -String designation
+        +getProductReg
+    }
+
+    class UserSession {
+        +getEmailUtilizador()
+    }
+
+    class ApplicationPot {
+        +static getInstance()
+        +getSessaoAtual()
+    }
+
+    class Product{
+        -String productId
+        -String name
+        -String description
+        -Double price
+        +save()
+        +delete()
+    }
+}
+
+package "Registration" #DDDDDD {
+    class ProductRegistration{
+        +newProduct(Id,Name,LevelOfExpertise,Email,NIF,IBAN,Adress,Country)
+        +ProductRegistration(product)
+        +validaProduct(product)
+        +addProduct(product)
+    }
+}
+
+package "Data" #DDDDDD {
+    class ProductDB{
+        +getProduct()
+        +addProduct()
+        +removeProduct()
+        +udpdateProduc()
+    }
+}
+
+
+ProductRegistrationUI ..> ProductRegistrationController
+ProductRegistrationController ..> Platform
+ProductRegistrationController ..> ApplicationPot
+ProductRegistrationController ..> UserSession
+Platform "1" -- "1" ProductRegistration: has >
+
+
+ProductRegistration "1" -- "1..*" Product: Creates >
+Product ..> ProductDB
+@enduml
