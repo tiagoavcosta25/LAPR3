@@ -10,22 +10,10 @@ class Platform {
 class Courier {
       -String id
       -String name
-      -String email
       -String nif
       -String iban
-      -Address address
 }
 
-
-class Address{
-  -String streetName
-  -String doorNumber
-  -String locality
-  -String country
-  -float longitude
-  -float latitude
-
-}
 
 class User{
   -String email
@@ -34,7 +22,6 @@ class User{
 
 
 Platform "1" -- "*" Courier : has registered >
-Courier "1" -- "1" Address: has  >
 Courier "1" -- "1" User: acts as  >
 @enduml
 

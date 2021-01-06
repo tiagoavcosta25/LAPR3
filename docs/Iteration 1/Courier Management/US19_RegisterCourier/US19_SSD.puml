@@ -5,7 +5,7 @@ actor "Administrative" as ADM
 activate ADM
 ADM -> ":System" : register courier
 activate ":System"
-":System" --> ADM : asks for the data that features the courier (i.e., name, \ne-mail, NIF, bank account (IBAN) and address)
+":System" --> ADM : asks for the data that features the courier (i.e., name, \ne-mail, NIF, bank account (IBAN))
 deactivate ":System"
 
 

@@ -14,56 +14,64 @@ class RegisterCourierController {
 
 class Platform {
   -String strDesignation
-  +FreelancerRegistration getCourReg()
+  +getCourReg()
   +CourierDB getCourDB()
 }
 
 class CourierRegistration {
 
-  +generateCourierId()
-  +Courier newCourier(strId, strName, strEmail, strNIF, strIBAN, oAddress)
-  +registersCourier(oCourier)
+  +generatePassword()
+  +Courier newCourier(name, email, nif, iban, address)
+  +registersCourier(courier)
 
-}
-
-class CourierDB {
-  +addCourier(courier)
 }
 
 
 class Courier {
-    -String id
+    -int id
     -String name
-    -String email
-    -String nif
+    -int nif
     -String iban
-    -Address address
 
-   +Courier(id, name, email, nif, iban, address)
+   +Courier(name, email, password, nif, iban, address)
+   +Courier(id, name, email, password, nif, iban, address)
 
 }
 
 class Address{
- -String streetName
-   -String doorNumber
-   -String locality
-   -String country
-   -float longitude
-   -float latitude
+ -String fullAddress
+ -String postalCode
+ -String locality
+ -String country
+ -float longitude
+ -float latitude
 
-  +PostalAddress(oAddress)
+  +Address(fullAddress,postalCode,locality,country,longitude,latitude)
 
+}
+
+class PotApplication
+{
+  +static getInstance()
+  +getPlatform()
+  +getCurrentSession()
+}
+
+class UserSession
+{
+  +getUserEmail()
 }
 
 Platform "1" -- "1" CourierRegistration: has >
 
-CourierRegistration "1" -- "1" CourierDB
-CourierRegistration "1" -- "1" Courier : creates
+CourierRegistration "1" -- "1" Courier : creates and adds to DataBase
 
 RegisterCourierUI ..> RegisterCourierController
 
 RegisterCourierController ..> Platform
 RegisterCourierController ..> CourierRegistration
+RegisterCourierController ..> PotApplication
+RegisterCourierController ..> UserSession
 
 Courier "1" -- "1" Address: has  >
 
