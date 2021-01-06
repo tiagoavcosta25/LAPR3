@@ -42,9 +42,8 @@ activate PLAT
 deactivate PLAT
 CTRL -> PH : pharmacy = getPharmacyById(pharmacyId)
 activate PH
-PH -> PH : getConnection()
 ref over PH
-SD_connectionDataBase
+SD_Connections
 end ref
 deactivate PH
 CTRL -> PLAT : scootReg = getScootReg()
@@ -54,6 +53,9 @@ CTRL -> RS : newScooter(maxWeight, battery, batteryCapacity, status, potency, ph
 activate RS
 RS -> SC ** : create(maxWeight, battery,\nbatteryCapacity, status, potency, pharmacyId)
 RS -> RS : validateScooter(scoot)
+ref over RS
+SD_Connections
+end ref
 deactivate RS
 deactivate CTRL
 
@@ -67,9 +69,8 @@ UI -> CTRL : registersScooter()
 activate CTRL
 CTRL -> RS : registersScooter(scooter)
 activate RS
-RS -> RS : getConnection()
 ref over RS
-SD_connectionDataBase
+SD_Connections
 end ref
 deactivate RS
 deactivate CTRL

@@ -55,6 +55,8 @@ class Scooter{
   -String status
   -float potency
   -float maxWeight
+  +Scooter(maxWeight, battery,\nbatteryCapacity, status, potency, pharmacyId)
+
 }
 
 class Address{
