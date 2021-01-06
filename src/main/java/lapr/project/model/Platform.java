@@ -15,7 +15,7 @@ public class Platform {
         this.m_userReg = new UserRegistration();
         this.m_clientReg = new ClientRegistration();
         this.m_courReg = new CourierRegistration();
-        this.m_productReg = new ProductRegistration();
+        this.m_productReg = new ProductRegistration("jdbc:oracle:thin:@vsrvbd1.dei.isep.ipp.pt:1521/pdborcl", "LAPR3_G21", "qwerty");
     }
 
     public UserRegistration getUserReg() {
