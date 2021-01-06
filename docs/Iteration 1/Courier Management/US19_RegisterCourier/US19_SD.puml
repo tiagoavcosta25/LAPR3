@@ -11,7 +11,6 @@ participant "plat \n:Platform" as PLAT
 participant "courReg \n:CourierRegistration" as RF
 participant "courier: Courier" as CR
 participant "address \n:Address" as AD
-participant "courierDB \n:CourierDB" as DB
 
 
 
@@ -24,7 +23,7 @@ deactivate UI
 
 ADMIN -> UI : inserts the required data
 activate UI
-UI -> CTRL : newCourier(id, name,email, nif, iban, address)
+UI -> CTRL : newCourier(name,email, nif, iban, address)
 activate CTRL
 CTRL -> PA : app = getInstance()
 activate PA
@@ -46,8 +45,8 @@ activate PLAT
 deactivate PLAT
 CTRL -> RF : newCourier(name, nif, email, iban, address)
 activate RF
-RF -> RF : id = generateCourierId()
-RF -> CR ** : create(id, name, email, nif, iban, address)
+RF -> RF : password = generatePassword()
+RF -> CR ** : create(name, email, password, nif, iban, address)
 activate CR
 CR -> AD** : create(address)
 deactivate CR
@@ -64,9 +63,7 @@ UI -> CTRL : registersCourier()
 activate CTRL
 CTRL -> RF : registersCourier(courier)
 activate RF
-RF -> DB : addCourier(courier)
-activate DB
-deactivate DB
+RF -> RF : registersCourier(courier)
 UI -> ADMIN : informs the success of the operation
 deactivate RF
 deactivate CTRL
