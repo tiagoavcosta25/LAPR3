@@ -1,0 +1,27 @@
+@startuml
+autonumber
+hide footbox
+
+actor "Client" as CL
+participant ":System" as SYST
+
+activate CL
+
+CL -> SYST : sends a request to make an order
+activate SYST
+SYST -> CL : shows the list of the available products
+deactivate SYST
+
+CL -> SYST : chooses which products and which quantities to order
+activate SYST
+SYST -> CL : validates, presents the order and asks for a confirmation
+deactivate SYST
+
+CL -> SYST : confirms
+activate SYST
+SYST -> CL : registers the order and informs of the success of the operation
+deactivate SYST
+
+deactivate CL
+
+@enduml

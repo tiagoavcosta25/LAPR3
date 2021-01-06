@@ -67,7 +67,6 @@ public class SailorDB extends DataHandler {
      * @param age    a idade do marinheiro.
      */
     private void addSailor(long sid, String sname, long rating, long age) {
-
         try {
             openConnection();
             /*

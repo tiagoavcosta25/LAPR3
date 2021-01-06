@@ -1,0 +1,24 @@
+@startuml
+autonumber
+hide footbox
+
+actor "Admin" as ADM
+participant ":System" as SYST
+
+activate ADM
+
+ADM -> SYST : initiates the registration of a pharmacy
+activate SYST
+SYST -> ADM : asks for the required data for the pharmacy, as well as its Manager's data
+deactivate SYST
+
+ADM -> SYST : inserts the required data
+activate SYST
+SYST -> ADM : If there is any task associated to the courier, the \nsystem returns it, informing of the success of the operation.
+deactivate SYST
+
+
+
+deactivate ADM
+
+@enduml
