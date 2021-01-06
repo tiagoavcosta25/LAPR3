@@ -1,5 +1,7 @@
 package lapr.project.controller;
 
+import lapr.project.model.Platform;
+
 public class ApplicationPOT {
 
     private final Platform m_oPlataform;
