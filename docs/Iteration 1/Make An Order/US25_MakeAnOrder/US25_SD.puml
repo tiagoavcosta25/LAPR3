@@ -85,7 +85,7 @@ UI -> CTRL : registerOrder()
 activate CTRL
 CTRL -> OR : registerOrder(order)
 activate OR
-OR -> OR : getConnection()
+OR -> OR : addOrderToDB(order)
 ref over OR
 SD_connectionDataBase
 end ref

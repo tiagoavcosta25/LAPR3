@@ -68,29 +68,33 @@ class Client{
 }
 
 class Address{
--String streetName
--String doorNumber
--String locality
--String country
--float longitude
--float latitude
+-   String streetName
+-   String doorNumber
+-   String postalCode
+-   String locality
+-   String country
+-   float longitude
+-   float latitude
 +create(streetName,doorNumber,locality,country,longitude,longitude)
 }
 
 class Order{
 -   int id
 -   float amount
+-   float totalWeight
 -   float additionalFee
--   Date dateOrder
+-   Date orderDate
 -   String description
--   String orderStatus
+-   String status
 +create(amount, additionalFee, dateOrder, description, mapProducts, client, streetName,doorNumber,locality,country,longitude,longitude)
 }
 
 class Product{
 -   int id
 -   String name
+-   String description
 -   float unitaryPrice
+-   float unitaryWeight
 }
 
 }
