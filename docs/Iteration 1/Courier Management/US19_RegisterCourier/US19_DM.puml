@@ -8,34 +8,33 @@ class Platform {
 }
 
 class Courier {
-      -String strId
-      -String strName
-      -String strEmail
-      -String strNIF
-      -String strIBAN
-      -Address oAddress
+      -String id
+      -String name
+      -String email
+      -String nif
+      -String iban
+      -Address address
 }
 
-class Organization {
-  -String strName
-  -String strNIF
-  -String strWebsite
-  -String strPhoneNumber
-  -String strEmail
-}
 
 class Address{
-  -String strStreet
-  -String strDoorNum
-  -String strLocality
-  -String strCountry
+  -String streetName
+  -String doorNumber
+  -String locality
+  -String country
+  -float longitude
+  -float latitude
 
 }
 
+class User{
+  -String email
+  -String password
+}
 
 
-Platform "1" -- "*" Organization : has >
-Organization "1" -- "*" Courier : has registered >
+Platform "1" -- "*" Courier : has registered >
 Courier "1" -- "1" Address: has  >
+Courier "1" -- "1" User: acts as  >
 @enduml
 

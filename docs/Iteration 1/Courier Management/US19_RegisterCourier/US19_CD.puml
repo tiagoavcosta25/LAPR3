@@ -1,7 +1,6 @@
 @startuml
 skinparam classAttributeIconSize 0
 
-left to right direction
 
 class RegisterCourierUI {
     
@@ -9,59 +8,63 @@ class RegisterCourierUI {
 
 class RegisterCourierController {
     
-  +newCourier(strId, strName, strEmail, strNIF, strIBAN, oAddress)
+  +newCourier(id, name, email, nif, iban, address)
   +registersCourier()
 }
 
 class Platform {
   -String strDesignation
-  
-  +FreelancerList getCourierList()
+  +FreelancerRegistration getCourReg()
+  +CourierDB getCourDB()
 }
 
-class CourierList {
+class CourierRegistration {
 
   +generateCourierId()
   +Courier newCourier(strId, strName, strEmail, strNIF, strIBAN, oAddress)
   +registersCourier(oCourier)
-  +validatesCourier(oCourier)
-  -addCourier(oCourier)
 
-  
+}
+
+class CourierDB {
+  +addCourier(courier)
 }
 
 
 class Courier {
-    -String strId
-          -String strName
-          -String strEmail
-          -String strNIF
-          -String strIBAN
+    -String id
+    -String name
+    -String email
+    -String nif
+    -String iban
+    -Address address
 
-   +Courier(strId, strName, strEmail, strNIF, strIBAN, oAddress)
+   +Courier(id, name, email, nif, iban, address)
 
 }
 
 class Address{
- -String strStreet
-   -String strDoorNum
-   -String strLocality
-   -String strCountry
+ -String streetName
+   -String doorNumber
+   -String locality
+   -String country
+   -float longitude
+   -float latitude
 
   +PostalAddress(oAddress)
 
 }
 
-Platform "1" -- "1..*" CourierList: has >
+Platform "1" -- "1" CourierRegistration: has >
 
+CourierRegistration "1" -- "1" CourierDB
+CourierRegistration "1" -- "1" Courier : creates
 
 RegisterCourierUI ..> RegisterCourierController
 
 RegisterCourierController ..> Platform
-RegisterCourierController ..> CourierList
-RegisterCourierController ..> Courier
+RegisterCourierController ..> CourierRegistration
 
-CourierList "1" -- "*" Courier : has registered >
 Courier "1" -- "1" Address: has  >
 
 @enduml

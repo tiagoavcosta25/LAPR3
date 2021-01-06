@@ -4,10 +4,14 @@ actor "Administrator" as ADMIN
 
 participant ":RegisterCourierUI" as UI
 participant ":RegisterCourierController" as CTRL
-participant ":Platform" as PLAT
-participant "oCourierList : CourierList" as RF
-participant "oCourier: Courier" as CR
-participant "oAddress: Address" as A
+participant "PotApplication" as PA
+participant "app \n:PotApplication" as APA
+participant "session \n:UserSession" as US
+participant "plat \n:Platform" as PLAT
+participant "courReg \n:CourierRegistration" as RF
+participant "courier: Courier" as CR
+participant "address \n:Address" as AD
+participant "courierDB \n:CourierDB" as DB
 
 
 
@@ -20,21 +24,33 @@ deactivate UI
 
 ADMIN -> UI : inserts the required data
 activate UI
-UI -> CTRL : newCourier(strId, strName,strEmail, strNIF, strIBAN, oAddress)
+UI -> CTRL : newCourier(id, name,email, nif, iban, address)
 activate CTRL
-CTRL -> PLAT : oCourierList = getCourierList()
+CTRL -> PA : app = getInstance()
+activate PA
+deactivate PA
+CTRL -> APA : plat = getPlatform()
+activate APA
+deactivate APA
+CTRL -> APA : session = getCurrentSession()
+activate APA
+deactivate APA
+CTRL -> US : email = getUserEmail()
+activate US
+deactivate US
+CTRL -> PLAT : courReg = getCourReg()
 activate PLAT
 deactivate PLAT
-CTRL -> RF : newCourier(strId, strName, strEmail, strNIF, strIBAN, oAddress)
+CTRL -> PLAT : courierDB = getCourDB()
+activate PLAT
+deactivate PLAT
+CTRL -> RF : newCourier(name, nif, email, iban, address)
 activate RF
-RF -> CR** : create(strId, strName, strEmail, strNIF, strIBAN, oAddress)
+RF -> RF : id = generateCourierId()
+RF -> CR ** : create(id, name, email, nif, iban, address)
 activate CR
-CR -> A** : create(oAddress)
+CR -> AD** : create(address)
 deactivate CR
-deactivate RF
-
-CTRL -> RF : validatesCourier(oCourier)
-activate RF
 deactivate RF
 deactivate CTRL
 
@@ -46,10 +62,11 @@ ADMIN -> UI : confirms
 activate UI
 UI -> CTRL : registersCourier()
 activate CTRL
-CTRL -> RF : registersCourier(oCourier)
+CTRL -> RF : registersCourier(courier)
 activate RF
-RF -> RF : validatesCourier(oCourier)
-RF -> RF : addCourier(oCourier)
+RF -> DB : addCourier(courier)
+activate DB
+deactivate DB
 UI -> ADMIN : informs the success of the operation
 deactivate RF
 deactivate CTRL
