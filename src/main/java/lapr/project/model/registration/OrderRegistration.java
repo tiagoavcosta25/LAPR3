@@ -98,7 +98,10 @@ public class OrderRegistration extends DataHandler {
         addOrder(oOrder.getAmount(), oOrder.getTotalWeight(), oOrder.getAdditionalFee(), oOrder.getOrderDate(), oOrder.getDescription(), oOrder.getStatus(), oOrder.getClient(), oOrder.getAddress());
     }
 
-    public void newOrder(Order oOrder) {
-        return new getAmount(), oOrder.getTotalWeight(), oOrder.getAdditionalFee(), oOrder.getOrderDate(), oOrder.getDescription(), oOrder.getStatus(), oOrder.getClient(), oOrder.getAddress());
+    public Order newOrder(float fltAmount, float fltTotalWeight, float fltAdditionalFee, Date dtOrderDate,
+                         String strDescription, String strStatus, Client oClient, float latitude, float longitude, String streetName,
+                         String doorNumber, String postalCode, String locality, String country) {
+        return new Order(fltAmount, fltTotalWeight, fltAdditionalFee, dtOrderDate,
+                strDescription, strStatus, oClient, new Address(latitude, longitude, streetName, doorNumber, postalCode, locality, country));
     }
 }

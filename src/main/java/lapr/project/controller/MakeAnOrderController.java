@@ -49,8 +49,8 @@ public class MakeAnOrderController {
                          String strDescription, String strStatus, float latitude, float longitude, String streetName,
                          String doorNumber, String postalCode, String locality, String country) {
         try {
-            this.m_oOrder = m_oOrderRegistration.addOrder(fltAmount, fltTotalWeight, fltAdditionalFee, dtOrderDate,
-                    strDescription, strStatus, m_oClient, new Address(latitude, longitude, streetName, doorNumber, postalCode, locality, country));
+            this.m_oOrder = m_oOrderRegistration.newOrder(fltAmount, fltTotalWeight, fltAdditionalFee, dtOrderDate,
+                    strDescription, strStatus, m_oClient, latitude, longitude, streetName, doorNumber, postalCode, locality, country);
         } catch (RuntimeException ex) {
             this.m_oOrder = null;
         }
