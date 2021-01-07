@@ -42,11 +42,8 @@ activate PLAT
 deactivate PLAT
 CTRL -> COURREG : cour = getCourByEmail(email)
 activate COURREG
-COURREG -> DB : executeQuery(query)
-activate DB
-DB -> DB : openConnection()
-DB -> DB : closeAll()
-deactivate DB
+COURREG -> COURREG : executeQuery(query)
+ref over COURREG : SD_CONNECTIONS
 deactivate COURREG
 deactivate CTRL
 UI -> COUR : Shows the information about the courier, requesting verification
@@ -60,11 +57,8 @@ activate PLAT
 deactivate PLAT
 CTRL -> ORDREG : order = getOrderByCourier(cour)
 activate ORDREG
-ORDREG -> DB : executeQuery(query)
-activate DB
-DB -> DB : openConnection()
-DB -> DB : closeAll()
-deactivate DB
+ORDREG -> ORDREG : executeQuery(query)
+ref over ORDREG : SD_CONNECTIONS
 deactivate ORDREG
 deactivate CTRL
 opt [ order == null]
