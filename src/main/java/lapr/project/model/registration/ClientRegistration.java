@@ -85,7 +85,6 @@ public class ClientRegistration extends DataHandler {
         }
         return flag;
     }
-    }
 
     private Client getClientByEmail(String strEmail) {
 
@@ -104,7 +103,7 @@ public class ClientRegistration extends DataHandler {
 
                 int intId = rSet.getInt(1);
                 String strNif = rSet.getString(2);
-                Integer intCredits = rSet.getFloat(3);
+                //Integer intCredits = rSet.getFloat(3);
                 Float fltAdditionalFee = rSet.getFloat(4);
                 Date dtOrderDate = rSet.getDate(5);
                 String strDescription = rSet.getString(6);
@@ -112,7 +111,7 @@ public class ClientRegistration extends DataHandler {
 
                 // FALTA: getAddressById e getClientById
 
-                return new Client(intId, fltAmount, fltTotalWeight, fltAdditionalFee, dtOrderDate, strDescription, strStatus, new Client(), new Address());
+                //return new Client(intId, fltAmount, fltTotalWeight, fltAdditionalFee, dtOrderDate, strDescription, strStatus, new Client(), new Address());
             }
         } catch (SQLException e) {
             e.printStackTrace();
