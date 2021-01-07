@@ -48,13 +48,8 @@ class Product{
 }
 
 class Invoice{
--   int id
--   float amount
--   float totalWeight
--   float additionalFee
 -   Date orderDate
--   String description
--   String status
+-   float amount
 }
 
 Platform "1" -- "*" Client : has registered >
@@ -64,4 +59,6 @@ Client "0..1" -- "1" User: acts as >
 Client "1" -- "1" Order : makes >
 Client "1" -- "1" Address : has >
 Order "1" -- "1" Address : has >
+Invoice "1" -- "1" Order : has >
+Invoice "1" -- "*" Product : has >
 @enduml
