@@ -4,7 +4,7 @@ create or replace function getClientByEmail(p_email "User".EMAIL%type)
     client_not_found exception;
 begin
 
-    select "User".*, CLIENT.NAME, CLIENT.NIF, CLIENT.CREDITS, ADDRESS.*
+    select "User".*, CLIENT.CREDITS, ADDRESS.*
     into v_client
     from CLIENT
     inner join "User" on CLIENT.USERID = "User".ID

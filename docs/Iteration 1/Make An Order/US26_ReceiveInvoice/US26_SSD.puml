@@ -1,0 +1,13 @@
+@startuml
+autonumber
+hide footbox
+
+participant ":System" as SYST
+
+activate SYST
+
+SYST -> SYST : sends a request to receive an invoice
+
+deactivate SYST
+
+@enduml

@@ -1,6 +1,6 @@
 package lapr.project.graph.matrix;
 
-import tp2.model.User;
+import lapr.project.model.User;
 
 public class GraphAlgorithmExtended extends GraphAlgorithms {
 

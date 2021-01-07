@@ -1,0 +1,132 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+package "UI" #DDDDDD {
+class MakeAnOrderUI{
+
+}
+}
+
+
+package "Controller" #DDDDDD {
+class MakeAnOrderController{
++registerNewUser(name,email,password,address,gpsLocation,creditCardNr,validityDate,CCV)
+}
+
+class ApplicationPOT
+{
+  +static getInstance()
+  +getPlatform()
+}
+
+class UserSession
+{
+  +getCurrentSession()
+}
+}
+
+
+package "Model" #DDDDDD {
+class Platform {
+  -String designation
+  +getClientReg()
+  +getProductReg()
+  +getOrderReg()
+}
+package "Registration" #DDDDDD {
+ class ClientRegistration{
+     +getUserByEmail(email)
+     +getConnection()
+ }
+
+ class ProductRegistration{
+      +getAvailableProduts()
+      +getConnection()
+  }
+
+  class OrderRegistration{
+       +addOrder(address, amount, additionalFee, dateOrder, description, mapProducts, client)
+       +validateOrder(order)
+       +getConnection()
+   }
+ }
+}
+
+package "Model" #DDDDDD {
+abstract class User{
+-String email
+-String password
+-String name
+}
+
+class Client{
+-int IBAN;
+-long creditCardNumber
+-Address address
+-int validityDate
+-int CCV
+}
+
+class Address{
+-   String streetName
+-   String doorNumber
+-   String postalCode
+-   String locality
+-   String country
+-   float longitude
+-   float latitude
++create(streetName,doorNumber,locality,country,longitude,longitude)
+}
+
+class Order{
+-   int id
+-   float amount
+-   float totalWeight
+-   float additionalFee
+-   Date orderDate
+-   String description
+-   String status
++create(amount, additionalFee, dateOrder, description, mapProducts, client, streetName,doorNumber,locality,country,longitude,longitude)
+}
+
+class Product{
+-   int id
+-   String name
+-   String description
+-   float unitaryPrice
+-   float unitaryWeight
+}
+
+}
+
+
+package "Data" #DDDDDD {
+class DataHandler{
+    +openConnection()
+    +closeAll()
+}
+}
+
+class ClientRegistration extends DataHandler
+class ProductRegistration extends DataHandler
+class OrderRegistration extends DataHandler
+
+class Client extends User
+
+MakeAnOrderUI ..> MakeAnOrderController
+MakeAnOrderController ..> Platform
+MakeAnOrderController ..> ApplicationPOT
+MakeAnOrderController ..> UserSession
+Platform "1" --> "1" ClientRegistration : has
+ClientRegistration "1" --> "*" Client : manages
+ProductRegistration "1" --> "*" Product : manages
+OrderRegistration "1" --> "*" Order : manages
+
+Platform "1" -- "*" Client : has registered >
+Platform "1" -- "*" Order : has registered >
+Order "1" -- "*" Product : has >
+Client "1" -- "1" Order : makes >
+Client "1" -- "1" Address : has >
+Order "1" -- "1" Address : has >
+
+@enduml

@@ -53,6 +53,6 @@ public class UpdateProductController {
     }
 
     public boolean updateProduct(int id, String name, String description, float unitaryPrice, float unitaryWeight) {
-        return pr.updateProduct(id, name, description, unitaryPrice, unitaryWeight);
+        return pr.updateProductFromDB(id, name, description, unitaryPrice, unitaryWeight);
     }
 }

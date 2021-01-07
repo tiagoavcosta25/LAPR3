@@ -1,0 +1,61 @@
+@startuml
+autonumber
+hide footbox
+
+participant "GenerateInvoiceController" as CTRL
+participant "PotApplication" as _APP
+participant "app\n:PotApplication" as APP
+participant "plat\n:Platform" as PLAT
+participant "orderReg\n:OrderRegistration" as OR
+participant "prodReg\n:ProductRegistration" as PR
+participant "order\n:Order" as O
+participant "address\n:Address" as AD
+
+activate CL
+
+-> CTRL : sendInvoice(orderId)
+activate CTRL
+CTRL -> _APP: app = getInstance()
+activate _APP
+deactivate _APP
+
+CTRL -> APP: plat = getPlaform()
+activate APP
+deactivate APP
+
+CTRL -> PLAT : orderReg = getOrderReg()
+activate PLAT
+deactivate PLAT
+CTRL -> OR : order = getOrder(orderId)
+activate OR
+ref over OR
+SD_CONNECTIONS
+end ref
+deactivate OR
+
+CTRL -> PLAT : invoiceReg = getInvoiceReg()
+activate PLAT
+deactivate PLAT
+
+CTRL -> OR : order = addInvoice()
+activate OR
+OR -> O** : create(amount, additionalFee, dateOrder, description, mapProducts, client, streetName,doorNumber,locality,country,longitude,longitude)
+O -> AD** : create(streetName,doorNumber,locality,country,longitude,longitude)
+OR -> OR : validateOrder(order)
+ref over OR
+SD_CONNECTIONS
+end ref
+deactivate OR
+
+CTRL -> OR : registerOrder(order)
+activate OR
+ref over OR
+SD_CONNECTIONS
+end ref
+deactivate OR
+deactivate CTRL
+UI -> CL : registers the order and informs of the success of the operation
+deactivate UI
+deactivate CL
+
+@enduml

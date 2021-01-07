@@ -48,13 +48,13 @@ abstract class User{
 -String email
 -String password
 -Integer nif
-+User(email,password,nif)
+-String name
++User(email,password,nif,name)
 }
 
 class Client extends User
 
 class Client{
--String name
 -String credits
 -Address address
 -CreditCard creditCard
