@@ -1,6 +1,7 @@
 package lapr.project.controller;
 
 import lapr.project.model.Platform;
+import lapr.project.model.Product;
 import lapr.project.model.registration.ProductRegistration;
 
 import static java.lang.Double.parseDouble;
@@ -47,11 +48,17 @@ public class RegisterProductController {
         return verifyPositiveDouble(unitaryPrice);
     }
 
-    public boolean verifyProductUnitaryWeight(String unitaryPrice) {
-        return verifyPositiveDouble(unitaryPrice);
+    public boolean verifyProductUnitaryWeight(String unitaryWeight) {
+        return verifyPositiveDouble(unitaryWeight);
     }
 
-    public boolean registerTask(String name, String description, double unitaryPrice, double unitaryWeight) {
+    public boolean registerProduct(String name, String description, double unitaryPrice, double unitaryWeight) {
         return pr.registerProduct(name, description, unitaryPrice, unitaryWeight);
     }
+
+    public Product getProduct(String productId) {
+        return pr.getProduct(productId);
+    }
+
+
 }

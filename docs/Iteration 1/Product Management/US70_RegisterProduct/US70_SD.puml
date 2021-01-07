@@ -9,7 +9,7 @@ participant "RegisterProductController" as CTRL
 participant "ApplicationPOT" as _APP
 participant "app\n:ApplicationPOT" as APP
 participant "plat\n:Platform" as PLAT
-participant "ProductReg\n:ProductRegistration" as PREG
+participant "pr\n:ProductRegistration" as PREG
 
 participant "Product\n:Product" as PROD
 
@@ -21,13 +21,31 @@ activate U
 U -> UI : Engages the register feature/button
 activate UI
 
-UI --> U : Asks for all the information required for the register (i.e. name,description,price)
+UI --> U : Asks for all the information required for the register (i.e. name, description, unitaryPrice, unitaryWeight)
 
 
 deactivate UI
 U -> UI : Fills all the information required
 activate UI
-UI -> CTRL : registerNewProduct(name,description,price)
+
+
+UI -> CTRL : verifyProductId(productId)
+activate CTRL
+UI -> CTRL : verifyProductName(productName)
+UI -> CTRL : verifyProductDescription(productDescription)
+UI -> CTRL : verifyProductUnitaryPrice(unitaryPrice)
+UI -> CTRL : verifyProductUnitaryWeight(unitaryWeight)
+deactivate CTRL
+
+UI --> U : Validates, presents the data and asks for a confirmation
+deactivate UI
+
+opt if all the information given as input has a valid format
+
+
+U -> UI : Confirms
+activate UI
+UI -> CTRL : registerProduct(name, description, unitaryPrice, unitaryWeight)
 activate CTRL
 CTRL -> _APP: app = getInstance()
 activate _APP
@@ -36,40 +54,31 @@ deactivate _APP
 CTRL -> APP: plat = getPlaform()
 activate APP
 deactivate APP
-CTRL -> PLAT : ProductReg = getProductReg()
+CTRL -> PLAT : pr = getProductReg()
 activate PLAT
 deactivate PLAT
 
-CTRL -> PREG : Product = registerNewProduct(name,description,price)
+CTRL -> PREG : registerProduct(name, description, unitaryPrice, unitaryWeight)
 activate PREG
 
 
-PREG -> PROD** : create(name,description,price)
+PREG -> PROD** : create(name, description, unitaryPrice, unitaryWeight)
+
+PREG -> PREG : addClientToDB(client)
+ref over PREG
+SD_CONNECTIONS
+end ref
 
 
-
-PREG -> PROD : save()
-
-
-activate PROD
-
-PROD -> DB : addProductToDB(Product)
-deactivate PROD
-activate DB
-DB -> DH : openConnection()
-activate DH
-deactivate DH
-DB -> DH : closeAll()
-activate DH
-deactivate DH
-deactivate DB
 deactivate PREG
 
 
 
 deactivate CTRL
 UI --> U : Validates all the information, informing of the success of the operation
+end opt
 deactivate UI
 deactivate U
+
 
 @enduml
