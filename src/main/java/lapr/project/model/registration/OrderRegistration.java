@@ -186,7 +186,7 @@ public class OrderRegistration extends DataHandler {
                 String locality = rSet.getString(19);
                 String country = rSet.getString(20);
                 //cartao
-                Integer creditCardNr = rSet.getInt(21);
+                Double creditCardNr = rSet.getDouble(21);
                 Date validityDate = rSet.getDate(22);
                 Integer CCV = rSet.getInt(23);
 
