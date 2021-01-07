@@ -1,0 +1,56 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+
+package "UI" #DDDDDD{
+class DeliveryAddressUI {
+    
+}
+}
+package "controller" #DDDDDD{
+class DeliveryAddressController {
+    
+  +getDeliveryAddress()
+}
+class PotApplication
+{
+  +static getInstance()
+  +getPlatform()
+  +getCurrentSession()
+}
+
+class UserSession
+{
+  +getUserInstance()
+}
+}
+package "model" #DDDDDD{
+class Platform {
+  -String strDesignation
+  +getCourReg()
+}
+
+package "registration" #DDDDDD{
+class CourierRegistration {
+
+  +getDeliveryAddress(email)
+
+}
+}
+}
+
+
+Platform "1" -- "1" CourierRegistration: has >
+
+
+DeliveryAddressUI ..> DeliveryAddressController
+
+DeliveryAddressController ..> Platform
+DeliveryAddressController ..> CourierRegistration
+DeliveryAddressController ..> PotApplication
+DeliveryAddressController ..> UserSession
+
+
+@enduml
+
+
