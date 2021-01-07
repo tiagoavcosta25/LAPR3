@@ -3,13 +3,8 @@ package lapr.project.model.registration;
 import lapr.project.data.DataHandler;
 import lapr.project.model.Address;
 import lapr.project.model.Client;
-<<<<<<< HEAD
-import lapr.project.model.Order;
 import oracle.jdbc.OracleTypes;
-=======
 import lapr.project.model.CreditCard;
->>>>>>> 2342b6dc53a8efe7022b1ee0295ae728cfe157be
-
 import java.sql.CallableStatement;
 import java.sql.Date;
 import java.sql.ResultSet;
@@ -65,22 +60,21 @@ public class ClientRegistration extends DataHandler {
         try {
             openConnection();
 
-            CallableStatement callStmt = getConnection().prepareCall("{ call addClient(?,?,?,?,?,?,?,?,?,?,?,?,?,?) }");
+            CallableStatement callStmt = getConnection().prepareCall("{ call addClient(?,?,?,?,?,?,?,?,?,?,?,?,?) }");
 
             callStmt.setString(1, name);
-            callStmt.setFloat(2, address.getM_latitude());
-            callStmt.setFloat(3, address.getM_longitude());
-            callStmt.setString(4, address.getM_streetName());
-            callStmt.setString(5, address.getM_doorNumber());
-            callStmt.setString(6, address.getM_postalCode());
-            callStmt.setString(7, address.getM_locality());
-            callStmt.setString(8, address.getM_country());
-            callStmt.setInt(9, m_creditCardNr);
-            callStmt.setString(10, m_validityDate);
-            callStmt.setFloat(11, m_CCV);
-            callStmt.setInt(12, m_creditCardNr);
-            callStmt.setInt(13, m_creditCardNr);
-            callStmt.setInt(14, m_creditCardNr);
+            callStmt.setInt(2, nif);
+            callStmt.setInt(3, credits);
+            callStmt.setFloat(4, address.getM_latitude());
+            callStmt.setFloat(5, address.getM_longitude());
+            callStmt.setString(6, address.getM_streetName());
+            callStmt.setString(7, address.getM_doorNumber());
+            callStmt.setString(8, address.getM_postalCode());
+            callStmt.setString(9, address.getM_locality());
+            callStmt.setString(10, address.getM_country());
+            callStmt.setFloat(11, creditCard.getM_creditCardNr());
+            callStmt.setString(12, creditCard.getM_validityDate());
+            callStmt.setInt(13, creditCard.getM_CCV());
 
             callStmt.execute();
 
@@ -90,6 +84,7 @@ public class ClientRegistration extends DataHandler {
             e.printStackTrace();
         }
         return flag;
+    }
     }
 
     private Client getClientByEmail(String strEmail) {
@@ -110,7 +105,7 @@ public class ClientRegistration extends DataHandler {
                 int intId = rSet.getInt(1);
                 String strNif = rSet.getString(2);
                 Integer intCredits = rSet.getFloat(3);
-                Add fltAdditionalFee = rSet.getFloat(4);
+                Float fltAdditionalFee = rSet.getFloat(4);
                 Date dtOrderDate = rSet.getDate(5);
                 String strDescription = rSet.getString(6);
                 String strStatus = rSet.getString(7);
