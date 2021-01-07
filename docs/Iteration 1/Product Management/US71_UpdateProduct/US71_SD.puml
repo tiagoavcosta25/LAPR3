@@ -42,7 +42,7 @@ opt if all the information given as input has a valid format
 
 U -> UI : Confirms
 activate UI
-UI -> CTRL : updateProduct(id, name, description, unitaryPrice, unitaryWeight)
+UI -> CTRL : updateProductFromDB(id, name, description, unitaryPrice, unitaryWeight)
 activate CTRL
 CTRL -> _APP: app = getInstance()
 activate _APP
@@ -55,7 +55,7 @@ CTRL -> PLAT : pr = getProductReg()
 activate PLAT
 deactivate PLAT
 
-CTRL -> PREG : updateProduct(id, name, description, unitaryPrice, unitaryWeight)
+CTRL -> PREG : updateProductFromDB(id, name, description, unitaryPrice, unitaryWeight)
 activate PREG
 
 
