@@ -73,6 +73,13 @@ class Address{
 +Address(latitude,longitude,streetName,doorNumber,postalCode,locality,country)
 }
 
+class CreditCard{
+-Integer m_creditCardNr;
+-String m_validityDate;
+-Integer m_CCV;
++CreditCard(creditCardNr,validityDate,CCV)
+}
+
 }
 
 
@@ -92,6 +99,6 @@ Platform "1" --> "1" ClientRegistration : has
 ClientRegistration "1" --> "*" Client : creates
 class ClientRegistration extends DataHandler
 Client "1" --> "1" Address : has
-
+Client "*" --> "*" CreditCard : has
 
 @enduml

@@ -13,6 +13,7 @@ participant "clientReg\n:ClientRegistration" as UREG
 
 participant "client\n:Client" as USER
 participant Address as ADD
+participant CreditCard as CC
 
 participant "DataHandler" as DH
 
@@ -60,6 +61,7 @@ activate UREG
 UREG -> USER** : create(name,nif,email,password,latitude,longitude,streetName,\ndoorNumber,postalCode,locality,country,creditCardNr,validityDate,CCV)
 activate USER
 USER -> ADD** : create(latitude,longitude,streetName,doorNumber,postalCode,locality,country)
+USER -> CC** : create(creditCardNr,validityDate,CCV)
 deactivate USER
 
 
