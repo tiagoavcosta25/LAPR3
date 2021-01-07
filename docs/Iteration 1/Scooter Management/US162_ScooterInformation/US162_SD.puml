@@ -15,7 +15,7 @@ participant "scootReg \n:ScooterRegistration" as RS
 
 activate ADMIN
 
-ADMIN -> UI : Sends a request regarding the update of an electric scooter's data
+ADMIN -> UI : Sends a request regarding the view of an electric scooter's data
 activate UI
 UI -> CTRL : showScootersList(pharmacy)
 activate CTRL
@@ -52,26 +52,20 @@ deactivate UI
 
 ADMIN -> UI : Chooses the eletric scooter
 activate UI
-
-UI -> ADMIN : Shows the information about the scooter, asking to update
-deactivate UI
-
-ADMIN -> UI : Updates the information
-activate UI
-UI -> CTRL : updateScooter(batteryPerc, chargingStatus,\n potency, weight, batteryCapacity)
+UI -> CTRL : getScooterInformation(scoot)
 activate CTRL
 CTRL -> PLAT : scootReg = getScootReg()
 activate PLAT
 deactivate PLAT
-CTRL -> RS : updateScooter(batteryPerc, chargingStatus,potency, weight, batteryCapacity)
+CTRL -> RS : getScooterInformation(scoot)
 activate RS
-RS -> RS : updateScooterFromDB(scoot)
+RS -> RS : getScooterInformationFromDB(scoot)
 ref over RS
 SD_Connections
 end ref
 deactivate RS
 deactivate CTRL
-UI -> ADMIN : Validates all the information, informing of the success of the operation
+UI -> ADMIN : Shows the information about the scooter
 
 deactivate UI
 
