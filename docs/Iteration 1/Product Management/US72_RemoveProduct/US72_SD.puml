@@ -55,7 +55,7 @@ CTRL -> PREG : removeProductFromDB(id)
 activate PREG
 
 
-PREG -> PREG : removeProductFromDB(id)
+PREG -> PREG
 ref over PREG
 SD_CONNECTIONS
 end ref

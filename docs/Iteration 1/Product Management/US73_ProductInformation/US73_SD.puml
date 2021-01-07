@@ -56,7 +56,7 @@ CTRL -> PREG : getProduct(id)
 activate PREG
 
 
-PREG -> PREG : getProduct(id)
+PREG -> PREG
 ref over PREG
 SD_CONNECTIONS
 end ref

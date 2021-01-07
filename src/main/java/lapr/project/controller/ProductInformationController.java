@@ -22,7 +22,7 @@ public class ProductInformationController {
         return productId != null && !productId.equals("") && productId.matches("^[0-9]*$") && parseInt(productId) > 0;
     }
 
-    public Product getProduct(int productId) {
+    public Product getProductFromDB(int productId) {
         return pr.getProductFromBD(productId);
     }
 }

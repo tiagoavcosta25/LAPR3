@@ -60,7 +60,7 @@ activate PREG
 
 
 
-PREG -> PREG : updateProductFromDB(product)
+PREG -> PREG
 ref over PREG
 SD_CONNECTIONS
 end ref
