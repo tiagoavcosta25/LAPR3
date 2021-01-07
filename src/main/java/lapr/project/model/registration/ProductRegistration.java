@@ -16,11 +16,6 @@ public class ProductRegistration extends DataHandler {
         super(jdbcUrl, username, password);
     }
 
-    public boolean registerProduct(String strName, String strDescription, float fltUnitaryPrice,
-                                   float fltUnitaryWeight) {
-        return addProductToDB(new Product(strName, strDescription, fltUnitaryPrice, fltUnitaryPrice));
-    }
-
     public Product getProductFromBD(int intId) {
 
         CallableStatement callStmt = null;
