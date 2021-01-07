@@ -1,22 +1,22 @@
-# US 70 - Register Product
+# US 73 - Product Information
 
 ## 1. Requirements Engineering
 
 ### SSD
-![US70_SSD](US70_SSD.svg)
+![US73_SSD](US73_SSD.svg)
 
 ## 2. OO Analysis
 
 ### Part of the Domain Model Relevant for the UC
 
-![US70_DM](US70_DM.svg)
+![US73_DM](US73_DM.svg)
 
 ## 3. Design - Use Case Realization
 
 ###	Sequence Diagram
 
-![US70_SD.svg](US70_SD.svg)
+![US73_SD.svg](US73_SD.svg)
 
 ###	Class Diagram
 
-![US70_CD.svg](US70_CD.svg)
+![US73_CD.svg](US73_CD.svg)

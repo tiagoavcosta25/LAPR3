@@ -11,14 +11,14 @@ participant "app\n:ApplicationPOT" as APP
 participant "plat\n:Platform" as PLAT
 participant "pr\n:ProductRegistration" as PREG
 
-participant "Product\n:Product" as PROD
+participant "product\n:Product" as PROD
 
 participant "ProductDB" as DB
 participant "DataHandler" as DH
 
 activate U
 
-U -> UI : Engages the register feature/button
+U -> UI : Engages the register product feature/button
 activate UI
 
 UI --> U : Asks for all the information required for the register (i.e. name, description, unitaryPrice, unitaryWeight)
@@ -64,7 +64,7 @@ activate PREG
 
 PREG -> PROD** : create(name, description, unitaryPrice, unitaryWeight)
 
-PREG -> PREG : addClientToDB(client)
+PREG -> PREG : addProductToDB(product)
 ref over PREG
 SD_CONNECTIONS
 end ref

@@ -21,7 +21,7 @@ public class ProductRegistration extends DataHandler {
         return addProductToDB(new Product(strName, strDescription, fltUnitaryPrice, fltUnitaryPrice));
     }
 
-    public Product getProduct(int intId) {
+    public Product getProductFromBD(int intId) {
 
         CallableStatement callStmt = null;
         try {

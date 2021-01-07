@@ -16,7 +16,12 @@ deactivate SYST
 U -> SYST : Gives the required id
 activate SYST
 
-SYST --> U : Validates the id and presents the information of the product
+SYST --> U : Validates and asks for a confirmation
+deactivate SYST
+
+U -> SYST : Confirms
+activate SYST
+SYST --> U : Shows the selected products information
 deactivate SYST
 
 

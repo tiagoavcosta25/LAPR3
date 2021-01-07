@@ -5,7 +5,7 @@ hide footbox
 actor "Admin" as U
 
 participant "RegisterProductUI" as UI
-participant "RegisterProductController" as CTRL
+participant "ProductInformationController" as CTRL
 participant "ApplicationPOT" as _APP
 participant "app\n:ApplicationPOT" as APP
 participant "plat\n:Platform" as PLAT
@@ -18,34 +18,30 @@ participant "DataHandler" as DH
 
 activate U
 
-U -> UI : Engages the register feature/button
+U -> UI : Engages the verify product information feature/button
 activate UI
 
-UI --> U : Asks for all the information required for the register (i.e. name, description, unitaryPrice, unitaryWeight)
+UI --> U : Asks for the for the id of the product to verify
 
 
 deactivate UI
-U -> UI : Fills all the information required
+U -> UI : Gives the required id
 activate UI
 
 
 UI -> CTRL : verifyProductId(productId)
 activate CTRL
-UI -> CTRL : verifyProductName(productName)
-UI -> CTRL : verifyProductDescription(productDescription)
-UI -> CTRL : verifyProductUnitaryPrice(unitaryPrice)
-UI -> CTRL : verifyProductUnitaryWeight(unitaryWeight)
 deactivate CTRL
 
-UI --> U : Validates, presents the data and asks for a confirmation
+UI --> U : Validates and asks for a confirmation
 deactivate UI
 
-opt if all the information given as input has a valid format
+opt if all the id given as input has a valid format
 
 
 U -> UI : Confirms
 activate UI
-UI -> CTRL : registerProduct(name, description, unitaryPrice, unitaryWeight)
+UI -> CTRL : getProduct(id)
 activate CTRL
 CTRL -> _APP: app = getInstance()
 activate _APP
@@ -58,13 +54,13 @@ CTRL -> PLAT : pr = getProductReg()
 activate PLAT
 deactivate PLAT
 
-CTRL -> PREG : registerProduct(name, description, unitaryPrice, unitaryWeight)
+CTRL -> PREG : getProduct(id)
 activate PREG
 
 
 PREG -> PROD** : create(name, description, unitaryPrice, unitaryWeight)
 
-PREG -> PREG : addClientToDB(client)
+PREG -> PREG : getProduct(id)
 ref over PREG
 SD_CONNECTIONS
 end ref
@@ -75,7 +71,7 @@ deactivate PREG
 
 
 deactivate CTRL
-UI --> U : Validates all the information, informing of the success of the operation
+UI --> U : Shows the selected products information
 end opt
 deactivate UI
 deactivate U

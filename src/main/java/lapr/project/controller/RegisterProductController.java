@@ -57,6 +57,6 @@ public class RegisterProductController {
     }
 
     public Product getProduct(int productId) {
-        return pr.getProduct(productId);
+        return pr.getProductFromBD(productId);
     }
 }
