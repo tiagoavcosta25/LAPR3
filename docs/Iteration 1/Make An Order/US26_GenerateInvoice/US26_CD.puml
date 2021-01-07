@@ -2,14 +2,14 @@
 skinparam classAttributeIconSize 0
 
 package "UI" #DDDDDD {
-class MakeAnOrderUI{
+class GenerateInvoiceUI{
 
 }
 }
 
 
 package "Controller" #DDDDDD {
-class MakeAnOrderController{
+class GenerateInvoiceController{
 +registerNewUser(name,email,password,address,gpsLocation,creditCardNr,validityDate,CCV)
 }
 
@@ -75,7 +75,6 @@ class Address{
 -   String country
 -   float longitude
 -   float latitude
-+create(streetName,doorNumber,locality,country,longitude,longitude)
 }
 
 class Order{
@@ -97,6 +96,17 @@ class Product{
 -   float unitaryWeight
 }
 
+class Invoice{
+-   Date orderDate
+-   float amount
+}
+
+class CreditCard{
+-   int creditCardNumber
+-   Date validatyDate
+-   int CCV
+}
+
 }
 
 
@@ -113,10 +123,10 @@ class OrderRegistration extends DataHandler
 
 class Client extends User
 
-MakeAnOrderUI ..> MakeAnOrderController
-MakeAnOrderController ..> Platform
-MakeAnOrderController ..> ApplicationPOT
-MakeAnOrderController ..> UserSession
+GenerateInvoiceUI ..> GenerateInvoiceController
+GenerateInvoiceController ..> Platform
+GenerateInvoiceController ..> ApplicationPOT
+GenerateInvoiceController ..> UserSession
 Platform "1" --> "1" ClientRegistration : has
 ClientRegistration "1" --> "*" Client : manages
 ProductRegistration "1" --> "*" Product : manages
@@ -128,5 +138,9 @@ Order "1" -- "*" Product : has >
 Client "1" -- "1" Order : makes >
 Client "1" -- "1" Address : has >
 Order "1" -- "1" Address : has >
+
+Invoice "1" -- "1" Order : has >
+Invoice "1" -- "*" Product : has >
+Invoice "1" -- "*" CreditCard : is payed using >
 
 @enduml

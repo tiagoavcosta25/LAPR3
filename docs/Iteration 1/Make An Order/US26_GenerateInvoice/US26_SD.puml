@@ -11,10 +11,9 @@ participant "app\n:PotApplication" as APP
 participant "session\n:UserSession" as SESSION
 participant "plat\n:Platform" as PLAT
 participant "clientReg\n:ClientRegistration" as CR
-participant "prodReg\n:ProductRegistration" as PR
 participant "orderReg\n:OrderRegistration" as OR
-participant "order\n:Order" as O
-participant "address\n:Address" as AD
+participant "invoiceReg\n:InvoiceRegistration" as IR
+participant "invoice\n:Invoice" as I
 
 activate CL
 
@@ -61,49 +60,23 @@ CTRL -> PLAT : invoiceReg = getInvoiceReg()
 activate PLAT
 deactivate PLAT
 
-CTRL -> OR : order = addOrder(amount, additionalFee, dateOrder, description, mapProducts, client, streetName,doorNumber,locality,country,longitude,longitude)
-activate OR
-OR -> O** : create(amount, additionalFee, dateOrder, description, mapProducts, client, streetName,doorNumber,locality,country,longitude,longitude)
-O -> AD** : create(streetName,doorNumber,locality,country,longitude,longitude)
-OR -> OR : validateOrder(order)
-ref over OR
+CTRL -> IR : invoice = addInvoice(date, totalPrice, order, client)
+activate IR
+IR -> I** : create(date, totalPrice, order, client)
+IR -> IR : validateOrder(invoice)
+ref over IR
 SD_CONNECTIONS
 end ref
-deactivate OR
-deactivate CTRL
+deactivate IR
 
-UI -> CL : shows the list of the available products
-deactivate UI
-CL -> UI : chooses which products and which quantities to order
-activate UI
-UI -> CTRL : newOrder(address, amount, additionalFee, dateOrder, description, mapProducts)
-activate CTRL
-
-CTRL -> OR : order = addOrder(amount, additionalFee, dateOrder, description, mapProducts, client, streetName,doorNumber,locality,country,longitude,longitude)
-activate OR
-OR -> O** : create(amount, additionalFee, dateOrder, description, mapProducts, client, streetName,doorNumber,locality,country,longitude,longitude)
-O -> AD** : create(streetName,doorNumber,locality,country,longitude,longitude)
-OR -> OR : validateOrder(order)
-ref over OR
+CTRL -> IR : registerInvoice(invoice)
+activate IR
+ref over IR
 SD_CONNECTIONS
 end ref
-deactivate OR
+deactivate IR
 deactivate CTRL
-UI -> CL : validates, presents the order and asks for a confirmation
-deactivate UI
-
-CL -> UI : confirms
-activate UI
-UI -> CTRL : registerOrder()
-activate CTRL
-CTRL -> OR : registerOrder(order)
-activate OR
-ref over OR
-SD_CONNECTIONS
-end ref
-deactivate OR
-deactivate CTRL
-UI -> CL : registers the order and informs of the success of the operation
+UI -> CL : sends the invoice
 deactivate UI
 deactivate CL
 
