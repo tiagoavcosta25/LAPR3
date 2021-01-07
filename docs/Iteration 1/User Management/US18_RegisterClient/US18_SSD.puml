@@ -15,12 +15,12 @@ deactivate SYST
 
 U -> SYST : Fills all the information required
 activate SYST
-SYST --> U : Validates, presents the data and asks for a confirmation
+SYST --> U : Presents the data and asks for a confirmation
 deactivate SYST
 
 U -> SYST : Confirms
 activate SYST
-SYST --> U : Informs about the success of the operation
+SYST --> U : Validates and informs about the success of the operation
 deactivate SYST
 
 deactivate U
