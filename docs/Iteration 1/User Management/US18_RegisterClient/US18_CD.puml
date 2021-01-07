@@ -75,7 +75,7 @@ class Address{
 }
 
 class CreditCard{
--Integer m_creditCardNr;
+-Double m_creditCardNr;
 -Date m_validityDate;
 -Integer m_CCV;
 +CreditCard(creditCardNr,validityDate,CCV)

@@ -10,13 +10,7 @@ activate CL
 CL -> SYST : sends a request to generate an invoice
 activate SYST
 
-SYST --> CL : validates, presents the order and asks for a confirmation
-deactivate SYST
-
-CL -> SYST : sends a request to generate an invoice
-activate SYST
-
-SYST --> CL : sends a an invoice
+SYST --> CL : sends the invoice
 deactivate SYST
 
 deactivate CL

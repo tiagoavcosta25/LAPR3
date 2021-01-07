@@ -1,30 +1,65 @@
 package lapr.project.ui;
 
+import lapr.project.controller.RegisterClientController;
+
 import java.util.Scanner;
 
 public class RegisterClientUI {
 
-    public void registerNewUser() {
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Please input the following information:");
-        System.out.println("Name:");
-        String name = sc.nextLine();
-        System.out.println("NIF:");
-        Integer nif = Integer.parseInt(sc.nextLine());
-        System.out.println("Email:");
-        System.out.println("Password:");
-        System.out.println("Latitude:");
-        System.out.println("Longitude:");
-        System.out.println("Street Name:");
-        System.out.println("Door Number:");
-        System.out.println("Postal Code:");
-        System.out.println("Locality:");
-        System.out.println("Country:");
-        System.out.println("Credit Card Nr:");
-        System.out.println("Validity Date:");
-        System.out.println("CCV:");
-        // UI --> U : Asks for all the information required
-        // for the register (i.e. name,nif,email,password,latitude,longitude,streetName,\ndoorNumber,postalCode,locality,
-        // country,creditCardNr,validityDate,CCV)
+
+    public static void main(String[] args) throws Exception {
+
+        RegisterClientController m_ctrl = new RegisterClientController();
+
+        m_ctrl.registerNewClient("Rodrigo", 123456789, "slow@gmail.com", "123", 821449,
+                12391924, "Street", "2esq", "4430-183", "Mafamude",
+                "Portugal", 1234123412341234.0, "10/23", 123);
+
+        /**Scanner sc = new Scanner(System.in);
+         try {
+         System.out.println("Please input the following information:");
+         System.out.println("Name:");
+         String name = sc.nextLine();
+         System.out.println("NIF:");
+         Integer nif = Integer.parseInt(sc.nextLine());
+         System.out.println("Email:");
+         String email = sc.nextLine();
+         System.out.println("Password:");
+         String password = sc.nextLine();
+         System.out.println("Latitude:");
+         float latitude = Float.parseFloat(sc.nextLine());
+         System.out.println("Longitude:");
+         float longitude = Float.parseFloat(sc.nextLine());
+         System.out.println("Street Name:");
+         String streetName = sc.nextLine();
+         System.out.println("Door Number:");
+         String doorNumber = sc.nextLine();
+         System.out.println("Postal Code:");
+         String postalCode = sc.nextLine();
+         System.out.println("Locality:");
+         String locality = sc.nextLine();
+         System.out.println("Country:");
+         String country = sc.nextLine();
+         System.out.println("Credit Card Nr:");
+         Integer creditCardNr = Integer.parseInt(sc.nextLine());
+         System.out.println("Validity Date:");
+         String validityDate = sc.nextLine();
+         System.out.println("CCV:");
+         Integer ccv = Integer.parseInt(sc.nextLine());
+
+         if (m_ctrl.registerNewClient(name, nif, email, password, latitude, longitude, streetName, doorNumber, postalCode, locality,
+         country, creditCardNr, validityDate, ccv)) {
+         System.out.println("Operation WAS successfull!");
+         } else {
+         System.out.println("Operation NOT successfull!");
+         }
+         } catch (Exception e) {
+         System.out.println("Format ERROR!");
+         System.out.println("Operation NOT successfull!");
+         }
+         }*/
+
+
     }
 }
+

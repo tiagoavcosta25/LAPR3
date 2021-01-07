@@ -48,7 +48,7 @@ public class OrderRegistration extends DataHandler {
                 String strClientPostalCode = rSet.getString(16);
                 String strClientLocality = rSet.getString(17);
                 String strClientCountry = rSet.getString(18);
-                Integer strCreditCardNr = rSet.getInt(19);
+                Double dblCreditCardNr = rSet.getDouble(19);
                 java.util.Date dtValidatyDate = rSet.getDate(20);
                 Integer strCCV = rSet.getInt(21);
                 Float fltOrderLatitude = rSet.getFloat(22);
@@ -63,7 +63,7 @@ public class OrderRegistration extends DataHandler {
 
                 return new Order(intId, fltAmount, fltTotalWeight, fltAdditionalFee, dtOrderDate, strDescription, strStatus,
                         new Client(strName, intNIF, strEmail, strPassword, fltClientLatitude, fltClientLongitude, strClientStreetName, strClientDoorNumber,
-                                strClientPostalCode, strClientLocality, strClientCountry, strCreditCardNr, dtValidatyDate, strCCV),
+                                strClientPostalCode, strClientLocality, strClientCountry, dblCreditCardNr, dtValidatyDate, strCCV),
                         new Address(fltOrderLatitude, fltOrderLongitude, strOrderStreetName, strOrderDoorNumber, strOrderPostalCode,
                                 strOrderLocality, strOrderCountry), new TreeMap<>());
             }
@@ -186,14 +186,14 @@ public class OrderRegistration extends DataHandler {
                 String locality = rSet.getString(19);
                 String country = rSet.getString(20);
                 //cartao
-                Integer creditCardNr = rSet.getInt(21);
+                Double creditCardNr = rSet.getDouble(21);
                 Date validityDate = rSet.getDate(22);
                 Integer CCV = rSet.getInt(23);
 
                 Client oClient = new Client(id, name, nif, email, password, m_credits, latitude, longitude, streetName, doorNumber, postalCode, locality, country, creditCardNr, validityDate, CCV);
                 Address oAddress = new Address(latitude, longitude, streetName, doorNumber, postalCode, locality, country);
                 return new Order(fltAmount, fltTotalWeight, fltAdditionalFee, dtOrderDate, strDescription,
-                        strStatus, oClient, oAddress, new Map<Product, Integer>());
+                        strStatus, oClient, oAddress, null);//new Map<Product, Integer>());
             }
         } catch (SQLException e) {
             e.printStackTrace();

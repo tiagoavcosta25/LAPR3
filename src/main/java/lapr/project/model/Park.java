@@ -8,24 +8,30 @@ public class Park {
 
     private int m_intId;
     private int m_intMaxSlotsNumber;
+    private Pharmacy m_oPharmacy;
     private List<ChargingSlot> m_lstChargingSlots;
     private List<ParkingSlot> m_lstParkingSlots;
 
     private static int DEFAULT_ID = -1;
     private static int DEFAULT_MAX_SLOTS = -1;
+    private static Pharmacy DEFAULT_PHARMACY = new Pharmacy();
+    private static List<ChargingSlot> DEFAULT_CHARGING_SLOTS = new ArrayList<>();
+    private static List<ParkingSlot> DEFAULT_PARKING_SLOTS = new ArrayList<>();
 
-    public Park(int intId, int intMaxSlotsNumber) {
+    public Park(int intId, int intMaxSlotsNumber, Pharmacy oPharmacy) {
         this.m_intId = intId;
         this.m_intMaxSlotsNumber = intMaxSlotsNumber;
-        this.m_lstChargingSlots = new ArrayList<>();
-        this.m_lstParkingSlots = new ArrayList<>();
+        this.m_oPharmacy = oPharmacy;
+        this.m_lstChargingSlots = DEFAULT_CHARGING_SLOTS;
+        this.m_lstParkingSlots = DEFAULT_PARKING_SLOTS;
     }
 
     public Park() {
         this.m_intId = DEFAULT_ID;
         this.m_intMaxSlotsNumber = DEFAULT_MAX_SLOTS;
-        this.m_lstChargingSlots = new ArrayList<>();
-        this.m_lstParkingSlots = new ArrayList<>();
+        this.m_oPharmacy = DEFAULT_PHARMACY;
+        this.m_lstChargingSlots = DEFAULT_CHARGING_SLOTS;
+        this.m_lstParkingSlots = DEFAULT_PARKING_SLOTS;
     }
 
     public Park(int intMaxSlotsNumber) {

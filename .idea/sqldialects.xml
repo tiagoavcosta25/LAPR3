@@ -2,6 +2,7 @@
 <project version="4">
   <component name="SqlDialectMappings">
     <file url="file://$PROJECT_DIR$/sql/Functions and Procedures/Delivery Management/US77_getAvailableChargingSlot.sql" dialect="Oracle" />
+    <file url="file://$PROJECT_DIR$/sql/Functions and Procedures/Delivery Management/US48_getOrderByCourier.sql.sql" dialect="Oracle" />
     <file url="file://$PROJECT_DIR$/sql/Functions and Procedures/Make An Order/US25_AddOrder.sql" dialect="OracleSqlPlus" />
     <file url="file://$PROJECT_DIR$/sql/Functions and Procedures/Make An Order/US25_addProductToOrder.sql" dialect="OracleSqlPlus" />
     <file url="file://$PROJECT_DIR$/sql/Functions and Procedures/User Management/US18_AddClient.sql" dialect="Oracle" />

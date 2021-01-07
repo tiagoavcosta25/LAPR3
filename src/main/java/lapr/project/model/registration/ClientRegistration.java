@@ -36,7 +36,7 @@ public class ClientRegistration extends DataHandler {
      * @return True if Client was registered, false if otherwise
      */
     public boolean registerNewClient(String name, Integer nif, String email, String password, float latitude, float longitude, String streetName,
-                                     String doorNumber, String postalCode, String locality, String country, Integer creditCardNr,
+                                     String doorNumber, String postalCode, String locality, String country, Double creditCardNr,
                                      Date validityDate, Integer CCV) {
         Client client = new Client(name, nif, email, password, latitude, longitude, streetName, doorNumber, postalCode, locality, country,
                 creditCardNr, validityDate, CCV);
@@ -75,7 +75,7 @@ public class ClientRegistration extends DataHandler {
             callStmt.setString(8, address.getM_postalCode());
             callStmt.setString(9, address.getM_locality());
             callStmt.setString(10, address.getM_country());
-            callStmt.setFloat(11, creditCard.getM_creditCardNr());
+            callStmt.setDouble(11, creditCard.getM_creditCardNr());
             callStmt.setDate(12, (java.sql.Date) creditCard.getM_validityDate());
             callStmt.setInt(13, creditCard.getM_CCV());
             callStmt.setString(14, email);
@@ -119,12 +119,12 @@ public class ClientRegistration extends DataHandler {
                 String strPostalCode = rSet.getString(10);
                 String strLocality = rSet.getString(12);
                 String strCountry = rSet.getString(13);
-                Integer strCreditCardNr = rSet.getInt(14);
+                Double dblCreditCardNr = rSet.getDouble(14);
                 Date dtValidatyDate = rSet.getDate(15);
                 Integer strCCV = rSet.getInt(16);
 
                 return new Client(intId, strName, strNif, strEmail, strPassword, intCredits, fltLatitude, fltLongitude, strStreetName, strDoorNumber, strPostalCode,
-                        strLocality, strCountry, strCreditCardNr, dtValidatyDate, strCCV);
+                        strLocality, strCountry, dblCreditCardNr, dtValidatyDate, strCCV);
             }
         } catch (SQLException e) {
             e.printStackTrace();
