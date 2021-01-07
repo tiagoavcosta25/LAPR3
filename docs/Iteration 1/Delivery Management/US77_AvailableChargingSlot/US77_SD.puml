@@ -2,20 +2,21 @@
 autonumber
 actor "Courier" as COURIER
 
-participant ":DeliveryAddressUI" as UI
-participant ":DeliveryAddressController" as CTRL
+participant ":AvailableChargingSlotUI" as UI
+participant ":AvailableChargingSlotController" as CTRL
 participant "PotApplication" as PA
 participant "app \n:PotApplication" as APA
 participant "session \n:UserSession" as US
 participant "plat \n:Platform" as PLAT
 participant "courReg \n:CourierRegistration" as RF
+participant "chargingSlot \n:ChargingSlot" as CS
 
 
 activate COURIER
 
 COURIER -> UI :  wants to know if there is an available charging station
 activate UI
-UI -> CTRL : address = getDeliveryAddress()
+UI -> CTRL : chargingSlot = getAvailableChargingSlot()
 activate CTRL
 CTRL -> PA : app = getInstance()
 activate PA
@@ -32,7 +33,7 @@ deactivate US
 CTRL -> PLAT : courReg = getCourReg()
 activate PLAT
 deactivate PLAT
-CTRL -> RF : address = getDeliveryAddress(email)
+CTRL -> RF : chargingSlot = getAvailableChargingSlot(email)
 activate RF
 deactivate RF
 deactivate CTRL
