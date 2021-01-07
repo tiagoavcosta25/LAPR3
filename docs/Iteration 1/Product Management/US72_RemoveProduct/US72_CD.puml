@@ -1,0 +1,70 @@
+@startuml
+skinparam classAttributeIconSize 0
+package "UI" #DDDDDD {
+    class ProductRegistrationUI{
+    }
+}
+
+package "Controller" #DDDDDD {
+    class ProductInformationController{
+        -app
+        -plat
+        -pr
+        +verifyProductId(productId)
+        +removeProduct(id)
+    }
+
+    class UserSession {
+        +getEmailUtilizador()
+    }
+
+    class ApplicationPot {
+        +static getInstance()
+        +getSessaoAtual()
+    }
+}
+
+package "Model" #DDDDDD {
+    class Platform {
+        -String designation
+        +getProductReg()
+    }
+
+    class Product{
+        -String productId
+        -String name
+        -String description
+        -Double unitaryPrice
+        -Double unitaryWeight
+    }
+
+    package "Registration" #DDDDDD {
+        class ProductRegistration{
+            +removeProduct(id)
+        }
+    }
+}
+
+
+package "Data" #DDDDDD {
+    class DataHandler{
+        -jdbcUrl
+        -username
+        -password
+        -connection
+        -callStmt
+        -rSet
+        +openConnection()
+        +closeAll()
+    }
+}
+
+
+ProductRegistrationUI ..> ProductInformationController
+ProductInformationController ..> Platform
+ProductInformationController ..> ApplicationPot
+ProductInformationController ..> UserSession
+Platform "1" -- "1" ProductRegistration: has >
+ProductRegistration "1" -- "1..*" Product: Creates >
+class ProductRegistration extends DataHandler
+@enduml
