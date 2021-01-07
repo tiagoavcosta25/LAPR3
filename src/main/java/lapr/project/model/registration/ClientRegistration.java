@@ -1,13 +1,14 @@
 package lapr.project.model.registration;
 
-        import lapr.project.data.DataHandler;
-        import lapr.project.model.Address;
-        import lapr.project.model.Client;
-        import oracle.jdbc.OracleTypes;
-        import lapr.project.model.CreditCard;
-        import java.sql.CallableStatement;
-        import java.sql.ResultSet;
-        import java.sql.SQLException;
+import lapr.project.data.DataHandler;
+import lapr.project.model.Address;
+import lapr.project.model.Client;
+import oracle.jdbc.OracleTypes;
+import lapr.project.model.CreditCard;
+import java.sql.CallableStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Date;
 
 public class ClientRegistration extends DataHandler {
 
@@ -36,8 +37,8 @@ public class ClientRegistration extends DataHandler {
      */
     public boolean registerNewClient(String name, Integer nif, String email, String password, float latitude, float longitude, String streetName,
                                      String doorNumber, String postalCode, String locality, String country, Integer creditCardNr,
-                                     String validityDate, Integer CCV) {
-        Client client = new Client(name, nif,email, password, latitude, longitude, streetName, doorNumber, postalCode, locality, country,
+                                     Date validityDate, Integer CCV) {
+        Client client = new Client(name, nif, email, password, latitude, longitude, streetName, doorNumber, postalCode, locality, country,
                 creditCardNr, validityDate, CCV);
         return addClientToDB(client);
 
@@ -51,7 +52,7 @@ public class ClientRegistration extends DataHandler {
 
     public boolean addClientToDB(Client c) {
         return addClientToDB(c.getM_name(), c.getM_nif(), c.getM_credits(), c.getM_address(), c.getM_creditCard(),
-                c.getStrEmail(),c.getPw());
+                c.getStrEmail(), c.getPw());
     }
 
 
@@ -75,7 +76,7 @@ public class ClientRegistration extends DataHandler {
             callStmt.setString(9, address.getM_locality());
             callStmt.setString(10, address.getM_country());
             callStmt.setFloat(11, creditCard.getM_creditCardNr());
-            callStmt.setString(12, creditCard.getM_validityDate());
+            callStmt.setDate(12, (java.sql.Date) creditCard.getM_validityDate());
             callStmt.setInt(13, creditCard.getM_CCV());
             callStmt.setString(14, email);
             callStmt.setString(15, password);
