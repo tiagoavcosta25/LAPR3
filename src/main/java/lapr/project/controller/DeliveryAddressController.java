@@ -1,7 +1,6 @@
 package lapr.project.controller;
 
 import lapr.project.model.Address;
-import lapr.project.model.Courier;
 import lapr.project.model.Platform;
 import lapr.project.model.registration.CourierRegistration;
 
@@ -38,7 +37,7 @@ public class DeliveryAddressController implements Serializable {
     public Address getDeliveryAddress(){
         m_oPlatform = ApplicationPOT.getInstance().getPlatform();
         UserSession session = ApplicationPOT.getInstance().getCurrentSession();
-        String email = session.getM_currentUserEmail();
+        String email = session.getCurrentUserEmail();
         oCourierRegistration = m_oPlatform.getCourReg();
         return oCourierRegistration.getDeliveryAddress(email);
     }

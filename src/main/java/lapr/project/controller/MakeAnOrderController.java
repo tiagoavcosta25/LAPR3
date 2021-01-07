@@ -41,7 +41,7 @@ public class MakeAnOrderController {
         this.m_oPlatform = ApplicationPOT.getInstance().getPlatform();
         this.m_oOrderRegistration = m_oPlatform.getOrderReg();
         this.m_oClientRegistration = m_oPlatform.getClientReg();
-        this.m_oClient = m_oClientRegistration.getClientByEmail(ApplicationPOT.getInstance().getCurrentSession().getM_currentUserEmail());
+        this.m_oClient = m_oClientRegistration.getClientByEmail(ApplicationPOT.getInstance().getCurrentSession().getCurrentUserEmail());
     }
 
     public void newOrder(float fltAmount, float fltTotalWeight, float fltAdditionalFee, Date dtOrderDate,

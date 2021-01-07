@@ -12,6 +12,7 @@ import lapr.project.model.User;
  * @author Jessica Alves <1190682@isep.ipp.pt>
  * @author Pedro Santos <1190967@isep.ipp.pt>
  * @author Rodrigo Costa <1191014@isep.ipp.pt>
+ *
  */
 public class UserSession {
 
@@ -23,6 +24,8 @@ public class UserSession {
      * The Current User's role
      */
     private Role m_role;
+
+    private User user;
 
     public enum Role {
         ADMIN("Administrator"),
@@ -39,8 +42,6 @@ public class UserSession {
             return this;
         }
     }
-
-    private User user;
 
     /**
      * Empty constructor of UserSession
@@ -92,15 +93,15 @@ public class UserSession {
      *
      * @return User's email.
      */
-    public String getM_currentUserEmail() {
+    public String getCurrentUserEmail() {
         return m_currentUserEmail;
     }
 
-    public Role getM_role() {
+    public Role getRole() {
         return m_role;
     }
 
-    public void setM_role(Role m_role) {
+    public void setRole(Role m_role) {
         this.m_role = m_role;
     }
 }
