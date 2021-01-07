@@ -23,7 +23,7 @@ public class ScooterRegistration extends DataHandler {
     public boolean registerNewScooter(int intBatteryPerc, int intCharginStatus, int intPotency,
                                       int intWeight, int intBatteryCapacity) {
         Scooter scooter = new Scooter(intBatteryPerc, intCharginStatus, intPotency, intWeight, intBatteryCapacity);
-        return addScooterToDB(scooter);
+        return addScooter(scooter);
 
     }
 
@@ -33,11 +33,11 @@ public class ScooterRegistration extends DataHandler {
      */
 
 
-    public boolean addScooterToDB(Scooter s) {
-        return addScooterToDB(s.getBatteryPerc(), s.getCharginStatus(), s.getPotency(), s.getWeight(), s.getBatteryCapacity());
+    public boolean addScooter(Scooter s) {
+        return addScooter(s.getBatteryPerc(), s.getCharginStatus(), s.getPotency(), s.getWeight(), s.getBatteryCapacity());
     }
 
-    private boolean addScooterToDB(int intBatteryPerc, int intCharginStatus, int intPotency, int intWeight,
+    private boolean addScooter(int intBatteryPerc, int intCharginStatus, int intPotency, int intWeight,
                                    int intBatteryCapacity) {
         boolean flag = true;
         try {
@@ -59,6 +59,10 @@ public class ScooterRegistration extends DataHandler {
             e.printStackTrace();
         }
         return flag;
+    }
+
+    public Scooter newScooter(int intBatteryPerc, int intCharginStatus, int intPotency, int intWeight, int intBatteryCapacity) {
+        return new Scooter( intBatteryPerc, intCharginStatus, intPotency, intWeight, intBatteryCapacity);
     }
 
 }

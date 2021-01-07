@@ -10,6 +10,8 @@ public class Platform {
     private CourierRegistration m_courReg;
     private OrderRegistration m_orderReg;
     private ProductRegistration m_productReg;
+    private ScooterRegistration m_scooterReg;
+    private PharmacyRegistration m_pharmacyReg;
     private DeliveryRegistration m_delReg;
     private Graph<Address, Double> oGraph;
 
@@ -19,6 +21,8 @@ public class Platform {
         this.m_clientReg = new ClientRegistration("jdbc:oracle:thin:@vsrvbd1.dei.isep.ipp.pt:1521/pdborcl", "LAPR3_G21", "qwerty");
         this.m_courReg = new CourierRegistration();
         this.m_productReg = new ProductRegistration("jdbc:oracle:thin:@vsrvbd1.dei.isep.ipp.pt:1521/pdborcl", "LAPR3_G21", "qwerty");
+        this.m_scooterReg = new ScooterRegistration();
+        this.m_pharmacyReg = new PharmacyRegistration();
         this.m_delReg = new DeliveryRegistration();
         this.oGraph = new Graph<>(true); //corrigir
     }
@@ -41,6 +45,14 @@ public class Platform {
 
     public ProductRegistration getProductReg() {
         return m_productReg;
+    }
+
+    public ScooterRegistration getScooterReg() {
+        return m_scooterReg;
+    }
+
+    public PharmacyRegistration getPharmacyReg() {
+        return m_pharmacyReg;
     }
 
     public DeliveryRegistration getDelReg() {
