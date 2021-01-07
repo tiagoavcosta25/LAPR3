@@ -103,7 +103,37 @@ public class OrderRegistration extends DataHandler {
         return new Order(fltAmount, fltTotalWeight, fltAdditionalFee, dtOrderDate,
                 strDescription, strStatus, oClient, new Address(latitude, longitude, streetName, doorNumber, postalCode, locality, country));
     }
-    public Order getOrderByCourier(String email){
-        throw new UnsupportedOperationException("Not supported yet.");
+    public Order getOrderByCourier(String strEmail){
+
+        CallableStatement callStmt = null;
+        try {
+            callStmt = getConnection().prepareCall("{ ? = call getOrderByCourier(?) }");
+
+            callStmt.registerOutParameter(1, OracleTypes.CURSOR);
+            callStmt.setString(1, strEmail);
+
+            callStmt.execute();
+
+            ResultSet rSet = (ResultSet) callStmt.getObject(1);
+
+            if (rSet.next()) {
+
+                int intId = rSet.getInt(1);
+                // String strEmail = rSet.getString(2);
+                float fltAmount = rSet.getFloat(3);
+                float fltTotalWeight = rSet.getFloat(4);
+                float fltAdditionalFee = rSet.getFloat(5);
+                Date dtOrderDate = rSet.getDate(6);
+                String strDescription = rSet.getString(7);
+                String strStatus = rSet.getString(8);
+                Client oClient = new Client();//rSet.getString(9);
+                Address oAddress= new Address();// rSet.getString(10);
+                return new Order(intId, fltAmount, fltTotalWeight, fltAdditionalFee, dtOrderDate, strDescription,
+                        strStatus, oClient,oAddress);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        throw new IllegalArgumentException("No Client with the following email:" + strEmail);
     }
 }
