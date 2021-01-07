@@ -62,6 +62,7 @@ class Client{
 }
 
 class Address{
+-Integer id
 -float latitude
 -float longitude
 -String streetName

@@ -2,6 +2,7 @@ package lapr.project.model;
 
 public class Address {
 
+    private Integer m_id;
     private float m_latitude;
     private float m_longitude;
     private String m_streetName;
@@ -11,7 +12,7 @@ public class Address {
     private String m_country;
 
     public Address() {
-
+        this.m_id = -1;
         this.m_latitude = -1;
         this.m_longitude = -1;
         this.m_streetName = "No Address";

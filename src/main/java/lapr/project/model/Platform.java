@@ -12,8 +12,8 @@ public class Platform {
 
     public Platform() {
         this.m_designation = "plat";
-        this.m_userReg = new UserRegistration();
-        this.m_clientReg = new ClientRegistration();
+        this.m_userReg = new UserRegistration("jdbc:oracle:thin:@vsrvbd1.dei.isep.ipp.pt:1521/pdborcl", "LAPR3_G21", "qwerty");
+        this.m_clientReg = new ClientRegistration("jdbc:oracle:thin:@vsrvbd1.dei.isep.ipp.pt:1521/pdborcl", "LAPR3_G21", "qwerty");
         this.m_courReg = new CourierRegistration();
         this.m_productReg = new ProductRegistration("jdbc:oracle:thin:@vsrvbd1.dei.isep.ipp.pt:1521/pdborcl", "LAPR3_G21", "qwerty");
     }

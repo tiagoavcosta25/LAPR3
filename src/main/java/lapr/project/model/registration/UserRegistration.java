@@ -1,7 +1,15 @@
 package lapr.project.model.registration;
 
 
-public class UserRegistration {
+import lapr.project.controller.ApplicationPOT;
+import lapr.project.controller.UserSession;
+import lapr.project.data.DataHandler;
+
+public class UserRegistration extends DataHandler {
+
+    public UserRegistration(String jdbcUrl, String username, String password) {
+        super(jdbcUrl, username, password);
+    }
 
 
     /**
@@ -14,7 +22,8 @@ public class UserRegistration {
      */
     public boolean login(String email, String password) {
         if (checkIfUserExistsInDB(email)) {
-
+            ApplicationPOT app = ApplicationPOT.getInstance();
+            UserSession session = new UserSession();
         }
         return false;
     }
