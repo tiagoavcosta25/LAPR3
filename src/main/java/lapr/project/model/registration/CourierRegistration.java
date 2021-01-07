@@ -39,10 +39,12 @@ public class CourierRegistration extends DataHandler {
             if (rSet.next()) {
                 int courierID = rSet.getInt(1);
                 String clientName = rSet.getString(2);
-                String nif = rSet.getString(3);
-                String iban = rSet.getString(4);
+                String email = rSet.getString(3);
+                String strPassword = rSet.getString(4);
+                Integer nif = rSet.getInt(5);
+                String iban = rSet.getString(6);
 
-                return new Courier(courierID, clientName, nif, iban);
+                return new Courier(courierID,clientName, email,strPassword,nif,iban);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -59,7 +61,7 @@ public class CourierRegistration extends DataHandler {
      * @param strNif  o nome do marinheiro.
      * @param strIban o "rating" do marinheiro.
      */
-    private void addCourierToDB(String strName, String strEmail, String strPassword, String strNif, String strIban) {
+    private void addCourierToDB(String strName, String strEmail, String strPassword, Integer strNif, String strIban) {
         try {
             openConnection();
             /*
@@ -74,7 +76,7 @@ public class CourierRegistration extends DataHandler {
             callStmt.setString(1, strName);
             callStmt.setString(2, strEmail);
             callStmt.setString(3, strPassword);
-            callStmt.setString(4, strNif);
+            callStmt.setInt(4, strNif);
             callStmt.setString(5, strIban);
 
             callStmt.execute();
@@ -116,7 +118,7 @@ public class CourierRegistration extends DataHandler {
 
     }
 
-    public Courier newCourier(String strName, String strEmail, String strNIF, String strIBAN) {
+    public Courier newCourier(String strName, String strEmail, Integer strNIF, String strIBAN) {
         String password = "";
         return new Courier(strName, strEmail, password, strNIF, strIBAN);
     }
