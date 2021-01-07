@@ -24,6 +24,7 @@ begin
     -- 1 : Is a Client
     -- 2 : Is an Admin
     -- 3 : Is a Courier
+    -- 4 : Is a Pharmacy Manager
     if userType is null then
         select USERID
         into userType
@@ -31,7 +32,18 @@ begin
         where USERID = userIdentifier;
 
         if userType is null then
-            userType = 3;
+
+            select USERID
+            into userType
+            from Courier
+            where USERID = userIdentifier;
+
+            if userType is null then
+                userType = 4;
+            else
+                userType = 3;
+            end if;
+
         else
             userType = 2;
         end if;

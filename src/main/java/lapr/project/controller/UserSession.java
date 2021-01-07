@@ -25,12 +25,12 @@ public class UserSession {
      */
     private Role m_role;
 
-    private User user;
 
     public enum Role {
         ADMIN("Administrator"),
         COURIER("Courier"),
-        CLIENT("Client");
+        CLIENT("Client"),
+        P_MANAGER("Pharmacy Manager");
 
         private final String label;
 
@@ -83,6 +83,9 @@ public class UserSession {
                 break;
             case 3:
                 this.m_role = Role.COURIER;
+                break;
+            case 4:
+                this.m_role = Role.P_MANAGER;
                 break;
         }
         ApplicationPOT.getInstance().setCurrentSession(this);
