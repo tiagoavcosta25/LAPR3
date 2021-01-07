@@ -1,4 +1,4 @@
-create or replace procedure addClient(p_name Client.name%type, p_nif User.nif%type, p_credits Client.credits%type,
+create or replace procedure addClient(p_name "User".name%type, p_nif "User".nif%type, p_credits Client.credits%type,
                                       p_latitude Address.latitude%type, p_longitude Address.longitude%type,
                                       p_streetName Address.streetName%type, p_doorNumber Address.doorNumber%type,
                                       p_postalCode Address.postalCode%type, p_locality Address.locality%type,
@@ -12,8 +12,8 @@ create or replace procedure addClient(p_name Client.name%type, p_nif User.nif%ty
 begin
 
     -- Creates a new User
-    Insert into "User"(EMAIL, PASSWORD, NIF)
-    Values (p_email, p_password, p_nif)
+    Insert into "User"(EMAIL, PASSWORD, NIF,NAME)
+    Values (p_email, p_password, p_nif,p_name)
     returning id into userIdentifier;
 
 -- Creates a new Address
@@ -48,12 +48,12 @@ begin
     end if;
 
 -- Creates a new Credit Card Client
-    Insert into CreditCard_Client(CREDITCARDCREDITCARDNR, CLIENTUSERID)
+    Insert into CreditCardClient(CREDITCARDNR, CLIENTID)
     Values (creditCardId, userIdentifier);
 
 -- Creates a new Client
-    Insert into Client(userId, NAME, NIF, CREDITS, ADDRESSID)
-    Values (userIdentifier, p_name, p_nif, p_credits, addressIdentifier);
+    Insert into Client(userId, CREDITS, ADDRESSID)
+    Values (userIdentifier, p_credits, addressIdentifier);
 
 
 end;
