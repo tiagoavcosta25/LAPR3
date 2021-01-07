@@ -4,6 +4,8 @@ import lapr.project.model.Platform;
 import lapr.project.model.Product;
 import lapr.project.model.registration.ProductRegistration;
 
+import static java.lang.Integer.parseInt;
+
 public class ProductInformationController {
 
     private final ApplicationPOT app;
@@ -16,7 +18,11 @@ public class ProductInformationController {
         this.pr = plat.getProductReg();
     }
 
-    public Product getProduct(int productId) {
+    public boolean verifyProductId(String productId) {
+        return productId != null && !productId.equals("") && productId.matches("^[0-9]*$") && parseInt(productId) > 0;
+    }
+
+    public Product getProductFromDB(int productId) {
         return pr.getProductFromBD(productId);
     }
 }

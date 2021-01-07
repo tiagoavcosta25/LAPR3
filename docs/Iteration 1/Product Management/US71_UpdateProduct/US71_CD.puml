@@ -17,7 +17,7 @@ package "Controller" #DDDDDD {
         +verifyProductDescription(productDescription)
         +verifyProductUnitaryPrice(unitaryPrice)
         +verifyProductUnitaryWeight(unitaryWeight)
-        +updateProduct(id, name, description, unitaryPrice, unitaryWeight)
+        +updateProductFromDB(id, name, description, unitaryPrice, unitaryWeight)
     }
 
     class UserSession {
@@ -46,7 +46,7 @@ package "Model" #DDDDDD {
 
     package "Registration" #DDDDDD {
         class ProductRegistration{
-            +updateProduct(id, name, description, unitaryPrice, unitaryWeight)
+            +updateProductFromDB(id, name, description, unitaryPrice, unitaryWeight)
         }
     }
 }

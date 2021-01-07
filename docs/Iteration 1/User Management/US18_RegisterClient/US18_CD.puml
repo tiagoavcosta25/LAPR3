@@ -48,17 +48,16 @@ abstract class User{
 -String email
 -String password
 -Integer nif
-+User(email,password,nif)
+-String name
++User(email,password,nif,name)
 }
 
 class Client extends User
 
 class Client{
--String name;
--Address address;
--Integer creditCardNr;
--String validityDate;
--Integer CCV;
+-String credits
+-Address address
+-CreditCard creditCard
 +Client(name,nif,email,password,latitude,longitude,streetName,doorNumber,postalCode,locality,country,
                         creditCardNr,validityDate,CCV)
 }
@@ -77,7 +76,7 @@ class Address{
 
 class CreditCard{
 -Integer m_creditCardNr;
--String m_validityDate;
+-Date m_validityDate;
 -Integer m_CCV;
 +CreditCard(creditCardNr,validityDate,CCV)
 }

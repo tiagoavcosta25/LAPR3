@@ -57,7 +57,7 @@ public class CourierRegistration extends DataHandler {
      * @param strNif  o nome do marinheiro.
      * @param strIban o "rating" do marinheiro.
      */
-    private void addCourierToDB(String strName, String strNif, String strIban) {
+    private void addCourierToDB(String strName, String strEmail, String strPassword,String strNif, String strIban) {
         try {
             openConnection();
             /*
@@ -67,11 +67,13 @@ public class CourierRegistration extends DataHandler {
              *  PROCEDURE addSailor(sid NUMBER, sname VARCHAR, rating NUMBER, age NUMBER)
              *  PACKAGE pkgSailors AS TYPE ref_cursor IS REF CURSOR; END pkgSailors;
              */
-            CallableStatement callStmt = getConnection().prepareCall("{ call addCourier(?,?,?) }");
+            CallableStatement callStmt = getConnection().prepareCall("{ call addCourier(?,?,?,?,?) }");
 
             callStmt.setString(1, strName);
-            callStmt.setString(2, strNif);
-            callStmt.setString(3, strIban);
+            callStmt.setString(2, strEmail);
+            callStmt.setString(3, strPassword);
+            callStmt.setString(4, strNif);
+            callStmt.setString(5, strIban);
 
             callStmt.execute();
 
@@ -118,7 +120,7 @@ public class CourierRegistration extends DataHandler {
     }
 
     public void registersCourier(Courier oCourier) {
-        addCourierToDB(oCourier.getM_name(), oCourier.getM_nif(), oCourier.getM_iban());
+        addCourierToDB(oCourier.getM_name(),oCourier.getStrEmail(),oCourier.getPw(), oCourier.getM_nif(), oCourier.getM_iban());
     }
 
     public Address getDeliveryAddress(String email) {

@@ -61,9 +61,9 @@ activate UREG
 
 UREG -> USER** : create(name,nif,email,password,latitude,longitude,streetName,\ndoorNumber,postalCode,locality,country,creditCardNr,validityDate,CCV)
 activate USER
-USER -> US : create(email,password,nif)
-activate US
-deactivate US
+
+USER -> US** : create(email,password,nif,name)
+
 USER -> ADD** : create(latitude,longitude,streetName,doorNumber,postalCode,locality,country)
 USER -> CC** : create(creditCardNr,validityDate,CCV)
 deactivate USER

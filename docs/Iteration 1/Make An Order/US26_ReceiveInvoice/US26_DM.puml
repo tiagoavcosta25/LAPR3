@@ -1,0 +1,64 @@
+@startuml
+skinparam classAttributeIconSize 0
+hide methods
+left to right direction
+
+class Platform {
+-   String designation
+}
+class Client{
+-   int IBAN
+-   long creditCardNumber
+-   int validityDate
+-   int CCV
+}
+
+class User{
+-   String name
+-   String email
+-   String password
+}
+
+class Address{
+-   String streetName
+-   String doorNumber
+-   String postalCode
+-   String locality
+-   String country
+-   float longitude
+-   float latitude
+}
+
+class Order{
+-   int id
+-   float amount
+-   float totalWeight
+-   float additionalFee
+-   Date orderDate
+-   String description
+-   String status
+}
+
+class Product{
+-   int id
+-   String name
+-   String description
+-   float unitaryPrice
+-   float unitaryWeight
+}
+
+class Invoice{
+-   Date orderDate
+-   float amount
+}
+
+Platform "1" -- "*" Client : has registered >
+Platform "1" -- "*" Order : has registered >
+Order "1" -- "*" Product : has >
+Client "0..1" -- "1" User: acts as >
+Client "1" -- "1" Order : makes >
+Client "1" -- "1" Address : has >
+Order "1" -- "1" Address : has >
+Invoice "1" -- "1" Order : has >
+Invoice "1" -- "*" Product : has >
+@enduml

@@ -8,17 +8,15 @@ class Platform {
 }
 
 class Client{
--String name;
--Address address;
--Integer creditCardNr;
--String validityDate;
--Integer CCV;
+-String credits
 }
 
 abstract class User{
 -Integer id
 -String email
 -String password
+-Integer nif
+-String name
 }
 
 class Address{

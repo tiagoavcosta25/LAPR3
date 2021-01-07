@@ -18,7 +18,7 @@ public class ScooterRegistration extends DataHandler {
 
         CallableStatement callStmt = null;
         try {
-            callStmt = getConnection().prepareCall("{ ? = call getOrder(?) }");
+            callStmt = getConnection().prepareCall("{ ? = call getScooter(?) }");
 
             callStmt.registerOutParameter(1, OracleTypes.CURSOR);
             callStmt.setInt(id, 1);

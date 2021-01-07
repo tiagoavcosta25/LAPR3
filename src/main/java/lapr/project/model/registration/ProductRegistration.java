@@ -79,7 +79,7 @@ public class ProductRegistration extends DataHandler {
         return flag;
     }
 
-    public boolean removeProduct(int intId) {
+    public boolean removeProductFromDB(int intId) {
         boolean flag = true;
         try {
             openConnection();
@@ -98,7 +98,7 @@ public class ProductRegistration extends DataHandler {
         return flag;
     }
 
-    public boolean updateProduct(int intId, String strName, String strDescription, float fltUnitaryPrice, float fltUnitaryWeight) {
+    public boolean updateProductFromDB(int intId, String strName, String strDescription, float fltUnitaryPrice, float fltUnitaryWeight) {
         /* Objeto "callStmt" para invocar a função "updateProduct" armazenada na BD.
          *
          */
@@ -112,30 +112,6 @@ public class ProductRegistration extends DataHandler {
             callStmt.setString(3, strDescription);
             callStmt.setFloat(4, fltUnitaryPrice);
             callStmt.setFloat(5, fltUnitaryWeight);
-            //Executa a invocação da função "updateProduct".
-            callStmt.execute();
-            closeAll();
-
-        } catch (SQLException e) {
-            return false;
-        }
-        return true;
-    }
-
-    public boolean updateProduct(Product product) {
-        /* Objeto "callStmt" para invocar a função "updateProduct" armazenada na BD.
-         *
-         */
-        try {
-            openConnection();
-            CallableStatement callStmt = getConnection().prepareCall("{call updateProduct(?,?,?,?,?)}");
-
-            //Especifica o parâmetro de entrada da função "updateProduct".
-            callStmt.setInt(1, product.getId());
-            callStmt.setString(2, product.getName());
-            callStmt.setString(3, product.getDescription());
-            callStmt.setDouble(4, product.getUnitaryPrice());
-            callStmt.setDouble(5, product.getUnitaryWeight());
             //Executa a invocação da função "updateProduct".
             callStmt.execute();
             closeAll();
