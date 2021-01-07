@@ -55,8 +55,4 @@ public class RegisterProductController {
     public boolean registerProduct(String name, String description, float unitaryPrice, float unitaryWeight) {
         return pr.registerProduct(name, description, unitaryPrice, unitaryWeight);
     }
-
-    public Product getProduct(int productId) {
-        return pr.getProductFromBD(productId);
-    }
 }
