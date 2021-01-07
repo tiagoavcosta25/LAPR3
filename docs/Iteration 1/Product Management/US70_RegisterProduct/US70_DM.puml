@@ -11,7 +11,8 @@ class Product{
     -String productId
     -String name
     -String description
-    -Double price
+    -Double unitaryPrice
+    -Double unitaryWeight
 }
 
 abstract class User{
@@ -20,7 +21,7 @@ abstract class User{
 }
 
 User "1" -- "*" Product : creates
-Platform "1" -- "*" Product : has >
-Platform "1" -- "*" User : has >
+Platform "1" -- "*" Product : has registered >
+Platform "1" -- "*" User : has registered >
 
 @enduml

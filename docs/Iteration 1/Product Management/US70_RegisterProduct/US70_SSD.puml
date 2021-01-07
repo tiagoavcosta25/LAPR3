@@ -10,12 +10,17 @@ activate U
 
 U -> SYST : Engages the "add new product" feature/button
 activate SYST
-SYST --> U : Asks for all the information required \nfor the register (i.e. name,description,price)
+SYST --> U : Asks for all the information required \nfor the register (i.e. name, description, unitaryPrice, unitaryWeight)
 deactivate SYST
 
 U -> SYST : Fills all the information required
 activate SYST
-SYST --> U : Validates all the information, informing of the success of the operation
+SYST --> U : Validates, presents the data and asks for a confirmation
+deactivate SYST
+
+U -> SYST : Confirms
+activate SYST
+SYST --> U : Informs about the success of the operation
 deactivate SYST
 
 deactivate U

@@ -10,6 +10,10 @@ import java.sql.SQLException;
 public class ClientRegistration extends DataHandler {
 
 
+    public ClientRegistration(String jdbcUrl, String username, String password) {
+        super(jdbcUrl, username, password);
+    }
+
     /**
      * Registers a new Client in the Database
      *
