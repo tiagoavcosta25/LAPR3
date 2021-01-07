@@ -79,7 +79,7 @@ public class ProductRegistration extends DataHandler {
         return flag;
     }
 
-    public boolean removeProduct(int intId) {
+    public boolean removeProductFromDB(int intId) {
         boolean flag = true;
         try {
             openConnection();
@@ -98,7 +98,7 @@ public class ProductRegistration extends DataHandler {
         return flag;
     }
 
-    public boolean updateProduct(int intId, String strName, String strDescription, float fltUnitaryPrice, float fltUnitaryWeight) {
+    public boolean updateProductFromDB(int intId, String strName, String strDescription, float fltUnitaryPrice, float fltUnitaryWeight) {
         /* Objeto "callStmt" para invocar a função "updateProduct" armazenada na BD.
          *
          */
