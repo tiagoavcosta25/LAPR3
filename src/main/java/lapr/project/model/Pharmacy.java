@@ -8,6 +8,7 @@ public class Pharmacy {
     private String m_strName;
     private Address m_oAddress;
 
+
     private static int DEFAULT_ID = -1;
     private static String DEFAULT_NAME = "";
     private static Address DEFAULT_ADDRESS = new Address();
