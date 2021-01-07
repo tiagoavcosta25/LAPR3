@@ -1,0 +1,28 @@
+@startuml
+autonumber
+hide footbox
+
+actor "Admin" as U
+
+participant ":System" as SYST
+
+activate U
+
+U -> SYST : Engages the "add new product" feature/button
+activate SYST
+SYST --> U : Asks for all the information required \nfor the register (i.e. name, description, unitaryPrice, unitaryWeight)
+deactivate SYST
+
+U -> SYST : Fills all the information required
+activate SYST
+SYST --> U : Validates, presents the data and asks for a confirmation
+deactivate SYST
+
+U -> SYST : Confirms
+activate SYST
+SYST --> U : Informs about the success of the operation
+deactivate SYST
+
+deactivate U
+
+@enduml

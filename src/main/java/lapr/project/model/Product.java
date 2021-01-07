@@ -38,23 +38,23 @@ public class Product {
         this.m_fltUnitaryWeight = DEFAULT_UNITARY_WEIGHT;
     }
 
-    public int getM_intId() {
+    public int getId() {
         return m_intId;
     }
 
-    public String getM_strName() {
+    public String getName() {
         return m_strName;
     }
 
-    public String getM_strDescription() {
+    public String getDescription() {
         return m_strDescription;
     }
 
-    public float getM_fltUnitaryPrice() {
+    public float getUnitaryPrice() {
         return m_fltUnitaryPrice;
     }
 
-    public float getM_fltUnitaryWeight() {
+    public float getUnitaryWeight() {
         return m_fltUnitaryWeight;
     }
 
