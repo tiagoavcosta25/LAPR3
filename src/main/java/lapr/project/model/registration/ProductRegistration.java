@@ -122,30 +122,6 @@ public class ProductRegistration extends DataHandler {
         return true;
     }
 
-    public boolean updateProduct(Product product) {
-        /* Objeto "callStmt" para invocar a função "updateProduct" armazenada na BD.
-         *
-         */
-        try {
-            openConnection();
-            CallableStatement callStmt = getConnection().prepareCall("{call updateProduct(?,?,?,?,?)}");
-
-            //Especifica o parâmetro de entrada da função "updateProduct".
-            callStmt.setInt(1, product.getId());
-            callStmt.setString(2, product.getName());
-            callStmt.setString(3, product.getDescription());
-            callStmt.setDouble(4, product.getUnitaryPrice());
-            callStmt.setDouble(5, product.getUnitaryWeight());
-            //Executa a invocação da função "updateProduct".
-            callStmt.execute();
-            closeAll();
-
-        } catch (SQLException e) {
-            return false;
-        }
-        return true;
-    }
-
     public List<Product> getAvailableProducts() {
         CallableStatement callStmt = null;
         List<Product> lstProducts = new ArrayList<>();
