@@ -4,27 +4,27 @@ import java.util.Date;
 
 public class CreditCard {
 
-    private Integer m_creditCardNr;
+    private Double m_creditCardNr;
     private Date m_validityDate;
     private Integer m_CCV;
 
     public CreditCard() {
-        this.m_creditCardNr = 0;
+        this.m_creditCardNr = 0.0;
         this.m_validityDate = new Date();
         this.m_CCV = 0;
     }
 
-    public CreditCard(Integer creditCardNr, Date validityDate, Integer CCV) {
+    public CreditCard(Double creditCardNr, Date validityDate, Integer CCV) {
         this.m_creditCardNr = creditCardNr;
         this.m_validityDate = validityDate;
         this.m_CCV = CCV;
     }
 
-    public Integer getM_creditCardNr() {
+    public Double getM_creditCardNr() {
         return m_creditCardNr;
     }
 
-    public void setM_creditCardNr(Integer m_creditCardNr) {
+    public void setM_creditCardNr(Double m_creditCardNr) {
         this.m_creditCardNr = m_creditCardNr;
     }
 

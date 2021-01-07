@@ -2,8 +2,6 @@ package lapr.project.controller;
 
 import lapr.project.model.Platform;
 import lapr.project.model.registration.ClientRegistration;
-
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -29,7 +27,7 @@ public class RegisterClientController {
      * @return True if Client was registered, false if otherwise
      */
     public boolean registerNewClient(String name, Integer nif, String email, String password, float latitude, float longitude, String streetName,
-                                     String doorNumber, String postalCode, String locality, String country, Integer creditCardNr,
+                                     String doorNumber, String postalCode, String locality, String country, Double creditCardNr,
                                      String validityDate, Integer CCV) throws Exception {
 
         try {
@@ -71,7 +69,7 @@ public class RegisterClientController {
      * @return True if input is valid, false if otherwise
      */
     public boolean validateInput(String name, Integer nif, String email, String password, float latitude, float longitude, String streetName,
-                                 String doorNumber, String postalCode, String locality, String country, Integer creditCardNr,
+                                 String doorNumber, String postalCode, String locality, String country, Double creditCardNr,
                                  Date validityDate, Integer CCV) {
 
         if (name.isEmpty() || nif <= 0 || email.isEmpty() || password.isEmpty() || streetName.isEmpty() || postalCode.isEmpty()
