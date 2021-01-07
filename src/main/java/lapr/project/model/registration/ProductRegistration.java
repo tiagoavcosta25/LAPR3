@@ -7,6 +7,8 @@ import oracle.jdbc.internal.OracleTypes;
 import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ProductRegistration extends DataHandler {
 
@@ -142,6 +144,33 @@ public class ProductRegistration extends DataHandler {
             return false;
         }
         return true;
+    }
+
+    public List<Product> getAvailableProducts() {
+        CallableStatement callStmt = null;
+        List<Product> lstProducts = new ArrayList<>();
+        try {
+            callStmt = getConnection().prepareCall("{ ? = call getAvailableProducts() }");
+
+            callStmt.registerOutParameter(1, OracleTypes.CURSOR);
+            callStmt.execute();
+            ResultSet rSet = (ResultSet) callStmt.getObject(1);
+
+            while(rSet.next()){
+                    String productID = rSet.getString(1);
+                    String name = rSet.getString(2);
+                    String description = rSet.getString(3);
+                    double unitaryPrice = rSet.getDouble(4);
+                    double unitaryWeight = rSet.getDouble(5);
+
+                    lstProducts.add(new Product(productID, name, description, unitaryPrice, unitaryWeight));
+
+                    rSet.next();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        throw new IllegalArgumentException("No Products Avaliable.");
     }
 
 }
