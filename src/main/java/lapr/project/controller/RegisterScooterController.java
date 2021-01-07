@@ -24,7 +24,7 @@ public class RegisterScooterController {
         try
         {
             /*this.m_oScooterRegistration = m_oPlatform.getScooterRegistration();
-            Scooter oScooter = Pharmacy.newScooter(intBatteryPerc, intCharginStatus, intPotency, intWeight, intBatteryCapacity);
+            Scooter oScooter = m_oScooterRegistration.registerNewScooter(intBatteryPerc, intCharginStatus, intPotency, intWeight, intBatteryCapacity);
             return this.m_oScooterRegistration.validatesScooter(this.m_oScooter);*/
             return true;
         }

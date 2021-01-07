@@ -5,7 +5,7 @@ public class Address {
     private float m_latitude;
     private float m_longitude;
     private String m_streetName;
-    private int m_doorNumber;
+    private String m_doorNumber;
     private String m_postalCode;
     private String m_locality;
     private String m_country;
@@ -15,13 +15,13 @@ public class Address {
         this.m_latitude = -1;
         this.m_longitude = -1;
         this.m_streetName = "No Address";
-        this.m_doorNumber = -1;
+        this.m_doorNumber = "No Door Number";
         this.m_postalCode = "No Postal Code";
         this.m_locality = "No Locality";
         this.m_country = "No Country";
     }
 
-    public Address(float latitude, float longitude, String streetName, int doorNumber,
+    public Address(float latitude, float longitude, String streetName, String doorNumber,
             String postalCode, String locality, String country) {
         this.m_latitude = latitude;
         this.m_longitude = longitude;
@@ -44,7 +44,7 @@ public class Address {
         return m_streetName;
     }
 
-    public int getM_doorNumber() {
+    public String getM_doorNumber() {
         return m_doorNumber;
     }
 

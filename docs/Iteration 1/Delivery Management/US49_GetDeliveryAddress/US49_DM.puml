@@ -1,0 +1,51 @@
+@startuml
+skinparam classAttributeIconSize 0
+hide methods
+left to right direction
+
+class Platform {
+-   String designation
+}
+class Client{
+-   int IBAN
+-   long creditCardNumber
+-   int validityDate
+-   int CCV
+}
+
+class Address{
+-   String streetName
+-   String doorNumber
+-   String postalCode
+-   String locality
+-   String country
+-   float longitude
+-   float latitude
+}
+
+class Order{
+-   int id
+-   float amount
+-   float totalWeight
+-   float additionalFee
+-   Date orderDate
+-   String description
+-   String status
+}
+
+
+class Courier {
+      -String id
+      -String name
+      -String nif
+      -String iban
+}
+
+Platform "1" -- "*" Client : has registered >
+Platform "1" -- "*" Courier : has registered >
+Courier "1" -- "*" Order : is associated to >
+Order "1" -- "*" Address : has >
+Platform "1" -- "*" Order : has registered >
+Client "1" -- "1" Order : makes >
+Client "1" -- "1" Address : has >
+@enduml

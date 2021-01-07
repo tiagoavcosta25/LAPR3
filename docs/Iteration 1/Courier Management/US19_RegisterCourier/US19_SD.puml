@@ -30,12 +30,6 @@ deactivate PA
 CTRL -> APA : plat = getPlatform()
 activate APA
 deactivate APA
-CTRL -> APA : session = getCurrentSession()
-activate APA
-deactivate APA
-CTRL -> US : email = getUserEmail()
-activate US
-deactivate US
 CTRL -> PLAT : courReg = getCourReg()
 activate PLAT
 deactivate PLAT
