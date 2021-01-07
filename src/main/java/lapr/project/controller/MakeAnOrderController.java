@@ -1,5 +1,6 @@
 package lapr.project.controller;
 
+import lapr.project.model.Client;
 import lapr.project.model.Order;
 import lapr.project.model.Platform;
 import lapr.project.model.registration.ClientRegistration;
@@ -30,7 +31,8 @@ public class MakeAnOrderController {
     /**
      * Order's Client
      */
-    private String m_strEmail;
+    private Client m_oClient;
+
 
     /**
      * An empty constructor of MakeAnOrderController that initiates the platform variable by getting it from the ApplicationPOT.
@@ -39,7 +41,7 @@ public class MakeAnOrderController {
         this.m_oPlatform = ApplicationPOT.getInstance().getPlatform();
         this.m_oOrderRegistration = m_oPlatform.getOrderReg();
         this.m_oClientRegistration = m_oPlatform.getClientReg();
-        this.m_strEmail = ApplicationPOT.getInstance().getCurrentSession().getM_currentUserEmail();
+        this.m_oClient = m_oClientRegistration.getClientByEmail(ApplicationPOT.getInstance().getCurrentSession().getM_currentUserEmail());
     }
 
     public void newOrder(float fltAmount, float fltTotalWeight, float fltAdditionalFee, Date dtOrderDate,
@@ -47,7 +49,7 @@ public class MakeAnOrderController {
                          String doorNumber, String postalCode, String locality, String country) {
         try {
             this.m_oOrder = m_oOrderRegistration.newOrder(fltAmount, fltTotalWeight, fltAdditionalFee, dtOrderDate,
-                    strDescription, strStatus, m_strEmail, latitude, longitude, streetName, doorNumber, postalCode, locality, country);
+                    strDescription, strStatus, m_oClient, latitude, longitude, streetName, doorNumber, postalCode, locality, country);
         } catch (RuntimeException ex) {
             this.m_oOrder = null;
         }

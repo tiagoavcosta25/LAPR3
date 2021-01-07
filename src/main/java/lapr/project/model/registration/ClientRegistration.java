@@ -1,14 +1,14 @@
 package lapr.project.model.registration;
 
-import lapr.project.data.DataHandler;
-import lapr.project.model.Address;
-import lapr.project.model.Client;
-import oracle.jdbc.OracleTypes;
-import lapr.project.model.CreditCard;
-import java.sql.CallableStatement;
-import java.sql.Date;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+        import lapr.project.data.DataHandler;
+        import lapr.project.model.Address;
+        import lapr.project.model.Client;
+        import oracle.jdbc.OracleTypes;
+        import lapr.project.model.CreditCard;
+        import java.sql.CallableStatement;
+        import java.sql.Date;
+        import java.sql.ResultSet;
+        import java.sql.SQLException;
 
 public class ClientRegistration extends DataHandler {
 
@@ -86,7 +86,7 @@ public class ClientRegistration extends DataHandler {
         return flag;
     }
 
-    private Client getClientByEmail(String strEmail) {
+    public Client getClientByEmail(String strEmail) {
 
         CallableStatement callStmt = null;
         try {
@@ -102,18 +102,28 @@ public class ClientRegistration extends DataHandler {
             if (rSet.next()) {
 
                 int intId = rSet.getInt(1);
-                String strNif = rSet.getString(2);
-                //Integer intCredits = rSet.getFloat(3);
-                Float fltAdditionalFee = rSet.getFloat(4);
-                Date dtOrderDate = rSet.getDate(5);
-                String strDescription = rSet.getString(6);
-                String strStatus = rSet.getString(7);
+                String strName = rSet.getString(2);
+                String strNif = rSet.getString(3);
+                // String strEmail = rSet.getString(4);
+                String strPassword = rSet.getString(5);
+                Integer intCredits = rSet.getInt(6);
+                Float fltLatitude = rSet.getFloat(7);
+                Float fltLongitude = rSet.getFloat(8);
+                String strStreetName = rSet.getString(9);
+                String strDoorNumber = rSet.getString(10);
+                String strPostalCode = rSet.getString(10);
+                String strLocality = rSet.getString(12);
+                String strCountry = rSet.getString(13);
+                String strCreditCardNr = rSet.getString(14);
+                String strValidatyDate = rSet.getString(15);
+                Integer strCCV = rSet.getInt(16);
 
-                //return new Client(intId, fltAmount, fltTotalWeight, fltAdditionalFee, dtOrderDate, strDescription, strStatus, new Client(), new Address());
+                //return new Client(intId, strName, strNif, strEmail, strPassword, intCredits, fltLatitude, fltLongitude, strStreetName, strDoorNumber, strPostalCode,
+                        //strLocality, strCountry, strCreditCardNr, strValidatyDate, strCCV);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        throw new IllegalArgumentException("No Order with ID:" + strEmail);
+        throw new IllegalArgumentException("No Client with the following email:" + strEmail);
     }
 }
