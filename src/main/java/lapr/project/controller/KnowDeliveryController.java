@@ -30,26 +30,20 @@ public class KnowDeliveryController {
     /**
      * Courier class instance
      */
-    private Courier oCourier;
+    private String oCourierEmail;
 
     /**
      * Order class instance
      */
     private Order oOrder;
 
-
-    public Courier getCourierInfo() {
+    public Order getOrderByCour() {
         this.m_ApplicationPOT = ApplicationPOT.getInstance();
         this.m_oPlatform = m_ApplicationPOT.getPlatform();
         this.m_oSession = m_ApplicationPOT.getCurrentSession();
-        this.oCourier = (Courier) m_oSession.getUserInstance();
+        this.oCourierEmail = m_oSession.getCurrentUserEmail();
         this.oOrderRegistration = this.m_oPlatform.getOrderReg();
-        return oCourier;
-    }
-
-    public Order getOrderByCour() {
-        this.oOrderRegistration = this.m_oPlatform.getOrderReg();
-        this.oOrder = this.oOrderRegistration.getOrderByCourier(oCourier);
+        this.oOrder = this.oOrderRegistration.getOrderByCourier(oCourierEmail);
         return oOrder;
     }
 

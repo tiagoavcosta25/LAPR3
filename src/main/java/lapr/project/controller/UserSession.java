@@ -105,7 +105,4 @@ public class UserSession {
         this.m_role = m_role;
     }
 
-    public User getUserInstance(){
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
 }
