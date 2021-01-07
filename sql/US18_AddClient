@@ -27,11 +27,11 @@ begin
 
 -- Creates a new Credit Card Client
     Insert into CreditCard_Client(CREDITCARDCREDITCARDNR, CLIENTUSERID)
-        Values(creditCardId,userId)
+        Values(creditCardId,userId);
 
 -- Creates a new Client
     Insert into Client(userId,NAME,NIF,CREDITS,ADDRESSID)
-        Values(p_name,p_nif,p_nif,p_credits,addressIdentifier)
+        Values(p_name,p_nif,p_nif,p_credits,addressIdentifier);
 
 
 end;
