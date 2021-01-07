@@ -8,12 +8,11 @@ class Platform {
 }
 
 class Client{
--String name
--Address address
--String gpsLocation
--Integer creditCardNr
--String validityDate
--Integer CCV
+-String name;
+-Address address;
+-Integer creditCardNr;
+-String validityDate;
+-Integer CCV;
 }
 
 abstract class User{
@@ -22,9 +21,13 @@ abstract class User{
 }
 
 class Address{
--String fullAddress
 -float latitude
 -float longitude
+-String streetName
+-String doorNumber
+-String postalCode
+-String locality
+-String country
 }
 
 class Client extends User
