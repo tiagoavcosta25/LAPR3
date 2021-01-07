@@ -1,66 +1,95 @@
 package lapr.project.model;
 
 import java.sql.Date;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.Objects;
 
 public class Invoice {
     private int m_intId;
     private Date m_dtInvoiceDate;
-    private Float m_fltTotalPrice;
-    private Client m_oClient;
-    private Address m_oAddress;
-    private Map<Product, Integer> m_mapProducts;
+    private float m_fltTotalPrice;
+    private Order m_oOrder;
 
     private static int DEFAULT_ID = -1;
-    private static float DEFAULT_AMOUNT = -1;
-    private static float DEFAULT_TOTAL_WEIGHT = -1;
-    private static float DEFAULT_ADDITIONAL_FEE = -1;
     private static Date DEFAULT_DATE = null;
-    private static String DEFAULT_DESCRIPTION = "No Description.";
-    private static String DEFAULT_STATUS = "No Status.";
-    private static Client DEFAULT_CLIENT = new Client();
-    private static Address DEFAULT_ADDRESS = new Address();
-    private static Map<Product, Integer> DEFAULT_PRODUCT_MAP = new TreeMap<>();
+    private static float DEFAULT_TOTAL_PRICE = -1;
+    private static Order DEFAULT_ORDER = new Order();
 
-    public Invoice(int intId, float fltAmount, float fltTotalWeight, float fltAdditionalFee, Date dtOrderDate,
-                 String strDescription, String strStatus, Client oClient, Address oAddress, Map<Product, Integer> mapProducts) {
+    public Invoice(int intId, Date dtInvoiceDate, float fltTotalPrice, Order oOrder) {
         this.m_intId = intId;
-        this.m_fltAmount = fltAmount;
-        this.m_fltTotalWeight = fltTotalWeight;
-        this.m_fltAdditionalFee = fltAdditionalFee;
-        this.m_dtOrderDate = dtOrderDate;
-        this.m_strDescription = strDescription;
-        this.m_strStatus = strStatus;
-        this.m_oClient = oClient;
-        this.m_oAddress = oAddress;
-        this.m_mapProducts = mapProducts;
+        this.m_dtInvoiceDate = dtInvoiceDate;
+        this.m_fltTotalPrice = fltTotalPrice;
+        this.m_oOrder = oOrder;
     }
 
-    public Invoice(float fltAmount, float fltTotalWeight, float fltAdditionalFee, Date dtOrderDate,
-                 String strDescription, String strStatus, Client oClient, Address oAddress, Map<Product, Integer> mapProducts) {
+    public Invoice(Date dtInvoiceDate, float fltTotalPrice, Order oOrder) {
         this.m_intId = DEFAULT_ID;
-        this.m_fltAmount = fltAmount;
-        this.m_fltTotalWeight = fltTotalWeight;
-        this.m_fltAdditionalFee = fltAdditionalFee;
-        this.m_dtOrderDate = dtOrderDate;
-        this.m_strDescription = strDescription;
-        this.m_strStatus = strStatus;
-        this.m_oClient = oClient;
-        this.m_oAddress = oAddress;
-        this.m_mapProducts = mapProducts;
+        this.m_dtInvoiceDate = dtInvoiceDate;
+        this.m_fltTotalPrice = fltTotalPrice;
+        this.m_oOrder = oOrder;
     }
 
     public Invoice() {
         this.m_intId = DEFAULT_ID;
-        this.m_fltAmount = DEFAULT_AMOUNT;
-        this.m_fltTotalWeight = DEFAULT_TOTAL_WEIGHT;
-        this.m_fltAdditionalFee = DEFAULT_ADDITIONAL_FEE;
-        this.m_dtOrderDate = DEFAULT_DATE;
-        this.m_strDescription = DEFAULT_DESCRIPTION;
-        this.m_strStatus = DEFAULT_STATUS;
-        this.m_oClient = DEFAULT_CLIENT;
-        this.m_oAddress = DEFAULT_ADDRESS;
-        this.m_mapProducts = DEFAULT_PRODUCT_MAP;
+        this.m_dtInvoiceDate = DEFAULT_DATE;
+        this.m_fltTotalPrice = DEFAULT_TOTAL_PRICE;
+        this.m_oOrder = DEFAULT_ORDER;
+    }
+
+    public int getM_intId() {
+        return m_intId;
+    }
+
+    public void setM_intId(int m_intId) {
+        this.m_intId = m_intId;
+    }
+
+    public Date getM_dtInvoiceDate() {
+        return m_dtInvoiceDate;
+    }
+
+    public void setM_dtInvoiceDate(Date m_dtInvoiceDate) {
+        this.m_dtInvoiceDate = m_dtInvoiceDate;
+    }
+
+    public float getM_fltTotalPrice() {
+        return m_fltTotalPrice;
+    }
+
+    public void setM_fltTotalPrice(float m_fltTotalPrice) {
+        this.m_fltTotalPrice = m_fltTotalPrice;
+    }
+
+    public Order getM_oOrder() {
+        return m_oOrder;
+    }
+
+    public void setM_oOrder(Order m_oOrder) {
+        this.m_oOrder = m_oOrder;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Invoice invoice = (Invoice) o;
+        return m_intId == invoice.m_intId &&
+                Float.compare(invoice.m_fltTotalPrice, m_fltTotalPrice) == 0 &&
+                m_dtInvoiceDate.equals(invoice.m_dtInvoiceDate) &&
+                m_oOrder.equals(invoice.m_oOrder);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(m_intId, m_dtInvoiceDate, m_fltTotalPrice, m_oOrder);
+    }
+
+    @Override
+    public String toString() {
+        return "Invoice{" +
+                "m_intId=" + m_intId +
+                ", m_dtInvoiceDate=" + m_dtInvoiceDate +
+                ", m_fltTotalPrice=" + m_fltTotalPrice +
+                ", m_oOrder=" + m_oOrder +
+                '}';
     }
 }
