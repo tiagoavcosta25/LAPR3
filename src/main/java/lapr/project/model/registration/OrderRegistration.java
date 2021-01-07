@@ -74,7 +74,7 @@ public class OrderRegistration extends DataHandler {
     }
 
     private void addOrder(float fltAmount, float fltTotalWeight, float fltAdditionalFee, Date dtOrderDate,
-                              String strDescription, String strStatus, Client oClient, Address oAddress, Map<Product, Integer> mapProducts) {
+                          String strDescription, String strStatus, Client oClient, Address oAddress, Map<Product, Integer> mapProducts) {
         try {
             openConnection();
             CallableStatement callStmt = getConnection().prepareCall("{ call addOrder(?,?,?,?,?,?,?,?,?,?,?,?,?,?) }");
@@ -98,8 +98,8 @@ public class OrderRegistration extends DataHandler {
             ResultSet rSet = (ResultSet) callStmt.getObject(1);
             Integer intId = rSet.getInt(1);
 
-            if(intId != null){
-                for (Product oProduct : mapProducts.keySet()){
+            if (intId != null) {
+                for (Product oProduct : mapProducts.keySet()) {
                     callStmt = getConnection().prepareCall("{ call addProductToOrder(?,?,?,?,?,?) }");
 
                     callStmt.setInt(1, intId);
@@ -143,12 +143,13 @@ public class OrderRegistration extends DataHandler {
     }
 
     public Order newOrder(float fltAmount, float fltTotalWeight, float fltAdditionalFee, Date dtOrderDate,
-                         String strDescription, String strStatus, Client oClient, float latitude, float longitude, String streetName,
-                         String doorNumber, String postalCode, String locality, String country, Map<Product, Integer> mapProducts) {
+                          String strDescription, String strStatus, Client oClient, float latitude, float longitude, String streetName,
+                          String doorNumber, String postalCode, String locality, String country, Map<Product, Integer> mapProducts) {
         return new Order(fltAmount, fltTotalWeight, fltAdditionalFee, dtOrderDate,
                 strDescription, strStatus, oClient, new Address(latitude, longitude, streetName, doorNumber, postalCode, locality, country), mapProducts);
     }
-    public Order getOrderByCourier(String strEmail){
+
+    public Order getOrderByCourier(String strEmail) {
 
         CallableStatement callStmt = null;
         try {
@@ -163,22 +164,40 @@ public class OrderRegistration extends DataHandler {
 
             if (rSet.next()) {
 
-                int intId = rSet.getInt(1);
-                // String strEmail = rSet.getString(2);
-                float fltAmount = rSet.getFloat(3);
+                String strDescription = rSet.getString(1);
+                String strStatus = rSet.getString(2);
+                Date dtOrderDate = rSet.getDate(3);
                 float fltTotalWeight = rSet.getFloat(4);
-                float fltAdditionalFee = rSet.getFloat(5);
-                Date dtOrderDate = rSet.getDate(6);
-                String strDescription = rSet.getString(7);
-                String strStatus = rSet.getString(8);
-                Client oClient = new Client();//rSet.getString(9);
-                Address oAddress= new Address();// rSet.getString(10);
-                return new Order(intId, fltAmount, fltTotalWeight, fltAdditionalFee, dtOrderDate, strDescription,
-                        strStatus, oClient,oAddress, new TreeMap<>());
+                float fltAmount = rSet.getFloat(5);
+                float fltAdditionalFee = rSet.getFloat(6);
+                Integer m_credits = rSet.getInt(7);
+                //User
+                Integer id = rSet.getInt(8);
+                String email = rSet.getString(9);
+                String password = rSet.getString(10);
+                Integer nif = rSet.getInt(11);
+                String name = rSet.getString(12);
+                //address
+                float latitude = rSet.getFloat(14);
+                float longitude = rSet.getFloat(15);
+                String doorNumber = rSet.getString(16);
+                String streetName = rSet.getString(17);
+                String postalCode = rSet.getString(18);
+                String locality = rSet.getString(19);
+                String country = rSet.getString(20);
+                //cartao
+                Integer creditCardNr = rSet.getInt(21);
+                Date validityDate = rSet.getDate(22);
+                Integer CCV = rSet.getInt(23);
+
+                Client oClient = new Client(id, name, nif, email, password, m_credits, latitude, longitude, streetName, doorNumber, postalCode, locality, country, creditCardNr, validityDate, CCV);
+                Address oAddress = new Address(latitude, longitude, streetName, doorNumber, postalCode, locality, country);
+                return new Order(fltAmount, fltTotalWeight, fltAdditionalFee, dtOrderDate, strDescription,
+                        strStatus, oClient, oAddress, new Map<Product, Integer>());
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        throw new IllegalArgumentException("No Client with the following email:" + strEmail);
+        throw new IllegalArgumentException("No Order with the following courier email:" + strEmail);
     }
 }

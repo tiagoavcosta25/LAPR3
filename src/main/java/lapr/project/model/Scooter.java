@@ -50,6 +50,16 @@ public class Scooter {
         this.m_oPharmacy = oPharmacy;
     }
 
+    public Scooter(int intId, int intBatteryPerc, int intCharginStatus, int intPotency, int intWeight,
+                   int intBatteryCapacity) {
+        this.m_intId = intId;
+        this.m_intBatteryPerc= intBatteryPerc;
+        this.m_intCharginStatus = intCharginStatus;
+        this.m_intPotency = intPotency;
+        this.m_intWeight = intWeight;
+        this.m_intBatteryCapacity = intBatteryCapacity;
+    }
+
     public int getId() {
         return m_intId;
     }

@@ -12,8 +12,8 @@ create or replace procedure addClient(p_name "User".name%type, p_nif "User".nif%
 begin
 
     -- Creates a new User
-    Insert into "User"(EMAIL, PASSWORD, NIF,NAME)
-    Values (p_email, p_password, p_nif,p_name)
+    Insert into "User"(EMAIL, PASSWORD, NIF, NAME)
+    Values (p_email, p_password, p_nif, p_name)
     returning id into userIdentifier;
 
 -- Creates a new Address
