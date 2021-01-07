@@ -94,7 +94,7 @@ public class ClientRegistration extends DataHandler {
 
         CallableStatement callStmt = null;
         try {
-            callStmt = getConnection().prepareCall("{ ? = call getOrder(?) }");
+            callStmt = getConnection().prepareCall("{ ? = call getClientByEmail(?) }");
 
             callStmt.registerOutParameter(1, OracleTypes.CURSOR);
             callStmt.setString(1, strEmail);
@@ -106,10 +106,10 @@ public class ClientRegistration extends DataHandler {
             if (rSet.next()) {
 
                 int intId = rSet.getInt(1);
-                String strName = rSet.getString(2);
-                Integer strNif = rSet.getInt(3);
-                // String strEmail = rSet.getString(4);
-                String strPassword = rSet.getString(5);
+                // String strEmail = rSet.getString(2);
+                String strPassword = rSet.getString(3);
+                String strName = rSet.getString(4);
+                Integer strNif = rSet.getInt(5);
                 Integer intCredits = rSet.getInt(6);
                 Float fltLatitude = rSet.getFloat(7);
                 Float fltLongitude = rSet.getFloat(8);
