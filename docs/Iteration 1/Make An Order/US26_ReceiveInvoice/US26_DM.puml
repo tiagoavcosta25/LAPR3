@@ -52,6 +52,12 @@ class Invoice{
 -   float amount
 }
 
+class CreditCard{
+-   int creditCardNumber
+-   Date validatyDate
+-   int CCV
+}
+
 Platform "1" -- "*" Client : has registered >
 Platform "1" -- "*" Order : has registered >
 Order "1" -- "*" Product : has >
@@ -61,4 +67,5 @@ Client "1" -- "1" Address : has >
 Order "1" -- "1" Address : has >
 Invoice "1" -- "1" Order : has >
 Invoice "1" -- "*" Product : has >
+Invoice "1" -- "*" CreditCard : is payed using >
 @enduml
