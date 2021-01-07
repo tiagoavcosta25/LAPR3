@@ -44,6 +44,7 @@ package "Registration" #DDDDDD {
 
 package "Model" #DDDDDD {
 abstract class User{
+-Integer id
 -String email
 -String password
 +User(email,password)

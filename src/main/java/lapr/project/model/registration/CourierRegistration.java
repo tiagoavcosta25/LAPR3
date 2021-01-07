@@ -146,7 +146,7 @@ public class CourierRegistration extends DataHandler {
                 float latitude = rSet.getFloat(1);
                 float longitude = rSet.getFloat(2);
                 String streetName = rSet.getString(3);
-                Integer doorNumber = rSet.getInt(4);
+                String doorNumber = rSet.getString(4);
                 String postalCode = rSet.getString(5);
                 String locality = rSet.getString(6);
                 String country = rSet.getString(7);

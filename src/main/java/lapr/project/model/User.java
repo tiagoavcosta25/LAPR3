@@ -16,6 +16,10 @@ package lapr.project.model;
 public abstract class User {
 
     /**
+     * The User's unique id
+     */
+    private Integer m_id;
+    /**
      * The User's email
      */
     private String m_strEmail;
@@ -46,6 +50,19 @@ public abstract class User {
         this.m_strPassword = strPassword;
     }
 
+    /**
+     * A constructor of User that initiates the id, email and password as the ones
+     * given by parameter
+     *
+     * @param id            the User's id
+     * @param strEmail      the User's email
+     * @param strPassword   the User's password
+     */
+    public User(Integer id, String strEmail, String strPassword) {
+        this.m_id = id;
+        this.m_strEmail = strEmail;
+        this.m_strPassword = strPassword;
+    }
 
     /**
      * Returns the User's email
@@ -83,6 +100,13 @@ public abstract class User {
         this.m_strPassword = strPw;
     }
 
+    public Integer getM_id() {
+        return m_id;
+    }
+
+    public void setM_id(Integer m_id) {
+        this.m_id = m_id;
+    }
 
     /**
      * This method is responsible for comparing two Users, basing on it's email and password.
