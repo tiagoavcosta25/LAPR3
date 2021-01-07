@@ -6,18 +6,12 @@ package "UI" #DDDDDD {
 }
 
 package "Controller" #DDDDDD {
-    class RegisterProductController{
+    class ProductInformationController{
         -app
         -plat
         -pr
-        +verifyString(str)
-        +verifyPositiveDouble(doub)
         +verifyProductId(productId)
-        +verifyProductName(productName)
-        +verifyProductDescription(productDescription)
-        +verifyProductUnitaryPrice(unitaryPrice)
-        +verifyProductUnitaryWeight(unitaryWeight)
-        +updateProductFromDB(id, name, description, unitaryPrice, unitaryWeight)
+        +removeProductFromDB(id)
     }
 
     class UserSession {
@@ -46,7 +40,7 @@ package "Model" #DDDDDD {
 
     package "Registration" #DDDDDD {
         class ProductRegistration{
-            +updateProductFromDB(id, name, description, unitaryPrice, unitaryWeight)
+            +removeProductFromDB(id)
         }
     }
 }
@@ -66,10 +60,10 @@ package "Data" #DDDDDD {
 }
 
 
-ProductRegistrationUI ..> RegisterProductController
-RegisterProductController ..> Platform
-RegisterProductController ..> ApplicationPot
-RegisterProductController ..> UserSession
+ProductRegistrationUI ..> ProductInformationController
+ProductInformationController ..> Platform
+ProductInformationController ..> ApplicationPot
+ProductInformationController ..> UserSession
 Platform "1" -- "1" ProductRegistration: has >
 ProductRegistration "1" -- "1..*" Product: Creates >
 class ProductRegistration extends DataHandler

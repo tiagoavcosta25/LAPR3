@@ -13,6 +13,7 @@ abstract class User{
 -String email
 -String password
 -Integer nif
+-String name
 }
 
 
