@@ -10,8 +10,6 @@ class Platform {
 class Pharmacy {
   -int id
   -String name
-  -int parkingSlots
-  -int chargingSlots
 }
 
 class Scooter{

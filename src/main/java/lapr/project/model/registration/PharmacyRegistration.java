@@ -18,8 +18,6 @@ public class PharmacyRegistration extends DataHandler {
      * Registers a new Pharmacy in the Database
      *
      * @param strName           Pharmacy's name
-     * @param intParkingSlots   Pharmacy's parking slots
-     * @param intChargingSlots  Pharmacy's charging slots
      * @return True if Pharmacy was registered, false if otherwise
      */
     public boolean registerNewPharmacy(String strName, float latitude, float longitude, String streetName,

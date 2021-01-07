@@ -9,6 +9,7 @@ public class Scooter {
     private int m_intPotency;
     private int m_intWeight;
     private int m_intBatteryCapacity;
+    private Pharmacy m_oPharmacy;
 
     private static int DEFAULT_ID = -1;
     private static int DEFAULT_BATTERY_PERC = 0;
@@ -16,6 +17,7 @@ public class Scooter {
     private static int DEFAULT_POTENCY = 0;
     private static int DEFAULT_WEIGHT = 0;
     private static int DEFAULT_BATTERY_CAPACITY = 0;
+    private static Pharmacy DEFAULT_PHARMACY = new Pharmacy();
 
     public Scooter() {
         this.m_intId = DEFAULT_ID;
@@ -24,23 +26,28 @@ public class Scooter {
         this.m_intPotency = DEFAULT_POTENCY;
         this.m_intWeight = DEFAULT_WEIGHT;
         this.m_intBatteryCapacity = DEFAULT_BATTERY_CAPACITY;
+        this.m_oPharmacy = DEFAULT_PHARMACY;
     }
 
-    public Scooter(int intId, int intBatteryPerc, int intCharginStatus, int intPotency, int intWeight, int intBatteryCapacity) {
+    public Scooter(int intId, int intBatteryPerc, int intCharginStatus, int intPotency, int intWeight,
+                   int intBatteryCapacity, Pharmacy oPharmacy) {
         this.m_intId = intId;
         this.m_intBatteryPerc= intBatteryPerc;
         this.m_intCharginStatus = intCharginStatus;
         this.m_intPotency = intPotency;
         this.m_intWeight = intWeight;
         this.m_intBatteryCapacity = intBatteryCapacity;
+        this.m_oPharmacy = oPharmacy;
     }
 
-    public Scooter(int intBatteryPerc, int intCharginStatus, int intPotency, int intWeight, int intBatteryCapacity) {
+    public Scooter(int intBatteryPerc, int intCharginStatus, int intPotency, int intWeight,
+                   int intBatteryCapacity, Pharmacy oPharmacy) {
         this.m_intBatteryPerc= intBatteryPerc;
         this.m_intCharginStatus = intCharginStatus;
         this.m_intPotency = intPotency;
         this.m_intWeight = intWeight;
         this.m_intBatteryCapacity = intBatteryCapacity;
+        this.m_oPharmacy = oPharmacy;
     }
 
     public int getId() {
@@ -91,6 +98,14 @@ public class Scooter {
         this.m_intBatteryCapacity = intBatteryCapacity;
     }
 
+    public Pharmacy getPharmacy() {
+        return m_oPharmacy;
+    }
+
+    public void setPharmacy(Pharmacy oPharmacy) {
+        this.m_oPharmacy = oPharmacy;
+    }
+
     @Override
     public String toString() {
         return "Scooter{" +
@@ -100,6 +115,7 @@ public class Scooter {
                 ", Potency = " + m_intPotency +
                 ", Weight = " + m_intWeight +
                 ", Battery Capacity = " + m_intBatteryCapacity +
+                ", Pharmacy = " + m_oPharmacy +
                 '}';
     }
 
