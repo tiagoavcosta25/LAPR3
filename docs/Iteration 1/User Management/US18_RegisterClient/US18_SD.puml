@@ -33,7 +33,7 @@ U -> UI : Fills all the information required
 activate UI
 
 
-UI --> U : Validates, presents the data and asks for a confirmation
+UI --> U : Presents the data and asks for a confirmation
 
 deactivate UI
 U -> UI : Confirms
@@ -83,7 +83,7 @@ deactivate UREG
 
 deactivate CTRL
 
-UI --> U : Informs about the success of the operation
+UI --> U : Validates and informs about the success of the operation
 
 end opt
 
