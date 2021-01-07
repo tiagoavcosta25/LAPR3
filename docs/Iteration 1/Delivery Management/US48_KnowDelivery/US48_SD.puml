@@ -10,8 +10,7 @@ participant "PotApplication" as _APP
 participant "app\n:PotApplication" as APP
 participant "session\n:UserSession" as SESSION
 participant "plat\n:Platform" as PLAT
-participant "courReg\n:CourierRegistration" as COURREG
-participant "ordReg\n:OrdersRegistration" as ORDREG
+participant "ordReg\n:OrderRegistration" as ORDREG
 participant "cour\n:Courier" as C
 participant "order\n:Order" as O
 
@@ -33,17 +32,9 @@ CTRL -> APP: session = getCurrentSession()
 activate APP
 deactivate APP
 
-CTRL -> SESSION: email = getUserEmail()
+CTRL -> SESSION: cour = getUserInstance()
 activate SESSION
 deactivate SESSION
-CTRL -> PLAT : courReg = getCourReg()
-activate PLAT
-deactivate PLAT
-CTRL -> COURREG : cour = getCourByEmail(email)
-activate COURREG
-COURREG -> COURREG : executeQuery(query)
-ref over COURREG : SD_CONNECTIONS
-deactivate COURREG
 deactivate CTRL
 UI -> COUR : Shows the information about the courier, requesting verification
 deactivate UI
@@ -51,7 +42,7 @@ COUR -> UI : Verifies the information
 activate UI
 UI -> CTRL : getOrderByCour()
 activate CTRL
-CTRL -> PLAT : ordReg = getOrdReg()
+CTRL -> PLAT : ordReg = getOrderReg()
 activate PLAT
 deactivate PLAT
 CTRL -> ORDREG : order = getOrderByCourier(cour)

@@ -6,32 +6,27 @@ public class Pharmacy {
 
     private int m_intId;
     private String m_strName;
-    private int m_intParkingSlots;
-    private int m_intChargingSlots;
+    private Address m_oAddress;
 
     private static int DEFAULT_ID = -1;
     private static String DEFAULT_NAME = "";
-    private static int DEFAULT_pARKING_SLOTS = 0;
-    private static int DEFAULT_CHARGING_SLOTS = 0;
+    private static Address DEFAULT_ADDRESS = new Address();
 
     public Pharmacy() {
         this.m_intId = DEFAULT_ID;
         this.m_strName= DEFAULT_NAME;
-        this.m_intParkingSlots = DEFAULT_pARKING_SLOTS;
-        this.m_intChargingSlots = DEFAULT_CHARGING_SLOTS;
+        this.m_oAddress = DEFAULT_ADDRESS;
     }
 
-    public Pharmacy(int intId, String strName, int intParkingSlots, int intChargingSlots) {
+    public Pharmacy(int intId, String strName, Address oAddress) {
         this.m_intId = intId;
         this.m_strName= strName;
-        this.m_intParkingSlots = intParkingSlots;
-        this.m_intChargingSlots = intChargingSlots;
+        this.m_oAddress= oAddress;
     }
 
-    public Pharmacy(String strName, int intParkingSlots, int intChargingSlots) {
+    public Pharmacy(String strName, Address oAddress) {
         this.m_strName= strName;
-        this.m_intParkingSlots = intParkingSlots;
-        this.m_intChargingSlots = intChargingSlots;
+        this.m_oAddress= oAddress;
     }
 
     public int getId() {
@@ -50,30 +45,12 @@ public class Pharmacy {
         this.m_strName = strName;
     }
 
-    public int getParkingSlots() {
-        return m_intParkingSlots;
+    public Address getAddress() {
+        return m_oAddress;
     }
 
-    public void setParkingSlots(int intParkingSlots) {
-        this.m_intParkingSlots = intParkingSlots;
-    }
-
-    public int getChargingSlots() {
-        return m_intChargingSlots;
-    }
-
-    public void setChargingSlots(int intChargingSlots) {
-        this.m_intChargingSlots = intChargingSlots;
-    }
-
-    @Override
-    public String toString() {
-        return "Pharmacy{" +
-                "Id = " + m_intId +
-                ", Name = '" + m_strName + '\'' +
-                ", ParkingSlots = " + m_intParkingSlots +
-                ", ChargingSlots = " + m_intChargingSlots +
-                '}';
+    public void setAddress(Address oAddress) {
+        this.m_oAddress = oAddress;
     }
 
     @Override
@@ -89,4 +66,12 @@ public class Pharmacy {
         return Objects.hash(m_intId);
     }
 
+    @Override
+    public String toString() {
+        return "Pharmacy{" +
+                "m_intId=" + m_intId +
+                ", m_strName='" + m_strName + '\'' +
+                ", m_oAddress=" + m_oAddress +
+                '}';
+    }
 }

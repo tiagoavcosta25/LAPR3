@@ -1,8 +1,6 @@
 package lapr.project.model;
 
 
-import lapr.project.model.registration.CourierRegistration;
-
 public class Courier extends User {
 
     private int m_id;
@@ -33,7 +31,7 @@ public class Courier extends User {
     }
 
 
-    public int getM_id() {
+    public Integer getM_id() {
         return m_id;
     }
 
