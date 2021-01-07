@@ -5,11 +5,12 @@ hide footbox
 actor "Courier" as COUR
 
 participant "CalculateMostEfficientPahtUI" as UI
-participant "CalculateMostEfficientPaht" as CTRL
+participant "CalculateMostEfficientPahtController" as CTRL
 participant "PotApplication" as _APP
 participant "app\n:PotApplication" as APP
 participant "plat\n:Platform" as PLAT
 participant "delReg\n:DeliveryRegistry" as DELREG
+participant "graph\n:Graph<Adress, Double>" as GRAPH
 
 activate COUR
 
@@ -24,10 +25,13 @@ deactivate _APP
 CTRL -> APP: plat = getPlaform()
 activate APP
 deactivate APP
+CTRL -> PLAT : graph = getPathGraph()
+activate PLAT
+deactivate PLAT
 CTRL -> PLAT : delReg = getDelReg()
 activate PLAT
 deactivate PLAT
-CTRL -> DELREG : getShortestPath()
+CTRL -> DELREG : getShortestPath(graph)
 activate DELREG
 deactivate DELREG
 UI -> COUR : Shows the shortest and most efficient path, \ninforming of the success of the operation.

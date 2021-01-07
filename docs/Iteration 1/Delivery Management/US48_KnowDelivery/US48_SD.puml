@@ -11,7 +11,7 @@ participant "app\n:PotApplication" as APP
 participant "session\n:UserSession" as SESSION
 participant "plat\n:Platform" as PLAT
 participant "courReg\n:CourierRegistration" as COURREG
-participant "ordReg\n:OrdersRegistration" as ORDREG
+participant "ordReg\n:OrderRegistration" as ORDREG
 participant "cour\n:Courier" as C
 participant "order\n:Order" as O
 
