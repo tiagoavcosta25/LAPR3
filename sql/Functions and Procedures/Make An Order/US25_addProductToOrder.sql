@@ -1,6 +1,6 @@
 create or replace procedure addOrder(p_orderId "Order".id%type, p_productId PRODUCT.ID%type, p_name PRODUCT.name%type,
-p_description PRODUCT.DESCRIPTION%type, p_unitaryPrice PRODUCT.UNITARYPRICE%type, p_unitaryWeight PRODUCT.UNITARYWEIGHT%type,
-                                    p_quantity ORDERPRODUCT.QUANTITY%type)
+                                    p_description PRODUCT.DESCRIPTION%type, p_unitaryPrice PRODUCT.UNITARYPRICE%type,
+                                    p_unitaryWeight PRODUCT.UNITARYWEIGHT%type, p_quantity ORDERPRODUCT.QUANTITY%type)
     is
     v_checkOrderId CLIENT.USERID%type;
     v_checkProductId number%type;
