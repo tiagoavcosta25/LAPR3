@@ -11,14 +11,14 @@ participant "app\n:PotApplication" as APP
 participant "session\n:UserSession" as SESSION
 participant "plat\n:Platform" as PLAT
 participant "ordReg\n:OrderRegistration" as ORDREG
-participant "cour\n:Courier" as C
 participant "order\n:Order" as O
 
 activate COUR
 
 COUR -> UI : Sends a request regarding what delivery will be done
+
 activate UI
-UI -> CTRL : getCourierInfo()
+UI -> CTRL : getOrderByCour()
 activate CTRL
 CTRL -> _APP: app = getInstance()
 activate _APP
@@ -32,20 +32,14 @@ CTRL -> APP: session = getCurrentSession()
 activate APP
 deactivate APP
 
-CTRL -> SESSION: cour = getUserInstance()
+CTRL -> SESSION: userEmail = getCurrentUserEmail()
 activate SESSION
 deactivate SESSION
-deactivate CTRL
-UI -> COUR : Shows the information about the courier, requesting verification
-deactivate UI
-COUR -> UI : Verifies the information
-activate UI
-UI -> CTRL : getOrderByCour()
-activate CTRL
+
 CTRL -> PLAT : ordReg = getOrderReg()
 activate PLAT
 deactivate PLAT
-CTRL -> ORDREG : order = getOrderByCourier(cour)
+CTRL -> ORDREG : order = getOrderByCourier(cour, email)
 activate ORDREG
 ORDREG -> ORDREG : executeQuery(query)
 ref over ORDREG : SD_CONNECTIONS
