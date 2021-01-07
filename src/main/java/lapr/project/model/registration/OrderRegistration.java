@@ -104,4 +104,7 @@ public class OrderRegistration extends DataHandler {
         return new Order(fltAmount, fltTotalWeight, fltAdditionalFee, dtOrderDate,
                 strDescription, strStatus, oClient, new Address(latitude, longitude, streetName, doorNumber, postalCode, locality, country));
     }
+    public Order getOrderByCourier(Courier oCourier){
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }
