@@ -50,7 +50,7 @@ public class ScooterInformationController {
     public List<Scooter> showScootersList (Pharmacy oPharmacy) {
         try {
             this.m_oPharmacy = m_oPharmacyRegistration.getPharmacy(oPharmacy.getId());
-            return this.m_lstScooters;
+            return m_oScooterRegistration.getScootersList(oPharmacy.getId());
         } catch (RuntimeException ex) {
             return this.m_lstScooters = null;
         }
