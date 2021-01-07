@@ -19,7 +19,7 @@ activate ADMIN
 
 ADMIN -> UI : Sends a request regarding the update of an electric scooter's data
 activate UI
-UI -> CTRL : showScootersList()
+UI -> CTRL : showScootersList(pharmacy)
 activate CTRL
 CTRL -> PA : app = getInstance()
 activate PA
@@ -57,12 +57,12 @@ deactivate UI
 
 ADMIN -> UI : Updates the information
 activate UI
-UI -> CTRL : updateScooter(batteryPerc, chargingStatus,\n potency, weight, batteryCapacity, pharmacyId)
+UI -> CTRL : updateScooter(batteryPerc, chargingStatus,\n potency, weight, batteryCapacity)
 activate CTRL
 CTRL -> PLAT : scootReg = getScootReg()
 activate PLAT
 deactivate PLAT
-CTRL -> RS : updateScooter(batteryPerc, chargingStatus,potency, weight, batteryCapacity, pharmacyId)
+CTRL -> RS : updateScooter(batteryPerc, chargingStatus,potency, weight, batteryCapacity)
 activate RS
 RS -> RS : updateScooterFromDB(scoot)
 ref over RS
