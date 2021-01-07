@@ -2,7 +2,9 @@ package lapr.project.model.registration;
 
 import lapr.project.data.DataHandler;
 import lapr.project.model.Address;
+import lapr.project.model.ChargingSlot;
 import lapr.project.model.Courier;
+import lapr.project.model.Park;
 import oracle.jdbc.OracleTypes;
 
 import java.sql.CallableStatement;
@@ -57,7 +59,7 @@ public class CourierRegistration extends DataHandler {
      * @param strNif  o nome do marinheiro.
      * @param strIban o "rating" do marinheiro.
      */
-    private void addCourierToDB(String strName, String strEmail, String strPassword,String strNif, String strIban) {
+    private void addCourierToDB(String strName, String strEmail, String strPassword, String strNif, String strIban) {
         try {
             openConnection();
             /*
@@ -116,11 +118,11 @@ public class CourierRegistration extends DataHandler {
 
     public Courier newCourier(String strName, String strEmail, String strNIF, String strIBAN) {
         String password = "";
-        return new Courier(strName,strEmail,password,strNIF,strIBAN);
+        return new Courier(strName, strEmail, password, strNIF, strIBAN);
     }
 
     public void registersCourier(Courier oCourier) {
-        addCourierToDB(oCourier.getM_name(),oCourier.getStrEmail(),oCourier.getPw(), oCourier.getM_nif(), oCourier.getM_iban());
+        addCourierToDB(oCourier.getM_name(), oCourier.getStrEmail(), oCourier.getPw(), oCourier.getM_nif(), oCourier.getM_iban());
     }
 
     public Address getDeliveryAddress(String email) {
@@ -159,5 +161,38 @@ public class CourierRegistration extends DataHandler {
             e.printStackTrace();
         }
         throw new IllegalArgumentException("No Address for Courier:" + email);
+    }
+
+    public ChargingSlot getAvailableChargingSlot(String email) {
+        /* Objeto "callStmt" para invocar a função "getSailor" armazenada na BD.
+         *
+         * FUNCTION getSailor(id NUMBER) RETURN pkgSailors.ref_cursor
+         * PACKAGE pkgSailors AS TYPE ref_cursor IS REF CURSOR; END pkgSailors;
+         */
+        CallableStatement callStmt = null;
+        try {
+            callStmt = getConnection().prepareCall("{ ? = call getAvailableChargingSlot(?) }");
+
+            // Regista o tipo de dados SQL para interpretar o resultado obtido.
+            callStmt.registerOutParameter(1, OracleTypes.CURSOR);
+            // Especifica o parâmetro de entrada da função "getSailor".
+            callStmt.setString(1, email);
+
+            // Executa a invocação da função "getSailor".
+            callStmt.execute();
+
+            // Guarda o cursor retornado num objeto "ResultSet".
+            ResultSet rSet = (ResultSet) callStmt.getObject(1);
+
+            if (rSet.next()) {
+                int maxSlotsNumber = rSet.getInt(1);
+                float outputPower = rSet.getFloat(2);
+
+                return new ChargingSlot(new Park(maxSlotsNumber), outputPower);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        throw new IllegalArgumentException("No Charging Slot for Courier: " + email);
     }
 }
