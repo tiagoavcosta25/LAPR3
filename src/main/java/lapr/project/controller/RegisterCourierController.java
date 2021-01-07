@@ -49,7 +49,7 @@ public class RegisterCourierController implements Serializable {
      * @param strNIF   Courier's nif.
      * @param strIBAN  Courier's iban.
      */
-    public void newCourier(String strName, String strEmail, String strNIF, String strIBAN) {
+    public void newCourier(String strName, String strEmail, Integer strNIF, String strIBAN) {
         try {
             oCourierRegistration = m_oPlatform.getCourReg();
             this.oCourier = oCourierRegistration.newCourier(strName, strEmail, strNIF, strIBAN);

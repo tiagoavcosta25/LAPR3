@@ -122,6 +122,33 @@ public class ProductRegistration extends DataHandler {
         return true;
     }
 
+    public List<Product> getAllProducts() {
+        CallableStatement callStmt = null;
+        List<Product> lstProducts = new ArrayList<>();
+        try {
+            callStmt = getConnection().prepareCall("{ ? = call getAllProducts() }");
+
+            callStmt.registerOutParameter(1, OracleTypes.CURSOR);
+            callStmt.execute();
+            ResultSet rSet = (ResultSet) callStmt.getObject(1);
+
+            while(rSet.next()){
+                int intId = rSet.getInt(1);
+                String strName = rSet.getString(2);
+                String strDescription = rSet.getString(3);
+                float fltUnitaryPrice = rSet.getFloat(4);
+                float fltUnitaryWeight = rSet.getFloat(5);
+
+                lstProducts.add(new Product(intId, strName, strDescription, fltUnitaryPrice, fltUnitaryWeight));
+
+                rSet.next();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        throw new IllegalArgumentException("No Products Avaliable.");
+    }
+
     public List<Product> getAvailableProducts() {
         CallableStatement callStmt = null;
         List<Product> lstProducts = new ArrayList<>();
@@ -133,15 +160,15 @@ public class ProductRegistration extends DataHandler {
             ResultSet rSet = (ResultSet) callStmt.getObject(1);
 
             while(rSet.next()){
-                    int intId = rSet.getInt(1);
-                    String strName = rSet.getString(2);
-                    String strDescription = rSet.getString(3);
-                    float fltUnitaryPrice = rSet.getFloat(4);
-                    float fltUnitaryWeight = rSet.getFloat(5);
+                int intId = rSet.getInt(1);
+                String strName = rSet.getString(2);
+                String strDescription = rSet.getString(3);
+                float fltUnitaryPrice = rSet.getFloat(4);
+                float fltUnitaryWeight = rSet.getFloat(5);
 
-                    lstProducts.add(new Product(intId, strName, strDescription, fltUnitaryPrice, fltUnitaryWeight));
+                lstProducts.add(new Product(intId, strName, strDescription, fltUnitaryPrice, fltUnitaryWeight));
 
-                    rSet.next();
+                rSet.next();
             }
         } catch (SQLException e) {
             e.printStackTrace();

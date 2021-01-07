@@ -4,12 +4,15 @@ package lapr.project.model.registration;
 import lapr.project.data.DataHandler;
 import lapr.project.model.Address;
 import lapr.project.model.Pharmacy;
+import lapr.project.model.Product;
 import lapr.project.model.Scooter;
 import oracle.jdbc.OracleTypes;
 
 import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ScooterRegistration extends DataHandler {
 
@@ -45,7 +48,7 @@ public class ScooterRegistration extends DataHandler {
                 String strCountry = rSet.getString(14);
 
                 return new Scooter(intBatteryPerc, intCharginStatus, intPotency, intWeight,
-                intBatteryCapacity, new Pharmacy(intId, strName, new Address(fltLatitude, fltLongitude, strStreetName,
+                        intBatteryCapacity, new Pharmacy(intId, strName, new Address(fltLatitude, fltLongitude, strStreetName,
                         strDoorNumber, strPostalCode, strLocality, strCountry)));
             }
         } catch (SQLException e) {
@@ -125,6 +128,35 @@ public class ScooterRegistration extends DataHandler {
             return false;
         }
         return true;
+    }
+
+    public List<Product> getAvailableProducts() {
+        CallableStatement callStmt = null;
+        List<Scooter> lstScooter = new ArrayList<>();
+        try {
+            callStmt = getConnection().prepareCall("{ ? = call getScootersList() }");
+
+            callStmt.registerOutParameter(1, oracle.jdbc.internal.OracleTypes.CURSOR);
+            callStmt.execute();
+            ResultSet rSet = (ResultSet) callStmt.getObject(1);
+
+            while(rSet.next()){
+                int intId = rSet.getInt(1);
+                int intBatteryPerc = rSet.getInt(2);
+                int intCharginStatus = rSet.getInt(3);
+                int intPotency = rSet.getInt(4);
+                int intWeight = rSet.getInt(5);
+                int intBatteryCapacity = rSet.getInt(6);
+
+                lstScooter.add(new Scooter(intId, intBatteryPerc, intCharginStatus, intPotency, intWeight,
+                        intBatteryCapacity));
+
+                rSet.next();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        throw new IllegalArgumentException("No Scooters Avaliable.");
     }
 
 }
