@@ -7,11 +7,7 @@ class PotApplication
   +getPlatform()
   +getCurrentSession()
 }
-class Database{
-   +static executeQuery(query)
-   +openConnection()
-   +closeAll()
-}
+
 class UserSession
 {
   +getUserEmail()
