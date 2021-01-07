@@ -10,6 +10,10 @@ import java.sql.SQLException;
 public class ClientRegistration extends DataHandler {
 
 
+    public ClientRegistration(String jdbcUrl, String username, String password) {
+        super(jdbcUrl, username, password);
+    }
+
     /**
      * Registers a new Client in the Database
      *
@@ -54,7 +58,7 @@ public class ClientRegistration extends DataHandler {
         try {
             openConnection();
 
-            CallableStatement callStmt = getConnection().prepareCall("{ call addProduct(?,?,?,?,?,?,?,?,?,?,?) }");
+            CallableStatement callStmt = getConnection().prepareCall("{ call addClient(?,?,?,?,?,?,?,?,?,?,?) }");
 
             callStmt.setString(1, name);
             callStmt.setFloat(2, address.getM_latitude());

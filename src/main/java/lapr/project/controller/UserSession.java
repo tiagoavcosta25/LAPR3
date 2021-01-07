@@ -1,5 +1,7 @@
 package lapr.project.controller;
 
+import lapr.project.model.User;
+
 /**
  * The Class that represents the Current Session that is logged on the app
  *

@@ -7,7 +7,7 @@ class ApplicationPOT
 {
   +static getInstance()
   +getPlatform()
-  +setCurrentSession(session)
+  +clearCurrentSession()
 }
 }
 

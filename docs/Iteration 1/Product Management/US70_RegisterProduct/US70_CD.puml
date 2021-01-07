@@ -6,17 +6,18 @@ package "UI" #DDDDDD {
 }
 
 package "Controller" #DDDDDD {
-    class ProductRegistrationController{
-        +addProduct(name,description,price)
-        +updateProduct(product,name,description,price)
-        +deleteProduct(name)
-    }
-}
-
-package "Model" #DDDDDD {
-    class Platform {
-        -String designation
-        +getProductReg()
+    class RegisterProductController{
+        -app
+        -plat
+        -pr
+        +verifyString(str)
+        +verifyPositiveDouble(doub)
+        +verifyProductId(productId)
+        +verifyProductName(productName)
+        +verifyProductDescription(productDescription)
+        +verifyProductUnitaryPrice(unitaryPrice)
+        +verifyProductUnitaryWeight(unitaryWeight)
+        +registerTask(name, description, unitaryPrice, unitaryWeight)
     }
 
     class UserSession {
@@ -27,36 +28,33 @@ package "Model" #DDDDDD {
         +static getInstance()
         +getSessaoAtual()
     }
+}
+
+package "Model" #DDDDDD {
+    class Platform {
+        -String designation
+        +getProductReg()
+    }
 
     class Product{
         -String productId
         -String name
         -String description
-        -Double price
-        +save()
-        +delete()
+        -Double unitaryPrice
+        -Double unitaryWeight
+    }
+
+    package "Registration" #DDDDDD {
+        class ProductRegistration{
+            +registerProduct(name, description, unitaryPrice, unitaryWeight)
+            +addProductToDB(p)
+            +addProductToDB(name, description, unitaryPrice, unitaryWeight)
+        }
     }
 }
 
-package "Registration" #DDDDDD {
-    class ProductRegistration{
-        +newProduct(name,description,price)
-        +validateProduct(product)
-        +addProduct(product)
-        +registerProduct(product)
-    }
-}
 
 package "Data" #DDDDDD {
-    class ProductDB{
-        +getProduct(id)
-        +addProduct(product)
-        +addProduct(productId,name,description,price)
-        +removeProduct(id)
-        +updateProduct(product,name,description,price)
-        +udpdateProduc(productId,name,description,price)
-    }
-
     class DataHandler{
         -jdbcUrl
         -username
@@ -64,20 +62,17 @@ package "Data" #DDDDDD {
         -connection
         -callStmt
         -rSet
-        +scriptRunner(fileName)
         +openConnection()
         +closeAll()
-        +getConnection()
     }
 }
 
 
-ProductRegistrationUI ..> ProductRegistrationController
-ProductRegistrationController ..> Platform
-ProductRegistrationController ..> ApplicationPot
-ProductRegistrationController ..> UserSession
+ProductRegistrationUI ..> RegisterProductController
+RegisterProductController ..> Platform
+RegisterProductController ..> ApplicationPot
+RegisterProductController ..> UserSession
 Platform "1" -- "1" ProductRegistration: has >
 ProductRegistration "1" -- "1..*" Product: Creates >
-Product ..> ProductDB
-ProductDB ..> DataHandler
+class ProductRegistration extends DataHandler
 @enduml

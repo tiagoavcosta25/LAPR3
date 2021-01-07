@@ -21,6 +21,7 @@ abstract class User{
 }
 
 class Address{
+-Integer id
 -float latitude
 -float longitude
 -String streetName
