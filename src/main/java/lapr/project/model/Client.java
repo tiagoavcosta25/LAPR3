@@ -28,6 +28,17 @@ public class Client extends User {
         this.m_creditCard = new CreditCard(creditCardNr,validityDate,CCV);
     }
 
+    public Client(Integer id, String name, Integer nif, String email, String password, Integer credits, float latitude, float longitude, String streetName,
+                  String doorNumber, String postalCode, String locality, String country, Integer creditCardNr,
+                  String validityDate, Integer CCV) {
+        super(id, email, password);
+        this.m_name = name;
+        this.m_nif = nif;
+        this.m_credits = credits;
+        this.m_address = new Address(latitude, longitude, streetName, doorNumber, postalCode, locality, country);
+        this.m_creditCard = new CreditCard(creditCardNr,validityDate,CCV);
+    }
+
     public String getM_name() {
         return m_name;
     }

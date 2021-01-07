@@ -6,7 +6,6 @@ package lapr.project.model.registration;
         import oracle.jdbc.OracleTypes;
         import lapr.project.model.CreditCard;
         import java.sql.CallableStatement;
-        import java.sql.Date;
         import java.sql.ResultSet;
         import java.sql.SQLException;
 
@@ -108,7 +107,7 @@ public class ClientRegistration extends DataHandler {
 
                 int intId = rSet.getInt(1);
                 String strName = rSet.getString(2);
-                String strNif = rSet.getString(3);
+                Integer strNif = rSet.getInt(3);
                 // String strEmail = rSet.getString(4);
                 String strPassword = rSet.getString(5);
                 Integer intCredits = rSet.getInt(6);
@@ -119,12 +118,12 @@ public class ClientRegistration extends DataHandler {
                 String strPostalCode = rSet.getString(10);
                 String strLocality = rSet.getString(12);
                 String strCountry = rSet.getString(13);
-                String strCreditCardNr = rSet.getString(14);
+                Integer strCreditCardNr = rSet.getInt(14);
                 String strValidatyDate = rSet.getString(15);
                 Integer strCCV = rSet.getInt(16);
 
-                //return new Client(intId, strName, strNif, strEmail, strPassword, intCredits, fltLatitude, fltLongitude, strStreetName, strDoorNumber, strPostalCode,
-                        //strLocality, strCountry, strCreditCardNr, strValidatyDate, strCCV);
+                return new Client(intId, strName, strNif, strEmail, strPassword, intCredits, fltLatitude, fltLongitude, strStreetName, strDoorNumber, strPostalCode,
+                        strLocality, strCountry, strCreditCardNr, strValidatyDate, strCCV);
             }
         } catch (SQLException e) {
             e.printStackTrace();
