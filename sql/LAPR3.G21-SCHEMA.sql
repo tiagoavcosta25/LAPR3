@@ -23,7 +23,7 @@ DROP TABLE "User" CASCADE CONSTRAINTS;
 CREATE TABLE Address (id number(10) GENERATED AS IDENTITY, latitude float(10) NOT NULL, longitude float(10) NOT NULL, doorNumber varchar2(255) NOT NULL, streetName varchar2(255) NOT NULL, postalCode varchar2(255) NOT NULL, locality varchar2(255) NOT NULL, country varchar2(255) NOT NULL, PRIMARY KEY (id));
 CREATE TABLE Administrator (Userid number(10) NOT NULL, nif number(10), PRIMARY KEY (Userid));
 CREATE TABLE ChargingSlot (id number(10) GENERATED AS IDENTITY, ParkPharmacyid number(10) NOT NULL, Scooterid number(10) UNIQUE, outputPower float(10) NOT NULL, PRIMARY KEY (id));
-CREATE TABLE Client (Userid number(10) NOT NULL, name varchar2(255) NOT NULL, nif double precision, cardNumber number(10), credits number(10), Invoiceid number(10) NOT NULL, Addressid number(10) NOT NULL, PRIMARY KEY (Userid));
+CREATE TABLE Client (Userid number(10) NOT NULL, name varchar2(255) NOT NULL, nif int, cardNumber number(10), credits number(10), Invoiceid number(10) NOT NULL, Addressid number(10) NOT NULL, PRIMARY KEY (Userid));
 CREATE TABLE Consumption (id number(10) GENERATED AS IDENTITY, Orderid number(10) NOT NULL, PRIMARY KEY (id));
 CREATE TABLE Courier (Userid number(10) NOT NULL, name varchar2(255), nif double precision, iban varchar2(255), PRIMARY KEY (Userid));
 CREATE TABLE Delivery (Orderid number(10) NOT NULL, deliveryDate date, notes varchar2(255), DeliveryRunid number(10) NOT NULL, PRIMARY KEY (Orderid));

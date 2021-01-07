@@ -21,7 +21,7 @@ class RegisterClientUI{
 package "Controller" #DDDDDD {
 class RegisterClientController{
 +validateInput(name,email,password,latitude,longitude,streetName,\ndoorNumber,postalCode,locality,country,creditCardNr,validityDate,CCV)
-+registerNewClient(name,email,password,latitude,longitude,streetName,\ndoorNumber,postalCode,locality,country,creditCardNr,validityDate,CCV)
++registerNewClient(name,nif,email,password,latitude,longitude,streetName,\ndoorNumber,postalCode,locality,country,creditCardNr,validityDate,CCV)
 }
 }
 
@@ -33,7 +33,7 @@ class Platform {
 }
 package "Registration" #DDDDDD {
  class ClientRegistration{
- +registerNewClient(name,email,password,latitude,longitude,streetName,\ndoorNumber,postalCode,locality,country,creditCardNr,validityDate,CCV)
+ +registerNewClient(name,nif,email,password,latitude,longitude,streetName,\ndoorNumber,postalCode,locality,country,creditCardNr,validityDate,CCV)
  +addClientToDB(client)
  }
  }
@@ -57,7 +57,7 @@ class Client{
 -Integer creditCardNr;
 -String validityDate;
 -Integer CCV;
-+Client(name,email,password,latitude,longitude,streetName,doorNumber,postalCode,locality,country,
++Client(name,nif,email,password,latitude,longitude,streetName,doorNumber,postalCode,locality,country,
                         creditCardNr,validityDate,CCV)
 }
 

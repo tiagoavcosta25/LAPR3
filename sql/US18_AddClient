@@ -1,0 +1,56 @@
+create or replace procedure addClient(name Client.name%type, latitude Address.latitude%type, longitude Address.longitude%type,
+streetName Address.streetName%type, doorNumber Address.doorNumber%type, postalCode Address.postalCode%type, locality Address.locality%type,
+country Address.country%type, creditCardNr Client.cardNumber%type,  validityDate Client.validityDate%type, ccv Client.CCV%type)
+is
+    curs sys_refcursor;
+    id_cam camareira.id%type;
+    bonus_valor number;
+    mes_invalido exception;
+    ano_invalido exception;
+begin
+
+    if (mes <= 0 or mes > 12) then
+    raise mes_invalido;
+    end if;
+
+    if (ano <= 0 or ano > extract(year from sysdate)) then
+    raise ano_invalido;
+    end if;
+
+-- SELECIONA TODAS AS CAMAREIRAS (ID) E RESPETIVOS VALORES TOTAIS DE CONSUMO NUM CERTO ANO E M�S
+
+    open curs for
+        select lc.id_camareira, SUM(lc.quantidade*lc.preco_unitario)
+        from linha_conta_consumo lc inner join camareira c on c.id = lc.id_camareira
+                                    where EXTRACT(YEAR FROM lc.data_registo) = ano and EXTRACT(MONTH FROM lc.data_registo) = mes
+                                    group by lc.id_camareira;
+
+-- PERCORRE TODOS AS CAMAREIRAS E RESPETIVOS VALORES TOTAIS DE CONSUMO NUM CERTO ANO E M�S
+-- E, SEGUIDAMENTE, ATRIBUI UM VALOR AO B�NUS DEPENDENDO DO VALOR DE CONSUMOS.
+    loop
+            fetch curs into id_cam, bonus_valor;
+            exit when curs%notfound;
+            if (bonus_valor > 1000) then
+            bonus_valor := 0.15*bonus_valor;
+            elsif(bonus_valor >= 500) then
+            bonus_valor := 0.10*bonus_valor;
+            elsif(bonus_valor > 100) then
+            bonus_valor := 0.05*bonus_valor;
+            else
+            bonus_valor := 0;
+            end if;
+
+            update camareira
+                set bonus = bonus_valor
+                where id_cam = camareira.id;
+    end loop;
+
+    close curs;
+
+    EXCEPTION
+    when mes_invalido then
+    raise_application_error(-20025, 'M�s Inv�lido!');
+    when ano_invalido then
+    raise_application_error(-20026, 'Ano Inv�lido!');
+
+end;

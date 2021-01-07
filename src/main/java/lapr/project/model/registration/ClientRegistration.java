@@ -58,7 +58,7 @@ public class ClientRegistration extends DataHandler {
         try {
             openConnection();
 
-            CallableStatement callStmt = getConnection().prepareCall("{ call addProduct(?,?,?,?,?,?,?,?,?,?,?) }");
+            CallableStatement callStmt = getConnection().prepareCall("{ call addClient(?,?,?,?,?,?,?,?,?,?,?) }");
 
             callStmt.setString(1, name);
             callStmt.setFloat(2, address.getM_latitude());
