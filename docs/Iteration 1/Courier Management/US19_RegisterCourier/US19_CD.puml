@@ -1,31 +1,33 @@
 @startuml
 skinparam classAttributeIconSize 0
 
-
+package "UI" #DDDDDD{
 class RegisterCourierUI {
     
 }
-
+}
+package "controller" #DDDDDD{
 class RegisterCourierController {
     
   +newCourier(id, name, email, nif, iban, address)
   +registersCourier()
 }
-
+class PotApplication
+  {
+    +static getInstance()
+    +getPlatform()
+    +getCurrentSession()
+  }
+class UserSession
+  {
+    +getUserEmail()
+  }
+}
+package "model" #DDDDDD{
 class Platform {
   -String strDesignation
   +getCourReg()
-  +CourierDB getCourDB()
 }
-
-class CourierRegistration {
-
-  +generatePassword()
-  +Courier newCourier(name, email, nif, iban, address)
-  +registersCourier(courier)
-
-}
-
 
 class Courier {
     -int id
@@ -39,28 +41,33 @@ class Courier {
 }
 
 class Address{
- -String fullAddress
- -String postalCode
- -String locality
- -String country
- -float longitude
- -float latitude
+  -String fullAddress
+  -String postalCode
+  -String locality
+  -String country
+  -float longitude
+  -float latitude
 
-  +Address(fullAddress,postalCode,locality,country,longitude,latitude)
+   +Address(fullAddress,postalCode,locality,country,longitude,latitude)
+
+ }
+
+package "registration" #DDDDDD{
+class CourierRegistration {
+
+  +generatePassword()
+  +Courier newCourier(name, email, nif, iban, address)
+  +registersCourier(courier)
 
 }
-
-class PotApplication
-{
-  +static getInstance()
-  +getPlatform()
-  +getCurrentSession()
+}
 }
 
-class UserSession
-{
-  +getUserEmail()
-}
+
+
+
+
+
 
 Platform "1" -- "1" CourierRegistration: has >
 
