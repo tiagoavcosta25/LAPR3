@@ -3,8 +3,12 @@ package lapr.project.model.registration;
 import lapr.project.data.DataHandler;
 import lapr.project.model.Address;
 import lapr.project.model.Client;
+import lapr.project.model.Order;
+import oracle.jdbc.OracleTypes;
 
 import java.sql.CallableStatement;
+import java.sql.Date;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class ClientRegistration extends DataHandler {
@@ -80,5 +84,38 @@ public class ClientRegistration extends DataHandler {
             e.printStackTrace();
         }
         return flag;
+    }
+
+    private Client getClientByEmail(String strEmail) {
+
+        CallableStatement callStmt = null;
+        try {
+            callStmt = getConnection().prepareCall("{ ? = call getOrder(?) }");
+
+            callStmt.registerOutParameter(1, OracleTypes.CURSOR);
+            callStmt.setString(1, strEmail);
+
+            callStmt.execute();
+
+            ResultSet rSet = (ResultSet) callStmt.getObject(1);
+
+            if (rSet.next()) {
+
+                int intId = rSet.getInt(1);
+                String strNif = rSet.getString(2);
+                Integer intCredits = rSet.getFloat(3);
+                Add fltAdditionalFee = rSet.getFloat(4);
+                Date dtOrderDate = rSet.getDate(5);
+                String strDescription = rSet.getString(6);
+                String strStatus = rSet.getString(7);
+
+                // FALTA: getAddressById e getClientById
+
+                return new Client(intId, fltAmount, fltTotalWeight, fltAdditionalFee, dtOrderDate, strDescription, strStatus, new Client(), new Address());
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        throw new IllegalArgumentException("No Order with ID:" + id);
     }
 }

@@ -17,12 +17,12 @@ public class Order {
     private Address m_oAddress;
 
     private static int DEFAULT_ID = -1;
-    private static float DEFAULT_AMOUNT = 0;
-    private static float DEFAULT_TOTAL_WEIGHT = 0;
-    private static float DEFAULT_ADDITIONAL_FEE = 0;
+    private static float DEFAULT_AMOUNT = -1;
+    private static float DEFAULT_TOTAL_WEIGHT = -1;
+    private static float DEFAULT_ADDITIONAL_FEE = -1;
     private static Date DEFAULT_DATE = null;
-    private static String DEFAULT_DESCRIPTION = "";
-    private static String DEFAULT_STATUS = "";
+    private static String DEFAULT_DESCRIPTION = "No Description.";
+    private static String DEFAULT_STATUS = "No Status.";
     private static Client DEFAULT_CLIENT = new Client();
     private static Address DEFAULT_ADDRESS = new Address();
 
