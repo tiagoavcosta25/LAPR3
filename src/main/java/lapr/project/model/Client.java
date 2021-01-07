@@ -1,5 +1,7 @@
 package lapr.project.model;
 
+import java.util.Date;
+
 public class Client extends User {
 
     private String m_name;
@@ -17,7 +19,7 @@ public class Client extends User {
 
     public Client(String name, Integer nif, String email, String password, float latitude, float longitude, String streetName,
                   String doorNumber, String postalCode, String locality, String country, Integer creditCardNr,
-                  String validityDate, Integer CCV) {
+                  Date validityDate, Integer CCV) {
         super(email, password,nif);
         this.m_name = name;
         this.m_credits = 0;
@@ -27,7 +29,7 @@ public class Client extends User {
 
     public Client(Integer id, String name, Integer nif, String email, String password, Integer credits, float latitude, float longitude, String streetName,
                   String doorNumber, String postalCode, String locality, String country, Integer creditCardNr,
-                  String validityDate, Integer CCV) {
+                  Date validityDate, Integer CCV) {
         super(id, email, password,nif);
         this.m_name = name;
         this.m_credits = credits;
