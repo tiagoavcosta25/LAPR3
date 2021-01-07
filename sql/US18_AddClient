@@ -3,66 +3,35 @@ create or replace procedure addClient(p_name Client.name%type, p_nif Client.nif%
 p_latitude Address.latitude%type, p_longitude Address.longitude%type,
 p_streetName Address.streetName%type, p_doorNumber Address.doorNumber%type, p_postalCode Address.postalCode%type, p_locality Address.locality%type,
 p_country Address.country%type, p_creditCardNr CreditCard.creditCardNr%type,  p_validityDate CreditCard.validityDate%type, p_ccv CreditCard.CCV%type,
-email "User".email%type, p_password "User".password%type)
+p_email "User".email%type, p_password "User".password%type)
 is
-    curs sys_refcursor;
-    bonus_valor number;
-    mes_invalido exception;
-    ano_invalido exception;
+    userId "User".id%type;
+    addressIdentifier Address.id%type;
+    creditCardId CreditCard.creditCardNr%type;
 begin
 
-    if (mes <= 0 or mes > 12) then
-    raise mes_invalido;
-    end if;
+-- Creates a new User
+    Insert into "User"(EMAIL,PASSWORD)
+        Values(p_email,p_password)
+        returning id into userId;
 
-    if (ano <= 0 or ano > extract(year from sysdate)) then
-    raise ano_invalido;
-    end if;
+-- Creates a new Address
+    Insert into Address(LATITUDE,LONGITUDE,DOORNUMBER,STREETNAME,POSTALCODE,LOCALITY,COUNTRY)
+        Values(p_latitude,p_longitude,p_doorNumber,p_streetName,p_postalCode,p_locality,p_country)
+        returning id into addressIdentifier;
 
--- SELECIONA TODAS AS CAMAREIRAS (ID) E RESPETIVOS VALORES TOTAIS DE CONSUMO NUM CERTO ANO E M�S
+-- Creates a new Credit Card
+    Insert into CreditCard(CREDITCARDNR,VALIDITYDATE,CCV)
+        Values(p_creditCardNr,p_validityDate,p_ccv)
+        returning CREDITCARDNR into creditCardId;
 
-    Insert into "User"
-        Values(email,password);
+-- Creates a new Credit Card Client
+    Insert into CreditCard_Client(CREDITCARDCREDITCARDNR, CLIENTUSERID)
+        Values(creditCardId,userId)
 
-    select id
-    from "User" where "User".email = email;
+-- Creates a new Client
+    Insert into Client(userId,NAME,NIF,CREDITS,ADDRESSID)
+        Values(p_name,p_nif,p_nif,p_credits,addressIdentifier)
 
-
-
-
-
-    open curs for
-        select lc.id_camareira, SUM(lc.quantidade*lc.preco_unitario)
-        from linha_conta_consumo lc inner join camareira c on c.id = lc.id_camareira
-                                    where EXTRACT(YEAR FROM lc.data_registo) = ano and EXTRACT(MONTH FROM lc.data_registo) = mes
-                                    group by lc.id_camareira;
-
--- PERCORRE TODOS AS CAMAREIRAS E RESPETIVOS VALORES TOTAIS DE CONSUMO NUM CERTO ANO E M�S
--- E, SEGUIDAMENTE, ATRIBUI UM VALOR AO B�NUS DEPENDENDO DO VALOR DE CONSUMOS.
-    loop
-            fetch curs into id_cam, bonus_valor;
-            exit when curs%notfound;
-            if (bonus_valor > 1000) then
-            bonus_valor := 0.15*bonus_valor;
-            elsif(bonus_valor >= 500) then
-            bonus_valor := 0.10*bonus_valor;
-            elsif(bonus_valor > 100) then
-            bonus_valor := 0.05*bonus_valor;
-            else
-            bonus_valor := 0;
-            end if;
-
-            update camareira
-                set bonus = bonus_valor
-                where id_cam = camareira.id;
-    end loop;
-
-    close curs;
-
-    EXCEPTION
-    when mes_invalido then
-    raise_application_error(-20025, 'M�s Inv�lido!');
-    when ano_invalido then
-    raise_application_error(-20026, 'Ano Inv�lido!');
 
 end;
