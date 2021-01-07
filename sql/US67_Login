@@ -1,0 +1,31 @@
+
+create or replace procedure logIn(p_email "User".email%type, p_password "User".password%type)
+is
+    userId "User".id%type;
+    addressIdentifier Address.id%type;
+    creditCardId CreditCard.creditCardNr%type;
+begin
+
+-- Checks if User exists
+    select id
+
+-- Creates a new Address
+    Insert into Address(LATITUDE,LONGITUDE,DOORNUMBER,STREETNAME,POSTALCODE,LOCALITY,COUNTRY)
+        Values(p_latitude,p_longitude,p_doorNumber,p_streetName,p_postalCode,p_locality,p_country)
+        returning id into addressIdentifier;
+
+-- Creates a new Credit Card
+    Insert into CreditCard(CREDITCARDNR,VALIDITYDATE,CCV)
+        Values(p_creditCardNr,p_validityDate,p_ccv)
+        returning CREDITCARDNR into creditCardId;
+
+-- Creates a new Credit Card Client
+    Insert into CreditCard_Client(CREDITCARDCREDITCARDNR, CLIENTUSERID)
+        Values(creditCardId,userId);
+
+-- Creates a new Client
+    Insert into Client(userId,NAME,NIF,CREDITS,ADDRESSID)
+        Values(p_name,p_nif,p_nif,p_credits,addressIdentifier);
+
+
+end;

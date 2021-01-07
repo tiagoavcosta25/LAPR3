@@ -3,5 +3,7 @@
   <component name="SqlDialectMappings">
     <file url="file://$PROJECT_DIR$/sql/LAPR3.G21-SCHEMA.sql" dialect="Oracle" />
     <file url="file://$PROJECT_DIR$/sql/US18_AddClient" dialect="Oracle" />
+    <file url="file://$PROJECT_DIR$/sql/US67_Login" dialect="Oracle" />
+    <file url="file://$PROJECT_DIR$/src/main/java/lapr/project/model/registration/ClientRegistration.java" dialect="GenericSQL" />
   </component>
 </project>
