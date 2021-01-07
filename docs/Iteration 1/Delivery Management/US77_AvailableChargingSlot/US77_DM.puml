@@ -18,6 +18,16 @@ class Park{
 -int maxSlotsNumber
 }
 
+class ParkingSlot{
+-int id
+-int maxSlotsNumber
+}
+
+class ChargingSlot{
+-int id
+-int maxSlotsNumber
+}
+
 class Courier {
       -String id
       -String name
@@ -28,4 +38,6 @@ class Courier {
 Platform "1" -- "*" Courier : has registered >
 Courier "1" -- "*" Pharmacy : is associated to >
 Pharmacy "1" -- "1" Park : has >
+Park "1" -- "1" ParkingSlot : has >
+Park "1" -- "1" ChargingSlot : has >
 @enduml

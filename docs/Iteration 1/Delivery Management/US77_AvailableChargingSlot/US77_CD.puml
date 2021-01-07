@@ -3,14 +3,14 @@ skinparam classAttributeIconSize 0
 
 
 package "UI" #DDDDDD{
-class DeliveryAddressUI {
+class AvailableChargingSlotUI {
     
 }
 }
 package "controller" #DDDDDD{
-class DeliveryAddressController {
+class AvailableChargingSlotController {
     
-  +getDeliveryAddress()
+  +getAvailableChargingSlot()
 }
 class PotApplication
 {
@@ -33,7 +33,7 @@ class Platform {
 package "registration" #DDDDDD{
 class CourierRegistration {
 
-  +getDeliveryAddress(email)
+  +getAvailableChargingSlot(email)
 
 }
 }
@@ -43,12 +43,12 @@ class CourierRegistration {
 Platform "1" -- "1" CourierRegistration: has >
 
 
-DeliveryAddressUI ..> DeliveryAddressController
+AvailableChargingSlotUI ..> AvailableChargingSlotController
 
-DeliveryAddressController ..> Platform
-DeliveryAddressController ..> CourierRegistration
-DeliveryAddressController ..> PotApplication
-DeliveryAddressController ..> UserSession
+AvailableChargingSlotController ..> Platform
+AvailableChargingSlotController ..> CourierRegistration
+AvailableChargingSlotController ..> PotApplication
+AvailableChargingSlotController ..> UserSession
 
 
 @enduml
