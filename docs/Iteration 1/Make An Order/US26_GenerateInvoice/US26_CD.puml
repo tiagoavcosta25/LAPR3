@@ -2,14 +2,14 @@
 skinparam classAttributeIconSize 0
 
 package "UI" #DDDDDD {
-class MakeAnOrderUI{
+class GenerateInvoiceUI{
 
 }
 }
 
 
 package "Controller" #DDDDDD {
-class MakeAnOrderController{
+class GenerateInvoiceController{
 +registerNewUser(name,email,password,address,gpsLocation,creditCardNr,validityDate,CCV)
 }
 
@@ -36,19 +36,17 @@ class Platform {
 package "Registration" #DDDDDD {
  class ClientRegistration{
      +getUserByEmail(email)
-     +getConnection()
  }
 
- class ProductRegistration{
-      +getAvailableProduts()
-      +getConnection()
-  }
-
   class OrderRegistration{
-       +addOrder(address, amount, additionalFee, dateOrder, description, mapProducts, client)
-       +validateOrder(order)
-       +getConnection()
+       +getLatestOrder()
    }
+
+   class InvoiceRegistration{
+          +addInvoice(date, totalPrice, order, client)
+          +validateInvoice()
+          +registerInvoice()
+      }
  }
 }
 
@@ -75,7 +73,6 @@ class Address{
 -   String country
 -   float longitude
 -   float latitude
-+create(streetName,doorNumber,locality,country,longitude,longitude)
 }
 
 class Order{
@@ -86,7 +83,7 @@ class Order{
 -   Date orderDate
 -   String description
 -   String status
-+create(amount, additionalFee, dateOrder, description, mapProducts, client, streetName,doorNumber,locality,country,longitude,longitude)
++create(date, totalPrice, order, client)
 }
 
 class Product{
@@ -95,6 +92,17 @@ class Product{
 -   String description
 -   float unitaryPrice
 -   float unitaryWeight
+}
+
+class Invoice{
+-   Date orderDate
+-   float amount
+}
+
+class CreditCard{
+-   int creditCardNumber
+-   Date validatyDate
+-   int CCV
 }
 
 }
@@ -108,18 +116,20 @@ class DataHandler{
 }
 
 class ClientRegistration extends DataHandler
-class ProductRegistration extends DataHandler
+class InvoiceRegistration extends DataHandler
 class OrderRegistration extends DataHandler
 
 class Client extends User
 
-MakeAnOrderUI ..> MakeAnOrderController
-MakeAnOrderController ..> Platform
-MakeAnOrderController ..> ApplicationPOT
-MakeAnOrderController ..> UserSession
+GenerateInvoiceUI ..> GenerateInvoiceController
+GenerateInvoiceController ..> Platform
+GenerateInvoiceController ..> ApplicationPOT
+GenerateInvoiceController ..> UserSession
 Platform "1" --> "1" ClientRegistration : has
+Platform "1" --> "1" OrderRegistration : has
+Platform "1" --> "1" InvoiceRegistration : has
 ClientRegistration "1" --> "*" Client : manages
-ProductRegistration "1" --> "*" Product : manages
+InvoiceRegistration "1" --> "*" Invoice : manages
 OrderRegistration "1" --> "*" Order : manages
 
 Platform "1" -- "*" Client : has registered >
@@ -128,5 +138,8 @@ Order "1" -- "*" Product : has >
 Client "1" -- "1" Order : makes >
 Client "1" -- "1" Address : has >
 Order "1" -- "1" Address : has >
+Invoice "1" -- "1" Order : has >
+Invoice "1" -- "*" Product : has >
+Invoice "1" -- "*" CreditCard : is payed using >
 
 @enduml

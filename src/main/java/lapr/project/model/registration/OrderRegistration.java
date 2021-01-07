@@ -48,7 +48,7 @@ public class OrderRegistration extends DataHandler {
                 String strClientPostalCode = rSet.getString(16);
                 String strClientLocality = rSet.getString(17);
                 String strClientCountry = rSet.getString(18);
-                Integer strCreditCardNr = rSet.getInt(19);
+                Double dblCreditCardNr = rSet.getDouble(19);
                 java.util.Date dtValidatyDate = rSet.getDate(20);
                 Integer strCCV = rSet.getInt(21);
                 Float fltOrderLatitude = rSet.getFloat(22);
@@ -63,7 +63,7 @@ public class OrderRegistration extends DataHandler {
 
                 return new Order(intId, fltAmount, fltTotalWeight, fltAdditionalFee, dtOrderDate, strDescription, strStatus,
                         new Client(strName, intNIF, strEmail, strPassword, fltClientLatitude, fltClientLongitude, strClientStreetName, strClientDoorNumber,
-                                strClientPostalCode, strClientLocality, strClientCountry, strCreditCardNr, dtValidatyDate, strCCV),
+                                strClientPostalCode, strClientLocality, strClientCountry, dblCreditCardNr, dtValidatyDate, strCCV),
                         new Address(fltOrderLatitude, fltOrderLongitude, strOrderStreetName, strOrderDoorNumber, strOrderPostalCode,
                                 strOrderLocality, strOrderCountry), new TreeMap<>());
             }
