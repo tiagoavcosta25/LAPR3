@@ -1,6 +1,7 @@
 package lapr.project.controller;
 
 import lapr.project.model.Courier;
+import lapr.project.model.Platform;
 import lapr.project.model.registration.CourierRegistration;
 
 import java.io.Serializable;
@@ -48,7 +49,7 @@ public class RegisterCourierController implements Serializable {
      * @param strNIF   Courier's nif.
      * @param strIBAN  Courier's iban.
      */
-    public void newFreelancer(String strName, String strEmail, String strNIF, String strIBAN) {
+    public void newCourier(String strName, String strEmail, String strNIF, String strIBAN) {
         try {
             oCourierRegistration = m_oPlatform.getCourReg();
             this.oCourier = oCourierRegistration.newCourier(strName, strEmail, strNIF, strIBAN);
@@ -60,8 +61,9 @@ public class RegisterCourierController implements Serializable {
     /**
      * The method adds a Freelancer to the Organization of the current user.
      */
-    public void registersFreelancer() {
+    public void registersCourier() {
         m_oPlatform.getCourReg().registersCourier(this.oCourier);
     }
+
 }
 

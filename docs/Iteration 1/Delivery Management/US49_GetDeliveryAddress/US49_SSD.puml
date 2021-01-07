@@ -1,0 +1,12 @@
+@startuml
+autonumber
+actor "Courier" as CR
+
+activate CR
+CR -> ":System" : wants to know the delivery place of the order he's doing
+activate ":System"
+":System" --> CR : presents the data of the address of the delivery place
+deactivate ":System"
+
+deactivate CR
+@enduml
