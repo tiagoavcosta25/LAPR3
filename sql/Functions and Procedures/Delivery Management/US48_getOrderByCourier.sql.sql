@@ -3,7 +3,7 @@ create or replace function getOrderByCourier(p_email "User".EMAIL%type) RETURN S
     order_not_found exception;
 begin
     open v_order for
-        select O.ID, O.DESCRIPTION, O.ORDERSTATUS, O.ORDERDATE, O.TOTALWEIGHT, O.AMOUNT, O.ADDITIONALFEE,
+        select O.DESCRIPTION, O.ORDERSTATUS, O.ORDERDATE, O.TOTALWEIGHT, O.AMOUNT, O.ADDITIONALFEE,
                C.CREDITS, U.*, A.*, CC.*
         from "Order" O
                  inner join CLIENT C on C.USERID = O.CLIENTID
