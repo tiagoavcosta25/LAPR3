@@ -10,8 +10,8 @@ class UpdateScooterUI{
 
 package "Controller" #DDDDDD {
 class UpdateScooterController{
-+newScooter(batteryPerc, charginStatus, potency,\n weight, batteryCapacity, pharmacy)
-+registersScooter()
++updateScooter(batteryPerc, charginStatus, potency,\n weight, batteryCapacity, pharmacy)
++showScootersList(pharmacy)
 }
 
 class ApplicationPOT

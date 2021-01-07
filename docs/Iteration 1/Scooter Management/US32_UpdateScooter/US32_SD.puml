@@ -9,9 +9,7 @@ participant "app \n:PotApplication" as APA
 participant "session \n:UserSession" as US
 participant "plat \n:Platform" as PLAT
 participant "pharmReg \n:PharmacyRegistration" as PH
-participant "pharm \n:Pharmacy" as PHARM
 participant "scootReg \n:ScooterRegistration" as RS
-participant "scoot: Scooter" as SC
 
 
 
@@ -42,9 +40,12 @@ ref over PH
 SD_Connections
 end ref
 deactivate PH
-CTRL -> PHARM : scootersList = getScootersList(pharmacy)
-activate PHARM
-deactivate PHARM
+CTRL -> PH : scootersList = getScootersList(pharmacy)
+activate PH
+ref over PH
+SD_Connections
+end ref
+deactivate PH
 deactivate CTRL
 UI -> ADMIN : Shows the list of eletric scooters and asks to choose one
 deactivate UI
