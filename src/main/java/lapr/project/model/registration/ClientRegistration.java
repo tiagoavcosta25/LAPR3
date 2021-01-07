@@ -109,13 +109,11 @@ public class ClientRegistration extends DataHandler {
                 String strDescription = rSet.getString(6);
                 String strStatus = rSet.getString(7);
 
-                // FALTA: getAddressById e getClientById
-
                 //return new Client(intId, fltAmount, fltTotalWeight, fltAdditionalFee, dtOrderDate, strDescription, strStatus, new Client(), new Address());
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        throw new IllegalArgumentException("No Order with ID:" + id);
+        throw new IllegalArgumentException("No Order with ID:" + strEmail);
     }
 }
