@@ -34,7 +34,7 @@ class Platform {
 package "Registration" #DDDDDD {
  class UserRegistration{
  +login(email,password)
- +checkIfUserExistsInDB(user)
+ +checkIfUserExistsInDB(user,password)
  }
  }
 }

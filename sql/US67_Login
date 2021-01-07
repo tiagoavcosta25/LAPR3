@@ -1,31 +1,48 @@
-
-create or replace procedure logIn(p_email "User".email%type, p_password "User".password%type)
-is
-    userId "User".id%type;
-    addressIdentifier Address.id%type;
-    creditCardId CreditCard.creditCardNr%type;
+create or replace procedure logIn(p_email "User".email%type, p_password "User".password%type, userType OUT int)
+    is
+    userIdentifier "User".id%type;
+    user_not_found exception;
 begin
 
--- Checks if User exists
+    -- Checks if User exists and if the password given by parameter matches
     select id
+    into userIdentifier
+    from "User"
+    where email = p_email
+      and password = p_password;
 
--- Creates a new Address
-    Insert into Address(LATITUDE,LONGITUDE,DOORNUMBER,STREETNAME,POSTALCODE,LOCALITY,COUNTRY)
-        Values(p_latitude,p_longitude,p_doorNumber,p_streetName,p_postalCode,p_locality,p_country)
-        returning id into addressIdentifier;
+    if userIdentifier is null then
+        raise user_not_found;
+    end if;
 
--- Creates a new Credit Card
-    Insert into CreditCard(CREDITCARDNR,VALIDITYDATE,CCV)
-        Values(p_creditCardNr,p_validityDate,p_ccv)
-        returning CREDITCARDNR into creditCardId;
+    -- Client
+    select USERID
+    into userType
+    from Client
+    where USERID = userIdentifier;
 
--- Creates a new Credit Card Client
-    Insert into CreditCard_Client(CREDITCARDCREDITCARDNR, CLIENTUSERID)
-        Values(creditCardId,userId);
+    -- 1 : Is a Client
+    -- 2 : Is an Admin
+    -- 3 : Is a Courier
+    if userType is null then
+        select USERID
+        into userType
+        from ADMINISTRATOR
+        where USERID = userIdentifier;
 
--- Creates a new Client
-    Insert into Client(userId,NAME,NIF,CREDITS,ADDRESSID)
-        Values(p_name,p_nif,p_nif,p_credits,addressIdentifier);
+        if userType is null then
+            userType = 3;
+        else
+            userType = 2;
+        end if;
 
+    else
+        userType = 1;
+    end if;
+
+
+EXCEPTION
+    when user_not_found then
+        raise_application_error(-20025, 'User Not Found!');
 
 end;

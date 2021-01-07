@@ -10,8 +10,9 @@ participant "LoginController" as CTRL
 
 participant "userReg\n:UserRegistration" as UREG
 participant "ApplicationPOT" as _APP
-participant "app\n:ApplicationPOT" as APP
 participant "session\n:UserSession" as SES
+participant "app\n:ApplicationPOT" as APP
+
 participant "plat\n:Platform" as PLAT
 participant "user\n:User" as USER
 
@@ -47,23 +48,21 @@ CTRL -> UREG : login(email,password)
 activate UREG
 
 
-UREG -> UREG : checkIfUserExistsInDB(email)
-ref over UREG
-SD_CONNECTIONS
-end ref
+
+
 
 opt if the user exists in the DataBase and password corresponds
 
-UREG -> _APP: app = getInstance()
-activate _APP
-deactivate _APP
 
 
 
+ref over UREG
+SD_CONNECTIONS
+end ref
 UREG -> SES** : create(email)
-
-UREG -> APP : setCurrentSession(session)
-
+activate SES
+SES -> APP : setCurrentSession(session)
+deactivate SES
 
 activate APP
 deactivate APP
