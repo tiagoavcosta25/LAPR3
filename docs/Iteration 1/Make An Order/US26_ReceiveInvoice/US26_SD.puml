@@ -2,6 +2,7 @@
 autonumber
 hide footbox
 
+actor "Client" as CL
 participant "GenerateInvoiceController" as CTRL
 participant "PotApplication" as _APP
 participant "app\n:PotApplication" as APP
@@ -13,7 +14,7 @@ participant "address\n:Address" as AD
 
 activate CL
 
--> CTRL : sendInvoice(orderId)
+CL -> CTRL : sendInvoice(orderId)
 activate CTRL
 CTRL -> _APP: app = getInstance()
 activate _APP

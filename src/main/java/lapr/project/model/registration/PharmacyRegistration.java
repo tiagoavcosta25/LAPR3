@@ -1,16 +1,14 @@
 package lapr.project.model.registration;
 
 import lapr.project.data.DataHandler;
-import lapr.project.model.Address;
-import lapr.project.model.Client;
-import lapr.project.model.Order;
-import lapr.project.model.Pharmacy;
+import lapr.project.model.*;
 import oracle.jdbc.OracleTypes;
 
 import java.sql.CallableStatement;
-import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Date;
+import java.util.List;
 
 public class PharmacyRegistration extends DataHandler {
 
@@ -95,5 +93,4 @@ public class PharmacyRegistration extends DataHandler {
         }
         return flag;
     }
-
 }
