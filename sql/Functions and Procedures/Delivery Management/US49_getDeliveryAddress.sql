@@ -1,8 +1,9 @@
-CREATE OR REPLACE FUNCTION getDeliveryAddress(strEmail "User".EMAIL%type) RETURN ADDRESS%ROWTYPE IS
-    address ADDRESS%ROWTYPE;
+CREATE OR REPLACE FUNCTION getDeliveryAddress(strEmail "User".EMAIL%type) RETURN SYS_REFCURSOR AS
+    RFC SYS_REFCURSOR;
     address_not_found exception;
 BEGIN
 
+    OPEN RFC FOR
     SELECT AD.*, PD.*
     FROM ADDRESS AD INNER JOIN "Order" ord on ad.ID = ord.ADDRESSID
                     INNER JOIN ORDERPRODUCT OP on OP.ORDERID = ord.ID
@@ -13,11 +14,12 @@ BEGIN
                     INNER JOIN "User" us ON C2.USERID = us.ID
     WHERE us.EMAIL = strEmail AND D.DELIVERYSTATUS = 'InProgress';
 
-    IF address IS NULL THEN
+
+    IF RFC IS NULL THEN
         RAISE address_not_found;
     END IF;
 
-    RETURN address;
+    RETURN RFC;
 
 EXCEPTION
     WHEN address_not_found THEN
