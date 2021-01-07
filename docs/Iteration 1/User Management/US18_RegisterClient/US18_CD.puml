@@ -21,7 +21,7 @@ class RegisterClientUI{
 package "Controller" #DDDDDD {
 class RegisterClientController{
 +validateInput(name,email,password,latitude,longitude,streetName,\ndoorNumber,postalCode,locality,country,creditCardNr,validityDate,CCV)
-+registerNewUser(name,email,password,latitude,longitude,streetName,\ndoorNumber,postalCode,locality,country,creditCardNr,validityDate,CCV)
++registerNewClient(name,email,password,latitude,longitude,streetName,\ndoorNumber,postalCode,locality,country,creditCardNr,validityDate,CCV)
 }
 }
 
@@ -54,7 +54,6 @@ class Client extends User
 class Client{
 -String name;
 -Address address;
--String gpsLocation;
 -Integer creditCardNr;
 -String validityDate;
 -Integer CCV;
@@ -66,7 +65,7 @@ class Address{
 -float latitude
 -float longitude
 -String streetName
--Integer doorNumber
+-String doorNumber
 -String postalCode
 -String locality
 -String country

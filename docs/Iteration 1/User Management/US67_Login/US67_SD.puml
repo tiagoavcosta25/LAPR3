@@ -46,9 +46,8 @@ deactivate PLAT
 CTRL -> UREG : login(email,password)
 activate UREG
 
-UREG -> USER** : create(email,password)
 
-UREG -> UREG : checkIfUserExistsInDB(user)
+UREG -> UREG : checkIfUserExistsInDB(email)
 ref over UREG
 SD_CONNECTIONS
 end ref

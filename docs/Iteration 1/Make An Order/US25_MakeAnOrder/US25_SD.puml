@@ -42,9 +42,8 @@ activate PLAT
 deactivate PLAT
 CTRL -> CR : client = getUserByEmail(email)
 activate CR
-CR -> CR : getConnection()
 ref over CR
-SD_connectionDataBase
+SD_CONNECTIONS
 end ref
 deactivate CR
 
@@ -53,9 +52,8 @@ activate PLAT
 deactivate PLAT
 CTRL -> PR : lstProd = getAvailableProducts()
 activate PR
-PR -> PR : getConnection()
 ref over PR
-SD_connectionDataBase
+SD_CONNECTIONS
 end ref
 deactivate PR
 deactivate CTRL
@@ -74,6 +72,9 @@ activate OR
 OR -> O** : create(amount, additionalFee, dateOrder, description, mapProducts, client, streetName,doorNumber,locality,country,longitude,longitude)
 O -> AD** : create(streetName,doorNumber,locality,country,longitude,longitude)
 OR -> OR : validateOrder(order)
+ref over OR
+SD_CONNECTIONS
+end ref
 deactivate OR
 deactivate CTRL
 UI -> CL : validates, presents the order and asks for a confirmation
@@ -85,9 +86,8 @@ UI -> CTRL : registerOrder()
 activate CTRL
 CTRL -> OR : registerOrder(order)
 activate OR
-OR -> OR : getConnection()
 ref over OR
-SD_connectionDataBase
+SD_CONNECTIONS
 end ref
 deactivate OR
 deactivate CTRL

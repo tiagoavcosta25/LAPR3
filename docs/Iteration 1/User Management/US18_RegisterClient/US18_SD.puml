@@ -36,7 +36,7 @@ UI --> U : Validates, presents the data and asks for a confirmation
 deactivate UI
 U -> UI : Confirms
 activate UI
-UI -> CTRL : registerNewUser(name,email,password,latitude,longitude,streetName,\ndoorNumber,postalCode,locality,country,creditCardNr,validityDate,CCV)
+UI -> CTRL : registerNewClient(name,email,password,latitude,longitude,streetName,\ndoorNumber,postalCode,locality,country,creditCardNr,validityDate,CCV)
 activate CTRL
 CTRL -> CTRL : validateInput(name,email,password,latitude,longitude,streetName,\ndoorNumber,postalCode,locality,country,creditCardNr,validityDate,CCV)
 
