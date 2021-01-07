@@ -17,7 +17,7 @@ package "Controller" #DDDDDD {
         +verifyProductDescription(productDescription)
         +verifyProductUnitaryPrice(unitaryPrice)
         +verifyProductUnitaryWeight(unitaryWeight)
-        +getProduct(productId)
+        +registerTask(name, description, unitaryPrice, unitaryWeight)
     }
 
     class UserSession {
