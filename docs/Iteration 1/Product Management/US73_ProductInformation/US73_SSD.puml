@@ -8,20 +8,17 @@ participant ":System" as SYST
 
 activate U
 
-U -> SYST : Engages the "add new product" feature/button
+U -> SYST : Engages the "verify product information" feature/button
 activate SYST
-SYST --> U : Asks for all the information required \nfor the register (i.e. name, description, unitaryPrice, unitaryWeight)
+SYST --> U : Asks for the for the id of the product to verify
 deactivate SYST
 
-U -> SYST : Fills all the information required
+U -> SYST : Gives the required id
 activate SYST
-SYST --> U : Validates, presents the data and asks for a confirmation
+
+SYST --> U : Validates the id and presents the information of the product
 deactivate SYST
 
-U -> SYST : Confirms
-activate SYST
-SYST --> U : Informs about the success of the operation
-deactivate SYST
 
 deactivate U
 
