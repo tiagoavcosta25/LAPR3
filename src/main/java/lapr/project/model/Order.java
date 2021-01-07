@@ -1,9 +1,8 @@
 package lapr.project.model;
 
-import oracle.sql.DATE;
-
+import java.sql.Array;
 import java.sql.Date;
-import java.util.Objects;
+import java.util.*;
 
 public class Order {
     private int m_intId;
@@ -15,6 +14,7 @@ public class Order {
     private String m_strStatus;
     private Client m_oClient;
     private Address m_oAddress;
+    private Map<Product, Integer> m_mapProducts;
 
     private static int DEFAULT_ID = -1;
     private static float DEFAULT_AMOUNT = -1;
@@ -25,9 +25,10 @@ public class Order {
     private static String DEFAULT_STATUS = "No Status.";
     private static Client DEFAULT_CLIENT = new Client();
     private static Address DEFAULT_ADDRESS = new Address();
+    private static Map<Product, Integer> DEFAULT_PRODUCT_MAP = new TreeMap<>();
 
     public Order(int intId, float fltAmount, float fltTotalWeight, float fltAdditionalFee, Date dtOrderDate,
-                 String strDescription, String strStatus, Client oClient, Address oAddress) {
+                 String strDescription, String strStatus, Client oClient, Address oAddress, Map<Product, Integer> mapProducts) {
         this.m_intId = intId;
         this.m_fltAmount = fltAmount;
         this.m_fltTotalWeight = fltTotalWeight;
@@ -37,10 +38,11 @@ public class Order {
         this.m_strStatus = strStatus;
         this.m_oClient = oClient;
         this.m_oAddress = oAddress;
+        this.m_mapProducts = mapProducts;
     }
 
     public Order(float fltAmount, float fltTotalWeight, float fltAdditionalFee, Date dtOrderDate,
-                 String strDescription, String strStatus, Client oClient, Address oAddress) {
+                 String strDescription, String strStatus, Client oClient, Address oAddress, Map<Product, Integer> mapProducts) {
         this.m_intId = DEFAULT_ID;
         this.m_fltAmount = fltAmount;
         this.m_fltTotalWeight = fltTotalWeight;
@@ -50,6 +52,7 @@ public class Order {
         this.m_strStatus = strStatus;
         this.m_oClient = oClient;
         this.m_oAddress = oAddress;
+        this.m_mapProducts = mapProducts;
     }
 
     public Order() {
@@ -62,6 +65,7 @@ public class Order {
         this.m_strStatus = DEFAULT_STATUS;
         this.m_oClient = DEFAULT_CLIENT;
         this.m_oAddress = DEFAULT_ADDRESS;
+        this.m_mapProducts = DEFAULT_PRODUCT_MAP;
     }
 
     public int getId() {
@@ -136,6 +140,14 @@ public class Order {
         this.m_oAddress = m_oAddress;
     }
 
+    public Map<Product, Integer> getProducts() {
+        return m_mapProducts;
+    }
+
+    public void setProducts(Map<Product, Integer> mapProducts) {
+        this.m_mapProducts = mapProducts;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -149,6 +161,7 @@ public class Order {
         return Objects.hash(m_intId);
     }
 
+
     @Override
     public String toString() {
         return "Order{" +
@@ -161,6 +174,7 @@ public class Order {
                 ", m_strStatus='" + m_strStatus + '\'' +
                 ", m_oClient=" + m_oClient +
                 ", m_oAddress=" + m_oAddress +
+                ", m_lstProducts=" + m_mapProducts +
                 '}';
     }
 }
