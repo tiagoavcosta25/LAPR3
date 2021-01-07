@@ -8,7 +8,6 @@ class Platform {
 }
 
 class Client{
--String name
 -String credits
 }
 
@@ -17,6 +16,7 @@ abstract class User{
 -String email
 -String password
 -Integer nif
+-String name
 }
 
 class Address{
