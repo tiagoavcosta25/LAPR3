@@ -120,11 +120,11 @@ public class ClientRegistration extends DataHandler {
                 String strLocality = rSet.getString(12);
                 String strCountry = rSet.getString(13);
                 Integer strCreditCardNr = rSet.getInt(14);
-                String strValidatyDate = rSet.getString(15);
+                Date dtValidatyDate = rSet.getDate(15);
                 Integer strCCV = rSet.getInt(16);
 
                 return new Client(intId, strName, strNif, strEmail, strPassword, intCredits, fltLatitude, fltLongitude, strStreetName, strDoorNumber, strPostalCode,
-                        strLocality, strCountry, strCreditCardNr, strValidatyDate, strCCV);
+                        strLocality, strCountry, strCreditCardNr, dtValidatyDate, strCCV);
             }
         } catch (SQLException e) {
             e.printStackTrace();
