@@ -11,7 +11,7 @@ package "Controller" #DDDDDD {
         -plat
         -pr
         +verifyProductId(productId)
-        +removeProduct(id)
+        +removeProductFromDB(id)
     }
 
     class UserSession {
@@ -40,7 +40,7 @@ package "Model" #DDDDDD {
 
     package "Registration" #DDDDDD {
         class ProductRegistration{
-            +removeProduct(id)
+            +removeProductFromDB(id)
         }
     }
 }
