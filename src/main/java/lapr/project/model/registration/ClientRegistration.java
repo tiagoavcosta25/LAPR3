@@ -3,8 +3,12 @@ package lapr.project.model.registration;
 import lapr.project.data.DataHandler;
 import lapr.project.model.Address;
 import lapr.project.model.Client;
+<<<<<<< HEAD
 import lapr.project.model.Order;
 import oracle.jdbc.OracleTypes;
+=======
+import lapr.project.model.CreditCard;
+>>>>>>> 2342b6dc53a8efe7022b1ee0295ae728cfe157be
 
 import java.sql.CallableStatement;
 import java.sql.Date;
@@ -36,10 +40,10 @@ public class ClientRegistration extends DataHandler {
      * @param CCV          Client's credit card's CCV
      * @return True if Client was registered, false if otherwise
      */
-    public boolean registerNewClient(String name, String email, String password, float latitude, float longitude, String streetName,
+    public boolean registerNewClient(String name, Integer nif, String email, String password, float latitude, float longitude, String streetName,
                                      String doorNumber, String postalCode, String locality, String country, Integer creditCardNr,
                                      String validityDate, Integer CCV) {
-        Client client = new Client(name, email, password, latitude, longitude, streetName, doorNumber, postalCode, locality, country,
+        Client client = new Client(name, nif,email, password, latitude, longitude, streetName, doorNumber, postalCode, locality, country,
                 creditCardNr, validityDate, CCV);
         return addClientToDB(client);
 
@@ -52,17 +56,16 @@ public class ClientRegistration extends DataHandler {
 
 
     public boolean addClientToDB(Client c) {
-        return addClientToDB(c.getM_name(), c.getM_address(), c.getM_creditCardNr(), c.getM_validityDate(), c.getM_CCV());
+        return addClientToDB(c.getM_name(), c.getM_nif(), c.getM_credits(), c.getM_address(), c.getM_creditCard());
     }
 
-    private boolean addClientToDB(String name, Address address, Integer m_creditCardNr,
-                                  String m_validityDate, Integer m_CCV) {
+    private boolean addClientToDB(String name, Integer nif, Integer credits, Address address, CreditCard creditCard) {
 
         boolean flag = true;
         try {
             openConnection();
 
-            CallableStatement callStmt = getConnection().prepareCall("{ call addProduct(?,?,?,?,?,?,?,?,?,?,?) }");
+            CallableStatement callStmt = getConnection().prepareCall("{ call addClient(?,?,?,?,?,?,?,?,?,?,?,?,?,?) }");
 
             callStmt.setString(1, name);
             callStmt.setFloat(2, address.getM_latitude());
@@ -75,6 +78,9 @@ public class ClientRegistration extends DataHandler {
             callStmt.setInt(9, m_creditCardNr);
             callStmt.setString(10, m_validityDate);
             callStmt.setFloat(11, m_CCV);
+            callStmt.setInt(12, m_creditCardNr);
+            callStmt.setInt(13, m_creditCardNr);
+            callStmt.setInt(14, m_creditCardNr);
 
             callStmt.execute();
 

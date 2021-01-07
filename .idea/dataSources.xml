@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
+<<<<<<< HEAD
     <data-source source="LOCAL" name="BD_LAPR3" uuid="61df6fe3-68b4-4072-ba84-9e914813ecda">
+=======
+    <data-source source="LOCAL" name="DB LAPR3" uuid="14f15f3d-a7ed-430a-999c-6ac8053d4e9d">
+>>>>>>> 2342b6dc53a8efe7022b1ee0295ae728cfe157be
       <driver-ref>oracle</driver-ref>
       <synchronize>true</synchronize>
       <auto-commit>false</auto-commit>

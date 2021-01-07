@@ -1,0 +1,33 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+class PotApplication
+{
+  +static getInstance()
+  +getPlatform()
+}
+
+class CalculateMostEfficientPahtUI{
+
+}
+
+class CalculateMostEfficientPahtController{
++getCourierInfo()
++getOrderByCour()
+}
+
+class Platform {
+  -String designation
+  +DeliveryRegistry getDelReg()
+}
+class DeliveryRegistry{
++getShortestPath()
+}
+
+
+
+CalculateMostEfficientPahtUI ..> CalculateMostEfficientPahtController
+CalculateMostEfficientPahtController ..> Platform
+CalculateMostEfficientPahtController ..> PotApplication
+Platform "1" --> "1" DeliveryRegistry : has
+@enduml

@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="SqlDialectMappings">
+<<<<<<< HEAD
     <file url="file://$PROJECT_DIR$/sql/LAPR3.G21-SCHEMA.sql" dialect="OracleSqlPlus" />
+=======
+    <file url="file://$PROJECT_DIR$/sql/LAPR3.G21-SCHEMA.sql" dialect="Oracle" />
+>>>>>>> 2342b6dc53a8efe7022b1ee0295ae728cfe157be
   </component>
 </project>

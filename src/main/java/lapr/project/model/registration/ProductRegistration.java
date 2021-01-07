@@ -16,12 +16,12 @@ public class ProductRegistration extends DataHandler {
         super(jdbcUrl, username, password);
     }
 
-    public boolean registerProduct(String name, String description, double unitaryPrice,
-                                   double unitaryWeight) {
-        return addProductToDB(new Product(name, description, unitaryPrice, unitaryWeight));
+    public boolean registerProduct(String strName, String strDescription, float fltUnitaryPrice,
+                                   float fltUnitaryWeight) {
+        return addProductToDB(new Product(strName, strDescription, fltUnitaryPrice, fltUnitaryPrice));
     }
 
-    public Product getProduct(String productId) {
+    public Product getProduct(int intId) {
 
         CallableStatement callStmt = null;
         try {
@@ -30,7 +30,7 @@ public class ProductRegistration extends DataHandler {
             // Regista o tipo de dados SQL para interpretar o resultado obtido.
             callStmt.registerOutParameter(1, OracleTypes.CURSOR);
             // Especifica o parâmetro de entrada da função "getProduct".
-            callStmt.setString(2, productId);
+            callStmt.setInt(2, intId);
 
             // Executa a invocação da função "getProduct".
             callStmt.execute();
@@ -39,35 +39,35 @@ public class ProductRegistration extends DataHandler {
             ResultSet rSet = (ResultSet) callStmt.getObject(1);
 
             if (rSet.next()) {
-                String productID = rSet.getString(1);
-                String name = rSet.getString(2);
-                String description = rSet.getString(3);
-                double unitaryPrice = rSet.getDouble(4);
-                double unitaryWeight = rSet.getDouble(5);
+                int intID = rSet.getInt(1);
+                String strName = rSet.getString(2);
+                String strDescription = rSet.getString(3);
+                float fltUnitaryPrice = rSet.getFloat(4);
+                float fltUnitaryWeight = rSet.getFloat(5);
 
-                return new Product(productID, name, description, unitaryPrice, unitaryWeight);
+                return new Product(intID, strName, strDescription, fltUnitaryPrice, fltUnitaryWeight);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        throw new IllegalArgumentException("No Product with id:" + productId);
+        throw new IllegalArgumentException("No Product with id:" + intId);
     }
 
     public boolean addProductToDB(Product p) {
         return addProductToDB(p.getName(), p.getDescription(), p.getUnitaryPrice(), p.getUnitaryWeight());
     }
 
-    private boolean addProductToDB(String name, String description, double unitaryPrice, double unitaryWeight) {
+    private boolean addProductToDB(String strName, String strDescription, float fltUnitaryPrice, float fltUnitaryWeight) {
         boolean flag = true;
         try {
             openConnection();
 
             CallableStatement callStmt = getConnection().prepareCall("{ call addProduct(?,?,?,?) }");
 
-            callStmt.setString(1, name);
-            callStmt.setString(2, description);
-            callStmt.setDouble(3, unitaryPrice);
-            callStmt.setDouble(4, unitaryWeight);
+            callStmt.setString(1, strName);
+            callStmt.setString(2, strDescription);
+            callStmt.setFloat(3, fltUnitaryPrice);
+            callStmt.setFloat(4, fltUnitaryWeight);
 
             callStmt.execute();
 
@@ -79,14 +79,14 @@ public class ProductRegistration extends DataHandler {
         return flag;
     }
 
-    public boolean removeProduct(String productId) {
+    public boolean removeProduct(int intId) {
         boolean flag = true;
         try {
             openConnection();
 
             CallableStatement callStmt = getConnection().prepareCall("{ call removeProduct(?) }");
 
-            callStmt.setString(1, productId);
+            callStmt.setInt(1, intId);
 
             callStmt.execute();
 
@@ -98,7 +98,7 @@ public class ProductRegistration extends DataHandler {
         return flag;
     }
 
-    public boolean updateProduct(String productId, String name, String description, Double unitaryPrice, Double unitaryWeight) {
+    public boolean updateProduct(int intId, String strName, String strDescription, float fltUnitaryPrice, float fltUnitaryWeight) {
         /* Objeto "callStmt" para invocar a função "updateProduct" armazenada na BD.
          *
          */
@@ -107,11 +107,11 @@ public class ProductRegistration extends DataHandler {
             CallableStatement callStmt = getConnection().prepareCall("{call updateProduct(?,?,?,?, ?)}");
 
             //Especifica o parâmetro de entrada da função "updateProduct".
-            callStmt.setString(1, productId);
-            callStmt.setString(2, name);
-            callStmt.setString(3, description);
-            callStmt.setDouble(4, unitaryPrice);
-            callStmt.setDouble(5, unitaryWeight);
+            callStmt.setInt(1, intId);
+            callStmt.setString(2, strName);
+            callStmt.setString(3, strDescription);
+            callStmt.setFloat(4, fltUnitaryPrice);
+            callStmt.setFloat(5, fltUnitaryWeight);
             //Executa a invocação da função "updateProduct".
             callStmt.execute();
             closeAll();
@@ -131,7 +131,7 @@ public class ProductRegistration extends DataHandler {
             CallableStatement callStmt = getConnection().prepareCall("{call updateProduct(?,?,?,?,?)}");
 
             //Especifica o parâmetro de entrada da função "updateProduct".
-            callStmt.setString(1, product.getProductId());
+            callStmt.setInt(1, product.getId());
             callStmt.setString(2, product.getName());
             callStmt.setString(3, product.getDescription());
             callStmt.setDouble(4, product.getUnitaryPrice());
@@ -157,13 +157,13 @@ public class ProductRegistration extends DataHandler {
             ResultSet rSet = (ResultSet) callStmt.getObject(1);
 
             while(rSet.next()){
-                    String productID = rSet.getString(1);
-                    String name = rSet.getString(2);
-                    String description = rSet.getString(3);
-                    double unitaryPrice = rSet.getDouble(4);
-                    double unitaryWeight = rSet.getDouble(5);
+                    int intId = rSet.getInt(1);
+                    String strName = rSet.getString(2);
+                    String strDescription = rSet.getString(3);
+                    float fltUnitaryPrice = rSet.getFloat(4);
+                    float fltUnitaryWeight = rSet.getFloat(5);
 
-                    lstProducts.add(new Product(productID, name, description, unitaryPrice, unitaryWeight));
+                    lstProducts.add(new Product(intId, strName, strDescription, fltUnitaryPrice, fltUnitaryWeight));
 
                     rSet.next();
             }

@@ -52,13 +52,11 @@ public class RegisterProductController {
         return verifyPositiveDouble(unitaryWeight);
     }
 
-    public boolean registerProduct(String name, String description, double unitaryPrice, double unitaryWeight) {
+    public boolean registerProduct(String name, String description, float unitaryPrice, float unitaryWeight) {
         return pr.registerProduct(name, description, unitaryPrice, unitaryWeight);
     }
 
-    public Product getProduct(String productId) {
+    public Product getProduct(int productId) {
         return pr.getProduct(productId);
     }
-
-
 }
