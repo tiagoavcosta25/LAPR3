@@ -47,7 +47,8 @@ abstract class User{
 -Integer id
 -String email
 -String password
-+User(email,password)
+-Integer nif
++User(email,password,nif)
 }
 
 class UserSession{
