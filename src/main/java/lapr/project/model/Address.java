@@ -33,6 +33,18 @@ public class Address {
         this.m_country = country;
     }
 
+    public Address(Integer id, float latitude, float longitude, String streetName, String doorNumber,
+                   String postalCode, String locality, String country) {
+        this.m_id = id;
+        this.m_latitude = latitude;
+        this.m_longitude = longitude;
+        this.m_streetName = streetName;
+        this.m_doorNumber = doorNumber;
+        this.m_postalCode = postalCode;
+        this.m_locality = locality;
+        this.m_country = country;
+    }
+
     public float getM_latitude() {
         return m_latitude;
     }
