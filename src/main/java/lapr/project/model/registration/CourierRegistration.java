@@ -1,10 +1,7 @@
 package lapr.project.model.registration;
 
 import lapr.project.data.DataHandler;
-import lapr.project.model.Address;
-import lapr.project.model.ChargingSlot;
-import lapr.project.model.Courier;
-import lapr.project.model.Park;
+import lapr.project.model.*;
 import oracle.jdbc.OracleTypes;
 
 import java.sql.CallableStatement;
@@ -189,18 +186,20 @@ public class CourierRegistration extends DataHandler {
             if (rSet.next()) {
                 int chargingSlotID = rSet.getInt(1);
                 int pharmacyID = rSet.getInt(2);
-                int addressID = rSet.getInt(2);
-                float latitude = rSet.getInt(2);
-                float longitude = rSet.getInt(2);
-                String doorNumber = rSet.getString(3);
-                String streetName = rSet.getString(3);
-                String postalCode = rSet.getString(3);
-                String locality = rSet.getString(3);
-                String country = rSet.getString(3);
-                int maxSlotsNumber = rSet.getInt(1);
-                float outputPower = rSet.getFloat(2);
+                String pharmacyName = rSet.getString(3);
+                int addressID = rSet.getInt(4);
+                float latitude = rSet.getInt(5);
+                float longitude = rSet.getInt(6);
+                String doorNumber = rSet.getString(7);
+                String streetName = rSet.getString(8);
+                String postalCode = rSet.getString(9);
+                String locality = rSet.getString(10);
+                String country = rSet.getString(11);
+                int maxSlotsNumber = rSet.getInt(12);
+                float outputPower = rSet.getFloat(13);
 
-                return new ChargingSlot(chargingSlotID,new Park(maxSlotsNumber), outputPower);
+                return new ChargingSlot(chargingSlotID,new Park(pharmacyID,maxSlotsNumber,
+                        new Pharmacy(pharmacyID,pharmacyName,new Address(latitude,longitude,streetName,doorNumber,postalCode,locality,country))), outputPower);
             }
         } catch (SQLException e) {
             e.printStackTrace();
