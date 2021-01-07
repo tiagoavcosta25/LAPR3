@@ -1,6 +1,7 @@
 package lapr.project.model.registration;
 
 import lapr.project.data.DataHandler;
+import lapr.project.model.Address;
 import lapr.project.model.Courier;
 import oracle.jdbc.OracleTypes;
 
@@ -118,5 +119,43 @@ public class CourierRegistration extends DataHandler {
 
     public void registersCourier(Courier oCourier) {
         addCourierToDB(oCourier.getM_name(), oCourier.getM_nif(), oCourier.getM_iban());
+    }
+
+    public Address getDeliveryAddress(String email) {
+        /* Objeto "callStmt" para invocar a função "getSailor" armazenada na BD.
+         *
+         * FUNCTION getSailor(id NUMBER) RETURN pkgSailors.ref_cursor
+         * PACKAGE pkgSailors AS TYPE ref_cursor IS REF CURSOR; END pkgSailors;
+         */
+        CallableStatement callStmt = null;
+        try {
+            callStmt = getConnection().prepareCall("{ ? = call getDeliveryAddress(?) }");
+
+            // Regista o tipo de dados SQL para interpretar o resultado obtido.
+            callStmt.registerOutParameter(1, OracleTypes.CURSOR);
+            // Especifica o parâmetro de entrada da função "getSailor".
+            callStmt.setString(1, email);
+
+            // Executa a invocação da função "getSailor".
+            callStmt.execute();
+
+            // Guarda o cursor retornado num objeto "ResultSet".
+            ResultSet rSet = (ResultSet) callStmt.getObject(1);
+
+            if (rSet.next()) {
+                float latitude = rSet.getFloat(1);
+                float longitude = rSet.getFloat(2);
+                String streetName = rSet.getString(3);
+                Integer doorNumber = rSet.getInt(4);
+                String postalCode = rSet.getString(5);
+                String locality = rSet.getString(6);
+                String country = rSet.getString(7);
+
+                return new Address(latitude, longitude, streetName, doorNumber, postalCode, locality, country);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        throw new IllegalArgumentException("No Address for Courier:" + email);
     }
 }
