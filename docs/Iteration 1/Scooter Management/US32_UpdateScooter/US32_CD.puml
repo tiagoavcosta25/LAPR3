@@ -40,7 +40,7 @@ package "Registration" #DDDDDD {
  }
 
  class ScooterRegistration{
-      +updateScooterFromDB(batteryPerc, charginStatus, potency,\n weight, batteryCapacity, pharmacy)
+      +updateScooterFromDB(batteryPerc, charginStatus, potency,\n weight, batteryCapacity)
   }
  }
 }
@@ -53,7 +53,7 @@ class Scooter{
   -int potency
   -int weight
   -int batteryCapacity
-  +Scooter(batteryPerc, charginStatus, potency,\n weight, batteryCapacity, pharmacy)
+  +Scooter(batteryPerc, charginStatus, potency,\n weight, batteryCapacity)
 }
 
 class Address{

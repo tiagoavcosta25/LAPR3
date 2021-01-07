@@ -1,0 +1,46 @@
+@startuml
+autonumber
+actor "Courier" as COURIER
+
+participant ":DeliveryAddressUI" as UI
+participant ":DeliveryAddressController" as CTRL
+participant "PotApplication" as PA
+participant "app \n:PotApplication" as APA
+participant "session \n:UserSession" as US
+participant "plat \n:Platform" as PLAT
+participant "courReg \n:CourierRegistration" as RF
+
+
+activate COURIER
+
+COURIER -> UI :  wants to know if there is an available charging station
+activate UI
+UI -> CTRL : address = getDeliveryAddress()
+activate CTRL
+CTRL -> PA : app = getInstance()
+activate PA
+deactivate PA
+CTRL -> APA : plat = getPlatform()
+activate APA
+deactivate APA
+CTRL -> APA : session = getCurrentSession()
+activate APA
+deactivate APA
+CTRL -> US : email = getM_currentUserEmail()
+activate US
+deactivate US
+CTRL -> PLAT : courReg = getCourReg()
+activate PLAT
+deactivate PLAT
+CTRL -> RF : address = getDeliveryAddress(email)
+activate RF
+deactivate RF
+deactivate CTRL
+
+
+UI -> COURIER : presents the information about the charging station
+deactivate UI
+
+deactivate COURIER
+
+@enduml
