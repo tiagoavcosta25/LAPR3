@@ -12,6 +12,7 @@ participant "plat\n:Platform" as PLAT
 participant "clientReg\n:ClientRegistration" as UREG
 
 participant "client\n:Client" as USER
+participant "user\n:User" as US
 participant Address as ADD
 participant CreditCard as CC
 
@@ -22,7 +23,7 @@ activate U
 U -> UI : Engages the register feature/button
 activate UI
 
-UI --> U : Asks for all the information required \nfor the register (i.e. name,email,password,address,\ngpsLocation,creditCardNr,validityDate,CCV)
+UI --> U : Asks for all the information required \nfor the register (i.e. name,nif,email,password,latitude,longitude,streetName,\ndoorNumber,postalCode,locality,country,creditCardNr,validityDate,CCV)
 
 
 deactivate UI
@@ -60,6 +61,9 @@ activate UREG
 
 UREG -> USER** : create(name,nif,email,password,latitude,longitude,streetName,\ndoorNumber,postalCode,locality,country,creditCardNr,validityDate,CCV)
 activate USER
+USER -> US : create(email,password,nif)
+activate US
+deactivate US
 USER -> ADD** : create(latitude,longitude,streetName,doorNumber,postalCode,locality,country)
 USER -> CC** : create(creditCardNr,validityDate,CCV)
 deactivate USER

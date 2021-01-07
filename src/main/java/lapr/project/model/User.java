@@ -28,6 +28,10 @@ public abstract class User {
      */
     private String m_strPassword;
 
+    /**
+     * The User's NIF
+     */
+    private Integer m_nif;
 
     /**
      * An empty constructor of User that initiates all the variables by omission
@@ -36,6 +40,7 @@ public abstract class User {
     public User() {
         this.m_strEmail = "No Email Registered";
         this.m_strPassword = "No Password Registered";
+        this.m_nif = 0;
     }
 
     /**
@@ -45,9 +50,10 @@ public abstract class User {
      * @param strEmail      the User's email
      * @param strPassword   the User's password
      */
-    public User(String strEmail, String strPassword) {
+    public User(String strEmail, String strPassword, Integer intNif) {
         this.m_strEmail = strEmail;
         this.m_strPassword = strPassword;
+        this.m_nif = intNif;
     }
 
     /**
@@ -58,10 +64,11 @@ public abstract class User {
      * @param strEmail      the User's email
      * @param strPassword   the User's password
      */
-    public User(Integer id, String strEmail, String strPassword) {
+    public User(Integer id, String strEmail, String strPassword, Integer intNif) {
         this.m_id = id;
         this.m_strEmail = strEmail;
         this.m_strPassword = strPassword;
+        this.m_nif = intNif;
     }
 
     /**
@@ -106,6 +113,14 @@ public abstract class User {
 
     public void setM_id(Integer m_id) {
         this.m_id = m_id;
+    }
+
+    public Integer getM_nif() {
+        return m_nif;
+    }
+
+    public void setM_nif(Integer m_nif) {
+        this.m_nif = m_nif;
     }
 
     /**

@@ -10,7 +10,7 @@ activate U
 
 U -> SYST : Engages the register feature/button
 activate SYST
-SYST --> U : Asks for all the information required \nfor the register (i.e. name,email,password,address,\ngpsLocation,creditCardNr,validityDate,CCV)
+SYST --> U : Asks for all the information required \nfor the register (i.e. name,nif,email,password,latitude,longitude,streetName,\ndoorNumber,postalCode,locality,country,creditCardNr,validityDate,CCV)
 deactivate SYST
 
 U -> SYST : Fills all the information required

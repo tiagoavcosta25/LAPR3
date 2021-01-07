@@ -13,8 +13,6 @@ participant "pr\n:ProductRegistration" as PREG
 
 participant "Product\n:Product" as PROD
 
-participant "ProductDB" as DB
-participant "DataHandler" as DH
 
 activate U
 
