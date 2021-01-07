@@ -193,7 +193,7 @@ public class OrderRegistration extends DataHandler {
                 Client oClient = new Client(id, name, nif, email, password, m_credits, latitude, longitude, streetName, doorNumber, postalCode, locality, country, creditCardNr, validityDate, CCV);
                 Address oAddress = new Address(latitude, longitude, streetName, doorNumber, postalCode, locality, country);
                 return new Order(fltAmount, fltTotalWeight, fltAdditionalFee, dtOrderDate, strDescription,
-                        strStatus, oClient, oAddress, new Map<Product, Integer>());
+                        strStatus, oClient, oAddress, null);//new Map<Product, Integer>());
             }
         } catch (SQLException e) {
             e.printStackTrace();
