@@ -63,7 +63,7 @@ public class OrderRegistration extends DataHandler {
             callStmt.setFloat(7, oAddress.getM_latitude());
             callStmt.setFloat(8, oAddress.getM_longitude());
             callStmt.setString(9, oAddress.getM_streetName());
-            callStmt.setInt(10, oAddress.getM_doorNumber());
+            callStmt.setString(10, oAddress.getM_doorNumber());
             callStmt.setString(10, oAddress.getM_postalCode());
             callStmt.setString(10, oAddress.getM_locality());
             callStmt.setString(10, oAddress.getM_country());
@@ -96,5 +96,9 @@ public class OrderRegistration extends DataHandler {
 
     public void registerOrder(Order oOrder) {
         addOrder(oOrder.getAmount(), oOrder.getTotalWeight(), oOrder.getAdditionalFee(), oOrder.getOrderDate(), oOrder.getDescription(), oOrder.getStatus(), oOrder.getClient(), oOrder.getAddress());
+    }
+
+    public void newOrder(Order oOrder) {
+        return new getAmount(), oOrder.getTotalWeight(), oOrder.getAdditionalFee(), oOrder.getOrderDate(), oOrder.getDescription(), oOrder.getStatus(), oOrder.getClient(), oOrder.getAddress());
     }
 }
