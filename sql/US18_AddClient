@@ -1,11 +1,11 @@
 
-create or replace procedure addClient(name Client.name%type, nif Client.nif%type, credits Client.credits%type,
-latitude Address.latitude%type, longitude Address.longitude%type,
-streetName Address.streetName%type, doorNumber Address.doorNumber%type, postalCode Address.postalCode%type, locality Address.locality%type,
-country Address.country%type, creditCardNr CreditCard.creditCardNr%type,  validityDate CreditCard.validityDate%type, ccv CreditCard.CCV%type)
+create or replace procedure addClient(p_name Client.name%type, p_nif Client.nif%type, p_credits Client.credits%type,
+p_latitude Address.latitude%type, p_longitude Address.longitude%type,
+p_streetName Address.streetName%type, p_doorNumber Address.doorNumber%type, p_postalCode Address.postalCode%type, p_locality Address.locality%type,
+p_country Address.country%type, p_creditCardNr CreditCard.creditCardNr%type,  p_validityDate CreditCard.validityDate%type, p_ccv CreditCard.CCV%type,
+email "User".email%type, p_password "User".password%type)
 is
     curs sys_refcursor;
-    id_cam camareira.id%type;
     bonus_valor number;
     mes_invalido exception;
     ano_invalido exception;
@@ -20,6 +20,16 @@ begin
     end if;
 
 -- SELECIONA TODAS AS CAMAREIRAS (ID) E RESPETIVOS VALORES TOTAIS DE CONSUMO NUM CERTO ANO E M�S
+
+    Insert into "User"
+        Values(email,password);
+
+    select id
+    from "User" where "User".email = email;
+
+
+
+
 
     open curs for
         select lc.id_camareira, SUM(lc.quantidade*lc.preco_unitario)

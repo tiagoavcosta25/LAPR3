@@ -51,16 +51,19 @@ public class ClientRegistration extends DataHandler {
 
 
     public boolean addClientToDB(Client c) {
-        return addClientToDB(c.getM_name(), c.getM_nif(), c.getM_credits(), c.getM_address(), c.getM_creditCard());
+        return addClientToDB(c.getM_name(), c.getM_nif(), c.getM_credits(), c.getM_address(), c.getM_creditCard(),
+                c.getStrEmail(),c.getPw());
     }
 
-    private boolean addClientToDB(String name, Integer nif, Integer credits, Address address, CreditCard creditCard) {
+
+    private boolean addClientToDB(String name, Integer nif, Integer credits, Address address, CreditCard creditCard,
+                                  String email, String password) {
 
         boolean flag = true;
         try {
             openConnection();
 
-            CallableStatement callStmt = getConnection().prepareCall("{ call addClient(?,?,?,?,?,?,?,?,?,?,?,?,?) }");
+            CallableStatement callStmt = getConnection().prepareCall("{ call addClient(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) }");
 
             callStmt.setString(1, name);
             callStmt.setInt(2, nif);
@@ -75,6 +78,8 @@ public class ClientRegistration extends DataHandler {
             callStmt.setFloat(11, creditCard.getM_creditCardNr());
             callStmt.setString(12, creditCard.getM_validityDate());
             callStmt.setInt(13, creditCard.getM_CCV());
+            callStmt.setString(14, email);
+            callStmt.setString(15, password);
 
             callStmt.execute();
 
