@@ -187,10 +187,20 @@ public class CourierRegistration extends DataHandler {
             ResultSet rSet = (ResultSet) callStmt.getObject(1);
 
             if (rSet.next()) {
+                int chargingSlotID = rSet.getInt(1);
+                int pharmacyID = rSet.getInt(2);
+                int addressID = rSet.getInt(2);
+                float latitude = rSet.getInt(2);
+                float longitude = rSet.getInt(2);
+                String doorNumber = rSet.getString(3);
+                String streetName = rSet.getString(3);
+                String postalCode = rSet.getString(3);
+                String locality = rSet.getString(3);
+                String country = rSet.getString(3);
                 int maxSlotsNumber = rSet.getInt(1);
                 float outputPower = rSet.getFloat(2);
 
-                return new ChargingSlot(new Park(maxSlotsNumber), outputPower);
+                return new ChargingSlot(chargingSlotID,new Park(maxSlotsNumber), outputPower);
             }
         } catch (SQLException e) {
             e.printStackTrace();
