@@ -24,7 +24,7 @@ public class RegisterClientController {
      * @param CCV           Client's credit card's CCV
      * @return              True if Client was registered, false if otherwise
      */
-    public boolean registerNewClient(String name, String email, String password, float latitude, float longitude, String streetName,
+    public boolean registerNewClient(String name, Integer nif, String email, String password, float latitude, float longitude, String streetName,
                                      String doorNumber, String postalCode, String locality, String country, Integer creditCardNr,
                                      String validityDate, Integer CCV) {
 
@@ -33,7 +33,7 @@ public class RegisterClientController {
             ApplicationPOT app = ApplicationPOT.getInstance();
             Platform plat = app.getPlatform();
             ClientRegistration clientReg = plat.getClientReg();
-            return clientReg.registerNewClient(name,email,password,latitude,longitude,streetName,doorNumber,postalCode,locality,country,
+            return clientReg.registerNewClient(name,nif,email,password,latitude,longitude,streetName,doorNumber,postalCode,locality,country,
                     creditCardNr,validityDate,CCV);
         }
         return false;

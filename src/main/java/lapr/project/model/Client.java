@@ -3,32 +3,29 @@ package lapr.project.model;
 public class Client extends User {
 
     private String m_name;
-    private Integer nif;
+    private Integer m_nif;
+    private Integer m_credits;
     private Address m_address;
-    private Integer m_creditCardNr;
-    private String m_validityDate;
-    private Integer m_CCV;
+    private CreditCard m_creditCard;
 
     public Client() {
         super();
         this.m_name = "No name";
-        this.nif = 0;
+        this.m_nif = 0;
+        this.m_credits = 0;
         this.m_address = new Address();
-        this.m_creditCardNr = 0;
-        this.m_validityDate = "No Validity Date";
-        this.m_CCV = 0;
+        this.m_creditCard = new CreditCard();
     }
 
-    public Client(String name, Integer nif, String email, String password, float latitude, float longitude,String streetName,
+    public Client(String name, Integer nif, String email, String password, float latitude, float longitude, String streetName,
                   String doorNumber, String postalCode, String locality, String country, Integer creditCardNr,
                   String validityDate, Integer CCV) {
-        super(email,password);
+        super(email, password);
         this.m_name = name;
-        this.nif = nif;
-        this.m_address = new Address(latitude,longitude,streetName,doorNumber,postalCode,locality,country);
-        this.m_creditCardNr = creditCardNr;
-        this.m_validityDate = validityDate;
-        this.m_CCV = CCV;
+        this.m_nif = nif;
+        this.m_credits = 0;
+        this.m_address = new Address(latitude, longitude, streetName, doorNumber, postalCode, locality, country);
+        this.m_creditCard = new CreditCard(creditCardNr,validityDate,CCV);
     }
 
     public String getM_name() {
@@ -39,16 +36,15 @@ public class Client extends User {
         return m_address;
     }
 
-    public Integer getM_creditCardNr() {
-        return m_creditCardNr;
+    public Integer getM_nif() {
+        return m_nif;
     }
 
-    public String getM_validityDate() {
-        return m_validityDate;
+    public Integer getM_credits() {
+        return m_credits;
     }
 
-    public Integer getM_CCV() {
-        return m_CCV;
+    public CreditCard getM_creditCard() {
+        return m_creditCard;
     }
-
 }

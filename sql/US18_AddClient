@@ -1,6 +1,7 @@
+
 create or replace procedure addClient(name Client.name%type, latitude Address.latitude%type, longitude Address.longitude%type,
 streetName Address.streetName%type, doorNumber Address.doorNumber%type, postalCode Address.postalCode%type, locality Address.locality%type,
-country Address.country%type, creditCardNr Client.cardNumber%type,  validityDate Client.validityDate%type, ccv Client.CCV%type)
+country Address.country%type, creditCardNr Client.creditCardNr%type,  validityDate Client.validityDate%type, ccv Client.CCV%type)
 is
     curs sys_refcursor;
     id_cam camareira.id%type;
