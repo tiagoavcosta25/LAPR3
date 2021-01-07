@@ -51,22 +51,21 @@ public class OrderRegistration extends DataHandler {
                               String strDescription, String strStatus, Client oClient, Address oAddress) {
         try {
             openConnection();
-            CallableStatement callStmt = getConnection().prepareCall("{ call addOrder(?,?,?,?,?,) }");
+            CallableStatement callStmt = getConnection().prepareCall("{ call addOrder(?,?,?,?,?,?,?,?,?,?,?,?,?,?) }");
 
             callStmt.setFloat(1, fltAmount);
             callStmt.setFloat(2, fltTotalWeight);
             callStmt.setFloat(3, fltAdditionalFee);
             callStmt.setString(4, strDescription);
-            callStmt.setString(5, strStatus);
             callStmt.setDate(5, dtOrderDate);
-            callStmt.setString(6, oClient.getStrEmail());
+            callStmt.setInt(6, oClient.getM_id());
             callStmt.setFloat(7, oAddress.getM_latitude());
             callStmt.setFloat(8, oAddress.getM_longitude());
             callStmt.setString(9, oAddress.getM_streetName());
             callStmt.setString(10, oAddress.getM_doorNumber());
-            callStmt.setString(10, oAddress.getM_postalCode());
-            callStmt.setString(10, oAddress.getM_locality());
-            callStmt.setString(10, oAddress.getM_country());
+            callStmt.setString(11, oAddress.getM_postalCode());
+            callStmt.setString(12, oAddress.getM_locality());
+            callStmt.setString(13, oAddress.getM_country());
 
             callStmt.execute();
 

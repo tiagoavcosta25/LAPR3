@@ -1,24 +1,26 @@
-create or replace procedure addOrder(p_name "Order".name%type, p_nif Client.nif%type, p_credits Client.credits%type,
-                                      p_latitude Address.latitude%type, p_longitude Address.longitude%type,
-                                      p_streetName Address.streetName%type, p_doorNumber Address.doorNumber%type,
-                                      p_postalCode Address.postalCode%type, p_locality Address.locality%type,
-                                      p_country Address.country%type, p_creditCardNr CreditCard.creditCardNr%type,
-                                      p_validityDate CreditCard.validityDate%type, p_ccv CreditCard.CCV%type,
-                                      p_email "User".email%type, p_password "User".password%type)
+create or replace procedure addOrder(p_amount "Order".amount%type, p_totalWeight "Order".TOTALWEIGHT%type, p_additionalFee "Order".ADDITIONALFEE%type,
+                                     p_description "Order".DESCRIPTION%type, p_date "Order".ORDERDATE%type,
+                                     p_clientId Client.USERID%type, p_latitude ADDRESS.LATITUDE%type, p_longitude ADDRESS.LONGITUDE%type,
+                                     p_streetName ADDRESS.STREETNAME%type, p_doorNumber ADDRESS.DOORNUMBER%type, p_postalCode ADDRESS.POSTALCODE%type,
+                                     p_locality ADDRESS.LOCALITY%type, p_country ADDRESS.COUNTRY%type)
     is
-    userId            "User".id%type;
-    addressIdentifier Address.id%type;
-    creditCardId      CreditCard.creditCardNr%type;
+    checkClientID            CLIENT.USERID%type;
+    addressId Address.id%type;
+    client_not_found exception;
 begin
 
-    -- Creates a new User
-    Insert into "User"(EMAIL, PASSWORD)
-    Values (p_email, p_password)
-    returning id into userId;
+    select USERID
+    into checkClientID
+    from CLIENT
+    where USERID = p_clientId;
+
+    if checkClientID is null then
+        raise client_not_found;
+    end if;
 
 -- Creates a new Address
     select id
-    into addressIdentifier
+    into addressId
     from ADDRESS
     where LATITUDE = p_latitude
       and LONGITUDE = p_longitude
@@ -28,32 +30,18 @@ begin
       and LOCALITY = p_locality
       and COUNTRY = p_country;
 
-    if addressIdentifier is null then
+    if addressId is null then
         Insert into Address(LATITUDE, LONGITUDE, DOORNUMBER, STREETNAME, POSTALCODE, LOCALITY, COUNTRY)
         Values (p_latitude, p_longitude, p_doorNumber, p_streetName, p_postalCode, p_locality, p_country)
-        returning id into addressIdentifier;
+        returning id into addressId;
     end if;
 
-    -- Creates a new Credit Card
--- VERIFICAR SE CREDIT CARD JA EXISTE, SE SIM SALTAR ESTA PARTE À FRENTE
-    select CREDITCARDNR
-    into creditCardId
-    from CREDITCARD
-    where CREDITCARDNR = p_creditCardNr;
+-- Creates a new Order
+    Insert into "Order"(amount, TOTALWEIGHT, ADDITIONALFEE, DESCRIPTION, ORDERDATE, CLIENTUSERID, ADDRESSID)
+    Values (p_amount, p_totalWeight, p_additionalFee, p_description, p_date, p_clientId, addressId);
 
-    if creditCardId is null then
-        Insert into CreditCard(CREDITCARDNR, VALIDITYDATE, CCV)
-        Values (p_creditCardNr, p_validityDate, p_ccv)
-        returning CREDITCARDNR into creditCardId;
-    end if;
-
--- Creates a new Credit Card Client
-    Insert into CreditCard_Client(CREDITCARDCREDITCARDNR, CLIENTUSERID)
-    Values (creditCardId, userId);
-
--- Creates a new Client
-    Insert into Client(userId, NAME, NIF, CREDITS, ADDRESSID)
-    Values (p_name, p_nif, p_nif, p_credits, addressIdentifier);
-
+EXCEPTION
+    when client_not_found then
+        raise_application_error(-20025, 'Client Not Found!');
 
 end;
