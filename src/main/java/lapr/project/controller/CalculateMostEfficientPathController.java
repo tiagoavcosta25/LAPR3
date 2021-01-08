@@ -1,8 +1,10 @@
 package lapr.project.controller;
 
 
+import javafx.util.Pair;
 import lapr.project.graph.map.Graph;
 import lapr.project.model.Address;
+import lapr.project.model.Order;
 import lapr.project.model.Platform;
 import lapr.project.model.registration.DeliveryRegistration;
 import lapr.project.model.registration.OrderRegistration;
@@ -19,7 +21,7 @@ import lapr.project.model.registration.OrderRegistration;
  * @author Rodrigo Costa <1191014@isep.ipp.pt>
  * @author António Barbosa <1190404@isep.ipp.pt>
  */
-public class CalculateMostEfficientPahtController {
+public class CalculateMostEfficientPathController {
     /**
      * Platform class instance
      */
@@ -42,12 +44,17 @@ public class CalculateMostEfficientPahtController {
     private Address oDestiny;
 
     //corrigir tipo de dados
-    /*public double getShortestPath() {
+    public double getShortestPath() {
         this.m_oPlatform = ApplicationPOT.getInstance().getPlatform();
         this.oDeliveryRegistration = this.m_oPlatform.getDelReg();
         this.oOrderRegistration = this.m_oPlatform.getOrderReg();
-        return this.oDeliveryRegistration.getShortestPath(oStartingPoint, oDestiny);
-    }*/
+        int oOrderId = 1;
+        KnowDeliveryController auxController = new KnowDeliveryController();
+        Order oOrder = auxController.getOrderByCour();
+        Pair<Address, Address> oPairAddress = this.oDeliveryRegistration.getStartingAndDeliveryAddressByOrder(oOrder.getId());
+
+        return this.oDeliveryRegistration.getShortestPath(oPairAddress);
+    }
 
 
 }

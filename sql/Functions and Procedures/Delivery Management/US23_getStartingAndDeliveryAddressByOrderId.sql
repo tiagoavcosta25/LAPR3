@@ -3,7 +3,7 @@ CREATE OR REPLACE FUNCTION getStartingAndDeliveryAddressByOrderId(orderId "Order
     order_not_found exception;
 BEGIN
     OPEN addresses FOR
-        SELECT A.*, A2.*
+        SELECT A2.*, A.*
         FROM ADDRESS A
                  INNER JOIN "Order" O ON A.ID = O.ADDRESSID
                  INNER JOIN PHARMACY P ON O.PHARMACYID = P.ID
