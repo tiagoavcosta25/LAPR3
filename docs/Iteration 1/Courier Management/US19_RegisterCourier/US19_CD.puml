@@ -9,19 +9,17 @@ class RegisterCourierUI {
 package "controller" #DDDDDD{
 class RegisterCourierController {
     
-  +newCourier(id, name, email, nif, iban, address)
+  +newCourier(id, name, email, nif, iban)
+  +validateInput(id, name, email, nif, iban)
   +registersCourier()
 }
 class PotApplication
   {
-    +static getInstance()
+    +getInstance()
     +getPlatform()
     +getCurrentSession()
   }
-class UserSession
-  {
-    +getUserEmail()
-  }
+
 }
 package "model" #DDDDDD{
 class Platform {
@@ -30,27 +28,22 @@ class Platform {
 }
 
 class Courier {
-    -int id
-    -String name
-    -int nif
+    -Integer id
     -String iban
 
-   +Courier(name, email, password, nif, iban, address)
-   +Courier(id, name, email, password, nif, iban, address)
+   +Courier(name, email, password, nif, iban)
+   +Courier(id, name, email, password, nif, iban)
 
 }
+class Administator {
+      -Integer id
+}
 
-class Address{
-  -String fullAddress
-  -String postalCode
-  -String locality
-  -String country
-  -float longitude
-  -float latitude
+class PassGenerator {
+   +PassGenerator()
+   +generatePassword()
+}
 
-   +Address(fullAddress,postalCode,locality,country,longitude,latitude)
-
- }
 
 package "registration" #DDDDDD{
 class CourierRegistration {
@@ -61,26 +54,30 @@ class CourierRegistration {
 
 }
 }
+class User{
+  -String email
+  -String password
+  -int nif
+  -string name
+}
 }
 
 
-
-
-
-
-
 Platform "1" -- "1" CourierRegistration: has >
+Platform "1" -- "1" Administator: has registered >
+Administator "1" -- "1..*" Courier: registers >
+Administator "1" -- "1" User: acts as >
+Courier "1" -- "1" User: acts as >
 
 CourierRegistration "1" -- "1" Courier : creates and adds to DataBase
+CourierRegistration "1" -- "1" PassGenerator : creates
+
 
 RegisterCourierUI ..> RegisterCourierController
 
 RegisterCourierController ..> Platform
 RegisterCourierController ..> CourierRegistration
 RegisterCourierController ..> PotApplication
-RegisterCourierController ..> UserSession
-
-Courier "1" -- "1" Address: has  >
 
 @enduml
 

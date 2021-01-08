@@ -8,7 +8,12 @@ class Platform {
 }
 
 class Courier {
+      -Integer id
       -String iban
+}
+
+class Administator {
+      -Integer id
 }
 
 
@@ -19,7 +24,9 @@ class User{
   -string name
 }
 
-Platform "1" -- "*" Courier : has registered >
+Platform "1" -- "1" Administator : has registered >
+Administator "1" -- "1..*" Courier : registers >
 Courier "1" -- "1" User: acts as  >
+Administator "1" -- "1" User: acts as  >
 @enduml
 
