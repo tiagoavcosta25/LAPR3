@@ -1,10 +1,8 @@
 package lapr.project.controller;
 
-import lapr.project.model.Client;
-import lapr.project.model.Order;
-import lapr.project.model.Platform;
-import lapr.project.model.Product;
+import lapr.project.model.*;
 import lapr.project.model.registration.ClientRegistration;
+import lapr.project.model.registration.InvoiceRegistration;
 import lapr.project.model.registration.OrderRegistration;
 
 import java.sql.Date;
@@ -16,9 +14,9 @@ public class GenerateInvoiceController {
      */
     private Platform m_oPlatform;
     /**
-     * Order class instance
+     * Invoice class instance
      */
-    private Order m_oOrder;
+    private Invoice m_oInvoice;
 
     /**
      * Order Management class
@@ -26,14 +24,24 @@ public class GenerateInvoiceController {
     private OrderRegistration m_oOrderRegistration;
 
     /**
-     * Order Management class
+     * Client Management class
      */
     private ClientRegistration m_oClientRegistration;
+
+    /**
+     * Invoice Management class
+     */
+    private InvoiceRegistration m_oInvoiceRegistration;
 
     /**
      * Order's Client
      */
     private Client m_oClient;
+
+    /**
+     * Order
+     */
+    private Order m_oOrder;
 
 
     /**
@@ -44,23 +52,22 @@ public class GenerateInvoiceController {
         this.m_oOrderRegistration = m_oPlatform.getOrderReg();
         this.m_oClientRegistration = m_oPlatform.getClientReg();
         this.m_oClient = m_oClientRegistration.getClientByEmail(ApplicationPOT.getInstance().getCurrentSession().getCurrentUserEmail());
+        this.m_oOrder = m_oOrderRegistration.getLatestOrder(m_oClient);
     }
 
-    public void newOrder(float fltAmount, float fltTotalWeight, float fltAdditionalFee, Date dtOrderDate,
-                         String strDescription, String strStatus, float latitude, float longitude, String streetName,
-                         String doorNumber, String postalCode, String locality, String country, Map<Product, Integer> mapProducts) {
+    public void newInvoice(Date dtInvoiceDate, float fltTotalPrice) {
         try {
-            this.m_oOrder = m_oOrderRegistration.newOrder(fltAmount, fltTotalWeight, fltAdditionalFee, dtOrderDate,
-                    strDescription, strStatus, m_oClient, latitude, longitude, streetName, doorNumber, postalCode, locality, country, mapProducts);
+            this.m_oInvoice = m_oInvoiceRegistration.newInvoice(dtInvoiceDate, fltTotalPrice, this.m_oOrder);
+            this.registerInvoice();
         } catch (RuntimeException ex) {
-            this.m_oOrder = null;
+            this.m_oInvoice = null;
         }
     }
 
     /**
      * The method registers an order to the database.
      */
-    public void registersFreelancer() {
-        this.m_oOrderRegistration.registerOrder(m_oOrder);
+    public void registerInvoice() {
+        this.m_oInvoiceRegistration.registerInvoice(this.m_oInvoice);
     }
 }

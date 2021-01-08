@@ -116,7 +116,7 @@ public class InvoiceRegistration extends DataHandler {
         addInvoice(oInvoice.getId(), oInvoice.getInvoiceDate(), oInvoice.getTotalPrice(), oInvoice.getOrder());
     }
 
-    public Invoice newInvoice(int intId, Date dtInvoiceDate, float fltTotalPrice, Order oOrder) {
-        return new Invoice(intId, dtInvoiceDate, fltTotalPrice, oOrder);
+    public Invoice newInvoice(Date dtInvoiceDate, float fltTotalPrice, Order oOrder) {
+        return new Invoice(dtInvoiceDate, fltTotalPrice, oOrder);
     }
 }
