@@ -1,0 +1,22 @@
+@startuml
+autonumber
+hide footbox
+
+actor "Administrator" as ADMIN
+
+participant ":System" as SYST
+
+activate ADMIN
+
+ADMIN -> SYST : Sends a request regarding the remove of an electric scooter
+activate SYST
+SYST --> ADMIN : Shows the list of eletric scooters and asks to choose one
+deactivate SYST
+ADMIN -> SYST : Chooses the eletric scooter
+activate SYST
+SYST -> ADMIN : Removes the eletric scooter
+deactivate SYST
+
+deactivate ADMIN
+
+@enduml

@@ -1,0 +1,101 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+package "UI" #DDDDDD {
+class UpdateScooterUI{
+
+}
+}
+
+
+package "Controller" #DDDDDD {
+class UpdateScooterController{
++updateScooter(batteryPerc, charginStatus, potency,\n weight, batteryCapacity, pharmacy)
++showScootersList(pharmacy)
+}
+
+class ApplicationPOT
+{
+  +static getInstance()
+  +getPlatform()
+}
+
+class UserSession
+{
+  +getCurrentSession()
+}
+}
+
+
+package "Model" #DDDDDD {
+class Platform {
+  -String designation
+  +gePharmReg()
+  +getScootReg()
+}
+package "Registration" #DDDDDD {
+ class PharmacyRegistration{
+     +getPharmacyById(pharmacyId)
+     +getConnection()
+ }
+
+ class ScooterRegistration{
+      +updateScooterFromDB(batteryPerc, charginStatus, potency,\n weight, batteryCapacity)
+  }
+ }
+}
+
+package "Model" #DDDDDD {
+class Scooter{
+  -int id
+  -int batteryPerc
+  -int charginStatus
+  -int potency
+  -int weight
+  -int batteryCapacity
+  +Scooter(batteryPerc, charginStatus, potency,\n weight, batteryCapacity)
+}
+
+class Address{
+  -float longitude
+  -float latitude
+  -String doorNumber
+  -String streetName
+  -String postalCode
+  -String locality
+  -String country
+}
+
+class Pharmacy {
+  -int id
+  -String name
+  +getScootersList(pharmacy)
+}
+
+}
+
+
+package "Data" #DDDDDD {
+class DataHandler{
+    +openConnection()
+    +closeAll()
+}
+}
+
+class PharmacyRegistration extends DataHandler
+class ScooterRegistration extends DataHandler
+
+UpdateScooterUI ..> UpdateScooterController
+UpdateScooterController ..> Platform
+UpdateScooterController ..> ApplicationPOT
+UpdateScooterController ..> UserSession
+Platform "1" --> "1" PharmacyRegistration : has
+ScooterRegistration "1" --> "*" Scooter : manages
+
+Platform "1" -- "*" Pharmacy : has registered >
+Platform "1" -- "*" Scooter : has registered >
+
+Pharmacy "1" -- "*" Scooter : has >
+Pharmacy "1" -- "1" Address : has >
+
+@enduml
