@@ -5,6 +5,7 @@ import lapr.project.model.Platform;
 import lapr.project.model.registration.CourierRegistration;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * Register Courier Controller.
@@ -44,25 +45,51 @@ public class RegisterCourierController implements Serializable {
      * The method returns the validation of that instance of Courier. True if the data is correct and false if
      * it doesn't.
      *
-     * @param strName  Courier's Id.
+     * @param strName  Courier's name.
      * @param strEmail Courier's email.
-     * @param strNIF   Courier's nif.
+     * @param intNIF   Courier's nif.
      * @param strIBAN  Courier's iban.
      */
-    public void newCourier(String strName, String strEmail, Integer strNIF, String strIBAN) {
+    public boolean newCourier(String strName, String strEmail, Integer intNIF, String strIBAN) {
         try {
-            oCourierRegistration = m_oPlatform.getCourReg();
-            this.oCourier = oCourierRegistration.newCourier(strName, strEmail, strNIF, strIBAN);
+            if (validateInput(strName, strEmail, intNIF, strIBAN)) {
+                oCourierRegistration = m_oPlatform.getCourReg();
+                this.oCourier = oCourierRegistration.newCourier(strName, strEmail, intNIF, strIBAN);
+                return true;
+            }
         } catch (RuntimeException ex) {
             this.oCourier = null;
         }
+        return false;
     }
 
     /**
      * The method adds a Freelancer to the Organization of the current user.
      */
-    public void registersCourier() {
-        m_oPlatform.getCourReg().registersCourier(this.oCourier);
+    public boolean registersCourier() {
+        return m_oPlatform.getCourReg().registersCourier(this.oCourier);
+    }
+
+    /**
+     * Validates the input information regarding
+     * a Courier
+     *
+     * @param strName  Courier's name.
+     * @param strEmail Courier's email.
+     * @param intNIF   Courier's nif.
+     * @param strIBAN  Courier's iban.
+     * @return True if input is valid, false if otherwise
+     */
+    public boolean validateInput(String strName, String strEmail, Integer intNIF, String strIBAN) {
+
+        if (strName.isEmpty() || intNIF <= 0 || strEmail.isEmpty() || strIBAN.isEmpty()) return false;
+
+        if (!strEmail.contains("@")) return false;
+
+        if ((strIBAN.trim().length() != 25)
+                || (int) (Math.log10(intNIF) + 1) != 9) return false;
+
+        return true;
     }
 
 }

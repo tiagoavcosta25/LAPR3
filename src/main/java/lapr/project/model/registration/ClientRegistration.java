@@ -47,11 +47,9 @@ public class ClientRegistration extends DataHandler {
 
     }
 
-
     /**
      * DATABASE
      */
-
 
     public boolean addClientToDB(Client c) {
         return addClientToDB(c.getM_name(), c.getM_nif(), c.getM_credits(), c.getM_address(), c.getM_creditCard(),

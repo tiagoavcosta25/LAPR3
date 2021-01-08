@@ -15,6 +15,7 @@ participant "orderReg \n:OrderRegistration" as RF
 activate Client
 
 Client -> UI : makes an order
+alt if order cannot be entirely fulfilled
 activate UI
 UI -> CTRL : notifyAndRemove()
 activate CTRL
@@ -52,7 +53,7 @@ deactivate CTRL
 
 UI -> Client : notifies the Client of the unsuccessful operation
 deactivate UI
-
+end
 deactivate Client
 
 @enduml
