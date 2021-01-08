@@ -2,12 +2,10 @@ package lapr.project.model.registration;
 
 
 import lapr.project.data.DataHandler;
-import lapr.project.model.Address;
-import lapr.project.model.Pharmacy;
-import lapr.project.model.Product;
-import lapr.project.model.Scooter;
+import lapr.project.model.*;
 import oracle.jdbc.OracleTypes;
 
+import java.security.NoSuchAlgorithmException;
 import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -38,20 +36,23 @@ public class ScooterRegistration extends DataHandler {
                 int intWeight = rSet.getInt(4);
                 int intBatteryCapacity = rSet.getInt(5);
                 int intId = rSet.getInt(6);
-                String strName = rSet.getString(7);
-                Double fltLatitude = rSet.getDouble(8);
-                Double fltLongitude = rSet.getDouble(9);
-                String strStreetName = rSet.getString(10);
-                String strDoorNumber = rSet.getString(11);
-                String strPostalCode = rSet.getString(12);
-                String strLocality = rSet.getString(13);
-                String strCountry = rSet.getString(14);
+                String strEmail = rSet.getString(7);
+                String strPassword = rSet.getString(8);
+                Integer intNIF = rSet.getInt(9);
+                String strName = rSet.getString(10);
+                Double fltLatitude = rSet.getDouble(11);
+                Double fltLongitude = rSet.getDouble(12);
+                String strStreetName = rSet.getString(13);
+                String strDoorNumber = rSet.getString(14);
+                String strPostalCode = rSet.getString(15);
+                String strLocality = rSet.getString(16);
+                String strCountry = rSet.getString(17);
 
                 return new Scooter(intBatteryPerc, intCharginStatus, intPotency, intWeight,
-                        intBatteryCapacity, new Pharmacy(intId, strName, new Address(fltLatitude, fltLongitude, strStreetName,
+                        intBatteryCapacity, new Pharmacy(strName, new PharmacyManager(intId, strEmail, strPassword, intNIF, strName), new Address(fltLatitude, fltLongitude, strStreetName,
                         strDoorNumber, strPostalCode, strLocality, strCountry)));
             }
-        } catch (SQLException e) {
+        } catch (SQLException | NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
         throw new IllegalArgumentException("No Scooter with ID:" + id);
