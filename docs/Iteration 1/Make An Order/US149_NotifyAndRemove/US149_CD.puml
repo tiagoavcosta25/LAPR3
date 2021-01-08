@@ -1,0 +1,114 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+
+package "UI" #DDDDDD{
+class NotifyAndRemoveUI {
+    
+}
+}
+package "controller" #DDDDDD{
+class NotifyAndRemoveController {
+    
+  +notifyAndRemoveUI()
+}
+class PotApplication
+{
+  +static getInstance()
+  +getPlatform()
+  +getCurrentSession()
+}
+
+class UserSession
+{
+  +getUserInstance()
+}
+}
+package "model" #DDDDDD{
+class Platform {
+  -String strDesignation
+  +getClientReg()
+  +getOrderReg()
+}
+class Client{
+-   int IBAN
+-   long creditCardNumber
+-   int validityDate
+-   int CCV
+}
+
+class Address{
+-   String streetName
+-   String doorNumber
+-   String postalCode
+-   String locality
+-   String country
+-   float longitude
+-   float latitude
+}
+
+class Order{
+-   int id
+-   float amount
+-   float totalWeight
+-   float additionalFee
+-   Date orderDate
+-   String description
+-   String status
+}
+
+class Pharmacy{
+-   int id
+-   String name
+}
+
+class Product{
+    -String productId
+    -String name
+    -String description
+    -Double unitaryPrice
+    -Double unitaryWeight
+}
+
+
+package "registration" #DDDDDD{
+class ClientRegistration {
+
+  +getClientByEmail(email)
+
+}
+
+class OrderRegistration {
+
+  +getLatestOrder(client)
+  +notifyAndRemove(order)
+
+}
+}
+}
+
+
+Platform "1" -- "1" OrderRegistration: has >
+Platform "1" -- "1" ClientRegistration: has >
+
+
+NotifyAndRemoveUI ..> NotifyAndRemoveController
+
+NotifyAndRemoveController ..> Platform
+NotifyAndRemoveController ..> OrderRegistration
+NotifyAndRemoveController ..> ClientRegistration
+NotifyAndRemoveController ..> PotApplication
+NotifyAndRemoveController ..> UserSession
+Platform "1" -- "*" Client : has registered >
+Order "1" -- "*" Address : has >
+Order "1" -- "*" Pharmacy : is made to a >
+Platform "1" -- "*" Order : has registered >
+Client "1" -- "1" Order : makes >
+Client "1" -- "1" Address : has >
+Pharmacy "1" -- "1" Address : has >
+Pharmacy "1" -- "1..*" Product : has >
+
+
+@enduml
+
+

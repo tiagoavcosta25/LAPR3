@@ -164,23 +164,25 @@ public class OrderRegistration extends DataHandler {
 
             if (rSet.next()) {
 
+                int intId = rSet.getInt(1);
                 String strDescription = rSet.getString(1);
-                String strStatus = rSet.getString(2);
-                Date dtOrderDate = rSet.getDate(3);
-                float fltTotalWeight = rSet.getFloat(4);
-                float fltAmount = rSet.getFloat(5);
-                float fltAdditionalFee = rSet.getFloat(6);
+                String strStatus = rSet.getString(3);
+                Date dtOrderDate = rSet.getDate(4);
+                float fltTotalWeight = rSet.getFloat(5);
+                float fltAmount = rSet.getFloat(6);
+                float fltAdditionalFee = rSet.getFloat(7);
+
                 //address
-                float latitude = rSet.getFloat(14);
-                float longitude = rSet.getFloat(15);
-                String doorNumber = rSet.getString(16);
-                String streetName = rSet.getString(17);
-                String postalCode = rSet.getString(18);
-                String locality = rSet.getString(19);
-                String country = rSet.getString(20);
+                float latitude = rSet.getFloat(8);
+                float longitude = rSet.getFloat(9);
+                String doorNumber = rSet.getString(10);
+                String streetName = rSet.getString(11);
+                String postalCode = rSet.getString(12);
+                String locality = rSet.getString(13);
+                String country = rSet.getString(14);
 
                 Address oAddress = new Address(latitude, longitude, streetName, doorNumber, postalCode, locality, country);
-                return new Order(fltAmount, fltTotalWeight, fltAdditionalFee, dtOrderDate, strDescription,
+                return new Order(intId, fltAmount, fltTotalWeight, fltAdditionalFee, dtOrderDate, strDescription,
                         strStatus, oClient, oAddress, null);//new Map<Product, Integer>());
             }
         } catch (SQLException e) {
@@ -239,5 +241,29 @@ public class OrderRegistration extends DataHandler {
             e.printStackTrace();
         }
         throw new IllegalArgumentException("No Order with the following courier email:" + strEmail);
+    }
+
+
+    public void notifyAndRemove(Order order) {
+        try {
+            openConnection();
+            /*
+             *  Objeto "callStmt" para invocar o procedimento "addSailor" armazenado
+             *  na BD.
+             *
+             *  PROCEDURE addSailor(sid NUMBER, sname VARCHAR, rating NUMBER, age NUMBER)
+             *  PACKAGE pkgSailors AS TYPE ref_cursor IS REF CURSOR; END pkgSailors;
+             */
+            CallableStatement callStmt = getConnection().prepareCall("{ call removeProductPharmacy(?) }");
+
+            Integer id = order.getId();
+            callStmt.setInt(1, id);
+
+            callStmt.execute();
+
+            closeAll();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
