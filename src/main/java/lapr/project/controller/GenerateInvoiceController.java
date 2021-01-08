@@ -50,6 +50,7 @@ public class GenerateInvoiceController {
     public GenerateInvoiceController() {
         this.m_oPlatform = ApplicationPOT.getInstance().getPlatform();
         this.m_oOrderRegistration = m_oPlatform.getOrderReg();
+        this.m_oInvoiceRegistration = m_oPlatform.getInvoiceReg();
         this.m_oClientRegistration = m_oPlatform.getClientReg();
         this.m_oClient = m_oClientRegistration.getClientByEmail(ApplicationPOT.getInstance().getCurrentSession().getCurrentUserEmail());
         this.m_oOrder = m_oOrderRegistration.getLatestOrder(m_oClient);

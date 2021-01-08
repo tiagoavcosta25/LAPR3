@@ -16,6 +16,10 @@ import java.util.TreeMap;
 
 public class OrderRegistration extends DataHandler {
 
+    public OrderRegistration(String jdbcUrl, String username, String password) {
+        super(jdbcUrl, username, password);
+    }
+
     public Order getOrder(int id) {
 
         CallableStatement callStmt = null;

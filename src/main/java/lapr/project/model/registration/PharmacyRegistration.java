@@ -14,6 +14,10 @@ import java.util.TreeMap;
 
 public class PharmacyRegistration extends DataHandler {
 
+    public PharmacyRegistration(String jdbcUrl, String username, String password) {
+        super(jdbcUrl, username, password);
+    }
+
     public Pharmacy getPharmacy(int id) {
 
         CallableStatement callStmt = null;
@@ -42,7 +46,7 @@ public class PharmacyRegistration extends DataHandler {
     private void addPharmacy(String strName, Integer intManagerId, Address oAddress) {
         try {
             openConnection();
-            CallableStatement callStmt = getConnection().prepareCall("{ call addPharmacy(?,?,?,?,?,?,?,?,?,?,?,?,?,?) }");
+            CallableStatement callStmt = getConnection().prepareCall("{ call addPharmacy(?,?,?,?,?,?,?,?,?) }");
 
             callStmt.setString(1, strName);
             callStmt.setFloat(2, intManagerId);
@@ -67,7 +71,7 @@ public class PharmacyRegistration extends DataHandler {
         try {
             openConnection();
 
-            CallableStatement callStmt = getConnection().prepareCall("{ call removeOrder(?) }");
+            CallableStatement callStmt = getConnection().prepareCall("{ call removePharmacy(?) }");
 
             callStmt.setInt(1, intId);
 
