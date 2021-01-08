@@ -14,9 +14,9 @@ class Pharmacy{
 
 class User{
 -   String name
--   String name
 -   String email
 -   String password
+-   Integer nif
 }
 
 class PharmacyManager{

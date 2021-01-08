@@ -43,7 +43,7 @@ public class NotifyAndRemoveController implements Serializable {
         this.m_oPlatform = ApplicationPOT.getInstance().getPlatform();
     }
 
-    public void getDeliveryAddress(){
+    public boolean notifyAndRemove(){
         m_oPlatform = ApplicationPOT.getInstance().getPlatform();
         oOrderRegistration = m_oPlatform.getOrderReg();
         oClientRegistration = m_oPlatform.getClientReg();
@@ -51,7 +51,7 @@ public class NotifyAndRemoveController implements Serializable {
         String email = session.getCurrentUserEmail();
         Client client = oClientRegistration.getClientByEmail(email);
         Order order = oOrderRegistration.getLatestOrder(client);
-        oOrderRegistration.notifyAndRemove(order);
+        return oOrderRegistration.notifyAndRemove(order);
     }
 
 }

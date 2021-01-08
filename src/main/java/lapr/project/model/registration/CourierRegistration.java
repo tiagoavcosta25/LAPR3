@@ -207,6 +207,7 @@ public class CourierRegistration extends DataHandler {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+            return null;
         }
         throw new IllegalArgumentException("No Charging Slot for Courier: " + email);
     }

@@ -1,4 +1,4 @@
-# US 149 - NotifyAndRemove
+# US 74 - NotifyAndRemove
 
 ## 1. Requirements Engineering
 

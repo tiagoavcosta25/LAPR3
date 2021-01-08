@@ -9,7 +9,6 @@
     <file url="file://$PROJECT_DIR$/sql/Functions and Procedures/User Management/US18_AddClient.sql" dialect="Oracle" />
     <file url="file://$PROJECT_DIR$/sql/Inserts/Insert.sql" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/sql/LAPR3.G21-SCHEMA.sql" dialect="Oracle" />
-    <file url="file://$PROJECT_DIR$/src/main/java/lapr/project/model/registration/ClientRegistration.java" dialect="GenericSQL" />
     <file url="PROJECT" dialect="Oracle" />
   </component>
 </project>
