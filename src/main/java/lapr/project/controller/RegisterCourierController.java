@@ -1,8 +1,10 @@
 package lapr.project.controller;
 
 import lapr.project.model.Courier;
+import lapr.project.model.Pharmacy;
 import lapr.project.model.Platform;
 import lapr.project.model.registration.CourierRegistration;
+import lapr.project.model.registration.PharmacyRegistration;
 
 import java.io.Serializable;
 import java.security.NoSuchAlgorithmException;
@@ -34,6 +36,11 @@ public class RegisterCourierController implements Serializable {
     private CourierRegistration oCourierRegistration;
 
     /**
+     * Pharmacy Management class
+     */
+    private PharmacyRegistration oPharmacyRegistration;
+
+    /**
      * An empty constructor of RegisterCourierController that initiates the platform variable by getting it from the ApplicationPOT.
      */
     public RegisterCourierController() {
@@ -54,8 +61,12 @@ public class RegisterCourierController implements Serializable {
     public boolean newCourier(String strName, String strEmail, Integer intNIF, String strIBAN) {
         try {
             if (validateInput(strName, strEmail, intNIF, strIBAN)) {
+                UserSession session = new UserSession();
+                String email = session.getCurrentUserEmail();
                 oCourierRegistration = m_oPlatform.getCourReg();
-                this.oCourier = oCourierRegistration.newCourier(strName, strEmail, intNIF, strIBAN);
+                oPharmacyRegistration = m_oPlatform.getPharmacyReg();
+                Pharmacy oPharmacy = oPharmacyRegistration.getPharmacyByManagerEmail(email);
+                this.oCourier = oCourierRegistration.newCourier(strName, strEmail, intNIF, strIBAN, oPharmacy);
                 return true;
             }
         } catch (RuntimeException | NoSuchAlgorithmException ex) {

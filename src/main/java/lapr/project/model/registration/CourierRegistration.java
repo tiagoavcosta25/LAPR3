@@ -15,13 +15,9 @@ public class CourierRegistration extends DataHandler {
         super(jdbcUrl, username, password);
     }
 
-    public Courier getCourier(int id) {
+    /*public Courier getCourier(int id) {
 
-        /* Objeto "callStmt" para invocar a função "getSailor" armazenada na BD.
-         *
-         * FUNCTION getSailor(id NUMBER) RETURN pkgSailors.ref_cursor
-         * PACKAGE pkgSailors AS TYPE ref_cursor IS REF CURSOR; END pkgSailors;
-         */
+
         CallableStatement callStmt = null;
         try {
             callStmt = getConnection().prepareCall("{ ? = call getCourier(?) }");
@@ -51,7 +47,7 @@ public class CourierRegistration extends DataHandler {
             e.printStackTrace();
         }
         throw new IllegalArgumentException("No Courier with ID:" + id);
-    }
+    }*/
 
     /**
      * Exemplo de invocação de uma "stored procedure".
@@ -62,7 +58,7 @@ public class CourierRegistration extends DataHandler {
      * @param strNif  o nome do marinheiro.
      * @param strIban o "rating" do marinheiro.
      */
-    private boolean addCourierToDB(String strName, String strEmail, String strPassword, Integer strNif, String strIban) {
+    private boolean addCourierToDB(String strName, String strEmail, String strPassword, Integer strNif, String strIban, Integer pharmacyId) {
         boolean flag = true;
         try {
             openConnection();
@@ -73,13 +69,14 @@ public class CourierRegistration extends DataHandler {
              *  PROCEDURE addSailor(sid NUMBER, sname VARCHAR, rating NUMBER, age NUMBER)
              *  PACKAGE pkgSailors AS TYPE ref_cursor IS REF CURSOR; END pkgSailors;
              */
-            CallableStatement callStmt = getConnection().prepareCall("{ call addCourier(?,?,?,?,?) }");
+            CallableStatement callStmt = getConnection().prepareCall("{ call addCourier(?,?,?,?,?,?) }");
 
             callStmt.setString(1, strName);
             callStmt.setString(2, strEmail);
             callStmt.setString(3, strPassword);
             callStmt.setInt(4, strNif);
             callStmt.setString(5, strIban);
+            callStmt.setInt(6, pharmacyId);
 
             callStmt.execute();
 
@@ -122,14 +119,15 @@ public class CourierRegistration extends DataHandler {
 
     }
 
-    public Courier newCourier(String strName, String strEmail, Integer strNIF, String strIBAN) throws NoSuchAlgorithmException {
+    public Courier newCourier(String strName, String strEmail, Integer strNIF, String strIBAN,Pharmacy oPharmacy) throws NoSuchAlgorithmException {
         PassGenerator pass = new PassGenerator();
         String password = pass.generatePassword();
-        return new Courier(strName, strEmail, password, strNIF, strIBAN);
+
+        return new Courier(strName, strEmail, password, strNIF, strIBAN,oPharmacy);
     }
 
     public boolean registersCourier(Courier oCourier) {
-        return addCourierToDB(oCourier.getM_name(), oCourier.getStrEmail(), oCourier.getPw(), oCourier.getM_nif(), oCourier.getM_iban());
+        return addCourierToDB(oCourier.getM_name(), oCourier.getStrEmail(), oCourier.getPw(), oCourier.getM_nif(), oCourier.getM_iban(), oCourier.getM_Pharmacy().getId());
     }
 
     public Address getDeliveryAddress(String email) {

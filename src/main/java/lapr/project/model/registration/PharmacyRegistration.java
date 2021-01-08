@@ -43,6 +43,47 @@ public class PharmacyRegistration extends DataHandler {
         throw new IllegalArgumentException("No Order with ID:" + id);
     }
 
+    public Pharmacy getPharmacyByManagerEmail(String email) {
+
+        CallableStatement callStmt = null;
+        try {
+            callStmt = getConnection().prepareCall("{ ? = call getPharmacyByManagerEmail(?) }");
+
+            callStmt.registerOutParameter(1, OracleTypes.CURSOR);
+            callStmt.setString(1, email);
+
+            callStmt.execute();
+
+            ResultSet rSet = (ResultSet) callStmt.getObject(1);
+
+            if (rSet.next()) {
+                Integer pharmacyID = rSet.getInt(1);
+                String pharmacyName = rSet.getString(2);
+                //address
+                Integer idAddress = rSet.getInt(3);
+                Double latitude = rSet.getDouble(4);
+                Double longitude = rSet.getDouble(5);
+                String doorNumber = rSet.getString(6);
+                String streetName = rSet.getString(7);
+                String postalCode = rSet.getString(8);
+                String locality = rSet.getString(9);
+                String country = rSet.getString(10);
+                //User
+                Integer id = rSet.getInt(11);
+                String emailManager = rSet.getString(12);
+                String password = rSet.getString(13);
+                Integer nif = rSet.getInt(14);
+                String name = rSet.getString(15);
+
+                return new Pharmacy(pharmacyID,pharmacyName,new PharmacyManager(id,emailManager,password,nif,name),
+                        new Address(idAddress,latitude,longitude,doorNumber,streetName,postalCode,locality,country));
+            }
+        } catch (SQLException | NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        throw new IllegalArgumentException("No Pharmacy with Manager Email: " + email);
+    }
+
     private void addPharmacy(String strName, Integer intManagerId, Address oAddress) {
         try {
             openConnection();

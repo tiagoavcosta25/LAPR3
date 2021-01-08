@@ -8,6 +8,7 @@ participant "PotApplication" as PA
 participant "app \n:PotApplication" as APA
 participant "session \n:UserSession" as US
 participant "plat \n:Platform" as PLAT
+participant "courReg \n:PharmacyRegistration" as PR
 participant "courReg \n:CourierRegistration" as RF
 participant "pass \n:PassGenerator" as PS
 participant "courier: Courier" as CR
@@ -41,9 +42,12 @@ deactivate US
 CTRL -> PLAT : courReg = getCourReg()
 activate PLAT
 deactivate PLAT
-CTRL -> RF : pharmacy = getPharmacyByManagerEmail(email)
-activate RF
-deactivate RF
+CTRL -> PLAT : pharmacyReg = getPharmacyReg()
+activate PLAT
+deactivate PLAT
+CTRL -> PR : pharmacy = getPharmacyByManagerEmail(email)
+activate PR
+deactivate PR
 CTRL -> RF : newCourier(name, nif, email, iban, pharmacy)
 activate RF
 RF -> PS : create()

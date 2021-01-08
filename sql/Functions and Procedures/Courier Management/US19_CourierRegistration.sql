@@ -1,5 +1,5 @@
 CREATE OR REPLACE PROCEDURE addCourier(strName "User".NAME%type, strEmail "User".EMAIL%type, strPassword "User".PASSWORD%type,
-                                        strNif "User".NIF%type, strIban COURIER.IBAN%type) IS
+                                        strNif "User".NIF%type, strIban COURIER.IBAN%type, pharmacyIDs COURIER.PHARMACYID%type) IS
 
     courierValidation int;
     invalidInsertion exception;
@@ -37,8 +37,8 @@ VALUES (strEmail,strPassword,strNif,strName)
 RETURNING id into userIdentifier;
 
 -- Inserir Courier
-INSERT INTO COURIER(USERID,IBAN)
-VALUES (userIdentifier,strIban);
+INSERT INTO COURIER(USERID,IBAN,PHARMACYID)
+VALUES (userIdentifier,strIban,pharmacyIDs);
 
 EXCEPTION
     when invalidInsertion then

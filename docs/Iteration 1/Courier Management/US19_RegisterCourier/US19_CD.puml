@@ -55,9 +55,15 @@ class CourierRegistration {
   +generatePassword()
   +Courier newCourier(name, email, nif, iban, pharmacy)
   +registersCourier(courier)
+
+}
+
+class PharmacyRegistration {
+
   +getPharmacyByManagerEmail(email)
 
 }
+
 }
 class User{
   -String email
@@ -69,6 +75,7 @@ class User{
 
 
 Platform "1" -- "1" CourierRegistration: has >
+Platform "1" -- "1" PharmacyRegistration: has >
 Platform "1" -- "1" PharmacyManager: has registered >
 PharmacyManager "1" -- "1..*" Courier: registers >
 PharmacyManager "1" -- "1" User: acts as >
@@ -77,12 +84,14 @@ Courier "1" -- "1" Pharmacy: belongs to a >
 
 CourierRegistration "1" -- "1" Courier : creates and adds to DataBase
 CourierRegistration "1" -- "1" PassGenerator : creates
+PharmacyRegistration "1" -- "1" Pharmacy : manages
 
 
 RegisterCourierUI ..> RegisterCourierController
 
 RegisterCourierController ..> Platform
 RegisterCourierController ..> CourierRegistration
+RegisterCourierController ..> PharmacyRegistration
 RegisterCourierController ..> PotApplication
 
 @enduml
