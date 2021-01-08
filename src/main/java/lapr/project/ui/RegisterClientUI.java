@@ -9,10 +9,13 @@ public class RegisterClientUI {
 
         RegisterClientController m_ctrl = new RegisterClientController();
 
-        m_ctrl.registerNewClient("Rodrigo", 123456789, "slow@gmail.com", "123", 180.123456d,
-                23456789d, "Street", "2esq", "4430-183", "Mafamude",
-                "Portugal", 1234123412341234.0, "10/23", 123);
-        System.out.println("done");
+        if(m_ctrl.registerNewClient("Rodrigo", 123456789, "slow@gmail.com", "123", 180090980d,
+                234567899d, "Street", "2esq", "4430-183", "Mafamude",
+                "Portugal", 1234123412341234d, "10/23", 123)) {
+            System.out.println("Operation WAS Successfull!");
+
+        }else System.out.println("Operation was NOT Successfull!");
+
         /**Scanner sc = new Scanner(System.in);
          try {
          System.out.println("Please input the following information:");
