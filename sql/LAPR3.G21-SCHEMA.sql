@@ -30,7 +30,7 @@ CREATE TABLE ChargingSlot (id number(10) GENERATED AS IDENTITY, parkPharmacyId n
 CREATE TABLE ChargingStatus (designation varchar2(20) NOT NULL, PRIMARY KEY (designation));
 CREATE TABLE Client (userId number(10) NOT NULL, credits number(6) DEFAULT 0 NOT NULL, addressId number(10) NOT NULL, PRIMARY KEY (userId));
 CREATE TABLE Courier (userId number(10) NOT NULL, iban varchar2(34) NOT NULL, pharmacyId number(10) NOT NULL, PRIMARY KEY (userId));
-CREATE TABLE CreditCard (creditCardNr number(16) GENERATED AS IDENTITY, validityDate date NOT NULL, ccv number(3) NOT NULL, PRIMARY KEY (creditCardNr));
+CREATE TABLE CreditCard (creditCardNr number(16), validityDate date NOT NULL, ccv number(3) NOT NULL, PRIMARY KEY (creditCardNr));
 CREATE TABLE CreditCardClient (creditCardNr number(16) NOT NULL, clientId number(10) NOT NULL, PRIMARY KEY (creditCardNr, clientId));
 CREATE TABLE Delivery (orderId number(10) NOT NULL, deliveryDate date, notes varchar2(255), deliveryRunId number(10) NOT NULL, PRIMARY KEY (orderId));
 CREATE TABLE DeliveryRun (id number(10) GENERATED AS IDENTITY, courierId number(10) NOT NULL, scooterId number(10) NOT NULL, deliveryStatus varchar2(20) NOT NULL, PRIMARY KEY (id));
