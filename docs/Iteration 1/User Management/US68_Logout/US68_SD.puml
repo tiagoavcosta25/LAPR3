@@ -9,9 +9,9 @@ participant "LogoutController" as CTRL
 
 
 participant "userReg\n:UserRegistration" as UREG
+participant "session\n:UserSession" as SES
 participant "ApplicationPOT" as _APP
 participant "app\n:ApplicationPOT" as APP
-participant "session\n:UserSession" as SES
 participant "user\n:User" as USER
 
 
@@ -32,10 +32,14 @@ activate _APP
 deactivate _APP
 
 
-CTRL -> APP : clearCurrentSession()
+CTRL -> SES** : create()
+activate SES
+deactivate SES
+SES -> _APP : clearCurrentSession()
 
-activate APP
-deactivate APP
+
+activate _APP
+deactivate _APP
 
 deactivate CTRL
 

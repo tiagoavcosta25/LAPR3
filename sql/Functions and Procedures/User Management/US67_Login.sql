@@ -1,6 +1,8 @@
-create or replace procedure logIn(p_email "User".email%type, p_password "User".password%type, userType OUT int)
+create or replace function logIn(p_email IN "User".email%type, p_password IN "User".password%type)
+return int
     is
     userIdentifier "User".id%type;
+    userType int;
     user_not_found exception;
 begin
 
@@ -39,22 +41,25 @@ begin
             where USERID = userIdentifier;
 
             if userType is null then
-                userType = 4;
+                return 4;
             else
-                userType = 3;
+                return 3;
             end if;
 
         else
-            userType = 2;
+            return 2;
         end if;
 
     else
-        userType = 1;
+        return 1;
     end if;
+
 
 
 EXCEPTION
     when user_not_found then
-        raise_application_error(-20025, 'User Not Found!');
+        return -1;
+    when NO_DATA_FOUND then
+        return -1;
 
 end;

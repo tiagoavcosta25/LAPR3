@@ -9,10 +9,10 @@ participant "LoginController" as CTRL
 
 
 participant "userReg\n:UserRegistration" as UREG
-participant "ApplicationPOT" as _APP
+
 participant "session\n:UserSession" as SES
 participant "app\n:ApplicationPOT" as APP
-
+participant "ApplicationPOT" as _APP
 participant "plat\n:Platform" as PLAT
 participant "user\n:User" as USER
 
@@ -51,7 +51,7 @@ activate UREG
 
 
 
-opt if the user exists in the DataBase and password corresponds
+alt if the user exists in the DataBase and password corresponds
 
 
 
@@ -59,13 +59,14 @@ opt if the user exists in the DataBase and password corresponds
 ref over UREG
 SD_CONNECTIONS
 end ref
-UREG -> SES** : create(email)
+UREG -> SES** : create(email,role)
 activate SES
-SES -> APP : setCurrentSession(session)
+SES -> _APP : setCurrentSession(session)
+activate _APP
 deactivate SES
 
-activate APP
-deactivate APP
+
+deactivate _APP
 
 deactivate UREG
 
@@ -74,8 +75,18 @@ deactivate CTRL
 
 UI --> U : Validates and allocates a session\n for the user
 deactivate UI
-end opt
+
+else if the user does not exist in the DataBase or password doesn't correspond
+
+
+
+
+
+UI -> U : Informs the User that the operation\nwas not successful
+activate UI
+deactivate UI
+
+end
+
 deactivate U
-
-
 @enduml

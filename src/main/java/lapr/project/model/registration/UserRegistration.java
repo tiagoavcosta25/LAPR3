@@ -3,7 +3,7 @@ package lapr.project.model.registration;
 
 import lapr.project.controller.UserSession;
 import lapr.project.data.DataHandler;
-import oracle.jdbc.OracleTypes;
+import oracle.jdbc.internal.OracleTypes;
 
 import java.sql.CallableStatement;
 import java.sql.SQLException;
@@ -29,15 +29,24 @@ public class UserRegistration extends DataHandler {
         try {
             openConnection();
 
-            CallableStatement callStmt = getConnection().prepareCall("{ call logIn(?,?) }");
+            CallableStatement callStmt = getConnection().prepareCall("{ ? = call logIn(?,?) }");
 
-            callStmt.setString(1, email);
-            callStmt.setString(2, password);
-            callStmt.registerOutParameter(3, OracleTypes.INTEGER);
+            // Regista o tipo de dados SQL para interpretar o resultado obtido.
+
+
+            callStmt.setString(2, email);
+            callStmt.setString(3, password);
+            callStmt.registerOutParameter(1 , OracleTypes.INTEGER);
+
+
             callStmt.execute();
 
-            Integer role = (Integer) callStmt.getObject(3);
-            new UserSession(email,role);
+            Integer role = callStmt.getInt(1);
+            System.out.println(role);
+
+            if (role != -1) {
+                new UserSession(email,role);
+            }else flag = false;
 
             closeAll();
         } catch (SQLException e) {
