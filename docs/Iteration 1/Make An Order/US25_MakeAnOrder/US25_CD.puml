@@ -34,20 +34,10 @@ class Platform {
   +getOrderReg()
 }
 package "Registration" #DDDDDD {
- class ClientRegistration{
-     +getUserByEmail(email)
-     +getConnection()
- }
 
- class ProductRegistration{
-      +getAvailableProduts()
-      +getConnection()
-  }
-
-  class OrderRegistration{
-       +addOrder(address, amount, additionalFee, dateOrder, description, mapProducts, client)
-       +validateOrder(order)
-       +getConnection()
+  class PharmacyRegistration{
+       +addPharmacy(address, amount, additionalFee, dateOrder, description, mapProducts, client)
+       +validateOrder(pharmacy)
    }
  }
 }
@@ -59,42 +49,25 @@ abstract class User{
 -String name
 }
 
-class Client{
--int IBAN;
--long creditCardNumber
--Address address
--int validityDate
--int CCV
-}
-
-class Address{
--   String streetName
--   String doorNumber
--   String postalCode
--   String locality
--   String country
--   float longitude
--   float latitude
-+create(streetName,doorNumber,locality,country,longitude,longitude)
-}
-
-class Order{
--   int id
--   float amount
--   float totalWeight
--   float additionalFee
--   Date orderDate
--   String description
--   String status
-+create(amount, additionalFee, dateOrder, description, mapProducts, client, streetName,doorNumber,locality,country,longitude,longitude)
-}
-
-class Product{
+class Pharmacy{
 -   int id
 -   String name
--   String description
--   float unitaryPrice
--   float unitaryWeight
+}
+
+class PharmacyManager{
+}
+
+class Park{
+-   int maxSlotsNumber
+}
+
+class ChargingSlot{
+-   int id
+-   float outputPower
+}
+
+class ParkingSlot{
+-   int id
 }
 
 }
@@ -107,26 +80,22 @@ class DataHandler{
 }
 }
 
-class ClientRegistration extends DataHandler
-class ProductRegistration extends DataHandler
-class OrderRegistration extends DataHandler
+class PharmacyRegistration extends DataHandler
 
-class Client extends User
+class PharmacyManager extends User
 
 MakeAnOrderUI ..> MakeAnOrderController
 MakeAnOrderController ..> Platform
 MakeAnOrderController ..> ApplicationPOT
 MakeAnOrderController ..> UserSession
-Platform "1" --> "1" ClientRegistration : has
-ClientRegistration "1" --> "*" Client : manages
-ProductRegistration "1" --> "*" Product : manages
-OrderRegistration "1" --> "*" Order : manages
+Platform "1" --> "1" PharmacyRegistration : has
+PharmacyRegistration "1" --> "*" Pharmacy : manages
 
-Platform "1" -- "*" Client : has registered >
-Platform "1" -- "*" Order : has registered >
-Order "1" -- "*" Product : has >
-Client "1" -- "1" Order : makes >
-Client "1" -- "1" Address : has >
-Order "1" -- "1" Address : has >
+Platform "1" -- "*" Pharmacy : has registered >
+Platform "1" -- "*" PharmacyManager : has registered >
+Pharmacy "1" -- "1" PharmacyManager : has >
+Pharmacy "1" -- "1" Park : has >
+Park "1" -- "1" ChargingSlot : has >
+Park "1" -- "1" ParkingSlot : has >
 
 @enduml
