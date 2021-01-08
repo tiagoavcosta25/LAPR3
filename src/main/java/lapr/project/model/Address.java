@@ -74,6 +74,21 @@ public class Address {
         return m_country;
     }
 
+    public double distanceTo(Address oAddress) {
+        final double EARTH_RADIUS = 6371e3;
+        double latitude1 = this.getM_latitude() * Math.PI / 180;
+        double latitude2 = oAddress.getM_latitude() * Math.PI / 180;
+        double differenceOfLatitude = (this.m_latitude - oAddress.getM_latitude()) * Math.PI / 180;
+        double differenceOfLongitude = (this.m_longitude - oAddress.getM_longitude()) * Math.PI / 180;
+
+        double a = Math.sin(differenceOfLatitude / 2) * Math.sin(differenceOfLatitude / 2) +
+                Math.cos(latitude1) * Math.cos(latitude2) * Math.sin(differenceOfLongitude / 2) *
+                        Math.sin(differenceOfLongitude / 2);
+        double aux = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        return EARTH_RADIUS * aux;
+        //in meters
+    }
+
     @Override
     public String toString() {
         return "Address{" +
