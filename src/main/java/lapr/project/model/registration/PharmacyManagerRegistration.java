@@ -12,6 +12,10 @@ import java.sql.SQLException;
 
 public class PharmacyManagerRegistration extends DataHandler {
 
+    public PharmacyManagerRegistration(String jdbcUrl, String username, String password) {
+        super(jdbcUrl, username, password);
+    }
+
     public Pharmacy getPharmacyManager(int id) {
 
         CallableStatement callStmt = null;

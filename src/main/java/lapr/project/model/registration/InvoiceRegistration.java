@@ -14,6 +14,10 @@ import java.util.TreeMap;
 
 public class InvoiceRegistration extends DataHandler {
 
+    public InvoiceRegistration(String jdbcUrl, String username, String password) {
+        super(jdbcUrl, username, password);
+    }
+
     public Invoice getInvoice(int id) {
 
         CallableStatement callStmt = null;
