@@ -61,10 +61,11 @@ public class RegisterCourierController implements Serializable {
     public boolean newCourier(String strName, String strEmail, Integer intNIF, String strIBAN) {
         try {
             if (validateInput(strName, strEmail, intNIF, strIBAN)) {
-                UserSession session = new UserSession();
-                String email = session.getCurrentUserEmail();
+                /*UserSession session = new UserSession();
+                String email = session.getCurrentUserEmail();*/
                 oCourierRegistration = m_oPlatform.getCourReg();
                 oPharmacyRegistration = m_oPlatform.getPharmacyReg();
+                String email = "user5@gmail.com";
                 Pharmacy oPharmacy = oPharmacyRegistration.getPharmacyByManagerEmail(email);
                 this.oCourier = oCourierRegistration.newCourier(strName, strEmail, intNIF, strIBAN, oPharmacy);
                 return true;
