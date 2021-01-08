@@ -37,8 +37,9 @@ public class AvailableChargingSlotController implements Serializable {
 
     public ChargingSlot getAvailableChargingSlot(){
         m_oPlatform = ApplicationPOT.getInstance().getPlatform();
-        UserSession session = ApplicationPOT.getInstance().getCurrentSession();
-        String email = session.getCurrentUserEmail();
+        /*UserSession session = ApplicationPOT.getInstance().getCurrentSession();
+        String email = session.getCurrentUserEmail();*/
+        String email = "user6@gmail.com";
         oCourierRegistration = m_oPlatform.getCourReg();
         return oCourierRegistration.getAvailableChargingSlot(email);
     }
