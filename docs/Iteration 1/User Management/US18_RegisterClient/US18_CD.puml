@@ -64,8 +64,8 @@ class Client{
 
 class Address{
 -Integer id
--float latitude
--float longitude
+-Double latitude
+-Double longitude
 -String streetName
 -String doorNumber
 -String postalCode
