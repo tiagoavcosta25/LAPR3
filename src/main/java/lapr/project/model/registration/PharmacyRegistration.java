@@ -7,8 +7,6 @@ import oracle.jdbc.OracleTypes;
 import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Date;
-import java.util.List;
 
 public class PharmacyRegistration extends DataHandler {
 

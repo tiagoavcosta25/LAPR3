@@ -1,51 +1,106 @@
 @startuml
 skinparam classAttributeIconSize 0
 
-class PotApplication
+package "UI" #DDDDDD {
+class RegisterPharmacyUI{
+
+}
+}
+
+
+package "Controller" #DDDDDD {
+class RegisterPharmacyController{
++newPharmacy(managerName,email,password, nif, name,latitude,longitude,\nstreetName,doorNumber,postalCode,locality,country)
++registerPhamacy()
+}
+
+class ApplicationPOT
 {
   +static getInstance()
-  +getCurrentSession()
+  +getPlatform()
 }
 
 class UserSession
 {
-  +getEmailUser()
+  +getCurrentSession()
 }
-class KnowDeliveryUI{
-
 }
 
-class KnowDeliveryController{
-+getCourierInfo()
-+getPlatform()
-+getOrderByCour()
-}
 
+package "Model" #DDDDDD {
 class Platform {
   -String designation
-  +CourierRegistry getCourReg()
-  +OrdersRegistry getOrdReg()
+  +getPharmacyReg()
+  +getPharmacyManagerReg()
 }
-class CourierRegistry{
-+getCourByEmail(email)
+package "Registration" #DDDDDD {
+
+   class PharmacyRegistration{
+          +addPharmacy(name, pharmacyManager,latitude,longitude,streetName,doorNumber,postalCode,locality,country)
+          +validatePharmacy()
+          +registerPharmacy()
+      }
+   class PharmacyManagerRegistration{
+             +addPharmacyManager(managerName,email,password, nif)
+             +validatePharmacyManager()
+         }
+ }
 }
 
-class OrdersRegistry{
-+getOrdersList()
+package "Model" #DDDDDD {
+abstract class User{
+-String email
+-String password
+-String name
+-Integer nif
 }
 
-class OrdersList{
-+getOrderByCourier(cour)
-+hasOrder(cour)
-+getOrderByCour(cour)
+class Pharmacy{
+-   int id
+-   String name
 }
 
-KnowDeliveryUI ..> KnowDeliveryController
-KnowDeliveryController ..> Platform
-KnowDeliveryController ..> PotApplication
-KnowDeliveryController ..> UserSession
-Platform "1" --> "1" CourierRegistry : has
-Platform "1" --> "1" OrdersRegistry : has
-OrdersRegistry "1" --> "1" OrdersList : has
+class PharmacyManager{
+}
+
+class Park{
+-   int maxSlotsNumber
+}
+
+class ChargingSlot{
+-   int id
+-   float outputPower
+}
+
+class ParkingSlot{
+-   int id
+}
+
+}
+
+
+package "Data" #DDDDDD {
+class DataHandler{
+    +openConnection()
+    +closeAll()
+}
+}
+
+class PharmacyRegistration extends DataHandler
+class PharmacyManagerRegistration extends DataHandler
+class PharmacyManager extends User
+
+RegisterPharmacyUI ..> RegisterPharmacyController
+RegisterPharmacyController ..> Platform
+RegisterPharmacyController ..> ApplicationPOT
+RegisterPharmacyController ..> UserSession
+Platform "1" --> "1" PharmacyRegistration : has
+PharmacyRegistration "1" --> "*" Pharmacy : manages
+PharmacyManagerRegistration "1" --> "*" PharmacyManager : manages
+
+Pharmacy "1" -- "1" PharmacyManager : has >
+Pharmacy "1" -- "1" Park : has >
+Park "1" -- "1" ChargingSlot : has >
+Park "1" -- "1" ParkingSlot : has >
 
 @enduml
