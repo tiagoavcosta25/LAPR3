@@ -3,6 +3,7 @@ package lapr.project.controller;
 import lapr.project.model.Pharmacy;
 import lapr.project.model.Platform;
 import lapr.project.model.Scooter;
+import lapr.project.model.User;
 import lapr.project.model.registration.PharmacyRegistration;
 import lapr.project.model.registration.ScooterRegistration;
 
@@ -41,16 +42,27 @@ public class UpdateScooterController {
     private List<Scooter> m_lstScooters;
 
     /**
+     * Scooter's List
+     */
+    private UserSession m_oUserSession;
+
+    /**
+     * Scooter's List
+     */
+    private String m_strUserEmail;
+
+    /**
      * An empty constructor of RegisterScooterController that initiates the platform variable by getting it from the ApplicationPOT.
      */
     public UpdateScooterController() {
         this.m_oPlatform = ApplicationPOT.getInstance().getPlatform();
         this.m_oPharmacyRegistration = m_oPlatform.getPharmacyReg();
+        this.m_strUserEmail = m_oUserSession.getCurrentUserEmail();
     }
 
     public List<Scooter> showScootersList (Pharmacy oPharmacy) {
         try {
-            this.m_oPharmacy = m_oPharmacyRegistration.getPharmacy(oPharmacy.getId());
+            //this.m_oPharmacy = m_oPharmacyRegistration.getPharmacyByManager(m_strUserEmail);
             return this.m_lstScooters;
         } catch (RuntimeException ex) {
             return this.m_lstScooters = null;
