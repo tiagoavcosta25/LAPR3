@@ -6,27 +6,33 @@ public class Pharmacy {
 
     private int m_intId;
     private String m_strName;
+    private PharmacyManager m_oPharmacyManager;
     private Address m_oAddress;
 
 
     private static int DEFAULT_ID = -1;
     private static String DEFAULT_NAME = "";
+    private static PharmacyManager DEFAULT_PHARMACY_MANAGER = new PharmacyManager();
     private static Address DEFAULT_ADDRESS = new Address();
 
     public Pharmacy() {
         this.m_intId = DEFAULT_ID;
         this.m_strName= DEFAULT_NAME;
+        this.m_oPharmacyManager = DEFAULT_PHARMACY_MANAGER;
         this.m_oAddress = DEFAULT_ADDRESS;
     }
 
-    public Pharmacy(int intId, String strName, Address oAddress) {
+    public Pharmacy(int intId, String strName, PharmacyManager oPharmacyManager, Address oAddress) {
         this.m_intId = intId;
         this.m_strName= strName;
+        this.m_oPharmacyManager = oPharmacyManager;
         this.m_oAddress= oAddress;
     }
 
-    public Pharmacy(String strName, Address oAddress) {
+    public Pharmacy(String strName, PharmacyManager oPharmacyManager, Address oAddress) {
+        this.m_intId = DEFAULT_ID;
         this.m_strName= strName;
+        this.m_oPharmacyManager = oPharmacyManager;
         this.m_oAddress= oAddress;
     }
 
@@ -44,6 +50,14 @@ public class Pharmacy {
 
     public void setName(String strName) {
         this.m_strName = strName;
+    }
+
+    public PharmacyManager getPharmacyManager() {
+        return m_oPharmacyManager;
+    }
+
+    public void setPharmacyManager(PharmacyManager oPharmacyManager) {
+        this.m_oPharmacyManager = oPharmacyManager;
     }
 
     public Address getAddress() {

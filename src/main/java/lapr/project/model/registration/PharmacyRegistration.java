@@ -4,24 +4,15 @@ import lapr.project.data.DataHandler;
 import lapr.project.model.*;
 import oracle.jdbc.OracleTypes;
 
+import java.security.NoSuchAlgorithmException;
 import java.sql.CallableStatement;
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Map;
+import java.util.TreeMap;
 
 public class PharmacyRegistration extends DataHandler {
-
-    /**
-     * Registers a new Pharmacy in the Database
-     *
-     * @param strName           Pharmacy's name
-     * @return True if Pharmacy was registered, false if otherwise
-     */
-    public boolean registerNewPharmacy(String strName, Double latitude, Double longitude, String streetName,
-                                       String doorNumber, String postalCode, String locality, String country) {
-        Pharmacy pharmacy = new Pharmacy(strName, new Address(latitude, longitude, streetName, doorNumber, postalCode, locality, country));
-        return addPharmacyToDB(pharmacy);
-
-    }
 
     public Pharmacy getPharmacy(int id) {
 
@@ -38,17 +29,9 @@ public class PharmacyRegistration extends DataHandler {
 
             if (rSet.next()) {
 
-                int intId = rSet.getInt(1);
-                String strName = rSet.getString(2);
-                Double fltLatitude = rSet.getDouble(4);
-                Double fltLongitude = rSet.getDouble(5);
-                String strStreetName = rSet.getString(6);
-                String strDoorNumber = rSet.getString(7);
-                String strPostalCode = rSet.getString(8);
-                String strLocality = rSet.getString(9);
-                String strCountry = rSet.getString(10);
+                // IMPLEMENTAR
 
-                return new Pharmacy(intId, strName, new Address(fltLatitude, fltLongitude, strStreetName, strDoorNumber, strPostalCode, strLocality, strCountry));
+                return new Pharmacy();
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -56,39 +39,56 @@ public class PharmacyRegistration extends DataHandler {
         throw new IllegalArgumentException("No Order with ID:" + id);
     }
 
-
-    /**
-     * DATABASE
-     */
-
-
-    public boolean addPharmacyToDB(Pharmacy p) {
-        return addPharmacyToDB(p.getName(), p.getAddress());
-    }
-
-    private boolean addPharmacyToDB(String strName, Address oAddress) {
-        boolean flag = true;
+    private void addPharmacy(String strName, Integer intManagerId, Address oAddress) {
         try {
             openConnection();
-
-            CallableStatement callStmt = getConnection().prepareCall("{ call addPharmacy(?,?,?,?,?) }");
+            CallableStatement callStmt = getConnection().prepareCall("{ call addPharmacy(?,?,?,?,?,?,?,?,?,?,?,?,?,?) }");
 
             callStmt.setString(1, strName);
-            callStmt.setDouble(2, oAddress.getM_latitude());
-            callStmt.setDouble(3, oAddress.getM_longitude());
-            callStmt.setString(4, oAddress.getM_streetName());
-            callStmt.setString(5, oAddress.getM_doorNumber());
-            callStmt.setString(6, oAddress.getM_postalCode());
-            callStmt.setString(7, oAddress.getM_locality());
-            callStmt.setString(8, oAddress.getM_country());
+            callStmt.setFloat(2, intManagerId);
+            callStmt.setDouble(3, oAddress.getM_latitude());
+            callStmt.setDouble(4, oAddress.getM_longitude());
+            callStmt.setString(5, oAddress.getM_streetName());
+            callStmt.setString(6, oAddress.getM_doorNumber());
+            callStmt.setString(7, oAddress.getM_postalCode());
+            callStmt.setString(8, oAddress.getM_locality());
+            callStmt.setString(9, oAddress.getM_country());
 
             callStmt.execute();
 
             closeAll();
         } catch (SQLException e) {
-            flag = false;
             e.printStackTrace();
         }
-        return flag;
     }
+
+    public void removeOrder(int intId) {
+
+        try {
+            openConnection();
+
+            CallableStatement callStmt = getConnection().prepareCall("{ call removeOrder(?) }");
+
+            callStmt.setInt(1, intId);
+
+            callStmt.execute();
+
+            closeAll();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public void registerPharmacy(Pharmacy oPharmacy) {
+        addPharmacy(oPharmacy.getName(), oPharmacy.getPharmacyManager().getM_id(), oPharmacy.getAddress());
+    }
+
+    public Pharmacy newPharmacy(String strName, PharmacyManager oPharmacyManager,Double dblLatitude,Double dblLongitude,
+                             String strStreetName, String strDoorNumber, String strPostalCode, String strLocality, String strCountry) {
+        return new Pharmacy(strName, oPharmacyManager, new Address(dblLatitude, dblLongitude, strStreetName, strDoorNumber, strPostalCode,
+                strLocality, strCountry));
+    }
+
+
 }
