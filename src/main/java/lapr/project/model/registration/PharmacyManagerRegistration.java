@@ -6,7 +6,9 @@ import lapr.project.model.Pharmacy;
 import lapr.project.model.PharmacyManager;
 import oracle.jdbc.OracleTypes;
 
+import java.security.NoSuchAlgorithmException;
 import java.sql.CallableStatement;
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -16,7 +18,7 @@ public class PharmacyManagerRegistration extends DataHandler {
         super(jdbcUrl, username, password);
     }
 
-    public Pharmacy getPharmacyManager(int id) {
+    public PharmacyManager getPharmacyManager(int id) {
 
         CallableStatement callStmt = null;
         try {
@@ -31,30 +33,29 @@ public class PharmacyManagerRegistration extends DataHandler {
 
             if (rSet.next()) {
 
-                // IMPLEMENTAR
+                int intId = rSet.getInt(1);
+                String strEmail = rSet.getString(2);
+                String strPassword = rSet.getString(3);
+                Integer intNIF = rSet.getInt(4);
+                String strName = rSet.getString(5);
 
-                return new Pharmacy();
+                return new PharmacyManager(intId, strEmail, strPassword, intNIF, strName);
             }
-        } catch (SQLException e) {
+        } catch (SQLException | NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
         throw new IllegalArgumentException("No Order with ID:" + id);
     }
 
-    private void addPharmacy(String strName, Integer intManagerId, Address oAddress) {
+    private void addPharmacyManager(String strEmail, String strPassword, Integer intNIF, String strName) {
         try {
             openConnection();
-            CallableStatement callStmt = getConnection().prepareCall("{ call addPharmacy(?,?,?,?,?,?,?,?,?) }");
+            CallableStatement callStmt = getConnection().prepareCall("{ call addPharmacy(?,?,?,?) }");
 
-            callStmt.setString(1, strName);
-            callStmt.setFloat(2, intManagerId);
-            callStmt.setDouble(3, oAddress.getM_latitude());
-            callStmt.setDouble(4, oAddress.getM_longitude());
-            callStmt.setString(5, oAddress.getM_streetName());
-            callStmt.setString(6, oAddress.getM_doorNumber());
-            callStmt.setString(7, oAddress.getM_postalCode());
-            callStmt.setString(8, oAddress.getM_locality());
-            callStmt.setString(9, oAddress.getM_country());
+            callStmt.setString(1, strEmail);
+            callStmt.setString(2, strPassword);
+            callStmt.setInt(3, intNIF);
+            callStmt.setString(4, strName);
 
             callStmt.execute();
 
@@ -69,7 +70,7 @@ public class PharmacyManagerRegistration extends DataHandler {
         try {
             openConnection();
 
-            CallableStatement callStmt = getConnection().prepareCall("{ call removeOrder(?) }");
+            CallableStatement callStmt = getConnection().prepareCall("{ call removePharmacyManager(?) }");
 
             callStmt.setInt(1, intId);
 
@@ -82,14 +83,12 @@ public class PharmacyManagerRegistration extends DataHandler {
 
     }
 
-    public void registerPharmacy(Pharmacy oPharmacy) {
-        addPharmacy(oPharmacy.getName(), oPharmacy.getPharmacyManager().getM_id(), oPharmacy.getAddress());
+    public void registerPharmacy(PharmacyManager oPharmacyManager) {
+        addPharmacyManager(oPharmacyManager.getStrEmail(), oPharmacyManager.getPw(), oPharmacyManager.getM_nif(), oPharmacyManager.getM_name());
     }
 
-    public Pharmacy newPharmacy(String strName, PharmacyManager oPharmacyManager,Double dblLatitude,Double dblLongitude,
-                             String strStreetName, String strDoorNumber, String strPostalCode, String strLocality, String strCountry) {
-        return new Pharmacy(strName, oPharmacyManager, new Address(dblLatitude, dblLongitude, strStreetName, strDoorNumber, strPostalCode,
-                strLocality, strCountry));
+    public PharmacyManager newPharmacyManager(String strEmail, String strPassword, Integer intNIF, String strName) throws NoSuchAlgorithmException {
+        return new PharmacyManager(strEmail, strPassword, intNIF, strName);
     }
 
 

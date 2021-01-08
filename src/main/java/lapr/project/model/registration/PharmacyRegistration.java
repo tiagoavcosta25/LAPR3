@@ -71,7 +71,7 @@ public class PharmacyRegistration extends DataHandler {
         try {
             openConnection();
 
-            CallableStatement callStmt = getConnection().prepareCall("{ call removeOrder(?) }");
+            CallableStatement callStmt = getConnection().prepareCall("{ call removePharmacy(?) }");
 
             callStmt.setInt(1, intId);
 
