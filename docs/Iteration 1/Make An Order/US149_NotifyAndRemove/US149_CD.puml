@@ -27,7 +27,8 @@ class UserSession
 package "model" #DDDDDD{
 class Platform {
   -String strDesignation
-  +getCourReg()
+  +getClientReg()
+  +getOrderReg()
 }
 class Client{
 -   int IBAN
@@ -71,8 +72,15 @@ class Product{
 
 
 package "registration" #DDDDDD{
-class CourierRegistration {
+class ClientRegistration {
 
+  +getClientByEmail(email)
+
+}
+
+class OrderRegistration {
+
+  +getLatestOrder(client)
   +notifyAndRemove(order)
 
 }
@@ -80,13 +88,15 @@ class CourierRegistration {
 }
 
 
-Platform "1" -- "1" CourierRegistration: has >
+Platform "1" -- "1" OrderRegistration: has >
+Platform "1" -- "1" ClientRegistration: has >
 
 
 NotifyAndRemoveUI ..> NotifyAndRemoveController
 
 NotifyAndRemoveController ..> Platform
-NotifyAndRemoveController ..> CourierRegistration
+NotifyAndRemoveController ..> OrderRegistration
+NotifyAndRemoveController ..> ClientRegistration
 NotifyAndRemoveController ..> PotApplication
 NotifyAndRemoveController ..> UserSession
 Platform "1" -- "*" Client : has registered >

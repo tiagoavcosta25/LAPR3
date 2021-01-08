@@ -1,7 +1,10 @@
 package lapr.project.controller;
 
 import lapr.project.model.Address;
+import lapr.project.model.Client;
+import lapr.project.model.Order;
 import lapr.project.model.Platform;
+import lapr.project.model.registration.ClientRegistration;
 import lapr.project.model.registration.CourierRegistration;
 import lapr.project.model.registration.OrderRegistration;
 
@@ -29,17 +32,26 @@ public class NotifyAndRemoveController implements Serializable {
     private OrderRegistration oOrderRegistration;
 
     /**
+     * Courier Management class
+     */
+    private ClientRegistration oClientRegistration;
+
+    /**
      * An empty constructor of RegisterCourierController that initiates the platform variable by getting it from the ApplicationPOT.
      */
     public NotifyAndRemoveController() {
         this.m_oPlatform = ApplicationPOT.getInstance().getPlatform();
     }
 
-    public Address getDeliveryAddress(){
+    public void getDeliveryAddress(){
         m_oPlatform = ApplicationPOT.getInstance().getPlatform();
         oOrderRegistration = m_oPlatform.getOrderReg();
-        oOrderRegistration.getLatestOrder
-        return oOrderRegistration.notifyAndRemove(oOrderRegistration);
+        oClientRegistration = m_oPlatform.getClientReg();
+        UserSession session = ApplicationPOT.getInstance().getCurrentSession();
+        String email = session.getCurrentUserEmail();
+        Client client = oClientRegistration.getClientByEmail(email);
+        Order order = oOrderRegistration.getLatestOrder(client);
+        oOrderRegistration.notifyAndRemove(order);
     }
 
 }
