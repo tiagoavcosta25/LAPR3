@@ -42,7 +42,7 @@ UI -> CTRL : registerNewClient(name,nif,email,password,latitude,longitude,street
 activate CTRL
 CTRL -> CTRL : validateInput(name,nif,email,password,latitude,longitude,streetName,\ndoorNumber,postalCode,locality,country,creditCardNr,validityDate,CCV)
 
-opt if all the information given as input has a valid format
+alt if all the information given as input has a valid format
 
 CTRL -> _APP: app = getInstance()
 activate _APP
@@ -84,12 +84,16 @@ deactivate UREG
 deactivate CTRL
 
 UI --> U : Validates and informs about the success of the operation
+deactivate UI
 
-end opt
+else if any information does not have a valid format
 
 
-
+UI -> U : Informs the User that the operation\nwas not successful
+activate UI
 deactivate UI
 deactivate U
+
+end
 
 @enduml

@@ -1,12 +1,12 @@
 package lapr.project.graph.matrix;
 
-import lapr.project.model.User;
+import lapr.project.model.Address;
 
 public class GraphAlgorithmExtended extends GraphAlgorithms {
 
     // Algoritmo de Floyd-Warshall, slides 30-35 da teórica
 
-    public static int floydWarshallAlgorithm(AdjacencyMatrixGraph<User, Double> graph) {
+    public static int floydWarshallAlgorithm(AdjacencyMatrixGraph<Address, Double> graph) {
         double maxDist = 0;
         for (int k = 0; k < graph.numVertices; k++) {
             for (int i = 0; i < graph.numVertices; i++) {

@@ -54,7 +54,7 @@ abstract class User{
 
 class UserSession{
 -String email
-+UserSession(email)
++UserSession()
 }
 
 

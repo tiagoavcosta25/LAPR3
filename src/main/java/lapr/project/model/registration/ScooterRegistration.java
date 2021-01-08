@@ -160,4 +160,20 @@ public class ScooterRegistration extends DataHandler {
         throw new IllegalArgumentException("No Scooters Avaliable.");
     }
 
+    public void removeScooterFromDB(int intId) {
+        try {
+            openConnection();
+
+            CallableStatement callStmt = getConnection().prepareCall("{ call removeScooter(?) }");
+
+            callStmt.setInt(1, intId);
+
+            callStmt.execute();
+
+            closeAll();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

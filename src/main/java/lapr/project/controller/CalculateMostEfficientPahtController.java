@@ -33,10 +33,6 @@ public class CalculateMostEfficientPahtController {
      */
     private OrderRegistration oOrderRegistration;
     /**
-     * Graph with paths
-     */
-    private Graph<Address, Double> oGraph;
-    /**
      * The starting point of the path
      */
     private Address oStartingPoint;
@@ -50,8 +46,7 @@ public class CalculateMostEfficientPahtController {
         this.m_oPlatform = ApplicationPOT.getInstance().getPlatform();
         this.oDeliveryRegistration = this.m_oPlatform.getDelReg();
         this.oOrderRegistration = this.m_oPlatform.getOrderReg();
-        this.oGraph = this.m_oPlatform.getPathGraph();
-        return this.oDeliveryRegistration.getShortestPath(this.oGraph, oStartingPoint, oDestiny);
+        return this.oDeliveryRegistration.getShortestPath(oStartingPoint, oDestiny);
     }
 
 
