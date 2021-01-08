@@ -4,6 +4,7 @@ import lapr.project.data.DataHandler;
 import lapr.project.model.*;
 import oracle.jdbc.OracleTypes;
 
+import java.security.NoSuchAlgorithmException;
 import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -43,7 +44,7 @@ public class CourierRegistration extends DataHandler {
 
                 return new Courier(courierID,clientName, email,strPassword,nif,iban);
             }
-        } catch (SQLException e) {
+        } catch (SQLException | NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
         throw new IllegalArgumentException("No Courier with ID:" + id);
@@ -118,7 +119,7 @@ public class CourierRegistration extends DataHandler {
 
     }
 
-    public Courier newCourier(String strName, String strEmail, Integer strNIF, String strIBAN) {
+    public Courier newCourier(String strName, String strEmail, Integer strNIF, String strIBAN) throws NoSuchAlgorithmException {
         PassGenerator pass = new PassGenerator();
         String password = pass.generatePassword();
         return new Courier(strName, strEmail, password, strNIF, strIBAN);
