@@ -2,8 +2,8 @@
 autonumber
 actor "Administrator" as ADMIN
 
-participant ":UpdateScooterUI" as UI
-participant ":UpdateScooterController" as CTRL
+participant ":RemoveScooterUI" as UI
+participant ":RemoveScooterScooterController" as CTRL
 participant "PotApplication" as PA
 participant "app \n:PotApplication" as APA
 participant "session \n:UserSession" as US
@@ -15,7 +15,7 @@ participant "scootReg \n:ScooterRegistration" as RS
 
 activate ADMIN
 
-ADMIN -> UI : Sends a request regarding the update of an electric scooter's data
+ADMIN -> UI : Sends a request regarding the remove of an electric scooter
 activate UI
 UI -> CTRL : showScootersList(pharmacy)
 activate CTRL
@@ -52,26 +52,20 @@ deactivate UI
 
 ADMIN -> UI : Chooses the eletric scooter
 activate UI
-
-UI -> ADMIN : Shows the information about the scooter, asking to update
-deactivate UI
-
-ADMIN -> UI : Updates the information
-activate UI
-UI -> CTRL : updateScooter(batteryPerc, chargingStatus,\n potency, weight, batteryCapacity)
+UI -> CTRL : removeScooter(batteryPerc, chargingStatus,\n potency, weight, batteryCapacity)
 activate CTRL
 CTRL -> PLAT : scootReg = getScootReg()
 activate PLAT
 deactivate PLAT
-CTRL -> RS : updateScooter(batteryPerc, chargingStatus,potency, weight, batteryCapacity)
+CTRL -> RS : removeScooter(scoot)
 activate RS
-RS -> RS : updateScooterFromDB(scoot)
+RS -> RS : removeScooterFromDB(scoot)
 ref over RS
 SD_Connections
 end ref
 deactivate RS
 deactivate CTRL
-UI -> ADMIN : Validates all the information, informing of the success of the operation
+UI -> ADMIN : Removes the eletric scooter
 
 deactivate UI
 

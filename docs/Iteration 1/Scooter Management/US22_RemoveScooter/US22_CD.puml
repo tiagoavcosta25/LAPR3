@@ -2,15 +2,15 @@
 skinparam classAttributeIconSize 0
 
 package "UI" #DDDDDD {
-class UpdateScooterUI{
+class RemoveScooterUI{
 
 }
 }
 
 
 package "Controller" #DDDDDD {
-class UpdateScooterController{
-+updateScooter(batteryPerc, charginStatus, potency,\n weight, batteryCapacity, pharmacy)
+class RemoveScooterController{
++removeScooter(batteryPerc, charginStatus, potency,\n weight, batteryCapacity, pharmacy)
 +showScootersList(pharmacy)
 }
 
@@ -40,7 +40,7 @@ package "Registration" #DDDDDD {
  }
 
  class ScooterRegistration{
-      +updateScooterFromDB(batteryPerc, charginStatus, potency,\n weight, batteryCapacity)
+      +RemoveScooterFromDB(scoot)
   }
  }
 }
@@ -85,10 +85,10 @@ class DataHandler{
 class PharmacyRegistration extends DataHandler
 class ScooterRegistration extends DataHandler
 
-UpdateScooterUI ..> UpdateScooterController
-UpdateScooterController ..> Platform
-UpdateScooterController ..> ApplicationPOT
-UpdateScooterController ..> UserSession
+RemoveScooterUI ..> RemoveScooterController
+RemoveScooterController ..> Platform
+RemoveScooterController ..> ApplicationPOT
+RemoveScooterController ..> UserSession
 Platform "1" --> "1" PharmacyRegistration : has
 ScooterRegistration "1" --> "*" Scooter : manages
 
