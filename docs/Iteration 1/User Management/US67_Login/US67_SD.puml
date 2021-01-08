@@ -14,7 +14,9 @@ participant "session\n:UserSession" as SES
 participant "app\n:ApplicationPOT" as APP
 participant "ApplicationPOT" as _APP
 participant "plat\n:Platform" as PLAT
+participant "EncryptPassword" as EP
 participant "user\n:User" as USER
+
 
 
 participant "DataHandler" as DH
@@ -51,14 +53,21 @@ activate UREG
 
 
 
-alt if the user exists in the DataBase and password corresponds
 
 
 
+
+
+UREG -> EP : encryptPasswordMD5(password)
+activate EP
+deactivate EP
 
 ref over UREG
 SD_CONNECTIONS
 end ref
+
+
+alt if the user exists in the DataBase and password corresponds
 UREG -> SES** : create(email,role)
 activate SES
 SES -> _APP : setCurrentSession(session)
@@ -82,7 +91,7 @@ else if the user does not exist in the DataBase or password doesn't correspond
 
 
 
-UI -> U : Informs the User that the operation\nwas not successful
+UI --> U : Informs the User that the operation\nwas not successful
 activate UI
 deactivate UI
 

@@ -1,5 +1,9 @@
 package lapr.project.model;
 
+import lapr.project.utils.EncryptPassword;
+
+import java.security.NoSuchAlgorithmException;
+
 /**
  * The class that represents a User, which has it's own email, password and role
  * (Administrative, Manager of Organization or Collaborator of Organization.
@@ -56,9 +60,9 @@ public abstract class User {
      * @param strEmail      the User's email
      * @param strPassword   the User's password
      */
-    public User(String strEmail, String strPassword, Integer intNif, String strName) {
+    public User(String strEmail, String strPassword, Integer intNif, String strName) throws NoSuchAlgorithmException {
         this.m_strEmail = strEmail;
-        this.m_strPassword = strPassword;
+        this.m_strPassword = EncryptPassword.encryptPasswordMD5(strPassword);
         this.m_nif = intNif;
         this.m_name = strName;
     }

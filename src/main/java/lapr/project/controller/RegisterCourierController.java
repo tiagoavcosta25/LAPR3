@@ -5,6 +5,7 @@ import lapr.project.model.Platform;
 import lapr.project.model.registration.CourierRegistration;
 
 import java.io.Serializable;
+import java.security.NoSuchAlgorithmException;
 import java.util.Date;
 
 /**
@@ -57,7 +58,7 @@ public class RegisterCourierController implements Serializable {
                 this.oCourier = oCourierRegistration.newCourier(strName, strEmail, intNIF, strIBAN);
                 return true;
             }
-        } catch (RuntimeException ex) {
+        } catch (RuntimeException | NoSuchAlgorithmException ex) {
             this.oCourier = null;
         }
         return false;

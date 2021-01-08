@@ -1,6 +1,8 @@
 package lapr.project.model;
 
 
+import java.security.NoSuchAlgorithmException;
+
 public class Courier extends User {
 
     private int m_id;
@@ -12,7 +14,7 @@ public class Courier extends User {
         this.setM_iban("No Iban");
     }
 
-    public Courier(int intId, String strName, String strEmail, String strPassword,Integer strNif,String strIban) {
+    public Courier(int intId, String strName, String strEmail, String strPassword,Integer strNif,String strIban) throws NoSuchAlgorithmException {
         super(strEmail,strPassword,strNif,strName);
         this.setM_id(intId);
         this.setM_name(strName);
@@ -20,7 +22,7 @@ public class Courier extends User {
         this.setM_iban(strIban);
     }
 
-    public Courier(String strName, String strEmail, String strPassword,Integer strNif,String strIban) {
+    public Courier(String strName, String strEmail, String strPassword,Integer strNif,String strIban) throws NoSuchAlgorithmException {
         super(strEmail,strPassword,strNif,strName);
         this.setM_name(strName);
         this.setM_nif(strNif);

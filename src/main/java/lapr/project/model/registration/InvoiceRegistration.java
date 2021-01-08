@@ -4,6 +4,7 @@ import lapr.project.data.DataHandler;
 import lapr.project.model.*;
 import oracle.jdbc.OracleTypes;
 
+import java.security.NoSuchAlgorithmException;
 import java.sql.CallableStatement;
 import java.sql.Date;
 import java.sql.ResultSet;
@@ -68,7 +69,7 @@ public class InvoiceRegistration extends DataHandler {
                         new Address(fltOrderLatitude, fltOrderLongitude, strOrderStreetName, strOrderDoorNumber, strOrderPostalCode,
                                 strOrderLocality, strOrderCountry), new TreeMap<>()));
             }
-        } catch (SQLException e) {
+        } catch (SQLException | NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
         throw new IllegalArgumentException("No Order with ID:" + id);

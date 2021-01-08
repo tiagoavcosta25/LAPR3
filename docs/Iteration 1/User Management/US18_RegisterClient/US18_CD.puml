@@ -92,6 +92,13 @@ class DataHandler{
 
 }
 
+package "Utils" #DDDDDD {
+class EncryptPassword {
++encryptPasswordMD5(password)
+}
+
+}
+
 
 RegisterClientUI ..> RegisterClientController
 RegisterClientController ..> Platform
@@ -101,5 +108,6 @@ ClientRegistration "1" --> "*" Client : creates
 class ClientRegistration extends DataHandler
 Client "1" --> "1" Address : has
 Client "*" --> "*" CreditCard : has
+User ..> EncryptPassword : encrypts using
 
 @enduml

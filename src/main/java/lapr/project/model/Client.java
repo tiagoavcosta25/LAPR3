@@ -1,5 +1,6 @@
 package lapr.project.model;
 
+import java.security.NoSuchAlgorithmException;
 import java.util.Date;
 
 public class Client extends User {
@@ -17,7 +18,7 @@ public class Client extends User {
 
     public Client(String name, Integer nif, String email, String password, Double latitude, Double longitude, String streetName,
                   String doorNumber, String postalCode, String locality, String country, long creditCardNr,
-                  Date validityDate, Integer CCV) {
+                  Date validityDate, Integer CCV) throws NoSuchAlgorithmException {
         super(email, password,nif,name);
         this.m_credits = 0;
         this.m_address = new Address(latitude, longitude, streetName, doorNumber, postalCode, locality, country);

@@ -42,7 +42,6 @@ public class RegisterClientController {
                         creditCardNr, vDate, CCV);
             }
         } catch (Exception e) {
-            e.printStackTrace();
             System.out.println("There has been an error regarding FORMATTING!");
             return false;
         }
@@ -82,7 +81,7 @@ public class RegisterClientController {
         if ((int) (Math.log10(CCV) + 1) != 3
                 || (int) (Math.log10(nif) + 1) != 9) return false;
 
-        if (password.length() <= 6) return false;
+        if (password.length() < 6) return false;
 
         return true;
     }

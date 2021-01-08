@@ -71,6 +71,13 @@ class DataHandler{
 
 }
 
+package "Utils" #DDDDDD {
+class EncryptPassword {
++encryptPasswordMD5(password)
+}
+
+}
+
 
 LoginUI ..> LoginController
 LoginController ..> Platform
@@ -80,6 +87,6 @@ UserRegistration "1" --> "*" User : creates
 class UserRegistration extends DataHandler
 ApplicationPOT "1" --> "1" UserSession : has
 UserSession "1" --> "1" User : allocates
-
+User ..> EncryptPassword : encrypts using
 
 @enduml

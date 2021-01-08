@@ -3,8 +3,11 @@ package lapr.project.model.registration;
 
 import lapr.project.controller.UserSession;
 import lapr.project.data.DataHandler;
+import lapr.project.model.User;
+import lapr.project.utils.EncryptPassword;
 import oracle.jdbc.internal.OracleTypes;
 
+import java.security.NoSuchAlgorithmException;
 import java.sql.CallableStatement;
 import java.sql.SQLException;
 
@@ -13,8 +16,6 @@ public class UserRegistration extends DataHandler {
     public UserRegistration(String jdbcUrl, String username, String password) {
         super(jdbcUrl, username, password);
     }
-
-
 
     /**
      * Checks if the User that has the 'email' given by parameter
@@ -35,7 +36,7 @@ public class UserRegistration extends DataHandler {
 
 
             callStmt.setString(2, email);
-            callStmt.setString(3, password);
+            callStmt.setString(3, EncryptPassword.encryptPasswordMD5(password));
             callStmt.registerOutParameter(1 , OracleTypes.INTEGER);
 
 
@@ -49,7 +50,7 @@ public class UserRegistration extends DataHandler {
             }else flag = false;
 
             closeAll();
-        } catch (SQLException e) {
+        } catch (SQLException | NoSuchAlgorithmException e) {
             flag = false;
             e.printStackTrace();
         }

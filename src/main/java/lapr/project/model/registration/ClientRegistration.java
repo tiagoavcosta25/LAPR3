@@ -41,7 +41,7 @@ public class ClientRegistration extends DataHandler {
     public boolean registerNewClient(String name, Integer nif, String email, String password, Double latitude, Double longitude, String streetName,
                                      String doorNumber, String postalCode, String locality, String country, long creditCardNr,
                                      Date validityDate, Integer CCV) throws NoSuchAlgorithmException {
-        Client client = new Client(name, nif, email, EncryptPassword.encryptPasswordMD5(password), latitude, longitude, streetName, doorNumber, postalCode, locality, country,
+        Client client = new Client(name, nif, email, password, latitude, longitude, streetName, doorNumber, postalCode, locality, country,
                 creditCardNr, validityDate, CCV);
         return addClientToDB(client);
 

@@ -11,7 +11,7 @@ public class LoginUI {
 
         LoginController m_ctrl = new LoginController();
 
-        if (m_ctrl.login("slow@gmail.com","123")) {
+        if (m_ctrl.login("slow@gmail.com","abcdef")) {
             System.out.println("Operation WAS Successfull!");
 
         } else {

@@ -13,6 +13,7 @@ participant "clientReg\n:ClientRegistration" as UREG
 
 participant "client\n:Client" as USER
 participant "user\n:User" as US
+participant "EncryptPassword" as EP
 participant Address as ADD
 participant CreditCard as CC
 
@@ -63,6 +64,12 @@ UREG -> USER** : create(name,nif,email,password,latitude,longitude,streetName,\n
 activate USER
 
 USER -> US** : create(email,password,nif,name)
+
+activate US
+US -> EP : encryptPasswordMD5(password)
+activate EP
+deactivate EP
+deactivate US
 
 USER -> ADD** : create(latitude,longitude,streetName,doorNumber,postalCode,locality,country)
 USER -> CC** : create(creditCardNr,validityDate,CCV)

@@ -8,11 +8,10 @@ public class RegisterClientUI {
     public static void main(String[] args) throws Exception {
 
         RegisterClientController m_ctrl = new RegisterClientController();
-        System.out.println(Long.MAX_VALUE);
 
-        if(m_ctrl.registerNewClient("Rodrigo", 123456789, "slow@gmail.com", "123", 180090980d,
+        if(m_ctrl.registerNewClient("Rodrigo", 123456789, "slow@gmail.com", "abcdef", 180090980d,
                 234567899d, "Street", "2esq", "4430-183", "Mafamude",
-                "Portugal", 1234123412341234L, "10/23", 123456789)) {
+                "Portugal", 1234123412341234L, "10/23", 123)) {
             System.out.println("Operation WAS Successfull!");
 
         }else System.out.println("Operation was NOT Successfull!");
