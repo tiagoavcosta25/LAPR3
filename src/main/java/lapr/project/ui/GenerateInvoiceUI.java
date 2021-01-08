@@ -1,2 +1,4 @@
-package lapr.project.ui;public class GenerateInvoice {
+package lapr.project.ui;
+
+public class GenerateInvoiceUI {
 }

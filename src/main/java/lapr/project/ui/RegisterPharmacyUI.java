@@ -1,2 +1,4 @@
-package lapr.project.ui;public class RegisterPharmacyUI {
+package lapr.project.ui;
+
+public class RegisterPharmacyUI {
 }
