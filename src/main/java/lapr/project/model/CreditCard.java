@@ -43,4 +43,13 @@ public class CreditCard {
     public void setM_CCV(Integer m_CCV) {
         this.m_CCV = m_CCV;
     }
+
+    @Override
+    public String toString() {
+        return "CreditCard{" +
+                "m_creditCardNr=" + m_creditCardNr +
+                ", m_validityDate=" + m_validityDate +
+                ", m_CCV=" + m_CCV +
+                '}';
+    }
 }
