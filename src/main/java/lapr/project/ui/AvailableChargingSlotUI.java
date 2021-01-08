@@ -13,8 +13,16 @@ public class AvailableChargingSlotUI {
 
         ChargingSlot chargingSlot = m_ctrl.getAvailableChargingSlot();
         if (chargingSlot != null) {
-            System.out.println("Charging Slot Available Information:");
-            System.out.println(chargingSlot.toString());
+            System.out.println("-------Charging Slot Available Information-------");
+            System.out.println("ID: " + chargingSlot.getM_intId());
+            System.out.println("Output Power: " + chargingSlot.getM_outputPower());
+            System.out.println("-------Park Information-------");
+            System.out.println("ID: " + chargingSlot.getPark().getM_intId());
+            System.out.println("Max Slots: " + chargingSlot.getPark().getM_intMaxSlotsNumber());
+            System.out.println("-------Pharmacy Information-------");
+            System.out.println("ID: " + chargingSlot.getPark().getM_oPharmacy().getId());
+            System.out.println("Name : " + chargingSlot.getPark().getM_oPharmacy().getName());
+
         } else System.out.println("Operation was NOT Successfull!");
 
     }
