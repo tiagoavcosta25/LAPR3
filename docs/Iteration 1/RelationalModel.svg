@@ -672,13 +672,13 @@
       ><path d="M-72 362 L212 362 L212 151 L-72 151 Z"
       /></clipPath
       ><clipPath clipPathUnits="userSpaceOnUse" id="clipPath223"
-      ><path d="M0 0 L901 0 L901 181 L0 181 L0 0 Z"
+      ><path d="M0 0 L935 0 L935 218 L0 218 L0 0 Z"
       /></clipPath
       ><clipPath clipPathUnits="userSpaceOnUse" id="clipPath224"
-      ><path d="M0 0 L0 181 L901 181 L901 0 Z"
+      ><path d="M0 0 L0 218 L935 218 L935 0 Z"
       /></clipPath
       ><clipPath clipPathUnits="userSpaceOnUse" id="clipPath225"
-      ><path d="M720 984 L901 984 L901 83 L720 83 Z"
+      ><path d="M718 1020 L936 1020 L936 85 L718 85 Z"
       /></clipPath
       ><clipPath clipPathUnits="userSpaceOnUse" id="clipPath226"
       ><path d="M0 0 L265 0 L265 271 L0 271 L0 0 Z"
@@ -690,13 +690,13 @@
       ><path d="M268 142 L-3 142 L-3 407 L268 407 Z"
       /></clipPath
       ><clipPath clipPathUnits="userSpaceOnUse" id="clipPath229"
-      ><path d="M0 0 L129 0 L129 206 L0 206 L0 0 Z"
+      ><path d="M0 0 L129 0 L129 205 L0 205 L0 0 Z"
       /></clipPath
       ><clipPath clipPathUnits="userSpaceOnUse" id="clipPath230"
-      ><path d="M0 0 L0 206 L129 206 L129 0 Z"
+      ><path d="M0 0 L0 205 L129 205 L129 0 Z"
       /></clipPath
       ><clipPath clipPathUnits="userSpaceOnUse" id="clipPath231"
-      ><path d="M124 280 L124 74 L-5 74 L-5 280 Z"
+      ><path d="M126 278 L126 73 L-3 73 L-3 278 Z"
       /></clipPath
       ><clipPath clipPathUnits="userSpaceOnUse" id="clipPath232"
       ><path d="M0 0 L211 0 L211 182 L0 182 L0 0 Z"
@@ -2587,15 +2587,15 @@ I8sBAK/DBJK9idpeAAAAAElFTkSuQmCC" font-style="italic" height="18" preserveAspect
     ><line y2="70.25" fill="none" x1="57.875" clip-path="url(#clipPath221)" x2="66.125" y1="70.25"
       /><line transform="translate(145,217) rotate(90) translate(-145,-217)" clip-path="url(#clipPath222)" fill="none" x1="140.875" x2="149.125" y1="225.25" y2="225.25"
     /></g
-    ><g stroke-linecap="butt" font-size="11px" transform="translate(267,641)" fill-opacity="1" fill="black" text-rendering="geometricPrecision" image-rendering="optimizeQuality" font-family="sans-serif" stroke-linejoin="round" stroke="black" stroke-opacity="1"
-    ><line y2="132" fill="none" x1="45" clip-path="url(#clipPath224)" x2="45" y1="46"
-      /><line y2="132" fill="none" x1="45" clip-path="url(#clipPath224)" x2="852" y1="132"
-      /><line stroke-linecap="square" clip-path="url(#clipPath224)" fill="none" x1="40.875" x2="49.125" y1="54.25" y2="54.25" stroke-linejoin="miter"
-      /><path fill="none" d="M852 139.1429 L847.875 132 L852 139.1429 L852 132 L852 139.1429 L856.125 132 Z" clip-path="url(#clipPath225)" transform="translate(852,132) rotate(90) translate(-852,-132)" stroke-linejoin="bevel"
+    ><g stroke-linecap="butt" font-size="11px" transform="translate(250,622)" fill-opacity="1" fill="black" text-rendering="geometricPrecision" image-rendering="optimizeQuality" font-family="sans-serif" stroke-linejoin="round" stroke="black" stroke-opacity="1"
+    ><line y2="151" fill="none" x1="63" clip-path="url(#clipPath224)" x2="63" y1="63"
+      /><line y2="151" fill="none" x1="63" clip-path="url(#clipPath224)" x2="869" y1="151"
+      /><line stroke-linecap="square" clip-path="url(#clipPath224)" fill="none" x1="58.875" x2="67.125" y1="71.25" y2="71.25" stroke-linejoin="miter"
+      /><path fill="none" d="M869 158.1429 L864.875 151 L869 158.1429 L869 151 L869 158.1429 L873.125 151 Z" clip-path="url(#clipPath225)" transform="translate(869,151) rotate(90) translate(-869,-151)" stroke-linejoin="bevel"
     /></g
-    ><g font-size="11px" transform="translate(1119,773) rotate(90) translate(-852,-132)" fill-opacity="1" fill="white" text-rendering="geometricPrecision" image-rendering="optimizeQuality" font-family="sans-serif" stroke="white" stroke-opacity="1"
-    ><circle r="4.125" clip-path="url(#clipPath225)" cx="852" cy="143.2679" stroke="none"
-      /><circle fill="none" r="4.125" clip-path="url(#clipPath225)" cx="852" cy="143.2679" stroke="black"
+    ><g font-size="11px" transform="translate(1119,773) rotate(90) translate(-869,-151)" fill-opacity="1" fill="white" text-rendering="geometricPrecision" image-rendering="optimizeQuality" font-family="sans-serif" stroke="white" stroke-opacity="1"
+    ><circle r="4.125" clip-path="url(#clipPath225)" cx="869" cy="162.2679" stroke="none"
+      /><circle fill="none" r="4.125" clip-path="url(#clipPath225)" cx="869" cy="162.2679" stroke="black"
     /></g
     ><g stroke-linecap="butt" font-size="11px" transform="translate(1307,555)" fill-opacity="1" fill="black" text-rendering="geometricPrecision" image-rendering="optimizeQuality" font-family="sans-serif" stroke-linejoin="round" stroke="black" stroke-opacity="1"
     ><line y2="205" fill="none" x1="199" clip-path="url(#clipPath227)" x2="199" y1="62"
@@ -2607,14 +2607,14 @@ I8sBAK/DBJK9idpeAAAAAElFTkSuQmCC" font-style="italic" height="18" preserveAspect
     ><circle r="4.125" clip-path="url(#clipPath228)" cx="63" cy="216.2679" stroke="none"
       /><circle fill="none" r="4.125" clip-path="url(#clipPath228)" cx="63" cy="216.2679" stroke="black"
     /></g
-    ><g stroke-linecap="butt" font-size="11px" transform="translate(346,468)" fill-opacity="1" fill="black" text-rendering="geometricPrecision" image-rendering="optimizeQuality" font-family="sans-serif" stroke-linejoin="round" stroke="black" stroke-opacity="1"
-    ><line y2="63" fill="none" x1="62" clip-path="url(#clipPath230)" x2="62" y1="140"
-      /><line stroke-linecap="square" transform="translate(62,140) rotate(-180) translate(-62,-140)" clip-path="url(#clipPath231)" fill="none" x1="57.875" x2="66.125" y1="148.25" y2="148.25" stroke-linejoin="miter"
-      /><path fill="none" d="M62 70.1429 L57.875 63 L62 70.1429 L62 63 L62 70.1429 L66.125 63 Z" clip-path="url(#clipPath230)" stroke-linejoin="bevel"
+    ><g stroke-linecap="butt" font-size="11px" transform="translate(346,469)" fill-opacity="1" fill="black" text-rendering="geometricPrecision" image-rendering="optimizeQuality" font-family="sans-serif" stroke-linejoin="round" stroke="black" stroke-opacity="1"
+    ><line y2="63" fill="none" x1="63" clip-path="url(#clipPath230)" x2="63" y1="139"
+      /><line stroke-linecap="square" transform="translate(63,139) rotate(-180) translate(-63,-139)" clip-path="url(#clipPath231)" fill="none" x1="58.875" x2="67.125" y1="147.25" y2="147.25" stroke-linejoin="miter"
+      /><path fill="none" d="M63 70.1429 L58.875 63 L63 70.1429 L63 63 L63 70.1429 L67.125 63 Z" clip-path="url(#clipPath230)" stroke-linejoin="bevel"
     /></g
-    ><g font-size="11px" transform="translate(346,468)" fill-opacity="1" fill="white" text-rendering="geometricPrecision" image-rendering="optimizeQuality" font-family="sans-serif" stroke="white" stroke-opacity="1"
-    ><circle r="4.125" clip-path="url(#clipPath230)" cx="62" cy="74.2679" stroke="none"
-      /><circle fill="none" r="4.125" clip-path="url(#clipPath230)" cx="62" cy="74.2679" stroke="black"
+    ><g font-size="11px" transform="translate(346,469)" fill-opacity="1" fill="white" text-rendering="geometricPrecision" image-rendering="optimizeQuality" font-family="sans-serif" stroke="white" stroke-opacity="1"
+    ><circle r="4.125" clip-path="url(#clipPath230)" cx="63" cy="74.2679" stroke="none"
+      /><circle fill="none" r="4.125" clip-path="url(#clipPath230)" cx="63" cy="74.2679" stroke="black"
     /></g
     ><g stroke-linecap="butt" font-size="11px" transform="translate(398,468)" fill-opacity="1" fill="black" text-rendering="geometricPrecision" image-rendering="optimizeQuality" font-family="sans-serif" stroke-linejoin="round" stroke="black" stroke-opacity="1"
     ><line y2="117" fill="none" x1="145" clip-path="url(#clipPath233)" x2="63" y1="117"
@@ -2722,6 +2722,8 @@ I8sBAK/DBJK9idpeAAAAAElFTkSuQmCC" font-style="italic" height="18" preserveAspect
       /><circle fill="none" r="4.125" clip-path="url(#clipPath267)" cx="433" transform="translate(211,932) rotate(-90) translate(222,-861) rotate(90) translate(-433,-71)" cy="82.2679"
     /></g
     ><g font-size="8px" fill-opacity="1" fill="rgb(120,120,120)" text-rendering="geometricPrecision" image-rendering="optimizeQuality" stroke="rgb(120,120,120)" stroke-opacity="1"
+    ><text x="0" xml:space="preserve" y="10" stroke="none"
+      >Visual Paradigm Standard(António Barbosa(Instituto Superior de Engenharia do Porto))</text
     ></g
   ></g
 ></svg
