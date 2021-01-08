@@ -42,12 +42,12 @@ public class CalculateMostEfficientPahtController {
     private Address oDestiny;
 
     //corrigir tipo de dados
-    public double getShortestPath() {
+    /*public double getShortestPath() {
         this.m_oPlatform = ApplicationPOT.getInstance().getPlatform();
         this.oDeliveryRegistration = this.m_oPlatform.getDelReg();
         this.oOrderRegistration = this.m_oPlatform.getOrderReg();
         return this.oDeliveryRegistration.getShortestPath(oStartingPoint, oDestiny);
-    }
+    }*/
 
 
 }
