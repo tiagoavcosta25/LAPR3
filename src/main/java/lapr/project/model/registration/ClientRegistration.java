@@ -3,8 +3,11 @@ package lapr.project.model.registration;
 import lapr.project.data.DataHandler;
 import lapr.project.model.Address;
 import lapr.project.model.Client;
+import lapr.project.utils.EncryptPassword;
 import oracle.jdbc.OracleTypes;
 import lapr.project.model.CreditCard;
+
+import java.security.NoSuchAlgorithmException;
 import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -36,9 +39,9 @@ public class ClientRegistration extends DataHandler {
      * @return True if Client was registered, false if otherwise
      */
     public boolean registerNewClient(String name, Integer nif, String email, String password, Double latitude, Double longitude, String streetName,
-                                     String doorNumber, String postalCode, String locality, String country, Double creditCardNr,
-                                     Date validityDate, Integer CCV) {
-        Client client = new Client(name, nif, email, password, latitude, longitude, streetName, doorNumber, postalCode, locality, country,
+                                     String doorNumber, String postalCode, String locality, String country, long creditCardNr,
+                                     Date validityDate, Integer CCV) throws NoSuchAlgorithmException {
+        Client client = new Client(name, nif, email, EncryptPassword.encryptPasswordMD5(password), latitude, longitude, streetName, doorNumber, postalCode, locality, country,
                 creditCardNr, validityDate, CCV);
         return addClientToDB(client);
 
@@ -120,12 +123,12 @@ public class ClientRegistration extends DataHandler {
                 String strPostalCode = rSet.getString(10);
                 String strLocality = rSet.getString(12);
                 String strCountry = rSet.getString(13);
-                Double dblCreditCardNr = rSet.getDouble(14);
+                long lCreditCardNr = rSet.getLong(14);
                 Date dtValidatyDate = rSet.getDate(15);
                 Integer strCCV = rSet.getInt(16);
 
                 return new Client(intId, strName, strNif, strEmail, strPassword, intCredits, dblLatitude, dblLongitude, strStreetName, strDoorNumber, strPostalCode,
-                        strLocality, strCountry, dblCreditCardNr, dtValidatyDate, strCCV);
+                        strLocality, strCountry, lCreditCardNr, dtValidatyDate, strCCV);
             }
         } catch (SQLException e) {
             e.printStackTrace();

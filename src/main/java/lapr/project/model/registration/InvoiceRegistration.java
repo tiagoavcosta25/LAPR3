@@ -46,7 +46,7 @@ public class InvoiceRegistration extends DataHandler {
                 String strClientPostalCode = rSet.getString(16);
                 String strClientLocality = rSet.getString(17);
                 String strClientCountry = rSet.getString(18);
-                Double dblCreditCardNr = rSet.getDouble(19);
+                long lCreditCardNr = rSet.getLong(19);
                 java.util.Date dtValidatyDate = rSet.getDate(20);
                 Integer strCCV = rSet.getInt(21);
                 Double fltOrderLatitude = rSet.getDouble(22);
@@ -64,7 +64,7 @@ public class InvoiceRegistration extends DataHandler {
 
                 return new Invoice(intInvoiceId, dtInvoiceDate, fltTotalPrice, new Order(intOrderId, fltAmount, fltTotalWeight, fltAdditionalFee, dtOrderDate, strDescription, strStatus,
                         new Client(strName, intNIF, strEmail, strPassword, fltClientLatitude, fltClientLongitude, strClientStreetName, strClientDoorNumber,
-                                strClientPostalCode, strClientLocality, strClientCountry, dblCreditCardNr, dtValidatyDate, strCCV),
+                                strClientPostalCode, strClientLocality, strClientCountry, lCreditCardNr, dtValidatyDate, strCCV),
                         new Address(fltOrderLatitude, fltOrderLongitude, strOrderStreetName, strOrderDoorNumber, strOrderPostalCode,
                                 strOrderLocality, strOrderCountry), new TreeMap<>()));
             }
