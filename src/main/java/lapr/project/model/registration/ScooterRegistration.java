@@ -109,17 +109,18 @@ public class ScooterRegistration extends DataHandler {
         addScooter(oScooter);
     }
 
-    public boolean updateScooterFromDB(int intBatteryPerc, int intCharginStatus, int intPotency, int intWeight,
+    public boolean updateScooterFromDB(int intId, int intBatteryPerc, int intCharginStatus, int intPotency, int intWeight,
                                        int intBatteryCapacity) {
         try {
             openConnection();
             CallableStatement callStmt = getConnection().prepareCall("{call updateScooter(?,?,?,?,?)}");
 
-            callStmt.setInt(1, intBatteryPerc);
-            callStmt.setInt(2, intCharginStatus);
-            callStmt.setInt(3, intPotency);
-            callStmt.setInt(4, intWeight);
-            callStmt.setInt(5, intBatteryCapacity);
+            callStmt.setInt(1, intId);
+            callStmt.setInt(2, intBatteryPerc);
+            callStmt.setInt(3, intCharginStatus);
+            callStmt.setInt(4, intPotency);
+            callStmt.setInt(5, intWeight);
+            callStmt.setInt(6, intBatteryCapacity);
 
             callStmt.execute();
             closeAll();
