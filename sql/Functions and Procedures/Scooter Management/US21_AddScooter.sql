@@ -1,9 +1,6 @@
 create or replace procedure addScooter(p_batteryPerc "SCOOTER".BATTERYPERC%type, p_chargingStatus "SCOOTER".CHARGINGSTATUS%type,
                                      p_potency "SCOOTER".POTENCY%type, p_weight "SCOOTER".WEIGHT%type,
-                                     p_batteryCapacity "SCOOTER".BATTERYCAPACITY%type, p_pharmacyID "PHARMACY"%type,
-                                     p_name "PHARMACY".NAME%type, p_latitude ADDRESS.LATITUDE%type, p_longitude ADDRESS.LONGITUDE%type,
-                                     p_streetName ADDRESS.STREETNAME%type, p_doorNumber ADDRESS.DOORNUMBER%type,
-                                     p_postalCode ADDRESS.POSTALCODE%type, p_locality ADDRESS.LOCALITY%type, p_country ADDRESS.COUNTRY%type)
+                                     p_batteryCapacity "SCOOTER".BATTERYCAPACITY%type, p_pharmacyID "PHARMACY"%type)
     is
     v_checkPharmacyId PHARMACY%type;
     scooter_not_found exception;
