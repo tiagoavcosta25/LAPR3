@@ -13,7 +13,6 @@ public class Platform {
     private ScooterRegistration m_scooterReg;
     private PharmacyRegistration m_pharmacyReg;
     private DeliveryRegistration m_delReg;
-    private Graph<Address, Double> oGraph;
 
     public Platform() {
         this.m_designation = "plat";
@@ -24,7 +23,6 @@ public class Platform {
         this.m_scooterReg = new ScooterRegistration();
         this.m_pharmacyReg = new PharmacyRegistration();
         this.m_delReg = new DeliveryRegistration();
-        this.oGraph = new Graph<>(true); //corrigir
     }
 
     public UserRegistration getUserReg() {
@@ -59,7 +57,4 @@ public class Platform {
         return m_delReg;
     }
 
-    public Graph<Address, Double> getPathGraph() {
-        return oGraph;
-    }
 }
