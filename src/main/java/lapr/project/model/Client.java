@@ -16,7 +16,7 @@ public class Client extends User {
     }
 
     public Client(String name, Integer nif, String email, String password, Double latitude, Double longitude, String streetName,
-                  String doorNumber, String postalCode, String locality, String country, Double creditCardNr,
+                  String doorNumber, String postalCode, String locality, String country, long creditCardNr,
                   Date validityDate, Integer CCV) {
         super(email, password,nif,name);
         this.m_credits = 0;
@@ -25,7 +25,7 @@ public class Client extends User {
     }
 
     public Client(Integer id, String name, Integer nif, String email, String password, Integer credits, Double latitude, Double longitude, String streetName,
-                  String doorNumber, String postalCode, String locality, String country, Double creditCardNr,
+                  String doorNumber, String postalCode, String locality, String country, long creditCardNr,
                   Date validityDate, Integer CCV) {
         super(id, email, password,nif,name);
         this.m_credits = credits;
