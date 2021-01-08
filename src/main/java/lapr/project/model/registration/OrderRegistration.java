@@ -203,43 +203,36 @@ public class OrderRegistration extends DataHandler {
             callStmt = getConnection().prepareCall("{ ? = call getOrderByCourier(?) }");
 
             callStmt.registerOutParameter(1, OracleTypes.CURSOR);
-            callStmt.setString(1, strEmail);
+            callStmt.setString(2, strEmail);
 
             callStmt.execute();
 
             ResultSet rSet = (ResultSet) callStmt.getObject(1);
 
             if (rSet.next()) {
-
-                String strDescription = rSet.getString(1);
-                String strStatus = rSet.getString(2);
-                Date dtOrderDate = rSet.getDate(3);
-                float fltTotalWeight = rSet.getFloat(4);
-                float fltAmount = rSet.getFloat(5);
-                float fltAdditionalFee = rSet.getFloat(6);
-                Integer m_credits = rSet.getInt(7);
+                int orderId = rSet.getInt(1);
+                String strDescription = rSet.getString(2);
+                String strStatus = rSet.getString(3);
+                Date dtOrderDate = rSet.getDate(4);
+                float fltTotalWeight = rSet.getFloat(5);
+                float fltAmount = rSet.getFloat(6);
+                float fltAdditionalFee = rSet.getFloat(7);
+                Integer m_credits = rSet.getInt(8);
                 //User
-                Integer id = rSet.getInt(8);
-                String email = rSet.getString(9);
-                String password = rSet.getString(10);
-                Integer nif = rSet.getInt(11);
-                String name = rSet.getString(12);
+                Integer id = rSet.getInt(9);
+                String email = rSet.getString(10);
+                String password = rSet.getString(11);
+                Integer nif = rSet.getInt(12);
+                String name = rSet.getString(13);
                 //address
-                Double latitude = rSet.getDouble(14);
-                Double longitude = rSet.getDouble(15);
-                String doorNumber = rSet.getString(16);
-                String streetName = rSet.getString(17);
-                String postalCode = rSet.getString(18);
-                String locality = rSet.getString(19);
-                String country = rSet.getString(20);
+                Address oAddress = addressManager(rSet, 14);
                 //cartao
-                long creditCardNr = rSet.getLong(21);
-                Date validityDate = rSet.getDate(22);
-                Integer CCV = rSet.getInt(23);
+                long creditCardNr = rSet.getLong(22);
+                Date validityDate = rSet.getDate(23);
+                Integer CCV = rSet.getInt(24);
 
-                Client oClient = new Client(id, name, nif, email, password, m_credits, latitude, longitude, streetName, doorNumber, postalCode, locality, country, creditCardNr, validityDate, CCV);
-                Address oAddress = new Address(latitude, longitude, streetName, doorNumber, postalCode, locality, country);
-                return new Order(fltAmount, fltTotalWeight, fltAdditionalFee, dtOrderDate, strDescription,
+                Client oClient = new Client(id, name, nif, email, password, m_credits, oAddress.getM_latitude(), oAddress.getM_longitude(), oAddress.getM_streetName(), oAddress.getM_doorNumber(), oAddress.getM_postalCode(), oAddress.getM_locality(), oAddress.getM_country(), creditCardNr, validityDate, CCV);
+                return new Order(orderId, fltAmount, fltTotalWeight, fltAdditionalFee, dtOrderDate, strDescription,
                         strStatus, oClient, oAddress, null);//new Map<Product, Integer>());
             }
         } catch (SQLException e) {

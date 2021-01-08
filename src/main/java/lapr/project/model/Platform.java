@@ -27,7 +27,7 @@ public class Platform {
         this.m_invoiceReg = new InvoiceRegistration("jdbc:oracle:thin:@vsrvbd1.dei.isep.ipp.pt:1521/pdborcl", "LAPR3_G21", "g21rumoAo20");
         this.m_pharmacyReg = new PharmacyRegistration("jdbc:oracle:thin:@vsrvbd1.dei.isep.ipp.pt:1521/pdborcl", "LAPR3_G21", "g21rumoAo20");
         this.m_pharmacyManagerReg = new PharmacyManagerRegistration("jdbc:oracle:thin:@vsrvbd1.dei.isep.ipp.pt:1521/pdborcl", "LAPR3_G21", "g21rumoAo20");
-        this.m_delReg = new DeliveryRegistration();
+        this.m_delReg = new DeliveryRegistration("jdbc:oracle:thin:@vsrvbd1.dei.isep.ipp.pt:1521/pdborcl", "LAPR3_G21", "g21rumoAo20");
     }
 
     public UserRegistration getUserReg() {

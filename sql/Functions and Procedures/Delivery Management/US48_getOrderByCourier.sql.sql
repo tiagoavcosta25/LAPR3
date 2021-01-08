@@ -3,10 +3,11 @@ create or replace function getOrderByCourier(p_email "User".EMAIL%type) RETURN S
     order_not_found exception;
 begin
     open v_order for
-        select O.DESCRIPTION, O.ORDERSTATUS, O.ORDERDATE, O.TOTALWEIGHT, O.AMOUNT, O.ADDITIONALFEE,
-       C.CREDITS, U.*, A.*, CC.*, op.quantity, P.*
+        select distinct O.ID, O.DESCRIPTION, O.ORDERSTATUS, O.ORDERDATE, O.TOTALWEIGHT, O.AMOUNT, O.ADDITIONALFEE,
+                        C.CREDITS, U.*, A.*, CC.*,
+                        op.quantity, P.*
         from "Order" O
-                 inner join DELIVERY D on D.DELIVERYRUNID = O.ID
+                 inner join DELIVERY D on D.ORDERID= O.ID
                  inner join DELIVERYRUN DR on D.DELIVERYRUNID = DR.ID
                  inner join COURIER CO on DR.COURIERID = CO.USERID
                  inner join "User" U on CO.USERID = U.ID
@@ -16,7 +17,7 @@ begin
                  inner join ADDRESS A on C.ADDRESSID = A.ID
                  inner join ORDERPRODUCT OP on O.ID = OP.ORDERID
                  inner join PRODUCT P on P.id = OP.PRODUCTID
-        where U.EMAIL = p_email;
+        where U.EMAIL = p_email and DR.DELIVERYSTATUS = 'idle';
 
     if v_order is null then
         raise order_not_found;

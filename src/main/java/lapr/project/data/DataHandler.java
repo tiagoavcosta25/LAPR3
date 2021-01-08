@@ -1,6 +1,8 @@
 package lapr.project.data;
 
 
+import lapr.project.model.Address;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -143,6 +145,25 @@ public class DataHandler {
         if (connection == null)
             openConnection();
         return connection;
+    }
+
+    protected Address addressManager(ResultSet rSet, int firstColumn) throws SQLException {
+        Integer id = rSet.getInt(firstColumn);
+        firstColumn++;
+        Double latitude = rSet.getDouble(firstColumn);
+        firstColumn++;
+        Double longitude = rSet.getDouble(firstColumn);
+        firstColumn++;
+        String doorNumber = rSet.getString(firstColumn);
+        firstColumn++;
+        String streetName = rSet.getString(firstColumn);
+        firstColumn++;
+        String postalCode = rSet.getString(firstColumn);
+        firstColumn++;
+        String locality = rSet.getString(firstColumn);
+        firstColumn++;
+        String country = rSet.getString(firstColumn);
+        return new Address(id, latitude, longitude, streetName, doorNumber, postalCode, locality, country);
     }
 
 
