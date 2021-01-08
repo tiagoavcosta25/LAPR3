@@ -244,7 +244,8 @@ public class OrderRegistration extends DataHandler {
     }
 
 
-    public void notifyAndRemove(Order order) {
+    public boolean notifyAndRemove(Order order) {
+        boolean flag = true;
         try {
             openConnection();
             /*
@@ -263,7 +264,9 @@ public class OrderRegistration extends DataHandler {
 
             closeAll();
         } catch (SQLException e) {
+            flag = false;
             e.printStackTrace();
         }
+        return flag;
     }
 }
