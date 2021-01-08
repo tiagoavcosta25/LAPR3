@@ -1,24 +1,22 @@
 package lapr.project.model.registration;
 
 import lapr.project.data.DataHandler;
-import lapr.project.model.*;
+import lapr.project.model.Address;
+import lapr.project.model.Pharmacy;
+import lapr.project.model.PharmacyManager;
 import oracle.jdbc.OracleTypes;
 
-import java.security.NoSuchAlgorithmException;
 import java.sql.CallableStatement;
-import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Map;
-import java.util.TreeMap;
 
-public class PharmacyRegistration extends DataHandler {
+public class PharmacyManagerRegistration extends DataHandler {
 
-    public Pharmacy getPharmacy(int id) {
+    public Pharmacy getPharmacyManager(int id) {
 
         CallableStatement callStmt = null;
         try {
-            callStmt = getConnection().prepareCall("{ ? = call getPharmacy(?) }");
+            callStmt = getConnection().prepareCall("{ ? = call getPharmacyManager(?) }");
 
             callStmt.registerOutParameter(1, OracleTypes.CURSOR);
             callStmt.setInt(id, 1);
