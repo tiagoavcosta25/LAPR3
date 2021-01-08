@@ -88,7 +88,6 @@ public class ClientRegistration extends DataHandler {
             closeAll();
         } catch (SQLException e) {
             flag = false;
-            e.printStackTrace();
         }
         return flag;
     }
