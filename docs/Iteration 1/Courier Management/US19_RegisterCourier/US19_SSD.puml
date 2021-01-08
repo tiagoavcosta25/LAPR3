@@ -1,9 +1,9 @@
 @startuml
 autonumber
-actor "Administrative" as ADM
+actor "PharmacyManager" as ADM
 
 activate ADM
-ADM -> ":System" : register courier
+ADM -> ":System" : initializes the register of a new Courier
 activate ":System"
 ":System" --> ADM : asks for the data that features the courier (i.e., name, \ne-mail, NIF, bank account (IBAN))
 deactivate ":System"

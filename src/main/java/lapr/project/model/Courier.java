@@ -7,6 +7,7 @@ public class Courier extends User {
 
     private int m_id;
     private String m_iban;
+    private Pharmacy m_Pharmacy;
 
     public Courier() {
         super();
@@ -14,16 +15,18 @@ public class Courier extends User {
         this.setM_iban("No Iban");
     }
 
-    public Courier(int intId, String strName, String strEmail, String strPassword,Integer strNif,String strIban) throws NoSuchAlgorithmException {
+    public Courier(int intId, String strName, String strEmail, String strPassword,Integer strNif,String strIban, Pharmacy oPharmacy) throws NoSuchAlgorithmException {
         super(strEmail,strPassword,strNif,strName);
         this.setM_id(intId);
         this.setM_name(strName);
         this.setM_nif(strNif);
         this.setM_iban(strIban);
+        this.setM_Pharmacy(oPharmacy);
     }
 
-    public Courier(String strName, String strEmail, String strPassword,Integer strNif,String strIban) throws NoSuchAlgorithmException {
+    public Courier(String strName, String strEmail, String strPassword,Integer strNif,String strIban, Pharmacy oPharmacy) throws NoSuchAlgorithmException {
         super(strEmail,strPassword,strNif,strName);
+        this.setM_Pharmacy(oPharmacy);
         this.setM_name(strName);
         this.setM_nif(strNif);
         this.setM_iban(strIban);
@@ -44,6 +47,14 @@ public class Courier extends User {
 
     public void setM_iban(String m_iban) {
         this.m_iban = m_iban;
+    }
+
+    public Pharmacy getM_Pharmacy() {
+        return m_Pharmacy;
+    }
+
+    public void setM_Pharmacy(Pharmacy m_Pharmacy) {
+        this.m_Pharmacy = m_Pharmacy;
     }
 }
 

@@ -32,9 +32,6 @@ CTRL -> APP: session = getCurrentSession()
 activate APP
 deactivate APP
 
-CTRL -> SESSION: userEmail = getCurrentUserEmail()
-activate SESSION
-deactivate SESSION
 
 CTRL -> PLAT : ordReg = getOrderReg()
 activate PLAT

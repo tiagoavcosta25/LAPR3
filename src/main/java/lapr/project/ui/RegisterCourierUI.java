@@ -10,7 +10,7 @@ public class RegisterCourierUI {
         RegisterCourierController m_ctrl = new RegisterCourierController();
 
         try {
-            if (m_ctrl.newCourier("Ernesto", "ernesto@gmail.com", 14809313, "PT98003506514853185258910")) {
+            if (m_ctrl.newCourier("Ernesto", "ernesto@gmail.com", 250161761, "PT98003506514853185258910")) {
                 if (m_ctrl.registersCourier()) {
                     System.out.println("Operation was Successfull!");
                 }

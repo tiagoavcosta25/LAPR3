@@ -21,7 +21,7 @@ class PotApplication
 
 class UserSession
 {
-  +getUserInstance()
+  +getM_currentUserEmail()
 }
 }
 package "model" #DDDDDD{

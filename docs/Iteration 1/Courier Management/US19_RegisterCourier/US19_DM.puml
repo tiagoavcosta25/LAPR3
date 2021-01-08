@@ -12,8 +12,7 @@ class Courier {
       -String iban
 }
 
-class Administator {
-      -Integer id
+class PharmacyManager {
 }
 
 
@@ -24,9 +23,15 @@ class User{
   -string name
 }
 
-Platform "1" -- "1" Administator : has registered >
-Administator "1" -- "1..*" Courier : registers >
+class Pharmacy{
+-   int id
+-   String name
+}
+
+Platform "1" -- "1" PharmacyManager : has registered >
+PharmacyManager "1" -- "1..*" Courier : registers >
 Courier "1" -- "1" User: acts as  >
-Administator "1" -- "1" User: acts as  >
+Courier "1" -- "1" Pharmacy: belongs to a  >
+PharmacyManager "1" -- "1" User: acts as  >
 @enduml
 

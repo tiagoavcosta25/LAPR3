@@ -35,8 +35,7 @@ class Courier {
    +Courier(id, name, email, password, nif, iban)
 
 }
-class Administator {
-      -Integer id
+class PharmacyManager {
 }
 
 class PassGenerator {
@@ -44,13 +43,19 @@ class PassGenerator {
    +generatePassword()
 }
 
+class Pharmacy{
+-Integer id
+-String name
+}
+
 
 package "registration" #DDDDDD{
 class CourierRegistration {
 
   +generatePassword()
-  +Courier newCourier(name, email, nif, iban, address)
+  +Courier newCourier(name, email, nif, iban, pharmacy)
   +registersCourier(courier)
+  +getPharmacyByManagerEmail(email)
 
 }
 }
@@ -64,10 +69,11 @@ class User{
 
 
 Platform "1" -- "1" CourierRegistration: has >
-Platform "1" -- "1" Administator: has registered >
-Administator "1" -- "1..*" Courier: registers >
-Administator "1" -- "1" User: acts as >
+Platform "1" -- "1" PharmacyManager: has registered >
+PharmacyManager "1" -- "1..*" Courier: registers >
+PharmacyManager "1" -- "1" User: acts as >
 Courier "1" -- "1" User: acts as >
+Courier "1" -- "1" Pharmacy: belongs to a >
 
 CourierRegistration "1" -- "1" Courier : creates and adds to DataBase
 CourierRegistration "1" -- "1" PassGenerator : creates

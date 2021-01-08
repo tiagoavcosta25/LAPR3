@@ -11,6 +11,9 @@ import java.sql.SQLException;
 
 public class CourierRegistration extends DataHandler {
 
+    public CourierRegistration(String jdbcUrl, String username, String password) {
+        super(jdbcUrl, username, password);
+    }
 
     public Courier getCourier(int id) {
 

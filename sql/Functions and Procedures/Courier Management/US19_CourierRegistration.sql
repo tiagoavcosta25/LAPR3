@@ -1,8 +1,9 @@
 CREATE OR REPLACE PROCEDURE addCourier(strName "User".NAME%type, strEmail "User".EMAIL%type, strPassword "User".PASSWORD%type,
                                         strNif "User".NIF%type, strIban COURIER.IBAN%type) IS
+
     courierValidation int;
     invalidInsertion exception;
-    userId "User".id%type;
+    userIdentifier "User".id%type;
 BEGIN
 
 -- Validates existing Courier
@@ -33,11 +34,11 @@ END IF;
 -- Creates a new User
 INSERT INTO "User"(EMAIL,PASSWORD,NIF,NAME)
 VALUES (strEmail,strPassword,strNif,strName)
-RETURNING id into userId;
+RETURNING id into userIdentifier;
 
 -- Inserir Courier
 INSERT INTO COURIER(USERID,IBAN)
-VALUES (userId,strName,strNif,strIban);
+VALUES (userIdentifier,strIban);
 
 EXCEPTION
     when invalidInsertion then

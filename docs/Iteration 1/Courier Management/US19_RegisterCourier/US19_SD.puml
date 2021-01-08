@@ -1,11 +1,12 @@
 @startuml
 autonumber
-actor "Administrator" as ADMIN
+actor "PharmacyManager" as ADMIN
 
 participant ":RegisterCourierUI" as UI
 participant ":RegisterCourierController" as CTRL
 participant "PotApplication" as PA
 participant "app \n:PotApplication" as APA
+participant "session \n:UserSession" as US
 participant "plat \n:Platform" as PLAT
 participant "courReg \n:CourierRegistration" as RF
 participant "pass \n:PassGenerator" as PS
@@ -31,10 +32,19 @@ deactivate PA
 CTRL -> APA : plat = getPlatform()
 activate APA
 deactivate APA
+CTRL -> APA : session = getCurrentSession()
+activate APA
+deactivate APA
+CTRL -> US : email = getM_currentUserEmail()
+activate US
+deactivate US
 CTRL -> PLAT : courReg = getCourReg()
 activate PLAT
 deactivate PLAT
-CTRL -> RF : newCourier(name, nif, email, iban)
+CTRL -> RF : pharmacy = getPharmacyByManagerEmail(email)
+activate RF
+deactivate RF
+CTRL -> RF : newCourier(name, nif, email, iban, pharmacy)
 activate RF
 RF -> PS : create()
 activate PS
@@ -42,7 +52,7 @@ deactivate PS
 RF -> PS : password = generatePassword()
 activate PS
 deactivate PS
-RF -> CR ** : create(name, email, password, nif, iban)
+RF -> CR ** : create(name, email, password, nif, iban, pharmacy)
 deactivate RF
 deactivate CTRL
 
