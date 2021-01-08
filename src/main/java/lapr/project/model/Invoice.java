@@ -35,35 +35,35 @@ public class Invoice {
         this.m_oOrder = DEFAULT_ORDER;
     }
 
-    public int getM_intId() {
+    public int getId() {
         return m_intId;
     }
 
-    public void setM_intId(int m_intId) {
+    public void setId(int m_intId) {
         this.m_intId = m_intId;
     }
 
-    public Date getM_dtInvoiceDate() {
+    public Date getInvoiceDate() {
         return m_dtInvoiceDate;
     }
 
-    public void setM_dtInvoiceDate(Date m_dtInvoiceDate) {
+    public void setInvoiceDate(Date m_dtInvoiceDate) {
         this.m_dtInvoiceDate = m_dtInvoiceDate;
     }
 
-    public float getM_fltTotalPrice() {
+    public float getTotalPrice() {
         return m_fltTotalPrice;
     }
 
-    public void setM_fltTotalPrice(float m_fltTotalPrice) {
+    public void setTotalPrice(float m_fltTotalPrice) {
         this.m_fltTotalPrice = m_fltTotalPrice;
     }
 
-    public Order getM_oOrder() {
+    public Order getOrder() {
         return m_oOrder;
     }
 
-    public void setM_oOrder(Order m_oOrder) {
+    public void setOrder(Order m_oOrder) {
         this.m_oOrder = m_oOrder;
     }
 

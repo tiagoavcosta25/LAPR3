@@ -1,6 +1,5 @@
 package lapr.project.model;
 
-import java.sql.Array;
 import java.sql.Date;
 import java.util.*;
 
