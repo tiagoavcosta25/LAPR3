@@ -27,6 +27,13 @@ public class ChargingSlot {
         this.m_outputPower = oOutputPower;
     }
 
+    public ChargingSlot(int intID, Park oPark, float oOutputPower) {
+        this.m_intId = intID;
+        this.m_oPark = oPark;
+        this.m_oScooter = DEFAULT_SCOOTER;
+        this.m_outputPower = oOutputPower;
+    }
+
     public ChargingSlot() {
         this.m_intId = DEFAULT_ID;
         this.m_oPark = DEFAULT_PARK;
