@@ -14,12 +14,12 @@ deactivate SYST
 
 ADM -> SYST : inserts the required data
 activate SYST
-SYST --> ADM : presents the information and asks for confirmation
+SYST --> ADM : validates, presents the information and asks for confirmation
 deactivate SYST
 
 ADM -> SYST : confirms
 activate SYST
-SYST --> ADM : informs of the success of the operation.
+SYST --> ADM : informs of the success of the operation
 deactivate SYST
 
 deactivate ADM

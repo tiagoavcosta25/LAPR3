@@ -1,70 +1,63 @@
 @startuml
 autonumber
-hide footbox
+actor "Administrator" as ADMIN
 
-actor "Courier" as COUR
+participant ":RegisterPharmacyUI" as UI
+participant ":RegisterPharmacyController" as CTRL
+participant "PotApplication" as PA
+participant "app \n:PotApplication" as APA
+participant "session \n:UserSession" as US
+participant "plat \n:Platform" as PLAT
+participant "pharmReg \n:PharmacyRegistration" as PR
+participant "pharmacy: Pharmacy" as PH
 
-participant "KnowDeliveryUI" as UI
-participant "KnowDeliveryController" as CTRL
-participant "PotApplication" as _APP
-participant "app\n:PotApplication" as APP
-participant "session\n:UserSession" as SESSION
-participant "plat\n:Platform" as PLAT
-participant "courReg\n:CourierRegistry" as COURREG
-participant "ordReg\n:OrdersRegistry" as ORDREG
-participant "ordList\n:OrdersList" as ORDLIST
 
-activate COUR
 
-COUR -> UI : Sends a request regarding what delivery will be done
+activate ADMIN
+
+ADMIN -> UI : initiates the registration of a pharmacy
 activate UI
-UI -> CTRL : getCourierInfo()
+UI -> ADMIN : asks for the required data for the pharmacy, as well as its Manager's data
+deactivate UI
+
+ADMIN -> UI : inserts the required data
+activate UI
+UI -> CTRL : newPharmacy(name,email, nif, iban)
 activate CTRL
-CTRL -> _APP: app = getInstance()
-activate _APP
-deactivate _APP
-
-CTRL -> APP: plat = getPlaform()
-activate APP
-deactivate APP
-
-CTRL -> APP: session = getCurrentSession()
-activate APP
-deactivate APP
-
-CTRL -> SESSION: email = getUserEmail()
-activate SESSION
-deactivate SESSION
-CTRL -> PLAT : courReg = getCourReg()
+CTRL -> PA : app = getInstance()
+activate PA
+deactivate PA
+CTRL -> APA : plat = getPlatform()
+activate APA
+deactivate APA
+CTRL -> PLAT : pharmReg = getPharmacyReg()
 activate PLAT
 deactivate PLAT
-CTRL -> COURREG : cour = getCourByEmail(email)
-activate COURREG
-deactivate COURREG
+CTRL -> PR : newPharmacy(name, nif, email, iban)
+activate PR
+PR -> PH ** : create(name, email, password, nif, iban)
+deactivate PR
 deactivate CTRL
-UI -> COUR : Shows the information about the courier, requesting verification
+
+
+UI -> ADMIN : validates, presents the information and asks for confirmation
 deactivate UI
-COUR -> UI : Verifies the information
+
+ADMIN -> UI : confirms
 activate UI
-UI -> CTRL : getOrderByCour()
+UI -> CTRL : registersCourier()
 activate CTRL
-CTRL -> PLAT : ordReg = getOrdReg()
-activate PLAT
-deactivate PLAT
-CTRL -> ORDREG : ordList = getOrdersList()
-activate ORDREG
-deactivate ORDREG
-CTRL -> ORDLIST : getOrderByCourier(cour)
-activate ORDLIST
-ORDLIST -> ORDLIST : hasOrder(cour)
-opt [ hasOrder(cour) == true]
-ORDLIST -> ORDLIST : getOrderByCour(cour)
-deactivate ORDLIST
-UI -> COUR : Returns the order, informing of the success of the operation
-end opt
-UI -> COUR : Informs that doesn't exist any order
+CTRL -> PR : registersCourier(courier)
+activate PR
+ref over PR
+SD_CONNECTIONS
+end ref
+deactivate PR
+UI -> ADMIN : informs the success of the operation
+deactivate PR
 deactivate CTRL
 deactivate UI
-deactivate COUR
+
+deactivate ADMIN
 
 @enduml
