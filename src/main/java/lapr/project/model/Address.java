@@ -33,10 +33,8 @@ public class Address {
         this.m_country = country;
     }
 
-<<<<<<< HEAD
-    public Double getM_latitude() {
-=======
-    public Address(Integer id, float latitude, float longitude, String streetName, String doorNumber,
+
+    public Address(Integer id, Double latitude, Double longitude, String streetName, String doorNumber,
                    String postalCode, String locality, String country) {
         this.m_id = id;
         this.m_latitude = latitude;
@@ -48,8 +46,7 @@ public class Address {
         this.m_country = country;
     }
 
-    public float getM_latitude() {
->>>>>>> f2c44af05c8cadfb7f5af271c7c146fe936b0c9e
+    public Double getM_latitude() {
         return m_latitude;
     }
 
