@@ -34,7 +34,7 @@ deactivate US
 CTRL -> PLAT : pharmReg = getPharmReg()
 activate PLAT
 deactivate PLAT
-CTRL -> PH : pharmacy = getPharmacyById(pharmacyId)
+CTRL -> PH : pharmacy = getPharmacyByManager(email)
 activate PH
 ref over PH
 SD_Connections
