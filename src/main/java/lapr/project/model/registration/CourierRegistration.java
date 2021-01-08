@@ -146,8 +146,8 @@ public class CourierRegistration extends DataHandler {
             ResultSet rSet = (ResultSet) callStmt.getObject(1);
 
             if (rSet.next()) {
-                float latitude = rSet.getFloat(1);
-                float longitude = rSet.getFloat(2);
+                Double latitude = rSet.getDouble(1);
+                Double longitude = rSet.getDouble(2);
                 String streetName = rSet.getString(3);
                 String doorNumber = rSet.getString(4);
                 String postalCode = rSet.getString(5);
@@ -188,8 +188,8 @@ public class CourierRegistration extends DataHandler {
                 int pharmacyID = rSet.getInt(2);
                 String pharmacyName = rSet.getString(3);
                 int addressID = rSet.getInt(4);
-                float latitude = rSet.getInt(5);
-                float longitude = rSet.getInt(6);
+                Double latitude = rSet.getDouble(5);
+                Double longitude = rSet.getDouble(6);
                 String doorNumber = rSet.getString(7);
                 String streetName = rSet.getString(8);
                 String postalCode = rSet.getString(9);
