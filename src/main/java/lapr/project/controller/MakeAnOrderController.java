@@ -47,7 +47,7 @@ public class MakeAnOrderController {
     }
 
     public void newOrder(float fltAmount, float fltTotalWeight, float fltAdditionalFee, Date dtOrderDate,
-                         String strDescription, String strStatus, float latitude, float longitude, String streetName,
+                         String strDescription, String strStatus, Double latitude, Double longitude, String streetName,
                          String doorNumber, String postalCode, String locality, String country, Map<Product, Integer> mapProducts) {
         try {
             this.m_oOrder = m_oOrderRegistration.newOrder(fltAmount, fltTotalWeight, fltAdditionalFee, dtOrderDate,

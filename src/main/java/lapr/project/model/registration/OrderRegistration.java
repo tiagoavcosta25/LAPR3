@@ -41,8 +41,8 @@ public class OrderRegistration extends DataHandler {
                 Integer intNIF = rSet.getInt(9);
                 String strEmail = rSet.getString(10);
                 String strPassword = rSet.getString(11);
-                Float fltClientLatitude = rSet.getFloat(12);
-                Float fltClientLongitude = rSet.getFloat(13);
+                Double dblClientLatitude = rSet.getDouble(12);
+                Double dblClientLongitude = rSet.getDouble(13);
                 String strClientStreetName = rSet.getString(14);
                 String strClientDoorNumber = rSet.getString(15);
                 String strClientPostalCode = rSet.getString(16);
@@ -51,8 +51,8 @@ public class OrderRegistration extends DataHandler {
                 Double dblCreditCardNr = rSet.getDouble(19);
                 java.util.Date dtValidatyDate = rSet.getDate(20);
                 Integer strCCV = rSet.getInt(21);
-                Float fltOrderLatitude = rSet.getFloat(22);
-                Float fltOrderLongitude = rSet.getFloat(23);
+                Double dblOrderLatitude = rSet.getDouble(22);
+                Double dblOrderLongitude = rSet.getDouble(23);
                 String strOrderStreetName = rSet.getString(24);
                 String strOrderDoorNumber = rSet.getString(25);
                 String strOrderPostalCode = rSet.getString(26);
@@ -62,9 +62,9 @@ public class OrderRegistration extends DataHandler {
                 // FALTA: a lista de prods
 
                 return new Order(intId, fltAmount, fltTotalWeight, fltAdditionalFee, dtOrderDate, strDescription, strStatus,
-                        new Client(strName, intNIF, strEmail, strPassword, fltClientLatitude, fltClientLongitude, strClientStreetName, strClientDoorNumber,
+                        new Client(strName, intNIF, strEmail, strPassword, dblClientLatitude, dblClientLongitude, strClientStreetName, strClientDoorNumber,
                                 strClientPostalCode, strClientLocality, strClientCountry, dblCreditCardNr, dtValidatyDate, strCCV),
-                        new Address(fltOrderLatitude, fltOrderLongitude, strOrderStreetName, strOrderDoorNumber, strOrderPostalCode,
+                        new Address(dblOrderLatitude, dblOrderLongitude, strOrderStreetName, strOrderDoorNumber, strOrderPostalCode,
                                 strOrderLocality, strOrderCountry), new TreeMap<>());
             }
         } catch (SQLException e) {
@@ -85,8 +85,8 @@ public class OrderRegistration extends DataHandler {
             callStmt.setString(4, strDescription);
             callStmt.setDate(5, dtOrderDate);
             callStmt.setInt(6, oClient.getM_id());
-            callStmt.setFloat(7, oAddress.getM_latitude());
-            callStmt.setFloat(8, oAddress.getM_longitude());
+            callStmt.setDouble(7, oAddress.getM_latitude());
+            callStmt.setDouble(8, oAddress.getM_longitude());
             callStmt.setString(9, oAddress.getM_streetName());
             callStmt.setString(10, oAddress.getM_doorNumber());
             callStmt.setString(11, oAddress.getM_postalCode());
@@ -143,7 +143,7 @@ public class OrderRegistration extends DataHandler {
     }
 
     public Order newOrder(float fltAmount, float fltTotalWeight, float fltAdditionalFee, Date dtOrderDate,
-                          String strDescription, String strStatus, Client oClient, float latitude, float longitude, String streetName,
+                          String strDescription, String strStatus, Client oClient, Double latitude, Double longitude, String streetName,
                           String doorNumber, String postalCode, String locality, String country, Map<Product, Integer> mapProducts) {
         return new Order(fltAmount, fltTotalWeight, fltAdditionalFee, dtOrderDate,
                 strDescription, strStatus, oClient, new Address(latitude, longitude, streetName, doorNumber, postalCode, locality, country), mapProducts);
@@ -173,8 +173,8 @@ public class OrderRegistration extends DataHandler {
                 float fltAdditionalFee = rSet.getFloat(7);
 
                 //address
-                float latitude = rSet.getFloat(8);
-                float longitude = rSet.getFloat(9);
+                Double latitude = rSet.getDouble(8);
+                Double longitude = rSet.getDouble(9);
                 String doorNumber = rSet.getString(10);
                 String streetName = rSet.getString(11);
                 String postalCode = rSet.getString(12);
@@ -220,8 +220,8 @@ public class OrderRegistration extends DataHandler {
                 Integer nif = rSet.getInt(11);
                 String name = rSet.getString(12);
                 //address
-                float latitude = rSet.getFloat(14);
-                float longitude = rSet.getFloat(15);
+                Double latitude = rSet.getDouble(14);
+                Double longitude = rSet.getDouble(15);
                 String doorNumber = rSet.getString(16);
                 String streetName = rSet.getString(17);
                 String postalCode = rSet.getString(18);

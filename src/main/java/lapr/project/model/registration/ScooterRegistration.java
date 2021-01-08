@@ -39,8 +39,8 @@ public class ScooterRegistration extends DataHandler {
                 int intBatteryCapacity = rSet.getInt(5);
                 int intId = rSet.getInt(6);
                 String strName = rSet.getString(7);
-                Float fltLatitude = rSet.getFloat(8);
-                Float fltLongitude = rSet.getFloat(9);
+                Double fltLatitude = rSet.getDouble(8);
+                Double fltLongitude = rSet.getDouble(9);
                 String strStreetName = rSet.getString(10);
                 String strDoorNumber = rSet.getString(11);
                 String strPostalCode = rSet.getString(12);
@@ -82,8 +82,8 @@ public class ScooterRegistration extends DataHandler {
             callStmt.setInt(5, intBatteryCapacity);
             callStmt.setInt(6, oPharmacy.getId());
             callStmt.setString(7, oPharmacy.getName());
-            callStmt.setFloat(8, oPharmacy.getAddress().getM_latitude());
-            callStmt.setFloat(9, oPharmacy.getAddress().getM_longitude());
+            callStmt.setDouble(8, oPharmacy.getAddress().getM_latitude());
+            callStmt.setDouble(9, oPharmacy.getAddress().getM_longitude());
             callStmt.setString(10, oPharmacy.getAddress().getM_streetName());
             callStmt.setString(11, oPharmacy.getAddress().getM_doorNumber());
             callStmt.setString(12, oPharmacy.getAddress().getM_postalCode());

@@ -39,8 +39,8 @@ public class InvoiceRegistration extends DataHandler {
                 Integer intNIF = rSet.getInt(9);
                 String strEmail = rSet.getString(10);
                 String strPassword = rSet.getString(11);
-                Float fltClientLatitude = rSet.getFloat(12);
-                Float fltClientLongitude = rSet.getFloat(13);
+                Double fltClientLatitude = rSet.getDouble(12);
+                Double fltClientLongitude = rSet.getDouble(13);
                 String strClientStreetName = rSet.getString(14);
                 String strClientDoorNumber = rSet.getString(15);
                 String strClientPostalCode = rSet.getString(16);
@@ -49,8 +49,8 @@ public class InvoiceRegistration extends DataHandler {
                 Double dblCreditCardNr = rSet.getDouble(19);
                 java.util.Date dtValidatyDate = rSet.getDate(20);
                 Integer strCCV = rSet.getInt(21);
-                Float fltOrderLatitude = rSet.getFloat(22);
-                Float fltOrderLongitude = rSet.getFloat(23);
+                Double fltOrderLatitude = rSet.getDouble(22);
+                Double fltOrderLongitude = rSet.getDouble(23);
                 String strOrderStreetName = rSet.getString(24);
                 String strOrderDoorNumber = rSet.getString(25);
                 String strOrderPostalCode = rSet.getString(26);
