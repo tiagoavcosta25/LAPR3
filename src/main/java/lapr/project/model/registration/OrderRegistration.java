@@ -149,6 +149,46 @@ public class OrderRegistration extends DataHandler {
                 strDescription, strStatus, oClient, new Address(latitude, longitude, streetName, doorNumber, postalCode, locality, country), mapProducts);
     }
 
+    public Order getLatestOrder(Client oClient) {
+
+        CallableStatement callStmt = null;
+        try {
+            callStmt = getConnection().prepareCall("{ ? = call getLatestOrder(?) }");
+
+            callStmt.registerOutParameter(1, OracleTypes.CURSOR);
+            callStmt.setInt(1, oClient.getM_id());
+
+            callStmt.execute();
+
+            ResultSet rSet = (ResultSet) callStmt.getObject(1);
+
+            if (rSet.next()) {
+
+                String strDescription = rSet.getString(1);
+                String strStatus = rSet.getString(2);
+                Date dtOrderDate = rSet.getDate(3);
+                float fltTotalWeight = rSet.getFloat(4);
+                float fltAmount = rSet.getFloat(5);
+                float fltAdditionalFee = rSet.getFloat(6);
+                //address
+                float latitude = rSet.getFloat(14);
+                float longitude = rSet.getFloat(15);
+                String doorNumber = rSet.getString(16);
+                String streetName = rSet.getString(17);
+                String postalCode = rSet.getString(18);
+                String locality = rSet.getString(19);
+                String country = rSet.getString(20);
+
+                Address oAddress = new Address(latitude, longitude, streetName, doorNumber, postalCode, locality, country);
+                return new Order(fltAmount, fltTotalWeight, fltAdditionalFee, dtOrderDate, strDescription,
+                        strStatus, oClient, oAddress, null);//new Map<Product, Integer>());
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        throw new IllegalArgumentException("No Order with the following client:" + oClient.getM_name());
+    }
+
     public Order getOrderByCourier(String strEmail) {
 
         CallableStatement callStmt = null;
