@@ -50,7 +50,7 @@ public class PharmacyRegistration extends DataHandler {
             callStmt = getConnection().prepareCall("{ ? = call getPharmacyByManagerEmail(?) }");
 
             callStmt.registerOutParameter(1, OracleTypes.CURSOR);
-            callStmt.setString(1, email);
+            callStmt.setString(2, email);
 
             callStmt.execute();
 

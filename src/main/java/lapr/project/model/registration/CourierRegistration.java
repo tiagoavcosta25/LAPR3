@@ -181,7 +181,7 @@ public class CourierRegistration extends DataHandler {
             // Regista o tipo de dados SQL para interpretar o resultado obtido.
             callStmt.registerOutParameter(1, OracleTypes.CURSOR);
             // Especifica o parâmetro de entrada da função "getSailor".
-            callStmt.setString(1, email);
+            callStmt.setString(2, email);
 
             // Executa a invocação da função "getSailor".
             callStmt.execute();
@@ -193,6 +193,7 @@ public class CourierRegistration extends DataHandler {
                 int chargingSlotID = rSet.getInt(1);
                 int pharmacyID = rSet.getInt(2);
                 String pharmacyName = rSet.getString(3);
+                // Address
                 int addressID = rSet.getInt(4);
                 Double latitude = rSet.getDouble(5);
                 Double longitude = rSet.getDouble(6);
@@ -201,6 +202,7 @@ public class CourierRegistration extends DataHandler {
                 String postalCode = rSet.getString(9);
                 String locality = rSet.getString(10);
                 String country = rSet.getString(11);
+
                 int maxSlotsNumber = rSet.getInt(12);
                 float outputPower = rSet.getFloat(13);
 

@@ -11,7 +11,7 @@ class UpdateScooterUI{
 package "Controller" #DDDDDD {
 class UpdateScooterController{
 +updateScooter(batteryPerc, charginStatus, potency,\n weight, batteryCapacity, pharmacy)
-+showScootersList(pharmacy)
++getScootersList(pharmacy)
 }
 
 class ApplicationPOT
@@ -35,7 +35,7 @@ class Platform {
 }
 package "Registration" #DDDDDD {
  class PharmacyRegistration{
-     +getPharmacyById(pharmacyId)
+     +getPharmacyByManager(email)
      +getConnection()
  }
 
