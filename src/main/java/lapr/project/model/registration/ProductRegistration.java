@@ -45,7 +45,8 @@ public class ProductRegistration extends DataHandler {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        throw new IllegalArgumentException("No Product with id:" + intId);
+        System.out.println(("No Product with id:" + intId));
+        return new Product(-1, "", "", 0, 0);
     }
 
     public boolean addProductToDB(Product p) {
