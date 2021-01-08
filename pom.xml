@@ -54,6 +54,11 @@
             <version>2.8.2</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-base</artifactId>
+            <version>13</version>
+        </dependency>
 
     </dependencies>
     <build>

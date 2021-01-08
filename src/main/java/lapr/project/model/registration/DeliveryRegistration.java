@@ -1,5 +1,6 @@
 package lapr.project.model.registration;
 
+import javafx.util.Pair;
 import lapr.project.graph.map.GraphAlgorithms;
 import lapr.project.graph.matrix.AdjacencyMatrixGraph;
 import lapr.project.model.Address;
