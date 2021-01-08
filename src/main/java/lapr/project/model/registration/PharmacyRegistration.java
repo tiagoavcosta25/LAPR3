@@ -18,7 +18,7 @@ public class PharmacyRegistration extends DataHandler {
      * @param strName           Pharmacy's name
      * @return True if Pharmacy was registered, false if otherwise
      */
-    public boolean registerNewPharmacy(String strName, float latitude, float longitude, String streetName,
+    public boolean registerNewPharmacy(String strName, Double latitude, Double longitude, String streetName,
                                        String doorNumber, String postalCode, String locality, String country) {
         Pharmacy pharmacy = new Pharmacy(strName, new Address(latitude, longitude, streetName, doorNumber, postalCode, locality, country));
         return addPharmacyToDB(pharmacy);
@@ -42,8 +42,8 @@ public class PharmacyRegistration extends DataHandler {
 
                 int intId = rSet.getInt(1);
                 String strName = rSet.getString(2);
-                Float fltLatitude = rSet.getFloat(4);
-                Float fltLongitude = rSet.getFloat(5);
+                Double fltLatitude = rSet.getDouble(4);
+                Double fltLongitude = rSet.getDouble(5);
                 String strStreetName = rSet.getString(6);
                 String strDoorNumber = rSet.getString(7);
                 String strPostalCode = rSet.getString(8);
@@ -76,8 +76,8 @@ public class PharmacyRegistration extends DataHandler {
             CallableStatement callStmt = getConnection().prepareCall("{ call addPharmacy(?,?,?,?,?) }");
 
             callStmt.setString(1, strName);
-            callStmt.setFloat(2, oAddress.getM_latitude());
-            callStmt.setFloat(3, oAddress.getM_longitude());
+            callStmt.setDouble(2, oAddress.getM_latitude());
+            callStmt.setDouble(3, oAddress.getM_longitude());
             callStmt.setString(4, oAddress.getM_streetName());
             callStmt.setString(5, oAddress.getM_doorNumber());
             callStmt.setString(6, oAddress.getM_postalCode());
