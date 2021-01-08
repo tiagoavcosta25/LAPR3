@@ -41,6 +41,7 @@ public class UserSession {
         public Role getRole() {
             return this;
         }
+
     }
 
     /**

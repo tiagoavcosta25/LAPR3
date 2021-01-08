@@ -86,7 +86,7 @@ public class DeliveryRegistration {
      */
     public LinkedList<String> getMiddleCities(Address addressA, Address addressB) {                                          //O(V)
         LinkedList<String> middleCities = new LinkedList<>();
-        for (String str : citiesHighestFriendsByAddress(AddressA, n)) {                                                        //O(V)
+        for (String str : citiesHighestFriendsByAddress(    AddressA, n)) {                                                        //O(V)
             if (!middleCities.contains(str) && !str.equals(addressA) && !str.equals(addressB)) {
                 middleCities.add(str);
             }
