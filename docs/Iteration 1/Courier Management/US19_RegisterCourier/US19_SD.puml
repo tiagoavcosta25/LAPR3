@@ -6,9 +6,9 @@ participant ":RegisterCourierUI" as UI
 participant ":RegisterCourierController" as CTRL
 participant "PotApplication" as PA
 participant "app \n:PotApplication" as APA
-participant "session \n:UserSession" as US
 participant "plat \n:Platform" as PLAT
 participant "courReg \n:CourierRegistration" as RF
+participant "pass \n:PassGenerator" as PS
 participant "courier: Courier" as CR
 
 
@@ -24,6 +24,7 @@ ADMIN -> UI : inserts the required data
 activate UI
 UI -> CTRL : newCourier(name,email, nif, iban)
 activate CTRL
+CTRL -> CTRL : validateInput(name,email, nif, iban)
 CTRL -> PA : app = getInstance()
 activate PA
 deactivate PA
@@ -35,7 +36,12 @@ activate PLAT
 deactivate PLAT
 CTRL -> RF : newCourier(name, nif, email, iban)
 activate RF
-RF -> RF : password = generatePassword()
+RF -> PS : create()
+activate PS
+deactivate PS
+RF -> PS : password = generatePassword()
+activate PS
+deactivate PS
 RF -> CR ** : create(name, email, password, nif, iban)
 deactivate RF
 deactivate CTRL

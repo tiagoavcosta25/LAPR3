@@ -58,7 +58,8 @@ public class CourierRegistration extends DataHandler {
      * @param strNif  o nome do marinheiro.
      * @param strIban o "rating" do marinheiro.
      */
-    private void addCourierToDB(String strName, String strEmail, String strPassword, Integer strNif, String strIban) {
+    private boolean addCourierToDB(String strName, String strEmail, String strPassword, Integer strNif, String strIban) {
+        boolean flag = true;
         try {
             openConnection();
             /*
@@ -80,8 +81,10 @@ public class CourierRegistration extends DataHandler {
 
             closeAll();
         } catch (SQLException e) {
+            flag = false;
             e.printStackTrace();
         }
+        return flag;
     }
 
     /**
@@ -116,12 +119,13 @@ public class CourierRegistration extends DataHandler {
     }
 
     public Courier newCourier(String strName, String strEmail, Integer strNIF, String strIBAN) {
-        String password = "";
+        PassGenerator pass = new PassGenerator();
+        String password = pass.generatePassword();
         return new Courier(strName, strEmail, password, strNIF, strIBAN);
     }
 
-    public void registersCourier(Courier oCourier) {
-        addCourierToDB(oCourier.getM_name(), oCourier.getStrEmail(), oCourier.getPw(), oCourier.getM_nif(), oCourier.getM_iban());
+    public boolean registersCourier(Courier oCourier) {
+        return addCourierToDB(oCourier.getM_name(), oCourier.getStrEmail(), oCourier.getPw(), oCourier.getM_nif(), oCourier.getM_iban());
     }
 
     public Address getDeliveryAddress(String email) {
@@ -203,6 +207,7 @@ public class CourierRegistration extends DataHandler {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+            return null;
         }
         throw new IllegalArgumentException("No Charging Slot for Courier: " + email);
     }

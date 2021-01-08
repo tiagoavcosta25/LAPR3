@@ -48,7 +48,7 @@ public class OrderRegistration extends DataHandler {
                 String strClientPostalCode = rSet.getString(16);
                 String strClientLocality = rSet.getString(17);
                 String strClientCountry = rSet.getString(18);
-                Double dblCreditCardNr = rSet.getDouble(19);
+                long dblCreditCardNr = rSet.getLong(19);
                 java.util.Date dtValidatyDate = rSet.getDate(20);
                 Integer strCCV = rSet.getInt(21);
                 Double dblOrderLatitude = rSet.getDouble(22);
@@ -228,7 +228,7 @@ public class OrderRegistration extends DataHandler {
                 String locality = rSet.getString(19);
                 String country = rSet.getString(20);
                 //cartao
-                Double creditCardNr = rSet.getDouble(21);
+                long creditCardNr = rSet.getLong(21);
                 Date validityDate = rSet.getDate(22);
                 Integer CCV = rSet.getInt(23);
 
@@ -244,7 +244,8 @@ public class OrderRegistration extends DataHandler {
     }
 
 
-    public void notifyAndRemove(Order order) {
+    public boolean notifyAndRemove(Order order) {
+        boolean flag = true;
         try {
             openConnection();
             /*
@@ -263,7 +264,9 @@ public class OrderRegistration extends DataHandler {
 
             closeAll();
         } catch (SQLException e) {
+            flag = false;
             e.printStackTrace();
         }
+        return flag;
     }
 }
