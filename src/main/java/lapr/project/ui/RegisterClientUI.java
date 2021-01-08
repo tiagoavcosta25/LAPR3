@@ -2,8 +2,6 @@ package lapr.project.ui;
 
 import lapr.project.controller.RegisterClientController;
 
-import java.util.Scanner;
-
 public class RegisterClientUI {
 
 
@@ -11,10 +9,10 @@ public class RegisterClientUI {
 
         RegisterClientController m_ctrl = new RegisterClientController();
 
-        m_ctrl.registerNewClient("Rodrigo", 123456789, "slow@gmail.com", "123", 821449,
-                12391924, "Street", "2esq", "4430-183", "Mafamude",
+        m_ctrl.registerNewClient("Rodrigo", 123456789, "slow@gmail.com", "123", 180.123456d,
+                23456789d, "Street", "2esq", "4430-183", "Mafamude",
                 "Portugal", 1234123412341234.0, "10/23", 123);
-
+        System.out.println("done");
         /**Scanner sc = new Scanner(System.in);
          try {
          System.out.println("Please input the following information:");
