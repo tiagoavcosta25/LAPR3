@@ -56,11 +56,10 @@ public class RemoveScooterController {
         }
     }
 
-    public void removeScooter(int intBatteryPerc, int intCharginStatus, int intPotency,
-                                 int intWeight, int intBatteryCapacity){
+    public void removeScooter(int intScooterId){
 
         this.m_oScooterRegistration = m_oPlatform.getScooterReg();
-        m_oScooterRegistration.removeScooterFromDB(m_oPharmacy.getId());
+        m_oScooterRegistration.removeScooterFromDB(intScooterId);
     }
 
 }
