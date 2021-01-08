@@ -15,7 +15,7 @@ public class Client extends User {
         this.m_creditCard = new CreditCard();
     }
 
-    public Client(String name, Integer nif, String email, String password, float latitude, float longitude, String streetName,
+    public Client(String name, Integer nif, String email, String password, Double latitude, Double longitude, String streetName,
                   String doorNumber, String postalCode, String locality, String country, Double creditCardNr,
                   Date validityDate, Integer CCV) {
         super(email, password,nif,name);
@@ -24,7 +24,7 @@ public class Client extends User {
         this.m_creditCard = new CreditCard(creditCardNr,validityDate,CCV);
     }
 
-    public Client(Integer id, String name, Integer nif, String email, String password, Integer credits, float latitude, float longitude, String streetName,
+    public Client(Integer id, String name, Integer nif, String email, String password, Integer credits, Double latitude, Double longitude, String streetName,
                   String doorNumber, String postalCode, String locality, String country, Double creditCardNr,
                   Date validityDate, Integer CCV) {
         super(id, email, password,nif,name);
@@ -44,5 +44,14 @@ public class Client extends User {
 
     public CreditCard getM_creditCard() {
         return m_creditCard;
+    }
+
+    @Override
+    public String toString() {
+        return "Client{" +
+                "m_credits=" + m_credits +
+                ", m_address=" + m_address +
+                ", m_creditCard=" + m_creditCard +
+                '}';
     }
 }

@@ -35,7 +35,7 @@ public class ClientRegistration extends DataHandler {
      * @param CCV          Client's credit card's CCV
      * @return True if Client was registered, false if otherwise
      */
-    public boolean registerNewClient(String name, Integer nif, String email, String password, float latitude, float longitude, String streetName,
+    public boolean registerNewClient(String name, Integer nif, String email, String password, Double latitude, Double longitude, String streetName,
                                      String doorNumber, String postalCode, String locality, String country, Double creditCardNr,
                                      Date validityDate, Integer CCV) {
         Client client = new Client(name, nif, email, password, latitude, longitude, streetName, doorNumber, postalCode, locality, country,
@@ -68,15 +68,17 @@ public class ClientRegistration extends DataHandler {
             callStmt.setString(1, name);
             callStmt.setInt(2, nif);
             callStmt.setInt(3, credits);
-            callStmt.setFloat(4, address.getM_latitude());
-            callStmt.setFloat(5, address.getM_longitude());
+            callStmt.setDouble(4, address.getM_latitude());
+            callStmt.setDouble(5, address.getM_longitude());
             callStmt.setString(6, address.getM_streetName());
             callStmt.setString(7, address.getM_doorNumber());
             callStmt.setString(8, address.getM_postalCode());
             callStmt.setString(9, address.getM_locality());
             callStmt.setString(10, address.getM_country());
             callStmt.setDouble(11, creditCard.getM_creditCardNr());
-            callStmt.setDate(12, (java.sql.Date) creditCard.getM_validityDate());
+            java.util.Date utilStartDate = creditCard.getM_validityDate();
+            java.sql.Date sqlStartDate = new java.sql.Date(utilStartDate.getTime());
+            callStmt.setDate(12, sqlStartDate);
             callStmt.setInt(13, creditCard.getM_CCV());
             callStmt.setString(14, email);
             callStmt.setString(15, password);
@@ -112,8 +114,8 @@ public class ClientRegistration extends DataHandler {
                 String strName = rSet.getString(4);
                 Integer strNif = rSet.getInt(5);
                 Integer intCredits = rSet.getInt(6);
-                Float fltLatitude = rSet.getFloat(7);
-                Float fltLongitude = rSet.getFloat(8);
+                Double dblLatitude = rSet.getDouble(7);
+                Double dblLongitude = rSet.getDouble(8);
                 String strStreetName = rSet.getString(9);
                 String strDoorNumber = rSet.getString(10);
                 String strPostalCode = rSet.getString(10);
@@ -123,7 +125,7 @@ public class ClientRegistration extends DataHandler {
                 Date dtValidatyDate = rSet.getDate(15);
                 Integer strCCV = rSet.getInt(16);
 
-                return new Client(intId, strName, strNif, strEmail, strPassword, intCredits, fltLatitude, fltLongitude, strStreetName, strDoorNumber, strPostalCode,
+                return new Client(intId, strName, strNif, strEmail, strPassword, intCredits, dblLatitude, dblLongitude, strStreetName, strDoorNumber, strPostalCode,
                         strLocality, strCountry, dblCreditCardNr, dtValidatyDate, strCCV);
             }
         } catch (SQLException e) {

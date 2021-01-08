@@ -3,8 +3,8 @@ package lapr.project.model;
 public class Address {
 
     private Integer m_id;
-    private float m_latitude;
-    private float m_longitude;
+    private Double m_latitude;
+    private Double m_longitude;
     private String m_streetName;
     private String m_doorNumber;
     private String m_postalCode;
@@ -13,8 +13,8 @@ public class Address {
 
     public Address() {
         this.m_id = -1;
-        this.m_latitude = -1;
-        this.m_longitude = -1;
+        this.m_latitude = -1d;
+        this.m_longitude = -1d;
         this.m_streetName = "No Address";
         this.m_doorNumber = "No Door Number";
         this.m_postalCode = "No Postal Code";
@@ -22,7 +22,7 @@ public class Address {
         this.m_country = "No Country";
     }
 
-    public Address(float latitude, float longitude, String streetName, String doorNumber,
+    public Address(Double latitude, Double longitude, String streetName, String doorNumber,
             String postalCode, String locality, String country) {
         this.m_latitude = latitude;
         this.m_longitude = longitude;
@@ -33,7 +33,8 @@ public class Address {
         this.m_country = country;
     }
 
-    public Address(Integer id, float latitude, float longitude, String streetName, String doorNumber,
+
+    public Address(Integer id, Double latitude, Double longitude, String streetName, String doorNumber,
                    String postalCode, String locality, String country) {
         this.m_id = id;
         this.m_latitude = latitude;
@@ -45,11 +46,11 @@ public class Address {
         this.m_country = country;
     }
 
-    public float getM_latitude() {
+    public Double getM_latitude() {
         return m_latitude;
     }
 
-    public float getM_longitude() {
+    public Double getM_longitude() {
         return m_longitude;
     }
 
@@ -71,5 +72,19 @@ public class Address {
 
     public String getM_country() {
         return m_country;
+    }
+
+    @Override
+    public String toString() {
+        return "Address{" +
+                "m_id=" + m_id +
+                ", m_latitude=" + m_latitude +
+                ", m_longitude=" + m_longitude +
+                ", m_streetName='" + m_streetName + '\'' +
+                ", m_doorNumber='" + m_doorNumber + '\'' +
+                ", m_postalCode='" + m_postalCode + '\'' +
+                ", m_locality='" + m_locality + '\'' +
+                ", m_country='" + m_country + '\'' +
+                '}';
     }
 }

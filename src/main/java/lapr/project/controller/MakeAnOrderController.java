@@ -60,7 +60,7 @@ public class MakeAnOrderController {
     /**
      * The method registers an order to the database.
      */
-    public void registersFreelancer() {
+    public void registerOrder() {
         this.m_oOrderRegistration.registerOrder(m_oOrder);
     }
 }

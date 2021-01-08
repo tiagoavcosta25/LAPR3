@@ -6,26 +6,40 @@ left to right direction
 class Platform {
 -   String designation
 }
-class Courier{
+
+class Pharmacy{
 -   int id
--   String email
--   String nome
--   int IBAN
+-   String name
 }
+
 class User{
+-   String name
 -   String name
 -   String email
 -   String password
 }
 
-class Order{
--   int id
--   location
--   completar!!
+class PharmacyManager{
 }
 
-Platform "1" -- "*" Courier : has registered >
-Platform "1" -- "*" Order : has registered >
-Courier "0..1" -- "1" User: acts as >
-Order "1" -- "1" Courier : has >
+class Park{
+-   int maxSlotsNumber
+}
+
+class ChargingSlot{
+-   int id
+-   float outputPower
+}
+
+class ParkingSlot{
+-   int id
+}
+
+Platform "1" -- "*" Pharmacy : has registered >
+Platform "1" -- "*" PharmacyManager : has registered >
+PharmacyManager "0..1" -- "1" User: acts as >
+Pharmacy "1" -- "1" PharmacyManager : has >
+Pharmacy "1" -- "1" Park : has >
+Park "1" -- "1" ChargingSlot : has >
+Park "1" -- "1" ParkingSlot : has >
 @enduml
