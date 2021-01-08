@@ -242,4 +242,28 @@ public class OrderRegistration extends DataHandler {
         }
         throw new IllegalArgumentException("No Order with the following courier email:" + strEmail);
     }
+
+
+    public void notifyAndRemove(Order order) {
+        try {
+            openConnection();
+            /*
+             *  Objeto "callStmt" para invocar o procedimento "addSailor" armazenado
+             *  na BD.
+             *
+             *  PROCEDURE addSailor(sid NUMBER, sname VARCHAR, rating NUMBER, age NUMBER)
+             *  PACKAGE pkgSailors AS TYPE ref_cursor IS REF CURSOR; END pkgSailors;
+             */
+            CallableStatement callStmt = getConnection().prepareCall("{ call removeProductPharmacy(?) }");
+
+            Integer id = order.getId();
+            callStmt.setInt(1, id);
+
+            callStmt.execute();
+
+            closeAll();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

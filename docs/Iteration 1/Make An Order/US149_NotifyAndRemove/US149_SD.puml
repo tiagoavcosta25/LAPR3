@@ -1,0 +1,58 @@
+@startuml
+autonumber
+actor "Client" as Client
+
+participant ":NotifyAndRemoveUI" as UI
+participant ":NotifyAndRemoveController" as CTRL
+participant "PotApplication" as PA
+participant "app \n:PotApplication" as APA
+participant "session \n:UserSession" as US
+participant "plat \n:Platform" as PLAT
+participant "cientReg \n:ClientRegistration" as CR
+participant "orderReg \n:OrderRegistration" as RF
+
+
+activate Client
+
+Client -> UI : makes an order
+activate UI
+UI -> CTRL : notifyAndRemove()
+activate CTRL
+CTRL -> PA : app = getInstance()
+activate PA
+deactivate PA
+CTRL -> APA : plat = getPlatform()
+activate APA
+deactivate APA
+
+CTRL -> APA: session = getCurrentSession()
+activate APA
+deactivate APA
+
+CTRL -> US: email = getUserEmail()
+activate US
+deactivate US
+CTRL -> PLAT : orderReg = getOrderReg()
+activate PLAT
+deactivate PLAT
+CTRL -> PLAT : clientReg = getClientReg()
+activate PLAT
+deactivate PLAT
+CTRL -> CR : client = getClientByEmail(email)
+activate CR
+deactivate CR
+CTRL -> RF : order = getLatestOrder(client)
+activate RF
+deactivate RF
+CTRL -> RF : notifyAndRemove(order)
+activate RF
+deactivate RF
+deactivate CTRL
+
+
+UI -> Client : notifies the Client of the unsuccessful operation
+deactivate UI
+
+deactivate Client
+
+@enduml

@@ -6,11 +6,14 @@ begin
         select O.DESCRIPTION, O.ORDERSTATUS, O.ORDERDATE, O.TOTALWEIGHT, O.AMOUNT, O.ADDITIONALFEE,
        C.CREDITS, U.*, A.*, CC.*, op.quantity, P.*
         from "Order" O
+                 inner join DELIVERY D on D.DELIVERYRUNID = O.ID
+                 inner join DELIVERYRUN DR on D.DELIVERYRUNID = DR.ID
+                 inner join COURIER CO on DR.COURIERID = CO.USERID
+                 inner join "User" U on CO.USERID = U.ID
                  inner join CLIENT C on C.USERID = O.CLIENTID
                  inner join CREDITCARDCLIENT CCC on CCC.CLIENTID = C.USERID
                  inner join CREDITCARD CC on CCC.CREDITCARDNR = CC.CREDITCARDNR
                  inner join ADDRESS A on C.ADDRESSID = A.ID
-                 inner join "User" U on C.USERID = U.ID
                  inner join ORDERPRODUCT OP on O.ID = OP.ORDERID
                  inner join PRODUCT P on P.id = OP.PRODUCTID
         where U.EMAIL = p_email;

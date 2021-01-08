@@ -199,7 +199,7 @@ public class CourierRegistration extends DataHandler {
                 float outputPower = rSet.getFloat(13);
 
                 return new ChargingSlot(chargingSlotID,new Park(pharmacyID,maxSlotsNumber,
-                        new Pharmacy(pharmacyID,pharmacyName,new Address(latitude,longitude,streetName,doorNumber,postalCode,locality,country))), outputPower);
+                        new Pharmacy(pharmacyID,pharmacyName,new Address(addressID,latitude,longitude,streetName,doorNumber,postalCode,locality,country))), outputPower);
             }
         } catch (SQLException e) {
             e.printStackTrace();
