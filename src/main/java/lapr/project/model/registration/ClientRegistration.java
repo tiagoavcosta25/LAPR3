@@ -115,13 +115,9 @@ public class ClientRegistration extends DataHandler {
                 String strName = rSet.getString(5);
                 Integer intCredits = rSet.getInt(6);
                 Address oClientAddress = addressManager(rSet, 7);
-                long lCreditCardNr = rSet.getLong(14);
-                Date dtValidatyDate = rSet.getDate(15);
-                Integer strCCV = rSet.getInt(16);
+                CreditCard oCreditCard = creditCardManager(rSet, 15);
 
-                return new Client(intId, strName, strNif, strEmail, strPassword, intCredits, oClientAddress.getM_latitude(), oClientAddress.getM_longitude(),
-                        oClientAddress.getM_streetName(), oClientAddress.getM_doorNumber(), oClientAddress.getM_postalCode(),
-                        oClientAddress.getM_locality(), oClientAddress.getM_country(), lCreditCardNr, dtValidatyDate, strCCV);
+                return new Client(intId, strName, strNif, strEmail, strPassword, intCredits, oClientAddress, oCreditCard);
             }
         } catch (SQLException e) {
             e.printStackTrace();

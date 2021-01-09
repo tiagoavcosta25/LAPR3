@@ -33,6 +33,7 @@ public class Client extends User {
         this.m_address = new Address(latitude, longitude, streetName, doorNumber, postalCode, locality, country);
         this.m_creditCard = new CreditCard(creditCardNr,validityDate,CCV);
     }
+
     public Client(Integer id, String name, Integer nif, String email, String password, Integer credits,Address address, CreditCard creditCard) {
         super(id, email, password,nif,name);
         this.m_credits = credits;
