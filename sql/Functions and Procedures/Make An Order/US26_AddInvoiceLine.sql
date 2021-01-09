@@ -4,7 +4,7 @@ create or replace procedure addInvoiceLine(p_line INVOICELINE.id%type, p_invoice
                                     p_unitaryWeight PRODUCT.UNITARYWEIGHT%type, p_value INVOICELINE.VALUE%type)
     is
     v_checkOrderId CLIENT.USERID%type;
-    v_checkProductId number%type;
+    v_checkProductId PRODUCT.ID%type;
     invoice_not_found exception;
     order_not_found exception;
     product_not_found exception;
@@ -48,15 +48,12 @@ begin
 
 EXCEPTION
     when invoice_not_found then
-        raise_application_error(-20025, 'Invoice Not Found!');
-        return null;
+        raise_application_error(-20519, 'Invoice Not Found!');
 
     when order_not_found then
-        raise_application_error(-20025, 'Order Not Found!');
-        return null;
+        raise_application_error(-20619, 'Order Not Found!');
 
     when product_not_found then
-        raise_application_error(-20025, 'Product Not Found!');
-        return null;
+        raise_application_error(-20719, 'Product Not Found!');
 
 end;

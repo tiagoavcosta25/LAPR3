@@ -1,0 +1,52 @@
+@startuml
+skinparam classAttributeIconSize 0
+hide methods
+left to right direction
+
+class Platform {
+-   String designation
+}
+
+class Pharmacy{
+-int id
+-String name
+-Address address
+}
+
+class Park{
+-int id
+-int maxSlotsNumber
+}
+
+class ChargingSlot{
+-int id;
+-float outputPower
+}
+
+class ParkingSlot{
+-int id
+}
+
+class Courier {
+      -String id
+      -String iban
+}
+
+class Scooter {
+-int Id;
+-int BatteryPerc;
+-int CharginStatus;
+-int Potency;
+-int Weight;
+-int m_intBatteryCapacity;
+}
+
+Platform "1" -- "*" Courier : has registered >
+Courier "1" -- "*" Pharmacy : is associated to >
+Pharmacy "1" -- "1" Park : has >
+Pharmacy "1" -- "*" Scooter : has >
+Park "1" -- "1" ChargingSlot : has >
+Park "1" -- "1" ParkingSlot : has >
+Scooter "1" -- "1" ChargingSlot : belongs to >
+Scooter "1" -- "1" ParkingSlot : belongs to >
+@enduml
