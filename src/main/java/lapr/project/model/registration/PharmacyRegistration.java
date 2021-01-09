@@ -9,6 +9,8 @@ import java.sql.CallableStatement;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -60,14 +62,7 @@ public class PharmacyRegistration extends DataHandler {
                 Integer pharmacyID = rSet.getInt(1);
                 String pharmacyName = rSet.getString(2);
                 //address
-                Integer idAddress = rSet.getInt(3);
-                Double latitude = rSet.getDouble(4);
-                Double longitude = rSet.getDouble(5);
-                String doorNumber = rSet.getString(6);
-                String streetName = rSet.getString(7);
-                String postalCode = rSet.getString(8);
-                String locality = rSet.getString(9);
-                String country = rSet.getString(10);
+                Address oAddress = addressManager(rSet, 3);
                 //User
                 Integer id = rSet.getInt(11);
                 String emailManager = rSet.getString(12);
@@ -76,7 +71,7 @@ public class PharmacyRegistration extends DataHandler {
                 String name = rSet.getString(15);
 
                 return new Pharmacy(pharmacyID,pharmacyName,new PharmacyManager(id,emailManager,password,nif,name),
-                        new Address(idAddress,latitude,longitude,doorNumber,streetName,postalCode,locality,country));
+                        oAddress);
             }
         } catch (SQLException | NoSuchAlgorithmException e) {
             e.printStackTrace();
@@ -107,7 +102,7 @@ public class PharmacyRegistration extends DataHandler {
         }
     }
 
-    public void removeOrder(int intId) {
+    public void removePharmacy(int intId) {
 
         try {
             openConnection();
@@ -150,5 +145,34 @@ public class PharmacyRegistration extends DataHandler {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public List<Pharmacy> getPharmacies() {
+        CallableStatement callStmt = null;
+        List<Pharmacy> lstPharmacies = new ArrayList<>();
+        try {
+            callStmt = getConnection().prepareCall("{ ? = call getPharmacies() }");
+
+            callStmt.execute();
+            ResultSet rSet = (ResultSet) callStmt.getObject(1);
+
+            while(rSet.next()){
+                int intPharmacyId = rSet.getInt(1);
+                String strPharmacyName = rSet.getString(2);
+                int intManagerId = rSet.getInt(3);
+                String strEmail = rSet.getString(4);
+                String strPassword = rSet.getString(5);
+                Integer strNif = rSet.getInt(6);
+                String strManagerName = rSet.getString(7);
+                Address oAddress = addressManager(rSet, 3);
+
+                lstPharmacies.add(new Pharmacy(intPharmacyId, strPharmacyName, new PharmacyManager(intManagerId, strEmail, strPassword, strNif, strManagerName), oAddress));
+
+                rSet.next();
+            }
+        } catch (SQLException | NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        throw new IllegalArgumentException("No Pharmacies Avaliable.");
     }
 }

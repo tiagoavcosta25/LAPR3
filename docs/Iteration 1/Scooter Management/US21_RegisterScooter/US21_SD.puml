@@ -74,7 +74,7 @@ SD_Connections
 end ref
 deactivate RS
 deactivate CTRL
-UI -> ADMIN : informs the success of the operation
+UI -> PHARMAN : informs the success of the operation
 deactivate UI
 
 deactivate PHARMAN

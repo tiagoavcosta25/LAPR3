@@ -17,7 +17,7 @@ begin
 
 EXCEPTION
     when order_not_found then
-        raise_application_error(-20020, 'Order Not Found!');
+        raise_application_error(-20999, 'Order Not Found!');
         return null;
 
 end;

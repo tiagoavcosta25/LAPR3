@@ -42,6 +42,5 @@ begin
 EXCEPTION
     when manager_not_found then
         raise_application_error(-20025, 'Client Not Found!');
-        return null;
 
 end;

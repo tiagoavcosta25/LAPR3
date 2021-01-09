@@ -63,17 +63,17 @@ public class UpdateScooterController {
     public List<Scooter> getScootersList () {
         try {
             this.m_oPharmacy = m_oPharmacyRegistration.getPharmacyByManagerEmail(m_strUserEmail);
-            return m_oScooterRegistration.getScootersList(m_oPharmacy);
+            return m_oScooterRegistration.getScootersList(m_oPharmacy.getId());
         } catch (RuntimeException ex) {
             return this.m_lstScooters = null;
         }
     }
 
-    public boolean updateScooter(int intId, int intBatteryPerc, int intCharginStatus, int intPotency,
-                              int intWeight, int intBatteryCapacity){
+    public boolean updateScooter(int intId, float fltBatteryPerc, String strCharginStatus, float fltPotency,
+                                 float fltWeight, int intBatteryCapacity){
 
         this.m_oScooterRegistration = m_oPlatform.getScooterReg();
-        return m_oScooterRegistration.updateScooterFromDB(intId, intBatteryPerc, intCharginStatus, intPotency, intWeight,
+        return m_oScooterRegistration.updateScooterFromDB(intId, fltBatteryPerc, strCharginStatus, fltPotency, fltWeight,
                 intBatteryCapacity);
     }
 

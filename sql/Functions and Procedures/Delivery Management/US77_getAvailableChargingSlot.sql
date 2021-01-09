@@ -11,7 +11,7 @@ BEGIN
                          INNER JOIN ADDRESS AD ON PH.ADDRESSID = AD.ID
                          INNER JOIN COURIER C ON C.PHARMACYID = PH.ID
                          INNER JOIN "User" U on C.USERID = U.ID
-    WHERE U.EMAIL = strEmail;
+    WHERE U.EMAIL = strEmail AND CS.SCOOTERID IS NULL;
 
     IF RFC IS NULL THEN
         RAISE chargingSlot_not_found;
