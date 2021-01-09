@@ -48,10 +48,10 @@ package "Registration" #DDDDDD {
 package "Model" #DDDDDD {
 class Scooter{
   -int id
-  -int batteryPerc
-  -int charginStatus
-  -int potency
-  -int weight
+  -float batteryPerc
+  -String charginStatus
+  -float potency
+  -float weight
   -int batteryCapacity
   +Scooter(batteryPerc, charginStatus, potency,\n weight, batteryCapacity)
 }

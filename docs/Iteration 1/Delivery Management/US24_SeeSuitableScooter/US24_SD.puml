@@ -31,10 +31,10 @@ deactivate APA
 CTRL -> US : email = getCurrentUserEmail()
 activate US
 deactivate US
-CTRL -> PLAT : courReg = getCourReg()
+CTRL -> PLAT : deliveryReg = getDelReg()
 activate PLAT
 deactivate PLAT
-CTRL -> PLAT : deliveryReg = getDeliveryReg()
+CTRL -> PLAT : scooterReg = getScooterReg()
 activate PLAT
 deactivate PLAT
 CTRL -> DR : deliveryEnergy = getDeliveryEnergy()

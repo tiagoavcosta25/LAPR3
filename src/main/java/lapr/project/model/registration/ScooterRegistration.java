@@ -30,10 +30,10 @@ public class ScooterRegistration extends DataHandler {
 
             if (rSet.next()) {
 
-                int intBatteryPerc = rSet.getInt(1);
-                int intCharginStatus = rSet.getInt(2);
-                int intPotency = rSet.getInt(3);
-                int intWeight = rSet.getInt(4);
+                float fltBatteryPerc = rSet.getInt(1);
+                String strCharginStatus = rSet.getString(2);
+                float fltPotency = rSet.getFloat(3);
+                float fltWeight = rSet.getFloat(4);
                 int intBatteryCapacity = rSet.getInt(5);
                 int intId = rSet.getInt(6);
                 String strEmail = rSet.getString(7);
@@ -48,7 +48,7 @@ public class ScooterRegistration extends DataHandler {
                 String strLocality = rSet.getString(16);
                 String strCountry = rSet.getString(17);
 
-                return new Scooter(intBatteryPerc, intCharginStatus, intPotency, intWeight,
+                return new Scooter(fltBatteryPerc, strCharginStatus, fltPotency, fltWeight,
                         intBatteryCapacity, new Pharmacy(strName, new PharmacyManager(intId, strEmail, strPassword, intNIF, strName), new Address(fltLatitude, fltLongitude, strStreetName,
                         strDoorNumber, strPostalCode, strLocality, strCountry)));
             }
@@ -68,7 +68,7 @@ public class ScooterRegistration extends DataHandler {
                 s.getBatteryCapacity(), s.getPharmacy());
     }
 
-    private boolean addScooter(int intBatteryPerc, int intCharginStatus, int intPotency, int intWeight,
+    private boolean addScooter(float fltBatteryPerc, String strCharginStatus, float fltPotency, float fltWeight,
                                int intBatteryCapacity, Pharmacy oPharmacy) {
         boolean flag = true;
         try {
@@ -76,10 +76,10 @@ public class ScooterRegistration extends DataHandler {
 
             CallableStatement callStmt = getConnection().prepareCall("{ call addScooter(?,?,?,?,?,?,?,?,?,?,?,?,?,?) }");
 
-            callStmt.setInt(1, intBatteryPerc);
-            callStmt.setInt(2, intCharginStatus);
-            callStmt.setInt(3, intPotency);
-            callStmt.setInt(4, intWeight);
+            callStmt.setFloat(1, fltBatteryPerc);
+            callStmt.setString(2, strCharginStatus);
+            callStmt.setFloat(3, fltPotency);
+            callStmt.setFloat(4, fltWeight);
             callStmt.setInt(5, intBatteryCapacity);
             callStmt.setInt(6, oPharmacy.getId());
             callStmt.setString(7, oPharmacy.getName());
@@ -101,26 +101,26 @@ public class ScooterRegistration extends DataHandler {
         return flag;
     }
 
-    public Scooter newScooter(int intBatteryPerc, int intCharginStatus, int intPotency, int intWeight,
+    public Scooter newScooter(float fltBatteryPerc, String strCharginStatus, float fltPotency, float fltWeight,
                               int intBatteryCapacity, Pharmacy oPharmacy) {
-        return new Scooter(intBatteryPerc, intCharginStatus, intPotency, intWeight, intBatteryCapacity, oPharmacy);
+        return new Scooter(fltBatteryPerc, strCharginStatus, fltPotency, fltWeight, intBatteryCapacity, oPharmacy);
     }
 
     public void registerScooter(Scooter oScooter) {
         addScooter(oScooter);
     }
 
-    public boolean updateScooterFromDB(int intId, int intBatteryPerc, int intCharginStatus, int intPotency, int intWeight,
+    public boolean updateScooterFromDB(int intId, float fltBatteryPerc, String strCharginStatus, float fltPotency, float fltWeight,
                                        int intBatteryCapacity) {
         try {
             openConnection();
             CallableStatement callStmt = getConnection().prepareCall("{call updateScooter(?,?,?,?,?)}");
 
             callStmt.setInt(1, intId);
-            callStmt.setInt(2, intBatteryPerc);
-            callStmt.setInt(3, intCharginStatus);
-            callStmt.setInt(4, intPotency);
-            callStmt.setInt(5, intWeight);
+            callStmt.setFloat(2, fltBatteryPerc);
+            callStmt.setString(3, strCharginStatus);
+            callStmt.setFloat(4, fltPotency);
+            callStmt.setFloat(5, fltWeight);
             callStmt.setInt(6, intBatteryCapacity);
 
             callStmt.execute();
@@ -132,26 +132,26 @@ public class ScooterRegistration extends DataHandler {
         return true;
     }
 
-    public List<Scooter> getScootersList(Pharmacy oPharmacy) {
+    public List<Scooter> getScootersList(int intPharmacyId) {
         CallableStatement callStmt = null;
         List<Scooter> lstScooter = new ArrayList<>();
         try {
             callStmt = getConnection().prepareCall("{ ? = call getScootersList() }");
 
             callStmt.registerOutParameter(1, oracle.jdbc.internal.OracleTypes.CURSOR);
-            callStmt.setInt(2, oPharmacy.getId());
+            callStmt.setInt(2, intPharmacyId);
             callStmt.execute();
             ResultSet rSet = (ResultSet) callStmt.getObject(1);
 
             while(rSet.next()){
                 int intId = rSet.getInt(1);
-                int intBatteryPerc = rSet.getInt(2);
-                int intCharginStatus = rSet.getInt(3);
-                int intPotency = rSet.getInt(4);
-                int intWeight = rSet.getInt(5);
+                float fltBatteryPerc = rSet.getFloat(2);
+                String strCharginStatus = rSet.getString(3);
+                float fltPotency = rSet.getFloat(4);
+                float fltWeight = rSet.getFloat(5);
                 int intBatteryCapacity = rSet.getInt(6);
 
-                lstScooter.add(new Scooter(intId, intBatteryPerc, intCharginStatus, intPotency, intWeight,
+                lstScooter.add(new Scooter(intId, fltBatteryPerc, strCharginStatus, fltPotency, fltWeight,
                         intBatteryCapacity));
 
                 rSet.next();
@@ -178,4 +178,47 @@ public class ScooterRegistration extends DataHandler {
         }
     }
 
+    public Scooter getSuitableScooter(float deliveryEnergy, String email) {
+        /* Objeto "callStmt" para invocar a função "getSailor" armazenada na BD.
+         *
+         * FUNCTION getSailor(id NUMBER) RETURN pkgSailors.ref_cursor
+         * PACKAGE pkgSailors AS TYPE ref_cursor IS REF CURSOR; END pkgSailors;
+         */
+        CallableStatement callStmt = null;
+        try {
+            callStmt = getConnection().prepareCall("{ ? = call getAvailableChargingSlot(?,?) }");
+
+            // Regista o tipo de dados SQL para interpretar o resultado obtido.
+            callStmt.registerOutParameter(1, OracleTypes.CURSOR);
+            // Especifica o parâmetro de entrada da função "getSailor".
+            callStmt.setFloat(2, deliveryEnergy);
+            callStmt.setString(3, email);
+
+            // Executa a invocação da função "getSailor".
+            callStmt.execute();
+
+            // Guarda o cursor retornado num objeto "ResultSet".
+            ResultSet rSet = (ResultSet) callStmt.getObject(1);
+
+            if (rSet.next()) {
+                int scooterID = rSet.getInt(1);
+                int pharmacyID = rSet.getInt(2);
+                String pharmacyName = rSet.getString(3);
+                float batteryPerc = rSet.getFloat(4);
+                float potency = rSet.getFloat(5);
+                float weight = rSet.getFloat(6);
+                Integer batteryCapacity = rSet.getInt(7);
+                String charginStatus = rSet.getString(8);
+                // Address
+                Address address = addressManager(rSet,9);
+
+                return new Scooter(scooterID,batteryPerc,charginStatus,potency,weight,
+                batteryCapacity,new Pharmacy(pharmacyID,pharmacyName,new PharmacyManager(),address));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+        throw new IllegalArgumentException("No Charging Slot for Courier: " + email);
+    }
 }

@@ -44,4 +44,8 @@ public class DeliveryRegistration extends DataHandler {
     }
 
 
+    public float getDeliveryEnergy() {
+        /* ||| IMPLEMENT METHOD ||| */
+        return 0;
+    }
 }
