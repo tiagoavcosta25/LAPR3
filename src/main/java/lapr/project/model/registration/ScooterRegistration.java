@@ -178,4 +178,47 @@ public class ScooterRegistration extends DataHandler {
         }
     }
 
+    public Scooter getSuitableScooter(float deliveryEnergy, String email) {
+        /* Objeto "callStmt" para invocar a função "getSailor" armazenada na BD.
+         *
+         * FUNCTION getSailor(id NUMBER) RETURN pkgSailors.ref_cursor
+         * PACKAGE pkgSailors AS TYPE ref_cursor IS REF CURSOR; END pkgSailors;
+         */
+        CallableStatement callStmt = null;
+        try {
+            callStmt = getConnection().prepareCall("{ ? = call getAvailableChargingSlot(?) }");
+
+            // Regista o tipo de dados SQL para interpretar o resultado obtido.
+            callStmt.registerOutParameter(1, OracleTypes.CURSOR);
+            // Especifica o parâmetro de entrada da função "getSailor".
+            callStmt.setString(2, email);
+
+            // Executa a invocação da função "getSailor".
+            callStmt.execute();
+
+            // Guarda o cursor retornado num objeto "ResultSet".
+            ResultSet rSet = (ResultSet) callStmt.getObject(1);
+
+            if (rSet.next()) {
+                int scooterID = rSet.getInt(1);
+                int pharmacyID = rSet.getInt(2);
+                String pharmacyName = rSet.getString(3);
+                float batteryPerc = rSet.getFloat(4);
+                float potency = rSet.getFloat(5);
+                float weight = rSet.getFloat(6);
+                Integer batteryCapacity = rSet.getInt(7);
+                String charginStatus = rSet.getString(8);
+                // Address
+                Address address = addressManager(rSet,9);
+
+                return new Scooter(scooterID,batteryPerc,charginStatus,potency,weight,
+                batteryCapacity,new Pharmacy(pharmacyID,pharmacyName,new PharmacyManager(),address));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+        throw new IllegalArgumentException("No Charging Slot for Courier: " + email);
+    }
+    }
 }
