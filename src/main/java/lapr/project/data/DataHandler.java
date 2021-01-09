@@ -75,6 +75,11 @@ public class DataHandler {
     private static int COLUMNS_ADDED_ORDER = 44;
 
     /**
+     * Additional Number of columns added when executing the clientManager method.
+     */
+    private static int COLUMNS_ADDED_INVOICE = 47;
+
+    /**
      * Use connection properties set on file application.properties
      */
     public DataHandler() {
@@ -281,5 +286,19 @@ public class DataHandler {
 
         return new Order(intId, fltAmount, fltTotalWeight, fltAdditionalFee, dtOrderDate, strDescription,
                 strStatus, oClient, oAddress, oPharmacy, new TreeMap<>());
+    }
+
+    protected Invoice invoiceManager(ResultSet rSet, int firstColumn) throws SQLException, NoSuchAlgorithmException { // column number +47
+
+        Order oOrder = orderManager(rSet, firstColumn);
+        firstColumn+= COLUMNS_ADDED_ORDER;
+        int intInvoiceId = rSet.getInt(firstColumn);
+        firstColumn++;
+        Date dtInvoiceDate = rSet.getDate(firstColumn);
+        firstColumn++;
+        Float fltTotalPrice = rSet.getFloat(firstColumn);
+
+
+        return new Invoice(intInvoiceId, dtInvoiceDate, fltTotalPrice, oOrder);
     }
 }
