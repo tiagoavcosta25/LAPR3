@@ -33,50 +33,12 @@ public class InvoiceRegistration extends DataHandler {
 
             if (rSet.next()) {
 
-                int intOrderId = rSet.getInt(1);
-                float fltAmount = rSet.getFloat(2);
-                float fltTotalWeight = rSet.getFloat(3);
-                float fltAdditionalFee = rSet.getFloat(4);
-                Date dtOrderDate = rSet.getDate(5);
-                String strDescription = rSet.getString(6);
-                String strStatus = rSet.getString(7);
-                String strName = rSet.getString(8);
-                Integer intNIF = rSet.getInt(9);
-                String strEmail = rSet.getString(10);
-                String strPassword = rSet.getString(11);
-                Double fltClientLatitude = rSet.getDouble(12);
-                Double fltClientLongitude = rSet.getDouble(13);
-                String strClientStreetName = rSet.getString(14);
-                String strClientDoorNumber = rSet.getString(15);
-                String strClientPostalCode = rSet.getString(16);
-                String strClientLocality = rSet.getString(17);
-                String strClientCountry = rSet.getString(18);
-                long lCreditCardNr = rSet.getLong(19);
-                java.util.Date dtValidatyDate = rSet.getDate(20);
-                Integer strCCV = rSet.getInt(21);
-                Double fltOrderLatitude = rSet.getDouble(22);
-                Double fltOrderLongitude = rSet.getDouble(23);
-                String strOrderStreetName = rSet.getString(24);
-                String strOrderDoorNumber = rSet.getString(25);
-                String strOrderPostalCode = rSet.getString(26);
-                String strOrderLocality = rSet.getString(27);
-                String strOrderCountry = rSet.getString(28);
-                int intInvoiceId = rSet.getInt(29);
-                Date dtInvoiceDate = rSet.getDate(30);
-                float fltTotalPrice = rSet.getFloat(31);
-
-                // FALTA: a lista de prods
-
-                return new Invoice(intInvoiceId, dtInvoiceDate, fltTotalPrice, new Order(intOrderId, fltAmount, fltTotalWeight, fltAdditionalFee, dtOrderDate, strDescription, strStatus,
-                        new Client(strName, intNIF, strEmail, strPassword, fltClientLatitude, fltClientLongitude, strClientStreetName, strClientDoorNumber,
-                                strClientPostalCode, strClientLocality, strClientCountry, lCreditCardNr, dtValidatyDate, strCCV),
-                        new Address(fltOrderLatitude, fltOrderLongitude, strOrderStreetName, strOrderDoorNumber, strOrderPostalCode,
-                                strOrderLocality, strOrderCountry), new TreeMap<>()));
+                return invoiceManager(rSet, 1);
             }
         } catch (SQLException | NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
-        throw new IllegalArgumentException("No Order with ID:" + id);
+        throw new IllegalArgumentException("No Invoice with ID:" + id);
     }
 
     private void addInvoice(Date dtInvoiceDate, float fltTotalPrice, Order oOrder) {
