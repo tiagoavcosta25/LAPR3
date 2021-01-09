@@ -1,0 +1,56 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+
+package "UI" #DDDDDD{
+class AvailableChargingSlotUI {
+    
+}
+}
+package "controller" #DDDDDD{
+class AvailableChargingSlotController {
+    
+  +getAvailableChargingSlot()
+}
+class PotApplication
+{
+  +static getInstance()
+  +getPlatform()
+  +getCurrentSession()
+}
+
+class UserSession
+{
+  +getM_currentUserEmail()
+}
+}
+package "model" #DDDDDD{
+class Platform {
+  -String strDesignation
+  +getCourReg()
+}
+
+package "registration" #DDDDDD{
+class CourierRegistration {
+
+  +getAvailableChargingSlot(email)
+
+}
+}
+}
+
+
+Platform "1" -- "1" CourierRegistration: has >
+
+
+AvailableChargingSlotUI ..> AvailableChargingSlotController
+
+AvailableChargingSlotController ..> Platform
+AvailableChargingSlotController ..> CourierRegistration
+AvailableChargingSlotController ..> PotApplication
+AvailableChargingSlotController ..> UserSession
+
+
+@enduml
+
+

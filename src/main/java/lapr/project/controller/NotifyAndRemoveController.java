@@ -49,7 +49,7 @@ public class NotifyAndRemoveController {
         oClientRegistration = m_oPlatform.getClientReg();
         /*UserSession session = ApplicationPOT.getInstance().getCurrentSession();
         String email = session.getCurrentUserEmail();*/
-        String email = "user2@gmail.com";
+        String email = "user3@gmail.com";
         Client client = oClientRegistration.getClientByEmail(email);
         Order order = oOrderRegistration.getLatestOrder(client);
         return oOrderRegistration.notifyAndRemove(order);
