@@ -46,6 +46,10 @@ public class Address {
         this.m_country = country;
     }
 
+    public Integer getM_id() {
+        return m_id;
+    }
+
     public Double getM_latitude() {
         return m_latitude;
     }
