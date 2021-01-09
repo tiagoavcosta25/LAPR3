@@ -1,9 +1,9 @@
-create or replace procedure addProductToOrder(p_orderId "Order".id%type, p_productId PRODUCT.ID%type, p_name PRODUCT.name%type,
+create or replace procedure addProductToOrder(p_orderId "Order".ID%type, p_productId PRODUCT.ID%type, p_name PRODUCT.name%type,
                                     p_description PRODUCT.DESCRIPTION%type, p_unitaryPrice PRODUCT.UNITARYPRICE%type,
                                     p_unitaryWeight PRODUCT.UNITARYWEIGHT%type, p_quantity ORDERPRODUCT.QUANTITY%type)
     is
     v_checkOrderId CLIENT.USERID%type;
-    v_checkProductId number%type;
+    v_checkProductId PRODUCT.ID%type;
     order_not_found exception;
     product_not_found exception;
 begin

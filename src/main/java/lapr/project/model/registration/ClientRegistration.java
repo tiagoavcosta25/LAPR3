@@ -100,7 +100,7 @@ public class ClientRegistration extends DataHandler {
             callStmt = getConnection().prepareCall("{ ? = call getClientByEmail(?) }");
 
             callStmt.registerOutParameter(1, OracleTypes.CURSOR);
-            callStmt.setString(1, strEmail);
+            callStmt.setString(2, strEmail);
 
             callStmt.execute();
 
