@@ -37,11 +37,9 @@ begin
 
 EXCEPTION
     when order_not_found then
-        raise_application_error(-20025, 'Order Not Found!');
-        return null;
+        raise_application_error(-20319, 'Order Not Found!');
 
     when product_not_found then
-        raise_application_error(-20025, 'Product Not Found!');
-        return null;
+        raise_application_error(-20419, 'Product Not Found!');
 
 end;

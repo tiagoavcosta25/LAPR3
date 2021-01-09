@@ -45,10 +45,7 @@ begin
 
 EXCEPTION
     when pharmacy_not_found then
-        raise_application_error(-20025, 'Pharmacy Not Found!');
-        return null;
+        raise_application_error(-20998, 'Pharmacy Not Found!');
     when product_not_found then
-        raise_application_error(-20025, 'Product Not Found!');
-        return null;
-
+        raise_application_error(-20997, 'Product Not Found!');
 end;

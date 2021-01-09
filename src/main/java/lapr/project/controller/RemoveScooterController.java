@@ -61,7 +61,7 @@ public class RemoveScooterController {
     public List<Scooter> showScootersList () {
         try {
             this.m_oPharmacy = m_oPharmacyRegistration.getPharmacyByManagerEmail(m_strUserEmail);
-            return m_oScooterRegistration.getScootersList(m_oPharmacy);
+            return m_oScooterRegistration.getScootersList(m_oPharmacy.getId());
         } catch (RuntimeException ex) {
             return this.m_lstScooters = null;
         }
