@@ -16,10 +16,16 @@ begin
     end if;
 
     open v_cursor for
-        select "Order".ID, "Order".DESCRIPTION, "Order".ORDERSTATUS, "Order".ORDERDATE, "Order".TOTALWEIGHT, "Order".AMOUNT, "Order".ADDITIONALFEE, ADDRESS.*
-        from "Order"
-                 inner join ADDRESS on "Order".ADDRESSID = ADDRESS.ID
-        where "Order".id = v_orderId;
+        select O.ID, O.DESCRIPTION, O.ORDERSTATUS, O.ORDERDATE, O.TOTALWEIGHT, O.AMOUNT, O.ADDITIONALFEE, U.*, C.CREDITS, A.*, P.*
+        from "Order" O
+                 inner join ADDRESS A on O.ADDRESSID = A.ID
+                 inner join CLIENT C on O.CLIENTID = C.USERID
+                 inner join "User" U on C.USERID = U.ID
+                 inner join PHARMACY P on O.PHARMACYID = P.ID
+                 inner join ADDRESS A2 on P.ADDRESSID = A2.ID
+                 inner join PHARMACYMANAGER PM on P.MANAGERID = PM.USERID
+                 inner join "User" U on PM.USERID = U.ID
+        where O.ID = v_orderId;
 
     if v_cursor is null then
         raise order_not_found;

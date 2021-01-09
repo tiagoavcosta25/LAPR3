@@ -42,7 +42,7 @@ public class PharmacyRegistration extends DataHandler {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        throw new IllegalArgumentException("No Order with ID:" + id);
+        throw new IllegalArgumentException("No Pharmacy with ID:" + id);
     }
 
     public Pharmacy getPharmacyByManagerEmail(String email) {
@@ -59,19 +59,7 @@ public class PharmacyRegistration extends DataHandler {
             ResultSet rSet = (ResultSet) callStmt.getObject(1);
 
             if (rSet.next()) {
-                Integer pharmacyID = rSet.getInt(1);
-                String pharmacyName = rSet.getString(2);
-                //address
-                Address oAddress = addressManager(rSet, 3);
-                //User
-                Integer id = rSet.getInt(11);
-                String emailManager = rSet.getString(12);
-                String password = rSet.getString(13);
-                Integer nif = rSet.getInt(14);
-                String name = rSet.getString(15);
-
-                return new Pharmacy(pharmacyID,pharmacyName,new PharmacyManager(id,emailManager,password,nif,name),
-                        oAddress);
+                return pharmacyManager(rSet, 1);
             }
         } catch (SQLException | NoSuchAlgorithmException e) {
             e.printStackTrace();
@@ -157,17 +145,7 @@ public class PharmacyRegistration extends DataHandler {
             ResultSet rSet = (ResultSet) callStmt.getObject(1);
 
             while(rSet.next()){
-                int intPharmacyId = rSet.getInt(1);
-                String strPharmacyName = rSet.getString(2);
-                int intManagerId = rSet.getInt(3);
-                String strEmail = rSet.getString(4);
-                String strPassword = rSet.getString(5);
-                Integer strNif = rSet.getInt(6);
-                String strManagerName = rSet.getString(7);
-                Address oAddress = addressManager(rSet, 3);
-
-                lstPharmacies.add(new Pharmacy(intPharmacyId, strPharmacyName, new PharmacyManager(intManagerId, strEmail, strPassword, strNif, strManagerName), oAddress));
-
+                lstPharmacies.add(pharmacyManager(rSet, 1));
                 rSet.next();
             }
         } catch (SQLException | NoSuchAlgorithmException e) {

@@ -3,15 +3,12 @@ package lapr.project.model.registration;
 import lapr.project.data.DataHandler;
 import lapr.project.model.*;
 import oracle.jdbc.OracleTypes;
-
+import java.security.NoSuchAlgorithmException;
 import java.sql.CallableStatement;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
-import java.util.TreeMap;
 
 public class OrderRegistration extends DataHandler {
 
@@ -33,53 +30,35 @@ public class OrderRegistration extends DataHandler {
             ResultSet rSet = (ResultSet) callStmt.getObject(1);
 
             if (rSet.next()) {
-
-                int intId = rSet.getInt(1);
-                float fltAmount = rSet.getFloat(2);
-                float fltTotalWeight = rSet.getFloat(3);
-                float fltAdditionalFee = rSet.getFloat(4);
-                Date dtOrderDate = rSet.getDate(5);
-                String strDescription = rSet.getString(6);
-                String strStatus = rSet.getString(7);
-                String strName = rSet.getString(8);
-                Integer intNIF = rSet.getInt(9);
-                String strEmail = rSet.getString(10);
-                String strPassword = rSet.getString(11);
-                Address oClientAddress = addressManager(rSet, 12);
-                CreditCard creditCard = creditCardManager(rSet, 19);
-                Address oOrderAddress = addressManager(rSet, 22);
-
-                // FALTA: a lista de prods
-
-                return new Order(intId, fltAmount, fltTotalWeight, fltAdditionalFee, dtOrderDate, strDescription, strStatus,
-                        new Client(-1, strName, intNIF, strEmail, strPassword, -1, oClientAddress, creditCard),
-                        oOrderAddress, new TreeMap<>());
+                return orderManager(rSet, 1);
             }
-        } catch (SQLException e) {
+        } catch (SQLException | NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
         throw new IllegalArgumentException("No Order with ID:" + id);
     }
 
     private void addOrder(float fltAmount, float fltTotalWeight, float fltAdditionalFee, Date dtOrderDate,
-                          String strDescription, String strStatus, Client oClient, Address oAddress, Map<Product, Integer> mapProducts) {
+                          String strDescription, String strStatus, Client oClient, Address oAddress, int intPharmacyId, Map<Product, Integer> mapProducts) {
         try {
             openConnection();
-            CallableStatement callStmt = getConnection().prepareCall("{ call addOrder(?,?,?,?,?,?,?,?,?,?,?,?,?,?) }");
+            CallableStatement callStmt = getConnection().prepareCall("{ call addOrder(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) }");
 
             callStmt.setFloat(1, fltAmount);
             callStmt.setFloat(2, fltTotalWeight);
             callStmt.setFloat(3, fltAdditionalFee);
             callStmt.setString(4, strDescription);
             callStmt.setDate(5, dtOrderDate);
-            callStmt.setInt(6, oClient.getM_id());
-            callStmt.setDouble(7, oAddress.getM_latitude());
-            callStmt.setDouble(8, oAddress.getM_longitude());
-            callStmt.setString(9, oAddress.getM_streetName());
-            callStmt.setString(10, oAddress.getM_doorNumber());
-            callStmt.setString(11, oAddress.getM_postalCode());
-            callStmt.setString(12, oAddress.getM_locality());
-            callStmt.setString(13, oAddress.getM_country());
+            callStmt.setString(6, strStatus);
+            callStmt.setInt(7, oClient.getM_id());
+            callStmt.setDouble(8, oAddress.getM_latitude());
+            callStmt.setDouble(9, oAddress.getM_longitude());
+            callStmt.setString(10, oAddress.getM_streetName());
+            callStmt.setString(11, oAddress.getM_doorNumber());
+            callStmt.setString(12, oAddress.getM_postalCode());
+            callStmt.setString(13, oAddress.getM_locality());
+            callStmt.setString(14, oAddress.getM_country());
+            callStmt.setInt(15, intPharmacyId);
 
             callStmt.execute();
 
@@ -127,14 +106,14 @@ public class OrderRegistration extends DataHandler {
 
     public void registerOrder(Order oOrder) {
         addOrder(oOrder.getAmount(), oOrder.getTotalWeight(), oOrder.getAdditionalFee(), oOrder.getOrderDate(),
-                oOrder.getDescription(), oOrder.getStatus(), oOrder.getClient(), oOrder.getAddress(), oOrder.getProducts());
+                oOrder.getDescription(), oOrder.getStatus(), oOrder.getClient(), oOrder.getAddress(), oOrder.getPharmacy().getId(), oOrder.getProducts());
     }
 
     public Order newOrder(float fltAmount, float fltTotalWeight, float fltAdditionalFee, Date dtOrderDate,
                           String strDescription, String strStatus, Client oClient, Double latitude, Double longitude, String streetName,
-                          String doorNumber, String postalCode, String locality, String country, Map<Product, Integer> mapProducts) {
+                          String doorNumber, String postalCode, String locality, String country, Pharmacy oPharmacy, Map<Product, Integer> mapProducts) {
         return new Order(fltAmount, fltTotalWeight, fltAdditionalFee, dtOrderDate,
-                strDescription, strStatus, oClient, new Address(latitude, longitude, streetName, doorNumber, postalCode, locality, country), mapProducts);
+                strDescription, strStatus, oClient, new Address(latitude, longitude, streetName, doorNumber, postalCode, locality, country), oPharmacy, mapProducts);
     }
 
     public Order getLatestOrder(Client oClient) {
@@ -152,19 +131,9 @@ public class OrderRegistration extends DataHandler {
 
             if (rSet.next()) {
 
-                int intId = rSet.getInt(1);
-                String strDescription = rSet.getString(1);
-                String strStatus = rSet.getString(3);
-                Date dtOrderDate = rSet.getDate(4);
-                float fltTotalWeight = rSet.getFloat(5);
-                float fltAmount = rSet.getFloat(6);
-                float fltAdditionalFee = rSet.getFloat(7);
-
-                Address oAddress = addressManager(rSet, 8);
-                return new Order(intId, fltAmount, fltTotalWeight, fltAdditionalFee, dtOrderDate, strDescription,
-                        strStatus, oClient, oAddress, null);//new Map<Product, Integer>());
+                return orderManager(rSet, 1);
             }
-        } catch (SQLException e) {
+        } catch (SQLException | NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
         throw new IllegalArgumentException("No Order with the following client:" + oClient.getM_name());
@@ -184,29 +153,9 @@ public class OrderRegistration extends DataHandler {
             ResultSet rSet = (ResultSet) callStmt.getObject(1);
 
             if (rSet.next()) {
-                int orderId = rSet.getInt(1);
-                String strDescription = rSet.getString(2);
-                String strStatus = rSet.getString(3);
-                Date dtOrderDate = rSet.getDate(4);
-                float fltTotalWeight = rSet.getFloat(5);
-                float fltAmount = rSet.getFloat(6);
-                float fltAdditionalFee = rSet.getFloat(7);
-                Integer m_credits = rSet.getInt(8);
-                //User
-                Integer id = rSet.getInt(9);
-                String email = rSet.getString(10);
-                String password = rSet.getString(11);
-                Integer nif = rSet.getInt(12);
-                String name = rSet.getString(13);
-                //address
-                Address oAddress = addressManager(rSet, 14);
-                //cartao
-                CreditCard creditCard = creditCardManager(rSet,22);
-                Client oClient = new Client(id, name, nif, email, password, m_credits, oAddress, creditCard);
-                return new Order(orderId, fltAmount, fltTotalWeight, fltAdditionalFee, dtOrderDate, strDescription,
-                        strStatus, oClient, oAddress, null);//new Map<Product, Integer>());
+                return orderManager(rSet, 1);
             }
-        } catch (SQLException e) {
+        } catch (SQLException | NoSuchAlgorithmException e) {
             e.printStackTrace();
             return null;
         }

@@ -1,13 +1,14 @@
 package lapr.project.data;
 
 
-import lapr.project.model.Address;
-import lapr.project.model.CreditCard;
+import lapr.project.model.*;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import java.sql.*;
+import java.util.TreeMap;
 
 /**
  * Exemplo de classe cujas instâncias manipulam dados de BD Oracle.
@@ -42,6 +43,36 @@ public class DataHandler {
      * Conjunto de resultados retornados por "stored procedures".
      */
     private ResultSet rSet;
+
+    /**
+     * Additional Number of columns added when executing the addressManager method.
+     */
+    private static int COLUMNS_ADDED_ADDRESS = 8;
+
+    /**
+     * Additional Number of columns added when executing the creditCardManager method.
+     */
+    private static int COLUMNS_ADDED_CC = 3;
+
+    /**
+     * Additional Number of columns added when executing the pharmacyManager method.
+     */
+    private static int COLUMNS_ADDED_PHARMACY = 15;
+
+    /**
+     * Additional Number of columns added when executing the pharmacyManagerManager method.
+     */
+    private static int COLUMNS_ADDED_PHARMACY_MANAGER = 8;
+
+    /**
+     * Additional Number of columns added when executing the clientManager method.
+     */
+    private static int COLUMNS_ADDED_CLIENT = 16;
+
+    /**
+     * Additional Number of columns added when executing the clientManager method.
+     */
+    private static int COLUMNS_ADDED_ORDER = 44;
 
     /**
      * Use connection properties set on file application.properties
@@ -148,7 +179,7 @@ public class DataHandler {
         return connection;
     }
 
-    protected Address addressManager(ResultSet rSet, int firstColumn) throws SQLException {
+    protected Address addressManager(ResultSet rSet, int firstColumn) throws SQLException { // column number +8
         Integer id = rSet.getInt(firstColumn);
         firstColumn++;
         Double latitude = rSet.getDouble(firstColumn);
@@ -166,7 +197,8 @@ public class DataHandler {
         String country = rSet.getString(firstColumn);
         return new Address(id, latitude, longitude, streetName, doorNumber, postalCode, locality, country);
     }
-    protected CreditCard creditCardManager(ResultSet rSet, int firstColumn) throws SQLException {
+
+    protected CreditCard creditCardManager(ResultSet rSet, int firstColumn) throws SQLException { // column number +3
         long dblCreditCardNr = rSet.getLong(firstColumn);
         firstColumn++;
         Date dtValidatyDate = rSet.getDate(firstColumn);
@@ -175,5 +207,79 @@ public class DataHandler {
         return new CreditCard(dblCreditCardNr,dtValidatyDate,strCCV);
     }
 
+    protected Pharmacy pharmacyManager(ResultSet rSet, int firstColumn) throws SQLException, NoSuchAlgorithmException { // column number +15
 
+        Integer pharmacyID = rSet.getInt(firstColumn);
+        firstColumn++;
+        String pharmacyName = rSet.getString(firstColumn);
+        firstColumn++;
+        PharmacyManager oPharmacyManager = pharmacyManagerManager(rSet, firstColumn);
+        firstColumn+= COLUMNS_ADDED_PHARMACY_MANAGER;
+        Address oAddress = addressManager(rSet, firstColumn);
+
+        return new Pharmacy(pharmacyID, pharmacyName, oPharmacyManager, oAddress);
+    }
+
+    protected PharmacyManager pharmacyManagerManager(ResultSet rSet, int firstColumn) throws SQLException, NoSuchAlgorithmException { // column number +5
+
+        Integer id = rSet.getInt(firstColumn);
+        firstColumn++;
+        String emailManager = rSet.getString(firstColumn);
+        firstColumn++;
+        String password = rSet.getString(firstColumn);
+        firstColumn++;
+        Integer nif = rSet.getInt(firstColumn);
+        firstColumn++;
+        String name = rSet.getString(firstColumn);
+        firstColumn++;
+        return new PharmacyManager(id, emailManager, password, nif, name);
+    }
+
+    protected Client clientManager(ResultSet rSet, int firstColumn) throws SQLException { // column number +8
+
+        int intId = rSet.getInt(firstColumn);
+        firstColumn++;
+        String strEmail = rSet.getString(firstColumn);
+        firstColumn++;
+        String strPassword = rSet.getString(firstColumn);
+        firstColumn++;
+        Integer strNif = rSet.getInt(firstColumn);
+        firstColumn++;
+        String strName = rSet.getString(firstColumn);
+        firstColumn++;
+        Integer intCredits = rSet.getInt(firstColumn);
+        firstColumn++;
+        Address oClientAddress = addressManager(rSet, firstColumn);
+        firstColumn+= COLUMNS_ADDED_ADDRESS;
+        CreditCard oCreditCard = creditCardManager(rSet, firstColumn);
+
+        return new Client(intId, strName, strNif, strEmail, strPassword, intCredits, oClientAddress, oCreditCard);
+    }
+
+    protected Order orderManager(ResultSet rSet, int firstColumn) throws SQLException, NoSuchAlgorithmException { // column number +44
+
+        int intId = rSet.getInt(firstColumn);
+        firstColumn++;
+        String strDescription = rSet.getString(firstColumn);
+        firstColumn++;
+        String strStatus = rSet.getString(firstColumn);
+        firstColumn++;
+        Date dtOrderDate = rSet.getDate(firstColumn);
+        firstColumn++;
+        float fltTotalWeight = rSet.getFloat(firstColumn);
+        firstColumn++;
+        float fltAmount = rSet.getFloat(firstColumn);
+        firstColumn++;
+        float fltAdditionalFee = rSet.getFloat(firstColumn);
+        firstColumn++;
+        Client oClient = clientManager(rSet, firstColumn);
+        firstColumn+= COLUMNS_ADDED_CLIENT;
+        Address oAddress = addressManager(rSet, firstColumn);
+        firstColumn+= COLUMNS_ADDED_ADDRESS;
+        Pharmacy oPharmacy = pharmacyManager(rSet, firstColumn);
+
+
+        return new Order(intId, fltAmount, fltTotalWeight, fltAdditionalFee, dtOrderDate, strDescription,
+                strStatus, oClient, oAddress, oPharmacy, new TreeMap<>());
+    }
 }
