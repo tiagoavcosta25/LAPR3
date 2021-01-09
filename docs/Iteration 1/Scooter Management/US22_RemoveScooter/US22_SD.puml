@@ -40,7 +40,7 @@ ref over PH
 SD_Connections
 end ref
 deactivate PH
-CTRL -> PH : scootersList = getScootersList(pharmacy)
+CTRL -> PH : scootersList = getScootersList()
 activate PH
 ref over PH
 SD_Connections
