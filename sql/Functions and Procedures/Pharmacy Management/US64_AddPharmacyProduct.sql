@@ -25,7 +25,7 @@ begin
         raise product_not_found;
     end if;
 
--- Creates a new Address
+-- Creates a Pharmacy Product or Updates its stock
     select STOCK
     into v_existingStock
     from PHARMACYPRODUCT
