@@ -2,16 +2,17 @@
 skinparam classAttributeIconSize 0
 
 package "UI" #DDDDDD {
-class RegisterPharmacyUI{
+class AddPharmacyProductUI{
 
 }
 }
 
 
 package "Controller" #DDDDDD {
-class RegisterPharmacyController{
-+newPharmacy(managerName,email,password, nif, name,latitude,longitude,\nstreetName,doorNumber,postalCode,locality,country)
-+registerPhamacy()
+class AddPharmacyProductController{
+    +getProducts()
+    +addPharmacyProduct(product, stock)
+    +registersPharmacyProduct()
 }
 
 class ApplicationPOT
@@ -36,13 +37,11 @@ class Platform {
 package "Registration" #DDDDDD {
 
    class PharmacyRegistration{
-          +addPharmacy(name, pharmacyManager,latitude,longitude,streetName,doorNumber,postalCode,locality,country)
-          +validatePharmacy()
-          +registerPharmacy()
+          +getPharmacyByManagerEmail(email)
+          +registersPharmacyProduct(pharmacy, product, stock)
       }
-   class PharmacyManagerRegistration{
-             +addPharmacyManager(managerName,email,password, nif)
-             +validatePharmacyManager()
+   class ProductRegistration{
+             +getProducts()
          }
  }
 }
@@ -76,6 +75,14 @@ class ParkingSlot{
 -   int id
 }
 
+class Product{
+-   int id
+-   String name
+-   String description
+-   float unitaryPrice
+-   float unitaryWeight
+}
+
 }
 
 
@@ -87,19 +94,20 @@ class DataHandler{
 }
 
 class PharmacyRegistration extends DataHandler
-class PharmacyManagerRegistration extends DataHandler
+class ProductRegistration extends DataHandler
 class PharmacyManager extends User
 
-RegisterPharmacyUI ..> RegisterPharmacyController
-RegisterPharmacyController ..> Platform
-RegisterPharmacyController ..> ApplicationPOT
-RegisterPharmacyController ..> UserSession
+AddPharmacyProductUI ..> AddPharmacyProductController
+AddPharmacyProductController ..> Platform
+AddPharmacyProductController ..> ApplicationPOT
+AddPharmacyProductController ..> UserSession
 Platform "1" --> "1" PharmacyRegistration : has
 PharmacyRegistration "1" --> "*" Pharmacy : manages
-PharmacyManagerRegistration "1" --> "*" PharmacyManager : manages
+ProductRegistration "1" --> "*" PharmacyManager : manages
 
 Pharmacy "1" -- "1" PharmacyManager : has >
 Pharmacy "1" -- "1" Park : has >
+Pharmacy "1" -- "*" Product : has >
 Park "1" -- "1" ChargingSlot : has >
 Park "1" -- "1" ParkingSlot : has >
 

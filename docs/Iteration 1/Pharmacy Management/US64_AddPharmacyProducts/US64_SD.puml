@@ -1,31 +1,23 @@
 @startuml
 autonumber
-actor "Administrator" as ADMIN
+actor "Pharmacy Manager" as PM
 
-participant ":RegisterPharmacyUI" as UI
-participant ":RegisterPharmacyController" as CTRL
+participant ":AddPharmacyProductUI" as UI
+participant ":AddPharmacyProductController" as CTRL
 participant "PotApplication" as PA
 participant "app \n:PotApplication" as APA
 participant "session \n:UserSession" as US
 participant "plat \n:Platform" as PLAT
-participant "pharmManReg \n:PharmacyManagerRegistration" as PMR
-participant "pharmReg \n:PharmacyRegistration" as PR
-participant "pharmacy: Pharmacy" as PH
-participant "address: Address" as A
-participant "pharmacyManager: PharmacyManager" as PM
+participant "productReg \n:ProductRegistration" as PR
+participant "pharmReg \n:PharmacyRegistration" as PHR
 
 
 
-activate ADMIN
+activate PM
 
-ADMIN -> UI : initiates the registration of a pharmacy
+PM -> UI : initiates the process adding a product to a pharmacy
 activate UI
-UI -> ADMIN : asks for the required data for the pharmacy, as well as its Manager's data
-deactivate UI
-
-ADMIN -> UI : inserts the required data
-activate UI
-UI -> CTRL : newPharmacy(managerName,email,password, nif, name,latitude,longitude,\nstreetName,doorNumber,postalCode,locality,country)
+UI -> CTRL : lstProducts = getProducts()
 activate CTRL
 CTRL -> PA : app = getInstance()
 activate PA
@@ -33,50 +25,61 @@ deactivate PA
 CTRL -> APA : plat = getPlatform()
 activate APA
 deactivate APA
-CTRL -> PLAT : pharmManReg = getPharmacyManagerReg()
+CTRL -> US: email = getUserEmail()
+activate US
+deactivate US
+CTRL -> PLAT : productReg = getProductReg()
 activate PLAT
 deactivate PLAT
-CTRL -> PMR : pharmacyManager = newPharmacyManger(managerName,email,password, nif)
-activate PMR
-PMR -> PM ** : create(managerName,email,password, nif)
-PMR -> PMR : validatePharmacyManager()
-ref over PMR
-SD_CONNECTIONS
-end ref
-deactivate PMR
-CTRL -> PLAT : pharmReg = getPharmacyReg()
-activate PLAT
-deactivate PLAT
-CTRL -> PR : pharmacy= newPharmacy(name, pharmacyManager,latitude,longitude,streetName,doorNumber,\npostalCode,locality,country)
+CTRL -> PR : lstProducts = getProducts()
 activate PR
-PR -> PH ** : create(name, pharmacyManager, latitude,longitude,streetName,doorNumber,\npostalCode,locality,country)
-PR -> A ** : create(latitude,longitude,streetName,doorNumber,\npostalCode,locality,country)
-PR -> PR : validatePharmacy()
 ref over PR
 SD_CONNECTIONS
 end ref
 deactivate PR
 deactivate CTRL
-
-
-UI -> ADMIN : validates, presents the information and asks for confirmation
+UI -> PM : shows the pharmacy's product list
 deactivate UI
 
-ADMIN -> UI : confirms
+PM -> UI : selects the product
 activate UI
-UI -> CTRL : registersCourier()
+UI -> PM : asks for the stock for said product
+deactivate UI
+
+PM -> UI : introduces the stock
+activate UI
+UI -> CTRL : addPharmacyProduct(product, stock)
 activate CTRL
-CTRL -> PR : registersPharmacy(pharmacy)
-activate PR
-ref over PR
+CTRL -> PLAT : pharmRegReg = getPharmacyReg()
+activate PLAT
+deactivate PLAT
+CTRL -> PHR : pharmacy = getPharmacyByManagerEmail(email)
+activate PHR
+ref over PHR
 SD_CONNECTIONS
 end ref
-deactivate PR
-UI -> ADMIN : informs the success of the operation
-deactivate PR
+deactivate PHR
+deactivate CTRL
+
+
+UI -> PM : validates, presents the information and asks for confirmation
+deactivate UI
+
+PM -> UI : confirms
+activate UI
+UI -> CTRL : registersPharmacyProduct()
+activate CTRL
+CTRL -> PHR : registersPharmacyProduct(pharmacy, product, stock)
+activate PHR
+ref over PHR
+SD_CONNECTIONS
+end ref
+deactivate PHR
+UI -> PM : informs the success of the operation
+deactivate PHR
 deactivate CTRL
 deactivate UI
 
-deactivate ADMIN
+deactivate PM
 
 @enduml

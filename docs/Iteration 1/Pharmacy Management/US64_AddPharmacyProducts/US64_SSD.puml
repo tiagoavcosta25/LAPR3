@@ -7,9 +7,9 @@ participant ":System" as SYST
 
 activate PM
 
-PM -> SYST : initiates the process
+PM -> SYST : initiates the process adding a product to a pharmacy
 activate SYST
-SYST --> PM : shows the product list
+SYST --> PM : shows the pharmacy's product list
 deactivate SYST
 
 PM -> SYST : selects the product
@@ -19,7 +19,7 @@ deactivate SYST
 
 PM -> SYST : introduces the stock
 activate SYST
-SYST --> PM : validates and presents the information
+SYST --> PM : validates, presents the information and asks for confirmation
 deactivate SYST
 
 PM -> SYST : confirms
