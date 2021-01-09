@@ -6,7 +6,6 @@ begin
 
     open v_cursor for
         select "User".*, CLIENT.CREDITS, ADDRESS.*, CC.*
-        into v_cursor
         from CLIENT
                  inner join "User" on CLIENT.USERID = "User".ID
                  inner join ADDRESS on CLIENT.ADDRESSID = ADDRESS.ID
@@ -22,7 +21,7 @@ begin
 
 EXCEPTION
     when client_not_found then
-        raise_application_error(-20025, 'Client Not Found!');
+        raise_application_error(-20119, 'Client Not Found!');
         return null;
 
 end;
