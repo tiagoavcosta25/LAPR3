@@ -40,16 +40,27 @@ public class RemoveScooterController {
     private List<Scooter> m_lstScooters;
 
     /**
+     * User Session Class Instance
+     */
+    private UserSession m_oUserSession;
+
+    /**
+     * User's Email
+     */
+    private String m_strUserEmail;
+
+    /**
      * An empty constructor of RegisterScooterController that initiates the platform variable by getting it from the ApplicationPOT.
      */
     public RemoveScooterController() {
         this.m_oPlatform = ApplicationPOT.getInstance().getPlatform();
         this.m_oPharmacyRegistration = m_oPlatform.getPharmacyReg();
+        this.m_strUserEmail = m_oUserSession.getCurrentUserEmail();
     }
 
-    public List<Scooter> showScootersList (Pharmacy oPharmacy) {
+    public List<Scooter> showScootersList () {
         try {
-            this.m_oPharmacy = m_oPharmacyRegistration.getPharmacy(oPharmacy.getId());
+            this.m_oPharmacy = m_oPharmacyRegistration.getPharmacyByManagerEmail(m_strUserEmail);
             return m_oScooterRegistration.getScootersList(m_oPharmacy.getId());
         } catch (RuntimeException ex) {
             return this.m_lstScooters = null;
@@ -57,7 +68,6 @@ public class RemoveScooterController {
     }
 
     public void removeScooter(int intScooterId){
-
         this.m_oScooterRegistration = m_oPlatform.getScooterReg();
         m_oScooterRegistration.removeScooterFromDB(intScooterId);
     }

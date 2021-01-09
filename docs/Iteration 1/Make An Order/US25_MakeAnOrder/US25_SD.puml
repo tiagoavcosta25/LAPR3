@@ -11,6 +11,7 @@ participant "app\n:PotApplication" as APP
 participant "session\n:UserSession" as SESSION
 participant "plat\n:Platform" as PLAT
 participant "clientReg\n:ClientRegistration" as CR
+participant "clientReg\n:PharmacyRegistration" as PHR
 participant "prodReg\n:ProductRegistration" as PR
 participant "orderReg\n:OrderRegistration" as OR
 participant "order\n:Order" as O
@@ -20,7 +21,7 @@ activate CL
 
 CL -> UI : sends a request to make an order
 activate UI
-UI -> CTRL : getAvailableProducts()
+UI -> CTRL : lstPharmacies = getPharmacies()
 activate CTRL
 CTRL -> _APP: app = getInstance()
 activate _APP
@@ -46,20 +47,39 @@ ref over CR
 SD_CONNECTIONS
 end ref
 deactivate CR
+CTRL -> PLAT : pharamcyReg = getPharmacyReg()
+activate PLAT
+deactivate PLAT
+CTRL -> PHR : lstPharmacies = getPharmacies()
+activate PHR
+ref over PHR
+SD_CONNECTIONS
+end ref
+deactivate PHR
+deactivate CTRL
 
+
+
+UI -> CL : shows the list of the pharmacies
+deactivate UI
+
+CL -> UI : chooses which products and which quantities to order
+activate UI
+UI -> CTRL : lstProducts = getAvailableProducts(pharmacy)
+activate CTRL
 CTRL -> PLAT : prodReg = getProductReg()
 activate PLAT
 deactivate PLAT
-CTRL -> PR : lstProd = getAvailableProducts()
+CTRL -> PR : lstProducts = getAvailableProducts()
 activate PR
 ref over PR
 SD_CONNECTIONS
 end ref
 deactivate PR
 deactivate CTRL
-
 UI -> CL : shows the list of the available products
 deactivate UI
+
 CL -> UI : chooses which products and which quantities to order
 activate UI
 UI -> CTRL : newOrder(address, amount, additionalFee, dateOrder, description, mapProducts)

@@ -6,11 +6,9 @@ left to right direction
 class Platform {
 -   String designation
 }
-class Courier{
--   int id
--   String email
--   String nome
--   int IBAN
+class Courier {
+      -String id
+      -String iban
 }
 class User{
 -   String name
@@ -20,8 +18,12 @@ class User{
 
 class Order{
 -   int id
--   location
--   completar!!
+-   float amount
+-   float totalWeight
+-   float additionalFee
+-   Date orderDate
+-   String description
+-   String status
 }
 
 Platform "1" -- "*" Courier : has registered >

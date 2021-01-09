@@ -48,10 +48,10 @@ package "Registration" #DDDDDD {
 package "Model" #DDDDDD {
 class Scooter{
   -int id
-  -int batteryPerc
-  -int charginStatus
-  -int potency
-  -int weight
+  -float batteryPerc
+  -String charginStatus
+  -float potency
+  -float weight
   -int batteryCapacity
   +Scooter(batteryPerc, charginStatus, potency,\n weight, batteryCapacity)
 }
@@ -69,7 +69,17 @@ class Address{
 class Pharmacy {
   -int id
   -String name
-  +getScootersList(pharmacy)
+  +getScootersList()
+}
+
+class User{
+-   String name
+-   String email
+-   String password
+-   Integer nif
+}
+
+class PharmacyManager {
 }
 
 }
@@ -94,8 +104,13 @@ ScooterRegistration "1" --> "*" Scooter : manages
 
 Platform "1" -- "*" Pharmacy : has registered >
 Platform "1" -- "*" Scooter : has registered >
+Platform "1" -- "*" PharmacyManager : has registered >
 
 Pharmacy "1" -- "*" Scooter : has >
 Pharmacy "1" -- "1" Address : has >
+PharmacyManager "0..1" -- "1" User: acts as >
+PharmacyManager "1" -- "1..*" Scooter : registers >
+Pharmacy "1" -- "1" PharmacyManager : has >
+Scooter "*" -- "1" Pharmacy : belongs to >
 
 @enduml

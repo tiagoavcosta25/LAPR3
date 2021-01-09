@@ -1,6 +1,6 @@
 @startuml
 autonumber
-actor "Administrator" as ADMIN
+actor "Pharmacy Manager" as PHARMAN
 
 participant ":RegisterScooterUI" as UI
 participant ":RegisterScooterController" as CTRL
@@ -14,14 +14,14 @@ participant "scoot: Scooter" as SC
 
 
 
-activate ADMIN
+activate PHARMAN
 
-ADMIN -> UI : initializes the register of a new scooter
+PHARMAN -> UI : initializes the register of a new scooter
 activate UI
-UI -> ADMIN : asks for the data that features the scooter (i.e., battery, \nbattery capacity, maximum weight, pharmacy, status, potency)
+UI -> PHARMAN : asks for the data that features the scooter (i.e., battery, \nbattery capacity, maximum weight, pharmacy, status, potency)
 deactivate UI
 
-ADMIN -> UI : inserts the required data
+PHARMAN -> UI : inserts the required data
 activate UI
 UI -> CTRL : newScooter(batteryPerc, chargingStatus,\n potency, weight, batteryCapacity, pharmacy)
 activate CTRL
@@ -40,7 +40,7 @@ deactivate US
 CTRL -> PLAT : pharmReg = getPharmReg()
 activate PLAT
 deactivate PLAT
-CTRL -> PH : pharmacy = getPharmacyById(pharmacyId)
+CTRL -> PH : pharmacy = getPharmacyByManager(email)
 activate PH
 ref over PH
 SD_Connections
@@ -60,10 +60,10 @@ deactivate RS
 deactivate CTRL
 
 
-UI -> ADMIN : validates, presents the data and asks for a confirmation
+UI -> PHARMAN : validates, presents the data and asks for a confirmation
 deactivate UI
 
-ADMIN -> UI : confirms
+PHARMAN -> UI : confirms
 activate UI
 UI -> CTRL : registersScooter()
 activate CTRL
@@ -74,9 +74,9 @@ SD_Connections
 end ref
 deactivate RS
 deactivate CTRL
-UI -> ADMIN : informs the success of the operation
+UI -> PHARMAN : informs the success of the operation
 deactivate UI
 
-deactivate ADMIN
+deactivate PHARMAN
 
 @enduml

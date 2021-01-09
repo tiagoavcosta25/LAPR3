@@ -56,7 +56,7 @@ begin
 
 EXCEPTION
     when client_not_found then
-        raise_application_error(-20025, 'Client Not Found!');
+        raise_application_error(-20219, 'Client Not Found!');
         return null;
 
 end;

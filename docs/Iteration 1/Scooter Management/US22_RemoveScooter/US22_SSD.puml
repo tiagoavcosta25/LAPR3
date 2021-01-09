@@ -2,21 +2,21 @@
 autonumber
 hide footbox
 
-actor "Administrator" as ADMIN
+actor "Pharmacy Manager" as PHARMAN
 
 participant ":System" as SYST
 
-activate ADMIN
+activate PHARMAN
 
-ADMIN -> SYST : Sends a request regarding the remove of an electric scooter
+PHARMAN -> SYST : Sends a request regarding the remove of an electric scooter
 activate SYST
-SYST --> ADMIN : Shows the list of eletric scooters and asks to choose one
+SYST --> PHARMAN : Shows the list of eletric scooters and asks to choose one
 deactivate SYST
-ADMIN -> SYST : Chooses the eletric scooter
+PHARMAN -> SYST : Chooses the eletric scooter
 activate SYST
-SYST -> ADMIN : Removes the eletric scooter
+SYST -> PHARMAN : Removes the eletric scooter
 deactivate SYST
 
-deactivate ADMIN
+deactivate PHARMAN
 
 @enduml

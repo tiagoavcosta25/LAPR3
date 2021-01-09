@@ -1,4 +1,4 @@
-# US 24 - See Available Scooters
+# US 24 - See Suitable Scooter
 
 ## 1. Requirements Engineering
 

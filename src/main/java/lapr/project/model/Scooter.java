@@ -4,59 +4,59 @@ import java.util.Objects;
 
 public class Scooter {
     private int m_intId;
-    private int m_intBatteryPerc;
-    private int m_intCharginStatus;
-    private int m_intPotency;
-    private int m_intWeight;
+    private float m_fltBatteryPerc;
+    private String m_strCharginStatus;
+    private float m_fltPotency;
+    private float m_fltWeight;
     private int m_intBatteryCapacity;
     private Pharmacy m_oPharmacy;
 
     private static int DEFAULT_ID = -1;
-    private static int DEFAULT_BATTERY_PERC = 0;
-    private static int DEFAULT_CHARGING_STATUS = 0;
-    private static int DEFAULT_POTENCY = 0;
-    private static int DEFAULT_WEIGHT = 0;
+    private static float DEFAULT_BATTERY_PERC = 0;
+    private static String DEFAULT_CHARGING_STATUS = "Not Charging";
+    private static float DEFAULT_POTENCY = 0;
+    private static float DEFAULT_WEIGHT = 0;
     private static int DEFAULT_BATTERY_CAPACITY = 0;
     private static Pharmacy DEFAULT_PHARMACY = new Pharmacy();
 
     public Scooter() {
         this.m_intId = DEFAULT_ID;
-        this.m_intBatteryPerc= DEFAULT_BATTERY_PERC;
-        this.m_intCharginStatus = DEFAULT_CHARGING_STATUS;
-        this.m_intPotency = DEFAULT_POTENCY;
-        this.m_intWeight = DEFAULT_WEIGHT;
+        this.m_fltBatteryPerc= DEFAULT_BATTERY_PERC;
+        this.m_strCharginStatus = DEFAULT_CHARGING_STATUS;
+        this.m_fltPotency = DEFAULT_POTENCY;
+        this.m_fltWeight = DEFAULT_WEIGHT;
         this.m_intBatteryCapacity = DEFAULT_BATTERY_CAPACITY;
         this.m_oPharmacy = DEFAULT_PHARMACY;
     }
 
-    public Scooter(int intId, int intBatteryPerc, int intCharginStatus, int intPotency, int intWeight,
+    public Scooter(int intId, float fltBatteryPerc, String strCharginStatus, float fltPotency, float fltWeight,
                    int intBatteryCapacity, Pharmacy oPharmacy) {
         this.m_intId = intId;
-        this.m_intBatteryPerc= intBatteryPerc;
-        this.m_intCharginStatus = intCharginStatus;
-        this.m_intPotency = intPotency;
-        this.m_intWeight = intWeight;
+        this.m_fltBatteryPerc= fltBatteryPerc;
+        this.m_strCharginStatus = strCharginStatus;
+        this.m_fltPotency = fltPotency;
+        this.m_fltWeight = fltWeight;
         this.m_intBatteryCapacity = intBatteryCapacity;
         this.m_oPharmacy = oPharmacy;
     }
 
-    public Scooter(int intBatteryPerc, int intCharginStatus, int intPotency, int intWeight,
+    public Scooter(float fltBatteryPerc, String strCharginStatus, float fltPotency, float fltWeight,
                    int intBatteryCapacity, Pharmacy oPharmacy) {
-        this.m_intBatteryPerc= intBatteryPerc;
-        this.m_intCharginStatus = intCharginStatus;
-        this.m_intPotency = intPotency;
-        this.m_intWeight = intWeight;
+        this.m_fltBatteryPerc= fltBatteryPerc;
+        this.m_strCharginStatus = strCharginStatus;
+        this.m_fltPotency = fltPotency;
+        this.m_fltWeight = fltWeight;
         this.m_intBatteryCapacity = intBatteryCapacity;
         this.m_oPharmacy = oPharmacy;
     }
 
-    public Scooter(int intId, int intBatteryPerc, int intCharginStatus, int intPotency, int intWeight,
+    public Scooter(int intId, float fltBatteryPerc, String strCharginStatus, float fltPotency, float fltWeight,
                    int intBatteryCapacity) {
         this.m_intId = intId;
-        this.m_intBatteryPerc= intBatteryPerc;
-        this.m_intCharginStatus = intCharginStatus;
-        this.m_intPotency = intPotency;
-        this.m_intWeight = intWeight;
+        this.m_fltBatteryPerc= fltBatteryPerc;
+        this.m_strCharginStatus = strCharginStatus;
+        this.m_fltPotency = fltPotency;
+        this.m_fltWeight = fltWeight;
         this.m_intBatteryCapacity = intBatteryCapacity;
     }
 
@@ -68,36 +68,36 @@ public class Scooter {
         this.m_intId = intId;
     }
 
-    public int getBatteryPerc() {
-        return m_intBatteryPerc;
+    public float getBatteryPerc() {
+        return m_fltBatteryPerc;
     }
 
-    public void setBatteryPerc(int intBatteryPerc) {
-        this.m_intBatteryPerc = intBatteryPerc;
+    public void setBatteryPerc(float fltBatteryPerc) {
+        this.m_fltBatteryPerc = fltBatteryPerc;
     }
 
-    public int getCharginStatus() {
-        return m_intCharginStatus;
+    public String getCharginStatus() {
+        return m_strCharginStatus;
     }
 
-    public void setCharginStatus(int intCharginStatus) {
-        this.m_intCharginStatus = intCharginStatus;
+    public void setCharginStatus(String strCharginStatus) {
+        this.m_strCharginStatus = strCharginStatus;
     }
 
-    public int getPotency() {
-        return m_intPotency;
+    public float getPotency() {
+        return m_fltPotency;
     }
 
-    public void setPotency(int intPotency) {
-        this.m_intPotency = intPotency;
+    public void setPotency(int fltPotency) {
+        this.m_fltPotency = fltPotency;
     }
 
-    public int getWeight() {
-        return m_intWeight;
+    public float getWeight() {
+        return m_fltWeight;
     }
 
-    public void setWeight(int intWeight) {
-        this.m_intWeight = intWeight;
+    public void setWeight(int fltWeight) {
+        this.m_fltWeight = fltWeight;
     }
 
     public int getBatteryCapacity() {
@@ -120,10 +120,10 @@ public class Scooter {
     public String toString() {
         return "Scooter{" +
                 "Id = " + m_intId +
-                ", Battery Perc = " + m_intBatteryPerc +
-                ", Chargin Status = " + m_intCharginStatus +
-                ", Potency = " + m_intPotency +
-                ", Weight = " + m_intWeight +
+                ", Battery Perc = " + m_fltBatteryPerc +
+                ", Chargin Status = " + m_strCharginStatus +
+                ", Potency = " + m_fltPotency +
+                ", Weight = " + m_fltWeight +
                 ", Battery Capacity = " + m_intBatteryCapacity +
                 ", Pharmacy = " + m_oPharmacy +
                 '}';

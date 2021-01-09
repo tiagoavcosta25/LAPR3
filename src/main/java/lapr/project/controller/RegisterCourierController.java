@@ -21,7 +21,7 @@ import java.util.Date;
  * @author Pedro Santos <1190967@isep.ipp.pt>
  * @author Rodrigo Costa <1191014@isep.ipp.pt>
  */
-public class RegisterCourierController implements Serializable {
+public class RegisterCourierController {
     /**
      * Platform class instance
      */

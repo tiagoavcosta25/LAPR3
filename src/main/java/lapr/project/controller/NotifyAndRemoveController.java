@@ -21,7 +21,7 @@ import java.io.Serializable;
  * @author Pedro Santos <1190967@isep.ipp.pt>
  * @author Rodrigo Costa <1191014@isep.ipp.pt>
  */
-public class NotifyAndRemoveController implements Serializable {
+public class NotifyAndRemoveController {
     /**
      * Platform class instance
      */
@@ -47,8 +47,9 @@ public class NotifyAndRemoveController implements Serializable {
         m_oPlatform = ApplicationPOT.getInstance().getPlatform();
         oOrderRegistration = m_oPlatform.getOrderReg();
         oClientRegistration = m_oPlatform.getClientReg();
-        UserSession session = ApplicationPOT.getInstance().getCurrentSession();
-        String email = session.getCurrentUserEmail();
+        /*UserSession session = ApplicationPOT.getInstance().getCurrentSession();
+        String email = session.getCurrentUserEmail();*/
+        String email = "user3@gmail.com";
         Client client = oClientRegistration.getClientByEmail(email);
         Order order = oOrderRegistration.getLatestOrder(client);
         return oOrderRegistration.notifyAndRemove(order);

@@ -21,7 +21,7 @@ public class Park {
     public Park(int intId, int intMaxSlotsNumber, Pharmacy oPharmacy) {
         this.m_intId = intId;
         this.m_intMaxSlotsNumber = intMaxSlotsNumber;
-        this.m_oPharmacy = oPharmacy;
+        this.setM_oPharmacy(oPharmacy);
         this.m_lstChargingSlots = DEFAULT_CHARGING_SLOTS;
         this.m_lstParkingSlots = DEFAULT_PARKING_SLOTS;
     }
@@ -29,7 +29,7 @@ public class Park {
     public Park() {
         this.m_intId = DEFAULT_ID;
         this.m_intMaxSlotsNumber = DEFAULT_MAX_SLOTS;
-        this.m_oPharmacy = DEFAULT_PHARMACY;
+        this.setM_oPharmacy(DEFAULT_PHARMACY);
         this.m_lstChargingSlots = DEFAULT_CHARGING_SLOTS;
         this.m_lstParkingSlots = DEFAULT_PARKING_SLOTS;
     }
@@ -110,5 +110,13 @@ public class Park {
                 ", m_lstChargingSlots=" + m_lstChargingSlots +
                 ", m_lstParkingSlots=" + m_lstParkingSlots +
                 '}';
+    }
+
+    public Pharmacy getM_oPharmacy() {
+        return m_oPharmacy;
+    }
+
+    public void setM_oPharmacy(Pharmacy m_oPharmacy) {
+        this.m_oPharmacy = m_oPharmacy;
     }
 }

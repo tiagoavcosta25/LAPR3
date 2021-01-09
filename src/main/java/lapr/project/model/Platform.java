@@ -1,6 +1,6 @@
 package lapr.project.model;
 
-import lapr.project.graph.map.Graph;
+//import lapr.project.graph.map.Graph;
 import lapr.project.model.registration.*;
 
 public class Platform {

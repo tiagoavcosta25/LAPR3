@@ -18,7 +18,7 @@ import java.io.Serializable;
  * @author Pedro Santos <1190967@isep.ipp.pt>
  * @author Rodrigo Costa <1191014@isep.ipp.pt>
  */
-public class AvailableChargingSlotController implements Serializable {
+public class AvailableChargingSlotController {
     /**
      * Platform class instance
      */

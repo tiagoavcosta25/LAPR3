@@ -1,4 +1,3 @@
-
 package lapr.project.graph.matrix;
 
 /**
