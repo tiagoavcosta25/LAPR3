@@ -30,10 +30,10 @@ public class ScooterRegistration extends DataHandler {
 
             if (rSet.next()) {
 
-                float intBatteryPerc = rSet.getInt(1);
+                float fltBatteryPerc = rSet.getInt(1);
                 String strCharginStatus = rSet.getString(2);
-                float intPotency = rSet.getFloat(3);
-                float intWeight = rSet.getFloat(4);
+                float fltPotency = rSet.getFloat(3);
+                float fltWeight = rSet.getFloat(4);
                 int intBatteryCapacity = rSet.getInt(5);
                 int intId = rSet.getInt(6);
                 String strEmail = rSet.getString(7);
@@ -48,7 +48,7 @@ public class ScooterRegistration extends DataHandler {
                 String strLocality = rSet.getString(16);
                 String strCountry = rSet.getString(17);
 
-                return new Scooter(intBatteryPerc, strCharginStatus, intPotency, intWeight,
+                return new Scooter(fltBatteryPerc, strCharginStatus, fltPotency, fltWeight,
                         intBatteryCapacity, new Pharmacy(strName, new PharmacyManager(intId, strEmail, strPassword, intNIF, strName), new Address(fltLatitude, fltLongitude, strStreetName,
                         strDoorNumber, strPostalCode, strLocality, strCountry)));
             }
@@ -68,7 +68,7 @@ public class ScooterRegistration extends DataHandler {
                 s.getBatteryCapacity(), s.getPharmacy());
     }
 
-    private boolean addScooter(float intBatteryPerc, String strCharginStatus, float intPotency, float intWeight,
+    private boolean addScooter(float fltBatteryPerc, String strCharginStatus, float fltPotency, float fltWeight,
                                int intBatteryCapacity, Pharmacy oPharmacy) {
         boolean flag = true;
         try {
@@ -76,10 +76,10 @@ public class ScooterRegistration extends DataHandler {
 
             CallableStatement callStmt = getConnection().prepareCall("{ call addScooter(?,?,?,?,?,?,?,?,?,?,?,?,?,?) }");
 
-            callStmt.setFloat(1, intBatteryPerc);
+            callStmt.setFloat(1, fltBatteryPerc);
             callStmt.setString(2, strCharginStatus);
-            callStmt.setFloat(3, intPotency);
-            callStmt.setFloat(4, intWeight);
+            callStmt.setFloat(3, fltPotency);
+            callStmt.setFloat(4, fltWeight);
             callStmt.setInt(5, intBatteryCapacity);
             callStmt.setInt(6, oPharmacy.getId());
             callStmt.setString(7, oPharmacy.getName());
@@ -101,26 +101,26 @@ public class ScooterRegistration extends DataHandler {
         return flag;
     }
 
-    public Scooter newScooter(float intBatteryPerc, String strCharginStatus, float intPotency, float intWeight,
+    public Scooter newScooter(float fltBatteryPerc, String strCharginStatus, float fltPotency, float fltWeight,
                               int intBatteryCapacity, Pharmacy oPharmacy) {
-        return new Scooter(intBatteryPerc, strCharginStatus, intPotency, intWeight, intBatteryCapacity, oPharmacy);
+        return new Scooter(fltBatteryPerc, strCharginStatus, fltPotency, fltWeight, intBatteryCapacity, oPharmacy);
     }
 
     public void registerScooter(Scooter oScooter) {
         addScooter(oScooter);
     }
 
-    public boolean updateScooterFromDB(int intId, float intBatteryPerc, String strCharginStatus, float intPotency, float intWeight,
+    public boolean updateScooterFromDB(int intId, float fltBatteryPerc, String strCharginStatus, float fltPotency, float fltWeight,
                                        int intBatteryCapacity) {
         try {
             openConnection();
             CallableStatement callStmt = getConnection().prepareCall("{call updateScooter(?,?,?,?,?)}");
 
             callStmt.setInt(1, intId);
-            callStmt.setFloat(2, intBatteryPerc);
+            callStmt.setFloat(2, fltBatteryPerc);
             callStmt.setString(3, strCharginStatus);
-            callStmt.setFloat(4, intPotency);
-            callStmt.setFloat(5, intWeight);
+            callStmt.setFloat(4, fltPotency);
+            callStmt.setFloat(5, fltWeight);
             callStmt.setInt(6, intBatteryCapacity);
 
             callStmt.execute();
@@ -145,13 +145,13 @@ public class ScooterRegistration extends DataHandler {
 
             while(rSet.next()){
                 int intId = rSet.getInt(1);
-                float intBatteryPerc = rSet.getFloat(2);
+                float fltBatteryPerc = rSet.getFloat(2);
                 String strCharginStatus = rSet.getString(3);
-                float intPotency = rSet.getFloat(4);
-                float intWeight = rSet.getFloat(5);
+                float fltPotency = rSet.getFloat(4);
+                float fltWeight = rSet.getFloat(5);
                 int intBatteryCapacity = rSet.getInt(6);
 
-                lstScooter.add(new Scooter(intId, intBatteryPerc, strCharginStatus, intPotency, intWeight,
+                lstScooter.add(new Scooter(intId, fltBatteryPerc, strCharginStatus, fltPotency, fltWeight,
                         intBatteryCapacity));
 
                 rSet.next();
@@ -219,6 +219,5 @@ public class ScooterRegistration extends DataHandler {
             return null;
         }
         throw new IllegalArgumentException("No Charging Slot for Courier: " + email);
-    }
     }
 }
