@@ -14,6 +14,16 @@ class Pharmacy {
   -int chargingSlots
 }
 
+class User{
+-   String name
+-   String email
+-   String password
+-   Integer nif
+}
+
+class PharmacyManager {
+}
+
 class Scooter{
   -int id
   -int batteryPerc
@@ -36,7 +46,11 @@ class Address{
 
 
 Platform "1" -- "*" Pharmacy : has >
-Pharmacy "1" -- "*" Scooter : has registered >
+Platform "1" -- "*" PharmacyManager : has registered >
+PharmacyManager "0..1" -- "1" User: acts as >
+PharmacyManager "1" -- "1..*" Scooter : registers >
+Pharmacy "1" -- "1" PharmacyManager : has >
+Scooter "*" -- "1" Pharmacy : belongs to >
 Pharmacy "1" -- "1" Address : has >
 @enduml
 
