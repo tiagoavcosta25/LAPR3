@@ -54,6 +54,22 @@ public class Client extends User {
         return m_creditCard;
     }
 
+    public void setCredits(Integer oCredits) {
+        this.m_credits = oCredits;
+    }
+
+    public void setAddress(Address oAddress) {
+        this.m_address = oAddress;
+    }
+
+    public void setCreditCard(CreditCard oCreditCard) {
+        this.m_creditCard = oCreditCard;
+    }
+
+    public void addCredits(Integer oAdditionalCredits) {
+        this.m_credits += oAdditionalCredits;
+    }
+
     @Override
     public String toString() {
         return "Client{" +

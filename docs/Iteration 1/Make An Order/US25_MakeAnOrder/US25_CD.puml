@@ -71,6 +71,7 @@ class Client{
 -Address address
 -int validityDate
 -int CCV
++addCredits(addtionalCredits)
 }
 
 class Address{

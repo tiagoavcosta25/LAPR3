@@ -11,11 +11,12 @@ participant "app\n:PotApplication" as APP
 participant "session\n:UserSession" as SESSION
 participant "plat\n:Platform" as PLAT
 participant "clientReg\n:ClientRegistration" as CR
-participant "clientReg\n:PharmacyRegistration" as PHR
+participant "pharmacyReg\n:PharmacyRegistration" as PHR
 participant "prodReg\n:ProductRegistration" as PR
 participant "orderReg\n:OrderRegistration" as OR
 participant "order\n:Order" as O
 participant "address\n:Address" as AD
+participant "client\n:Client" as C
 
 activate CL
 
@@ -47,7 +48,7 @@ ref over CR
 SD_CONNECTIONS
 end ref
 deactivate CR
-CTRL -> PLAT : pharamcyReg = getPharmacyReg()
+CTRL -> PLAT : pharmacyReg = getPharmacyReg()
 activate PLAT
 deactivate PLAT
 CTRL -> PHR : lstPharmacies = getPharmacies()
@@ -90,7 +91,10 @@ deactivate PLAT
 CTRL -> OR : order = addOrder(amount, additionalFee, dateOrder, description, mapProducts, client, streetName,doorNumber,locality,country,longitude,longitude)
 activate OR
 OR -> O** : create(amount, additionalFee, dateOrder, description, mapProducts, client, streetName,doorNumber,locality,country,longitude,longitude)
+activate O
 O -> AD** : create(streetName,doorNumber,locality,country,longitude,longitude)
+O -> C** : addCredits(addtionalCredits)
+deactivate O
 OR -> OR : validateOrder(order)
 ref over OR
 SD_CONNECTIONS
