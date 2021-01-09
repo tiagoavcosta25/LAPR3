@@ -17,21 +17,16 @@ class KnowDeliveryUI{
 }
 
 class KnowDeliveryController{
-+getCourierInfo()
 +getOrderByCour()
 }
 
 class Platform {
   -String designation
-  +CourierRegistry getCourReg()
   +OrdersRegistry getOrdReg()
-}
-class CourierRegistry{
-+getCourByEmail(email)
 }
 
 class OrdersRegistry{
-+getOrdersList()
++getOrderByCourier(email)
 }
 
 
@@ -39,9 +34,7 @@ KnowDeliveryUI ..> KnowDeliveryController
 KnowDeliveryController ..> Platform
 KnowDeliveryController ..> PotApplication
 KnowDeliveryController ..> UserSession
-Platform "1" --> "1" CourierRegistry : has
 Platform "1" --> "1" OrdersRegistry : has
-CourierRegistry "1" --> "1" Database : connects to
 OrdersRegistry "1" --> "1" Database : connects to
 
 @enduml
