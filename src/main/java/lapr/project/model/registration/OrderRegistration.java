@@ -23,14 +23,27 @@ public class OrderRegistration extends DataHandler {
             callStmt = getConnection().prepareCall("{ ? = call getOrder(?) }");
 
             callStmt.registerOutParameter(1, OracleTypes.CURSOR);
-            callStmt.setInt(id, 1);
+            callStmt.setInt(id, 2);
 
             callStmt.execute();
 
             ResultSet rSet = (ResultSet) callStmt.getObject(1);
 
             if (rSet.next()) {
-                return orderManager(rSet, 1);
+                Order oOrder = orderManager(rSet, 1);
+
+                callStmt = getConnection().prepareCall("{ ? = call getProductsByOrder(?) }");
+                callStmt.registerOutParameter(1, OracleTypes.CURSOR);
+                callStmt.setInt(oOrder.getId(), 2);
+
+                callStmt.execute();
+
+                ResultSet rSetProducts = (ResultSet) callStmt.getObject(1);
+
+                while (rSet.next()){
+                    oOrder = orderProductManager(rSetProducts, 1, oOrder);
+                }
+                return oOrder;
             }
         } catch (SQLException | NoSuchAlgorithmException e) {
             e.printStackTrace();
@@ -42,7 +55,7 @@ public class OrderRegistration extends DataHandler {
                           String strDescription, String strStatus, Client oClient, Address oAddress, int intPharmacyId, Map<Product, Integer> mapProducts) {
         try {
             openConnection();
-            CallableStatement callStmt = getConnection().prepareCall("{ call addOrder(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) }");
+            CallableStatement callStmt = getConnection().prepareCall("{ call addOrder(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) }");
 
             callStmt.setFloat(1, fltAmount);
             callStmt.setFloat(2, fltTotalWeight);
@@ -51,14 +64,15 @@ public class OrderRegistration extends DataHandler {
             callStmt.setDate(5, dtOrderDate);
             callStmt.setString(6, strStatus);
             callStmt.setInt(7, oClient.getM_id());
-            callStmt.setDouble(8, oAddress.getM_latitude());
-            callStmt.setDouble(9, oAddress.getM_longitude());
-            callStmt.setString(10, oAddress.getM_streetName());
-            callStmt.setString(11, oAddress.getM_doorNumber());
-            callStmt.setString(12, oAddress.getM_postalCode());
-            callStmt.setString(13, oAddress.getM_locality());
-            callStmt.setString(14, oAddress.getM_country());
-            callStmt.setInt(15, intPharmacyId);
+            callStmt.setInt(8, oClient.getM_credits());
+            callStmt.setDouble(9, oAddress.getM_latitude());
+            callStmt.setDouble(10, oAddress.getM_longitude());
+            callStmt.setString(11, oAddress.getM_streetName());
+            callStmt.setString(12, oAddress.getM_doorNumber());
+            callStmt.setString(13, oAddress.getM_postalCode());
+            callStmt.setString(14, oAddress.getM_locality());
+            callStmt.setString(15, oAddress.getM_country());
+            callStmt.setInt(16, intPharmacyId);
 
             callStmt.execute();
 
@@ -130,8 +144,20 @@ public class OrderRegistration extends DataHandler {
             ResultSet rSet = (ResultSet) callStmt.getObject(1);
 
             if (rSet.next()) {
+                Order oOrder = orderManager(rSet, 1);
 
-                return orderManager(rSet, 1);
+                callStmt = getConnection().prepareCall("{ ? = call getProductsByOrder(?) }");
+                callStmt.registerOutParameter(1, OracleTypes.CURSOR);
+                callStmt.setInt(oOrder.getId(), 2);
+
+                callStmt.execute();
+
+                ResultSet rSetProducts = (ResultSet) callStmt.getObject(1);
+
+                while (rSet.next()){
+                    oOrder = orderProductManager(rSetProducts, 1, oOrder);
+                }
+                return oOrder;
             }
         } catch (SQLException | NoSuchAlgorithmException e) {
             e.printStackTrace();

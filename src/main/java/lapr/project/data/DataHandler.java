@@ -70,14 +70,29 @@ public class DataHandler {
     private static int COLUMNS_ADDED_CLIENT = 16;
 
     /**
-     * Additional Number of columns added when executing the clientManager method.
+     * Additional Number of columns added when executing the orderManager method.
      */
     private static int COLUMNS_ADDED_ORDER = 44;
 
     /**
-     * Additional Number of columns added when executing the clientManager method.
+     * Additional Number of columns added when executing the invoiceManager method.
      */
     private static int COLUMNS_ADDED_INVOICE = 47;
+
+    /**
+     * Additional Number of columns added when executing the productManager method.
+     */
+    private static int COLUMNS_ADDED_PRODUCT = 5;
+
+    /**
+     * Additional Number of columns added when executing the pharmacyProductManager method.
+     */
+    private static int COLUMNS_ADDED_PHARMACY_PRODUCT = 6;
+
+    /**
+     * Additional Number of columns added when executing the orderProductManager method.
+     */
+    private static int COLUMNS_ADDED_ORDER_PRODUCT = 6;
 
     /**
      * Use connection properties set on file application.properties
@@ -300,5 +315,45 @@ public class DataHandler {
 
 
         return new Invoice(intInvoiceId, dtInvoiceDate, fltTotalPrice, oOrder);
+    }
+
+    protected Product productManager(ResultSet rSet, int firstColumn) throws SQLException { // column number +5
+
+        int intID = rSet.getInt(firstColumn);
+        firstColumn++;
+        String strName = rSet.getString(firstColumn);
+        firstColumn++;
+        String strDescription = rSet.getString(firstColumn);
+        firstColumn++;
+        float fltUnitaryPrice = rSet.getFloat(firstColumn);
+        firstColumn++;
+        float fltUnitaryWeight = rSet.getFloat(firstColumn);
+
+
+        return new Product(intID, strName, strDescription, fltUnitaryPrice, fltUnitaryWeight);
+    }
+
+    protected Pharmacy pharamcyProductManager(ResultSet rSet, int firstColumn, Pharmacy oPharmacy) throws SQLException { // column number +6
+
+        int intStock = rSet.getInt(firstColumn);
+        firstColumn++;
+        Product oProduct = productManager(rSet, firstColumn);
+        firstColumn+= COLUMNS_ADDED_ORDER;
+
+        oPharmacy.getStock().put(oProduct, intStock);
+
+        return oPharmacy;
+    }
+
+    protected Order orderProductManager(ResultSet rSet, int firstColumn, Order oOrder) throws SQLException { // column number +6
+
+        int intQuantity = rSet.getInt(firstColumn);
+        firstColumn++;
+        Product oProduct = productManager(rSet, firstColumn);
+        firstColumn+= COLUMNS_ADDED_ORDER;
+
+        oOrder.getProducts().put(oProduct, intQuantity);
+
+        return oOrder;
     }
 }

@@ -150,20 +150,15 @@ public class ProductRegistration extends DataHandler {
         try {
             callStmt = getConnection().prepareCall("{ ? = call getAvailableProducts(?) }");
 
-            callStmt.setInt(1, intPharmacyId);
+            callStmt.registerOutParameter(1, oracle.jdbc.OracleTypes.CURSOR);
+            callStmt.setInt(2, intPharmacyId);
             callStmt.execute();
             ResultSet rSet = (ResultSet) callStmt.getObject(1);
 
             while(rSet.next()){
-                int intId = rSet.getInt(1);
-                String strName = rSet.getString(2);
-                String strDescription = rSet.getString(3);
-                float fltUnitaryPrice = rSet.getFloat(4);
-                float fltUnitaryWeight = rSet.getFloat(5);
+                Product oProduct = productManager(rSet, 1);
 
-                lstProducts.add(new Product(intId, strName, strDescription, fltUnitaryPrice, fltUnitaryWeight));
-
-                rSet.next();
+                lstProducts.add(oProduct);
             }
         } catch (SQLException e) {
             e.printStackTrace();
