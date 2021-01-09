@@ -3,7 +3,7 @@ create or replace function getPharmacyByManagerEmail(p_email "User".EMAIL%type) 
     order_not_found exception;
 begin
     open v_pharmacy for
-        SELECT PH.ID, PH.NAME, A2.*,U.*
+        SELECT PH.ID, PH.NAME, U.*, A2.*
         FROM PHARMACY PH INNER JOIN ADDRESS A2 on A2.ID = PH.ADDRESSID
                          INNER JOIN PHARMACYMANAGER P on P.USERID = PH.MANAGERID
                          INNER JOIN "User" U on U.ID = P.USERID

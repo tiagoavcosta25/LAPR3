@@ -10,7 +10,11 @@ class MakeAnOrderUI{
 
 package "Controller" #DDDDDD {
 class MakeAnOrderController{
-+registerNewUser(name,email,password,address,gpsLocation,creditCardNr,validityDate,CCV)
++newOrder(amount, totalWeight, additionalFee, orderDate, description, status, latitude,
+longitude, streetName, doorNumber, postalCode, locality, country, products)
++registerOrder()
++getAvailableProducts(pharmacyId)
++getPharmacies()
 }
 
 class ApplicationPOT
@@ -35,18 +39,68 @@ class Platform {
 }
 package "Registration" #DDDDDD {
 
-  class PharmacyRegistration{
+  class OrderRegistration{
        +addPharmacy(address, amount, additionalFee, dateOrder, description, mapProducts, client)
-       +validateOrder(pharmacy)
-   }
+       +registerOrder(order)
+  }
+
+  class PharmacyRegistration{
+          +getPharmacies()
+  }
+
+  class ProductRegistration{
+          +getAvailableProducts(pharmacyId)
+  }
+  class ClientRegistration{
+        +getClientByEmail(email)
+  }
  }
 }
 
 package "Model" #DDDDDD {
 abstract class User{
--String email
--String password
--String name
+-   String name
+-   String email
+-   String password
+-   Integer nif
+}
+
+class Client{
+-int IBAN;
+-long creditCardNumber
+-Address address
+-int validityDate
+-int CCV
+}
+
+class Address{
+-   String streetName
+-   String doorNumber
+-   String postalCode
+-   String locality
+-   String country
+-   float longitude
+-   float latitude
++create(streetName,doorNumber,locality,country,longitude,longitude)
+}
+
+class Order{
+-   int id
+-   float amount
+-   float totalWeight
+-   float additionalFee
+-   Date orderDate
+-   String description
+-   String status
++create(amount, additionalFee, dateOrder, description, mapProducts, client, streetName,doorNumber,locality,country,longitude,longitude)
+}
+
+class Product{
+-   int id
+-   String name
+-   String description
+-   float unitaryPrice
+-   float unitaryWeight
 }
 
 class Pharmacy{
@@ -55,19 +109,6 @@ class Pharmacy{
 }
 
 class PharmacyManager{
-}
-
-class Park{
--   int maxSlotsNumber
-}
-
-class ChargingSlot{
--   int id
--   float outputPower
-}
-
-class ParkingSlot{
--   int id
 }
 
 }
@@ -88,14 +129,17 @@ MakeAnOrderUI ..> MakeAnOrderController
 MakeAnOrderController ..> Platform
 MakeAnOrderController ..> ApplicationPOT
 MakeAnOrderController ..> UserSession
-Platform "1" --> "1" PharmacyRegistration : has
+Platform "1" --> "1" ClientRegistration : has
+ClientRegistration "1" --> "*" Client : manages
+ProductRegistration "1" --> "*" Product : manages
+OrderRegistration "1" --> "*" Order : manages
 PharmacyRegistration "1" --> "*" Pharmacy : manages
 
-Platform "1" -- "*" Pharmacy : has registered >
-Platform "1" -- "*" PharmacyManager : has registered >
+Order "1" -- "*" Product : has >
+Order "1" -- "1" Pharmacy : has >
+Client "1" -- "1" Order : makes >
+Client "1" -- "1" Address : has >
+Order "1" -- "1" Address : has >
 Pharmacy "1" -- "1" PharmacyManager : has >
-Pharmacy "1" -- "1" Park : has >
-Park "1" -- "1" ChargingSlot : has >
-Park "1" -- "1" ParkingSlot : has >
 
 @enduml

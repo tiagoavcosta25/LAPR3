@@ -13,6 +13,7 @@ public class Order {
     private String m_strStatus;
     private Client m_oClient;
     private Address m_oAddress;
+    private Pharmacy m_oPharmacy;
     private Map<Product, Integer> m_mapProducts;
 
     private static int DEFAULT_ID = -1;
@@ -21,13 +22,14 @@ public class Order {
     private static float DEFAULT_ADDITIONAL_FEE = -1;
     private static Date DEFAULT_DATE = null;
     private static String DEFAULT_DESCRIPTION = "No Description.";
-    private static String DEFAULT_STATUS = "No Status.";
+    private static String DEFAULT_STATUS = "Ordered";
     private static Client DEFAULT_CLIENT = new Client();
     private static Address DEFAULT_ADDRESS = new Address();
+    private static Pharmacy DEFAULT_PHARMACY = new Pharmacy();
     private static Map<Product, Integer> DEFAULT_PRODUCT_MAP = new TreeMap<>();
 
     public Order(int intId, float fltAmount, float fltTotalWeight, float fltAdditionalFee, Date dtOrderDate,
-                 String strDescription, String strStatus, Client oClient, Address oAddress, Map<Product, Integer> mapProducts) {
+                 String strDescription, String strStatus, Client oClient, Address oAddress, Pharmacy oPharmacy, Map<Product, Integer> mapProducts) {
         this.m_intId = intId;
         this.m_fltAmount = fltAmount;
         this.m_fltTotalWeight = fltTotalWeight;
@@ -37,11 +39,12 @@ public class Order {
         this.m_strStatus = strStatus;
         this.m_oClient = oClient;
         this.m_oAddress = oAddress;
+        this.m_oPharmacy = oPharmacy;
         this.m_mapProducts = mapProducts;
     }
 
-    public Order(float fltAmount, float fltTotalWeight, float fltAdditionalFee, Date dtOrderDate,
-                 String strDescription, String strStatus, Client oClient, Address oAddress, Map<Product, Integer> mapProducts) {
+    public Order(float fltAmount, float fltTotalWeight, float fltAdditionalFee, Date dtOrderDate, String strDescription,
+                 String strStatus, Client oClient, Address oAddress, Pharmacy oPharmacy, Map<Product, Integer> mapProducts) {
         this.m_intId = DEFAULT_ID;
         this.m_fltAmount = fltAmount;
         this.m_fltTotalWeight = fltTotalWeight;
@@ -51,6 +54,7 @@ public class Order {
         this.m_strStatus = strStatus;
         this.m_oClient = oClient;
         this.m_oAddress = oAddress;
+        this.m_oPharmacy = oPharmacy;
         this.m_mapProducts = mapProducts;
     }
 
@@ -63,6 +67,7 @@ public class Order {
         this.m_strDescription = DEFAULT_DESCRIPTION;
         this.m_strStatus = DEFAULT_STATUS;
         this.m_oClient = DEFAULT_CLIENT;
+        this.m_oPharmacy = DEFAULT_PHARMACY;
         this.m_oAddress = DEFAULT_ADDRESS;
         this.m_mapProducts = DEFAULT_PRODUCT_MAP;
     }
@@ -139,6 +144,14 @@ public class Order {
         this.m_oAddress = m_oAddress;
     }
 
+    public Pharmacy getPharmacy() {
+        return m_oPharmacy;
+    }
+
+    public void setPharmacy(Pharmacy oPharmacy) {
+        this.m_oPharmacy = oPharmacy;
+    }
+
     public Map<Product, Integer> getProducts() {
         return m_mapProducts;
     }
@@ -147,19 +160,29 @@ public class Order {
         this.m_mapProducts = mapProducts;
     }
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Order order = (Order) o;
-        return m_intId == order.m_intId;
+        return m_intId == order.m_intId &&
+                Float.compare(order.m_fltAmount, m_fltAmount) == 0 &&
+                Float.compare(order.m_fltTotalWeight, m_fltTotalWeight) == 0 &&
+                Float.compare(order.m_fltAdditionalFee, m_fltAdditionalFee) == 0 &&
+                Objects.equals(m_dtOrderDate, order.m_dtOrderDate) &&
+                m_strDescription.equals(order.m_strDescription) &&
+                m_strStatus.equals(order.m_strStatus) &&
+                m_oClient.equals(order.m_oClient) &&
+                m_oAddress.equals(order.m_oAddress) &&
+                m_oPharmacy.equals(order.m_oPharmacy) &&
+                m_mapProducts.equals(order.m_mapProducts);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(m_intId);
+        return Objects.hash(m_intId, m_fltAmount, m_fltTotalWeight, m_fltAdditionalFee, m_dtOrderDate, m_strDescription, m_strStatus, m_oClient, m_oAddress, m_oPharmacy, m_mapProducts);
     }
-
 
     @Override
     public String toString() {
@@ -173,7 +196,8 @@ public class Order {
                 ", m_strStatus='" + m_strStatus + '\'' +
                 ", m_oClient=" + m_oClient +
                 ", m_oAddress=" + m_oAddress +
-                ", m_lstProducts=" + m_mapProducts +
+                ", m_oPharmacy=" + m_oPharmacy +
+                ", m_mapProducts=" + m_mapProducts +
                 '}';
     }
 }

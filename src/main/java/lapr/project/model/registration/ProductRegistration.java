@@ -100,10 +100,10 @@ public class ProductRegistration extends DataHandler {
          */
         try {
             openConnection();
-            CallableStatement callStmt = getConnection().prepareCall("{call updateProduct(?,?,?,?, ?)}");
+            CallableStatement callStmt = getConnection().prepareCall("{call updateProduct(?,?,?,?,?)}");
 
             //Especifica o parâmetro de entrada da função "updateProduct".
-            callStmt.setInt(1, intId);
+
             callStmt.setString(2, strName);
             callStmt.setString(3, strDescription);
             callStmt.setFloat(4, fltUnitaryPrice);
@@ -124,7 +124,6 @@ public class ProductRegistration extends DataHandler {
         try {
             callStmt = getConnection().prepareCall("{ ? = call getProducts() }");
 
-            callStmt.registerOutParameter(1, OracleTypes.CURSOR);
             callStmt.execute();
             ResultSet rSet = (ResultSet) callStmt.getObject(1);
 
@@ -145,13 +144,13 @@ public class ProductRegistration extends DataHandler {
         throw new IllegalArgumentException("No Products Avaliable.");
     }
 
-    public List<Product> getAvailableProducts() {
+    public List<Product> getAvailableProducts(int intPharmacyId) {
         CallableStatement callStmt = null;
         List<Product> lstProducts = new ArrayList<>();
         try {
-            callStmt = getConnection().prepareCall("{ ? = call getAvailableProducts() }");
+            callStmt = getConnection().prepareCall("{ ? = call getAvailableProducts(?) }");
 
-            callStmt.registerOutParameter(1, OracleTypes.CURSOR);
+            callStmt.setInt(1, intPharmacyId);
             callStmt.execute();
             ResultSet rSet = (ResultSet) callStmt.getObject(1);
 
