@@ -4,7 +4,6 @@ import lapr.project.data.DataHandler;
 import lapr.project.model.*;
 import oracle.jdbc.OracleTypes;
 
-import java.security.NoSuchAlgorithmException;
 import java.sql.CallableStatement;
 import java.sql.Date;
 import java.sql.ResultSet;
@@ -46,33 +45,17 @@ public class OrderRegistration extends DataHandler {
                 Integer intNIF = rSet.getInt(9);
                 String strEmail = rSet.getString(10);
                 String strPassword = rSet.getString(11);
-                Double dblClientLatitude = rSet.getDouble(12);
-                Double dblClientLongitude = rSet.getDouble(13);
-                String strClientStreetName = rSet.getString(14);
-                String strClientDoorNumber = rSet.getString(15);
-                String strClientPostalCode = rSet.getString(16);
-                String strClientLocality = rSet.getString(17);
-                String strClientCountry = rSet.getString(18);
-                long dblCreditCardNr = rSet.getLong(19);
-                java.util.Date dtValidatyDate = rSet.getDate(20);
-                Integer strCCV = rSet.getInt(21);
-                Double dblOrderLatitude = rSet.getDouble(22);
-                Double dblOrderLongitude = rSet.getDouble(23);
-                String strOrderStreetName = rSet.getString(24);
-                String strOrderDoorNumber = rSet.getString(25);
-                String strOrderPostalCode = rSet.getString(26);
-                String strOrderLocality = rSet.getString(27);
-                String strOrderCountry = rSet.getString(28);
+                Address oClientAddress = addressManager(rSet, 12);
+                CreditCard creditCard = creditCardManager(rSet, 19);
+                Address oOrderAddress = addressManager(rSet, 22);
 
                 // FALTA: a lista de prods
 
                 return new Order(intId, fltAmount, fltTotalWeight, fltAdditionalFee, dtOrderDate, strDescription, strStatus,
-                        new Client(strName, intNIF, strEmail, strPassword, dblClientLatitude, dblClientLongitude, strClientStreetName, strClientDoorNumber,
-                                strClientPostalCode, strClientLocality, strClientCountry, dblCreditCardNr, dtValidatyDate, strCCV),
-                        new Address(dblOrderLatitude, dblOrderLongitude, strOrderStreetName, strOrderDoorNumber, strOrderPostalCode,
-                                strOrderLocality, strOrderCountry), new TreeMap<>());
+                        new Client(-1, strName, intNIF, strEmail, strPassword, -1, oClientAddress, creditCard),
+                        oOrderAddress, new TreeMap<>());
             }
-        } catch (SQLException | NoSuchAlgorithmException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         throw new IllegalArgumentException("No Order with ID:" + id);
@@ -177,16 +160,7 @@ public class OrderRegistration extends DataHandler {
                 float fltAmount = rSet.getFloat(6);
                 float fltAdditionalFee = rSet.getFloat(7);
 
-                //address
-                Double latitude = rSet.getDouble(8);
-                Double longitude = rSet.getDouble(9);
-                String doorNumber = rSet.getString(10);
-                String streetName = rSet.getString(11);
-                String postalCode = rSet.getString(12);
-                String locality = rSet.getString(13);
-                String country = rSet.getString(14);
-
-                Address oAddress = new Address(latitude, longitude, streetName, doorNumber, postalCode, locality, country);
+                Address oAddress = addressManager(rSet, 8);
                 return new Order(intId, fltAmount, fltTotalWeight, fltAdditionalFee, dtOrderDate, strDescription,
                         strStatus, oClient, oAddress, null);//new Map<Product, Integer>());
             }
@@ -227,11 +201,8 @@ public class OrderRegistration extends DataHandler {
                 //address
                 Address oAddress = addressManager(rSet, 14);
                 //cartao
-                long creditCardNr = rSet.getLong(22);
-                Date validityDate = rSet.getDate(23);
-                Integer CCV = rSet.getInt(24);
-
-                Client oClient = new Client(id, name, nif, email, password, m_credits, oAddress.getM_latitude(), oAddress.getM_longitude(), oAddress.getM_streetName(), oAddress.getM_doorNumber(), oAddress.getM_postalCode(), oAddress.getM_locality(), oAddress.getM_country(), creditCardNr, validityDate, CCV);
+                CreditCard creditCard = creditCardManager(rSet,22);
+                Client oClient = new Client(id, name, nif, email, password, m_credits, oAddress, creditCard);
                 return new Order(orderId, fltAmount, fltTotalWeight, fltAdditionalFee, dtOrderDate, strDescription,
                         strStatus, oClient, oAddress, null);//new Map<Product, Integer>());
             }
