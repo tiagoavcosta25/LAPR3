@@ -47,8 +47,9 @@ public class NotifyAndRemoveController implements Serializable {
         m_oPlatform = ApplicationPOT.getInstance().getPlatform();
         oOrderRegistration = m_oPlatform.getOrderReg();
         oClientRegistration = m_oPlatform.getClientReg();
-        UserSession session = ApplicationPOT.getInstance().getCurrentSession();
-        String email = session.getCurrentUserEmail();
+        /*UserSession session = ApplicationPOT.getInstance().getCurrentSession();
+        String email = session.getCurrentUserEmail();*/
+        String email = "user2@gmail.com";
         Client client = oClientRegistration.getClientByEmail(email);
         Order order = oOrderRegistration.getLatestOrder(client);
         return oOrderRegistration.notifyAndRemove(order);
