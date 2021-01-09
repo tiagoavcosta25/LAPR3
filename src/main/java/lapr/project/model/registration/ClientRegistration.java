@@ -111,22 +111,17 @@ public class ClientRegistration extends DataHandler {
                 int intId = rSet.getInt(1);
                 // String strEmail = rSet.getString(2);
                 String strPassword = rSet.getString(3);
-                String strName = rSet.getString(4);
-                Integer strNif = rSet.getInt(5);
+                Integer strNif = rSet.getInt(4);
+                String strName = rSet.getString(5);
                 Integer intCredits = rSet.getInt(6);
-                Double dblLatitude = rSet.getDouble(7);
-                Double dblLongitude = rSet.getDouble(8);
-                String strStreetName = rSet.getString(9);
-                String strDoorNumber = rSet.getString(10);
-                String strPostalCode = rSet.getString(10);
-                String strLocality = rSet.getString(12);
-                String strCountry = rSet.getString(13);
+                Address oClientAddress = addressManager(rSet, 7);
                 long lCreditCardNr = rSet.getLong(14);
                 Date dtValidatyDate = rSet.getDate(15);
                 Integer strCCV = rSet.getInt(16);
 
-                return new Client(intId, strName, strNif, strEmail, strPassword, intCredits, dblLatitude, dblLongitude, strStreetName, strDoorNumber, strPostalCode,
-                        strLocality, strCountry, lCreditCardNr, dtValidatyDate, strCCV);
+                return new Client(intId, strName, strNif, strEmail, strPassword, intCredits, oClientAddress.getM_latitude(), oClientAddress.getM_longitude(),
+                        oClientAddress.getM_streetName(), oClientAddress.getM_doorNumber(), oClientAddress.getM_postalCode(),
+                        oClientAddress.getM_locality(), oClientAddress.getM_country(), lCreditCardNr, dtValidatyDate, strCCV);
             }
         } catch (SQLException e) {
             e.printStackTrace();

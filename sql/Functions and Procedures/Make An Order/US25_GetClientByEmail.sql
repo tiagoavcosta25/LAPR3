@@ -5,11 +5,13 @@ create or replace function getClientByEmail(p_email "User".EMAIL%type)
 begin
 
     open v_cursor for
-        select "User".*, CLIENT.CREDITS, ADDRESS.*
+        select "User".*, CLIENT.CREDITS, ADDRESS.*, CC.*
         into v_cursor
         from CLIENT
                  inner join "User" on CLIENT.USERID = "User".ID
                  inner join ADDRESS on CLIENT.ADDRESSID = ADDRESS.ID
+                 inner join CREDITCARDCLIENT C2 on CLIENT.USERID = C2.CLIENTID
+                 inner join CREDITCARD CC on C2.CREDITCARDNR = CC.CREDITCARDNR
         where "User".EMAIL = p_email;
 
     if v_cursor is null then
