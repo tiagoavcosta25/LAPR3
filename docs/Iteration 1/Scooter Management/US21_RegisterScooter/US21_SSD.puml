@@ -2,27 +2,27 @@
 autonumber
 hide footbox
 
-actor "Administrator" as ADMIN
+actor "Pharmacy Manager" as PHARMAN
 
 participant ":System" as SYST
 
-activate ADMIN
+activate PHARMAN
 
-ADMIN -> SYST : Sends a request regarding the register of an electric scooter
+PHARMAN -> SYST : Sends a request regarding the register of an electric scooter
 activate SYST
-SYST --> ADMIN : Asks for the data that features the electric scooter (i.e., battery, \nbattery capacity, maximum Weight, pharmacy id, status, potency)
+SYST --> PHARMAN : Asks for the data that features the electric scooter (i.e., battery, \nbattery capacity, maximum Weight, pharmacy id, status, potency)
 deactivate SYST
 
-ADMIN -> SYST : Inserts the required data
+PHARMAN -> SYST : Inserts the required data
 activate SYST
-SYST -> ADMIN : Shows the information about the scooter, requesting verification
+SYST -> PHARMAN : Shows the information about the scooter, requesting verification
 deactivate SYST
 
-ADMIN -> SYST : Confirms the information
+PHARMAN -> SYST : Confirms the information
 activate SYST
-SYST -> ADMIN : Informs the success of the operation.
+SYST -> PHARMAN : Informs the success of the operation.
 deactivate SYST
 
-deactivate ADMIN
+deactivate PHARMAN
 
 @enduml
