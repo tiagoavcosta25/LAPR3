@@ -20,7 +20,11 @@ class Park{
 
 class ChargingSlot{
 -int id;
--float outputPower;
+-float outputPower
+}
+
+class ParkingSlot{
+-int id
 }
 
 class Courier {
@@ -42,5 +46,7 @@ Courier "1" -- "*" Pharmacy : is associated to >
 Pharmacy "1" -- "1" Park : has >
 Pharmacy "1" -- "*" Scooter : has >
 Park "1" -- "1" ChargingSlot : has >
+Park "1" -- "1" ParkingSlot : has >
 Scooter "1" -- "1" ChargingSlot : belongs to >
+Scooter "1" -- "1" ParkingSlot : belongs to >
 @enduml
