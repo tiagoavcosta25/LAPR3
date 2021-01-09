@@ -1,4 +1,4 @@
-package graph.map;
+package lapr.project.graph.map;
 
 import java.util.Iterator;
 import java.util.LinkedHashMap;

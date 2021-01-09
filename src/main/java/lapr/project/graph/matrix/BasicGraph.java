@@ -1,5 +1,4 @@
-
-package graph.matrix;
+package lapr.project.graph.matrix;
 
 /**
  * @author DEI-ESINF

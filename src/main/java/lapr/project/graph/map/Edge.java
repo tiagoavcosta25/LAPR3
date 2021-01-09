@@ -1,4 +1,4 @@
-package graph.map;
+package lapr.project.graph.map;
 
 import java.lang.reflect.Array;
 

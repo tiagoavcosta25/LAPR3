@@ -1,5 +1,5 @@
 
-package graph.map;
+package lapr.project.graph.map;
 
 /**
  * @param <V>
