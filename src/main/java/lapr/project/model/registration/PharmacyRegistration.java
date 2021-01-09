@@ -27,7 +27,7 @@ public class PharmacyRegistration extends DataHandler {
             callStmt = getConnection().prepareCall("{ ? = call getPharmacy(?) }");
 
             callStmt.registerOutParameter(1, OracleTypes.CURSOR);
-            callStmt.setInt(id, 1);
+            callStmt.setInt(id, 2);
 
             callStmt.execute();
 
@@ -35,36 +35,25 @@ public class PharmacyRegistration extends DataHandler {
 
             if (rSet.next()) {
 
-                // IMPLEMENTAR
+                Pharmacy oPharmacy = pharmacyManager(rSet, 1);
 
-                return new Pharmacy();
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        throw new IllegalArgumentException("No Pharmacy with ID:" + id);
-    }
+                callStmt = getConnection().prepareCall("{ ? = call getStockByPharmacy(?) }");
+                callStmt.registerOutParameter(1, OracleTypes.CURSOR);
+                callStmt.setInt(oPharmacy.getId(), 2);
 
-    public Pharmacy getPharmacyByManagerEmail(String email) {
+                callStmt.execute();
 
-        CallableStatement callStmt = null;
-        try {
-            callStmt = getConnection().prepareCall("{ ? = call getPharmacyByManagerEmail(?) }");
+                ResultSet rSetProducts = (ResultSet) callStmt.getObject(1);
 
-            callStmt.registerOutParameter(1, OracleTypes.CURSOR);
-            callStmt.setString(2, email);
-
-            callStmt.execute();
-
-            ResultSet rSet = (ResultSet) callStmt.getObject(1);
-
-            if (rSet.next()) {
-                return pharmacyManager(rSet, 1);
+                while (rSet.next()){
+                    oPharmacy = pharamcyProductManager(rSetProducts, 1, oPharmacy);
+                }
+                return oPharmacy;
             }
         } catch (SQLException | NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
-        throw new IllegalArgumentException("No Pharmacy with Manager Email: " + email);
+        throw new IllegalArgumentException("No Pharmacy with ID:" + id);
     }
 
     private void addPharmacy(String strName, Integer intManagerId, Address oAddress) {
@@ -141,16 +130,66 @@ public class PharmacyRegistration extends DataHandler {
         try {
             callStmt = getConnection().prepareCall("{ ? = call getPharmacies() }");
 
+            callStmt.registerOutParameter(1, OracleTypes.CURSOR);
+
             callStmt.execute();
             ResultSet rSet = (ResultSet) callStmt.getObject(1);
 
             while(rSet.next()){
-                lstPharmacies.add(pharmacyManager(rSet, 1));
-                rSet.next();
+                Pharmacy oPharmacy = pharmacyManager(rSet, 1);
+
+                callStmt = getConnection().prepareCall("{ ? = call getStockByPharmacy(?) }");
+                callStmt.registerOutParameter(1, OracleTypes.CURSOR);
+                callStmt.setInt(oPharmacy.getId(), 1);
+
+                callStmt.execute();
+
+                ResultSet rSetProducts = (ResultSet) callStmt.getObject(1);
+
+                while (rSet.next()){
+                    oPharmacy = pharamcyProductManager(rSetProducts, 1, oPharmacy);
+                }
+
+                lstPharmacies.add(oPharmacy);
             }
         } catch (SQLException | NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
         throw new IllegalArgumentException("No Pharmacies Avaliable.");
+    }
+
+    public Pharmacy getPharmacyByManagerEmail(String email) {
+
+        CallableStatement callStmt = null;
+        try {
+            callStmt = getConnection().prepareCall("{ ? = call getPharmacyByManagerEmail(?) }");
+
+            callStmt.registerOutParameter(1, OracleTypes.CURSOR);
+            callStmt.setString(2, email);
+
+            callStmt.execute();
+
+            ResultSet rSet = (ResultSet) callStmt.getObject(1);
+
+            if (rSet.next()) {
+                Pharmacy oPharmacy = pharmacyManager(rSet, 1);
+
+                callStmt = getConnection().prepareCall("{ ? = call getStockByPharmacy(?) }");
+                callStmt.registerOutParameter(1, OracleTypes.CURSOR);
+                callStmt.setInt(oPharmacy.getId(), 2);
+
+                callStmt.execute();
+
+                ResultSet rSetProducts = (ResultSet) callStmt.getObject(1);
+
+                while (rSet.next()){
+                    oPharmacy = pharamcyProductManager(rSetProducts, 1, oPharmacy);
+                }
+                return oPharmacy;
+            }
+        } catch (SQLException | NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        throw new IllegalArgumentException("No Pharmacy with Manager Email: " + email);
     }
 }
