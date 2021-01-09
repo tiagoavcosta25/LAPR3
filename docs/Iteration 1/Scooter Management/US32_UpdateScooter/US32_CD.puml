@@ -69,7 +69,7 @@ class Address{
 class Pharmacy {
   -int id
   -String name
-  +getScootersList(pharmacy)
+  +getScootersList()
 }
 
 class User{

@@ -42,12 +42,12 @@ public class UpdateScooterController {
     private List<Scooter> m_lstScooters;
 
     /**
-     * Scooter's List
+     * User Session Class Instance
      */
     private UserSession m_oUserSession;
 
     /**
-     * Scooter's List
+     * User's Email
      */
     private String m_strUserEmail;
 
@@ -60,10 +60,10 @@ public class UpdateScooterController {
         this.m_strUserEmail = m_oUserSession.getCurrentUserEmail();
     }
 
-    public List<Scooter> showScootersList (Pharmacy oPharmacy) {
+    public List<Scooter> getScootersList () {
         try {
-            //this.m_oPharmacy = m_oPharmacyRegistration.getPharmacyByManager(m_strUserEmail);
-            return this.m_lstScooters;
+            this.m_oPharmacy = m_oPharmacyRegistration.getPharmacyByManagerEmail(m_strUserEmail);
+            return m_oScooterRegistration.getScootersList(m_oPharmacy);
         } catch (RuntimeException ex) {
             return this.m_lstScooters = null;
         }

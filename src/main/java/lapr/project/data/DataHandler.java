@@ -2,6 +2,7 @@ package lapr.project.data;
 
 
 import lapr.project.model.Address;
+import lapr.project.model.CreditCard;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -164,6 +165,14 @@ public class DataHandler {
         firstColumn++;
         String country = rSet.getString(firstColumn);
         return new Address(id, latitude, longitude, streetName, doorNumber, postalCode, locality, country);
+    }
+    protected CreditCard creditCardManager(ResultSet rSet, int firstColumn) throws SQLException {
+        long dblCreditCardNr = rSet.getLong(firstColumn);
+        firstColumn++;
+        Date dtValidatyDate = rSet.getDate(firstColumn);
+        firstColumn++;
+        Integer strCCV = rSet.getInt(firstColumn);
+        return new CreditCard(dblCreditCardNr,dtValidatyDate,strCCV);
     }
 
 

@@ -132,14 +132,14 @@ public class ScooterRegistration extends DataHandler {
         return true;
     }
 
-    public List<Scooter> getScootersList(int intPharmacyId) {
+    public List<Scooter> getScootersList(Pharmacy oPharmacy) {
         CallableStatement callStmt = null;
         List<Scooter> lstScooter = new ArrayList<>();
         try {
             callStmt = getConnection().prepareCall("{ ? = call getScootersList() }");
 
             callStmt.registerOutParameter(1, oracle.jdbc.internal.OracleTypes.CURSOR);
-            callStmt.setInt(2, intPharmacyId);
+            callStmt.setInt(2, oPharmacy.getId());
             callStmt.execute();
             ResultSet rSet = (ResultSet) callStmt.getObject(1);
 
