@@ -135,5 +135,20 @@ public class PharmacyRegistration extends DataHandler {
                 strLocality, strCountry));
     }
 
+    public void registerPharmacyProduct(Pharmacy m_oPharmacy, Product m_oProduct, Integer m_intStock) {
+        try {
+            openConnection();
+            CallableStatement callStmt = getConnection().prepareCall("{ call addPharmacyProduct(?,?,?) }");
 
+            callStmt.setInt(1, m_oPharmacy.getId());
+            callStmt.setInt(2, m_oProduct.getId());
+            callStmt.setInt(3, m_intStock);
+
+            callStmt.execute();
+
+            closeAll();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }
