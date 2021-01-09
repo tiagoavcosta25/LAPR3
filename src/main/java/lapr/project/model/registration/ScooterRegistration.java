@@ -186,12 +186,13 @@ public class ScooterRegistration extends DataHandler {
          */
         CallableStatement callStmt = null;
         try {
-            callStmt = getConnection().prepareCall("{ ? = call getAvailableChargingSlot(?) }");
+            callStmt = getConnection().prepareCall("{ ? = call getAvailableChargingSlot(?,?) }");
 
             // Regista o tipo de dados SQL para interpretar o resultado obtido.
             callStmt.registerOutParameter(1, OracleTypes.CURSOR);
             // Especifica o parâmetro de entrada da função "getSailor".
-            callStmt.setString(2, email);
+            callStmt.setFloat(2, deliveryEnergy);
+            callStmt.setString(3, email);
 
             // Executa a invocação da função "getSailor".
             callStmt.execute();
