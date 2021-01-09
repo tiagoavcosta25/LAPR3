@@ -9,7 +9,12 @@ activate CL
 
 CL -> SYST : sends a request to make an order
 activate SYST
-SYST -> CL : shows the list of the available products
+SYST -> CL : shows the list of pharmacies
+deactivate SYST
+
+CL -> SYST : chooses the pharmacy
+activate SYST
+SYST -> CL : shows the list of the available products of said pharmacy
 deactivate SYST
 
 CL -> SYST : chooses which products and which quantities to order

@@ -1,13 +1,13 @@
 package lapr.project.controller;
 
-import lapr.project.model.Client;
-import lapr.project.model.Order;
-import lapr.project.model.Platform;
-import lapr.project.model.Product;
+import lapr.project.model.*;
 import lapr.project.model.registration.ClientRegistration;
 import lapr.project.model.registration.OrderRegistration;
+import lapr.project.model.registration.PharmacyRegistration;
+import lapr.project.model.registration.ProductRegistration;
 
 import java.sql.Date;
+import java.util.List;
 import java.util.Map;
 
 public class MakeAnOrderController {
@@ -35,12 +35,32 @@ public class MakeAnOrderController {
      */
     private Client m_oClient;
 
+    /**
+     * Pharmacy Management class
+     */
+    private ProductRegistration m_oProductRegistration;
+    /**
+     * Order's Pharmacy
+     */
+    private Product m_oProduct;
+
+    /**
+     * Pharmacy Management class
+     */
+    private PharmacyRegistration m_oPharmacyRegistration;
+    /**
+     * Order's Pharmacy
+     */
+    private Pharmacy m_oPharmacy;
+
 
     /**
      * An empty constructor of MakeAnOrderController that initiates the platform variable by getting it from the ApplicationPOT.
      */
     public MakeAnOrderController() {
         this.m_oPlatform = ApplicationPOT.getInstance().getPlatform();
+        this.m_oPharmacyRegistration = m_oPlatform.getPharmacyReg();
+        this.m_oProductRegistration = m_oPlatform.getProductReg();
         this.m_oOrderRegistration = m_oPlatform.getOrderReg();
         this.m_oClientRegistration = m_oPlatform.getClientReg();
         this.m_oClient = m_oClientRegistration.getClientByEmail(ApplicationPOT.getInstance().getCurrentSession().getCurrentUserEmail());
@@ -62,5 +82,25 @@ public class MakeAnOrderController {
      */
     public void registerOrder() {
         this.m_oOrderRegistration.registerOrder(m_oOrder);
+    }
+
+    /**
+     * The method returns the list of available products for a pharmacy.
+     */
+    public List<Pharmacy> getPharmacies() {
+        return this.m_oPharmacyRegistration.getPharmacies();
+    }
+
+    /**
+     * The method returns the list of pharmacies.
+     */
+    public List<Product> getAvailableProducts(Pharmacy oPharmacy) {
+        try {
+            this.m_oPharmacy = oPharmacy;
+            return this.m_oProductRegistration.getAvailableProducts(oPharmacy.getId());
+        } catch (RuntimeException ex) {
+            ex.printStackTrace();
+            return null;
+        }
     }
 }
