@@ -118,11 +118,11 @@ public class ProductRegistration extends DataHandler {
         return true;
     }
 
-    public List<Product> getAllProducts() {
+    public List<Product> getProducts() {
         CallableStatement callStmt = null;
         List<Product> lstProducts = new ArrayList<>();
         try {
-            callStmt = getConnection().prepareCall("{ ? = call getAllProducts() }");
+            callStmt = getConnection().prepareCall("{ ? = call getProducts() }");
 
             callStmt.registerOutParameter(1, OracleTypes.CURSOR);
             callStmt.execute();
