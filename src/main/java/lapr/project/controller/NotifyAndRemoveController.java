@@ -21,7 +21,7 @@ import java.io.Serializable;
  * @author Pedro Santos <1190967@isep.ipp.pt>
  * @author Rodrigo Costa <1191014@isep.ipp.pt>
  */
-public class NotifyAndRemoveController implements Serializable {
+public class NotifyAndRemoveController {
     /**
      * Platform class instance
      */
