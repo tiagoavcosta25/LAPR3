@@ -36,7 +36,7 @@ deactivate APP
 CTRL -> PLAT : ordReg = getOrderReg()
 activate PLAT
 deactivate PLAT
-CTRL -> ORDREG : order = getOrderByCourier(cour, email)
+CTRL -> ORDREG : order = getOrderByCourier(email)
 activate ORDREG
 ORDREG -> ORDREG : executeQuery(query)
 ref over ORDREG : SD_CONNECTIONS
