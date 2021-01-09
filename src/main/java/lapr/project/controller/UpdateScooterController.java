@@ -69,8 +69,8 @@ public class UpdateScooterController {
         }
     }
 
-    public boolean updateScooter(int intId, int intBatteryPerc, String strCharginStatus, int intPotency,
-                              int intWeight, int intBatteryCapacity){
+    public boolean updateScooter(int intId, float intBatteryPerc, String strCharginStatus, float intPotency,
+                                 float intWeight, int intBatteryCapacity){
 
         this.m_oScooterRegistration = m_oPlatform.getScooterReg();
         return m_oScooterRegistration.updateScooterFromDB(intId, intBatteryPerc, strCharginStatus, intPotency, intWeight,

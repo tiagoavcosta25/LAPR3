@@ -30,10 +30,10 @@ public class ScooterRegistration extends DataHandler {
 
             if (rSet.next()) {
 
-                int intBatteryPerc = rSet.getInt(1);
+                float intBatteryPerc = rSet.getInt(1);
                 String strCharginStatus = rSet.getString(2);
-                int intPotency = rSet.getInt(3);
-                int intWeight = rSet.getInt(4);
+                float intPotency = rSet.getFloat(3);
+                float intWeight = rSet.getFloat(4);
                 int intBatteryCapacity = rSet.getInt(5);
                 int intId = rSet.getInt(6);
                 String strEmail = rSet.getString(7);
@@ -68,7 +68,7 @@ public class ScooterRegistration extends DataHandler {
                 s.getBatteryCapacity(), s.getPharmacy());
     }
 
-    private boolean addScooter(int intBatteryPerc, String strCharginStatus, int intPotency, int intWeight,
+    private boolean addScooter(float intBatteryPerc, String strCharginStatus, float intPotency, float intWeight,
                                int intBatteryCapacity, Pharmacy oPharmacy) {
         boolean flag = true;
         try {
@@ -76,10 +76,10 @@ public class ScooterRegistration extends DataHandler {
 
             CallableStatement callStmt = getConnection().prepareCall("{ call addScooter(?,?,?,?,?,?,?,?,?,?,?,?,?,?) }");
 
-            callStmt.setInt(1, intBatteryPerc);
+            callStmt.setFloat(1, intBatteryPerc);
             callStmt.setString(2, strCharginStatus);
-            callStmt.setInt(3, intPotency);
-            callStmt.setInt(4, intWeight);
+            callStmt.setFloat(3, intPotency);
+            callStmt.setFloat(4, intWeight);
             callStmt.setInt(5, intBatteryCapacity);
             callStmt.setInt(6, oPharmacy.getId());
             callStmt.setString(7, oPharmacy.getName());
@@ -101,7 +101,7 @@ public class ScooterRegistration extends DataHandler {
         return flag;
     }
 
-    public Scooter newScooter(int intBatteryPerc, String strCharginStatus, int intPotency, int intWeight,
+    public Scooter newScooter(float intBatteryPerc, String strCharginStatus, float intPotency, float intWeight,
                               int intBatteryCapacity, Pharmacy oPharmacy) {
         return new Scooter(intBatteryPerc, strCharginStatus, intPotency, intWeight, intBatteryCapacity, oPharmacy);
     }
@@ -110,17 +110,17 @@ public class ScooterRegistration extends DataHandler {
         addScooter(oScooter);
     }
 
-    public boolean updateScooterFromDB(int intId, int intBatteryPerc, String strCharginStatus, int intPotency, int intWeight,
+    public boolean updateScooterFromDB(int intId, float intBatteryPerc, String strCharginStatus, float intPotency, float intWeight,
                                        int intBatteryCapacity) {
         try {
             openConnection();
             CallableStatement callStmt = getConnection().prepareCall("{call updateScooter(?,?,?,?,?)}");
 
             callStmt.setInt(1, intId);
-            callStmt.setInt(2, intBatteryPerc);
+            callStmt.setFloat(2, intBatteryPerc);
             callStmt.setString(3, strCharginStatus);
-            callStmt.setInt(4, intPotency);
-            callStmt.setInt(5, intWeight);
+            callStmt.setFloat(4, intPotency);
+            callStmt.setFloat(5, intWeight);
             callStmt.setInt(6, intBatteryCapacity);
 
             callStmt.execute();
@@ -145,10 +145,10 @@ public class ScooterRegistration extends DataHandler {
 
             while(rSet.next()){
                 int intId = rSet.getInt(1);
-                int intBatteryPerc = rSet.getInt(2);
+                float intBatteryPerc = rSet.getFloat(2);
                 String strCharginStatus = rSet.getString(3);
-                int intPotency = rSet.getInt(4);
-                int intWeight = rSet.getInt(5);
+                float intPotency = rSet.getFloat(4);
+                float intWeight = rSet.getFloat(5);
                 int intBatteryCapacity = rSet.getInt(6);
 
                 lstScooter.add(new Scooter(intId, intBatteryPerc, strCharginStatus, intPotency, intWeight,
