@@ -106,8 +106,8 @@ public class ScooterRegistration extends DataHandler {
         return new Scooter(fltBatteryPerc, strCharginStatus, fltPotency, fltWeight, intBatteryCapacity, oPharmacy);
     }
 
-    public void registerScooter(Scooter oScooter) {
-        addScooter(oScooter);
+    public boolean registerScooter(Scooter oScooter) {
+        return addScooter(oScooter);
     }
 
     public boolean updateScooterFromDB(int intId, float fltBatteryPerc, String strCharginStatus, float fltPotency, float fltWeight,
