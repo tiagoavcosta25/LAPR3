@@ -47,19 +47,19 @@ public class RegisterScooterController {
      * Initiates the Pharmacy instance and the Scooter instance with the provided data.
      * The method returns the validation of that instance of Scooter. True if the data is correct and false if
      * it doesn't.
-     * @param intBatteryPerc Scooter's battery percentage
+     * @param fltBatteryPerc Scooter's battery percentage
      * @param strCharginStatus Scooter's charging status
-     * @param intPotency Scooter's potency
-     * @param intWeight Scooter's weight
+     * @param fltPotency Scooter's potency
+     * @param fltWeight Scooter's weight
      * @param intBatteryCapacity Scooter's battery capacity
      * @param oPharmacy Scooter's pharmacy
      */
-    public void newScooter(int intBatteryPerc, String strCharginStatus, int intPotency,
-                           int intWeight, int intBatteryCapacity, Pharmacy oPharmacy) {
+    public void newScooter(float fltBatteryPerc, String strCharginStatus, float fltPotency,
+                           float fltWeight, int intBatteryCapacity, Pharmacy oPharmacy) {
         try {
             this.m_oPharmacy = m_oPharmacyRegistration.getPharmacy(oPharmacy.getId());
-            this.m_oScooter = m_oScooterRegistration.newScooter(intBatteryPerc, strCharginStatus, intPotency,
-                    intWeight, intBatteryCapacity, oPharmacy);
+            this.m_oScooter = m_oScooterRegistration.newScooter(fltBatteryPerc, strCharginStatus, fltPotency,
+                    fltWeight, intBatteryCapacity, oPharmacy);
         }
         catch(RuntimeException ex) {
             this.m_oScooter = null;
