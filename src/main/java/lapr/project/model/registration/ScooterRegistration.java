@@ -22,7 +22,7 @@ public class ScooterRegistration extends DataHandler {
             callStmt = getConnection().prepareCall("{ ? = call getScooter(?) }");
 
             callStmt.registerOutParameter(1, OracleTypes.CURSOR);
-            callStmt.setInt(id, 1);
+            callStmt.setInt(id, 2);
 
             callStmt.execute();
 
@@ -114,7 +114,7 @@ public class ScooterRegistration extends DataHandler {
                                        int intBatteryCapacity) {
         try {
             openConnection();
-            CallableStatement callStmt = getConnection().prepareCall("{call updateScooter(?,?,?,?,?)}");
+            CallableStatement callStmt = getConnection().prepareCall("{call updateScooter(?,?,?,?,?,?)}");
 
             callStmt.setInt(1, intId);
             callStmt.setFloat(2, fltBatteryPerc);
@@ -136,7 +136,7 @@ public class ScooterRegistration extends DataHandler {
         CallableStatement callStmt = null;
         List<Scooter> lstScooter = new ArrayList<>();
         try {
-            callStmt = getConnection().prepareCall("{ ? = call getScootersList() }");
+            callStmt = getConnection().prepareCall("{ ? = call getScootersList(?) }");
 
             callStmt.registerOutParameter(1, oracle.jdbc.internal.OracleTypes.CURSOR);
             callStmt.setInt(2, intPharmacyId);
