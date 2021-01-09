@@ -71,7 +71,7 @@ public class MakeAnOrderController {
                          String doorNumber, String postalCode, String locality, String country, Map<Product, Integer> mapProducts) {
         try {
             this.m_oOrder = m_oOrderRegistration.newOrder(fltAmount, fltTotalWeight, fltAdditionalFee, dtOrderDate,
-                    strDescription, strStatus, m_oClient, latitude, longitude, streetName, doorNumber, postalCode, locality, country, mapProducts);
+                    strDescription, strStatus, m_oClient, latitude, longitude, streetName, doorNumber, postalCode, locality, country, m_oPharmacy, mapProducts);
         } catch (RuntimeException ex) {
             this.m_oOrder = null;
         }
