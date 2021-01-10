@@ -6,6 +6,7 @@ import lapr.project.graph.map.Graph;
 import lapr.project.graph.map.GraphAlgorithms;
 import lapr.project.model.Address;
 import lapr.project.model.Path;
+import lapr.project.model.Scooter;
 import oracle.jdbc.OracleTypes;
 
 import java.sql.CallableStatement;
@@ -24,36 +25,11 @@ public class DeliveryRegistration extends DataHandler {
         m_graph = new Graph<>(true);
     }
 
-    //lol
-    public double getShortestPath(Pair<Address, Address> oPairAddress) {
-        return 0;
-    }
-
-    public float getMaxPayload(String email) {
-        CallableStatement callStmt = null;
-        try {
-            callStmt = getConnection().prepareCall("{ ? = call getMaxPayload() }");
-
-            callStmt.registerOutParameter(1, OracleTypes.FLOAT);
-            callStmt.setString(2, email);
-
-            callStmt.execute();
-
-            ResultSet rSet = (ResultSet) callStmt.getObject(1);
-            float maxPayload = -1;
-            if (rSet.next()) {
-                maxPayload = rSet.getFloat(1);
-            }
-            return maxPayload;
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        throw new IllegalArgumentException("No Addresses Avaliable.");
-    }
-
-    public float getDeliveryEnergy() {
-        /* ||| IMPLEMENT METHOD ||| */
-        return 0;
+    public float getDeliveryEnergy(double distance) {
+        float velocity = 4.84f;  //  m/s
+        float scooterPot = 250; //  W
+        float time = (float) distance / velocity;   //  s
+        return scooterPot * time;   //  J
     }
 
     public Graph<Address, String> getM_graph() {
@@ -270,4 +246,11 @@ public class DeliveryRegistration extends DataHandler {
     }
 
 
+
+
+
+    //TO IMPLEMENT
+    public float getMaxPayload(String email) {
+        return 0f;
+    }
 }

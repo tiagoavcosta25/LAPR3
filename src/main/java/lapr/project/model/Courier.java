@@ -13,6 +13,7 @@ public class Courier extends User {
         super();
         this.setM_id(-1);
         this.setM_iban("No Iban");
+        this.setM_Pharmacy(new Pharmacy());
     }
 
     public Courier(int intId, String strName, String strEmail, String strPassword,Integer strNif,String strIban, Pharmacy oPharmacy) throws NoSuchAlgorithmException {

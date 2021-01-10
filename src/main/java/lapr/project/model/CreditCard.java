@@ -1,6 +1,7 @@
 package lapr.project.model;
 
 import java.util.Date;
+import java.util.Objects;
 
 public class CreditCard {
 
@@ -42,6 +43,19 @@ public class CreditCard {
 
     public void setM_CCV(Integer m_CCV) {
         this.m_CCV = m_CCV;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        CreditCard that = (CreditCard) o;
+        return Objects.equals(m_creditCardNr, that.m_creditCardNr);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(m_creditCardNr);
     }
 
     @Override

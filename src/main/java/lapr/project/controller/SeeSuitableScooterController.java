@@ -46,7 +46,8 @@ public class SeeSuitableScooterController {
         String email = "user6@gmail.com";
         oDeliveryRegistration = m_oPlatform.getDelReg();
         oScooterRegistration = m_oPlatform.getScooterReg();
-        float deliveryEnergy = oDeliveryRegistration.getDeliveryEnergy();
+        double distance =0;
+        float deliveryEnergy = oDeliveryRegistration.getDeliveryEnergy(distance);
         return oScooterRegistration.getSuitableScooter(deliveryEnergy,email);
     }
 
