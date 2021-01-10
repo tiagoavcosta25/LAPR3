@@ -12,8 +12,7 @@ class CalculateMostEfficientPahtUI{
 }
 
 class CalculateMostEfficientPahtController{
-+getCourierInfo()
-+getOrderByCour()
++getShortestPath()
 }
 
 class Platform {
@@ -21,7 +20,7 @@ class Platform {
   +DeliveryRegistry getDelReg()
 }
 class DeliveryRegistry{
-+getShortestPath()
++getShortestPath(Address a, Address b)
 }
 
 

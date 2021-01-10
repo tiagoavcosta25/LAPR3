@@ -43,7 +43,7 @@ CREATE TABLE OrderProduct (productId number(10) NOT NULL, orderId number(10) NOT
 CREATE TABLE OrderStatus (designation varchar2(20) DEFAULT 'ordered' NOT NULL, PRIMARY KEY (designation));
 CREATE TABLE Park (pharmacyId number(10) NOT NULL, maxSlotsNumber number(3) NOT NULL, PRIMARY KEY (pharmacyId));
 CREATE TABLE ParkingSlot (id number(10) GENERATED AS IDENTITY, parkPharmacyId number(10) NOT NULL, scooterId number(10) UNIQUE, PRIMARY KEY (id));
-CREATE TABLE Path (addressIdA number(10) NOT NULL, addressIdB number(10) NOT NULL, PRIMARY KEY (addressIdA, addressIdB));
+CREATE TABLE Path (addressIdA number(10) NOT NULL, addressIdB number(10) NOT NULL, name nvarchar2(255) NOT NULL, PRIMARY KEY (addressIdA, addressIdB));
 CREATE TABLE PaymentMethodInvoice (creditCardNr number(16) NOT NULL, invoiceId number(10) NOT NULL, value float(10) NOT NULL, PRIMARY KEY (creditCardNr, invoiceId));
 CREATE TABLE Pharmacy (id number(10) GENERATED AS IDENTITY, name varchar2(70) NOT NULL, addressId number(10) NOT NULL, managerId number(10) NOT NULL, PRIMARY KEY (id));
 CREATE TABLE PharmacyManager (userId number(10) NOT NULL, PRIMARY KEY (userId));

@@ -8,9 +8,11 @@ participant "CalculateMostEfficientPahtUI" as UI
 participant "CalculateMostEfficientPahtController" as CTRL
 participant "PotApplication" as _APP
 participant "app\n:PotApplication" as APP
+participant "session\n:UserSession" as SESSION
 participant "plat\n:Platform" as PLAT
+participant "ordReg\n:OrderRegistry" as ORDREG
 participant "delReg\n:DeliveryRegistry" as DELREG
-participant "graph\n:Graph<Adress, Double>" as GRAPH
+participant "pairAddress\nPair<Address, Address>" as PAIR
 
 activate COUR
 
@@ -25,17 +27,39 @@ deactivate _APP
 CTRL -> APP: plat = getPlaform()
 activate APP
 deactivate APP
-CTRL -> PLAT : graph = getPathGraph()
-activate PLAT
-deactivate PLAT
+CTRL -> APP: session = getCurrentSession()
+activate APP
+deactivate APP
+
+CTRL -> SESSION : email = getCurrentUserEmail()
+activate SESSION
+deactivate SESSION
+
 CTRL -> PLAT : delReg = getDelReg()
+
 activate PLAT
 deactivate PLAT
-CTRL -> DELREG : getShortestPath(graph)
+
+CTRL -> PLAT : ordReg = getOrderReg()
+
+activate PLAT
+deactivate PLAT
+
+CTRL -> ORDREG : order = getOrderByCourier(email)
+activate ORDREG
+ORDREG -> ORDREG : executeQuery(query)
+ref over ORDREG : SD_CONNECTIONS
+deactivate ORDREG
+CTRL -> DELREG : pairAddress = getStartingAndDeliveryAddressByOrder(order)
+activate DELREG
+DELREG -> DELREG : executeQuery(query)
+ref over DELREG : SD_CONNECTIONS
+deactivate DELREG
+CTRL -> DELREG : getShortestPath(pairAddress)
 activate DELREG
 deactivate DELREG
-UI -> COUR : Shows the shortest and most efficient path, \ninforming of the success of the operation.
 deactivate CTRL
+UI -> COUR : Shows the shortest and most efficient path, \ninforming of the success of the operation.
 deactivate UI
 deactivate COUR
 

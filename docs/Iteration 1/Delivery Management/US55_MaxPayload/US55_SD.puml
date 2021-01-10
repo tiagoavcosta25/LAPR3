@@ -1,24 +1,22 @@
 @startuml
 autonumber
 hide footbox
-
 actor "Courier" as COUR
 
-participant "KnowDeliveryUI" as UI
-participant "KnowDeliveryController" as CTRL
+participant "MaxPayloadUI" as UI
+participant "MaxPayloadController" as CTRL
 participant "PotApplication" as _APP
 participant "app\n:PotApplication" as APP
 participant "session\n:UserSession" as SESSION
 participant "plat\n:Platform" as PLAT
-participant "ordReg\n:OrderRegistration" as ORDREG
-participant "order\n:Order" as O
+participant "delReg\n:DeliveryRegistry" as DELREG
 
 activate COUR
 
-COUR -> UI : Sends a request regarding what delivery will be done
+COUR -> UI : Sends a request regarding what is the maximum \npayload of the scooter
 
 activate UI
-UI -> CTRL : getOrderByCour()
+UI -> CTRL : getMaxPayload()
 activate CTRL
 CTRL -> _APP: app = getInstance()
 activate _APP
@@ -36,20 +34,18 @@ CTRL -> SESSION : email = getCurrentUserEmail()
 activate SESSION
 deactivate SESSION
 
-CTRL -> PLAT : ordReg = getOrderReg()
+CTRL -> PLAT : delReg = getDelReg()
 activate PLAT
 deactivate PLAT
-CTRL -> ORDREG : order = getOrderByCourier(email)
-activate ORDREG
-ORDREG -> ORDREG : executeQuery(query)
-ref over ORDREG : SD_CONNECTIONS
-deactivate ORDREG
+CTRL -> DELREG : getMaxPayload(email)
+activate DELREG
+DELREG -> DELREG : executeQuery(query)
+ref over DELREG : SD_CONNECTIONS
+deactivate DELREG
 deactivate CTRL
-opt [ order == null]
-UI -> COUR : Informs that doesn't exist any order
-end opt
-UI -> COUR : Returns the order, informing of the success of the operation
+UI -> COUR : Shows the payload of the scooter, informing \nof the success of the operation.
 deactivate UI
 deactivate COUR
+
 
 @enduml
