@@ -15,6 +15,7 @@ longitude, streetName, doorNumber, postalCode, locality, country, products)
 +registerOrder()
 +getAvailableProducts(pharmacyId)
 +getPharmacies()
++addProductToOrder(product, quantity)
 }
 
 class ApplicationPOT
