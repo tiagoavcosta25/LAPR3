@@ -59,8 +59,6 @@ end ref
 deactivate PHR
 deactivate CTRL
 
-
-
 UI -> CL : shows the list of the pharmacies
 deactivate UI
 
@@ -78,10 +76,20 @@ SD_CONNECTIONS
 end ref
 deactivate PR
 deactivate CTRL
+loop until there is no more products to add
 UI -> CL : shows the list of the available products
 deactivate UI
 
-CL -> UI : chooses which products and which quantities to order
+CL -> UI : chooses which product and which quantity to order
+activate UI
+UI -> CTRL : addProductToOrder(product, quantity)
+activate CTRL
+deactivate CTRL
+UI -> CL : asks if the user is done adding more products
+deactivate UI
+end
+
+CL -> UI : confirms that there is not more products
 activate UI
 UI -> CTRL : newOrder(address, amount, additionalFee, dateOrder, description, mapProducts)
 activate CTRL
