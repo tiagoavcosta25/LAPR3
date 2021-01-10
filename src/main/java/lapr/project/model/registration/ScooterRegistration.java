@@ -166,7 +166,7 @@ public class ScooterRegistration extends DataHandler {
         throw new IllegalArgumentException("No Scooters Avaliable.");
     }
 
-    public void removeScooterFromDB(int intId) {
+    public boolean removeScooterFromDB(int intId) {
         try {
             openConnection();
 
@@ -179,7 +179,9 @@ public class ScooterRegistration extends DataHandler {
             closeAll();
         } catch (SQLException e) {
             e.printStackTrace();
+            return false;
         }
+        return true;
     }
 
     public Scooter getSuitableScooter(float deliveryEnergy, String email) {

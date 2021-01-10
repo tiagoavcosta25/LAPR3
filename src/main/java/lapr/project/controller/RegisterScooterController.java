@@ -6,6 +6,8 @@ import lapr.project.model.Scooter;
 import lapr.project.model.registration.PharmacyRegistration;
 import lapr.project.model.registration.ScooterRegistration;
 
+import java.util.List;
+
 public class RegisterScooterController {
 
     /**
@@ -73,5 +75,12 @@ public class RegisterScooterController {
      */
     public boolean registersScooter() {
        return this.m_oScooterRegistration.registerScooter(m_oScooter);
+    }
+
+    /**
+     * The method returns the list of scooters for a pharmacy.
+     */
+    public List<Scooter> getScooters(int intPharmacyId) {
+        return this.m_oScooterRegistration.getScootersList(intPharmacyId);
     }
 }
