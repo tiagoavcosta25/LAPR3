@@ -146,7 +146,7 @@ public class OrderRegistration extends DataHandler {
             if (rSet.next()) {
                 Order oOrder = orderManager(rSet, 1);
 
-                callStmt = getConnection().prepareCall("{ ? = call getProductsByOrdergetProductsByOrder(?) }");
+                callStmt = getConnection().prepareCall("{ ? = call getProductsByOrder(?) }");
                 callStmt.registerOutParameter(1, OracleTypes.CURSOR);
                 callStmt.setInt(oOrder.getId(), 2);
 
