@@ -21,7 +21,7 @@ public class DeliveryRegistration extends DataHandler {
     public Pair<Address, Address> getStartingAndDeliveryAddressByOrder(int oOrderId) {
         CallableStatement callStmt = null;
         try {
-            callStmt = getConnection().prepareCall("{ ? = call getStartingAndDeliveryAddressByOrderId(?) }");
+            callStmt = getConnection().prepareCall("{ ? = call getAddressesByDeliveryRunId(?) }");
 
             callStmt.registerOutParameter(1, OracleTypes.CURSOR);
             callStmt.setInt(2, oOrderId);
