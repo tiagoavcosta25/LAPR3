@@ -45,8 +45,9 @@ public class CalculateMostEfficientPathController {
         this.oDeliveryRegistration = this.m_oPlatform.getDelReg();
         this.oOrderRegistration = this.m_oPlatform.getOrderReg();
         Order oOrder = this.oOrderRegistration.getOrderByCourier(email);
-        Pair<Address, Address> oPairAddress = this.oDeliveryRegistration.getStartingAndDeliveryAddressByOrder(oOrder.getId());
-        return this.oDeliveryRegistration.getShortestPath(oPairAddress);
+        //Pair<Address, Address> oPairAddress = this.oDeliveryRegistration.getStartingAndDeliveryAddressByOrder(oOrder.getId());
+        //return this.oDeliveryRegistration.getShortestPath(oPairAddress);
+        return 0;
     }
 
 
