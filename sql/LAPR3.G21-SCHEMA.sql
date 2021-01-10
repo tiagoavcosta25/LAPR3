@@ -38,7 +38,7 @@ CREATE TABLE DeliveryRun (id number(10) GENERATED AS IDENTITY, courierId number(
 CREATE TABLE DeliveryStatus (designation varchar2(20) NOT NULL, PRIMARY KEY (designation));
 CREATE TABLE Invoice (id number(10) GENERATED AS IDENTITY, orderId number(10) NOT NULL UNIQUE, invoiceDate date NOT NULL, totalPrice float(10) NOT NULL, PRIMARY KEY (id));
 CREATE TABLE InvoiceLine (invoiceId number(10) NOT NULL, id number(10) NOT NULL, orderId number(10) NOT NULL, productId number(10) NOT NULL, value float(10) NOT NULL, PRIMARY KEY (invoiceId, id));
-CREATE TABLE "Order" (id number(10) GENERATED AS IDENTITY, clientId number(10) NOT NULL, description varchar2(255), orderStatus varchar2(20) NOT NULL, orderDate date NOT NULL, addressId number(10) NOT NULL, pharmacyId number(10) NOT NULL, totalWeight float(10) NOT NULL, amount float(10) NOT NULL, additionalFee float(10) DEFAULT 0 NOT NULL, PRIMARY KEY (id));
+CREATE TABLE "Order" (id number(10) GENERATED AS IDENTITY, clientId number(10) NOT NULL, description varchar2(255), orderStatus varchar2(20) NOT NULL, orderDate date NOT NULL, addressId number(10), pharmacyId number(10) NOT NULL, totalWeight float(10) NOT NULL, amount float(10) NOT NULL, additionalFee float(10) DEFAULT 0 NOT NULL, PRIMARY KEY (id));
 CREATE TABLE OrderProduct (productId number(10) NOT NULL, orderId number(10) NOT NULL, quantity number(5) NOT NULL, PRIMARY KEY (productId, orderId));
 CREATE TABLE OrderStatus (designation varchar2(20) DEFAULT 'ordered' NOT NULL, PRIMARY KEY (designation));
 CREATE TABLE Park (pharmacyId number(10) NOT NULL, maxSlotsNumber number(3) NOT NULL, PRIMARY KEY (pharmacyId));

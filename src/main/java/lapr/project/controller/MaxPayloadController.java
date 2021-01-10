@@ -1,4 +1,5 @@
 package lapr.project.controller;
+
 import lapr.project.model.Courier;
 import lapr.project.model.Order;
 import lapr.project.model.Platform;
@@ -38,7 +39,7 @@ public class MaxPayloadController {
         this.m_oSession = m_ApplicationPOT.getCurrentSession();
         this.oCourierEmail = m_oSession.getCurrentUserEmail();
         this.oDeliveryRegistration = this.m_oPlatform.getDelReg();
-        return 0;// this.oDeliveryRegistration.getMaxPayload(oCourierEmail);
+        return this.oDeliveryRegistration.getMaxPayload(oCourierEmail);
     }
 
 

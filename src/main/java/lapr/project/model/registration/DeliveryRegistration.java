@@ -29,6 +29,28 @@ public class DeliveryRegistration extends DataHandler {
         return 0;
     }
 
+    public float getMaxPayload(String email) {
+        CallableStatement callStmt = null;
+        try {
+            callStmt = getConnection().prepareCall("{ ? = call getMaxPayload() }");
+
+            callStmt.registerOutParameter(1, OracleTypes.FLOAT);
+            callStmt.setString(2, email);
+
+            callStmt.execute();
+
+            ResultSet rSet = (ResultSet) callStmt.getObject(1);
+            float maxPayload = -1;
+            if (rSet.next()) {
+                maxPayload = rSet.getFloat(1);
+            }
+            return maxPayload;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        throw new IllegalArgumentException("No Addresses Avaliable.");
+    }
+
     public float getDeliveryEnergy() {
         /* ||| IMPLEMENT METHOD ||| */
         return 0;
@@ -148,7 +170,6 @@ public class DeliveryRegistration extends DataHandler {
 
     /**
      * CREATE GRAPH
-     *
      */
     public void createGraph() {
         createGraph(getAllAddresses(), getAllPaths());
@@ -189,7 +210,6 @@ public class DeliveryRegistration extends DataHandler {
 
     /**
      * CALCULATE MOST EFFICIENT PATH/SHORTEST PATH
-     *
      */
     public Pair<LinkedList<Address>, Double> calculateMostEfficientPath(Address startAddress, Address endAddress, List<Address> deliveryPoints) {
         List<LinkedList<Address>> permutations = calculatePermutations(deliveryPoints);
