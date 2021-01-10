@@ -31,6 +31,7 @@ class Scooter{
   -float potency
   -float weight
   -int batteryCapacity
+  -float maxPayload
 }
 
 class Address{

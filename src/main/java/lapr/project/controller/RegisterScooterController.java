@@ -6,6 +6,8 @@ import lapr.project.model.Scooter;
 import lapr.project.model.registration.PharmacyRegistration;
 import lapr.project.model.registration.ScooterRegistration;
 
+import java.util.List;
+
 public class RegisterScooterController {
 
     /**
@@ -55,11 +57,11 @@ public class RegisterScooterController {
      * @param oPharmacy Scooter's pharmacy
      */
     public boolean newScooter(float fltBatteryPerc, String strCharginStatus, float fltPotency,
-                           float fltWeight, int intBatteryCapacity, Pharmacy oPharmacy) {
+                           float fltWeight, int intBatteryCapacity, float fltMaxPayload, Pharmacy oPharmacy) {
         try {
             this.m_oPharmacy = m_oPharmacyRegistration.getPharmacy(oPharmacy.getId());
             this.m_oScooter = m_oScooterRegistration.newScooter(fltBatteryPerc, strCharginStatus, fltPotency,
-                    fltWeight, intBatteryCapacity, oPharmacy);
+                    fltWeight, intBatteryCapacity, fltMaxPayload, oPharmacy);
             return true;
         }
         catch(RuntimeException ex) {
@@ -73,5 +75,12 @@ public class RegisterScooterController {
      */
     public boolean registersScooter() {
        return this.m_oScooterRegistration.registerScooter(m_oScooter);
+    }
+
+    /**
+     * The method returns the list of scooters for a pharmacy.
+     */
+    public List<Scooter> getScooters(int intPharmacyId) {
+        return this.m_oScooterRegistration.getScootersList(intPharmacyId);
     }
 }

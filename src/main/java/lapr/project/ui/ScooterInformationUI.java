@@ -2,6 +2,7 @@ package lapr.project.ui;
 
 import lapr.project.controller.ApplicationPOT;
 import lapr.project.controller.RegisterScooterController;
+import lapr.project.controller.ScooterInformationController;
 import lapr.project.controller.UpdateScooterController;
 import lapr.project.model.Pharmacy;
 import lapr.project.model.Scooter;
@@ -10,14 +11,14 @@ import lapr.project.model.registration.PharmacyRegistration;
 import java.util.List;
 import java.util.Scanner;
 
-public class UpdateScooterUI {
+public class ScooterInformationUI {
     public static void main(String[] args) {
         {
 
             try {
                 Scanner sc = new Scanner(System.in);
                 RegisterScooterController oRegisterCtrl = new RegisterScooterController();
-                UpdateScooterController oUpdateCtrl = new UpdateScooterController();
+                ScooterInformationController oInfoCtrl = new ScooterInformationController();
 
                 PharmacyRegistration m_oPharmacyRegistration = null;
                 Pharmacy m_oPharmacy = m_oPharmacyRegistration.getPharmacyByManagerEmail(ApplicationPOT.getInstance().getCurrentSession().getCurrentUserEmail());
@@ -29,7 +30,7 @@ public class UpdateScooterUI {
                     System.out.println(s.toString());
                 }
 
-                System.out.print("\nChoose the Scooter's Id to Update: ");
+                System.out.print("\nChoose the Scooter's Id to See All Information: ");
                 Integer intScooterId = Integer.parseInt(sc.nextLine());
                 System.out.println();
 
@@ -41,26 +42,13 @@ public class UpdateScooterUI {
                     }
                 }
 
-                System.out.println("Please input the following information:");
-                System.out.println("Battery Percentage:");
-                float m_fltBatteryPerc = Float.parseFloat(sc.nextLine());
-                System.out.println("Charging Status (Charging/Not Charging):");
-                String m_strChargingStatus = sc.nextLine();
-                System.out.println("Potency:");
-                float m_fltPotency = Float.parseFloat(sc.nextLine());
-                System.out.println("Weight:");
-                float m_fltWeight = Float.parseFloat(sc.nextLine());
-                System.out.println("Battery Capacity:");
-                int m_intBatteryCapacity = Integer.parseInt(sc.nextLine());
-                System.out.println("Maximum Payload:");
-                float m_fltMaxPayload = Float.parseFloat(sc.nextLine());
+                Scooter m_oScooter = oInfoCtrl.getScooterInformation(intScooterId);
+                System.out.println(m_oScooter.toString());
 
+                System.out.println("-1 - to stop the scooter information view");
+                Integer intStop = Integer.parseInt(sc.nextLine());
+                System.out.println("Operation successfull!");
 
-                if (oUpdateCtrl.updateScooter(intScooterId, m_fltBatteryPerc, m_strChargingStatus, m_fltPotency,
-                        m_fltWeight, m_intBatteryCapacity, m_fltMaxPayload)) {
-                    System.out.println("Operation was Successfull!");
-
-                } else System.out.println("Operation was NOT Successfull!");
             } catch (Exception e) {
                 System.out.println("Format ERROR!");
                 System.out.println("Operation NOT successfull!");

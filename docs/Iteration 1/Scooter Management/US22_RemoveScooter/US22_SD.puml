@@ -52,7 +52,7 @@ deactivate UI
 
 PHARMAN -> UI : Chooses the eletric scooter
 activate UI
-UI -> CTRL : removeScooter(batteryPerc, chargingStatus,\n potency, weight, batteryCapacity)
+UI -> CTRL : removeScooter(scoot)
 activate CTRL
 CTRL -> PLAT : scootReg = getScootReg()
 activate PLAT

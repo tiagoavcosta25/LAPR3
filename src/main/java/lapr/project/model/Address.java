@@ -13,9 +13,9 @@ public class Address {
 
     public Address() {
         this.m_id = -1;
-        this.m_latitude = -1d;
-        this.m_longitude = -1d;
-        this.m_streetName = "No Address";
+        this.m_latitude = -22d;
+        this.m_longitude = -22d;
+        this.m_streetName = "No Street Name";
         this.m_doorNumber = "No Door Number";
         this.m_postalCode = "No Postal Code";
         this.m_locality = "No Locality";

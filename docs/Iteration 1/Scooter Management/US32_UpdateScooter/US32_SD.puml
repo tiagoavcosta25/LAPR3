@@ -58,12 +58,12 @@ deactivate UI
 
 PHARMAN -> UI : Updates the information
 activate UI
-UI -> CTRL : updateScooter(batteryPerc, chargingStatus,\n potency, weight, batteryCapacity)
+UI -> CTRL : updateScooter(scoot)
 activate CTRL
 CTRL -> PLAT : scootReg = getScootReg()
 activate PLAT
 deactivate PLAT
-CTRL -> RS : updateScooter(batteryPerc, chargingStatus,potency, weight, batteryCapacity)
+CTRL -> RS : updateScooter(scoot)
 activate RS
 RS -> RS : updateScooterFromDB(scoot)
 ref over RS
