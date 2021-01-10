@@ -1,7 +1,8 @@
 @startuml
 skinparam classAttributeIconSize 0
 
-class PotApplication
+package "Controller" #DDDDDD {
+class ApplicationPOT
 {
   +static getInstance()
   +getPlatform()
@@ -10,31 +11,35 @@ class PotApplication
 
 class UserSession
 {
-  +getUserEmail()
+  +getCurrentUserEmail()
 }
-class KnowDeliveryUI{
-
-}
-
 class KnowDeliveryController{
 +getOrderByCour()
 }
+}
+package "UI" #DDDDDD {
+class KnowDeliveryUI{
 
+}
+}
+package "Model" #DDDDDD {
 class Platform {
   -String designation
-  +OrdersRegistry getOrdReg()
+  +OrdersRegistration getOrdReg()
 }
 
-class OrdersRegistry{
+class OrdersRegistration{
 +getOrderByCourier(email)
 }
-
+class Database{
+}
+}
 
 KnowDeliveryUI ..> KnowDeliveryController
 KnowDeliveryController ..> Platform
-KnowDeliveryController ..> PotApplication
+KnowDeliveryController ..> ApplicationPOT
 KnowDeliveryController ..> UserSession
-Platform "1" --> "1" OrdersRegistry : has
-OrdersRegistry "1" --> "1" Database : connects to
+Platform "1" --> "1" OrdersRegistration : has
+OrdersRegistration "1" --> "1" Database : connects to
 
 @enduml

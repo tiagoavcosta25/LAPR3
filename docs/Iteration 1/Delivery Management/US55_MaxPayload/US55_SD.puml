@@ -5,11 +5,11 @@ actor "Courier" as COUR
 
 participant "MaxPayloadUI" as UI
 participant "MaxPayloadController" as CTRL
-participant "PotApplication" as _APP
-participant "app\n:PotApplication" as APP
+participant "ApplicationPOT" as _APP
+participant "app\n:ApplicationPOT" as APP
 participant "session\n:UserSession" as SESSION
 participant "plat\n:Platform" as PLAT
-participant "delReg\n:DeliveryRegistry" as DELREG
+participant "delReg\n:DeliveryRegistration" as DELREG
 
 activate COUR
 

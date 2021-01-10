@@ -6,12 +6,12 @@ actor "Courier" as COUR
 
 participant "CalculateMostEfficientPahtUI" as UI
 participant "CalculateMostEfficientPahtController" as CTRL
-participant "PotApplication" as _APP
-participant "app\n:PotApplication" as APP
+participant "ApplicationPOT" as _APP
+participant "app\n:ApplicationPOT" as APP
 participant "session\n:UserSession" as SESSION
 participant "plat\n:Platform" as PLAT
-participant "ordReg\n:OrderRegistry" as ORDREG
-participant "delReg\n:DeliveryRegistry" as DELREG
+participant "ordReg\n:OrderRegistration" as ORDREG
+participant "delReg\n:DeliveryRegistration" as DELREG
 participant "pairAddress\nPair<Address, Address>" as PAIR
 
 activate COUR

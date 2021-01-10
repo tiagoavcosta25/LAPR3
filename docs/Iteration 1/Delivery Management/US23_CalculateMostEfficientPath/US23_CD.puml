@@ -1,32 +1,51 @@
 @startuml
 skinparam classAttributeIconSize 0
 
-class PotApplication
-{
-  +static getInstance()
-  +getPlatform()
-}
 
+package "UI" #DDDDDD {
 class CalculateMostEfficientPahtUI{
 
 }
-
+}
+package "Controller" #DDDDDD {
 class CalculateMostEfficientPahtController{
 +getShortestPath()
 }
-
+class ApplicationPOT
+{
+  +static getInstance()
+  +getPlatform()
+    +getCurrentSession()
+}
+class UserSession
+{
+  +getCurrentUserEmail()
+}
+}
+package "Model" #DDDDDD {
 class Platform {
   -String designation
-  +DeliveryRegistry getDelReg()
+  +DeliveryRegistration getDelReg()
+  +OrderRegistration getOrderReg()
 }
-class DeliveryRegistry{
-+getShortestPath(Address a, Address b)
+package "Registration" #DDDDDD {
+class DeliveryRegistration{
++getShortestPath(pairAddress)
++getStartingAndDeliveryAddressByOrder(order)
 }
-
-
+class OrderRegistration{
++getOrderByCourier(email)
+}
+}
+class Database{
+}
+}
 
 CalculateMostEfficientPahtUI ..> CalculateMostEfficientPahtController
 CalculateMostEfficientPahtController ..> Platform
-CalculateMostEfficientPahtController ..> PotApplication
-Platform "1" --> "1" DeliveryRegistry : has
+CalculateMostEfficientPahtController ..> ApplicationPOT
+Platform "1" --> "1" DeliveryRegistration : has
+Platform "1" --> "1" OrderRegistration : has
+OrderRegistration "1" --> "1" Database : connects to
+DeliveryRegistration "1" --> "1" Database : connects to
 @enduml

@@ -6,8 +6,8 @@ actor "Courier" as COUR
 
 participant "KnowDeliveryUI" as UI
 participant "KnowDeliveryController" as CTRL
-participant "PotApplication" as _APP
-participant "app\n:PotApplication" as APP
+participant "ApplicationPOT" as _APP
+participant "app\n:ApplicationPOT" as APP
 participant "session\n:UserSession" as SESSION
 participant "plat\n:Platform" as PLAT
 participant "ordReg\n:OrderRegistration" as ORDREG
