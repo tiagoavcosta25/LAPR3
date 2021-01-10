@@ -2,7 +2,7 @@ package lapr.project.model;
 
 import java.util.Objects;
 
-public class ParkingSlot {
+public class ParkingSlot implements Comparable{
 
     private int m_intId;
     private Park m_oPark;
@@ -30,28 +30,34 @@ public class ParkingSlot {
         this.m_oScooter = DEFAULT_SCOOTER;
     }
 
-    public int getM_intId() {
+    public int getId() {
         return m_intId;
     }
 
-    public void setM_intId(int m_intId) {
+    public void setId(int m_intId) {
         this.m_intId = m_intId;
     }
 
-    public Park getM_oPark() {
+    public Park getPark() {
         return m_oPark;
     }
 
-    public void setM_oPark(Park m_oPark) {
+    public void setPark(Park m_oPark) {
         this.m_oPark = m_oPark;
     }
 
-    public Scooter getM_oScooter() {
+    public Scooter getScooter() {
         return m_oScooter;
     }
 
-    public void setM_oScooter(Scooter m_oScooter) {
+    public void setScooter(Scooter m_oScooter) {
         this.m_oScooter = m_oScooter;
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        ParkingSlot p = (ParkingSlot) o;
+        return this.getId() - p.getId();
     }
 
     @Override
@@ -66,7 +72,7 @@ public class ParkingSlot {
 
     @Override
     public int hashCode() {
-        return Objects.hash(m_intId, m_oPark);
+        return Objects.hash(m_intId);
     }
 
     @Override
