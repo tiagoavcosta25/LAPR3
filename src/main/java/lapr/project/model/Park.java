@@ -21,7 +21,7 @@ public class Park {
     public Park(int intId, int intMaxSlotsNumber, Pharmacy oPharmacy) {
         this.m_intId = intId;
         this.m_intMaxSlotsNumber = intMaxSlotsNumber;
-        this.setM_oPharmacy(oPharmacy);
+        this.setPharmacy(oPharmacy);
         this.m_lstChargingSlots = DEFAULT_CHARGING_SLOTS;
         this.m_lstParkingSlots = DEFAULT_PARKING_SLOTS;
     }
@@ -29,45 +29,53 @@ public class Park {
     public Park() {
         this.m_intId = DEFAULT_ID;
         this.m_intMaxSlotsNumber = DEFAULT_MAX_SLOTS;
-        this.setM_oPharmacy(DEFAULT_PHARMACY);
+        this.setPharmacy(DEFAULT_PHARMACY);
         this.m_lstChargingSlots = DEFAULT_CHARGING_SLOTS;
         this.m_lstParkingSlots = DEFAULT_PARKING_SLOTS;
     }
 
     public Park(int intMaxSlotsNumber) {
-        this.setM_intMaxSlotsNumber(intMaxSlotsNumber);
+        this.setMaxSlotsNumber(intMaxSlotsNumber);
     }
 
-    public int getM_intId() {
+    public int getId() {
         return m_intId;
     }
 
-    public void setM_intId(int m_intId) {
+    public void setId(int m_intId) {
         this.m_intId = m_intId;
     }
 
-    public int getM_intMaxSlotsNumber() {
+    public int getMaxSlotsNumber() {
         return m_intMaxSlotsNumber;
     }
 
-    public void setM_intMaxSlotsNumber(int m_intMaxSlotsNumber) {
+    public void setMaxSlotsNumber(int m_intMaxSlotsNumber) {
         this.m_intMaxSlotsNumber = m_intMaxSlotsNumber;
     }
 
-    public List<ChargingSlot> getM_lstChargingSlots() {
+    public List<ChargingSlot> getChargingSlots() {
         return m_lstChargingSlots;
     }
 
-    public void setM_lstChargingSlots(List<ChargingSlot> m_lstChargingSlots) {
+    public void setChargingSlots(List<ChargingSlot> m_lstChargingSlots) {
         this.m_lstChargingSlots = m_lstChargingSlots;
     }
 
-    public List<ParkingSlot> getM_lstParkingSlots() {
+    public List<ParkingSlot> getParkingSlots() {
         return m_lstParkingSlots;
     }
 
-    public void setM_lstParkingSlots(List<ParkingSlot> m_lstParkingSlots) {
+    public void setParkingSlots(List<ParkingSlot> m_lstParkingSlots) {
         this.m_lstParkingSlots = m_lstParkingSlots;
+    }
+
+    public Pharmacy getPharmacy() {
+        return m_oPharmacy;
+    }
+
+    public void setPharmacy(Pharmacy m_oPharmacy) {
+        this.m_oPharmacy = m_oPharmacy;
     }
 
     public boolean addParkingSlot(ParkingSlot oParkingSlot) {
@@ -99,7 +107,7 @@ public class Park {
 
     @Override
     public int hashCode() {
-        return Objects.hash(m_intId, m_intMaxSlotsNumber, m_lstChargingSlots, m_lstParkingSlots);
+        return Objects.hash(m_intId);
     }
 
     @Override
@@ -110,13 +118,5 @@ public class Park {
                 ", m_lstChargingSlots=" + m_lstChargingSlots +
                 ", m_lstParkingSlots=" + m_lstParkingSlots +
                 '}';
-    }
-
-    public Pharmacy getM_oPharmacy() {
-        return m_oPharmacy;
-    }
-
-    public void setM_oPharmacy(Pharmacy m_oPharmacy) {
-        this.m_oPharmacy = m_oPharmacy;
     }
 }
