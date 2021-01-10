@@ -85,13 +85,13 @@ public class ScooterRegistration extends DataHandler {
             callStmt.setFloat(6, fltMaxPayload);
             callStmt.setInt(7, oPharmacy.getId());
             callStmt.setString(8, oPharmacy.getName());
-            callStmt.setDouble(9, oPharmacy.getAddress().getM_latitude());
-            callStmt.setDouble(10, oPharmacy.getAddress().getM_longitude());
-            callStmt.setString(11, oPharmacy.getAddress().getM_streetName());
-            callStmt.setString(12, oPharmacy.getAddress().getM_doorNumber());
-            callStmt.setString(13, oPharmacy.getAddress().getM_postalCode());
-            callStmt.setString(14, oPharmacy.getAddress().getM_locality());
-            callStmt.setString(15, oPharmacy.getAddress().getM_country());
+            callStmt.setDouble(9, oPharmacy.getAddress().getLatitude());
+            callStmt.setDouble(10, oPharmacy.getAddress().getLongitude());
+            callStmt.setString(11, oPharmacy.getAddress().getStreetName());
+            callStmt.setString(12, oPharmacy.getAddress().getDoorNumber());
+            callStmt.setString(13, oPharmacy.getAddress().getPostalCode());
+            callStmt.setString(14, oPharmacy.getAddress().getLocality());
+            callStmt.setString(15, oPharmacy.getAddress().getCountry());
 
             callStmt.execute();
 

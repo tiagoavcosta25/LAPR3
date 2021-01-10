@@ -5,7 +5,7 @@ import lapr.project.model.registration.ClientRegistration;
 import lapr.project.model.registration.OrderRegistration;
 import lapr.project.model.registration.PharmacyRegistration;
 import lapr.project.model.registration.ProductRegistration;
-import java.sql.Date;
+
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -93,10 +93,10 @@ public class MakeAnOrderController {
     public Order newOrder(String strDescription, Boolean blIsHomeDelivery) {
         try {
             if(blIsHomeDelivery){
-                Address oAddress = m_oClient.getM_address();
-                this.m_oOrder = m_oOrderRegistration.newOrder(strDescription, m_oClient, oAddress.getM_latitude(),
-                        oAddress.getM_longitude(), oAddress.getM_streetName(), oAddress.getM_doorNumber(), oAddress.getM_postalCode(),
-                        oAddress.getM_locality(), oAddress.getM_country(), m_oPharmacy, this.m_mapProducts);
+                Address oAddress = m_oClient.getAddress();
+                this.m_oOrder = m_oOrderRegistration.newOrder(strDescription, m_oClient, oAddress.getLatitude(),
+                        oAddress.getLongitude(), oAddress.getStreetName(), oAddress.getDoorNumber(), oAddress.getPostalCode(),
+                        oAddress.getLocality(), oAddress.getCountry(), m_oPharmacy, this.m_mapProducts);
             } else{
                 this.m_oOrder = m_oOrderRegistration.newOrder(strDescription, m_oClient, m_oPharmacy, this.m_mapProducts);
             }

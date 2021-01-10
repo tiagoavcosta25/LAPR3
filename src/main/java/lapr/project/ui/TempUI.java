@@ -13,7 +13,7 @@ public class TempUI {
         for(Path p : list) System.out.println(p.getName());
 
         List<Address> list2 = dr.getAllAddresses();
-        for(Address a : list2) System.out.println(a.getM_streetName());
+        for(Address a : list2) System.out.println(a.getStreetName());
 
 
         dr.createGraph();

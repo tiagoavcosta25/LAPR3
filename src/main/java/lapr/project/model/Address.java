@@ -4,120 +4,120 @@ import java.util.Objects;
 
 public class Address {
 
-    private Integer m_id;
-    private Double m_latitude;
-    private Double m_longitude;
-    private String m_streetName;
-    private String m_doorNumber;
-    private String m_postalCode;
-    private String m_locality;
-    private String m_country;
+    private Integer m_intId;
+    private Double m_dblLatitude;
+    private Double m_dblLongitude;
+    private String m_strStreetName;
+    private String m_strDoorNumber;
+    private String m_strPostalCode;
+    private String m_strLocality;
+    private String m_strCountry;
 
     public Address() {
-        this.m_id = -1;
-        this.m_latitude = -22d;
-        this.m_longitude = -22d;
-        this.m_streetName = "No Street Name";
-        this.m_doorNumber = "No Door Number";
-        this.m_postalCode = "No Postal Code";
-        this.m_locality = "No Locality";
-        this.m_country = "No Country";
+        this.m_intId = -1;
+        this.m_dblLatitude = -22d;
+        this.m_dblLongitude = -22d;
+        this.m_strStreetName = "No Street Name";
+        this.m_strDoorNumber = "No Door Number";
+        this.m_strPostalCode = "No Postal Code";
+        this.m_strLocality = "No Locality";
+        this.m_strCountry = "No Country";
     }
 
     public Address(Double latitude, Double longitude, String streetName, String doorNumber,
-            String postalCode, String locality, String country) {
-        this.m_latitude = latitude;
-        this.m_longitude = longitude;
-        this.m_streetName = streetName;
-        this.m_doorNumber = doorNumber;
-        this.m_postalCode = postalCode;
-        this.m_locality = locality;
-        this.m_country = country;
+                   String postalCode, String locality, String country) {
+        this.m_dblLatitude = latitude;
+        this.m_dblLongitude = longitude;
+        this.m_strStreetName = streetName;
+        this.m_strDoorNumber = doorNumber;
+        this.m_strPostalCode = postalCode;
+        this.m_strLocality = locality;
+        this.m_strCountry = country;
     }
 
 
     public Address(Integer id, Double latitude, Double longitude, String streetName, String doorNumber,
                    String postalCode, String locality, String country) {
-        this.m_id = id;
-        this.m_latitude = latitude;
-        this.m_longitude = longitude;
-        this.m_streetName = streetName;
-        this.m_doorNumber = doorNumber;
-        this.m_postalCode = postalCode;
-        this.m_locality = locality;
-        this.m_country = country;
+        this.m_intId = id;
+        this.m_dblLatitude = latitude;
+        this.m_dblLongitude = longitude;
+        this.m_strStreetName = streetName;
+        this.m_strDoorNumber = doorNumber;
+        this.m_strPostalCode = postalCode;
+        this.m_strLocality = locality;
+        this.m_strCountry = country;
     }
 
-    public Integer getM_id() {
-        return m_id;
+    public Integer getId() {
+        return m_intId;
     }
 
-    public Double getM_latitude() {
-        return m_latitude;
+    public Double getLatitude() {
+        return m_dblLatitude;
     }
 
-    public Double getM_longitude() {
-        return m_longitude;
+    public Double getLongitude() {
+        return m_dblLongitude;
     }
 
-    public String getM_streetName() {
-        return m_streetName;
+    public String getStreetName() {
+        return m_strStreetName;
     }
 
-    public String getM_doorNumber() {
-        return m_doorNumber;
+    public String getDoorNumber() {
+        return m_strDoorNumber;
     }
 
-    public String getM_postalCode() {
-        return m_postalCode;
+    public String getPostalCode() {
+        return m_strPostalCode;
     }
 
-    public String getM_locality() {
-        return m_locality;
+    public String getLocality() {
+        return m_strLocality;
     }
 
-    public String getM_country() {
-        return m_country;
+    public String getCountry() {
+        return m_strCountry;
     }
 
-    public void setM_id(Integer m_id) {
-        this.m_id = m_id;
+    public void setId(Integer m_id) {
+        this.m_intId = m_id;
     }
 
-    public void setM_latitude(Double m_latitude) {
-        this.m_latitude = m_latitude;
+    public void setLatitude(Double m_latitude) {
+        this.m_dblLatitude = m_latitude;
     }
 
-    public void setM_longitude(Double m_longitude) {
-        this.m_longitude = m_longitude;
+    public void setLongitude(Double m_longitude) {
+        this.m_dblLongitude = m_longitude;
     }
 
-    public void setM_streetName(String m_streetName) {
-        this.m_streetName = m_streetName;
+    public void setStreetName(String m_streetName) {
+        this.m_strStreetName = m_streetName;
     }
 
-    public void setM_doorNumber(String m_doorNumber) {
-        this.m_doorNumber = m_doorNumber;
+    public void setDoorNumber(String m_doorNumber) {
+        this.m_strDoorNumber = m_doorNumber;
     }
 
-    public void setM_postalCode(String m_postalCode) {
-        this.m_postalCode = m_postalCode;
+    public void setPostalCode(String m_postalCode) {
+        this.m_strPostalCode = m_postalCode;
     }
 
-    public void setM_locality(String m_locality) {
-        this.m_locality = m_locality;
+    public void setLocality(String m_locality) {
+        this.m_strLocality = m_locality;
     }
 
-    public void setM_country(String m_country) {
-        this.m_country = m_country;
+    public void setCountry(String m_country) {
+        this.m_strCountry = m_country;
     }
 
     public double distanceTo(Address oAddress) {
         final double EARTH_RADIUS = 6371e3;
-        double latitude1 = this.getM_latitude() * Math.PI / 180;
-        double latitude2 = oAddress.getM_latitude() * Math.PI / 180;
-        double differenceOfLatitude = (this.m_latitude - oAddress.getM_latitude()) * Math.PI / 180;
-        double differenceOfLongitude = (this.m_longitude - oAddress.getM_longitude()) * Math.PI / 180;
+        double latitude1 = this.getLatitude() * Math.PI / 180;
+        double latitude2 = oAddress.getLatitude() * Math.PI / 180;
+        double differenceOfLatitude = (this.m_dblLatitude - oAddress.getLatitude()) * Math.PI / 180;
+        double differenceOfLongitude = (this.m_dblLongitude - oAddress.getLongitude()) * Math.PI / 180;
 
         double a = Math.sin(differenceOfLatitude / 2) * Math.sin(differenceOfLatitude / 2) +
                 Math.cos(latitude1) * Math.cos(latitude2) * Math.sin(differenceOfLongitude / 2) *
@@ -132,25 +132,25 @@ public class Address {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Address address = (Address) o;
-        return Objects.equals(m_id, address.m_id);
+        return Objects.equals(m_intId, address.m_intId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(m_id);
+        return Objects.hash(m_intId);
     }
 
     @Override
     public String toString() {
         return "Address{" +
-                "m_id=" + m_id +
-                ", m_latitude=" + m_latitude +
-                ", m_longitude=" + m_longitude +
-                ", m_streetName='" + m_streetName + '\'' +
-                ", m_doorNumber='" + m_doorNumber + '\'' +
-                ", m_postalCode='" + m_postalCode + '\'' +
-                ", m_locality='" + m_locality + '\'' +
-                ", m_country='" + m_country + '\'' +
+                "m_id=" + m_intId +
+                ", m_latitude=" + m_dblLatitude +
+                ", m_longitude=" + m_dblLongitude +
+                ", m_streetName='" + m_strStreetName + '\'' +
+                ", m_doorNumber='" + m_strDoorNumber + '\'' +
+                ", m_postalCode='" + m_strPostalCode + '\'' +
+                ", m_locality='" + m_strLocality + '\'' +
+                ", m_country='" + m_strCountry + '\'' +
                 '}';
     }
 }

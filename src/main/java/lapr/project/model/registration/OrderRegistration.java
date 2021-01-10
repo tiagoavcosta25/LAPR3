@@ -63,15 +63,15 @@ public class OrderRegistration extends DataHandler {
             callStmt.setString(4, strDescription);
             callStmt.setDate(5, dtOrderDate);
             callStmt.setString(6, strStatus);
-            callStmt.setInt(7, oClient.getM_id());
-            callStmt.setInt(8, oClient.getM_credits());
-            callStmt.setDouble(9, oAddress.getM_latitude());
-            callStmt.setDouble(10, oAddress.getM_longitude());
-            callStmt.setString(11, oAddress.getM_streetName());
-            callStmt.setString(12, oAddress.getM_doorNumber());
-            callStmt.setString(13, oAddress.getM_postalCode());
-            callStmt.setString(14, oAddress.getM_locality());
-            callStmt.setString(15, oAddress.getM_country());
+            callStmt.setInt(7, oClient.getId());
+            callStmt.setInt(8, oClient.getCredits());
+            callStmt.setDouble(9, oAddress.getLatitude());
+            callStmt.setDouble(10, oAddress.getLongitude());
+            callStmt.setString(11, oAddress.getStreetName());
+            callStmt.setString(12, oAddress.getDoorNumber());
+            callStmt.setString(13, oAddress.getPostalCode());
+            callStmt.setString(14, oAddress.getLocality());
+            callStmt.setString(15, oAddress.getCountry());
             callStmt.setInt(16, intPharmacyId);
 
             callStmt.execute();
@@ -142,7 +142,7 @@ public class OrderRegistration extends DataHandler {
             callStmt = getConnection().prepareCall("{ ? = call getLatestOrder(?) }");
 
             callStmt.registerOutParameter(1, OracleTypes.CURSOR);
-            callStmt.setString(2, oClient.getStrEmail());
+            callStmt.setString(2, oClient.getEmail());
 
             callStmt.execute();
 
@@ -167,7 +167,7 @@ public class OrderRegistration extends DataHandler {
         } catch (SQLException | NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
-        throw new IllegalArgumentException("No Order with the following client:" + oClient.getM_name());
+        throw new IllegalArgumentException("No Order with the following client:" + oClient.getName());
     }
 
     public Order getOrderByCourier(String strEmail) {

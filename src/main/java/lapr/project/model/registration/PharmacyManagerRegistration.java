@@ -1,14 +1,11 @@
 package lapr.project.model.registration;
 
 import lapr.project.data.DataHandler;
-import lapr.project.model.Address;
-import lapr.project.model.Pharmacy;
 import lapr.project.model.PharmacyManager;
 import oracle.jdbc.OracleTypes;
 
 import java.security.NoSuchAlgorithmException;
 import java.sql.CallableStatement;
-import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -84,7 +81,7 @@ public class PharmacyManagerRegistration extends DataHandler {
     }
 
     public void registerPharmacy(PharmacyManager oPharmacyManager) {
-        addPharmacyManager(oPharmacyManager.getStrEmail(), oPharmacyManager.getPw(), oPharmacyManager.getM_nif(), oPharmacyManager.getM_name());
+        addPharmacyManager(oPharmacyManager.getEmail(), oPharmacyManager.getPw(), oPharmacyManager.getNif(), oPharmacyManager.getName());
     }
 
     public PharmacyManager newPharmacyManager(String strEmail, String strPassword, Integer intNIF, String strName) throws NoSuchAlgorithmException {

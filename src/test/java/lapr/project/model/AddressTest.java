@@ -20,121 +20,121 @@ class AddressTest {
     @Test
     void getM_id() {
         Integer expected = 10;
-        Integer real = a3.getM_id();
+        Integer real = a3.getId();
         assertEquals(expected, real);
     }
 
     @Test
     void getM_latitude() {
         Double expected = 102030.23;
-        Double real = a2.getM_latitude();
+        Double real = a2.getLatitude();
         assertEquals(expected, real);
     }
 
     @Test
     void getM_longitude() {
         Double expected = 103121.01;
-        Double real = a2.getM_longitude();
+        Double real = a2.getLongitude();
         assertEquals(expected, real);
     }
 
     @Test
     void getM_streetName() {
         String expected = "No Street Name";
-        String real = a1.getM_streetName();
+        String real = a1.getStreetName();
         assertEquals(expected, real);
     }
 
     @Test
     void getM_doorNumber() {
         String expected = "No Door Number";
-        String real = a1.getM_doorNumber();
+        String real = a1.getDoorNumber();
         assertEquals(expected,real);
     }
 
     @Test
     void getM_postalCode() {
         String expected = "4444-111";
-        String real = a2.getM_postalCode();
+        String real = a2.getPostalCode();
         assertEquals(expected,real);
     }
 
     @Test
     void getM_locality() {
         String expected = "Ermesinde";
-        String real = a3.getM_locality();
+        String real = a3.getLocality();
         assertEquals(expected,real);
     }
 
     @Test
     void getM_country() {
         String expected = "Portugal";
-        String real = a3.getM_country();
+        String real = a3.getCountry();
         assertEquals(expected,real);
     }
 
     @Test
     void setM_id() {
-        a1.setM_id(2);
+        a1.setId(2);
         Integer expected = 2;
-        Integer real = a1.getM_id();
+        Integer real = a1.getId();
         assertEquals(expected,real);
     }
 
     @Test
     void setM_latitude() {
-        a1.setM_latitude(23232d);
+        a1.setLatitude(23232d);
         Double expected = 23232d;
-        Double real = a1.getM_latitude();
+        Double real = a1.getLatitude();
         assertEquals(expected,real);
 
     }
 
     @Test
     void setM_longitude() {
-        a1.setM_longitude(23232d);
+        a1.setLongitude(23232d);
         Double expected = 23232d;
-        Double real = a1.getM_longitude();
+        Double real = a1.getLongitude();
         assertEquals(expected,real);
     }
 
     @Test
     void setM_streetName() {
-        a1.setM_streetName("Test");
+        a1.setStreetName("Test");
         String expected = "Test";
-        String real = a1.getM_streetName();
+        String real = a1.getStreetName();
         assertEquals(expected,real);
     }
 
     @Test
     void setM_doorNumber() {
-        a1.setM_doorNumber("1esq");
+        a1.setDoorNumber("1esq");
         String expected = "1esq";
-        String real = a1.getM_doorNumber();
+        String real = a1.getDoorNumber();
         assertEquals(expected,real);
     }
 
     @Test
     void setM_postalCode() {
-        a1.setM_postalCode("4321-321");
+        a1.setPostalCode("4321-321");
         String expected = "4321-321";
-        String real = a1.getM_postalCode();
+        String real = a1.getPostalCode();
         assertEquals(expected,real);
     }
 
     @Test
     void setM_locality() {
-        a1.setM_locality("Localidade");
+        a1.setLocality("Localidade");
         String expected = "Localidade";
-        String real = a1.getM_locality();
+        String real = a1.getLocality();
         assertEquals(expected,real);
     }
 
     @Test
     void setM_country() {
-        a1.setM_country("Country");
+        a1.setCountry("Country");
         String expected = "Country";
-        String real = a1.getM_country();
+        String real = a1.getCountry();
         assertEquals(expected,real);
     }
 

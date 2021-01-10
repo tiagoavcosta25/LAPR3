@@ -22,10 +22,10 @@ class CourierTest {
     @Test
     void getM_id() {
         int expected = 1;
-        int result = c1.getM_id();
+        int result = c1.getId();
         assertEquals(expected,result);
         int expected3 = -1;
-        int result3 = c3.getM_id();
+        int result3 = c3.getId();
         assertEquals(expected3,result3);
     }
 
@@ -59,7 +59,7 @@ class CourierTest {
     void setM_id() {
         c1.setM_id(2);
         int expected = 2;
-        int result = c1.getM_id();
+        int result = c1.getId();
         assertEquals(expected,result);
     }
 
