@@ -29,7 +29,7 @@ public class RegisterCourierController {
     /**
      * Courier class instance
      */
-    private Courier oCourier;
+    public Courier oCourier;
     /**
      * Courier Management class
      */
