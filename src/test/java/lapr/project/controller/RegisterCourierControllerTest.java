@@ -3,6 +3,7 @@ package lapr.project.controller;
 import lapr.project.model.Courier;
 import lapr.project.model.PassGenerator;
 import lapr.project.model.Pharmacy;
+import lapr.project.model.Product;
 import lapr.project.model.registration.CourierRegistration;
 import lapr.project.model.registration.PharmacyRegistration;
 import lapr.project.model.registration.ProductRegistration;
@@ -26,6 +27,9 @@ class RegisterCourierControllerTest {
     @Mock
     private RegisterCourierController mockCourierRegistrationController;
 
+    @Mock
+    private CourierRegistration courierRegistration;
+
 
 
     private PassGenerator passGenerator;
@@ -38,23 +42,24 @@ class RegisterCourierControllerTest {
         this.RegisterCourierController = new RegisterCourierControllerTest();
         this.passGenerator = new PassGenerator();
         this.mockCourierRegistrationController = Mockito.mock(RegisterCourierController.class);
+        this.courierRegistration = Mockito.mock(CourierRegistration.class);
         initMocks(this);
     }
 
 
     @Test
-    void newCourier() throws NoSuchAlgorithmException {
+    void newCourier() {
         when(mockCourierRegistrationController.newCourier("testName","email@gmail.com",
                 123456789,"PT50123456789098765432123")).thenReturn(expectedTrue);
     }
 
     @Test
     void registersCourier() throws NoSuchAlgorithmException {
-        Pharmacy pharmacy = new Pharmacy();
-        mockCourierRegistrationController.oCourier = new Courier("testName","email@gmail.com","123",
-                123456789,"testIban",pharmacy);
-        boolean result = mockCourierRegistrationController.registersCourier();
-        assertEquals(expectedTrue,result);
+        System.out.println("registerProductToDB");
+        Courier c = new Courier("testName","email@gmail.com","123",123456789,"testIban",new Pharmacy());
+        when(courierRegistration.registersCourier(c)).thenReturn(expectedTrue);
+        boolean result = courierRegistration.registersCourier(c);
+        assertEquals(expectedTrue, result);
     }
 
     @Test
