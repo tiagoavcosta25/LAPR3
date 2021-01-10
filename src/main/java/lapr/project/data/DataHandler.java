@@ -333,7 +333,7 @@ public class DataHandler {
         return new Product(intID, strName, strDescription, fltUnitaryPrice, fltUnitaryWeight);
     }
 
-    protected Pharmacy pharamcyProductManager(ResultSet rSet, int firstColumn, Pharmacy oPharmacy) throws SQLException { // column number +6
+    protected Pharmacy pharmacyProductManager(ResultSet rSet, int firstColumn, Pharmacy oPharmacy) throws SQLException { // column number +6
 
         int intStock = rSet.getInt(firstColumn);
         firstColumn++;

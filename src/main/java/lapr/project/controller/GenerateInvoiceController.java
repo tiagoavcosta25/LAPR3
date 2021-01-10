@@ -4,9 +4,7 @@ import lapr.project.model.*;
 import lapr.project.model.registration.ClientRegistration;
 import lapr.project.model.registration.InvoiceRegistration;
 import lapr.project.model.registration.OrderRegistration;
-
 import java.sql.Date;
-import java.util.Map;
 
 public class GenerateInvoiceController {
     /**

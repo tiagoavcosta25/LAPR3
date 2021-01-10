@@ -5,7 +5,6 @@ import lapr.project.model.registration.ClientRegistration;
 import lapr.project.model.registration.OrderRegistration;
 import lapr.project.model.registration.PharmacyRegistration;
 import lapr.project.model.registration.ProductRegistration;
-
 import java.sql.Date;
 import java.util.List;
 import java.util.Map;
