@@ -114,7 +114,7 @@ public class Pharmacy {
 
     @Override
     public int hashCode() {
-        return Objects.hash(m_intId, m_strName, m_oPharmacyManager, m_oAddress, m_mapStock);
+        return Objects.hash(m_intId);
     }
 
     @Override
