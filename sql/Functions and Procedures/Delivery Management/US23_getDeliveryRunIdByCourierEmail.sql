@@ -12,7 +12,7 @@ BEGIN
         return deliveryRunId;
 EXCEPTION
     when deliveryRun_not_found then
-        raise_application_error(-20082, 'Order Not Found!');
+        raise_application_error(-20081, 'Delivery Run Not Found!');
         return null;
 
 END;

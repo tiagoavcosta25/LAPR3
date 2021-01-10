@@ -29,43 +29,10 @@ public class DeliveryRegistration extends DataHandler {
         return 0;
     }
 
-    public Pair<Address, Address> getStartingAndDeliveryAddressByOrder(int oOrderId) {
-        CallableStatement callStmt = null;
-        try {
-            callStmt = getConnection().prepareCall("{ ? = call getAddressesByDeliveryRunId(?) }");
-
-            callStmt.registerOutParameter(1, OracleTypes.CURSOR);
-            callStmt.setInt(2, oOrderId);
-
-            callStmt.execute();
-
-            ResultSet rSet = (ResultSet) callStmt.getObject(1);
-
-            if (rSet.next()) {
-                Address a1 = addressManager(rSet, 1);
-                Address a2 = addressManager(rSet, 9);
-                return new Pair<Address, Address>(a1, a2);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        throw new IllegalArgumentException("No Order with the following id:" + oOrderId);
-    }
-
     public float getDeliveryEnergy() {
         /* ||| IMPLEMENT METHOD ||| */
         return 0;
     }
-
-
-
-
-
-
-
-
-
-
 
 
     public boolean addPathToDB(Path p) {
@@ -117,8 +84,6 @@ public class DeliveryRegistration extends DataHandler {
     }
 
 
-
-
     public List<Address> getAllAddresses() {
         CallableStatement callStmt = null;
         List<Address> lstAddress = new ArrayList<>();
@@ -130,16 +95,7 @@ public class DeliveryRegistration extends DataHandler {
             ResultSet rSet = (ResultSet) callStmt.getObject(1);
 
             while (rSet.next()) {
-                int intId = rSet.getInt(1);
-                double dblLatitude = rSet.getDouble(2);
-                double dblLongitude = rSet.getDouble(3);
-                String strDoorNumber = rSet.getString(4);
-                String strStreetName = rSet.getString(5);
-                String strPostalCode = rSet.getString(6);
-                String strLocality = rSet.getString(7);
-                String strCountry = rSet.getString(8);
-                lstAddress.add(new Address(intId, dblLatitude, dblLongitude, strDoorNumber, strStreetName,
-                        strPostalCode, strLocality, strCountry));
+                lstAddress.add(addressManager(rSet, 1));
             }
             return lstAddress;
         } catch (SQLException e) {
@@ -148,10 +104,42 @@ public class DeliveryRegistration extends DataHandler {
         throw new IllegalArgumentException("No Addresses Avaliable.");
     }
 
+    public List<Address> getAddressesByDeliveryRunId(String email) {
+        CallableStatement callStmt = null;
+        try {
+            callStmt = getConnection().prepareCall("{ ? = call getDeliveryRunIdByCourierEmail(?) }");
 
+            callStmt.registerOutParameter(1, OracleTypes.NUMBER);
+            callStmt.setString(2, email);
 
+            callStmt.execute();
 
+            ResultSet rSet = (ResultSet) callStmt.getObject(1);
+            int delRunId = 0;
+            if (rSet.next()) {
+                delRunId = rSet.getInt(1);
+            }
+            callStmt = getConnection().prepareCall("{ ? = call getAddressesByDeliveryRunId(?) }");
 
+            callStmt.registerOutParameter(1, OracleTypes.CURSOR);
+            callStmt.setInt(2, delRunId);
+
+            callStmt.execute();
+
+            rSet = (ResultSet) callStmt.getObject(1);
+            List<Address> list = new ArrayList<>();
+            while (rSet.next()) {
+                Address a = addressManager(rSet, 1);
+                list.add(a);
+            }
+            return list;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        throw new IllegalArgumentException("No Addresses in the delivery run associated with the courier with the following email:" + email);
+
+    }
 
 
     public void createGraph() {
@@ -161,14 +149,14 @@ public class DeliveryRegistration extends DataHandler {
     private void createGraph(List<Address> addresses, List<Path> paths) {
         double dist = 0;
         Pair<Address, Address> pathAdd;
-        for(Address a : addresses) {
+        for (Address a : addresses) {
             m_graph.insertVertex(a);
         }
-        for(Path p : paths) {
+        for (Path p : paths) {
 
             pathAdd = getAddressesById(p.getIdAddressA(), p.getIdAddressB());
 
-            if(pathAdd != null) {
+            if (pathAdd != null) {
                 dist = pathAdd.getKey().distanceTo(pathAdd.getValue());
                 m_graph.insertEdge(pathAdd.getKey(), pathAdd.getValue(), "Distance", dist);
             }
@@ -179,14 +167,13 @@ public class DeliveryRegistration extends DataHandler {
     private Pair<Address, Address> getAddressesById(int intAddressAId, int intAddressBId) {
         Address origem = null;
         Address destino = null;
-        for(Address a : m_graph.vertices()) {
-            if(a.getM_id() == intAddressAId) {
+        for (Address a : m_graph.vertices()) {
+            if (a.getM_id() == intAddressAId) {
                 origem = a;
-            }
-            else if(a.getM_id() == intAddressBId) {
+            } else if (a.getM_id() == intAddressBId) {
                 destino = a;
             }
-            if(origem != null && destino != null)
+            if (origem != null && destino != null)
                 return new Pair<>(origem, destino);
         }
         return null;
@@ -194,12 +181,12 @@ public class DeliveryRegistration extends DataHandler {
 
     public Pair<LinkedList<Address>, Double> calculateMostEfficientPath(Address startAddress, Address endAddress, List<Address> deliveryPoints) {
         List<LinkedList<Address>> permutations = calculatePermutations(deliveryPoints);
-        List<Pair<LinkedList<Address>, Double>> lst = calculatePermutationPaths(startAddress,endAddress,permutations);
+        List<Pair<LinkedList<Address>, Double>> lst = calculatePermutationPaths(startAddress, endAddress, permutations);
 
         Double minimumWeight = Double.MAX_VALUE;
-        Pair<LinkedList<Address>, Double> result = new Pair<LinkedList<Address>, Double>(null,0d);
+        Pair<LinkedList<Address>, Double> result = new Pair<LinkedList<Address>, Double>(null, 0d);
 
-        for (Pair<LinkedList<Address>,Double> pair : lst) {
+        for (Pair<LinkedList<Address>, Double> pair : lst) {
             if (pair.getValue() < minimumWeight) {
                 minimumWeight = pair.getValue();
                 result = pair;
@@ -212,15 +199,15 @@ public class DeliveryRegistration extends DataHandler {
                                                                              List<LinkedList<Address>> permutations) {    //O(k^2*V^2)
         List<Pair<LinkedList<Address>, Double>> listOfPaths = new LinkedList<>();
         Address start = a1, finish = a2;
-        for(LinkedList<Address> list : permutations) {                                                                   //O(k^2*V^2)
+        for (LinkedList<Address> list : permutations) {                                                                   //O(k^2*V^2)
             list.addFirst(start);
             list.addLast(finish);
             LinkedList<Address> permutationPath = new LinkedList<>();
             Double totalCost = 0.0;
-            for(int i = 0; i < list.size() - 1; i++) {                                                                  //O(k*V^2)
+            for (int i = 0; i < list.size() - 1; i++) {                                                                  //O(k*V^2)
                 LinkedList<Address> tempPath = new LinkedList<>();
-                totalCost += GraphAlgorithms.shortestPath(m_graph, list.get(i), list.get(i+1), tempPath);   //O(V^2)
-                if(tempPath.size() == 0)
+                totalCost += GraphAlgorithms.shortestPath(m_graph, list.get(i), list.get(i + 1), tempPath);   //O(V^2)
+                if (tempPath.size() == 0)
                     return new LinkedList<>();
                 tempPath.removeLast();
                 permutationPath.addAll(tempPath);
@@ -241,7 +228,7 @@ public class DeliveryRegistration extends DataHandler {
         List<LinkedList<Address>> returnValue = new ArrayList<>();
         List<LinkedList<Address>> permutations = calculatePermutations(original);
         for (List<Address> smallerPermutated : permutations) {
-            for (int index=0; index <= smallerPermutated.size(); index++) {
+            for (int index = 0; index <= smallerPermutated.size(); index++) {
                 LinkedList<Address> temp = new LinkedList<>(smallerPermutated);
                 temp.add(index, firstElement);
                 returnValue.add(temp);

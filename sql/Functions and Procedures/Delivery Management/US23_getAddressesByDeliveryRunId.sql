@@ -32,7 +32,7 @@ BEGIN
     return cur;
 EXCEPTION
     when addresses_not_found then
-        raise_application_error(-20082, 'Order Not Found!');
+        raise_application_error(-20085, 'Addresses Not Found!');
         return null;
 
 END;
