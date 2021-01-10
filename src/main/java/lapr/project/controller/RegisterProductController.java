@@ -11,7 +11,7 @@ public class RegisterProductController {
 
     private final ApplicationPOT app;
     private final Platform plat;
-    private final ProductRegistration pr;
+    private ProductRegistration pr;
 
     public RegisterProductController() {
         this.app = ApplicationPOT.getInstance();
