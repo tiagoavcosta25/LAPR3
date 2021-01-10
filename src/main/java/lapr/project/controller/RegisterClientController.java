@@ -1,5 +1,6 @@
 package lapr.project.controller;
 
+import lapr.project.model.Client;
 import lapr.project.model.Platform;
 import lapr.project.model.registration.ClientRegistration;
 import java.text.SimpleDateFormat;
@@ -7,6 +8,13 @@ import java.util.Date;
 
 public class RegisterClientController {
 
+    private ClientRegistration clientReg;
+
+    public RegisterClientController() {
+        ApplicationPOT app = ApplicationPOT.getInstance();
+        Platform plat = app.getPlatform();
+        clientReg = plat.getClientReg();
+    }
 
     /**
      * Registers a new Client in the Database
@@ -35,11 +43,9 @@ public class RegisterClientController {
 
             if (validateInput(name, nif, email, password, latitude, longitude, streetName, doorNumber, postalCode, locality, country,
                     creditCardNr, vDate, CCV)) {
-                ApplicationPOT app = ApplicationPOT.getInstance();
-                Platform plat = app.getPlatform();
-                ClientRegistration clientReg = plat.getClientReg();
-                return clientReg.registerNewClient(name, nif, email, password, latitude, longitude, streetName, doorNumber, postalCode, locality, country,
+                Client c = new Client(name, nif, email, password, latitude, longitude, streetName, doorNumber, postalCode, locality, country,
                         creditCardNr, vDate, CCV);
+                return clientReg.registerNewClient(c);
             }
         } catch (Exception e) {
             System.out.println("There has been an error regarding FORMATTING!");

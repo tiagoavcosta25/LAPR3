@@ -10,7 +10,6 @@ import java.security.NoSuchAlgorithmException;
 import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Date;
 
 public class ClientRegistration extends DataHandler {
 
@@ -22,28 +21,11 @@ public class ClientRegistration extends DataHandler {
     /**
      * Registers a new Client in the Database
      *
-     * @param name         Client's name
-     * @param email        Client's email
-     * @param password     Client's password
-     * @param latitude     Client's latitude
-     * @param longitude    Client's longitude
-     * @param streetName   Client's street name
-     * @param doorNumber   Client's door number
-     * @param postalCode   Client's postal code
-     * @param locality     Client's locality
-     * @param country      Client's country
-     * @param creditCardNr Client's credit card number
-     * @param validityDate Client's credit card's validity date
-     * @param CCV          Client's credit card's CCV
+     * @param c Client
      * @return True if Client was registered, false if otherwise
      */
-    public boolean registerNewClient(String name, Integer nif, String email, String password, Double latitude, Double longitude, String streetName,
-                                     String doorNumber, String postalCode, String locality, String country, long creditCardNr,
-                                     Date validityDate, Integer CCV) throws NoSuchAlgorithmException {
-        Client client = new Client(name, nif, email, password, latitude, longitude, streetName, doorNumber, postalCode, locality, country,
-                creditCardNr, validityDate, CCV);
-        return addClientToDB(client);
-
+    public boolean registerNewClient(Client c) {
+        return addClientToDB(c);
     }
 
     /**
