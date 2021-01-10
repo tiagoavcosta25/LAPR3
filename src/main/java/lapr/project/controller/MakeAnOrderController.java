@@ -69,7 +69,6 @@ public class MakeAnOrderController {
         this.m_oProductRegistration = m_oPlatform.getProductReg();
         this.m_oOrderRegistration = m_oPlatform.getOrderReg();
         this.m_oClientRegistration = m_oPlatform.getClientReg();
-        this.m_oClient = m_oClientRegistration.getClientByEmail(ApplicationPOT.getInstance().getCurrentSession().getCurrentUserEmail());
     }
 
     /**
@@ -78,6 +77,7 @@ public class MakeAnOrderController {
     public Order newOrder(String strDescription, Double latitude, Double longitude, String streetName,
                          String doorNumber, String postalCode, String locality, String country) {
         try {
+            this.m_oClient = m_oClientRegistration.getClientByEmail(ApplicationPOT.getInstance().getCurrentSession().getCurrentUserEmail());
             this.m_oOrder = m_oOrderRegistration.newOrder(strDescription, m_oClient, latitude, longitude,
                     streetName, doorNumber, postalCode, locality, country, m_oPharmacy, this.m_mapProducts);
             return this.m_oOrder;
