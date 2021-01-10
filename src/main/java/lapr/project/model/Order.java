@@ -41,6 +41,8 @@ public class Order {
         this.m_oAddress = oAddress;
         this.m_oPharmacy = oPharmacy;
         this.m_mapProducts = mapProducts;
+
+        this.m_oClient.addCredits((int)(fltAmount + fltAdditionalFee) * 100);
     }
 
     public Order(float fltAmount, float fltTotalWeight, float fltAdditionalFee, Date dtOrderDate, String strDescription,

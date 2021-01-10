@@ -1,6 +1,6 @@
 create or replace function addOrder(p_amount "Order".AMOUNT%type, p_totalWeight "Order".TOTALWEIGHT%type, p_additionalFee "Order".ADDITIONALFEE%type,
                                      p_description "Order".DESCRIPTION%type, p_date "Order".ORDERDATE%type,
-                                     p_clientId Client.USERID%type, p_latitude ADDRESS.LATITUDE%type, p_longitude ADDRESS.LONGITUDE%type,
+                                     p_clientId Client.USERID%type, p_credits Client.CREDITS%type, p_latitude ADDRESS.LATITUDE%type, p_longitude ADDRESS.LONGITUDE%type,
                                      p_streetName ADDRESS.STREETNAME%type, p_doorNumber ADDRESS.DOORNUMBER%type, p_postalCode ADDRESS.POSTALCODE%type,
                                      p_locality ADDRESS.LOCALITY%type, p_country ADDRESS.COUNTRY%type, p_pharmacyId PHARMACY.ID%type)
     return number is
@@ -20,6 +20,10 @@ begin
     if v_checkClientId is null then
         raise client_not_found;
     end if;
+
+    update CLIENT
+    set CREDITS = p_credits
+    where USERID = p_clientId;
 
     select ID
     into v_checkPharmacyId
