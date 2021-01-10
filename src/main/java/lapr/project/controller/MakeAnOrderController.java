@@ -8,6 +8,7 @@ import lapr.project.model.registration.ProductRegistration;
 import java.sql.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 public class MakeAnOrderController {
     /**
@@ -47,10 +48,26 @@ public class MakeAnOrderController {
      * Pharmacy Management class
      */
     private PharmacyRegistration m_oPharmacyRegistration;
+
     /**
      * Order's Pharmacy
      */
     private Pharmacy m_oPharmacy;
+
+    /**
+     * Order's Default Status
+     */
+    private static String DEFAULT_STATUS = "ordered";
+
+    /**
+     * Order's Defualt Delivery Fee
+     */
+    private static Float DEFAULT_DELIVERY_FEE = 5f;
+
+    /**
+     * Order's Product Map
+     */
+    private Map<Product, Integer> m_mapProducts = new TreeMap<>();
 
 
     /**
@@ -65,12 +82,29 @@ public class MakeAnOrderController {
         this.m_oClient = m_oClientRegistration.getClientByEmail(ApplicationPOT.getInstance().getCurrentSession().getCurrentUserEmail());
     }
 
-    public void newOrder(float fltAmount, float fltTotalWeight, float fltAdditionalFee, Date dtOrderDate,
-                         String strDescription, String strStatus, Double latitude, Double longitude, String streetName,
-                         String doorNumber, String postalCode, String locality, String country, Map<Product, Integer> mapProducts) {
+    /**
+     * The method creates a new order.
+     */
+    public void newOrder(float fltAdditionalFee, Date dtOrderDate,
+                         String strDescription, Double latitude, Double longitude, String streetName,
+                         String doorNumber, String postalCode, String locality, String country) {
         try {
-            this.m_oOrder = m_oOrderRegistration.newOrder(fltAmount, fltTotalWeight, fltAdditionalFee, dtOrderDate,
-                    strDescription, strStatus, m_oClient, latitude, longitude, streetName, doorNumber, postalCode, locality, country, m_oPharmacy, mapProducts);
+            this.m_oOrder = m_oOrderRegistration.newOrder(fltAdditionalFee, dtOrderDate, strDescription, DEFAULT_STATUS,
+                    m_oClient, latitude, longitude, streetName, doorNumber, postalCode, locality, country, m_oPharmacy, this.m_mapProducts);
+        } catch (RuntimeException ex) {
+            this.m_oOrder = null;
+        }
+    }
+
+    /**
+     * The method creates a new order.
+     */
+    public void newOrder(float fltAdditionalFee, Date dtOrderDate,
+                         String strDescription, Double latitude, Double longitude, String streetName,
+                         String doorNumber, String postalCode, String locality, String country) {
+        try {
+            this.m_oOrder = m_oOrderRegistration.newOrder(fltAdditionalFee, dtOrderDate, strDescription, DEFAULT_STATUS,
+                    m_oClient, latitude, longitude, streetName, doorNumber, postalCode, locality, country, m_oPharmacy, this.m_mapProducts);
         } catch (RuntimeException ex) {
             this.m_oOrder = null;
         }
@@ -101,5 +135,12 @@ public class MakeAnOrderController {
             ex.printStackTrace();
             return null;
         }
+    }
+
+    /**
+     * The method adds a product to the map and its quantity.
+     */
+    public void addProductToOrder(Product oProduct, Integer intQuantity) {
+        m_mapProducts.put(oProduct, intQuantity);
     }
 }
