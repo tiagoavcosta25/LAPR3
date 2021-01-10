@@ -2,7 +2,7 @@ package lapr.project.model;
 
 import java.util.Objects;
 
-public class Product {
+public class Product implements Comparable {
     private int m_intId;
     private String m_strName;
     private String m_strDescription;
@@ -80,6 +80,11 @@ public class Product {
         this.m_fltUnitaryWeight = m_fltUnitaryWeight;
     }
 
+    @Override
+    public int compareTo(Object o) {
+        Product p = (Product) o;
+        return this.getId() - p.getId();
+    }
 
     @Override
     public boolean equals(Object o) {

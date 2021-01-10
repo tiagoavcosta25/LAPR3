@@ -234,7 +234,7 @@ public class Order {
     }
 
     public boolean isDelivery() {
-        if(this.m_oAddress == null){
+        if(this.m_oAddress.equals(new Address())){
             return false;
         }
         return true;
