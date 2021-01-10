@@ -2,6 +2,8 @@ package lapr.project.model.registration;
 
 import javafx.util.Pair;
 import lapr.project.data.DataHandler;
+import lapr.project.graph.map.Graph;
+import lapr.project.graph.map.GraphAlgorithms;
 import lapr.project.model.Address;
 import lapr.project.model.Path;
 import oracle.jdbc.OracleTypes;
@@ -10,13 +12,19 @@ import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class DeliveryRegistration extends DataHandler {
+
+    private Graph<Address, String> m_graph;
+
     public DeliveryRegistration(String jdbcUrl, String username, String password) {
         super(jdbcUrl, username, password);
+        m_graph = new Graph<>(true);
     }
 
+    //lol
     public double getShortestPath(Pair<Address, Address> oPairAddress) {
         return 0;
     }
@@ -24,7 +32,7 @@ public class DeliveryRegistration extends DataHandler {
     public Pair<Address, Address> getStartingAndDeliveryAddressByOrder(int oOrderId) {
         CallableStatement callStmt = null;
         try {
-            callStmt = getConnection().prepareCall("{ ? = call getStartingAndDeliveryAddressByOrderId(?) }");
+            callStmt = getConnection().prepareCall("{ ? = call getAddressesByDeliveryRunId(?) }");
 
             callStmt.registerOutParameter(1, OracleTypes.CURSOR);
             callStmt.setInt(2, oOrderId);
@@ -138,5 +146,112 @@ public class DeliveryRegistration extends DataHandler {
             e.printStackTrace();
         }
         throw new IllegalArgumentException("No Addresses Avaliable.");
+    }
+
+
+
+
+
+
+
+    public void createGraph() {
+        createGraph(getAllAddresses(), getAllPaths());
+    }
+
+    private void createGraph(List<Address> addresses, List<Path> paths) {
+        double dist = 0;
+        Pair<Address, Address> pathAdd;
+        for(Address a : addresses) {
+            m_graph.insertVertex(a);
+        }
+        for(Path p : paths) {
+
+            pathAdd = getAddressesById(p.getIdAddressA(), p.getIdAddressB());
+
+            if(pathAdd != null) {
+                dist = pathAdd.getKey().distanceTo(pathAdd.getValue());
+                m_graph.insertEdge(pathAdd.getKey(), pathAdd.getValue(), "Distance", dist);
+            }
+        }
+
+    }
+
+    private Pair<Address, Address> getAddressesById(int intAddressAId, int intAddressBId) {
+        Address origem = null;
+        Address destino = null;
+        for(Address a : m_graph.vertices()) {
+            if(a.getM_id() == intAddressAId) {
+                origem = a;
+            }
+            else if(a.getM_id() == intAddressBId) {
+                destino = a;
+            }
+            if(origem != null && destino != null)
+                return new Pair<>(origem, destino);
+        }
+        return null;
+    }
+
+    public Pair<LinkedList<Address>, Double> calculateMostEfficientPath(Address startAddress, Address endAddress, List<Address> deliveryPoints) {
+        List<LinkedList<Address>> permutations = calculatePermutations(deliveryPoints);
+        List<Pair<LinkedList<Address>, Double>> lst = calculatePermutationPaths(startAddress,endAddress,permutations);
+
+        Double minimumWeight = Double.MAX_VALUE;
+        Pair<LinkedList<Address>, Double> result = new Pair<LinkedList<Address>, Double>(null,0d);
+
+        for (Pair<LinkedList<Address>,Double> pair : lst) {
+            if (pair.getValue() < minimumWeight) {
+                minimumWeight = pair.getValue();
+                result = pair;
+            }
+        }
+        return result;
+    }
+
+    public List<Pair<LinkedList<Address>, Double>> calculatePermutationPaths(Address a1, Address a2,
+                                                                             List<LinkedList<Address>> permutations) {    //O(k^2*V^2)
+        List<Pair<LinkedList<Address>, Double>> listOfPaths = new LinkedList<>();
+        Address start = a1, finish = a2;
+        for(LinkedList<Address> list : permutations) {                                                                   //O(k^2*V^2)
+            list.addFirst(start);
+            list.addLast(finish);
+            LinkedList<Address> permutationPath = new LinkedList<>();
+            Double totalCost = 0.0;
+            for(int i = 0; i < list.size() - 1; i++) {                                                                  //O(k*V^2)
+                LinkedList<Address> tempPath = new LinkedList<>();
+                totalCost += GraphAlgorithms.shortestPath(m_graph, list.get(i), list.get(i+1), tempPath);   //O(V^2)
+                if(tempPath.size() == 0)
+                    return new LinkedList<>();
+                tempPath.removeLast();
+                permutationPath.addAll(tempPath);
+            }
+            permutationPath.add(finish);
+            listOfPaths.add(new Pair<>(permutationPath, totalCost));
+        }
+        return listOfPaths;
+    }
+
+    public List<LinkedList<Address>> calculatePermutations(List<Address> original) {                                               //O(n!)
+        if (original.isEmpty()) {
+            List<LinkedList<Address>> result = new ArrayList<>();
+            result.add(new LinkedList<>());
+            return result;
+        }
+        Address firstElement = original.remove(0);
+        List<LinkedList<Address>> returnValue = new ArrayList<>();
+        List<LinkedList<Address>> permutations = calculatePermutations(original);
+        for (List<Address> smallerPermutated : permutations) {
+            for (int index=0; index <= smallerPermutated.size(); index++) {
+                LinkedList<Address> temp = new LinkedList<>(smallerPermutated);
+                temp.add(index, firstElement);
+                returnValue.add(temp);
+            }
+        }
+        return returnValue;
+    }
+
+
+    public Graph<Address, String> getM_graph() {
+        return m_graph;
     }
 }

@@ -14,5 +14,9 @@ public class TempUI {
 
         List<Address> list2 = dr.getAllAddresses();
         for(Address a : list2) System.out.println(a.getM_streetName());
+
+
+        dr.createGraph();
+        System.out.println(dr.getM_graph().toString());
     }
 }
