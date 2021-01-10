@@ -246,4 +246,11 @@ public class DeliveryRegistration extends DataHandler {
     }
 
 
+
+
+
+    //TO IMPLEMENT
+    public float getMaxPayload(String email) {
+        return 0f;
+    }
 }
