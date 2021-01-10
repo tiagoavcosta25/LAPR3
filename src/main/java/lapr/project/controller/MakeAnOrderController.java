@@ -8,6 +8,7 @@ import lapr.project.model.registration.ProductRegistration;
 import java.sql.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 public class MakeAnOrderController {
     /**
@@ -47,10 +48,16 @@ public class MakeAnOrderController {
      * Pharmacy Management class
      */
     private PharmacyRegistration m_oPharmacyRegistration;
+
     /**
      * Order's Pharmacy
      */
     private Pharmacy m_oPharmacy;
+
+    /**
+     * Order's Product Map
+     */
+    private Map<Product, Integer> m_mapProducts = new TreeMap<>();
 
 
     /**
@@ -65,22 +72,46 @@ public class MakeAnOrderController {
         this.m_oClient = m_oClientRegistration.getClientByEmail(ApplicationPOT.getInstance().getCurrentSession().getCurrentUserEmail());
     }
 
-    public void newOrder(float fltAmount, float fltTotalWeight, float fltAdditionalFee, Date dtOrderDate,
-                         String strDescription, String strStatus, Double latitude, Double longitude, String streetName,
-                         String doorNumber, String postalCode, String locality, String country, Map<Product, Integer> mapProducts) {
+    /**
+     * The method creates a new order for a delivery to an address.
+     */
+    public Order newOrder(String strDescription, Double latitude, Double longitude, String streetName,
+                         String doorNumber, String postalCode, String locality, String country) {
         try {
-            this.m_oOrder = m_oOrderRegistration.newOrder(fltAmount, fltTotalWeight, fltAdditionalFee, dtOrderDate,
-                    strDescription, strStatus, m_oClient, latitude, longitude, streetName, doorNumber, postalCode, locality, country, m_oPharmacy, mapProducts);
+            this.m_oOrder = m_oOrderRegistration.newOrder(strDescription, m_oClient, latitude, longitude,
+                    streetName, doorNumber, postalCode, locality, country, m_oPharmacy, this.m_mapProducts);
+            return this.m_oOrder;
         } catch (RuntimeException ex) {
             this.m_oOrder = null;
+            return null;
+        }
+    }
+
+    /**
+     * The method creates a new order for a delivery to the client's address or a .
+     */
+    public Order newOrder(String strDescription, Boolean blIsHomeDelivery) {
+        try {
+            if(blIsHomeDelivery){
+                Address oAddress = m_oClient.getM_address();
+                this.m_oOrder = m_oOrderRegistration.newOrder(strDescription, m_oClient, oAddress.getM_latitude(),
+                        oAddress.getM_longitude(), oAddress.getM_streetName(), oAddress.getM_doorNumber(), oAddress.getM_postalCode(),
+                        oAddress.getM_locality(), oAddress.getM_country(), m_oPharmacy, this.m_mapProducts);
+            } else{
+                this.m_oOrder = m_oOrderRegistration.newOrder(strDescription, m_oClient, m_oPharmacy, this.m_mapProducts);
+            }
+            return this.m_oOrder;
+        } catch (RuntimeException ex) {
+            this.m_oOrder = null;
+            return null;
         }
     }
 
     /**
      * The method registers an order to the database.
      */
-    public void registerOrder() {
-        this.m_oOrderRegistration.registerOrder(m_oOrder);
+    public boolean registerOrder() {
+        return this.m_oOrderRegistration.registerOrder(m_oOrder);
     }
 
     /**
@@ -101,5 +132,12 @@ public class MakeAnOrderController {
             ex.printStackTrace();
             return null;
         }
+    }
+
+    /**
+     * The method adds a product to the map and its quantity.
+     */
+    public void addProductToOrder(Product oProduct, Integer intQuantity) {
+        m_mapProducts.put(oProduct, intQuantity);
     }
 }

@@ -74,6 +74,8 @@ public class Scooter {
         this.m_intId = intId;
     }
 
+    public boolean hasId(Integer intId) {return this.getId() == intId;}
+
     public float getBatteryPerc() {
         return m_fltBatteryPerc;
     }

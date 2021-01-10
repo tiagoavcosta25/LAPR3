@@ -67,9 +67,9 @@ public class RemoveScooterController {
         }
     }
 
-    public void removeScooter(int intScooterId){
+    public boolean removeScooter(int intScooterId){
         this.m_oScooterRegistration = m_oPlatform.getScooterReg();
-        m_oScooterRegistration.removeScooterFromDB(intScooterId);
+        return m_oScooterRegistration.removeScooterFromDB(intScooterId);
     }
 
 }

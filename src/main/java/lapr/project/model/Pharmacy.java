@@ -66,6 +66,8 @@ public class Pharmacy {
         this.m_intId = intId;
     }
 
+    public boolean hasId(Integer intId) {return this.getId() == intId;}
+
     public String getName() {
         return m_strName;
     }
