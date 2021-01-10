@@ -62,12 +62,12 @@ public class DataHandler {
     /**
      * Additional Number of columns added when executing the pharmacyManagerManager method.
      */
-    private static int COLUMNS_ADDED_PHARMACY_MANAGER = 8;
+    private static int COLUMNS_ADDED_PHARMACY_MANAGER = 5;
 
     /**
      * Additional Number of columns added when executing the clientManager method.
      */
-    private static int COLUMNS_ADDED_CLIENT = 16;
+    private static int COLUMNS_ADDED_CLIENT = 17;
 
     /**
      * Additional Number of columns added when executing the orderManager method.
@@ -221,10 +221,11 @@ public class DataHandler {
     protected CreditCard creditCardManager(ResultSet rSet, int firstColumn) throws SQLException { // column number +3
         long dblCreditCardNr = rSet.getLong(firstColumn);
         firstColumn++;
-        Date dtValidatyDate = rSet.getDate(firstColumn);
+        java.sql.Date sqlStartDate = rSet.getDate(firstColumn);
+        java.util.Date utilStartDate = new java.util.Date(sqlStartDate.getTime());
         firstColumn++;
         Integer strCCV = rSet.getInt(firstColumn);
-        return new CreditCard(dblCreditCardNr,dtValidatyDate,strCCV);
+        return new CreditCard(dblCreditCardNr, utilStartDate, strCCV);
     }
 
     protected Pharmacy pharmacyManager(ResultSet rSet, int firstColumn) throws SQLException, NoSuchAlgorithmException { // column number +15
@@ -255,7 +256,7 @@ public class DataHandler {
         return new PharmacyManager(id, emailManager, password, nif, name);
     }
 
-    protected Client clientManager(ResultSet rSet, int firstColumn) throws SQLException { // column number +8
+    protected Client clientManager(ResultSet rSet, int firstColumn) throws SQLException { // column number +17
 
         int intId = rSet.getInt(firstColumn);
         firstColumn++;
@@ -292,10 +293,10 @@ public class DataHandler {
         firstColumn++;
         float fltAdditionalFee = rSet.getFloat(firstColumn);
         firstColumn++;
-        Client oClient = clientManager(rSet, firstColumn);
-        firstColumn+= COLUMNS_ADDED_CLIENT;
         Address oAddress = addressManager(rSet, firstColumn);
         firstColumn+= COLUMNS_ADDED_ADDRESS;
+        Client oClient = clientManager(rSet, firstColumn);
+        firstColumn+= COLUMNS_ADDED_CLIENT;
         Pharmacy oPharmacy = pharmacyManager(rSet, firstColumn);
 
 
