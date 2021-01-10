@@ -24,12 +24,10 @@ class RegisterCourierControllerTest {
     @Mock
     private RegisterCourierController mockCourierRegistrationController;
 
+    private RegisterCourierController courierRegistrationController;
+
     @Mock
     private CourierRegistration courierRegistration;
-
-
-
-    private PassGenerator passGenerator;
 
     private boolean expectedTrue;
 
@@ -37,9 +35,9 @@ class RegisterCourierControllerTest {
     void setUp() {
         this.expectedTrue = true;
         this.RegisterCourierController = new RegisterCourierControllerTest();
-        this.passGenerator = new PassGenerator();
         this.mockCourierRegistrationController = Mockito.mock(RegisterCourierController.class);
         this.courierRegistration = Mockito.mock(CourierRegistration.class);
+        this.courierRegistrationController = new RegisterCourierController();
         initMocks(this);
     }
 
@@ -48,11 +46,13 @@ class RegisterCourierControllerTest {
     void newCourier() {
         when(mockCourierRegistrationController.newCourier("testName","email@gmail.com",
                 123456789,"PT50123456789098765432123")).thenReturn(expectedTrue);
+        boolean result = mockCourierRegistrationController.newCourier("testName","email@gmail.com",
+                123456789,"PT50123456789098765432123");
+        assertEquals(expectedTrue, result);
     }
 
     @Test
     void registersCourier() throws NoSuchAlgorithmException {
-        System.out.println("registerProductToDB");
         Courier c = new Courier("testName","email@gmail.com","123",123456789,"testIban",new Pharmacy());
         when(courierRegistration.registersCourier(c)).thenReturn(expectedTrue);
         boolean result = courierRegistration.registersCourier(c);
@@ -61,8 +61,7 @@ class RegisterCourierControllerTest {
 
     @Test
     void validateInput() {
-        boolean real = mockCourierRegistrationController.validateInput("testName","email@gmail.com",
-                123456789,"PT50123456789098765432123");
+        boolean real = courierRegistrationController.validateInput("Ernesto","ernesto@gmail.com",250161761,"PT98003506514853185258910");
         assertEquals(expectedTrue,real);
     }
 }
