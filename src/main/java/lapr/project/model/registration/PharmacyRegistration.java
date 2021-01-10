@@ -6,13 +6,10 @@ import oracle.jdbc.OracleTypes;
 
 import java.security.NoSuchAlgorithmException;
 import java.sql.CallableStatement;
-import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
 
 public class PharmacyRegistration extends DataHandler {
 
@@ -46,7 +43,7 @@ public class PharmacyRegistration extends DataHandler {
                 ResultSet rSetProducts = (ResultSet) callStmt.getObject(1);
 
                 while (rSet.next()){
-                    oPharmacy = pharamcyProductManager(rSetProducts, 1, oPharmacy);
+                    oPharmacy = pharmacyProductManager(rSetProducts, 1, oPharmacy);
                 }
                 return oPharmacy;
             }
@@ -147,7 +144,7 @@ public class PharmacyRegistration extends DataHandler {
                 ResultSet rSetProducts = (ResultSet) callStmt.getObject(1);
 
                 while (rSet.next()){
-                    oPharmacy = pharamcyProductManager(rSetProducts, 1, oPharmacy);
+                    oPharmacy = pharmacyProductManager(rSetProducts, 1, oPharmacy);
                 }
 
                 lstPharmacies.add(oPharmacy);
@@ -183,7 +180,7 @@ public class PharmacyRegistration extends DataHandler {
                 ResultSet rSetProducts = (ResultSet) callStmt.getObject(1);
 
                 while (rSet.next()){
-                    oPharmacy = pharamcyProductManager(rSetProducts, 1, oPharmacy);
+                    oPharmacy = pharmacyProductManager(rSetProducts, 1, oPharmacy);
                 }
                 return oPharmacy;
             }
