@@ -42,7 +42,6 @@ public class UserRegistration extends DataHandler {
             callStmt.execute();
 
             Integer role = callStmt.getInt(1);
-            System.out.println(role);
 
             if (role != -1) {
                 new UserSession(email,role);

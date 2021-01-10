@@ -1,6 +1,5 @@
 package lapr.project.controller;
 
-import lapr.project.data.DataHandler;
 import org.junit.jupiter.api.Test;
 
 import java.text.ParseException;
@@ -92,7 +91,6 @@ class RegisterClientControllerTest {
                 123);
 
         assertFalse(real4);
-
 
     }
 }

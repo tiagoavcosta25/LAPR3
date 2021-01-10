@@ -34,6 +34,10 @@ public class DeliveryRegistration extends DataHandler {
         return 0;
     }
 
+    public Graph<Address, String> getM_graph() {
+        return m_graph;
+    }
+
 
     public boolean addPathToDB(Path p) {
         return addPathToDB(p.getIdAddressA(), p.getIdAddressB(), p.getName());
@@ -142,6 +146,10 @@ public class DeliveryRegistration extends DataHandler {
     }
 
 
+    /**
+     * CREATE GRAPH
+     *
+     */
     public void createGraph() {
         createGraph(getAllAddresses(), getAllPaths());
     }
@@ -179,6 +187,10 @@ public class DeliveryRegistration extends DataHandler {
         return null;
     }
 
+    /**
+     * CALCULATE MOST EFFICIENT PATH/SHORTEST PATH
+     *
+     */
     public Pair<LinkedList<Address>, Double> calculateMostEfficientPath(Address startAddress, Address endAddress, List<Address> deliveryPoints) {
         List<LinkedList<Address>> permutations = calculatePermutations(deliveryPoints);
         List<Pair<LinkedList<Address>, Double>> lst = calculatePermutationPaths(startAddress, endAddress, permutations);
@@ -238,7 +250,4 @@ public class DeliveryRegistration extends DataHandler {
     }
 
 
-    public Graph<Address, String> getM_graph() {
-        return m_graph;
-    }
 }
