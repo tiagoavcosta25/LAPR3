@@ -6,7 +6,6 @@ import lapr.project.graph.map.Graph;
 import lapr.project.graph.map.GraphAlgorithms;
 import lapr.project.model.Address;
 import lapr.project.model.Path;
-import lapr.project.model.Scooter;
 import oracle.jdbc.OracleTypes;
 
 import java.sql.CallableStatement;
@@ -173,9 +172,9 @@ public class DeliveryRegistration extends DataHandler {
         Address origem = null;
         Address destino = null;
         for (Address a : m_graph.vertices()) {
-            if (a.getM_id() == intAddressAId) {
+            if (a.getId() == intAddressAId) {
                 origem = a;
-            } else if (a.getM_id() == intAddressBId) {
+            } else if (a.getId() == intAddressBId) {
                 destino = a;
             }
             if (origem != null && destino != null)
@@ -245,12 +244,29 @@ public class DeliveryRegistration extends DataHandler {
         return returnValue;
     }
 
-
-
-
-
     //TO IMPLEMENT
     public float getMaxPayload(String email) {
-        return 0f;
+        CallableStatement callStmt = null;
+        try {
+            callStmt = getConnection().prepareCall("{ ? = call getMaxPayload(?) }");
+
+            callStmt.registerOutParameter(1, OracleTypes.FLOAT);
+            callStmt.setString(2, email);
+
+            callStmt.execute();
+
+            ResultSet rSet = (ResultSet) callStmt.getObject(1);
+            float maxPayload = 0;
+            if (rSet.next()) {
+                maxPayload= rSet.getFloat(1);
+            }
+
+            return maxPayload;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        throw new IllegalArgumentException("No payload found for the DR with the courier with the following email:" + email);
+
     }
 }

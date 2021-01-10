@@ -233,8 +233,8 @@ public class Order {
         this.m_mapProducts = mapProducts;
     }
 
-    public boolean isDevlivery() {
-        if(this.m_oAddress == null){
+    public boolean isDelivery() {
+        if(this.m_oAddress.equals(new Address())){
             return false;
         }
         return true;
@@ -277,7 +277,7 @@ public class Order {
 
     @Override
     public int hashCode() {
-        return Objects.hash(m_intId, m_fltAmount, m_fltTotalWeight, m_fltAdditionalFee, m_dtOrderDate, m_strDescription, m_strStatus, m_oClient, m_oAddress, m_oPharmacy, m_mapProducts);
+        return Objects.hash(m_intId);
     }
 
     @Override

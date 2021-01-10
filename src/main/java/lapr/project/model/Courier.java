@@ -19,8 +19,8 @@ public class Courier extends User {
     public Courier(int intId, String strName, String strEmail, String strPassword,Integer strNif,String strIban, Pharmacy oPharmacy) throws NoSuchAlgorithmException {
         super(strEmail,strPassword,strNif,strName);
         this.setM_id(intId);
-        this.setM_name(strName);
-        this.setM_nif(strNif);
+        this.setName(strName);
+        this.setNif(strNif);
         this.setM_iban(strIban);
         this.setM_Pharmacy(oPharmacy);
     }
@@ -28,13 +28,13 @@ public class Courier extends User {
     public Courier(String strName, String strEmail, String strPassword,Integer strNif,String strIban, Pharmacy oPharmacy) throws NoSuchAlgorithmException {
         super(strEmail,strPassword,strNif,strName);
         this.setM_Pharmacy(oPharmacy);
-        this.setM_name(strName);
-        this.setM_nif(strNif);
+        this.setName(strName);
+        this.setNif(strNif);
         this.setM_iban(strIban);
     }
 
 
-    public Integer getM_id() {
+    public Integer getId() {
         return m_id;
     }
 

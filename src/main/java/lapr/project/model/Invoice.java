@@ -1,6 +1,7 @@
 package lapr.project.model;
 
 import java.sql.Date;
+import java.util.Calendar;
 import java.util.Objects;
 
 public class Invoice {
@@ -10,7 +11,7 @@ public class Invoice {
     private Order m_oOrder;
 
     private static int DEFAULT_ID = -1;
-    private static Date DEFAULT_DATE = null;
+    private static Date CURRENT_DATE = new Date(Calendar.getInstance().getTimeInMillis());
     private static float DEFAULT_TOTAL_PRICE = -1;
     private static Order DEFAULT_ORDER = new Order();
 
@@ -30,7 +31,7 @@ public class Invoice {
 
     public Invoice() {
         this.m_intId = DEFAULT_ID;
-        this.m_dtInvoiceDate = DEFAULT_DATE;
+        this.m_dtInvoiceDate = CURRENT_DATE;
         this.m_fltTotalPrice = DEFAULT_TOTAL_PRICE;
         this.m_oOrder = DEFAULT_ORDER;
     }
@@ -80,7 +81,7 @@ public class Invoice {
 
     @Override
     public int hashCode() {
-        return Objects.hash(m_intId, m_dtInvoiceDate, m_fltTotalPrice, m_oOrder);
+        return Objects.hash(m_intId);
     }
 
     @Override

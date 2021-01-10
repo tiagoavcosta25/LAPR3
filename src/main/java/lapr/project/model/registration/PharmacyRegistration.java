@@ -60,13 +60,13 @@ public class PharmacyRegistration extends DataHandler {
 
             callStmt.setString(1, strName);
             callStmt.setFloat(2, intManagerId);
-            callStmt.setDouble(3, oAddress.getM_latitude());
-            callStmt.setDouble(4, oAddress.getM_longitude());
-            callStmt.setString(5, oAddress.getM_streetName());
-            callStmt.setString(6, oAddress.getM_doorNumber());
-            callStmt.setString(7, oAddress.getM_postalCode());
-            callStmt.setString(8, oAddress.getM_locality());
-            callStmt.setString(9, oAddress.getM_country());
+            callStmt.setDouble(3, oAddress.getLatitude());
+            callStmt.setDouble(4, oAddress.getLongitude());
+            callStmt.setString(5, oAddress.getStreetName());
+            callStmt.setString(6, oAddress.getDoorNumber());
+            callStmt.setString(7, oAddress.getPostalCode());
+            callStmt.setString(8, oAddress.getLocality());
+            callStmt.setString(9, oAddress.getCountry());
 
             callStmt.execute();
 
@@ -95,7 +95,7 @@ public class PharmacyRegistration extends DataHandler {
     }
 
     public void registerPharmacy(Pharmacy oPharmacy) {
-        addPharmacy(oPharmacy.getName(), oPharmacy.getPharmacyManager().getM_id(), oPharmacy.getAddress());
+        addPharmacy(oPharmacy.getName(), oPharmacy.getPharmacyManager().getId(), oPharmacy.getAddress());
     }
 
     public Pharmacy newPharmacy(String strName, PharmacyManager oPharmacyManager,Double dblLatitude,Double dblLongitude,

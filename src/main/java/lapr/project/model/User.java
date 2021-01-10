@@ -7,7 +7,7 @@ import java.security.NoSuchAlgorithmException;
 /**
  * The class that represents a User, which has it's own email, password and role
  * (Administrative, Manager of Organization or Collaborator of Organization.
- *
+ * <p>
  * Group: Team Lisa [G-037]
  * ______________________________________________________
  *
@@ -15,14 +15,13 @@ import java.security.NoSuchAlgorithmException;
  * @author Jessica Alves <1190682@isep.ipp.pt>
  * @author Pedro Santos <1190967@isep.ipp.pt>
  * @author Rodrigo Costa <1191014@isep.ipp.pt>
- *
  */
 public abstract class User {
 
     /**
      * The User's unique id
      */
-    private Integer m_id;
+    private Integer m_intId;
     /**
      * The User's email
      */
@@ -35,52 +34,51 @@ public abstract class User {
     /**
      * The User's NIF
      */
-    private Integer m_nif;
+    private Integer m_intNif;
 
     /**
      * The User's name
      */
-    private String m_name;
+    private String m_strName;
 
     /**
      * An empty constructor of User that initiates all the variables by omission
-     *
      */
     public User() {
         this.m_strEmail = "No Email Registered";
         this.m_strPassword = "No Password Registered";
-        this.m_nif = 0;
-        this.m_name = "No Name";
+        this.m_intNif = 0;
+        this.m_strName = "No Name";
     }
 
     /**
      * A constructor of User that initiates the email and password as the ones
      * given by parameter
      *
-     * @param strEmail      the User's email
-     * @param strPassword   the User's password
+     * @param strEmail    the User's email
+     * @param strPassword the User's password
      */
     public User(String strEmail, String strPassword, Integer intNif, String strName) throws NoSuchAlgorithmException {
         this.m_strEmail = strEmail;
         this.m_strPassword = EncryptPassword.encryptPasswordMD5(strPassword);
-        this.m_nif = intNif;
-        this.m_name = strName;
+        this.m_intNif = intNif;
+        this.m_strName = strName;
     }
 
     /**
      * A constructor of User that initiates the id, email and password as the ones
      * given by parameter
      *
-     * @param id            the User's id
-     * @param strEmail      the User's email
-     * @param strPassword   the User's password
+     * @param id          the User's id
+     * @param strEmail    the User's email
+     * @param strPassword the User's password
      */
     public User(Integer id, String strEmail, String strPassword, Integer intNif, String strName) {
-        this.m_id = id;
+        this.m_intId = id;
         this.m_strEmail = strEmail;
         this.m_strPassword = strPassword;
-        this.m_nif = intNif;
-        this.m_name = strName;
+        this.m_intNif = intNif;
+        this.m_strName = strName;
     }
 
     /**
@@ -88,7 +86,7 @@ public abstract class User {
      *
      * @return User's email
      */
-    public String getStrEmail() {
+    public String getEmail() {
         return this.m_strEmail;
     }
 
@@ -97,7 +95,7 @@ public abstract class User {
      *
      * @param strEmail the User's email
      */
-    public void setStrEmail(String strEmail) {
+    public void setEmail(String strEmail) {
         this.m_strEmail = strEmail;
     }
 
@@ -119,28 +117,28 @@ public abstract class User {
         this.m_strPassword = strPw;
     }
 
-    public Integer getM_id() {
-        return m_id;
+    public Integer getId() {
+        return m_intId;
     }
 
-    public void setM_id(Integer m_id) {
-        this.m_id = m_id;
+    public void setId(Integer m_id) {
+        this.m_intId = m_id;
     }
 
-    public Integer getM_nif() {
-        return m_nif;
+    public Integer getNif() {
+        return m_intNif;
     }
 
-    public void setM_nif(Integer m_nif) {
-        this.m_nif = m_nif;
+    public void setNif(Integer m_nif) {
+        this.m_intNif = m_nif;
     }
 
-    public String getM_name() {
-        return m_name;
+    public String getName() {
+        return m_strName;
     }
 
-    public void setM_name(String m_name) {
-        this.m_name = m_name;
+    public void setName(String m_name) {
+        this.m_strName = m_name;
     }
 
     /**

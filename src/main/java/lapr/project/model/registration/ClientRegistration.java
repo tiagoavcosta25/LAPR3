@@ -3,7 +3,6 @@ package lapr.project.model.registration;
 import lapr.project.data.DataHandler;
 import lapr.project.model.Address;
 import lapr.project.model.Client;
-import lapr.project.utils.EncryptPassword;
 import oracle.jdbc.OracleTypes;
 import lapr.project.model.CreditCard;
 
@@ -52,8 +51,8 @@ public class ClientRegistration extends DataHandler {
      */
 
     public boolean addClientToDB(Client c) {
-        return addClientToDB(c.getM_name(), c.getM_nif(), c.getM_credits(), c.getM_address(), c.getM_creditCard(),
-                c.getStrEmail(), c.getPw());
+        return addClientToDB(c.getName(), c.getNif(), c.getCredits(), c.getAddress(), c.getCreditCard(),
+                c.getEmail(), c.getPw());
     }
 
 
@@ -69,18 +68,18 @@ public class ClientRegistration extends DataHandler {
             callStmt.setString(1, name);
             callStmt.setInt(2, nif);
             callStmt.setInt(3, credits);
-            callStmt.setDouble(4, address.getM_latitude());
-            callStmt.setDouble(5, address.getM_longitude());
-            callStmt.setString(6, address.getM_streetName());
-            callStmt.setString(7, address.getM_doorNumber());
-            callStmt.setString(8, address.getM_postalCode());
-            callStmt.setString(9, address.getM_locality());
-            callStmt.setString(10, address.getM_country());
-            callStmt.setDouble(11, creditCard.getM_creditCardNr());
-            java.util.Date utilStartDate = creditCard.getM_validityDate();
+            callStmt.setDouble(4, address.getLatitude());
+            callStmt.setDouble(5, address.getLongitude());
+            callStmt.setString(6, address.getStreetName());
+            callStmt.setString(7, address.getDoorNumber());
+            callStmt.setString(8, address.getPostalCode());
+            callStmt.setString(9, address.getLocality());
+            callStmt.setString(10, address.getCountry());
+            callStmt.setDouble(11, creditCard.getCreditCardNr());
+            java.util.Date utilStartDate = creditCard.getValidityDate();
             java.sql.Date sqlStartDate = new java.sql.Date(utilStartDate.getTime());
             callStmt.setDate(12, sqlStartDate);
-            callStmt.setInt(13, creditCard.getM_CCV());
+            callStmt.setInt(13, creditCard.getCCV());
             callStmt.setString(14, email);
             callStmt.setString(15, password);
 
