@@ -26,20 +26,50 @@ public class Order {
     private static float STORE_PICKUP_FEE = 0;
     private static Date DEFAULT_DATE = null;
     private static String DEFAULT_DESCRIPTION = "No Description.";
-    private static String DEFAULT_STATUS = "Ordered";
+    private static String DEFAULT_STATUS = "ordered";
     private static Client DEFAULT_CLIENT = new Client();
     private static Address DEFAULT_ADDRESS = new Address();
     private static Address NO_ADDRESS = null;
     private static Pharmacy DEFAULT_PHARMACY = new Pharmacy();
     private static Map<Product, Integer> DEFAULT_PRODUCT_MAP = new TreeMap<>();
 
-    public Order(int intId, Date dtOrderDate, String strDescription, String strStatus, Client oClient, Address oAddress,
+    public Order(int intId, float fltAmount, float fltTotalWeight, float fltAdditionalFee, Date dtOrderDate,
+                 String strDescription, String strStatus, Client oClient, Address oAddress, Pharmacy oPharmacy, Map<Product, Integer> mapProducts) {
+        this.m_intId = intId;
+        this.m_fltAmount = fltAmount;
+        this.m_fltTotalWeight = fltTotalWeight;
+        this.m_fltAdditionalFee = fltAdditionalFee;
+        this.m_dtOrderDate = dtOrderDate;
+        this.m_strDescription = strDescription;
+        this.m_strStatus = strStatus;
+        this.m_oClient = oClient;
+        this.m_oAddress = oAddress;
+        this.m_oPharmacy = oPharmacy;
+        this.m_mapProducts = mapProducts;
+    }
+
+    public Order(float fltAmount, float fltTotalWeight, float fltAdditionalFee, Date dtOrderDate, String strDescription,
+                 String strStatus, Client oClient, Address oAddress, Pharmacy oPharmacy, Map<Product, Integer> mapProducts) {
+        this.m_intId = DEFAULT_ID;
+        this.m_fltAmount = fltAmount;
+        this.m_fltTotalWeight = fltTotalWeight;
+        this.m_fltAdditionalFee = fltAdditionalFee;
+        this.m_dtOrderDate = dtOrderDate;
+        this.m_strDescription = strDescription;
+        this.m_strStatus = strStatus;
+        this.m_oClient = oClient;
+        this.m_oAddress = oAddress;
+        this.m_oPharmacy = oPharmacy;
+        this.m_mapProducts = mapProducts;
+    }
+
+    public Order(int intId, Date dtOrderDate, String strDescription, Client oClient, Address oAddress,
                  Pharmacy oPharmacy, Map<Product, Integer> mapProducts) {
         this.m_intId = intId;
         this.m_fltAdditionalFee = DELIVERY_FEE;
         this.m_dtOrderDate = dtOrderDate;
         this.m_strDescription = strDescription;
-        this.m_strStatus = strStatus;
+        this.m_strStatus = DEFAULT_STATUS;
         this.m_oClient = oClient;
         this.m_oAddress = oAddress;
         this.m_oPharmacy = oPharmacy;
@@ -50,13 +80,13 @@ public class Order {
         this.m_oClient.addCredits((int)(this.m_fltAmount + this.m_fltAdditionalFee) / 5);
     }
 
-    public Order(Date dtOrderDate, String strDescription, String strStatus, Client oClient, Address oAddress,
+    public Order(Date dtOrderDate, String strDescription, Client oClient, Address oAddress,
                  Pharmacy oPharmacy, Map<Product, Integer> mapProducts) {
         this.m_intId = DEFAULT_ID;
         this.m_fltAdditionalFee = DELIVERY_FEE;
         this.m_dtOrderDate = dtOrderDate;
         this.m_strDescription = strDescription;
-        this.m_strStatus = strStatus;
+        this.m_strStatus = DEFAULT_STATUS;
         this.m_oClient = oClient;
         this.m_oAddress = oAddress;
         this.m_oPharmacy = oPharmacy;
@@ -67,13 +97,13 @@ public class Order {
         this.m_oClient.addCredits((int)(this.m_fltAmount + this.m_fltAdditionalFee) / 5);
     }
 
-    public Order(int intId, Date dtOrderDate, String strDescription, String strStatus, Client oClient,
+    public Order(int intId, Date dtOrderDate, String strDescription, Client oClient,
                  Pharmacy oPharmacy, Map<Product, Integer> mapProducts) {
         this.m_intId = intId;
         this.m_fltAdditionalFee = STORE_PICKUP_FEE;
         this.m_dtOrderDate = dtOrderDate;
         this.m_strDescription = strDescription;
-        this.m_strStatus = strStatus;
+        this.m_strStatus = DEFAULT_STATUS;
         this.m_oClient = oClient;
         this.m_oAddress = NO_ADDRESS;
         this.m_oPharmacy = oPharmacy;
@@ -84,13 +114,13 @@ public class Order {
         this.m_oClient.addCredits((int)(this.m_fltAmount + this.m_fltAdditionalFee) / 5);
     }
 
-    public Order(Date dtOrderDate, String strDescription, String strStatus, Client oClient,
+    public Order(Date dtOrderDate, String strDescription, Client oClient,
                  Pharmacy oPharmacy, Map<Product, Integer> mapProducts) {
         this.m_intId = DEFAULT_ID;
         this.m_fltAdditionalFee = STORE_PICKUP_FEE;
         this.m_dtOrderDate = dtOrderDate;
         this.m_strDescription = strDescription;
-        this.m_strStatus = strStatus;
+        this.m_strStatus = DEFAULT_STATUS;
         this.m_oClient = oClient;
         this.m_oAddress = NO_ADDRESS;
         this.m_oPharmacy = oPharmacy;
@@ -203,7 +233,12 @@ public class Order {
         this.m_mapProducts = mapProducts;
     }
 
-    public boolean isDevlivery(Integer intId) {return this.getId() == intId;}
+    public boolean isDevlivery() {
+        if(this.m_oAddress == null){
+            return false;
+        }
+        return true;
+    }
 
     public void calculateAmount() {
         float fltAmount = 0f;

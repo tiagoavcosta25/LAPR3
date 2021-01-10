@@ -81,7 +81,7 @@ public class MakeAnOrderUI {
                 }
             }
 
-            oCtrl.newOrder();
+            //oCtrl.newOrder();
 
         } catch (Exception e){
             e.printStackTrace();

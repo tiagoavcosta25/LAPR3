@@ -123,11 +123,14 @@ public class OrderRegistration extends DataHandler {
                 oOrder.getDescription(), oOrder.getStatus(), oOrder.getClient(), oOrder.getAddress(), oOrder.getPharmacy().getId(), oOrder.getProducts());
     }
 
-    public Order newOrder(float fltAdditionalFee, Date dtOrderDate,
-                          String strDescription, String strStatus, Client oClient, Double latitude, Double longitude, String streetName,
+    public Order newOrder(Date dtOrderDate, String strDescription, Client oClient, Double latitude, Double longitude, String streetName,
                           String doorNumber, String postalCode, String locality, String country, Pharmacy oPharmacy, Map<Product, Integer> mapProducts) {
-        return new Order(fltAdditionalFee, dtOrderDate, strDescription, strStatus, oClient, new Address(latitude, longitude, streetName, doorNumber,
+        return new Order(dtOrderDate, strDescription, oClient, new Address(latitude, longitude, streetName, doorNumber,
                 postalCode, locality, country), oPharmacy, mapProducts);
+    }
+
+    public Order newOrder(Date dtOrderDate, String strDescription, Client oClient, Pharmacy oPharmacy, Map<Product, Integer> mapProducts) {
+        return new Order(dtOrderDate, strDescription, oClient, oPharmacy, mapProducts);
     }
 
     public Order getLatestOrder(Client oClient) {

@@ -55,16 +55,6 @@ public class MakeAnOrderController {
     private Pharmacy m_oPharmacy;
 
     /**
-     * Order's Default Status
-     */
-    private static String DEFAULT_STATUS = "ordered";
-
-    /**
-     * Order's Defualt Delivery Fee
-     */
-    private static Float DEFAULT_DELIVERY_FEE = 5f;
-
-    /**
      * Order's Product Map
      */
     private Map<Product, Integer> m_mapProducts = new TreeMap<>();
@@ -83,28 +73,24 @@ public class MakeAnOrderController {
     }
 
     /**
-     * The method creates a new order.
+     * The method creates a new order for a delivery.
      */
-    public void newOrder(float fltAdditionalFee, Date dtOrderDate,
-                         String strDescription, Double latitude, Double longitude, String streetName,
+    public void newOrder(Date dtOrderDate, String strDescription, Double latitude, Double longitude, String streetName,
                          String doorNumber, String postalCode, String locality, String country) {
         try {
-            this.m_oOrder = m_oOrderRegistration.newOrder(fltAdditionalFee, dtOrderDate, strDescription, DEFAULT_STATUS,
-                    m_oClient, latitude, longitude, streetName, doorNumber, postalCode, locality, country, m_oPharmacy, this.m_mapProducts);
+            this.m_oOrder = m_oOrderRegistration.newOrder(dtOrderDate, strDescription, m_oClient, latitude, longitude,
+                    streetName, doorNumber, postalCode, locality, country, m_oPharmacy, this.m_mapProducts);
         } catch (RuntimeException ex) {
             this.m_oOrder = null;
         }
     }
 
     /**
-     * The method creates a new order.
+     * The method creates a new order for a store pickup.
      */
-    public void newOrder(float fltAdditionalFee, Date dtOrderDate,
-                         String strDescription, Double latitude, Double longitude, String streetName,
-                         String doorNumber, String postalCode, String locality, String country) {
+    public void newOrder(Date dtOrderDate, String strDescription) {
         try {
-            this.m_oOrder = m_oOrderRegistration.newOrder(fltAdditionalFee, dtOrderDate, strDescription, DEFAULT_STATUS,
-                    m_oClient, latitude, longitude, streetName, doorNumber, postalCode, locality, country, m_oPharmacy, this.m_mapProducts);
+            this.m_oOrder = m_oOrderRegistration.newOrder(dtOrderDate, strDescription, m_oClient, m_oPharmacy, this.m_mapProducts);
         } catch (RuntimeException ex) {
             this.m_oOrder = null;
         }
