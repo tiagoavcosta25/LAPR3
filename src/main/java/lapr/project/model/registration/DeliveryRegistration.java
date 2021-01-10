@@ -244,12 +244,29 @@ public class DeliveryRegistration extends DataHandler {
         return returnValue;
     }
 
-
-
-
-
     //TO IMPLEMENT
     public float getMaxPayload(String email) {
-        return 0f;
+        CallableStatement callStmt = null;
+        try {
+            callStmt = getConnection().prepareCall("{ ? = call getMaxPayload(?) }");
+
+            callStmt.registerOutParameter(1, OracleTypes.FLOAT);
+            callStmt.setString(2, email);
+
+            callStmt.execute();
+
+            ResultSet rSet = (ResultSet) callStmt.getObject(1);
+            float maxPayload = 0;
+            if (rSet.next()) {
+                maxPayload= rSet.getFloat(1);
+            }
+
+            return maxPayload;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        throw new IllegalArgumentException("No payload found for the DR with the courier with the following email:" + email);
+
     }
 }

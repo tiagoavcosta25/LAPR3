@@ -13,12 +13,12 @@ public class Scooter {
     private Pharmacy m_oPharmacy;
 
     private static int DEFAULT_ID = -1;
-    private static float DEFAULT_BATTERY_PERC = 0;
+    private static float DEFAULT_BATTERY_PERC = -1;
     private static String DEFAULT_CHARGING_STATUS = "Not Charging";
-    private static float DEFAULT_POTENCY = 0;
-    private static float DEFAULT_WEIGHT = 0;
-    private static int DEFAULT_BATTERY_CAPACITY = 0;
-    private static float DEFAULT_MAX_PAYLOAD = 0;
+    private static float DEFAULT_POTENCY = -1;
+    private static float DEFAULT_WEIGHT = -1;
+    private static int DEFAULT_BATTERY_CAPACITY = -1;
+    private static float DEFAULT_MAX_PAYLOAD = -1;
     private static Pharmacy DEFAULT_PHARMACY = new Pharmacy();
 
     public Scooter() {
@@ -96,7 +96,7 @@ public class Scooter {
         return m_fltPotency;
     }
 
-    public void setPotency(int fltPotency) {
+    public void setPotency(float fltPotency) {
         this.m_fltPotency = fltPotency;
     }
 
@@ -104,7 +104,7 @@ public class Scooter {
         return m_fltWeight;
     }
 
-    public void setWeight(int fltWeight) {
+    public void setWeight(float fltWeight) {
         this.m_fltWeight = fltWeight;
     }
 
@@ -146,12 +146,20 @@ public class Scooter {
                 '}';
     }
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Scooter scooter = (Scooter) o;
-        return m_intId == scooter.m_intId;
+        return m_intId == scooter.m_intId &&
+                Float.compare(scooter.m_fltBatteryPerc, m_fltBatteryPerc) == 0 &&
+                Float.compare(scooter.m_fltPotency, m_fltPotency) == 0 &&
+                Float.compare(scooter.m_fltWeight, m_fltWeight) == 0 &&
+                m_intBatteryCapacity == scooter.m_intBatteryCapacity &&
+                Float.compare(scooter.m_fltMaxPayload, m_fltMaxPayload) == 0 &&
+                m_strCharginStatus.equals(scooter.m_strCharginStatus) &&
+                m_oPharmacy.equals(scooter.m_oPharmacy);
     }
 
     @Override
