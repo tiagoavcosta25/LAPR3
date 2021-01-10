@@ -5,44 +5,44 @@ import java.util.Objects;
 
 public class CreditCard {
 
-    private Long m_creditCardNr;
-    private Date m_validityDate;
-    private Integer m_CCV;
+    private Long m_lCreditCardNr;
+    private Date m_dtValidityDate;
+    private Integer m_intCCV;
 
     public CreditCard() {
-        this.m_creditCardNr = 0L;
-        this.m_validityDate = new Date();
-        this.m_CCV = 0;
+        this.m_lCreditCardNr = 0L;
+        this.m_dtValidityDate = new Date();
+        this.m_intCCV = 0;
     }
 
     public CreditCard(long creditCardNr, Date validityDate, Integer CCV) {
-        this.m_creditCardNr = creditCardNr;
-        this.m_validityDate = validityDate;
-        this.m_CCV = CCV;
+        this.m_lCreditCardNr = creditCardNr;
+        this.m_dtValidityDate = validityDate;
+        this.m_intCCV = CCV;
     }
 
-    public Long getM_creditCardNr() {
-        return m_creditCardNr;
+    public Long getCreditCardNr() {
+        return m_lCreditCardNr;
     }
 
-    public void setM_creditCardNr(Long m_creditCardNr) {
-        this.m_creditCardNr = m_creditCardNr;
+    public void setCreditCardNr(Long m_creditCardNr) {
+        this.m_lCreditCardNr = m_creditCardNr;
     }
 
-    public Date getM_validityDate() {
-        return m_validityDate;
+    public Date getValidityDate() {
+        return m_dtValidityDate;
     }
 
-    public void setM_validityDate(Date m_validityDate) {
-        this.m_validityDate = m_validityDate;
+    public void setValidityDate(Date m_validityDate) {
+        this.m_dtValidityDate = m_validityDate;
     }
 
-    public Integer getM_CCV() {
-        return m_CCV;
+    public Integer getCCV() {
+        return m_intCCV;
     }
 
-    public void setM_CCV(Integer m_CCV) {
-        this.m_CCV = m_CCV;
+    public void setCCV(Integer m_CCV) {
+        this.m_intCCV = m_CCV;
     }
 
     @Override
@@ -50,20 +50,20 @@ public class CreditCard {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CreditCard that = (CreditCard) o;
-        return Objects.equals(m_creditCardNr, that.m_creditCardNr);
+        return Objects.equals(m_lCreditCardNr, that.m_lCreditCardNr);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(m_creditCardNr);
+        return Objects.hash(m_lCreditCardNr);
     }
 
     @Override
     public String toString() {
         return "CreditCard{" +
-                "m_creditCardNr=" + m_creditCardNr +
-                ", m_validityDate=" + m_validityDate +
-                ", m_CCV=" + m_CCV +
+                "m_creditCardNr=" + m_lCreditCardNr +
+                ", m_validityDate=" + m_dtValidityDate +
+                ", m_CCV=" + m_intCCV +
                 '}';
     }
 }

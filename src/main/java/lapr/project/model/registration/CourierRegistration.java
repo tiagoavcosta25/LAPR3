@@ -127,7 +127,7 @@ public class CourierRegistration extends DataHandler {
     }
 
     public boolean registersCourier(Courier oCourier) {
-        return addCourierToDB(oCourier.getM_name(), oCourier.getStrEmail(), oCourier.getPw(), oCourier.getM_nif(), oCourier.getM_iban(), oCourier.getM_Pharmacy().getId());
+        return addCourierToDB(oCourier.getName(), oCourier.getEmail(), oCourier.getPw(), oCourier.getNif(), oCourier.getM_iban(), oCourier.getM_Pharmacy().getId());
     }
 
     public Address getDeliveryAddress(String email) {

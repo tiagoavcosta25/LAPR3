@@ -6,7 +6,6 @@ import lapr.project.graph.map.Graph;
 import lapr.project.graph.map.GraphAlgorithms;
 import lapr.project.model.Address;
 import lapr.project.model.Path;
-import lapr.project.model.Scooter;
 import oracle.jdbc.OracleTypes;
 
 import java.sql.CallableStatement;
@@ -173,9 +172,9 @@ public class DeliveryRegistration extends DataHandler {
         Address origem = null;
         Address destino = null;
         for (Address a : m_graph.vertices()) {
-            if (a.getM_id() == intAddressAId) {
+            if (a.getId() == intAddressAId) {
                 origem = a;
-            } else if (a.getM_id() == intAddressBId) {
+            } else if (a.getId() == intAddressBId) {
                 destino = a;
             }
             if (origem != null && destino != null)
