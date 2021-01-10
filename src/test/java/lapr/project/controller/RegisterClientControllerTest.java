@@ -1,53 +1,49 @@
 package lapr.project.controller;
 
+import lapr.project.model.Client;
+import lapr.project.model.registration.ClientRegistration;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.when;
+import static org.mockito.MockitoAnnotations.initMocks;
 
 class RegisterClientControllerTest {
-    RegisterClientController m_ctrl = new RegisterClientController();
+
+    @InjectMocks
+    private RegisterClientController m_ctrl;
+
+
+    @Mock
+    private ClientRegistration m_clientRegistration;
+
+    RegisterClientControllerTest() {
+    }
+
+    @BeforeEach
+    void setUp() {
+        this.m_ctrl = new RegisterClientController();
+        this.m_clientRegistration = Mockito.mock(ClientRegistration.class);
+        initMocks(this);
+    }
 
     @Test
     void registerNewClient() throws Exception {
-        /**
-         * Create new Client = Works
-         */
-        boolean real = m_ctrl.registerNewClient("TestName",123456788,"test@gmail.com","testpassword",
+        Client c = new Client("TestName",123456788,"test@gmail.com","testpassword",
                 1032323d,1999392d,"Test street","2ºesq","4444-111","Gaia",
-                "Portugal",1234123412341233L,"10/23",123);
+                "Portugal",1234123412341233L,new SimpleDateFormat("MM/yy").parse("10/20"),123);
 
-        assertTrue(real);
-
-        /**
-         * Create same Client = Error
-         */
-        boolean real2 = m_ctrl.registerNewClient("TestName",123456788,"test@gmail.com","testpassword",
+        when(m_clientRegistration.registerNewClient(c)).thenReturn(true);
+        boolean result = m_ctrl.registerNewClient("TestName",123456788,"test@gmail.com","testpassword",
                 1032323d,1999392d,"Test street","2ºesq","4444-111","Gaia",
-                "Portugal",1234123412341233L,"10/23",123);
-
-        assertFalse(real2);
-
-        /**
-         * Creat Client with same email
-         */
-        boolean real3 = m_ctrl.registerNewClient("TestName",987654321,"test@gmail.com","testpassword",
-                3923219d,2132414d,"Test street","2ºesq","4333-222","Gaia",
-                "Portugal",1234123412341233L,"10/23",123);
-
-        assertFalse(real3);
-
-        /**
-         * Create Client with same nif
-         */
-        boolean real4 = m_ctrl.registerNewClient("TestName",123456788,"different@gmail.com","testpassword",
-                9319494d,3333331d,"Test street","2ºesq","4222-333","Gaia",
-                "Portugal",2345234523452345L,"10/23",123);
-
-        assertFalse(real4);
-
+                "Portugal",1234123412341233L,"10/20",123);
+        assertTrue(result);
     }
 
     @Test
