@@ -135,9 +135,8 @@ public class ProductRegistration extends DataHandler {
                 float fltUnitaryWeight = rSet.getFloat(5);
 
                 lstProducts.add(new Product(intId, strName, strDescription, fltUnitaryPrice, fltUnitaryWeight));
-
-                rSet.next();
             }
+            return lstProducts;
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -160,6 +159,7 @@ public class ProductRegistration extends DataHandler {
 
                 lstProducts.add(oProduct);
             }
+            return lstProducts;
         } catch (SQLException e) {
             e.printStackTrace();
         }
