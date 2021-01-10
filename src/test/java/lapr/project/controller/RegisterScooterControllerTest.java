@@ -12,6 +12,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -20,7 +21,7 @@ import static org.mockito.MockitoAnnotations.initMocks;
 
 class RegisterScooterControllerTest {
 
-   /* @InjectMocks
+    @InjectMocks
     private RegisterScooterController registerScooterController;
 
     @Mock
@@ -46,14 +47,16 @@ class RegisterScooterControllerTest {
         System.out.println("newScooter");
         Scooter s = new Scooter(35.5f, "Charging Test", 250f, 30f,
                 100, 20f, new Pharmacy());
+        Pharmacy p = new Pharmacy();
+        p.setId(1);
 
         when(mockPharmacyRegistration.getPharmacy(1)).thenReturn(new Pharmacy());
 
         when(mockScooterRegistration.newScooter(35.5f, "Charging Test", 250f, 30f,
-                100, 20f, new Pharmacy())).thenReturn(expectedTrue);
+                100, 20f, p)).thenReturn(expectedTrue);
 
         boolean result = registerScooterController.newScooter(35.5f, "Charging Test", 250f, 30f,
-                100, 20f, new Pharmacy());
+                100, 20f, p);
         assertTrue(result);
     }
 
@@ -63,6 +66,7 @@ class RegisterScooterControllerTest {
         Scooter s = new Scooter(35.5f, "Charging Test", 250f, 30f,
                 100, 20f, new Pharmacy());
 
+        registerScooterController.setScooter(s);
         when(mockScooterRegistration.registerScooter(s)).thenReturn(true);
         boolean result = registerScooterController.registersScooter();
         assertTrue(result);
@@ -74,8 +78,8 @@ class RegisterScooterControllerTest {
                 100, 20f, new Pharmacy());
         int pharmacyId = 1;
 
-        when(mockScooterRegistration.getScootersList(pharmacyId)).thenReturn(true);
+        when(mockScooterRegistration.getScootersList(pharmacyId)).thenReturn(new ArrayList<>());
         List<Scooter> result = registerScooterController.getScooters(pharmacyId);
-        assertTrue(result);
-    }*/
+        assertEquals(new ArrayList<>(), result);
+    }
 }

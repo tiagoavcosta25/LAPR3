@@ -83,4 +83,8 @@ public class RegisterScooterController {
     public List<Scooter> getScooters(int intPharmacyId) {
         return this.m_oScooterRegistration.getScootersList(intPharmacyId);
     }
+
+    public void setScooter(Scooter oScooter) {
+         this.m_oScooter = oScooter;
+    }
 }
