@@ -8,6 +8,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
 
 public class MaxPayloadControllerTest {
@@ -17,11 +18,11 @@ public class MaxPayloadControllerTest {
     @Mock
     private DeliveryRegistration mockDeliveryRegistration;
 
-    private boolean expectedTrue;
+    private float expectedTrue;
 
     @BeforeEach
     void setUp() {
-        this.expectedTrue = true;
+        this.expectedTrue = 10f;
         this.maxPayloadController = new MaxPayloadController();
         this.mockDeliveryRegistration = Mockito.mock(DeliveryRegistration.class);
         initMocks(this);
@@ -29,12 +30,11 @@ public class MaxPayloadControllerTest {
 
     @Test
     void ensureGetMaxPayloadWorks() {
-        /*
         System.out.println("getMaxPayload");
-        float maxPayload = 10f;
         String email = "email6@gmail.com";
-        when(mockDeliveryRegistration.getMaxPayload(email) == maxPayload).thenReturn(expectedTrue);
+        ApplicationPOT.getInstance().setCurrentSession(new UserSession("email6@gmail.com"));
+        when(mockDeliveryRegistration.getMaxPayload(email)).thenReturn(expectedTrue);
         float result = maxPayloadController.getMaxPayload();
-        assertEquals(expectedTrue, result);*/
+        assertEquals(expectedTrue, result);
     }
 }

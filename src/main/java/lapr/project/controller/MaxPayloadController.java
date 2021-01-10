@@ -30,12 +30,15 @@ public class MaxPayloadController {
      */
     private String oCourierEmail;
 
-    public float getMaxPayload() {
+    public MaxPayloadController() {
         this.m_ApplicationPOT = ApplicationPOT.getInstance();
         this.m_oPlatform = m_ApplicationPOT.getPlatform();
+        this.oDeliveryRegistration = this.m_oPlatform.getDelReg();
+    }
+
+    public float getMaxPayload() {
         this.m_oSession = m_ApplicationPOT.getCurrentSession();
         this.oCourierEmail = m_oSession.getCurrentUserEmail();
-        this.oDeliveryRegistration = this.m_oPlatform.getDelReg();
         return this.oDeliveryRegistration.getMaxPayload(oCourierEmail);
     }
 
