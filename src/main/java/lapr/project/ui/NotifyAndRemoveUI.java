@@ -11,7 +11,7 @@ public class NotifyAndRemoveUI {
 
         if(m_ctrl.notifyAndRemove()) {
             System.out.println("The order cannot be entirely fufilled");
-        }else System.out.println("Operation was NOT Successfull!");
+        }else System.out.println("The order was entirely fufilled");
 
     }
 }
