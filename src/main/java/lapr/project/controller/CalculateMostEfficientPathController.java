@@ -27,32 +27,25 @@ public class CalculateMostEfficientPathController {
      */
     private Platform m_oPlatform;
     /**
-     * Delivery Management class
+     * Delivery Registration class
      */
     private DeliveryRegistration oDeliveryRegistration;
     /**
-     * Delivery Management class
+     * Order Registration class
      */
     private OrderRegistration oOrderRegistration;
-    /**
-     * The starting point of the path
-     */
-    private Address oStartingPoint;
-    /**
-     * The destiny point of the path
-     */
-    private Address oDestiny;
+    private ApplicationPOT m_oApplicationPOT;
+    private UserSession m_oUserSession;
 
-    //corrigir tipo de dados
     public double getShortestPath() {
-        this.m_oPlatform = ApplicationPOT.getInstance().getPlatform();
+        this.m_oApplicationPOT = ApplicationPOT.getInstance();
+        this.m_oPlatform = this.m_oApplicationPOT.getPlatform();
+        this.m_oUserSession = this.m_oApplicationPOT.getCurrentSession();
+        String email = this.m_oUserSession.getCurrentUserEmail();
         this.oDeliveryRegistration = this.m_oPlatform.getDelReg();
         this.oOrderRegistration = this.m_oPlatform.getOrderReg();
-        int oOrderId = 1;
-        KnowDeliveryController auxController = new KnowDeliveryController();
-        Order oOrder = auxController.getOrderByCour();
+        Order oOrder = this.oOrderRegistration.getOrderByCourier(email);
         Pair<Address, Address> oPairAddress = this.oDeliveryRegistration.getStartingAndDeliveryAddressByOrder(oOrder.getId());
-
         return this.oDeliveryRegistration.getShortestPath(oPairAddress);
     }
 
