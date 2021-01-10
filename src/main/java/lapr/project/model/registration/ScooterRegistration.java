@@ -215,7 +215,7 @@ public class ScooterRegistration extends DataHandler {
                 String charginStatus = rSet.getString(8);
                 float fltMaxPayload = rSet.getFloat(9);
                 // Address
-                Address address = addressManager(rSet,9);
+                Address address = addressManager(rSet,10);
 
                 return new Scooter(scooterID,batteryPerc,charginStatus,potency,weight,
                 batteryCapacity, fltMaxPayload, new Pharmacy(pharmacyID,pharmacyName,new PharmacyManager(),address));
