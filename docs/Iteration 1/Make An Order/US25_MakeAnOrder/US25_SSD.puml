@@ -14,10 +14,17 @@ deactivate SYST
 
 CL -> SYST : chooses the pharmacy
 activate SYST
+loop until there is no more products to add
 SYST -> CL : shows the list of the available products of said pharmacy
 deactivate SYST
 
-CL -> SYST : chooses which products and which quantities to order
+CL -> SYST : chooses which product and which quantity to order
+activate SYST
+SYST -> CL : asks if the user is done adding more products
+deactivate SYST
+end
+
+CL -> SYST : confirms that there is not more products
 activate SYST
 SYST -> CL : validates, presents the order and asks for a confirmation
 deactivate SYST
