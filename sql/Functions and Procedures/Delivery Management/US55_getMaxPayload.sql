@@ -1,0 +1,1 @@
+--CREATE OR REPLACE FUNCTION getMaxPayload(paramEmail "User".EMAIL%type) return SCOOTER. is

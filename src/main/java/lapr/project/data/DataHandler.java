@@ -357,4 +357,21 @@ public class DataHandler {
 
         return oOrder;
     }
+
+    public void genericRemove(int intId, String strProcedureCall) {
+        try {
+            openConnection();
+            String procedureCall = "{ call " + strProcedureCall + "(?) }";
+
+            CallableStatement callStmt = getConnection().prepareCall(procedureCall);
+
+            callStmt.setInt(1, intId);
+
+            callStmt.execute();
+
+            closeAll();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

@@ -49,7 +49,7 @@ CREATE TABLE Pharmacy (id number(10) GENERATED AS IDENTITY, name varchar2(70) NO
 CREATE TABLE PharmacyManager (userId number(10) NOT NULL, PRIMARY KEY (userId));
 CREATE TABLE PharmacyProduct (pharmacyId number(10) NOT NULL, productId number(10) NOT NULL, stock number(10) DEFAULT 0 NOT NULL, PRIMARY KEY (pharmacyId, productId));
 CREATE TABLE Product (id number(10) GENERATED AS IDENTITY, name varchar2(70) NOT NULL UNIQUE, description varchar2(255), unitaryPrice float(10) NOT NULL, unitaryWeight float(10) NOT NULL, PRIMARY KEY (id));
-CREATE TABLE Scooter (id number(10) GENERATED AS IDENTITY, pharmacyId number(10) NOT NULL, batteryPerc float(5) NOT NULL, potency float(10) NOT NULL, weight float(10) NOT NULL, batteryCapacity number(10) NOT NULL, chargingStatus varchar2(20) NOT NULL, PRIMARY KEY (id));
+CREATE TABLE Scooter (id number(10) GENERATED AS IDENTITY, pharmacyId number(10) NOT NULL, batteryPerc float(5) NOT NULL, potency float(10) NOT NULL, weight float(10) NOT NULL, batteryCapacity number(10) NOT NULL, chargingStatus varchar2(20) NOT NULL, maxPayload float(10) NOT NULL, PRIMARY KEY (id));
 CREATE TABLE "User" (id number(10) GENERATED AS IDENTITY, email varchar2(320) NOT NULL UNIQUE, password varchar2(128) NOT NULL, nif number(10) NOT NULL UNIQUE, name varchar2(100) NOT NULL, PRIMARY KEY (id));
 ALTER TABLE Courier ADD CONSTRAINT FKCourier212758 FOREIGN KEY (userId) REFERENCES "User" (id);
 ALTER TABLE Client ADD CONSTRAINT FKClient741658 FOREIGN KEY (userId) REFERENCES "User" (id);
