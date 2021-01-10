@@ -1,7 +1,7 @@
 package lapr.project.ui;
 
 import lapr.project.model.Product;
-import lapr.project.model.registration.ProductRegistration;
+import lapr.project.data.registration.ProductRegistration;
 
 public class AddProductUI {
     public static void main(String[] args) {

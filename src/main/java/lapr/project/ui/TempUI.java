@@ -2,7 +2,7 @@ package lapr.project.ui;
 
 import lapr.project.model.Address;
 import lapr.project.model.Path;
-import lapr.project.model.registration.DeliveryRegistration;
+import lapr.project.data.registration.DeliveryRegistration;
 
 import java.util.List;
 

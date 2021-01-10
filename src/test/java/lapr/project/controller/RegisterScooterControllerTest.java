@@ -1,10 +1,8 @@
 package lapr.project.controller;
 
 import lapr.project.model.Pharmacy;
-import lapr.project.model.Product;
 import lapr.project.model.Scooter;
-import lapr.project.model.registration.ProductRegistration;
-import lapr.project.model.registration.ScooterRegistration;
+import lapr.project.data.registration.ScooterRegistration;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;

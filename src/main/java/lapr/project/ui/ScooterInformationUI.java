@@ -3,10 +3,9 @@ package lapr.project.ui;
 import lapr.project.controller.ApplicationPOT;
 import lapr.project.controller.RegisterScooterController;
 import lapr.project.controller.ScooterInformationController;
-import lapr.project.controller.UpdateScooterController;
 import lapr.project.model.Pharmacy;
 import lapr.project.model.Scooter;
-import lapr.project.model.registration.PharmacyRegistration;
+import lapr.project.data.registration.PharmacyRegistration;
 
 import java.util.List;
 import java.util.Scanner;

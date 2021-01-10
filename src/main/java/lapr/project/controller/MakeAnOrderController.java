@@ -1,10 +1,10 @@
 package lapr.project.controller;
 
 import lapr.project.model.*;
-import lapr.project.model.registration.ClientRegistration;
-import lapr.project.model.registration.OrderRegistration;
-import lapr.project.model.registration.PharmacyRegistration;
-import lapr.project.model.registration.ProductRegistration;
+import lapr.project.data.registration.ClientRegistration;
+import lapr.project.data.registration.OrderRegistration;
+import lapr.project.data.registration.PharmacyRegistration;
+import lapr.project.data.registration.ProductRegistration;
 
 import java.util.List;
 import java.util.Map;

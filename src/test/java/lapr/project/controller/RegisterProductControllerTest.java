@@ -1,7 +1,7 @@
 package lapr.project.controller;
 
 import lapr.project.model.Product;
-import lapr.project.model.registration.ProductRegistration;
+import lapr.project.data.registration.ProductRegistration;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;

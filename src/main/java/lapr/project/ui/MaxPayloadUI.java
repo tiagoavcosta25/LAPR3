@@ -1,6 +1,6 @@
 package lapr.project.ui;
 
-import lapr.project.model.registration.DeliveryRegistration;
+import lapr.project.data.registration.DeliveryRegistration;
 
 public class MaxPayloadUI {
     public static void main(String[] args) {

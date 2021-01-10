@@ -1,13 +1,11 @@
 package lapr.project.controller;
 
 
-import javafx.util.Pair;
 //import lapr.project.graph.map.Graph;
-import lapr.project.model.Address;
 import lapr.project.model.Order;
 import lapr.project.model.Platform;
-import lapr.project.model.registration.DeliveryRegistration;
-import lapr.project.model.registration.OrderRegistration;
+import lapr.project.data.registration.DeliveryRegistration;
+import lapr.project.data.registration.OrderRegistration;
 
 /**
  * Calculate Most Efficient Path Controller.

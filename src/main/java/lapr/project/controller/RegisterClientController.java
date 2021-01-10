@@ -2,7 +2,7 @@ package lapr.project.controller;
 
 import lapr.project.model.Client;
 import lapr.project.model.Platform;
-import lapr.project.model.registration.ClientRegistration;
+import lapr.project.data.registration.ClientRegistration;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 

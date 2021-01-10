@@ -4,8 +4,8 @@ import lapr.project.model.Pharmacy;
 import lapr.project.model.PharmacyManager;
 import lapr.project.model.Platform;
 import lapr.project.model.Product;
-import lapr.project.model.registration.PharmacyRegistration;
-import lapr.project.model.registration.ProductRegistration;
+import lapr.project.data.registration.PharmacyRegistration;
+import lapr.project.data.registration.ProductRegistration;
 
 public class AddPharmacyProductController {
     /**

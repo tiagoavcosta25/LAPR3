@@ -2,9 +2,7 @@ package lapr.project.controller;
 
 import lapr.project.model.Address;
 import lapr.project.model.Platform;
-import lapr.project.model.registration.CourierRegistration;
-
-import java.io.Serializable;
+import lapr.project.data.registration.CourierRegistration;
 
 /**
  * Register Courier Controller.

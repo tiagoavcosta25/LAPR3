@@ -1,14 +1,10 @@
 package lapr.project.controller;
 
-import lapr.project.model.Address;
 import lapr.project.model.Client;
 import lapr.project.model.Order;
 import lapr.project.model.Platform;
-import lapr.project.model.registration.ClientRegistration;
-import lapr.project.model.registration.CourierRegistration;
-import lapr.project.model.registration.OrderRegistration;
-
-import java.io.Serializable;
+import lapr.project.data.registration.ClientRegistration;
+import lapr.project.data.registration.OrderRegistration;
 
 /**
  * Register Courier Controller.

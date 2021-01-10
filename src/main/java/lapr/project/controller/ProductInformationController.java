@@ -2,7 +2,7 @@ package lapr.project.controller;
 
 import lapr.project.model.Platform;
 import lapr.project.model.Product;
-import lapr.project.model.registration.ProductRegistration;
+import lapr.project.data.registration.ProductRegistration;
 
 import static java.lang.Integer.parseInt;
 

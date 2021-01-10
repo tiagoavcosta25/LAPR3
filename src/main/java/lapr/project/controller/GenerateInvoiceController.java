@@ -1,9 +1,9 @@
 package lapr.project.controller;
 
 import lapr.project.model.*;
-import lapr.project.model.registration.ClientRegistration;
-import lapr.project.model.registration.InvoiceRegistration;
-import lapr.project.model.registration.OrderRegistration;
+import lapr.project.data.registration.ClientRegistration;
+import lapr.project.data.registration.InvoiceRegistration;
+import lapr.project.data.registration.OrderRegistration;
 import java.sql.Date;
 
 public class GenerateInvoiceController {

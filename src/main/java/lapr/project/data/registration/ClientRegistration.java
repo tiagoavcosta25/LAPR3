@@ -1,4 +1,4 @@
-package lapr.project.model.registration;
+package lapr.project.data.registration;
 
 import lapr.project.data.DataHandler;
 import lapr.project.model.Address;
@@ -6,7 +6,6 @@ import lapr.project.model.Client;
 import oracle.jdbc.OracleTypes;
 import lapr.project.model.CreditCard;
 
-import java.security.NoSuchAlgorithmException;
 import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;

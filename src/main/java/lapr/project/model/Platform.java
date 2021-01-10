@@ -1,7 +1,7 @@
 package lapr.project.model;
 
 //import lapr.project.graph.map.Graph;
-import lapr.project.model.registration.*;
+import lapr.project.data.registration.*;
 
 public class Platform {
     private String m_designation;

@@ -1,8 +1,8 @@
 package lapr.project.controller;
 
 import lapr.project.model.*;
-import lapr.project.model.registration.PharmacyManagerRegistration;
-import lapr.project.model.registration.PharmacyRegistration;
+import lapr.project.data.registration.PharmacyManagerRegistration;
+import lapr.project.data.registration.PharmacyRegistration;
 import java.security.NoSuchAlgorithmException;
 
 public class RegisterPharmacyController {

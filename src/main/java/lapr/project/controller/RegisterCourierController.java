@@ -3,12 +3,10 @@ package lapr.project.controller;
 import lapr.project.model.Courier;
 import lapr.project.model.Pharmacy;
 import lapr.project.model.Platform;
-import lapr.project.model.registration.CourierRegistration;
-import lapr.project.model.registration.PharmacyRegistration;
+import lapr.project.data.registration.CourierRegistration;
+import lapr.project.data.registration.PharmacyRegistration;
 
-import java.io.Serializable;
 import java.security.NoSuchAlgorithmException;
-import java.util.Date;
 
 /**
  * Register Courier Controller.

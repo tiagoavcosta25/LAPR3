@@ -1,11 +1,9 @@
 package lapr.project.controller;
 
-import lapr.project.model.ChargingSlot;
 import lapr.project.model.Platform;
 import lapr.project.model.Scooter;
-import lapr.project.model.registration.CourierRegistration;
-import lapr.project.model.registration.DeliveryRegistration;
-import lapr.project.model.registration.ScooterRegistration;
+import lapr.project.data.registration.DeliveryRegistration;
+import lapr.project.data.registration.ScooterRegistration;
 
 /**
  * Register Courier Controller.

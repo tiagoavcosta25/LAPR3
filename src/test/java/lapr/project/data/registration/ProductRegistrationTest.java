@@ -1,6 +1,5 @@
-package lapr.project.model.registration;
+package lapr.project.data.registration;
 
-import lapr.project.controller.RegisterProductController;
 import lapr.project.model.Product;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

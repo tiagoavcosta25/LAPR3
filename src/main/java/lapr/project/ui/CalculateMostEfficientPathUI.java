@@ -1,8 +1,6 @@
 package lapr.project.ui;
 
-import javafx.util.Pair;
-import lapr.project.model.Address;
-import lapr.project.model.registration.DeliveryRegistration;
+import lapr.project.data.registration.DeliveryRegistration;
 
 public class CalculateMostEfficientPathUI {
     public static void main(String[] args) {

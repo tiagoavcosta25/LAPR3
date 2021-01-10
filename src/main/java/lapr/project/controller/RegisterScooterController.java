@@ -3,8 +3,8 @@ package lapr.project.controller;
 import lapr.project.model.Pharmacy;
 import lapr.project.model.Platform;
 import lapr.project.model.Scooter;
-import lapr.project.model.registration.PharmacyRegistration;
-import lapr.project.model.registration.ScooterRegistration;
+import lapr.project.data.registration.PharmacyRegistration;
+import lapr.project.data.registration.ScooterRegistration;
 
 import java.util.List;
 

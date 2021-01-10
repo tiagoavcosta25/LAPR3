@@ -1,10 +1,7 @@
 package lapr.project.controller;
 
-import lapr.project.model.Courier;
-import lapr.project.model.Order;
 import lapr.project.model.Platform;
-import lapr.project.model.registration.DeliveryRegistration;
-import lapr.project.model.registration.OrderRegistration;
+import lapr.project.data.registration.DeliveryRegistration;
 
 public class MaxPayloadController {
 
