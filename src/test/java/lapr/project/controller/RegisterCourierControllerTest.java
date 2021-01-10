@@ -44,7 +44,6 @@ class RegisterCourierControllerTest {
 
     @Test
     void newCourier() throws NoSuchAlgorithmException {
-
         when(mockCourierRegistrationController.newCourier("testName","email@gmail.com",
                 123456789,"PT50123456789098765432123")).thenReturn(expectedTrue);
     }
@@ -60,5 +59,8 @@ class RegisterCourierControllerTest {
 
     @Test
     void validateInput() {
+        boolean real = mockCourierRegistrationController.validateInput("testName","email@gmail.com",
+                123456789,"PT50123456789098765432123");
+        assertEquals(expectedTrue,real);
     }
 }
