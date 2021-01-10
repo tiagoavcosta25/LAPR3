@@ -137,7 +137,7 @@ public class OrderRegistration extends DataHandler {
             callStmt = getConnection().prepareCall("{ ? = call getLatestOrder(?) }");
 
             callStmt.registerOutParameter(1, OracleTypes.CURSOR);
-            callStmt.setInt(2, oClient.getM_id());
+            callStmt.setString(2, oClient.getStrEmail());
 
             callStmt.execute();
 

@@ -3,6 +3,7 @@ create or replace function getLatestOrder(p_email "User".EMAIL%type)
     v_cursor sys_refcursor;
     v_orderId "Order".id%type;
     order_not_found exception;
+    order2_not_found exception;
 begin
 
     select max("Order".ID)
@@ -28,7 +29,7 @@ begin
         where O.ID = v_orderId;
 
     if v_cursor is null then
-        raise order_not_found;
+        raise order2_not_found;
     end if;
 
     return v_cursor;
@@ -36,6 +37,10 @@ begin
 EXCEPTION
     when order_not_found then
         raise_application_error(-20819, 'Order Not Found!');
+        return null;
+
+    when order2_not_found then
+        raise_application_error(-20820, 'Order2 Not Found!');
         return null;
 
 end;
