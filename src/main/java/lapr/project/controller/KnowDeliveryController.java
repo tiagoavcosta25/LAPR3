@@ -36,12 +36,15 @@ public class KnowDeliveryController {
      */
     private Order oOrder;
 
-    public Order getOrderByCour() {
+    public KnowDeliveryController() {
         this.m_ApplicationPOT = ApplicationPOT.getInstance();
         this.m_oPlatform = m_ApplicationPOT.getPlatform();
+        this.oOrderRegistration = this.m_oPlatform.getOrderReg();
+    }
+
+    public Order getOrderByCour() {
         this.m_oSession = m_ApplicationPOT.getCurrentSession();
         this.oCourierEmail = m_oSession.getCurrentUserEmail();
-        this.oOrderRegistration = this.m_oPlatform.getOrderReg();
         this.oOrder = this.oOrderRegistration.getOrderByCourier(oCourierEmail);
         return oOrder;
     }

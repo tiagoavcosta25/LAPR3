@@ -1,11 +1,14 @@
 package lapr.project.controller;
 
-
-//import lapr.project.graph.map.Graph;
+import javafx.util.Pair;
+import lapr.project.model.Address;
 import lapr.project.model.Order;
 import lapr.project.model.Platform;
 import lapr.project.data.registration.DeliveryRegistration;
 import lapr.project.data.registration.OrderRegistration;
+
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Calculate Most Efficient Path Controller.
@@ -35,17 +38,25 @@ public class CalculateMostEfficientPathController {
     private ApplicationPOT m_oApplicationPOT;
     private UserSession m_oUserSession;
 
-    public double getShortestPath() {
+    public CalculateMostEfficientPathController() {
         this.m_oApplicationPOT = ApplicationPOT.getInstance();
         this.m_oPlatform = this.m_oApplicationPOT.getPlatform();
-        this.m_oUserSession = this.m_oApplicationPOT.getCurrentSession();
-        String email = this.m_oUserSession.getCurrentUserEmail();
         this.oDeliveryRegistration = this.m_oPlatform.getDelReg();
         this.oOrderRegistration = this.m_oPlatform.getOrderReg();
+    }
+
+    public double getShortestPath() {
+        this.m_oUserSession = this.m_oApplicationPOT.getCurrentSession();
+        String email = this.m_oUserSession.getCurrentUserEmail();
         Order oOrder = this.oOrderRegistration.getOrderByCourier(email);
-        //Pair<Address, Address> oPairAddress = this.oDeliveryRegistration.getStartingAndDeliveryAddressByOrder(oOrder.getId());
-        //return this.oDeliveryRegistration.getShortestPath(oPairAddress);
-        return 0;
+        List<Address> list = this.oDeliveryRegistration.getAddressesByDeliveryRunId(email);
+        Address a = new Address();
+        Address b = new Address();
+        Pair<LinkedList<Address>, Double> result = this.oDeliveryRegistration.calculateMostEfficientPath(a, b, list);
+        if (result == null) {
+            return -1;
+        }
+        return result.getValue();
     }
 
 
