@@ -1,6 +1,7 @@
 package lapr.project.model;
 
 import java.sql.Date;
+import java.util.Calendar;
 import java.util.Map;
 import java.util.Objects;
 import java.util.TreeMap;
@@ -24,12 +25,11 @@ public class Order {
     private static float DEFAULT_ADDITIONAL_FEE = -1;
     private static float DELIVERY_FEE = 5;
     private static float STORE_PICKUP_FEE = 0;
-    private static Date DEFAULT_DATE = null;
+    private static Date CURRENT_DATE = new Date(Calendar.getInstance().getTimeInMillis());
     private static String DEFAULT_DESCRIPTION = "No Description.";
     private static String DEFAULT_STATUS = "ordered";
     private static Client DEFAULT_CLIENT = new Client();
     private static Address DEFAULT_ADDRESS = new Address();
-    private static Address NO_ADDRESS = null;
     private static Pharmacy DEFAULT_PHARMACY = new Pharmacy();
     private static Map<Product, Integer> DEFAULT_PRODUCT_MAP = new TreeMap<>();
 
@@ -63,11 +63,11 @@ public class Order {
         this.m_mapProducts = mapProducts;
     }
 
-    public Order(int intId, Date dtOrderDate, String strDescription, Client oClient, Address oAddress,
+    public Order(int intId, String strDescription, Client oClient, Address oAddress,
                  Pharmacy oPharmacy, Map<Product, Integer> mapProducts) {
         this.m_intId = intId;
         this.m_fltAdditionalFee = DELIVERY_FEE;
-        this.m_dtOrderDate = dtOrderDate;
+        this.m_dtOrderDate = CURRENT_DATE;
         this.m_strDescription = strDescription;
         this.m_strStatus = DEFAULT_STATUS;
         this.m_oClient = oClient;
@@ -80,11 +80,11 @@ public class Order {
         this.m_oClient.addCredits((int)(this.m_fltAmount + this.m_fltAdditionalFee) / 5);
     }
 
-    public Order(Date dtOrderDate, String strDescription, Client oClient, Address oAddress,
+    public Order(String strDescription, Client oClient, Address oAddress,
                  Pharmacy oPharmacy, Map<Product, Integer> mapProducts) {
         this.m_intId = DEFAULT_ID;
         this.m_fltAdditionalFee = DELIVERY_FEE;
-        this.m_dtOrderDate = dtOrderDate;
+        this.m_dtOrderDate = CURRENT_DATE;
         this.m_strDescription = strDescription;
         this.m_strStatus = DEFAULT_STATUS;
         this.m_oClient = oClient;
@@ -97,15 +97,15 @@ public class Order {
         this.m_oClient.addCredits((int)(this.m_fltAmount + this.m_fltAdditionalFee) / 5);
     }
 
-    public Order(int intId, Date dtOrderDate, String strDescription, Client oClient,
+    public Order(int intId, String strDescription, Client oClient,
                  Pharmacy oPharmacy, Map<Product, Integer> mapProducts) {
         this.m_intId = intId;
         this.m_fltAdditionalFee = STORE_PICKUP_FEE;
-        this.m_dtOrderDate = dtOrderDate;
+        this.m_dtOrderDate = CURRENT_DATE;
         this.m_strDescription = strDescription;
         this.m_strStatus = DEFAULT_STATUS;
         this.m_oClient = oClient;
-        this.m_oAddress = NO_ADDRESS;
+        this.m_oAddress = DEFAULT_ADDRESS;
         this.m_oPharmacy = oPharmacy;
         this.m_mapProducts = mapProducts;
 
@@ -114,15 +114,15 @@ public class Order {
         this.m_oClient.addCredits((int)(this.m_fltAmount + this.m_fltAdditionalFee) / 5);
     }
 
-    public Order(Date dtOrderDate, String strDescription, Client oClient,
+    public Order(String strDescription, Client oClient,
                  Pharmacy oPharmacy, Map<Product, Integer> mapProducts) {
         this.m_intId = DEFAULT_ID;
         this.m_fltAdditionalFee = STORE_PICKUP_FEE;
-        this.m_dtOrderDate = dtOrderDate;
+        this.m_dtOrderDate = CURRENT_DATE;
         this.m_strDescription = strDescription;
         this.m_strStatus = DEFAULT_STATUS;
         this.m_oClient = oClient;
-        this.m_oAddress = NO_ADDRESS;
+        this.m_oAddress = DEFAULT_ADDRESS;
         this.m_oPharmacy = oPharmacy;
         this.m_mapProducts = mapProducts;
 
@@ -136,7 +136,7 @@ public class Order {
         this.m_fltAmount = DEFAULT_AMOUNT;
         this.m_fltTotalWeight = DEFAULT_TOTAL_WEIGHT;
         this.m_fltAdditionalFee = DEFAULT_ADDITIONAL_FEE;
-        this.m_dtOrderDate = DEFAULT_DATE;
+        this.m_dtOrderDate = CURRENT_DATE;
         this.m_strDescription = DEFAULT_DESCRIPTION;
         this.m_strStatus = DEFAULT_STATUS;
         this.m_oClient = DEFAULT_CLIENT;

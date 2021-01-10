@@ -35,21 +35,25 @@ begin
     end if;
 
 -- Creates a new Address
-    select id
-    into v_addressId
-    from ADDRESS
-    where LATITUDE = p_latitude
-      and LONGITUDE = p_longitude
-      and DOORNUMBER = p_doorNumber
-      and STREETNAME = p_streetName
-      and POSTALCODE = p_postalCode
-      and LOCALITY = p_locality
-      and COUNTRY = p_country;
+    if p_streetName LIKE 'No Street Name' then
+        v_addressId := null;
+    else
+        select id
+        into v_addressId
+        from ADDRESS
+        where LATITUDE = p_latitude
+          and LONGITUDE = p_longitude
+          and DOORNUMBER = p_doorNumber
+          and STREETNAME = p_streetName
+          and POSTALCODE = p_postalCode
+          and LOCALITY = p_locality
+          and COUNTRY = p_country;
 
-    if v_addressId is null then
-        Insert into Address(LATITUDE, LONGITUDE, DOORNUMBER, STREETNAME, POSTALCODE, LOCALITY, COUNTRY)
-        Values (p_latitude, p_longitude, p_doorNumber, p_streetName, p_postalCode, p_locality, p_country)
-        returning id into v_addressId;
+        if v_addressId is null then
+            Insert into Address(LATITUDE, LONGITUDE, DOORNUMBER, STREETNAME, POSTALCODE, LOCALITY, COUNTRY)
+            Values (p_latitude, p_longitude, p_doorNumber, p_streetName, p_postalCode, p_locality, p_country)
+            returning id into v_addressId;
+        end if;
     end if;
 
 -- Creates a new Order
