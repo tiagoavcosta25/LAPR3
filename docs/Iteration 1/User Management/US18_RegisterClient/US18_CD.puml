@@ -33,7 +33,7 @@ class Platform {
 }
 package "Registration" #DDDDDD {
  class ClientRegistration{
- +registerNewClient(name,nif,email,password,latitude,longitude,streetName,\ndoorNumber,postalCode,locality,country,creditCardNr,validityDate,CCV)
+ +registerNewClient(client)
  +addClientToDB(client)
  }
  }

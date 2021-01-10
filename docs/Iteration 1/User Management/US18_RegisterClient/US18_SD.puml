@@ -56,11 +56,9 @@ CTRL -> PLAT : clientReg = getClientReg()
 activate PLAT
 deactivate PLAT
 
-CTRL -> UREG : registerNewClient(name,nif,email,password,latitude,longitude,streetName,\ndoorNumber,postalCode,locality,country,creditCardNr,validityDate,CCV)
-activate UREG
 
 
-UREG -> USER** : create(name,nif,email,password,latitude,longitude,streetName,\ndoorNumber,postalCode,locality,country,creditCardNr,validityDate,CCV)
+CTRL -> USER** : create(name,nif,email,password,latitude,longitude,streetName,\ndoorNumber,postalCode,locality,country,creditCardNr,validityDate,CCV)
 activate USER
 
 USER -> US** : create(email,password,nif,name)
@@ -74,6 +72,15 @@ deactivate US
 USER -> ADD** : create(latitude,longitude,streetName,doorNumber,postalCode,locality,country)
 USER -> CC** : create(creditCardNr,validityDate,CCV)
 deactivate USER
+
+
+
+
+
+CTRL -> UREG : registerNewClient(client)
+activate UREG
+
+
 
 
 
