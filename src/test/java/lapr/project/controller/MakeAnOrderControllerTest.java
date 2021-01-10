@@ -1,5 +1,6 @@
 package lapr.project.controller;
 
+import lapr.project.data.registration.ClientRegistration;
 import lapr.project.data.registration.OrderRegistration;
 import lapr.project.model.*;
 import org.junit.jupiter.api.Test;
@@ -25,7 +26,7 @@ class MakeAnOrderControllerTest {
     private OrderRegistration mockOrderRegistration;
 
     @Mock
-    private OrderRegistration mockOrderRegistration;
+    private ClientRegistration mockClientRegistration;
 
     private Order expectedTrue;
 
@@ -35,6 +36,8 @@ class MakeAnOrderControllerTest {
                 "1o Direito", "4400-123", "Locality", "Country"), new Pharmacy(), new TreeMap<>());
         this.makeAnOrderController = new MakeAnOrderController();
         this.mockOrderRegistration = Mockito.mock(OrderRegistration.class);
+        this.mockClientRegistration = Mockito.mock(ClientRegistration.class);
+        Client c = new Client();
         initMocks(this);
     }
 
@@ -43,7 +46,10 @@ class MakeAnOrderControllerTest {
         System.out.println("newOrder");
         ApplicationPOT.getInstance().setCurrentSession(new UserSession("email3@gmail.com"));
 
-        when(mockOrderRegistration.newOrder("Description", new Client(), -1d, -1d, "Street", "1o Direito", "4400-123", "Locality",
+
+        c.setEmail("email3@gmail.com");
+        when(mockClientRegistration.getClientByEmail("email3@gmail.com")).thenReturn(c);
+        when(mockOrderRegistration.newOrder("Description", c, -1d, -1d, "Street", "1o Direito", "4400-123", "Locality",
                 "Country", new Pharmacy(), new TreeMap<>())).thenReturn(expectedTrue);
         Order result = makeAnOrderController.newOrder("Description", -1d, -1d, "Street", "1o Direito", "4400-123", "Locality",
                 "Country");
