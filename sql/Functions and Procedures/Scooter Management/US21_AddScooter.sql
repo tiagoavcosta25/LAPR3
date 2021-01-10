@@ -1,6 +1,7 @@
 create or replace procedure addScooter(p_batteryPerc "SCOOTER".BATTERYPERC%type, p_chargingStatus "SCOOTER".CHARGINGSTATUS%type,
                                      p_potency "SCOOTER".POTENCY%type, p_weight "SCOOTER".WEIGHT%type,
-                                     p_batteryCapacity "SCOOTER".BATTERYCAPACITY%type, p_pharmacyID "PHARMACY".ID%type)
+                                     p_batteryCapacity "SCOOTER".BATTERYCAPACITY%type, p_maxPayload "SCOOTER".MAXPAYLOAD%type ,
+                                     p_pharmacyID "PHARMACY".ID%type)
     is
     v_checkPharmacyId PHARMACY.ID%type;
     scooter_not_found exception;
@@ -16,8 +17,8 @@ begin
     end if;
 
 -- Creates a new Scooter
-    Insert into SCOOTER(BATTERYPERC,CHARGINGSTATUS,POTENCY,WEIGHT,BATTERYCAPACITY, PHARMACYID)
-    Values (p_batteryPerc, p_chargingStatus, p_potency, p_weight, p_batteryCapacity, p_pharmacyID);
+    Insert into SCOOTER(BATTERYPERC,CHARGINGSTATUS,POTENCY,WEIGHT,BATTERYCAPACITY, MAXPAYLOAD, PHARMACYID)
+    Values (p_batteryPerc, p_chargingStatus, p_potency, p_weight, p_batteryCapacity, p_maxPayload, p_pharmacyID);
 
 EXCEPTION
     when scooter_not_found then

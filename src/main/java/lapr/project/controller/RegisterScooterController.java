@@ -55,11 +55,11 @@ public class RegisterScooterController {
      * @param oPharmacy Scooter's pharmacy
      */
     public boolean newScooter(float fltBatteryPerc, String strCharginStatus, float fltPotency,
-                           float fltWeight, int intBatteryCapacity, Pharmacy oPharmacy) {
+                           float fltWeight, int intBatteryCapacity, float fltMaxPayload, Pharmacy oPharmacy) {
         try {
             this.m_oPharmacy = m_oPharmacyRegistration.getPharmacy(oPharmacy.getId());
             this.m_oScooter = m_oScooterRegistration.newScooter(fltBatteryPerc, strCharginStatus, fltPotency,
-                    fltWeight, intBatteryCapacity, oPharmacy);
+                    fltWeight, intBatteryCapacity, fltMaxPayload, oPharmacy);
             return true;
         }
         catch(RuntimeException ex) {
