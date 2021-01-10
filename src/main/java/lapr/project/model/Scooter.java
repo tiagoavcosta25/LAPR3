@@ -9,6 +9,7 @@ public class Scooter {
     private float m_fltPotency;
     private float m_fltWeight;
     private int m_intBatteryCapacity;
+    private float m_fltMaxPayload;
     private Pharmacy m_oPharmacy;
 
     private static int DEFAULT_ID = -1;
@@ -17,6 +18,7 @@ public class Scooter {
     private static float DEFAULT_POTENCY = 0;
     private static float DEFAULT_WEIGHT = 0;
     private static int DEFAULT_BATTERY_CAPACITY = 0;
+    private static float DEFAULT_MAX_PAYLOAD = 0;
     private static Pharmacy DEFAULT_PHARMACY = new Pharmacy();
 
     public Scooter() {
@@ -26,38 +28,42 @@ public class Scooter {
         this.m_fltPotency = DEFAULT_POTENCY;
         this.m_fltWeight = DEFAULT_WEIGHT;
         this.m_intBatteryCapacity = DEFAULT_BATTERY_CAPACITY;
+        this.m_fltMaxPayload = DEFAULT_MAX_PAYLOAD;
         this.m_oPharmacy = DEFAULT_PHARMACY;
     }
 
     public Scooter(int intId, float fltBatteryPerc, String strCharginStatus, float fltPotency, float fltWeight,
-                   int intBatteryCapacity, Pharmacy oPharmacy) {
+                   int intBatteryCapacity, float fltMaxPayload, Pharmacy oPharmacy) {
         this.m_intId = intId;
         this.m_fltBatteryPerc= fltBatteryPerc;
         this.m_strCharginStatus = strCharginStatus;
         this.m_fltPotency = fltPotency;
         this.m_fltWeight = fltWeight;
         this.m_intBatteryCapacity = intBatteryCapacity;
+        this.m_fltMaxPayload = fltMaxPayload;
         this.m_oPharmacy = oPharmacy;
     }
 
     public Scooter(float fltBatteryPerc, String strCharginStatus, float fltPotency, float fltWeight,
-                   int intBatteryCapacity, Pharmacy oPharmacy) {
+                   int intBatteryCapacity, float fltMaxPayload, Pharmacy oPharmacy) {
         this.m_fltBatteryPerc= fltBatteryPerc;
         this.m_strCharginStatus = strCharginStatus;
         this.m_fltPotency = fltPotency;
         this.m_fltWeight = fltWeight;
         this.m_intBatteryCapacity = intBatteryCapacity;
+        this.m_fltMaxPayload = fltMaxPayload;
         this.m_oPharmacy = oPharmacy;
     }
 
     public Scooter(int intId, float fltBatteryPerc, String strCharginStatus, float fltPotency, float fltWeight,
-                   int intBatteryCapacity) {
+                   int intBatteryCapacity, float fltMaxPayload) {
         this.m_intId = intId;
         this.m_fltBatteryPerc= fltBatteryPerc;
         this.m_strCharginStatus = strCharginStatus;
         this.m_fltPotency = fltPotency;
         this.m_fltWeight = fltWeight;
         this.m_intBatteryCapacity = intBatteryCapacity;
+        this.m_fltMaxPayload = fltMaxPayload;
     }
 
     public int getId() {
@@ -108,6 +114,14 @@ public class Scooter {
         this.m_intBatteryCapacity = intBatteryCapacity;
     }
 
+    public float getMaxPayload() {
+        return m_fltMaxPayload;
+    }
+
+    public void setMaxPayload(float fltMaxPayload) {
+        this.m_fltMaxPayload = fltMaxPayload;
+    }
+
     public Pharmacy getPharmacy() {
         return m_oPharmacy;
     }
@@ -125,6 +139,7 @@ public class Scooter {
                 ", Potency = " + m_fltPotency +
                 ", Weight = " + m_fltWeight +
                 ", Battery Capacity = " + m_intBatteryCapacity +
+                ", Max Payload = " + m_fltMaxPayload +
                 ", Pharmacy = " + m_oPharmacy +
                 '}';
     }

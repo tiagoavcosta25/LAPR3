@@ -10,7 +10,7 @@ class UpdateScooterUI{
 
 package "Controller" #DDDDDD {
 class UpdateScooterController{
-+updateScooter(batteryPerc, charginStatus, potency,\n weight, batteryCapacity, pharmacy)
++updateScooter(scoot)
 +getScootersList(pharmacy)
 }
 
@@ -53,7 +53,8 @@ class Scooter{
   -float potency
   -float weight
   -int batteryCapacity
-  +Scooter(batteryPerc, charginStatus, potency,\n weight, batteryCapacity)
+  -float maxPayload
+  +Scooter(batteryPerc, charginStatus, potency,\n weight, batteryCapacity, maxPayload, pharmacy)
 }
 
 class Address{
