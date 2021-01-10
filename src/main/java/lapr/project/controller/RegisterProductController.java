@@ -52,7 +52,7 @@ public class RegisterProductController {
         return verifyPositiveDouble(unitaryWeight);
     }
 
-    public boolean registerProductToDB(String name, String description, float unitaryPrice, float unitaryWeight) {
-        return pr.addProductToDB(new Product(name, description, unitaryPrice, unitaryWeight));
+    public boolean registerProductToDB(Product p) {
+        return pr.addProductToDB(p);
     }
 }
