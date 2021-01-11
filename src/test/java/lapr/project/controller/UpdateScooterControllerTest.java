@@ -47,7 +47,7 @@ class UpdateScooterControllerTest {
         when(m_mockPharmacyRegistration.getPharmacyByManagerEmail("email")).thenReturn(null);
         when(m_mockScooterRegistration.getScootersList(-1)).thenReturn(null);
         List<Scooter> result1 = m_ctrl.getScootersList();
-        assertEquals(null,result1);
+        assertEquals(new ArrayList<>(),result1);
     }
 
     @Test
