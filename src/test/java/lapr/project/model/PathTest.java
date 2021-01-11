@@ -62,6 +62,18 @@ class PathTest {
         Path oPath = new Path(2,4,"Rua das Flores");
         boolean real = path.equals(oPath);
         assertTrue(real);
+
+        assertTrue(path.equals(path));
+
+        Path oPath1 = new Path(3,5,"");
+        boolean real1 = path.equals(oPath1);
+        assertFalse(real1);
+
+        String c = "";
+        assertFalse(path.equals(c));
+
+        Path oPath2 = null;
+        assertFalse(path.equals(oPath2));
     }
 
     @Test
