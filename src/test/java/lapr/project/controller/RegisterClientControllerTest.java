@@ -21,7 +21,7 @@ class RegisterClientControllerTest {
 
 
     @Mock
-    private ClientRegistration m_clientRegistration;
+    private ClientRegistration m_mockClientRegistration;
 
     RegisterClientControllerTest() {
     }
@@ -29,7 +29,7 @@ class RegisterClientControllerTest {
     @BeforeEach
     void setUp() {
         this.m_ctrl = new RegisterClientController();
-        this.m_clientRegistration = Mockito.mock(ClientRegistration.class);
+        this.m_mockClientRegistration = Mockito.mock(ClientRegistration.class);
         initMocks(this);
     }
 
@@ -39,7 +39,7 @@ class RegisterClientControllerTest {
                 1032323d,1999392d,"Test street","2ºesq","4444-111","Gaia",
                 "Portugal",1234123412341233L,new SimpleDateFormat("MM/yy").parse("10/20"),123);
 
-        when(m_clientRegistration.registerNewClient(c)).thenReturn(true);
+        when(m_mockClientRegistration.registerNewClient(c)).thenReturn(true);
         boolean result = m_ctrl.registerNewClient("TestName",123456788,"test@gmail.com","testpassword",
                 1032323d,1999392d,"Test street","2ºesq","4444-111","Gaia",
                 "Portugal",1234123412341233L,"10/20",123);

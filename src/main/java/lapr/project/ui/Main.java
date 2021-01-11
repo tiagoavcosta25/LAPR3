@@ -2,6 +2,7 @@ package lapr.project.ui;
 
 import lapr.project.data.DataHandler;
 import lapr.project.model.CalculatorExample;
+import lapr.project.model.Park;
 import lapr.project.model.Sailor;
 
 import java.io.FileInputStream;
