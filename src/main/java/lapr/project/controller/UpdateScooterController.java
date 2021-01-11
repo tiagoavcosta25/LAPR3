@@ -17,11 +17,6 @@ public class UpdateScooterController {
     private final Platform m_oPlatform;
 
     /**
-     * Scooter class instance
-     */
-    private Scooter m_oScooter;
-
-    /**
      * Pharmacy class instance
      */
     private Pharmacy m_oPharmacy;
@@ -29,27 +24,23 @@ public class UpdateScooterController {
     /**
      * Pharmacy Management class
      */
-    private PharmacyRegistration m_oPharmacyRegistration;
+    private final PharmacyRegistration m_oPharmacyRegistration;
 
     /**
      * Scooter Management class
      */
-    private ScooterRegistration m_oScooterRegistration;
+    private final ScooterRegistration m_oScooterRegistration;
 
-    /**
-     * Scooter's List
-     */
-    private List<Scooter> m_lstScooters;
 
     /**
      * User Session Class Instance
      */
-    private UserSession m_oUserSession;
+    private final UserSession m_oUserSession;
 
     /**
      * User's Email
      */
-    private String m_strUserEmail;
+    private final String m_strUserEmail;
 
     /**
      * An empty constructor of RegisterScooterController that initiates the platform variable by getting it from the ApplicationPOT.
@@ -66,8 +57,8 @@ public class UpdateScooterController {
         try {
             this.m_oPharmacy = m_oPharmacyRegistration.getPharmacyByManagerEmail(m_strUserEmail);
             return m_oScooterRegistration.getScootersList(m_oPharmacy.getId());
-        } catch (RuntimeException ex) {
-            return this.m_lstScooters = null;
+        } catch (Exception ex) {
+            return null;
         }
     }
 
