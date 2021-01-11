@@ -89,38 +89,52 @@ public class GraphAlgorithms {
      */
 
 
-    private static <V, E> boolean allPaths(Graph<V, E> g, V vOrig, V vDest, Map<V, Boolean> visited, LinkedList<V> path, ArrayList<LinkedList<V>> paths) {
-        if (vDest.equals(vOrig)) {
-            path.add(vDest);
-            paths.add(path);
-            return true;
-        }
-        visited.put(vDest, true);
-        for (V adj : g.adjVertices(vDest)) {
-            if (visited.get(adj) != null) {
-                continue;
+    /**
+     * Returns all paths from vOrig to vDest
+     * @param g Graph instance
+     * @param vOrig Vertex that will be the source of the path
+     * @param vDest Vertex that will be the end of the path
+     * @param path stack with vertices of the current path (the path is in reverse order)
+     * @param paths ArrayList with all the paths (in correct order)
+     */
+    private static<V,E> void allPaths(Graph<V, E> g, V vOrig, V vDest, boolean[] visited,
+                                      LinkedList<V> path, ArrayList<LinkedList<V>> paths){
+        visited[g.getKey(vOrig)] = true;
+        path.push(vOrig);
+        for (V vAdj : g.adjVertices(vOrig)) {
+            if (vAdj.equals(vDest)) {
+                path.push(vDest);
+                paths.add(revPath(path));
+                path.pop();
+            } else {
+                if (!visited[g.getKey(vAdj)]) {
+                    allPaths(g, vAdj, vDest, visited, path, paths);
+                }
             }
-            if (allPaths(g, vOrig, adj, new HashMap<>(visited), new LinkedList<>(path), paths)) {
-                path.add(adj);
-            }
         }
-        return false;
+        V vertex = path.pop();
+        visited[g.getKey(vertex)] = false;
     }
 
 
     /**
-     * @param g     Graph instance
+     * @param g Graph instance
      * @param vOrig information of the Vertex origin
      * @param vDest information of the Vertex destination
      * @return paths ArrayList with all paths from voInf to vdInf
      */
-    public static <V, E> ArrayList<LinkedList<V>> allPaths(Graph<V, E> g, V vOrig, V vDest) {
-        if (!g.validVertex(vOrig) || !g.validVertex(vDest)) {
-            return null;
-        }
+    public static<V,E> ArrayList<LinkedList<V>> allPaths(Graph<V,E> g, V vOrig, V vDest){
+        if(!g.validVertex(vOrig) || !g.validVertex(vDest)) return null;
+
         ArrayList<LinkedList<V>> paths = new ArrayList<>();
-        allPaths(g, vOrig, vDest);
+        LinkedList<V> path = new LinkedList<>();
+        boolean[] visited = new boolean[g.numVertices()];
+        if (g.validVertex(vOrig) && g.validVertex(vDest)) {
+            allPaths(g, vOrig, vDest, visited, path, paths);
+        }
+
         return paths;
+
     }
 
     /**

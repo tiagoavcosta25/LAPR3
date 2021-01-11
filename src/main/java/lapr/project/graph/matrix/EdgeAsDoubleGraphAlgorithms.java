@@ -1,3 +1,4 @@
+
 package lapr.project.graph.matrix;
 
 import java.util.LinkedList;
@@ -48,7 +49,7 @@ public class EdgeAsDoubleGraphAlgorithms {
      * @param source Source vertex
      * @param dest   Destination vertices
      * @param path   Returns the vertices in the path (empty if no path)
-     * @return minimum distance, -1 if vertices not in graph or no path
+     * @return minimum distance, -1 if vertices not in model.graph or no path
      */
     public static <V> double shortestPath(AdjacencyMatrixGraph<V, Double> graph, V source, V dest, LinkedList<V> path) {
 

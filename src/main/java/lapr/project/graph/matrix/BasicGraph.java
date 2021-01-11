@@ -1,3 +1,4 @@
+
 package lapr.project.graph.matrix;
 
 /**
@@ -6,28 +7,28 @@ package lapr.project.graph.matrix;
 public interface BasicGraph<V, E> {
 
     /**
-     * Returns the number of vertices in the graph
+     * Returns the number of vertices in the model.graph
      *
-     * @return number of vertices of the graph
+     * @return number of vertices of the model.graph
      */
     int numVertices();
 
     /**
-     * Returns the number of edges in the graph
+     * Returns the number of edges in the model.graph
      *
-     * @return number of edges of the graph
+     * @return number of edges of the model.graph
      */
     int numEdges();
 
     /**
-     * Returns the actual vertices of the graph
+     * Returns the actual vertices of the model.graph
      *
      * @return an iterable collection of vertices
      */
     Iterable<V> vertices();
 
     /**
-     * Returns the actual edges of the graph
+     * Returns the actual edges of the model.graph
      *
      * @return an iterable collection of all edges
      */
@@ -38,7 +39,7 @@ public interface BasicGraph<V, E> {
      * This is the same result returned by inDegree
      *
      * @param the vertex
-     * @return number of edges leaving vertex v, -1 if vertex does not exist in the graph
+     * @return number of edges leaving vertex v, -1 if vertex does not exist in the model.graph
      */
     int outDegree(V vertex);
 
@@ -47,7 +48,7 @@ public interface BasicGraph<V, E> {
      * This is the same result returned by outDegree
      *
      * @param the vertex
-     * @return number of edges reaching vertex v, -1 if vertex does not exist in the graph
+     * @return number of edges reaching vertex v, -1 if vertex does not exist in the model.graph
      */
     int inDegree(V vertex);
 
@@ -56,7 +57,7 @@ public interface BasicGraph<V, E> {
      * This is the same result as returned by incomingEdges.
      *
      * @param the vertex
-     * @return collection of edges leaving vertex, null if vertex does not exist in the graph
+     * @return collection of edges leaving vertex, null if vertex does not exist in the model.graph
      */
     Iterable<E> outgoingEdges(V vertex);
 
@@ -65,7 +66,7 @@ public interface BasicGraph<V, E> {
      * This is the same result as returned by incomingEdges.
      *
      * @param the vertex
-     * @return collection of edges reaching vertex, null if vertex does not exist in the graph
+     * @return collection of edges reaching vertex, null if vertex does not exist in the model.graph
      */
     Iterable<E> incomingEdges(V vertex);
 
@@ -73,7 +74,7 @@ public interface BasicGraph<V, E> {
      * Returns the edge between two vertices
      *
      * @param the two vertices
-     * @return the edge or null if source and dest are not adjacent or do not exist in the graph.
+     * @return the edge or null if source and dest are not adjacent or do not exist in the model.graph.
      */
     E getEdge(V va, V vb);
 
@@ -81,7 +82,7 @@ public interface BasicGraph<V, E> {
      * Returns the vertices of edge as an array of length two.
      *
      * @param the edge
-     * @return array of two vertices or null if edge does not exist in the graph.
+     * @return array of two vertices or null if edge does not exist in the model.graph.
      */
     V[] endVertices(E edge);
 
@@ -97,15 +98,15 @@ public interface BasicGraph<V, E> {
      * Inserts a new edge between two vertices
      *
      * @param the two vertices and the new edge contents
-     * @return false if either vertices are not in the graph or an edge already exists between the two.
+     * @return false if either vertices are not in the model.graph or an edge already exists between the two.
      */
     boolean insertEdge(V va, V vb, E newEdge);
 
     /**
-     * Removes a vertex and all its incoming/outgoing edges from the graph.
+     * Removes a vertex and all its incoming/outgoing edges from the model.graph.
      *
      * @param the vertex
-     * @return false if vertex does not exist in the graph
+     * @return false if vertex does not exist in the model.graph
      */
     boolean removeVertex(V vertex);
 
@@ -113,7 +114,7 @@ public interface BasicGraph<V, E> {
      * Removes the edge between two vertices
      *
      * @param the two vertices
-     * @return the edge or null if vertices are not in the graph or not connected
+     * @return the edge or null if vertices are not in the model.graph or not connected
      */
     E removeEdge(V va, V vb);
 
