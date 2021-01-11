@@ -1,0 +1,147 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+package "UI" #DDDDDD {
+class MakeAnOrderUI{
+
+}
+}
+
+
+package "Controller" #DDDDDD {
+class MakeAnOrderController{
++newOrder(amount, totalWeight, additionalFee, orderDate, description, status, latitude,
+longitude, streetName, doorNumber, postalCode, locality, country, products)
++registerOrder()
++getAvailableProducts(pharmacyId)
++getPharmacies()
++addProductToOrder(product, quantity)
+}
+
+class ApplicationPOT
+{
+  +static getInstance()
+  +getPlatform()
+}
+
+class UserSession
+{
+  +getCurrentSession()
+}
+}
+
+
+package "Model" #DDDDDD {
+class Platform {
+  -String designation
+  +getClientReg()
+  +getProductReg()
+  +getOrderReg()
+}
+package "Registration" #DDDDDD {
+
+  class OrderRegistration{
+       +addPharmacy(address, amount, additionalFee, dateOrder, description, mapProducts, client)
+       +registerOrder(order)
+  }
+
+  class PharmacyRegistration{
+          +getPharmacies()
+  }
+
+  class ProductRegistration{
+          +getAvailableProducts(pharmacyId)
+  }
+  class ClientRegistration{
+        +getClientByEmail(email)
+  }
+ }
+}
+
+package "Model" #DDDDDD {
+abstract class User{
+-   String name
+-   String email
+-   String password
+-   Integer nif
+}
+
+class Client{
+-int IBAN;
+-long creditCardNumber
+-Address address
+-int validityDate
+-int CCV
++addCredits(addtionalCredits)
+}
+
+class Address{
+-   String streetName
+-   String doorNumber
+-   String postalCode
+-   String locality
+-   String country
+-   float longitude
+-   float latitude
++create(streetName,doorNumber,locality,country,longitude,longitude)
+}
+
+class Order{
+-   int id
+-   float amount
+-   float totalWeight
+-   float additionalFee
+-   Date orderDate
+-   String description
+-   String status
++create(amount, additionalFee, dateOrder, description, mapProducts, client, streetName,doorNumber,locality,country,longitude,longitude)
+}
+
+class Product{
+-   int id
+-   String name
+-   String description
+-   float unitaryPrice
+-   float unitaryWeight
+}
+
+class Pharmacy{
+-   int id
+-   String name
+}
+
+class PharmacyManager{
+}
+
+}
+
+
+package "Data" #DDDDDD {
+class DataHandler{
+    +openConnection()
+    +closeAll()
+}
+}
+
+class PharmacyRegistration extends DataHandler
+
+class PharmacyManager extends User
+
+MakeAnOrderUI ..> MakeAnOrderController
+MakeAnOrderController ..> Platform
+MakeAnOrderController ..> ApplicationPOT
+MakeAnOrderController ..> UserSession
+Platform "1" --> "1" ClientRegistration : has
+ClientRegistration "1" --> "*" Client : manages
+ProductRegistration "1" --> "*" Product : manages
+OrderRegistration "1" --> "*" Order : manages
+PharmacyRegistration "1" --> "*" Pharmacy : manages
+
+Order "1" -- "*" Product : has >
+Order "1" -- "1" Pharmacy : has >
+Client "1" -- "1" Order : makes >
+Client "1" -- "1" Address : has >
+Order "1" -- "1" Address : has >
+Pharmacy "1" -- "1" PharmacyManager : has >
+
+@enduml

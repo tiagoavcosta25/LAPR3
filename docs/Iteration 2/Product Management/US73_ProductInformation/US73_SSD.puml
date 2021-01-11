@@ -1,0 +1,30 @@
+@startuml
+autonumber
+hide footbox
+
+actor "Admin" as U
+
+participant ":System" as SYST
+
+activate U
+
+U -> SYST : Engages the "verify product information" feature/button
+activate SYST
+SYST --> U : Asks for the for the id of the product to verify
+deactivate SYST
+
+U -> SYST : Gives the required id
+activate SYST
+
+SYST --> U : Validates and asks for a confirmation
+deactivate SYST
+
+U -> SYST : Confirms
+activate SYST
+SYST --> U : Shows the selected products information
+deactivate SYST
+
+
+deactivate U
+
+@enduml

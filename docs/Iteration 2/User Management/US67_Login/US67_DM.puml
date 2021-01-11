@@ -1,0 +1,23 @@
+@startuml
+skinparam classAttributeIconSize 0
+hide methods
+left to right direction
+
+class Platform {
+-   String designation
+}
+
+
+abstract class User{
+-Integer id
+-String email
+-String password
+-Integer nif
+-String name
+}
+
+
+
+
+Platform "1" -- "*" User : has registered >
+@enduml

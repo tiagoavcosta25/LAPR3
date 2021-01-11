@@ -1,0 +1,45 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+package "Controller" #DDDDDD {
+class ApplicationPOT
+{
+  +static getInstance()
+  +getPlatform()
+  +getCurrentSession()
+}
+
+class UserSession
+{
+  +getCurrentUserEmail()
+}
+class KnowDeliveryController{
++getOrderByCour()
+}
+}
+package "UI" #DDDDDD {
+class KnowDeliveryUI{
+
+}
+}
+package "Model" #DDDDDD {
+class Platform {
+  -String designation
+  +DeliveryRegistration getDelReg()
+}
+
+class DeliveryRegistration{
++getMaxPayload(email)
+}
+class Database{
+}
+}
+
+KnowDeliveryUI ..> KnowDeliveryController
+KnowDeliveryController ..> Platform
+KnowDeliveryController ..> ApplicationPOT
+KnowDeliveryController ..> UserSession
+Platform "1" --> "1" DeliveryRegistration : has
+DeliveryRegistration "1" --> "1" Database : connects to
+
+@enduml

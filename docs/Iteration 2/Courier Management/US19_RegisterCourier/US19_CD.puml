@@ -1,0 +1,99 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+package "UI" #DDDDDD{
+class RegisterCourierUI {
+    
+}
+}
+package "controller" #DDDDDD{
+class RegisterCourierController {
+    
+  +newCourier(id, name, email, nif, iban)
+  +validateInput(id, name, email, nif, iban)
+  +registersCourier()
+}
+class PotApplication
+  {
+    +getInstance()
+    +getPlatform()
+    +getCurrentSession()
+  }
+
+}
+package "model" #DDDDDD{
+class Platform {
+  -String strDesignation
+  +getCourReg()
+}
+
+class Courier {
+    -Integer id
+    -String iban
+
+   +Courier(name, email, password, nif, iban)
+   +Courier(id, name, email, password, nif, iban)
+
+}
+class PharmacyManager {
+}
+
+class PassGenerator {
+   +PassGenerator()
+   +generatePassword()
+}
+
+class Pharmacy{
+-Integer id
+-String name
+}
+
+
+package "registration" #DDDDDD{
+class CourierRegistration {
+
+  +generatePassword()
+  +Courier newCourier(name, email, nif, iban, pharmacy)
+  +registersCourier(courier)
+
+}
+
+class PharmacyRegistration {
+
+  +getPharmacyByManagerEmail(email)
+
+}
+
+}
+class User{
+  -String email
+  -String password
+  -int nif
+  -string name
+}
+}
+
+
+Platform "1" -- "1" CourierRegistration: has >
+Platform "1" -- "1" PharmacyRegistration: has >
+Platform "1" -- "1" PharmacyManager: has registered >
+PharmacyManager "1" -- "1..*" Courier: registers >
+PharmacyManager "1" -- "1" User: acts as >
+Courier "1" -- "1" User: acts as >
+Courier "1" -- "1" Pharmacy: belongs to a >
+
+CourierRegistration "1" -- "1" Courier : creates and adds to DataBase
+CourierRegistration "1" -- "1" PassGenerator : creates
+PharmacyRegistration "1" -- "1" Pharmacy : manages
+
+
+RegisterCourierUI ..> RegisterCourierController
+
+RegisterCourierController ..> Platform
+RegisterCourierController ..> CourierRegistration
+RegisterCourierController ..> PharmacyRegistration
+RegisterCourierController ..> PotApplication
+
+@enduml
+
+

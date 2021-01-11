@@ -1,0 +1,18 @@
+@startuml
+autonumber
+hide footbox
+
+actor "Client" as CL
+participant ":System" as SYST
+
+activate CL
+
+CL -> SYST : sends a request to generate an invoice
+activate SYST
+
+SYST --> CL : sends the invoice
+deactivate SYST
+
+deactivate CL
+
+@enduml

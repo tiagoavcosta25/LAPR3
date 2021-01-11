@@ -1,0 +1,44 @@
+@startuml
+skinparam classAttributeIconSize 0
+hide methods
+left to right direction
+
+class Platform {
+-   String designation
+}
+
+class User{
+-   String name
+-   String email
+-   String password
+-   Integer nif
+}
+class Courier {
+      -String id
+      -String iban
+}
+class Scooter{
+  -int id
+  -float batteryPerc
+  -String charginStatus
+  -float potency
+  -float weight
+  -int batteryCapacity
+}
+
+class Order{
+-   int id
+-   float amount
+-   float totalWeight
+-   float additionalFee
+-   Date orderDate
+-   String description
+-   String status
+}
+
+Platform "1" -- "*" Courier : has registered >
+Platform "1" -- "*" Order : has registered >
+Courier "0..1" -- "1" User: acts as >
+Order "1" -- "1" Scooter : has associated >
+Order "1" -- "1" Courier : has associated >
+@enduml

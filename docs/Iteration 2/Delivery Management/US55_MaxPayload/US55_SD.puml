@@ -1,0 +1,51 @@
+@startuml
+autonumber
+hide footbox
+actor "Courier" as COUR
+
+participant "MaxPayloadUI" as UI
+participant "MaxPayloadController" as CTRL
+participant "ApplicationPOT" as _APP
+participant "app\n:ApplicationPOT" as APP
+participant "session\n:UserSession" as SESSION
+participant "plat\n:Platform" as PLAT
+participant "delReg\n:DeliveryRegistration" as DELREG
+
+activate COUR
+
+COUR -> UI : Sends a request regarding what is the maximum \npayload of the scooter
+
+activate UI
+UI -> CTRL : getMaxPayload()
+activate CTRL
+CTRL -> _APP: app = getInstance()
+activate _APP
+deactivate _APP
+
+CTRL -> APP: plat = getPlaform()
+activate APP
+deactivate APP
+
+CTRL -> APP: session = getCurrentSession()
+activate APP
+deactivate APP
+
+CTRL -> SESSION : email = getCurrentUserEmail()
+activate SESSION
+deactivate SESSION
+
+CTRL -> PLAT : delReg = getDelReg()
+activate PLAT
+deactivate PLAT
+CTRL -> DELREG : getMaxPayload(email)
+activate DELREG
+DELREG -> DELREG : executeQuery(query)
+ref over DELREG : SD_CONNECTIONS
+deactivate DELREG
+deactivate CTRL
+UI -> COUR : Shows the payload of the scooter, informing \nof the success of the operation.
+deactivate UI
+deactivate COUR
+
+
+@enduml

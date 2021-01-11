@@ -1,0 +1,12 @@
+@startuml
+autonumber
+actor "Courier" as CR
+
+activate CR
+CR -> ":System" : wants to see the scooters available
+activate ":System"
+":System" --> CR : presents the information about the available scooters
+deactivate ":System"
+
+deactivate CR
+@enduml

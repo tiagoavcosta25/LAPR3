@@ -1,0 +1,113 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+
+package "Controller" #DDDDDD {
+class ApplicationPOT
+{
+  +static getInstance()
+  +getPlatform()
+}
+}
+
+
+package "UI" #DDDDDD {
+class RegisterClientUI{
+
+}
+}
+
+
+package "Controller" #DDDDDD {
+class RegisterClientController{
++validateInput(name,nif,email,password,latitude,longitude,streetName,\ndoorNumber,postalCode,locality,country,creditCardNr,validityDate,CCV)
++registerNewClient(name,nif,email,password,latitude,longitude,streetName,\ndoorNumber,postalCode,locality,country,creditCardNr,validityDate,CCV)
+}
+}
+
+
+package "Model" #DDDDDD {
+class Platform {
+  -String designation
+  +getClientReg()
+}
+package "Registration" #DDDDDD {
+ class ClientRegistration{
+ +registerNewClient(client)
+ +addClientToDB(client)
+ }
+ }
+}
+
+
+
+
+package "Model" #DDDDDD {
+abstract class User{
+-Integer id
+-String email
+-String password
+-Integer nif
+-String name
++User(email,password,nif,name)
+}
+
+class Client extends User
+
+class Client{
+-String credits
+-Address address
+-CreditCard creditCard
++Client(name,nif,email,password,latitude,longitude,streetName,doorNumber,postalCode,locality,country,
+                        creditCardNr,validityDate,CCV)
+}
+
+class Address{
+-Integer id
+-Double latitude
+-Double longitude
+-String streetName
+-String doorNumber
+-String postalCode
+-String locality
+-String country
++Address(latitude,longitude,streetName,doorNumber,postalCode,locality,country)
+}
+
+class CreditCard{
+-Long m_creditCardNr;
+-Date m_validityDate;
+-Integer m_CCV;
++CreditCard(creditCardNr,validityDate,CCV)
+}
+
+}
+
+
+package "Data" #DDDDDD {
+class DataHandler{
++openConnection()
++closeAll()
+}
+
+}
+
+package "Utils" #DDDDDD {
+class EncryptPassword {
++encryptPasswordMD5(password)
+}
+
+}
+
+
+RegisterClientUI ..> RegisterClientController
+RegisterClientController ..> Platform
+RegisterClientController ..> ApplicationPOT
+Platform "1" --> "1" ClientRegistration : has
+ClientRegistration "1" --> "*" Client : creates
+class ClientRegistration extends DataHandler
+Client "1" --> "1" Address : has
+Client "*" --> "*" CreditCard : has
+User ..> EncryptPassword : encrypts using
+
+@enduml
