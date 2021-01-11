@@ -56,7 +56,9 @@ public class UpdateScooterController {
     public UpdateScooterController() {
         this.m_oPlatform = ApplicationPOT.getInstance().getPlatform();
         this.m_oPharmacyRegistration = m_oPlatform.getPharmacyReg();
+        this.m_oUserSession = ApplicationPOT.getInstance().getCurrentSession();
         this.m_strUserEmail = m_oUserSession.getCurrentUserEmail();
+        this.m_oScooterRegistration = ApplicationPOT.getInstance().getPlatform().getScooterReg();
     }
 
     public List<Scooter> getScootersList () {
@@ -71,7 +73,6 @@ public class UpdateScooterController {
     public boolean updateScooter(int intId, float fltBatteryPerc, String strCharginStatus, float fltPotency,
                                  float fltWeight, int intBatteryCapacity, float fltMaxPayload){
 
-        this.m_oScooterRegistration = m_oPlatform.getScooterReg();
         return m_oScooterRegistration.updateScooterFromDB(intId, fltBatteryPerc, strCharginStatus, fltPotency, fltWeight,
                 intBatteryCapacity, fltMaxPayload);
     }
