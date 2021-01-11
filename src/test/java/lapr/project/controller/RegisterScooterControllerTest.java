@@ -1,7 +1,6 @@
 package lapr.project.controller;
 
 import lapr.project.data.registration.PharmacyRegistration;
-import lapr.project.model.Client;
 import lapr.project.model.Pharmacy;
 import lapr.project.model.Scooter;
 import lapr.project.data.registration.ScooterRegistration;
@@ -11,7 +10,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
