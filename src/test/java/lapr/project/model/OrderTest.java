@@ -1,5 +1,6 @@
 package lapr.project.model;
 
+import oracle.ons.Cli;
 import org.junit.jupiter.api.Test;
 import java.sql.Date;
 import java.util.Calendar;
@@ -9,71 +10,64 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class OrderTest {
 
-    @Test
-    void getId() {
-        Order oOrder = new Order();
-        Integer expected = -1;
-        Integer real = oOrder.getId();
-        assertEquals(expected, real);
+    private Order o1;
+    private Order o2;
+    private Order o3;
+    private Order o4;
+    private Order o5;
+    private Order o6;
+    private Order o7;
+
+    public OrderTest(){
+        Map<Product, Integer> d1 = new TreeMap<>();
+        o1 = new Order(1, 2.0f, 3.0f, 2.0f, new Date(12 - 12 - 13),
+                "testDesc", "testStatus", new Client(), new Address(), new Pharmacy(), d1);
+        o2 = new Order(2.0f, 3.0f, 2.0f, new Date(12 - 12 - 13),
+                "testDesc", "testStatus", new Client(), new Address(), new Pharmacy(), d1);
+        o3 = new Order(1,"testDesc",new Client(),new Address(),new Pharmacy(),d1);
+        o4 = new Order("testDesc",new Client(),new Address(),new Pharmacy(),d1);
+        o5 = new Order(1,"testDesc",new Client(),new Pharmacy(),d1);
+        o6 = new Order("testDesc",new Client(),new Pharmacy(),d1);
+        o7 = new Order();
     }
 
+
     @Test
-    void setId() {
-        Order oOrder = new Order();
-        Integer expected = -2;
-        oOrder.setId(expected);
-        Integer real = oOrder.getId();
+    void getId() {
+        Integer expected = 1;
+        Integer real = o1.getId();
         assertEquals(expected, real);
+        Integer expected3 = 1;
+        Integer real3 = o3.getId();
+        assertEquals(expected3, real3);
+        Integer expected5 = 1;
+        Integer real5 = o5.getId();
+        assertEquals(expected5, real5);
+        Integer expected7 = -1;
+        Integer real7 = o7.getId();
+        assertEquals(expected7, real7);
+
     }
 
     @Test
     void getAmount() {
-        Order oOrder = new Order();
-        float expected = -1;
-        float real = oOrder.getAmount();
-        assertEquals(expected, real);
-    }
-
-    @Test
-    void setAmount() {
-        Order oOrder = new Order();
-        Float expected = -2f;
-        oOrder.setAmount(expected);
-        Float real = oOrder.getAmount();
+        float expected = 2.0f;
+        float real = o2.getAmount();
         assertEquals(expected, real);
     }
 
     @Test
     void getTotalWeight() {
-        Order oOrder = new Order();
-        float expected = -1;
-        float real = oOrder.getTotalWeight();
+        float expected = 3.0f;
+        float real = o1.getTotalWeight();
         assertEquals(expected, real);
     }
 
-    @Test
-    void setTotalWeight() {
-        Order oOrder = new Order();
-        Float expected = -2f;
-        oOrder.setTotalWeight(expected);
-        Float real = oOrder.getTotalWeight();
-        assertEquals(expected, real);
-    }
 
     @Test
     void getAdditionalFee() {
-        Order oOrder = new Order();
-        float expected = -1f;
-        float real = oOrder.getAdditionalFee();
-        assertEquals(expected, real);
-    }
-
-    @Test
-    void setAdditionalFee() {
-        Order oOrder = new Order();
-        Float expected = -2f;
-        oOrder.setAdditionalFee(expected);
-        Float real = oOrder.getAdditionalFee();
+        float expected = 2.0f;
+        float real = o1.getAdditionalFee();
         assertEquals(expected, real);
     }
 
@@ -87,29 +81,9 @@ class OrderTest {
     }
 
     @Test
-    void setOrderDate() {
-        Order oOrder = new Order();
-        Date date = new Date(Calendar.getInstance().getTimeInMillis());
-        oOrder.setOrderDate(date);
-        Date expected = date;
-        Date real = oOrder.getOrderDate();
-        assertEquals(expected, real);
-    }
-
-    @Test
     void getDescription() {
-        Order oOrder = new Order();
-        String expected = "No Description.";
-        String real = oOrder.getDescription();
-        assertEquals(expected, real);
-    }
-
-    @Test
-    void setDescription() {
-        Order oOrder = new Order();
-        String expected = "This is a test.";
-        oOrder.setDescription(expected);
-        String real = oOrder.getDescription();
+        String expected = "testDesc";
+        String real = o4.getDescription();
         assertEquals(expected, real);
     }
 
@@ -117,15 +91,6 @@ class OrderTest {
     void getStatus() {
         Order oOrder = new Order();
         String expected = "ordered";
-        String real = oOrder.getStatus();
-        assertEquals(expected, real);
-    }
-
-    @Test
-    void setStatus() {
-        Order oOrder = new Order();
-        String expected = "This is a test.";
-        oOrder.setStatus(expected);
         String real = oOrder.getStatus();
         assertEquals(expected, real);
     }
@@ -139,27 +104,9 @@ class OrderTest {
     }
 
     @Test
-    void setClient() {
-        Order oOrder = new Order();
-        Client expected = new Client();
-        oOrder.setClient(expected);
-        Client real = oOrder.getClient();
-        assertEquals(expected, real);
-    }
-
-    @Test
     void getAddress() {
         Order oOrder = new Order();
         Address expected = new Address();
-        Address real = oOrder.getAddress();
-        assertEquals(expected, real);
-    }
-
-    @Test
-    void setAddress() {
-        Order oOrder = new Order();
-        Address expected = new Address();
-        oOrder.setAddress(expected);
         Address real = oOrder.getAddress();
         assertEquals(expected, real);
     }
@@ -173,6 +120,63 @@ class OrderTest {
     }
 
     @Test
+    void getProducts() {
+        Order oOrder = new Order();
+        Map<Product, Integer> expected = new TreeMap<>();
+        expected.put(new Product(), 1);
+        oOrder.setProducts(expected);
+        Map<Product, Integer> real = oOrder.getProducts();
+        assertEquals(expected, real);
+    }
+    @Test
+    void setOrderDate() {
+        Order oOrder = new Order();
+        Date date = new Date(Calendar.getInstance().getTimeInMillis());
+        oOrder.setOrderDate(date);
+        Date expected = date;
+        Date real = oOrder.getOrderDate();
+        assertEquals(expected, real);
+    }
+
+    @Test
+    void setDescription() {
+        Order oOrder = new Order();
+        String expected = "This is a test.";
+        oOrder.setDescription(expected);
+        String real = oOrder.getDescription();
+        assertEquals(expected, real);
+    }
+
+    @Test
+    void setStatus() {
+        Order oOrder = new Order();
+        String expected = "This is a test.";
+        oOrder.setStatus(expected);
+        String real = oOrder.getStatus();
+        assertEquals(expected, real);
+    }
+
+    @Test
+    void setClient() {
+        Order oOrder = new Order();
+        Client expected = new Client();
+        oOrder.setClient(expected);
+        Client real = oOrder.getClient();
+        assertEquals(expected, real);
+    }
+
+
+    @Test
+    void setAddress() {
+        Order oOrder = new Order();
+        Address expected = new Address();
+        oOrder.setAddress(expected);
+        Address real = oOrder.getAddress();
+        assertEquals(expected, real);
+    }
+
+
+    @Test
     void setPharmacy() {
         Order oOrder = new Order();
         Pharmacy expected = new Pharmacy();
@@ -181,13 +185,31 @@ class OrderTest {
         assertEquals(expected, real);
     }
 
+
     @Test
-    void getProducts() {
+    void setTotalWeight() {
         Order oOrder = new Order();
-        Map<Product, Integer> expected = new TreeMap<>();
-        expected.put(new Product(), 1);
-        oOrder.setProducts(expected);
-        Map<Product, Integer> real = oOrder.getProducts();
+        Float expected = -2f;
+        oOrder.setTotalWeight(expected);
+        Float real = oOrder.getTotalWeight();
+        assertEquals(expected, real);
+    }
+
+    @Test
+    void setAdditionalFee() {
+        Order oOrder = new Order();
+        Float expected = -2f;
+        oOrder.setAdditionalFee(expected);
+        Float real = oOrder.getAdditionalFee();
+        assertEquals(expected, real);
+    }
+
+    @Test
+    void setAmount() {
+        Order oOrder = new Order();
+        Float expected = -2f;
+        oOrder.setAmount(expected);
+        Float real = oOrder.getAmount();
         assertEquals(expected, real);
     }
 
@@ -198,6 +220,15 @@ class OrderTest {
         expected.put(new Product(), 1);
         oOrder.setProducts(expected);
         Map<Product, Integer> real = oOrder.getProducts();
+        assertEquals(expected, real);
+    }
+
+    @Test
+    void setId() {
+        Order oOrder = new Order();
+        Integer expected = -2;
+        oOrder.setId(expected);
+        Integer real = oOrder.getId();
         assertEquals(expected, real);
     }
 
