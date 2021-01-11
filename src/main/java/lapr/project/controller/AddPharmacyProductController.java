@@ -56,6 +56,7 @@ public class AddPharmacyProductController {
 
     public boolean addPharmacyProduct(Product oProduct, Integer intStock) {
         try {
+            if (oProduct == null || intStock < 0) throw new Exception();
             this.m_oProduct = oProduct;
             this.m_intStock = intStock;
             return true;
