@@ -21,7 +21,9 @@ class ChargingSlotTest {
         c4 = new ChargingSlot();
         cCopy = c1;
         cDif = new ChargingSlot(2,new Park(),new Scooter(),3.0f);
-        cDif2 = new ChargingSlot(2,null,new Scooter(),2.0f);
+        Park p = new Park();
+        p.setMaxSlotsNumber(10);
+        cDif2 = new ChargingSlot(2, p,new Scooter(),2.0f);
     }
 
 
@@ -181,6 +183,7 @@ class ChargingSlotTest {
         assertNotEquals(c1, cDif);
         assertNotEquals(c1, u);
         assertNotEquals(c1, cDif2);
+        assertNotEquals(cDif2, c1);
         ChargingSlot oChargingSlot = new ChargingSlot();
         boolean expected = true;
         boolean real = oChargingSlot.equals(new ChargingSlot());
