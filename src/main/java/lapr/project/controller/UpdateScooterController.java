@@ -7,6 +7,7 @@ import lapr.project.data.registration.PharmacyRegistration;
 import lapr.project.data.registration.ScooterRegistration;
 import lapr.project.model.UserSession;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class UpdateScooterController {
@@ -58,7 +59,7 @@ public class UpdateScooterController {
             this.m_oPharmacy = m_oPharmacyRegistration.getPharmacyByManagerEmail(m_strUserEmail);
             return m_oScooterRegistration.getScootersList(m_oPharmacy.getId());
         } catch (Exception ex) {
-            return null;
+            return new ArrayList<>();
         }
     }
 
