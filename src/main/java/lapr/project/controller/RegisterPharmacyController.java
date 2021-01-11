@@ -59,4 +59,7 @@ public class RegisterPharmacyController {
     public boolean registerPharmacy() {
         return this.m_oPharmacyRegistration.registerPharmacy(m_oPharmacy);
     }
+    public void setPharmacy(Pharmacy p){
+        this.m_oPharmacy = p;
+    }
 }
