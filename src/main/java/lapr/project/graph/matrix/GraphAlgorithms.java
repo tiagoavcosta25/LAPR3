@@ -4,7 +4,7 @@ package lapr.project.graph.matrix;
 import java.util.LinkedList;
 
 /**
- * Implementation of graph algorithms for a (undirected) graph structure
+ * Implementation of model.graph algorithms for a (undirected) model.graph structure
  * Considering generic vertex V and edge E types
  * <p>
  * Works on AdjancyMatrixGraph objects
@@ -15,11 +15,11 @@ public class GraphAlgorithms {
 
 
     /**
-     * Performs depth-first search of the graph starting at vertex.
+     * Performs depth-first search of the model.graph starting at vertex.
      * Calls package recursive version of the method.
      *
      * @param graph  Graph object
-     * @param vertex Vertex of graph that will be the source of the search
+     * @param vertex Vertex of model.graph that will be the source of the search
      * @return queue of vertices found by search (including vertex), null if vertex does not exist
      */
     public static <V, E> LinkedList<V> BFS(AdjacencyMatrixGraph<V, E> graph, V vertex) {
@@ -49,11 +49,11 @@ public class GraphAlgorithms {
     }
 
     /**
-     * Performs depth-first search of the graph starting at vertex.
+     * Performs depth-first search of the model.graph starting at vertex.
      * Calls package recursive version of the method.
      *
      * @param graph  Graph object
-     * @param vertex Vertex of graph that will be the source of the search
+     * @param vertex Vertex of model.graph that will be the source of the search
      * @return queue of vertices found by search (empty if none), null if vertex does not exist
      */
     public static <V, E> LinkedList<V> DFS(AdjacencyMatrixGraph<V, E> graph, V vertex) {
@@ -66,11 +66,11 @@ public class GraphAlgorithms {
     }
 
     /**
-     * Actual depth-first search of the graph starting at vertex.
+     * Actual depth-first search of the model.graph starting at vertex.
      * The method adds discovered vertices (including vertex) to the queue of vertices
      *
      * @param graph         Graph object
-     * @param vertex        The vertex of graph that will be the source of the search
+     * @param vertex        The vertex of model.graph that will be the source of the search
      * @param verticesQueue queue of vertices found by search
      */
     static <V, E> void DFS(AdjacencyMatrixGraph<V, E> graph, V vertex, LinkedList<V> verticesQueue) {
@@ -83,15 +83,15 @@ public class GraphAlgorithms {
 
     }
 
+/*
 
-    /**
-     * Transforms a graph into its transitive closure
+     * Transforms a model.graph into its transitive closure
      * uses the Floyd-Warshall algorithm
      *
      * @param graph     Graph object
      * @param dummyEdge object to insert in the newly created edges
-     * @return the new graph
-     */
+     * @return the new model.graph
+
     public static <V, E> AdjacencyMatrixGraph<V, E> transitiveClosure(AdjacencyMatrixGraph<V, E> graph, E dummyEdge) {
         AdjacencyMatrixGraph<V, E> g = (AdjacencyMatrixGraph<V, E>) graph.clone();
         for (int k = 0; k < g.numVertices; k++) {
@@ -108,5 +108,5 @@ public class GraphAlgorithms {
         }
         return g;
     }
-
+*/
 }
