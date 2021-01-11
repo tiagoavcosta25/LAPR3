@@ -17,7 +17,7 @@ public class ProductInformationController {
         this.pr = plat.getProductReg();
     }
 
-    private boolean verifyProductId(int intId) {
+    public boolean verifyProductId(int intId) {
         return ValidationProduct.validateId(intId);
     }
 

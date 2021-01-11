@@ -18,7 +18,7 @@ public class RegisterProductController {
     }
 
     private Product validateInput(String strName, String strDescription, float fltUnitaryPrice, float fltUnitaryWeight) {
-        return ValidationProduct.validateInput(strName, strDescription, fltUnitaryPrice, fltUnitaryPrice);
+        return ValidationProduct.validateInput(strName, strDescription, fltUnitaryPrice, fltUnitaryWeight);
     }
 
     public boolean registerProductToDB(String strName, String strDescription, float fltUnitaryPrice, float fltUnitaryWeight) {
