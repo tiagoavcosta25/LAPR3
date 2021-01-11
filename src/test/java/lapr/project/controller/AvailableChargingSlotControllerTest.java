@@ -5,6 +5,7 @@ import lapr.project.data.registration.DeliveryRegistration;
 import lapr.project.data.registration.ScooterRegistration;
 import lapr.project.model.ChargingSlot;
 import lapr.project.model.Scooter;
+import lapr.project.model.UserSession;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;

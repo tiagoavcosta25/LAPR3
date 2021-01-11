@@ -2,10 +2,7 @@ package lapr.project.controller;
 
 import lapr.project.data.registration.DeliveryRegistration;
 import lapr.project.data.registration.ScooterRegistration;
-import lapr.project.model.ChargingSlot;
-import lapr.project.model.Client;
-import lapr.project.model.Order;
-import lapr.project.model.Scooter;
+import lapr.project.model.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;

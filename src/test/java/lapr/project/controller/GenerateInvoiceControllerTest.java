@@ -4,6 +4,7 @@ import lapr.project.data.registration.*;
 import lapr.project.model.Client;
 import lapr.project.model.Invoice;
 import lapr.project.model.Order;
+import lapr.project.model.UserSession;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;

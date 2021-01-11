@@ -1,10 +1,7 @@
 package lapr.project.controller;
 
 import lapr.project.data.registration.PharmacyRegistration;
-import lapr.project.model.ChargingSlot;
-import lapr.project.model.Courier;
-import lapr.project.model.PassGenerator;
-import lapr.project.model.Pharmacy;
+import lapr.project.model.*;
 import lapr.project.data.registration.CourierRegistration;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
