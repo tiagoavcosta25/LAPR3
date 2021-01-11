@@ -55,7 +55,9 @@ public class ScooterInformationController {
     public ScooterInformationController() {
         this.m_oPlatform = ApplicationPOT.getInstance().getPlatform();
         this.m_oPharmacyRegistration = m_oPlatform.getPharmacyReg();
+        this.m_oUserSession = ApplicationPOT.getInstance().getCurrentSession();
         this.m_strUserEmail = m_oUserSession.getCurrentUserEmail();
+        this.m_oScooterRegistration = ApplicationPOT.getInstance().getPlatform().getScooterReg();
     }
 
     public List<Scooter> getScootersList() {

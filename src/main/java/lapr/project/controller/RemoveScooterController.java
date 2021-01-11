@@ -55,7 +55,9 @@ public class RemoveScooterController {
     public RemoveScooterController() {
         this.m_oPlatform = ApplicationPOT.getInstance().getPlatform();
         this.m_oPharmacyRegistration = m_oPlatform.getPharmacyReg();
+        this.m_oUserSession = ApplicationPOT.getInstance().getCurrentSession();
         this.m_strUserEmail = m_oUserSession.getCurrentUserEmail();
+        this.m_oScooterRegistration = m_oPlatform.getScooterReg();
     }
 
     public List<Scooter> showScootersList () {
@@ -68,7 +70,6 @@ public class RemoveScooterController {
     }
 
     public boolean removeScooter(int intScooterId){
-        this.m_oScooterRegistration = m_oPlatform.getScooterReg();
         return m_oScooterRegistration.removeScooterFromDB(intScooterId);
     }
 
