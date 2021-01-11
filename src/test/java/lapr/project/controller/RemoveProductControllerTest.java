@@ -33,5 +33,8 @@ class RemoveProductControllerTest {
         when(mockProductRegistration.removeProductFromDB(1)).thenReturn(true);
         Boolean result = removeProductController.removeProductFromDB(1);
         Assert.assertTrue(result);
+
+        result = removeProductController.removeProductFromDB(-1);
+        Assert.assertFalse(result);
     }
 }
