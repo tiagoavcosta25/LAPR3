@@ -181,19 +181,56 @@ public class ScooterTest {
         String s = "";
         assertNotEquals(scooterTest2,s);
 
+        Pharmacy oPharmacy = new Pharmacy();
+        oPharmacy.setId(5);
+
         Scooter oScooter3 = new Scooter(3, "Not Charging", 2, 2,
                 2, 2, new Pharmacy());
         Scooter oScooter4 = new Scooter(3, "Not Charging", 2, 2,
                 2, 2, new Pharmacy());
+        Scooter oScooter5 = new Scooter(4, "Not Charging", 2, 2,
+                2, 2, new Pharmacy());
+        Scooter oScooter6 = new Scooter(3, "Charging", 2, 2,
+                2, 2, new Pharmacy());
+        Scooter oScooter7 = new Scooter(3, "Not Charging", 4, 2,
+                2, 2, new Pharmacy());
+        Scooter oScooter8 = new Scooter(3, "Not Charging", 2, 4,
+                2, 2, new Pharmacy());
+        Scooter oScooter9 = new Scooter(3, "Not Charging", 2, 2,
+                4, 2, new Pharmacy());
+        Scooter oScooter10 = new Scooter(3, "Not Charging", 2, 2,
+                2, 4, new Pharmacy());
+        Scooter oScooter11 = new Scooter(3, "Not Charging", 2, 2,
+                4, 2, oPharmacy);
 
         assertNotEquals(oScooter3, scooterTest2);
 
         real = scooterTest3.equals(oScooter3);
         assertFalse(real);
 
-
         real = oScooter4.equals(oScooter3);
         assertTrue(real);
+
+        real = oScooter5.equals(oScooter3);
+        assertFalse(real);
+
+        real = oScooter6.equals(oScooter3);
+        assertFalse(real);
+
+        real = oScooter7.equals(oScooter3);
+        assertFalse(real);
+
+        real = oScooter8.equals(oScooter3);
+        assertFalse(real);
+
+        real = oScooter9.equals(oScooter3);
+        assertFalse(real);
+
+        real = oScooter10.equals(oScooter3);
+        assertFalse(real);
+
+        real = oScooter11.equals(oScooter3);
+        assertFalse(real);
 
     }
 
