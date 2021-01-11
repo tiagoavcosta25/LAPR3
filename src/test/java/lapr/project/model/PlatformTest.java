@@ -58,5 +58,12 @@ class PlatformTest {
         assertNotEquals(result, null);
     }
 
+    @Test
+    void getProductReg() {
+        ProductRegistration result = platform.getProductReg();
+        assertNotEquals(null, result);
+        assertNotEquals(result, null);
+    }
+
 
 }

@@ -4,6 +4,7 @@ import oracle.ons.Cli;
 import org.junit.jupiter.api.Test;
 import java.sql.Date;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 import static org.junit.jupiter.api.Assertions.*;
@@ -238,6 +239,12 @@ class OrderTest {
         boolean expected = false;
         boolean real = oOrder.isDelivery();
         assertEquals(expected, real);
+
+        Address address = new Address();
+        address.setId(4);
+        Order orderF = new Order(1, "Teste", new Client(), address, new Pharmacy(), new HashMap<>());
+        real = orderF.isDelivery();
+        assertTrue(real);
     }
 
     @Test
