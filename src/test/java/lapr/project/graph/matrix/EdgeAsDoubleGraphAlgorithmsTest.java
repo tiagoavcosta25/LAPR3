@@ -1,26 +1,25 @@
 package lapr.project.graph.matrix;
 
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import java.util.Iterator;
 import java.util.LinkedList;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import static org.junit.Assert.*;
-import org.junit.Before;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  *
  * @author DEI-ESINF
  */
 public class EdgeAsDoubleGraphAlgorithmsTest {
-    
-    AdjacencyMatrixGraph <String, Double> distanceMap = new AdjacencyMatrixGraph<>();
 
-    public EdgeAsDoubleGraphAlgorithmsTest() {
-    }
-    
-    @Before
-    public void setUp() throws Exception {
+	AdjacencyMatrixGraph <String, Double> distanceMap = new AdjacencyMatrixGraph<>();
+
+	public EdgeAsDoubleGraphAlgorithmsTest() {
+	}
+
+	@BeforeEach
+	public void setUp() {
 		distanceMap.insertVertex("Porto");
 		distanceMap.insertVertex("Braga");
 		distanceMap.insertVertex("Vila Real");
@@ -34,7 +33,7 @@ public class EdgeAsDoubleGraphAlgorithmsTest {
 		distanceMap.insertVertex("Lisboa");
 		distanceMap.insertVertex("Faro");
 		distanceMap.insertVertex("Évora");
-		
+
 
 		distanceMap.insertEdge("Porto", "Aveiro", 75.0);
 		distanceMap.insertEdge("Porto", "Braga", 60.0);
@@ -47,7 +46,7 @@ public class EdgeAsDoubleGraphAlgorithmsTest {
 		distanceMap.insertEdge("Aveiro", "Leiria", 120.0);
 		distanceMap.insertEdge("Leiria", "Lisboa", 150.0);
 
-		
+
 		distanceMap.insertEdge("Aveiro", "Viseu", 85.0);
 		distanceMap.insertEdge("Leiria", "Castelo Branco", 170.0);
 		distanceMap.insertEdge("Lisboa", "Faro", 280.0);
@@ -57,62 +56,62 @@ public class EdgeAsDoubleGraphAlgorithmsTest {
 	@Test
 	public void testShortestPath() {
 		System.out.println("Test of shortest path");
-		
+
 		LinkedList<String> path = new LinkedList<>();
-		
-		assertTrue("Should be -1 if vertex does not exist", EdgeAsDoubleGraphAlgorithms.shortestPath(distanceMap,  "Porto",  "LX",  path) == -1);
-		 
-		assertTrue("Should be -1 if there is no path", EdgeAsDoubleGraphAlgorithms.shortestPath(distanceMap, "Porto", "Évora", path)==-1);
-		
-		assertTrue("Should be 0 if source and vertex are the same", EdgeAsDoubleGraphAlgorithms.shortestPath(distanceMap,  "Porto",  "Porto",  path) == 0);
-		
-		assertTrue("Path should be single vertex if source and vertex are the same", path.size() == 1);
-		
-		assertTrue("Path between Porto and Lisboa should be 335 Km", EdgeAsDoubleGraphAlgorithms.shortestPath(distanceMap,  "Porto",  "Lisboa",  path) == 335);
-		
+
+		assertEquals(EdgeAsDoubleGraphAlgorithms.shortestPath(distanceMap, "Porto", "LX", path), -1);
+
+		assertEquals(EdgeAsDoubleGraphAlgorithms.shortestPath(distanceMap, "Porto", "Évora", path), -1);
+
+		assertEquals(0, EdgeAsDoubleGraphAlgorithms.shortestPath(distanceMap, "Porto", "Porto", path));
+
+		assertEquals(1, path.size());
+
+		assertEquals(335, EdgeAsDoubleGraphAlgorithms.shortestPath(distanceMap, "Porto", "Lisboa", path));
+
 		Iterator<String> it = path.iterator();
 
-		assertTrue("First in path should be Porto", it.next().compareTo("Porto")==0);
-		assertTrue("then Aveiro", it.next().compareTo("Aveiro")==0);
-		assertTrue("then Coimbra", it.next().compareTo("Coimbra")==0);
-		assertTrue("then Lisboa", it.next().compareTo("Lisboa")==0);
+		assertEquals(0, it.next().compareTo("Porto"));
+		assertEquals(0, it.next().compareTo("Aveiro"));
+		assertEquals(0, it.next().compareTo("Coimbra"));
+		assertEquals(0, it.next().compareTo("Lisboa"));
 
-		assertTrue("Path between Braga and Leiria should be 255 Km", EdgeAsDoubleGraphAlgorithms.shortestPath(distanceMap,  "Braga",  "Leiria",  path) == 255);
-		
+		assertEquals(255, EdgeAsDoubleGraphAlgorithms.shortestPath(distanceMap, "Braga", "Leiria", path));
+
 		it = path.iterator();
 
-		assertTrue("First in path should be Braga", it.next().compareTo("Braga")==0);
-		assertTrue("then Porto", it.next().compareTo("Porto")==0);
-		assertTrue("then Aveiro", it.next().compareTo("Aveiro")==0);
-		assertTrue("then Leiria", it.next().compareTo("Leiria")==0);
-		
-		assertTrue("Path between Porto and Castelo Branco should be 335 Km", EdgeAsDoubleGraphAlgorithms.shortestPath(distanceMap,  "Porto",  "Castelo Branco",  path) == 335);
-		assertTrue("Path between Porto and Castelo Branco should be 5 cities", path.size() == 5);
-		
+		assertEquals(0, it.next().compareTo("Braga"));
+		assertEquals(0, it.next().compareTo("Porto"));
+		assertEquals(0, it.next().compareTo("Aveiro"));
+		assertEquals(0, it.next().compareTo("Leiria"));
+
+		assertEquals(335, EdgeAsDoubleGraphAlgorithms.shortestPath(distanceMap, "Porto", "Castelo Branco", path));
+		assertEquals(5, path.size());
+
 		it = path.iterator();
 
-		assertTrue("First in path should be Porto", it.next().compareTo("Porto")==0);
-		assertTrue("then Aveiro", it.next().compareTo("Aveiro")==0);
-		assertTrue("then Viseu", it.next().compareTo("Viseu")==0);
-		assertTrue("then Guarda", it.next().compareTo("Guarda")==0);
-		assertTrue("then Castelo Branco", it.next().compareTo("Castelo Branco")==0);
-		
+		assertEquals(0, it.next().compareTo("Porto"));
+		assertEquals(0, it.next().compareTo("Aveiro"));
+		assertEquals(0, it.next().compareTo("Viseu"));
+		assertEquals(0, it.next().compareTo("Guarda"));
+		assertEquals(0, it.next().compareTo("Castelo Branco"));
+
 		// Changing Viseu to Guarda should change shortest path between Porto and Castelo Branco
 
 		distanceMap.removeEdge("Viseu", "Guarda");
 		distanceMap.insertEdge("Viseu", "Guarda", 125.0);
-		
-		assertTrue("Path between Porto and Castelo Branco should now be 365 Km", EdgeAsDoubleGraphAlgorithms.shortestPath(distanceMap,  "Porto",  "Castelo Branco",  path) == 365);
-		assertTrue("Path between Porto and Castelo Branco should be 4 cities", path.size() == 4);
-		
+
+		assertEquals(365, EdgeAsDoubleGraphAlgorithms.shortestPath(distanceMap, "Porto", "Castelo Branco", path));
+		assertEquals(4, path.size());
+
 		it = path.iterator();
-	
-		assertTrue("First in path should be Porto", it.next().compareTo("Porto")==0);
-		assertTrue("then Aveiro", it.next().compareTo("Aveiro")==0);
-		assertTrue("then Leiria", it.next().compareTo("Leiria")==0);
-		assertTrue("then Castelo Branco", it.next().compareTo("Castelo Branco")==0);
-		
-		
+
+		assertEquals(0, it.next().compareTo("Porto"));
+		assertEquals(0, it.next().compareTo("Aveiro"));
+		assertEquals(0, it.next().compareTo("Leiria"));
+		assertEquals(0, it.next().compareTo("Castelo Branco"));
+
+
 	}
 
 }

@@ -1,13 +1,13 @@
 package lapr.project.controller;
 
 import lapr.project.data.registration.ProductRegistration;
-import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
 
@@ -32,9 +32,9 @@ class RemoveProductControllerTest {
         System.out.println("registerProductToDB");
         when(mockProductRegistration.removeProductFromDB(1)).thenReturn(true);
         Boolean result = removeProductController.removeProductFromDB(1);
-        Assert.assertTrue(result);
+        assertTrue(result);
 
         result = removeProductController.removeProductFromDB(-1);
-        Assert.assertFalse(result);
+        assertFalse(result);
     }
 }
