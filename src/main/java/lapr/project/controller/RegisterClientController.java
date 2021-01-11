@@ -50,7 +50,6 @@ public class RegisterClientController {
                 return clientReg.registerNewClient(c);
             }
         } catch (Exception e) {
-            System.out.println("There has been an error regarding FORMATTING!");
             return false;
         }
         return false;
