@@ -14,7 +14,7 @@ public class UpdateProductController {
     public UpdateProductController() {
         this.app = ApplicationPOT.getInstance();
         this.plat = app.getPlatform();
-        setProductRegistration(plat.getProductReg());
+        this.pr = plat.getProductReg();
     }
 
     private Product validateInput(int intId, String strName, String strDescription, float fltUnitaryPrice, float fltUnitaryWeight) {
