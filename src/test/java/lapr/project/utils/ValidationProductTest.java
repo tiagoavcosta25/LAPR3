@@ -31,6 +31,9 @@ class ValidationProductTest {
 
         expectedProduct.setId(2);
         assertNotEquals(expectedProduct.getId(), ValidationProduct.validateInputWithId(intId, strName, strDescription, fltUnitaryPrice, fltUnitaryWeight).getId());
+        assertFalse(ValidationProduct.validateInputWithId(intId, strName, strDescription, fltUnitaryPrice, fltUnitaryWeight).hasId(2));
+        assertTrue(ValidationProduct.validateInputWithId(intId, strName, strDescription, fltUnitaryPrice, fltUnitaryWeight).hasId(1));
+
     }
 
     @Test

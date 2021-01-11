@@ -4,6 +4,9 @@ import lapr.project.model.Product;
 
 public class ValidationProduct {
 
+    private ValidationProduct() {
+    }
+
     public static Product validateInputWithId(int intId, String strName, String strDescription,
                                               float fltUnitaryPrice, float fltUnitaryWeight) {
         Product p = validateInput(strName, strDescription, fltUnitaryPrice, fltUnitaryWeight);
