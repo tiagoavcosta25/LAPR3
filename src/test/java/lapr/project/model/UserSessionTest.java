@@ -6,31 +6,45 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class UserSessionTest {
 
-    private UserSession userSession;
+    private UserSession userSession1;
+    private UserSession userSession2;
+    private UserSession userSession3;
+    private UserSession userSession4;
+    private UserSession userSession5;
 
     UserSessionTest() {
-        userSession = new UserSession("email",1);
+        userSession1 = new UserSession("email",1);
+        userSession2 = new UserSession("em",2);
+        userSession3 = new UserSession("ee",3);
+        userSession4 = new UserSession("emmaail",4);
+        userSession5 = new UserSession();
     }
 
     @Test
     void getCurrentUserEmail() {
         String expected = "email";
-        String real = userSession.getCurrentUserEmail();
+        String real = userSession1.getCurrentUserEmail();
         assertEquals(expected,real);
     }
 
     @Test
     void getRole() {
         UserSession.Role expected = UserSession.Role.CLIENT;
-        UserSession.Role real = userSession.getRole();
+        UserSession.Role real = userSession1.getRole();
         assertEquals(expected,real);
+
+        assertNotEquals(userSession1.getRole(), UserSession.Role.ADMIN);
+
+        assertEquals(UserSession.Role.CLIENT,userSession1.getRole().getRole());
+
+        assertNotEquals(UserSession.Role.ADMIN,userSession1.getRole().getRole());
     }
 
     @Test
     void setRole() {
         UserSession.Role expected = UserSession.Role.ADMIN;
-        userSession.setRole(UserSession.Role.ADMIN);
-        UserSession.Role real = userSession.getRole();
+        userSession1.setRole(UserSession.Role.ADMIN);
+        UserSession.Role real = userSession1.getRole();
         assertEquals(expected,real);
     }
 }
