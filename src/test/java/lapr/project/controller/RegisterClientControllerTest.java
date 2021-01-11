@@ -117,7 +117,7 @@ class RegisterClientControllerTest {
 
         boolean result16 = m_ctrl.registerNewClient("TestName",123456789,"test@gmail.com","testpassword",
                 1032323d,1999392d,"Test street","2ºesq","4444-111","Gaia",
-                "Portugal",1234123412341233L,"10/123/1/20",123);
+                "Portugal",1234123412341233L,"ajskfafla-a---a-f-af-a",123);
         assertFalse(result16);
 
         boolean result17 = m_ctrl.registerNewClient("TestName",123456789,"test@gmail.com","t",
@@ -195,6 +195,11 @@ class RegisterClientControllerTest {
                 1032323d,1999392d,"Test street","2ºesq","4444-111","Gaia",
                 "Portugal",1234123412341233L,"10/22",123);
         assertFalse(result32);
+
+        boolean result33 = m_ctrl.registerNewClient("TestName",123456789,"test@gmail.com","t",
+                1032323d,123456d,"Test street","2ºesq","4444-111","Gaia",
+                "Portugal",1234123412341233L,"/21",123);
+        assertFalse(result33);
 
     }
 
