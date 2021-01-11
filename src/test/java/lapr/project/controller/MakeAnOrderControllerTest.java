@@ -40,8 +40,6 @@ class MakeAnOrderControllerTest {
     private Order expectedOrder;
     private boolean expectedValue;
 
-    private Client c;
-
     @BeforeEach
     void setUp() {
         this.expectedOrder = new Order("Description", new Client(), new Address(-1d, -1d, "Street",
@@ -50,7 +48,6 @@ class MakeAnOrderControllerTest {
         this.makeAnOrderController = new MakeAnOrderController();
         this.mockOrderRegistration = Mockito.mock(OrderRegistration.class);
         this.mockClientRegistration = Mockito.mock(ClientRegistration.class);
-        c = new Client();
         initMocks(this);
     }
 
@@ -58,9 +55,8 @@ class MakeAnOrderControllerTest {
     void newOrder() {
         System.out.println("newOrder");
         ApplicationPOT.getInstance().setCurrentSession(new UserSession("email3@gmail.com"));
-        c.setEmail("email3@gmail.com");
-        when(mockClientRegistration.getClientByEmail("email3@gmail.com")).thenReturn(c);
-        when(mockOrderRegistration.newOrder("Description", c, -1d, -1d, "Street", "1o Direito", "4400-123", "Locality",
+        when(mockClientRegistration.getClientByEmail("email3@gmail.com")).thenReturn(new Client());
+        when(mockOrderRegistration.newOrder("Description", new Client(), -1d, -1d, "Street", "1o Direito", "4400-123", "Locality",
                 "Country", null, new TreeMap<>())).thenReturn(expectedOrder);
         Order result = makeAnOrderController.newOrder("Description", -1d, -1d, "Street", "1o Direito", "4400-123", "Locality",
                 "Country");
@@ -71,10 +67,9 @@ class MakeAnOrderControllerTest {
     void testNewOrder() {
         System.out.println("testNewOrder");
         ApplicationPOT.getInstance().setCurrentSession(new UserSession("email3@gmail.com"));
-        c.setEmail("email3@gmail.com");
         Address a = new Address();
-        when(mockClientRegistration.getClientByEmail("email3@gmail.com")).thenReturn(c);
-        when(mockOrderRegistration.newOrder("Description", c, a.getLatitude(), a.getLongitude(), a.getStreetName(), a.getDoorNumber(), a.getPostalCode(), a.getLocality(),
+        when(mockClientRegistration.getClientByEmail("email3@gmail.com")).thenReturn(new Client());
+        when(mockOrderRegistration.newOrder("Description", new Client(), a.getLatitude(), a.getLongitude(), a.getStreetName(), a.getDoorNumber(), a.getPostalCode(), a.getLocality(),
                 a.getCountry(), null, new TreeMap<>())).thenReturn(expectedOrder);
         Order result = makeAnOrderController.newOrder("Description", true);
         assertEquals(expectedOrder, result);
