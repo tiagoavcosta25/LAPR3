@@ -36,5 +36,12 @@ class RemoveProductControllerTest {
 
         result = removeProductController.removeProductFromDB(-1);
         assertFalse(result);
+
+        result = removeProductController.removeProductFromDB(0);
+        assertFalse(result);
+
+        when(mockProductRegistration.removeProductFromDB(1)).thenReturn(false);
+        result = removeProductController.removeProductFromDB(1);
+        assertFalse(result);
     }
 }
