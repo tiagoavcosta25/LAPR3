@@ -12,6 +12,7 @@ class ChargingSlotTest {
     private ChargingSlot c4;
     private ChargingSlot cCopy;
     private ChargingSlot cDif;
+    private ChargingSlot cDif2;
 
     public ChargingSlotTest(){
         c1 = new ChargingSlot(1,new Park(),new Scooter(),2.0f);
@@ -20,6 +21,7 @@ class ChargingSlotTest {
         c4 = new ChargingSlot();
         cCopy = c1;
         cDif = new ChargingSlot(2,new Park(),new Scooter(),3.0f);
+        cDif2 = new ChargingSlot(2,null,new Scooter(),2.0f);
     }
 
 
@@ -172,10 +174,13 @@ class ChargingSlotTest {
 
     @Test
     void testEquals() {
+        Client u = new Client();
         assertEquals(c1, cCopy);
         assertNotEquals(null, c1);
         assertNotEquals(c1, null);
         assertNotEquals(c1, cDif);
+        assertNotEquals(c1, u);
+        assertNotEquals(c1, cDif2);
         ChargingSlot oChargingSlot = new ChargingSlot();
         boolean expected = true;
         boolean real = oChargingSlot.equals(new ChargingSlot());
