@@ -66,7 +66,7 @@ class ProductTest {
         result = product.compareTo(productCopy);
         assertEquals(expResult, result);
 
-        String expResultString = "Product{m_intId=1, m_strName='Produto 1', m_strDescription='Descrição 1', m_fltUnitaryPrice=2.0, m_fltUnitaryWeight=0.0}"
+        String expResultString = "Product{m_intId=1, m_strName='Produto 1', m_strDescription='Descrição 1', m_fltUnitaryPrice=2.0, m_fltUnitaryWeight=0.0}";
         String resultString = product.toString();
         assertEquals(expResultString, resultString);
     }
