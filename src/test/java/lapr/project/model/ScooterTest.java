@@ -2,6 +2,9 @@ package lapr.project.model;
 
 import org.junit.jupiter.api.Test;
 
+import java.security.NoSuchAlgorithmException;
+import java.util.TreeMap;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class ScooterTest {
@@ -165,7 +168,7 @@ public class ScooterTest {
     }
 
     @Test
-    void testEquals() {
+    void testEquals() throws NoSuchAlgorithmException {
         Scooter oScooter2 = new Scooter(1, 1, "Not Charging", 1, 1,
                 1, 1, new Pharmacy());
 
@@ -181,8 +184,10 @@ public class ScooterTest {
         String s = "";
         assertNotEquals(scooterTest2,s);
 
-        Pharmacy oPharmacy = new Pharmacy();
-        oPharmacy.setId(5);
+        Pharmacy oPharmacy = new Pharmacy(5,"testName", new PharmacyManager(-19, "test@email.pt",
+                "test", 123456789, "test"), new Address(1d, 1d, "test",
+                "test", "test", "test", "test"), new TreeMap<>());
+
 
         Scooter oScooter3 = new Scooter(3, "Not Charging", 2, 2,
                 2, 2, new Pharmacy());
