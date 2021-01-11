@@ -17,7 +17,7 @@ class LoginControllerTest {
 
 
     @Mock
-    private UserRegistration m_userRegistration;
+    private UserRegistration m_mockUserRegistration;
 
     LoginControllerTest() {
 
@@ -26,7 +26,7 @@ class LoginControllerTest {
     @BeforeEach
     void setUp() {
         this.m_ctrl = new LoginController();
-        this.m_userRegistration = Mockito.mock(UserRegistration.class);
+        this.m_mockUserRegistration = Mockito.mock(UserRegistration.class);
         initMocks(this);
     }
 
@@ -34,7 +34,7 @@ class LoginControllerTest {
     void login() {
         String email = "test@gmail.com";
         String pw = "testpassword";
-        when(m_userRegistration.login(email,pw)).thenReturn(true);
+        when(m_mockUserRegistration.login(email,pw)).thenReturn(true);
         boolean result = m_ctrl.login(email,pw);
         assertTrue(result);
     }
