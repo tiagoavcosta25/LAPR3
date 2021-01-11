@@ -42,8 +42,99 @@ class RegisterClientControllerTest {
         when(m_mockClientRegistration.registerNewClient(c)).thenReturn(true);
         boolean result = m_ctrl.registerNewClient("TestName",123456788,"test@gmail.com","testpassword",
                 1032323d,1999392d,"Test street","2ºesq","4444-111","Gaia",
-                "Portugal",1234123412341233L,"10/20",123);
+                "Portugal",1234123412341233L,"10/22",123);
         assertTrue(result);
+
+        boolean result2 = m_ctrl.registerNewClient("TestName",12345,"test@gmail.com","testpassword",
+                1032323d,1999392d,"Test street","2ºesq","4444-111","Gaia",
+                "Portugal",1234123412341233L,"10/22",123);
+        assertFalse(result2);
+
+        boolean result3 = m_ctrl.registerNewClient("TestName",123456789,"testgmail.com","testpassword",
+                1032323d,1999392d,"Test street","2ºesq","4444-111","Gaia",
+                "Portugal",1234123412341233L,"10/22",123);
+        assertFalse(result3);
+
+        boolean result4 = m_ctrl.registerNewClient("TestName",123456789,"test@gmail.com","testpassword",
+                1032323d,1999392d,"Test street","2ºesq","4444-111","Gaia",
+                "Portugal",1234123412341233L,"10/22",523535);
+        assertFalse(result4);
+
+        boolean result5 = m_ctrl.registerNewClient("",123456789,"test@gmail.com","testpassword",
+                1032323d,1999392d,"Test street","2ºesq","4444-111","Gaia",
+                "Portugal",1234123412341233L,"10/22",123);
+        assertFalse(result5);
+
+        boolean result6 = m_ctrl.registerNewClient("TestName",123456789,"","testpassword",
+                1032323d,1999392d,"Test street","2ºesq","4444-111","Gaia",
+                "Portugal",1234123412341233L,"10/22",123);
+        assertFalse(result6);
+
+        boolean result7 = m_ctrl.registerNewClient("TestName",123456789,"test@gmail.com","",
+                1032323d,1999392d,"Test street","2ºesq","4444-111","Gaia",
+                "Portugal",1234123412341233L,"10/22",123);
+        assertFalse(result7);
+
+        boolean result8 = m_ctrl.registerNewClient("TestName",123456789,"test@gmail.com","testpassword",
+                1032323d,1999392d,"","2ºesq","4444-111","Gaia",
+                "Portugal",1234123412341233L,"10/22",123);
+        assertFalse(result8);
+
+        boolean result9 = m_ctrl.registerNewClient("TestName",123456789,"test@gmail.com","testpassword",
+                1032323d,1999392d,"Test street","2ºesq","","Gaia",
+                "Portugal",1234123412341233L,"10/22",123);
+        assertFalse(result9);
+
+        boolean result10 = m_ctrl.registerNewClient("TestName",123456789,"test@gmail.com","testpassword",
+                1032323d,1999392d,"Test street","2ºesq","4444-111","",
+                "Portugal",1234123412341233L,"10/22",123);
+        assertFalse(result10);
+
+        boolean result11 = m_ctrl.registerNewClient("TestName",123456789,"test@gmail.com","testpassword",
+                1032323d,1999392d,"Test street","2ºesq","4444-111","Gaia",
+                "",1234123412341233L,"10/22",123);
+        assertFalse(result11);
+
+        boolean result12 = m_ctrl.registerNewClient("TestName",123456789,"test@gmail.com","testpassword",
+                1032323d,1999392d,"Test street","2ºesq","4444-111","Gaia",
+                "Portugal",0,"10/22",123);
+        assertFalse(result12);
+
+        boolean result13 = m_ctrl.registerNewClient("TestName",123456789,"test@gmail.com","testpassword",
+                1032323d,1999392d,"Test street","2ºesq","4444-111","Gaia",
+                "Portugal",1234123412341233L,"10/12",123);
+        assertFalse(result13);
+
+        boolean result14 = m_ctrl.registerNewClient("TestName",123456789,"test@gmail.com","testpassword",
+                1032323d,1999392d,"Test street","2ºesq","4444-111","Gaia",
+                "Portugal",1234123412341233L,"10/22",0);
+        assertFalse(result14);
+
+        boolean result15 = m_ctrl.registerNewClient("TestName",123456789,"test@gmail.com","testpassword",
+                1032323d,1999392d,"Test street","2ºesq","4444-111","Gaia",
+                "Portugal",1234123412341233L,"14/23",123);
+        assertFalse(result15);
+
+        boolean result16 = m_ctrl.registerNewClient("TestName",123456789,"test@gmail.com","testpassword",
+                1032323d,1999392d,"Test street","2ºesq","4444-111","Gaia",
+                "Portugal",1234123412341233L,"10/123/1/20",123);
+        assertFalse(result16);
+
+        boolean result17 = m_ctrl.registerNewClient("TestName",123456789,"test@gmail.com","t",
+                1032323d,1999392d,"Test street","2ºesq","4444-111","Gaia",
+                "Portugal",1234123412341233L,"10/22",123);
+        assertFalse(result17);
+
+        boolean result19 = m_ctrl.registerNewClient("TestName",123456789,"test@gmail.com","t",
+                0d,1999392d,"Test street","2ºesq","4444-111","Gaia",
+                "Portugal",1234123412341233L,"10/22",123);
+        assertFalse(result19);
+
+        boolean result20 = m_ctrl.registerNewClient("TestName",123456789,"test@gmail.com","t",
+                1032323d,0d,"Test street","2ºesq","4444-111","Gaia",
+                "Portugal",1234123412341233L,"10/22",123);
+        assertFalse(result20);
+
     }
 
     @Test

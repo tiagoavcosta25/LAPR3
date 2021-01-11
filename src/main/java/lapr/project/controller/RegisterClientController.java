@@ -4,6 +4,7 @@ import lapr.project.model.Client;
 import lapr.project.model.Platform;
 import lapr.project.data.registration.ClientRegistration;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Date;
 
 public class RegisterClientController {
@@ -40,6 +41,8 @@ public class RegisterClientController {
 
         try {
             Date vDate = new SimpleDateFormat("MM/yy").parse(validityDate);
+            if (Integer.parseInt(validityDate.split("/")[0]) < 1 ||  Integer.parseInt(validityDate.split("/")[0]) > 12)
+                return false;
 
             if (validateInput(name, nif, email, password, latitude, longitude, streetName, doorNumber, postalCode, locality, country,
                     creditCardNr, vDate, CCV)) {
@@ -77,10 +80,10 @@ public class RegisterClientController {
     public boolean validateInput(String name, Integer nif, String email, String password, Double latitude, Double longitude, String streetName,
                                  String doorNumber, String postalCode, String locality, String country, long creditCardNr,
                                  Date validityDate, Integer CCV) {
-
         if (name.isEmpty() || nif <= 0 || email.isEmpty() || password.isEmpty() || streetName.isEmpty() || postalCode.isEmpty()
                 || locality.isEmpty() || country.isEmpty() || doorNumber.isEmpty() || latitude <= 0 || longitude <= 0
-                || creditCardNr <= 0 || validityDate.getTime() == 0 || CCV <= 0) return false;
+                || creditCardNr <= 0 || validityDate.before(new Date(System.currentTimeMillis())) || CCV <= 0) return false;
+
 
         if (!email.contains("@")) return false;
 
