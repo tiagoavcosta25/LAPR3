@@ -3,8 +3,7 @@ package lapr.project.controller;
 import lapr.project.model.Platform;
 import lapr.project.model.Product;
 import lapr.project.data.registration.ProductRegistration;
-
-import static java.lang.Integer.parseInt;
+import lapr.project.utils.ValidationProduct;
 
 public class ProductInformationController {
 
@@ -18,11 +17,12 @@ public class ProductInformationController {
         this.pr = plat.getProductReg();
     }
 
-    public boolean verifyProductId(String productId) {
-        return productId != null && !productId.equals("") && productId.matches("^[0-9]*$") && parseInt(productId) > 0;
+    private boolean verifyProductId(int intId) {
+        return ValidationProduct.validateId(intId);
     }
 
-    public Product getProductFromDB(int productId) {
-        return pr.getProductFromBD(productId);
+    public Product getProductFromDB(int intId) {
+        if(!verifyProductId(intId)) return null;
+        return pr.getProductFromBD(intId);
     }
 }
