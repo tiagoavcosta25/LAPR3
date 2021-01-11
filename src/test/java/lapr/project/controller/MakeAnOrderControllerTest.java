@@ -82,6 +82,11 @@ class MakeAnOrderControllerTest {
 
         makeAnOrderController.setOrder(this.expectedOrder);
         boolean result = makeAnOrderController.registerOrder();
+
+        expectedValue = false;
+        when(mockOrderRegistration.registerOrder(this.expectedOrder)).thenReturn(expectedValue);
+
+        result = makeAnOrderController.registerOrder();
         assertEquals(expectedValue, result);
     }
 

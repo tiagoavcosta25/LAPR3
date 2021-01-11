@@ -46,10 +46,10 @@ public class CalculateMostEfficientPathController {
         this.oOrderRegistration = this.m_oPlatform.getOrderReg();
     }
 
+    /*TO IMPLEMENT
     public double getShortestPath() {
         this.m_oUserSession = this.m_oApplicationPOT.getCurrentSession();
         String email = this.m_oUserSession.getCurrentUserEmail();
-        Order oOrder = this.oOrderRegistration.getOrderByCourier(email);
         List<Address> list = this.oDeliveryRegistration.getAddressesByDeliveryRunId(email);
         Address a = new Address();
         Address b = new Address();
@@ -58,7 +58,7 @@ public class CalculateMostEfficientPathController {
             return -1;
         }
         return result.getValue();
-    }
+    }*/
 
 
 }

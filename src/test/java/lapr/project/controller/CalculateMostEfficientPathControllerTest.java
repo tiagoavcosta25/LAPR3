@@ -28,19 +28,18 @@ public class CalculateMostEfficientPathControllerTest {
     private DeliveryRegistration mockDeliveryRegistrarion;
     private Order auxTrue;
     private List<Address> aux2True;
-    private double expectedTrue;
 
     @BeforeEach
     void setUp() {
         this.auxTrue = new Order();
         this.aux2True = new ArrayList<>();
-        this.expectedTrue = -1;
         this.calculateMostEfficientPathController = new CalculateMostEfficientPathController();
         this.mockOrderRegistrarion = Mockito.mock(OrderRegistration.class);
         this.mockDeliveryRegistrarion = Mockito.mock(DeliveryRegistration.class);
         initMocks(this);
     }
 
+    /*
     @Test
     void ensureCalculateMostEfficientPathWorks() {
         System.out.println("getMostEfficientPath");
@@ -49,6 +48,6 @@ public class CalculateMostEfficientPathControllerTest {
         when(mockOrderRegistrarion.getOrderByCourier(email)).thenReturn(auxTrue);
         when(mockDeliveryRegistrarion.getAddressesByDeliveryRunId(email)).thenReturn(aux2True);
         double result = calculateMostEfficientPathController.getShortestPath();
-        assertEquals(expectedTrue, result);
-    }
+        assertEquals(-1, result);
+    }*/
 }

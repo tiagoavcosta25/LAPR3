@@ -27,11 +27,9 @@ class GenerateInvoiceControllerTest {
     private InvoiceRegistration mockInvoiceRegistration;
     @Mock
     private ClientRegistration mockClientRegistration;
-    private boolean expectedTrue;
 
     @BeforeEach
     void setUp() {
-        this.expectedTrue = true;
         this.generateInvoiceController = new GenerateInvoiceController();
         this.mockOrderRegistration = Mockito.mock(OrderRegistration.class);
         this.mockClientRegistration = Mockito.mock(ClientRegistration.class);
@@ -45,9 +43,12 @@ class GenerateInvoiceControllerTest {
         when(mockClientRegistration.getClientByEmail("email1@gmail.com")).thenReturn(new Client());
         when(mockOrderRegistration.getLatestOrder(new Client())).thenReturn(new Order());
         when(mockInvoiceRegistration.newInvoice(new Date(2020,12,2), 10f, new Order())).thenReturn(new Invoice());
-        when(mockInvoiceRegistration.registerInvoice(new Invoice())).thenReturn(expectedTrue);
-
+        when(mockInvoiceRegistration.registerInvoice(new Invoice())).thenReturn(true);
         boolean result = this.generateInvoiceController.newInvoice(new Date(2020,12,2), 10f);
-        assertEquals(expectedTrue, result);
+        assertTrue(result);
+
+        when(mockInvoiceRegistration.registerInvoice(new Invoice())).thenReturn(false);
+        result = this.generateInvoiceController.newInvoice(new Date(2020,12,2), 10f);
+        assertFalse(result);
     }
 }

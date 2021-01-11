@@ -143,7 +143,6 @@ public class MakeAnOrderController {
             m_mapProducts.put(oProduct, intQuantity);
             return true;
         } catch(Exception e){
-            e.printStackTrace();
             return false;
         }
     }
