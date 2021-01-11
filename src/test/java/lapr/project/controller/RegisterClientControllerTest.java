@@ -135,6 +135,46 @@ class RegisterClientControllerTest {
                 "Portugal",1234123412341233L,"10/22",123);
         assertFalse(result20);
 
+        boolean result21 = m_ctrl.registerNewClient("TestName",123456789,"test@gmail.com","tttttt",
+                1032323d,123456d,"Test street","2ºesq","4444-111","Gaia",
+                "Portugal",1234123412341233L,"10/22",123);
+        assertTrue(result21);
+
+        boolean result22 = m_ctrl.registerNewClient("TestName",0,"test@gmail.com","t",
+                1032323d,123456d,"Test street","2ºesq","4444-111","Gaia",
+                "Portugal",1234123412341233L,"10/22",123);
+        assertFalse(result22);
+
+        boolean result23 = m_ctrl.registerNewClient("TestName",-1,"test@gmail.com","t",
+                1032323d,123456d,"Test street","2ºesq","4444-111","Gaia",
+                "Portugal",1234123412341233L,"10/22",123);
+        assertFalse(result23);
+
+        boolean result24 = m_ctrl.registerNewClient("TestName",123456789,"test@gmail.com","t",
+                -1d,123456d,"Test street","2ºesq","4444-111","Gaia",
+                "Portugal",1234123412341233L,"10/22",123);
+        assertFalse(result24);
+
+        boolean result25 = m_ctrl.registerNewClient("TestName",123456789,"test@gmail.com","t",
+                1032323d,-1d,"Test street","2ºesq","4444-111","Gaia",
+                "Portugal",1234123412341233L,"10/22",123);
+        assertFalse(result25);
+
+        boolean result26 = m_ctrl.registerNewClient("TestName",123456789,"test@gmail.com","t",
+                1032323d,123456d,"Test street","2ºesq","4444-111","Gaia",
+                "Portugal",-1L,"10/22",123);
+        assertFalse(result26);
+
+        boolean result27 = m_ctrl.registerNewClient("TestName",123456789,"test@gmail.com","t",
+                1032323d,123456d,"Test street","2ºesq","4444-111","Gaia",
+                "Portugal",1234123412341233L,"01/21",123);
+        assertFalse(result27);
+
+        boolean result28 = m_ctrl.registerNewClient("TestName",123456789,"test@gmail.com","t",
+                1032323d,123456d,"Test street","2ºesq","4444-111","Gaia",
+                "Portugal",1234123412341233L,"01/21",-1);
+        assertFalse(result28);
+
     }
 
     @Test

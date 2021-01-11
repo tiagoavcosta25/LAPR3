@@ -4,7 +4,6 @@ import lapr.project.model.Client;
 import lapr.project.model.Platform;
 import lapr.project.data.registration.ClientRegistration;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.Date;
 
 public class RegisterClientController {
