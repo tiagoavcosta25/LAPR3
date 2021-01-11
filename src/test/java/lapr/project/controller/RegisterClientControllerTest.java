@@ -100,10 +100,6 @@ class RegisterClientControllerTest {
                 "Portugal",0,"10/22",123);
         assertFalse(result12);
 
-        boolean result13 = m_ctrl.registerNewClient("TestName",123456789,"test@gmail.com","testpassword",
-                1032323d,1999392d,"Test street","2ºesq","4444-111","Gaia",
-                "Portugal",1234123412341233L,"10/12",123);
-        assertFalse(result13);
 
         boolean result14 = m_ctrl.registerNewClient("TestName",123456789,"test@gmail.com","testpassword",
                 1032323d,1999392d,"Test street","2ºesq","4444-111","Gaia",
@@ -198,7 +194,7 @@ class RegisterClientControllerTest {
 
         boolean result33 = m_ctrl.registerNewClient("TestName",123456789,"test@gmail.com","t",
                 1032323d,123456d,"Test street","2ºesq","4444-111","Gaia",
-                "Portugal",1234123412341233L,"/21",123);
+                "Portugal",1234123412341233L,"11/21",123);
         assertFalse(result33);
 
     }
@@ -210,7 +206,7 @@ class RegisterClientControllerTest {
          */
         boolean real = m_ctrl.validateInput("TestName",123456788,"test@gmail.com","testpassword",
                 1032323d,1999392d,"Test street","2ºesq","4444-111","Gaia",
-                "Portugal",1234123412341233L,new SimpleDateFormat("MM/yy").parse("10/23"),
+                "Portugal",1234123412341233L,
                 123);
 
         assertTrue(real);
@@ -220,7 +216,7 @@ class RegisterClientControllerTest {
          */
         boolean real2 = m_ctrl.validateInput("TestName",12345678,"test@gmail.com","testpassword",
                 1032323d,1999392d,"Test street","2ºesq","4444-111","Gaia",
-                "Portugal",1234123412341233L,new SimpleDateFormat("MM/yy").parse("10/23"),
+                "Portugal",1234123412341233L,
                 123);
 
         assertFalse(real2);
@@ -230,7 +226,7 @@ class RegisterClientControllerTest {
          */
         boolean real3 = m_ctrl.validateInput("TestName",123456788,"teste","testpassword",
                 1032323d,1999392d,"Test street","2ºesq","4444-111","Gaia",
-                "Portugal",1234123412341233L,new SimpleDateFormat("MM/yy").parse("10/23"),
+                "Portugal",1234123412341233L,
                 123);
 
         assertFalse(real3);
@@ -240,7 +236,7 @@ class RegisterClientControllerTest {
          */
         boolean real4 = m_ctrl.validateInput("TestName",12345678,"test@gmail.com","test",
                 1032323d,1999392d,"Test street","2ºesq","4444-111","Gaia",
-                "Portugal",1234123412341233L,new SimpleDateFormat("MM/yy").parse("10/23"),
+                "Portugal",1234123412341233L,
                 123);
 
         assertFalse(real4);

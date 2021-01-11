@@ -44,7 +44,7 @@ public class RegisterClientController {
                 return false;
 
             if (validateInput(name, nif, email, password, latitude, longitude, streetName, doorNumber, postalCode, locality, country,
-                    creditCardNr, vDate, CCV)) {
+                    creditCardNr, CCV)) {
                 Client c = new Client(name, nif, email, password, latitude, longitude, streetName, doorNumber, postalCode, locality, country,
                         creditCardNr, vDate, CCV);
                 return clientReg.registerNewClient(c);
@@ -71,16 +71,15 @@ public class RegisterClientController {
      * @param locality     Client's locality
      * @param country      Client's country
      * @param creditCardNr Client's credit card number
-     * @param validityDate Client's credit card's validity date
      * @param CCV          Client's credit card's CCV
      * @return True if input is valid, false if otherwise
      */
     public boolean validateInput(String name, Integer nif, String email, String password, Double latitude, Double longitude, String streetName,
                                  String doorNumber, String postalCode, String locality, String country, long creditCardNr,
-                                 Date validityDate, Integer CCV) {
+                                 Integer CCV) {
         if (name.isEmpty() || nif <= 0 || email.isEmpty() || password.isEmpty() || streetName.isEmpty() || postalCode.isEmpty()
                 || locality.isEmpty() || country.isEmpty() || doorNumber.isEmpty() || latitude <= 0 || longitude <= 0
-                || creditCardNr <= 0 || validityDate.before(new Date(System.currentTimeMillis())) || CCV <= 0) return false;
+                || creditCardNr <= 0  || CCV <= 0) return false;
 
 
         if (!email.contains("@")) return false;
