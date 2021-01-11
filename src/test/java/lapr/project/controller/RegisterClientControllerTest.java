@@ -175,6 +175,27 @@ class RegisterClientControllerTest {
                 "Portugal",1234123412341233L,"01/21",-1);
         assertFalse(result28);
 
+        boolean result29 = m_ctrl.registerNewClient("TestName",123456789,"test@gmail.com","t",
+                1032323d,123456d,"Test street","2ºesq","4444-111","Gaia",
+                "Portugal",1234123412341233L,"00/21",123);
+        assertFalse(result29);
+
+        boolean result30 = m_ctrl.registerNewClient("TestName",123456789,"test@gmail.com","t",
+                1032323d,123456d,"Test street","2ºesq","4444-111","Gaia",
+                "Portugal",1234123412341233L,"12/21",123);
+        assertFalse(result30);
+
+        boolean result31 = m_ctrl.registerNewClient("TestName",123456789,"test@gmail.com","t",
+                1032323d,123456d,"Test street","2ºesq","4444-111","Gaia",
+                "Portugal",1234123412341233L,"13/21",123);
+        assertFalse(result31);
+
+        when(m_mockClientRegistration.registerNewClient(c)).thenReturn(false);
+        boolean result32 = m_ctrl.registerNewClient("TestName",123456788,"test@gmail.com","testpassword",
+                1032323d,1999392d,"Test street","2ºesq","4444-111","Gaia",
+                "Portugal",1234123412341233L,"10/22",123);
+        assertFalse(result32);
+
     }
 
     @Test
