@@ -40,14 +40,16 @@ public class RegisterPharmacyController {
         this.m_oPharmacyRegistration = m_oPlatform.getPharmacyReg();
     }
 
-    public void newPharmacy(String strManagerName, String strEmail, String strPassword, Integer intNIF, String strName,Double dblLatitude,
+    public Pharmacy newPharmacy(String strManagerName, String strEmail, String strPassword, Integer intNIF, String strName,Double dblLatitude,
                             Double dblLongitude,String strStreetName, String strDoorNumber, String strPostalCode, String strLocality, String strCountry) {
         try {
             this.m_oPharmacyManager = this.m_oPharmacyManagerRegistration.newPharmacyManager(strEmail, strPassword, intNIF, strManagerName);
             this.m_oPharmacy = m_oPharmacyRegistration.newPharmacy(strName, this.m_oPharmacyManager, dblLatitude, dblLongitude, strStreetName, strDoorNumber,
                     strPostalCode, strLocality, strCountry);
+            return this.m_oPharmacy;
         } catch (RuntimeException | NoSuchAlgorithmException ex) {
             this.m_oPharmacy = null;
+            return null;
         }
     }
 

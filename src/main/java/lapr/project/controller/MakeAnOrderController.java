@@ -138,7 +138,20 @@ public class MakeAnOrderController {
     /**
      * The method adds a product to the map and its quantity.
      */
-    public void addProductToOrder(Product oProduct, Integer intQuantity) {
-        m_mapProducts.put(oProduct, intQuantity);
+    public boolean addProductToOrder(Product oProduct, Integer intQuantity) {
+        try{
+            m_mapProducts.put(oProduct, intQuantity);
+            return true;
+        } catch(Exception e){
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    /**
+     * The method sets the order.
+     */
+    public void setOrder(Order oOrder) {
+        this.m_oOrder = oOrder;
     }
 }

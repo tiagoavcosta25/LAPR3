@@ -7,6 +7,8 @@ import lapr.project.model.Product;
 import lapr.project.data.registration.PharmacyRegistration;
 import lapr.project.data.registration.ProductRegistration;
 
+import java.util.List;
+
 public class AddPharmacyProductController {
     /**
      * Platform class instance
@@ -53,12 +55,14 @@ public class AddPharmacyProductController {
         this.m_oPharmacy = m_oPharmacyRegistration.getPharmacyByManagerEmail(ApplicationPOT.getInstance().getCurrentSession().getCurrentUserEmail());
     }
 
-    public void addPharmacyProduct(Product oProduct, Integer intStock) {
+    public boolean addPharmacyProduct(Product oProduct, Integer intStock) {
         try {
             this.m_oProduct = oProduct;
             this.m_intStock = intStock;
+            return true;
         } catch (Exception e) {
             this.m_oPharmacy = null;
+            return false;
         }
     }
 
@@ -72,7 +76,7 @@ public class AddPharmacyProductController {
     /**
      * The method that returns every product in the database.
      */
-    public void getProducts() {
-        this.m_oPharmacyRegistration.registerPharmacy(m_oPharmacy);
+    public List<Product> getProducts() {
+        return this.m_oProductRegistration.getProducts();
     }
 }
