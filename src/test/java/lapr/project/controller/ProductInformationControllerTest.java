@@ -35,7 +35,13 @@ class ProductInformationControllerTest {
     void ensureProductRegistrationWorks() {
         System.out.println("registerProductToDB");
         when(mockProductRegistration.getProductFromBD(1)).thenReturn(expectedProduct);
+
         Product result = productInformationController.getProductFromDB(1);
+        assertEquals(expectedProduct, result);
+
+        expectedProduct = null;
+
+        result = productInformationController.getProductFromDB(-1);
         assertEquals(expectedProduct, result);
     }
 }

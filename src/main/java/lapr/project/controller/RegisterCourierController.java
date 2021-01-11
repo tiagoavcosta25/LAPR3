@@ -27,7 +27,7 @@ public class RegisterCourierController {
     /**
      * Courier class instance
      */
-    public Courier oCourier;
+    private Courier oCourier;
     /**
      * Courier Management class
      */
@@ -39,10 +39,17 @@ public class RegisterCourierController {
     private PharmacyRegistration oPharmacyRegistration;
 
     /**
+     * Pharmacy
+     */
+    private Pharmacy oPharmacy;
+
+    /**
      * An empty constructor of RegisterCourierController that initiates the platform variable by getting it from the ApplicationPOT.
      */
     public RegisterCourierController() {
         this.m_oPlatform = ApplicationPOT.getInstance().getPlatform();
+        this.oCourierRegistration = m_oPlatform.getCourReg();
+        this.oPharmacyRegistration = m_oPlatform.getPharmacyReg();
     }
 
     /**
@@ -58,14 +65,9 @@ public class RegisterCourierController {
      */
     public boolean newCourier(String strName, String strEmail, Integer intNIF, String strIBAN) {
         try {
+            this.oPharmacy = oPharmacyRegistration.getPharmacyByManagerEmail(ApplicationPOT.getInstance().getCurrentSession().getCurrentUserEmail());
             if (validateInput(strName, strEmail, intNIF, strIBAN)) {
-                /*UserSession session = new UserSession();
-                String email = session.getCurrentUserEmail();*/
-                oCourierRegistration = m_oPlatform.getCourReg();
-                oPharmacyRegistration = m_oPlatform.getPharmacyReg();
-                String email = "user5@gmail.com";
-                Pharmacy oPharmacy = oPharmacyRegistration.getPharmacyByManagerEmail(email);
-                this.oCourier = oCourierRegistration.newCourier(strName, strEmail, intNIF, strIBAN, oPharmacy);
+                this.oCourier = oCourierRegistration.newCourier(strName, strEmail, intNIF, strIBAN, this.oPharmacy);
                 return true;
             }
         } catch (RuntimeException | NoSuchAlgorithmException ex) {
@@ -78,7 +80,14 @@ public class RegisterCourierController {
      * The method adds a Freelancer to the Organization of the current user.
      */
     public boolean registersCourier() {
-        return m_oPlatform.getCourReg().registersCourier(this.oCourier);
+        return this.oCourierRegistration.registersCourier(this.oCourier);
+    }
+
+    /**
+     * The method sets the courier.
+     */
+    public void setCourier(Courier oCourier) {
+        this.oCourier = oCourier;
     }
 
     /**

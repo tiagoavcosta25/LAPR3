@@ -2,6 +2,7 @@ package lapr.project.controller;
 
 import lapr.project.model.Platform;
 import lapr.project.data.registration.DeliveryRegistration;
+import lapr.project.model.UserSession;
 
 public class MaxPayloadController {
 

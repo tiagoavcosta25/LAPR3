@@ -2,9 +2,8 @@ package lapr.project.controller;
 
 import lapr.project.model.Platform;
 import lapr.project.data.registration.ProductRegistration;
-
-import static java.lang.Double.parseDouble;
-import static java.lang.Integer.parseInt;
+import lapr.project.model.Product;
+import lapr.project.utils.ValidationProduct;
 
 public class UpdateProductController {
 
@@ -18,40 +17,13 @@ public class UpdateProductController {
         this.pr = plat.getProductReg();
     }
 
-    private boolean verifyString(String str) {
-        return str != null && !str.equals("");
+    private Product validateInput(int intId, String strName, String strDescription, float fltUnitaryPrice, float fltUnitaryWeight) {
+        return ValidationProduct.validateInputWithId(intId, strName, strDescription, fltUnitaryPrice, fltUnitaryWeight);
     }
 
-    private boolean verifyPositiveDouble(String doub) {
-        try {
-            return doub != null && !doub.equals("") && doub.matches("^([0-9]+(?:[.,][0-9]+)?)$") && parseDouble(doub) > 0;
-        } catch (NumberFormatException e) {
-            String newDoub = doub.replace(",", ".");
-            return newDoub != null && !newDoub.equals("") && newDoub.matches("^([0-9]+(?:[.,][0-9]+)?)$") && parseDouble(newDoub) > 0;
-        }
-    }
-
-    public boolean verifyProductId(String productId) {
-        return productId != null && !productId.equals("") && productId.matches("^[0-9]*$") && parseInt(productId) > 0;
-    }
-
-    public boolean verifyProductName(String productName) {
-        return verifyString(productName);
-    }
-
-    public boolean verifyProductDescription(String productDescription) {
-        return verifyString(productDescription);
-    }
-
-    public boolean verifyProductUnitaryPrice(String unitaryPrice) {
-        return verifyPositiveDouble(unitaryPrice);
-    }
-
-    public boolean verifyProductUnitaryWeight(String unitaryWeight) {
-        return verifyPositiveDouble(unitaryWeight);
-    }
-
-    public boolean updateProduct(int id, String name, String description, float unitaryPrice, float unitaryWeight) {
-        return pr.updateProductFromDB(id, name, description, unitaryPrice, unitaryWeight);
+    public boolean updateProduct(int intId, String strName, String strDescription, float fltUnitaryPrice, float fltUnitaryWeight) {
+        Product validatedProduct = validateInput(intId, strName, strDescription, fltUnitaryPrice, fltUnitaryWeight);
+        if(validatedProduct == null) return false;
+        return pr.updateProductFromDB(intId, strName, strDescription, fltUnitaryPrice, fltUnitaryWeight);
     }
 }

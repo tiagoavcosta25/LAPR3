@@ -1,5 +1,6 @@
-package lapr.project.controller;
+package lapr.project.model;
 
+import lapr.project.controller.ApplicationPOT;
 import lapr.project.model.User;
 
 /**

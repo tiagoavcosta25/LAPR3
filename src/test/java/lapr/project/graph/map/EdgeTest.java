@@ -5,14 +5,11 @@
  */
 package lapr.project.graph.map;
 
-import lapr.project.graph.map.Edge;
-import lapr.project.graph.map.Vertex;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import static org.junit.Assert.*;
+
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  *
@@ -156,17 +153,17 @@ public class EdgeTest {
     @Test
     public void testEquals() {
         System.out.println("equals");
-           
-        assertFalse("should not be equal to null", instance.equals(null));
-		
-	assertTrue("should be equal to itself", instance.equals(instance));
-		
-	assertTrue("should be equal to a clone", instance.equals(instance.clone()));
+
+        assertNotEquals(null, instance);
+
+        assertEquals(instance, instance);
+
+        assertEquals(instance, instance.clone());
         
         Vertex<String, String> vertex1 = new Vertex<>(1,"Vertex1");
         Edge<String, String> otherEdge = new Edge<>("edge1",1.0,vertex1,vertex1);
-        
-        assertFalse("should not be equal to otherEdge", instance.equals(otherEdge));
+
+        assertNotEquals(instance, otherEdge);
     }
 
     /**
@@ -204,10 +201,10 @@ public class EdgeTest {
         Vertex<String, String> vertex1 = new Vertex<>(1,"Vertex1");
         Edge<String, String> otherEdge = new Edge<>("edge1",1.0,vertex1,vertex1);
         
-        Edge instClone = otherEdge.clone();
-        
-        assertTrue("element should be equal", otherEdge.getElement()==instClone.getElement());
-        assertTrue("weight should be equal", otherEdge.getWeight()==instClone.getWeight());
+        Edge<String, String> instClone = otherEdge.clone();
+
+        assertSame(otherEdge.getElement(), instClone.getElement());
+        assertEquals(otherEdge.getWeight(), instClone.getWeight());
         
  	String[] expResult = otherEdge.getEndpoints();
         assertArrayEquals(expResult, instClone.getEndpoints());

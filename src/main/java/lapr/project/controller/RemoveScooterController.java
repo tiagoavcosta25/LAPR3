@@ -5,6 +5,7 @@ import lapr.project.model.Platform;
 import lapr.project.model.Scooter;
 import lapr.project.data.registration.PharmacyRegistration;
 import lapr.project.data.registration.ScooterRegistration;
+import lapr.project.model.UserSession;
 
 import java.util.List;
 

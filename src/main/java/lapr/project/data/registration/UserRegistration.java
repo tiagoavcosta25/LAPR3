@@ -1,7 +1,7 @@
 package lapr.project.data.registration;
 
 
-import lapr.project.controller.UserSession;
+import lapr.project.model.UserSession;
 import lapr.project.data.DataHandler;
 import lapr.project.utils.EncryptPassword;
 import oracle.jdbc.internal.OracleTypes;

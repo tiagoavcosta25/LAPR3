@@ -1,11 +1,7 @@
 package lapr.project.controller;
 
 import lapr.project.data.registration.PharmacyRegistration;
-import lapr.project.data.registration.UserRegistration;
-import lapr.project.model.Pharmacy;
-import lapr.project.model.PharmacyManager;
-import lapr.project.model.Platform;
-import lapr.project.model.Scooter;
+import lapr.project.model.*;
 import lapr.project.data.registration.ScooterRegistration;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

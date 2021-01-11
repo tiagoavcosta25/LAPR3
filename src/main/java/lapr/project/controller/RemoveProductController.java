@@ -2,8 +2,7 @@ package lapr.project.controller;
 
 import lapr.project.model.Platform;
 import lapr.project.data.registration.ProductRegistration;
-
-import static java.lang.Integer.parseInt;
+import lapr.project.utils.ValidationProduct;
 
 public class RemoveProductController {
 
@@ -17,11 +16,12 @@ public class RemoveProductController {
         this.pr = plat.getProductReg();
     }
 
-    public boolean verifyProductId(String productId) {
-        return productId != null && !productId.equals("") && productId.matches("^[0-9]*$") && parseInt(productId) > 0;
+    private boolean verifyProductId(int intId) {
+        return ValidationProduct.validateId(intId);
     }
 
-    public boolean removeProductFromDB(int productId) {
-        return pr.removeProductFromDB(productId);
+    public boolean removeProductFromDB(int intId) {
+        if(!verifyProductId(intId)) return false;
+        return pr.removeProductFromDB(intId);
     }
 }

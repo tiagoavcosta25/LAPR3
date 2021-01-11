@@ -6,6 +6,7 @@ import lapr.project.model.Order;
 import lapr.project.model.Platform;
 import lapr.project.data.registration.DeliveryRegistration;
 import lapr.project.data.registration.OrderRegistration;
+import lapr.project.model.UserSession;
 
 import java.util.LinkedList;
 import java.util.List;

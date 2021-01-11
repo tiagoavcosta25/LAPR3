@@ -10,9 +10,9 @@ public class CreditCard {
     private Integer m_intCCV;
 
     public CreditCard() {
-        this.m_lCreditCardNr = 0L;
+        this.m_lCreditCardNr = -1L;
         this.m_dtValidityDate = new Date();
-        this.m_intCCV = 0;
+        this.m_intCCV = -1;
     }
 
     public CreditCard(long creditCardNr, Date validityDate, Integer CCV) {

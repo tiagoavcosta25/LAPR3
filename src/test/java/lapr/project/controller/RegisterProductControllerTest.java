@@ -2,7 +2,6 @@ package lapr.project.controller;
 
 import lapr.project.model.Product;
 import lapr.project.data.registration.ProductRegistration;
-import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -35,7 +34,15 @@ class RegisterProductControllerTest {
         Product p = new Product("Product 6969", "Description 1", 2.0f, 2.0f);
 
         when(mockProductRegistration.addProductToDB(p)).thenReturn(true);
-        boolean result = registerProductController.registerProductToDB(p);
-        Assert.assertTrue(result);
+
+        boolean result = registerProductController.registerProductToDB("Product 6969", "Description 1", 2.0f, 2.0f);
+        assertTrue(result);
+
+        result = registerProductController.registerProductToDB("", "Description 1", 2.0f, 2.0f);
+        assertFalse(result);
+
+        result = registerProductController.registerProductToDB("Product 6868", "Description 1", -2.0f, 2.0f);
+        assertFalse(result);
+
     }
 }

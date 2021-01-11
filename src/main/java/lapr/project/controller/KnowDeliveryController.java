@@ -3,6 +3,7 @@ package lapr.project.controller;
 import lapr.project.model.Order;
 import lapr.project.model.Platform;
 import lapr.project.data.registration.OrderRegistration;
+import lapr.project.model.UserSession;
 
 public class KnowDeliveryController {
 

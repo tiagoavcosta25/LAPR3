@@ -5,16 +5,10 @@
  */
 package lapr.project.graph.map;
 
+import org.junit.jupiter.api.Test;
 import java.util.Iterator;
 
-import lapr.project.graph.map.Edge;
-import lapr.project.graph.map.Vertex;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  *
@@ -88,17 +82,17 @@ public class VertexTest {
     public void testAddAdjVert() {
         System.out.println("addAdjVert");
         
-        assertTrue("result should be zero", (instance.numAdjVerts()==0));
+        assertTrue((instance.numAdjVerts()==0));
         
         String vAdj1 = "VAdj1"; 
         Edge<String,Integer> edge = new Edge<>();
         
         instance.addAdjVert(vAdj1,edge);
-        assertTrue("result should be one", (instance.numAdjVerts()==1));
+        assertTrue((instance.numAdjVerts()==1));
         
         String vAdj2 = "VAdj2";  
         instance.addAdjVert(vAdj2,edge);
-        assertTrue("result should be two", (instance.numAdjVerts()==2));
+        assertTrue((instance.numAdjVerts()==2));
     }
 
     /**
@@ -133,11 +127,11 @@ public class VertexTest {
         instance.addAdjVert(vAdj,edge2);
         
         instance.remAdjVert(vAdj);
-        assertTrue("result should be one", (instance.numAdjVerts()==1));
+        assertTrue((instance.numAdjVerts()==1));
         
         vAdj = "VAdj1"; 
         instance.remAdjVert(vAdj);
-        assertTrue("result should be zero", (instance.numAdjVerts()==0));
+        assertTrue((instance.numAdjVerts()==0));
     }
 
     /**
@@ -171,20 +165,20 @@ public class VertexTest {
         String vAdj1 = "VAdj1"; 
         instance.addAdjVert(vAdj1,edge1);
         
-        assertTrue("result should be one", (instance.numAdjVerts()==1));
+        assertTrue((instance.numAdjVerts()==1));
         
         Edge<String,Integer> edge2 = new Edge<>(); 
         String vAdj2 = "VAdj2"; 
         instance.addAdjVert(vAdj2,edge2);
         
-        assertTrue("result should be two", (instance.numAdjVerts()==2));
+        assertTrue((instance.numAdjVerts()==2));
         
         instance.remAdjVert(vAdj1);
         
-        assertTrue("result should be one", (instance.numAdjVerts()==1));
+        assertTrue((instance.numAdjVerts()==1));
         
         instance.remAdjVert(vAdj2);
-        assertTrue("result should be zero", (instance.numAdjVerts()==0));
+        assertTrue((instance.numAdjVerts()==0));
         
     }
 
@@ -196,8 +190,8 @@ public class VertexTest {
         System.out.println("getAllAdjVerts");
    
         Iterator<String> itVerts = instance.getAllAdjVerts().iterator();
-        
-        assertTrue("Adjacency vertices should be empty", itVerts.hasNext()==false);
+
+        assertFalse(itVerts.hasNext());
         
         Edge<String,Integer> edge1 = new Edge<>(); 
         String vAdj1 = "VAdj1"; 
@@ -209,18 +203,18 @@ public class VertexTest {
         
         itVerts = instance.getAllAdjVerts().iterator();
         
-        assertTrue("first adjacency vertice should be VAdj1", (itVerts.next().compareTo("VAdj1")==0));
-        assertTrue("second adjacencyvertice should be VAdj2",(itVerts.next().compareTo("VAdj2")==0));
+        assertTrue((itVerts.next().compareTo("VAdj1")==0));
+        assertTrue((itVerts.next().compareTo("VAdj2")==0));
 
         instance.remAdjVert(vAdj1);
 		
         itVerts = instance.getAllAdjVerts().iterator();
-        assertTrue("first adjacency vertice should be VAdj2",(itVerts.next().compareTo("VAdj2"))==0);
+        assertEquals(0, (itVerts.next().compareTo("VAdj2")));
 
-	instance.remAdjVert(vAdj2);
+	    instance.remAdjVert(vAdj2);
 		
         itVerts = instance.getAllAdjVerts().iterator();
-	assertTrue("Adjacency vertices should now be empty",itVerts.hasNext()==false);	
+        assertFalse(itVerts.hasNext());
     }
 
     /**
@@ -231,8 +225,8 @@ public class VertexTest {
         System.out.println("getAllOutEdges");
         
         Iterator<Edge<String,Integer>> itEdges = instance.getAllOutEdges().iterator();
-        
-        assertTrue("Adjacency edges should be empty", itEdges.hasNext()==false);
+
+        assertFalse(itEdges.hasNext());
         
         Edge<String,Integer> edge1 = new Edge<>(); 
         String vAdj1 = "VAdj1"; 
@@ -244,18 +238,18 @@ public class VertexTest {
         
         itEdges = instance.getAllOutEdges().iterator();
         
-        assertTrue("first adjacency edge should be edge1", (itEdges.next().compareTo(edge1)==0));
-        assertTrue("second adjacency edge should be edge2",(itEdges.next().compareTo(edge2)==0));
+        assertTrue((itEdges.next().compareTo(edge1)==0));
+        assertTrue((itEdges.next().compareTo(edge2)==0));
 
         instance.remAdjVert(vAdj1);
 		
         itEdges = instance.getAllOutEdges().iterator();
-        assertTrue("first adjacency edge should be edge2",(itEdges.next().compareTo(edge2))==0);
+        assertEquals(0, (itEdges.next().compareTo(edge2)));
 
-	instance.remAdjVert(vAdj2);
+	    instance.remAdjVert(vAdj2);
 		
         itEdges = instance.getAllOutEdges().iterator();
-	assertTrue("Adjacency edges should now be empty",itEdges.hasNext()==false);	
+        assertFalse(itEdges.hasNext());
     }
 
     /**
@@ -273,23 +267,23 @@ public class VertexTest {
         Edge<String,Integer> edge1 = new Edge<>(null, 2, instance, instance2);
         instance.addAdjVert("vAdj2",edge1);
 
-        assertFalse("should not be equal to null", instance.equals(null));
-		
-	assertTrue("should be equal to itself", instance.equals(instance));
-		
-	assertTrue("should be equal to a clone", instance.equals(instance.clone()));
+        assertNotEquals(null, instance);
+
+        assertEquals(instance, instance);
+
+        assertEquals(instance, instance.clone());
         
         Vertex<String,Integer> other = instance.clone();
         other.remAdjVert("vAdj2");
-        assertFalse("instance should not be equal to other", instance.equals(other));
+        assertNotEquals(instance, other);
         
         other.addAdjVert("vAdj2",edge1);
-        assertTrue("instance should be equal to other", instance.equals(other));
+        assertEquals(instance, other);
         
         Vertex<String, Integer> instance3 = new Vertex<>(3,"Vertex3");
         Edge<String,Integer> edge2 = new Edge<>(null, 3, instance, instance3); 
         instance.addAdjVert("vAdj3",edge2);
-        assertFalse("instance should not be equal to other", instance.equals(other));
+        assertNotEquals(instance, other);
     }
 
     /**
@@ -308,25 +302,22 @@ public class VertexTest {
         instance.addAdjVert(vAdj2,edge2);
         
         Vertex<String,Integer> instClone = instance.clone();
-	
-        assertTrue("number of adacency vertices should be equal", instance.numAdjVerts()==instClone.numAdjVerts());
+
+        assertEquals(instance.numAdjVerts(), instClone.numAdjVerts());
  	
         //adjacency vertices should be equal
         Iterator<String> itvertClone = instClone.getAllAdjVerts().iterator();
-        Iterator<String> itvertSource = instance.getAllAdjVerts().iterator();
-	while (itvertSource.hasNext())
-            assertTrue("vertices should be equal ",(itvertSource.next().equals(itvertClone.next())==true));
+        for (String s : instance.getAllAdjVerts()) assertEquals(s, itvertClone.next());
 
          //and edges also
-        Iterator<Edge<String,Integer>> itedgeSource = instance.getAllOutEdges().iterator();
-        while (itedgeSource.hasNext()){
-            Iterator<Edge<String,Integer>> itedgeClone = instClone.getAllOutEdges().iterator();
-            boolean exists=false;
-            while (itedgeClone.hasNext()){
-                if (itedgeSource.next().equals(itedgeClone.next()))
-                   exists=true;
+        for (Edge<String, Integer> stringIntegerEdge : instance.getAllOutEdges()) {
+            Iterator<Edge<String, Integer>> itedgeClone = instClone.getAllOutEdges().iterator();
+            boolean exists = false;
+            while (itedgeClone.hasNext()) {
+                if (stringIntegerEdge.equals(itedgeClone.next()))
+                    exists = true;
             }
-            assertTrue("edges should be equal ",(exists==true)); 
+            assertTrue((exists));
         }
     }
 

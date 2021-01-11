@@ -5,6 +5,7 @@ import lapr.project.data.registration.OrderRegistration;
 import lapr.project.model.ChargingSlot;
 import lapr.project.model.Client;
 import lapr.project.model.Order;
+import lapr.project.model.UserSession;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -39,11 +40,11 @@ class NotifyAndRemoveControllerTest {
 
     @Test
     void notifyAndRemove() {
-        /*ApplicationPOT.getInstance().setCurrentSession(new UserSession("email3@gmail.com"));
+        ApplicationPOT.getInstance().setCurrentSession(new UserSession("email3@gmail.com"));
         when(mockClientRegistration.getClientByEmail("email3@gmail.com")).thenReturn(new Client());
         when(mockOrderRegistration.getLatestOrder(new Client())).thenReturn(new Order());
         when(mockOrderRegistration.notifyAndRemove(new Order())).thenReturn(assertTrue);
         boolean result = notifyAndRemoveController.notifyAndRemove();
-        assertEquals(assertTrue, result);*/
+        assertEquals(assertTrue, result);
     }
 }

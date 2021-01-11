@@ -3,9 +3,7 @@ package lapr.project.controller;
 import lapr.project.model.Platform;
 import lapr.project.model.Product;
 import lapr.project.data.registration.ProductRegistration;
-
-import static java.lang.Double.parseDouble;
-import static java.lang.Integer.parseInt;
+import lapr.project.utils.ValidationProduct;
 
 public class RegisterProductController {
 
@@ -19,40 +17,13 @@ public class RegisterProductController {
         this.pr = plat.getProductReg();
     }
 
-    private boolean verifyString(String str) {
-        return str != null && !str.equals("");
+    private Product validateInput(String strName, String strDescription, float fltUnitaryPrice, float fltUnitaryWeight) {
+        return ValidationProduct.validateInput(strName, strDescription, fltUnitaryPrice, fltUnitaryPrice);
     }
 
-    private boolean verifyPositiveDouble(String doub) {
-        try {
-            return doub != null && !doub.equals("") && doub.matches("^([0-9]+(?:[.,][0-9]+)?)$") && parseDouble(doub) > 0;
-        } catch (NumberFormatException e) {
-            String newDoub = doub.replace(",", ".");
-            return newDoub != null && !newDoub.equals("") && newDoub.matches("^([0-9]+(?:[.,][0-9]+)?)$") && parseDouble(newDoub) > 0;
-        }
-    }
-
-    public boolean verifyProductId(String productId) {
-        return productId != null && !productId.equals("") && productId.matches("^[0-9]*$") && parseInt(productId) > 0;
-    }
-
-    public boolean verifyProductName(String productName) {
-        return verifyString(productName);
-    }
-
-    public boolean verifyProductDescription(String productDescription) {
-        return verifyString(productDescription);
-    }
-
-    public boolean verifyProductUnitaryPrice(String unitaryPrice) {
-        return verifyPositiveDouble(unitaryPrice);
-    }
-
-    public boolean verifyProductUnitaryWeight(String unitaryWeight) {
-        return verifyPositiveDouble(unitaryWeight);
-    }
-
-    public boolean registerProductToDB(Product p) {
-        return pr.addProductToDB(p);
+    public boolean registerProductToDB(String strName, String strDescription, float fltUnitaryPrice, float fltUnitaryWeight) {
+        Product validatedProduct = validateInput(strName, strDescription, fltUnitaryPrice, fltUnitaryWeight);
+        if(validatedProduct == null) return false;
+        return pr.addProductToDB(validatedProduct);
     }
 }
