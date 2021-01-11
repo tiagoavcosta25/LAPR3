@@ -54,12 +54,13 @@ public class GenerateInvoiceController {
         this.m_oOrder = m_oOrderRegistration.getLatestOrder(m_oClient);
     }
 
-    public void newInvoice(Date dtInvoiceDate, float fltTotalPrice) {
+    public boolean newInvoice(Date dtInvoiceDate, float fltTotalPrice) {
         try {
             this.m_oInvoice = m_oInvoiceRegistration.newInvoice(dtInvoiceDate, fltTotalPrice, this.m_oOrder);
-            this.registerInvoice();
+            return this.registerInvoice();
         } catch (RuntimeException ex) {
             this.m_oInvoice = null;
+            return false;
         }
     }
 
