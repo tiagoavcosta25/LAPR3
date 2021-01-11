@@ -2,7 +2,6 @@ package lapr.project.model;
 
 import org.junit.jupiter.api.Test;
 
-import java.security.NoSuchAlgorithmException;
 import java.util.TreeMap;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -168,7 +167,7 @@ public class ScooterTest {
     }
 
     @Test
-    void testEquals() throws NoSuchAlgorithmException {
+    void testEquals() {
         Scooter oScooter2 = new Scooter(1, 1, "Not Charging", 1, 1,
                 1, 1, new Pharmacy());
 
@@ -183,12 +182,7 @@ public class ScooterTest {
 
         String s = "";
         assertNotEquals(scooterTest2,s);
-
-        Pharmacy oPharmacy = new Pharmacy(5,"testName", new PharmacyManager(-19, "test@email.pt",
-                "test", 123456789, "test"), new Address(1d, 1d, "test",
-                "test", "test", "test", "test"), new TreeMap<>());
-
-
+        
         Scooter oScooter3 = new Scooter(3, "Not Charging", 2, 2,
                 2, 2, new Pharmacy());
         Scooter oScooter4 = new Scooter(3, "Not Charging", 2, 2,
@@ -205,8 +199,6 @@ public class ScooterTest {
                 4, 2, new Pharmacy());
         Scooter oScooter10 = new Scooter(3, "Not Charging", 2, 2,
                 2, 4, new Pharmacy());
-        Scooter oScooter11 = new Scooter(3, "Not Charging", 2, 2,
-                4, 2, oPharmacy);
 
         assertNotEquals(oScooter3, scooterTest2);
 
@@ -232,9 +224,6 @@ public class ScooterTest {
         assertFalse(real);
 
         real = oScooter10.equals(oScooter3);
-        assertFalse(real);
-
-        real = oScooter11.equals(oScooter3);
         assertFalse(real);
 
     }
