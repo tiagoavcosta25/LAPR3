@@ -98,7 +98,6 @@ class MakeAnOrderControllerTest {
 
         when(mockPharmacyRegistration.getPharmacies()).thenReturn(expectedListPharmacies);
 
-        makeAnOrderController.setOrder(this.expectedOrder);
         List<Pharmacy>  result = makeAnOrderController.getPharmacies();
         assertEquals(expectedListPharmacies, result);
     }
@@ -111,7 +110,6 @@ class MakeAnOrderControllerTest {
 
         when(mockProductRegistration.getAvailableProducts(-1)).thenReturn(expectedListProducts);
 
-        makeAnOrderController.setOrder(this.expectedOrder);
         List<Product>  result = makeAnOrderController.getAvailableProducts(new Pharmacy());
         assertEquals(expectedListProducts, result);
     }

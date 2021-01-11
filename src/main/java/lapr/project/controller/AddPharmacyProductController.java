@@ -52,7 +52,6 @@ public class AddPharmacyProductController {
         this.m_oPlatform = ApplicationPOT.getInstance().getPlatform();
         this.m_oProductRegistration = m_oPlatform.getProductReg();
         this.m_oPharmacyRegistration = m_oPlatform.getPharmacyReg();
-        this.m_oPharmacy = m_oPharmacyRegistration.getPharmacyByManagerEmail(ApplicationPOT.getInstance().getCurrentSession().getCurrentUserEmail());
     }
 
     public boolean addPharmacyProduct(Product oProduct, Integer intStock) {
@@ -70,6 +69,7 @@ public class AddPharmacyProductController {
      * The method that adds stock to a pharmacy.
      */
     public boolean registerPharmacyProduct() {
+        this.m_oPharmacy = m_oPharmacyRegistration.getPharmacyByManagerEmail(ApplicationPOT.getInstance().getCurrentSession().getCurrentUserEmail());
         return this.m_oPharmacyRegistration.registerPharmacyProduct(m_oPharmacy, m_oProduct, m_intStock);
     }
 
@@ -78,5 +78,19 @@ public class AddPharmacyProductController {
      */
     public List<Product> getProducts() {
         return this.m_oProductRegistration.getProducts();
+    }
+
+    /**
+     * The method that sets the product.
+     */
+    public void setProduct(Product oProduct) {
+        this.m_oProduct = oProduct;
+    }
+
+    /**
+     * The method that sets the stock.
+     */
+    public void setStock(Integer intStock) {
+        this.m_intStock = intStock;
     }
 }
