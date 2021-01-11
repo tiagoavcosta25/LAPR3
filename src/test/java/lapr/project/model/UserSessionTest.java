@@ -11,6 +11,7 @@ class UserSessionTest {
     private UserSession userSession3;
     private UserSession userSession4;
     private UserSession userSession5;
+    private UserSession userSession6;
 
     UserSessionTest() {
         userSession1 = new UserSession("email",1);
@@ -18,6 +19,7 @@ class UserSessionTest {
         userSession3 = new UserSession("ee",3);
         userSession4 = new UserSession("emmaail",4);
         userSession5 = new UserSession();
+        userSession5 = new UserSession("e",7);
     }
 
     @Test

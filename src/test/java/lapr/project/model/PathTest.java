@@ -70,7 +70,8 @@ class PathTest {
         assertFalse(real1);
 
         String c = "";
-        assertNotEquals(c, path);
+        boolean real6 = path.equals(c);
+        assertFalse(real6);
 
         Path oPath2 = null;
         assertNotEquals(oPath2, path);
