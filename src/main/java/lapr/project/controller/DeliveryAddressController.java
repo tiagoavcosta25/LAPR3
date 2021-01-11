@@ -24,21 +24,24 @@ public class DeliveryAddressController {
     /**
      * Courier Management class
      */
-    private CourierRegistration oCourierRegistration;
+    private CourierRegistration m_oCourierRegistration;
+    /**
+     * User Session
+     */
+    private UserSession m_oUserSession;
 
     /**
      * An empty constructor of RegisterCourierController that initiates the platform variable by getting it from the ApplicationPOT.
      */
     public DeliveryAddressController() {
         this.m_oPlatform = ApplicationPOT.getInstance().getPlatform();
+        this.m_oUserSession = ApplicationPOT.getInstance().getCurrentSession();
+        this.m_oCourierRegistration = m_oPlatform.getCourReg();
     }
 
     public Address getDeliveryAddress(){
-        m_oPlatform = ApplicationPOT.getInstance().getPlatform();
-        UserSession session = ApplicationPOT.getInstance().getCurrentSession();
-        String email = session.getCurrentUserEmail();
-        oCourierRegistration = m_oPlatform.getCourReg();
-        return oCourierRegistration.getDeliveryAddress(email);
+        String email = m_oUserSession.getCurrentUserEmail();
+        return m_oCourierRegistration.getDeliveryAddress(email);
     }
 
 }
