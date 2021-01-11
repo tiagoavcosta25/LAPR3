@@ -39,7 +39,7 @@ public class InvoiceRegistration extends DataHandler {
         throw new IllegalArgumentException("No Invoice with ID:" + id);
     }
 
-    private void addInvoice(Date dtInvoiceDate, float fltTotalPrice, Order oOrder) {
+    private boolean addInvoice(Date dtInvoiceDate, float fltTotalPrice, Order oOrder) {
         try {
             openConnection();
             CallableStatement callStmt = getConnection().prepareCall("{ call addInvoice(?,?,?) }");
@@ -75,8 +75,10 @@ public class InvoiceRegistration extends DataHandler {
             }
 
             closeAll();
+            return true;
         } catch (SQLException e) {
             e.printStackTrace();
+            return false;
         }
     }
 
@@ -98,8 +100,8 @@ public class InvoiceRegistration extends DataHandler {
 
     }
 
-    public void registerInvoice(Invoice oInvoice) {
-        addInvoice(oInvoice.getInvoiceDate(), oInvoice.getTotalPrice(), oInvoice.getOrder());
+    public boolean registerInvoice(Invoice oInvoice) {
+        return addInvoice(oInvoice.getInvoiceDate(), oInvoice.getTotalPrice(), oInvoice.getOrder());
     }
 
     public Invoice newInvoice(Date dtInvoiceDate, float fltTotalPrice, Order oOrder) {

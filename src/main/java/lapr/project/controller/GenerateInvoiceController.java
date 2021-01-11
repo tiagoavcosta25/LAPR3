@@ -66,7 +66,7 @@ public class GenerateInvoiceController {
     /**
      * The method registers an order to the database.
      */
-    public void registerInvoice() {
-        this.m_oInvoiceRegistration.registerInvoice(this.m_oInvoice);
+    public boolean registerInvoice() {
+        return this.m_oInvoiceRegistration.registerInvoice(this.m_oInvoice);
     }
 }
