@@ -168,16 +168,23 @@ public class ScooterTest {
     void testEquals() {
         Scooter oScooter2 = new Scooter(1, 1, "Not Charging", 1, 1,
                 1, 1, new Pharmacy());
+
+        boolean real = scooterTest2.equals(oScooter2);
+        assertTrue(real);
+
+        assertEquals(scooterTest2, scooterTest2);
+
+        boolean expected = false;
+        real = scooterTest2.equals(null);
+        assertEquals(expected, real);
+
+        String s = "";
+        assertNotEquals(scooterTest2,s);
+
         Scooter oScooter3 = new Scooter(3, "Not Charging", 2, 2,
                 2, 2, new Pharmacy());
 
-        boolean expected = false;
-        boolean real = scooterTest1.equals(null);
-        assertEquals(expected, real);
-
-        expected = true;
-        real = scooterTest2.equals(oScooter2);
-        assertEquals(expected, real);
+        assertNotEquals(oScooter3, scooterTest2);
 
         expected = false;
         real = scooterTest3.equals(oScooter3);
