@@ -44,5 +44,9 @@ class RegisterProductControllerTest {
         result = registerProductController.registerProductToDB("Product 6868", "Description 1", -2.0f, 2.0f);
         assertFalse(result);
 
+        when(mockProductRegistration.addProductToDB(p)).thenReturn(false);
+        result = registerProductController.registerProductToDB("Product 6969", "Description 1", 2.0f, 2.0f);
+        assertFalse(result);
+
     }
 }

@@ -48,7 +48,7 @@ class RemoveProductControllerTest {
     @Test
     void verifyProductIdTest() {
         System.out.println("verifyProductId");
-        
+
         boolean result = this.removeProductController.verifyProductId(1);
         assertTrue(result);
 

@@ -44,4 +44,18 @@ class ProductInformationControllerTest {
         result = productInformationController.getProductFromDB(-1);
         assertEquals(expectedProduct, result);
     }
+
+    @Test
+    void verifyProductIdTest() {
+        System.out.println("verifyProductId");
+
+        boolean result = this.productInformationController.verifyProductId(1);
+        assertTrue(result);
+
+        result = this.productInformationController.verifyProductId(0);
+        assertFalse(result);
+
+        result = this.productInformationController.verifyProductId(-1);
+        assertFalse(result);
+    }
 }
