@@ -56,6 +56,14 @@ class RegisterScooterControllerTest {
         boolean result = registerScooterController.newScooter(35.5f, "Charging Test", 250f, 30f,
                 100, 20f, p);
         assertTrue(result);
+
+        when(mockPharmacyRegistration.getPharmacy(1)).thenReturn(null);
+        when(mockScooterRegistration.newScooter(35.5f, "Charging Test", 250f, 30f,
+                100, 20f, null)).thenReturn(null);
+
+        boolean result1 = registerScooterController.newScooter(35.5f, "Charging Test", 250f, 30f,
+                100, 20f, null);
+        assertFalse(result1);
     }
 
     @Test
