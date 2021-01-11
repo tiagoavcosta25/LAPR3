@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="362px" preserveAspectRatio="none" style="width:504px;height:362px;" version="1.1" viewBox="0 0 504 362" width="504px" zoomAndPan="magnify"><defs><filter height="300%" id="f18pu5jghud43h" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"/><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/></filter></defs><g><rect fill="#FFFFFF" filter="url(#f18pu5jghud43h)" height="234.8125" style="stroke: #A80036; stroke-width: 1.0;" width="10" x="67.5" y="97.6094"/><rect fill="#FFFFFF" filter="url(#f18pu5jghud43h)" height="30.3516" style="stroke: #A80036; stroke-width: 1.0;" width="10" x="458.5" y="119.9609"/><rect fill="#FFFFFF" filter="url(#f18pu5jghud43h)" height="30.3516" style="stroke: #A80036; stroke-width: 1.0;" width="10" x="458.5" y="180.6641"/><rect fill="#FFFFFF" filter="url(#f18pu5jghud43h)" height="30.3516" style="stroke: #A80036; stroke-width: 1.0;" width="10" x="458.5" y="241.3672"/><rect fill="#FFFFFF" filter="url(#f18pu5jghud43h)" height="30.3516" style="stroke: #A80036; stroke-width: 1.0;" width="10" x="458.5" y="302.0703"/><line style="stroke: #A80036; stroke-width: 1.0; stroke-dasharray: 5.0,5.0;" x1="72" x2="72" y1="87.6094" y2="350.4219"/><line style="stroke: #A80036; stroke-width: 1.0; stroke-dasharray: 5.0,5.0;" x1="463.5" x2="463.5" y1="87.6094" y2="350.4219"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="123" x="8" y="84.5332">Pharmacy Manager</text><ellipse cx="72.5" cy="13" fill="#FEFECE" filter="url(#f18pu5jghud43h)" rx="8" ry="8" style="stroke: #A80036; stroke-width: 2.0;"/><path d="M72.5,21 L72.5,48 M59.5,29 L85.5,29 M72.5,48 L59.5,63 M72.5,48 L85.5,63 " fill="none" filter="url(#f18pu5jghud43h)" style="stroke: #A80036; stroke-width: 2.0;"/><rect fill="#FEFECE" filter="url(#f18pu5jghud43h)" height="31.6094" style="stroke: #A80036; stroke-width: 1.5;" width="64" x="429.5" y="51"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="50" x="436.5" y="72.5332">:System</text><rect fill="#FFFFFF" filter="url(#f18pu5jghud43h)" height="234.8125" style="stroke: #A80036; stroke-width: 1.0;" width="10" x="67.5" y="97.6094"/><rect fill="#FFFFFF" filter="url(#f18pu5jghud43h)" height="30.3516" style="stroke: #A80036; stroke-width: 1.0;" width="10" x="458.5" y="119.9609"/><rect fill="#FFFFFF" filter="url(#f18pu5jghud43h)" height="30.3516" style="stroke: #A80036; stroke-width: 1.0;" width="10" x="458.5" y="180.6641"/><rect fill="#FFFFFF" filter="url(#f18pu5jghud43h)" height="30.3516" style="stroke: #A80036; stroke-width: 1.0;" width="10" x="458.5" y="241.3672"/><rect fill="#FFFFFF" filter="url(#f18pu5jghud43h)" height="30.3516" style="stroke: #A80036; stroke-width: 1.0;" width="10" x="458.5" y="302.0703"/><polygon fill="#A80036" points="446.5,115.9609,456.5,119.9609,446.5,123.9609,450.5,119.9609" style="stroke: #A80036; stroke-width: 1.0;"/><line style="stroke: #A80036; stroke-width: 1.0;" x1="77.5" x2="452.5" y1="119.9609" y2="119.9609"/><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="7" x="84.5" y="115.1045">1</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="304" x="95.5" y="115.1045">initiates the process adding a product to a pharmacy</text><polygon fill="#A80036" points="88.5,146.3125,78.5,150.3125,88.5,154.3125,84.5,150.3125" style="stroke: #A80036; stroke-width: 1.0;"/><line style="stroke: #A80036; stroke-width: 1.0; stroke-dasharray: 2.0,2.0;" x1="82.5" x2="462.5" y1="150.3125" y2="150.3125"/><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="7" x="94.5" y="145.4561">2</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="197" x="105.5" y="145.4561">shows the pharmacy's product list</text><polygon fill="#A80036" points="446.5,176.6641,456.5,180.6641,446.5,184.6641,450.5,180.6641" style="stroke: #A80036; stroke-width: 1.0;"/><line style="stroke: #A80036; stroke-width: 1.0;" x1="77.5" x2="452.5" y1="180.6641" y2="180.6641"/><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="7" x="84.5" y="175.8076">3</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="111" x="95.5" y="175.8076">selects the product</text><polygon fill="#A80036" points="88.5,207.0156,78.5,211.0156,88.5,215.0156,84.5,211.0156" style="stroke: #A80036; stroke-width: 1.0;"/><line style="stroke: #A80036; stroke-width: 1.0; stroke-dasharray: 2.0,2.0;" x1="82.5" x2="462.5" y1="211.0156" y2="211.0156"/><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="7" x="94.5" y="206.1592">4</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="197" x="105.5" y="206.1592">asks for the stock for said product</text><polygon fill="#A80036" points="446.5,237.3672,456.5,241.3672,446.5,245.3672,450.5,241.3672" style="stroke: #A80036; stroke-width: 1.0;"/><line style="stroke: #A80036; stroke-width: 1.0;" x1="77.5" x2="452.5" y1="241.3672" y2="241.3672"/><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="7" x="84.5" y="236.5107">5</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="118" x="95.5" y="236.5107">introduces the stock</text><polygon fill="#A80036" points="88.5,267.7188,78.5,271.7188,88.5,275.7188,84.5,271.7188" style="stroke: #A80036; stroke-width: 1.0;"/><line style="stroke: #A80036; stroke-width: 1.0; stroke-dasharray: 2.0,2.0;" x1="82.5" x2="462.5" y1="271.7188" y2="271.7188"/><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="7" x="94.5" y="266.8623">6</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="346" x="105.5" y="266.8623">validates, presents the information and asks for confirmation</text><polygon fill="#A80036" points="446.5,298.0703,456.5,302.0703,446.5,306.0703,450.5,302.0703" style="stroke: #A80036; stroke-width: 1.0;"/><line style="stroke: #A80036; stroke-width: 1.0;" x1="77.5" x2="452.5" y1="302.0703" y2="302.0703"/><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="7" x="84.5" y="297.2139">7</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="49" x="95.5" y="297.2139">confirms</text><polygon fill="#A80036" points="83.5,328.4219,73.5,332.4219,83.5,336.4219,79.5,332.4219" style="stroke: #A80036; stroke-width: 1.0;"/><line style="stroke: #A80036; stroke-width: 1.0; stroke-dasharray: 2.0,2.0;" x1="77.5" x2="462.5" y1="332.4219" y2="332.4219"/><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="7" x="89.5" y="327.5654">8</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="224" x="100.5" y="327.5654">informs of the success of the operation</text><!--MD5=[ddc3227ea488c066ee8f08770d27ae7e]
+@startuml
+autonumber
+hide footbox
+
+actor "Pharmacy Manager" as PM
+participant ":System" as SYST
+
+activate PM
+
+PM -> SYST : initiates the process adding a product to a pharmacy
+activate SYST
+SYST - -> PM : shows the pharmacy's product list
+deactivate SYST
+
+PM -> SYST : selects the product
+activate SYST
+SYST - -> PM : asks for the stock for said product
+deactivate SYST
+
+PM -> SYST : introduces the stock
+activate SYST
+SYST - -> PM : validates, presents the information and asks for confirmation
+deactivate SYST
+
+PM -> SYST : confirms
+activate SYST
+SYST - -> PM : informs of the success of the operation
+deactivate SYST
+
+deactivate PM
+
+@enduml
+
+PlantUML version 1.2020.09(Sun May 10 11:51:06 BST 2020)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Java Version: 11.0.6+8-b520.66
+Operating System: Windows 10
+Default Encoding: Cp1252
+Language: pt
+Country: PT
+--></g></svg>

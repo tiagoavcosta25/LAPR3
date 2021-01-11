@@ -1,0 +1,32 @@
+@startuml
+autonumber
+hide footbox
+
+actor "Pharmacy Manager" as PM
+participant ":System" as SYST
+
+activate PM
+
+PM -> SYST : initiates the process adding a product to a pharmacy
+activate SYST
+SYST --> PM : shows the pharmacy's product list
+deactivate SYST
+
+PM -> SYST : selects the product
+activate SYST
+SYST --> PM : asks for the stock for said product
+deactivate SYST
+
+PM -> SYST : introduces the stock
+activate SYST
+SYST --> PM : validates, presents the information and asks for confirmation
+deactivate SYST
+
+PM -> SYST : confirms
+activate SYST
+SYST --> PM : informs of the success of the operation
+deactivate SYST
+
+deactivate PM
+
+@enduml

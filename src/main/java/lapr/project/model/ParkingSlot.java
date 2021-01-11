@@ -79,7 +79,6 @@ public class ParkingSlot implements Comparable{
     public String toString() {
         return "ParkingSlot{" +
                 "m_intId=" + m_intId +
-                ", m_oPark=" + m_oPark +
                 ", m_oScooter=" + m_oScooter +
                 '}';
     }

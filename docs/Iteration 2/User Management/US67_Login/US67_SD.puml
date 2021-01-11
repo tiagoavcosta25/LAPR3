@@ -1,0 +1,101 @@
+@startuml
+autonumber
+hide footbox
+
+actor "User" as U
+
+participant "LoginUI" as UI
+participant "LoginController" as CTRL
+
+
+participant "userReg\n:UserRegistration" as UREG
+
+participant "session\n:UserSession" as SES
+participant "app\n:ApplicationPOT" as APP
+participant "ApplicationPOT" as _APP
+participant "plat\n:Platform" as PLAT
+participant "EncryptPassword" as EP
+participant "user\n:User" as USER
+
+
+
+participant "DataHandler" as DH
+
+activate U
+
+U -> UI : Engages the login feature/button
+activate UI
+UI --> U : Asks for all the email and password\nrequired for the login
+deactivate UI
+
+U -> UI : Fills all the information required and confirms
+activate UI
+
+UI -> CTRL : login(email,password)
+activate CTRL
+
+CTRL -> _APP: app = getInstance()
+activate _APP
+deactivate _APP
+
+CTRL -> APP: plat = getPlaform()
+activate APP
+deactivate APP
+
+CTRL -> PLAT : userReg = getUserReg()
+activate PLAT
+deactivate PLAT
+
+CTRL -> UREG : login(email,password)
+activate UREG
+
+
+
+
+
+
+
+
+
+
+UREG -> EP : encryptPasswordMD5(password)
+activate EP
+deactivate EP
+
+ref over UREG
+SD_CONNECTIONS
+end ref
+
+
+alt if the user exists in the DataBase and password corresponds
+UREG -> SES** : create(email,role)
+activate SES
+SES -> _APP : setCurrentSession(session)
+activate _APP
+deactivate SES
+
+
+deactivate _APP
+
+deactivate UREG
+
+
+deactivate CTRL
+
+UI --> U : Validates and allocates a session\n for the user
+deactivate UI
+
+else if the user does not exist in the DataBase or password doesn't correspond
+
+
+
+
+
+UI --> U : Informs the User that the operation\nwas not successful
+activate UI
+deactivate UI
+
+end
+
+deactivate U
+@enduml

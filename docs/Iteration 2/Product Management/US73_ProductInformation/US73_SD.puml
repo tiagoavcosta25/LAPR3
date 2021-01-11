@@ -1,0 +1,81 @@
+@startuml
+autonumber
+hide footbox
+
+actor "Admin" as U
+
+participant "RegisterProductUI" as UI
+participant "ProductInformationController" as CTRL
+participant "ApplicationPOT" as _APP
+participant "app\n:ApplicationPOT" as APP
+participant "plat\n:Platform" as PLAT
+participant "pr\n:ProductRegistration" as PREG
+
+participant "Product\n:Product" as PROD
+
+
+activate U
+
+U -> UI : Engages the verify product information feature/button
+activate UI
+
+UI --> U : Asks for the for the id of the product to verify
+
+
+deactivate UI
+U -> UI : Gives the required id
+activate UI
+
+
+UI -> CTRL : verifyProductId(productId)
+activate CTRL
+deactivate CTRL
+
+UI --> U : Validates and asks for a confirmation
+deactivate UI
+
+opt if all the id given as input has a valid format
+
+
+U -> UI : Confirms
+activate UI
+UI -> CTRL : getProduct(id)
+activate CTRL
+CTRL -> _APP: app = getInstance()
+activate _APP
+deactivate _APP
+
+CTRL -> APP: plat = getPlaform()
+activate APP
+deactivate APP
+CTRL -> PLAT : pr = getProductReg()
+activate PLAT
+deactivate PLAT
+
+CTRL -> PREG : getProduct(id)
+activate PREG
+
+
+PREG -> PREG
+ref over PREG
+SD_CONNECTIONS
+end ref
+
+
+
+
+PREG -> PROD** : create(name, description, unitaryPrice, unitaryWeight)
+
+
+deactivate PREG
+
+
+
+deactivate CTRL
+UI --> U : Shows the selected products information
+end opt
+deactivate UI
+deactivate U
+
+
+@enduml

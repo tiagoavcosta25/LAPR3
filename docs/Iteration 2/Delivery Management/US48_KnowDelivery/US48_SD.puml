@@ -1,0 +1,55 @@
+@startuml
+autonumber
+hide footbox
+
+actor "Courier" as COUR
+
+participant "KnowDeliveryUI" as UI
+participant "KnowDeliveryController" as CTRL
+participant "ApplicationPOT" as _APP
+participant "app\n:ApplicationPOT" as APP
+participant "session\n:UserSession" as SESSION
+participant "plat\n:Platform" as PLAT
+participant "ordReg\n:OrderRegistration" as ORDREG
+participant "order\n:Order" as O
+
+activate COUR
+
+COUR -> UI : Sends a request regarding what delivery will be done
+
+activate UI
+UI -> CTRL : getOrderByCour()
+activate CTRL
+CTRL -> _APP: app = getInstance()
+activate _APP
+deactivate _APP
+
+CTRL -> APP: plat = getPlaform()
+activate APP
+deactivate APP
+
+CTRL -> APP: session = getCurrentSession()
+activate APP
+deactivate APP
+
+CTRL -> SESSION : email = getCurrentUserEmail()
+activate SESSION
+deactivate SESSION
+
+CTRL -> PLAT : ordReg = getOrderReg()
+activate PLAT
+deactivate PLAT
+CTRL -> ORDREG : order = getOrderByCourier(email)
+activate ORDREG
+ORDREG -> ORDREG : executeQuery(query)
+ref over ORDREG : SD_CONNECTIONS
+deactivate ORDREG
+deactivate CTRL
+opt [ order == null]
+UI -> COUR : Informs that doesn't exist any order
+end opt
+UI -> COUR : Returns the order, informing of the success of the operation
+deactivate UI
+deactivate COUR
+
+@enduml

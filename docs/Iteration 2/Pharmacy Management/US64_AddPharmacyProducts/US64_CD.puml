@@ -1,0 +1,114 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+package "UI" #DDDDDD {
+class AddPharmacyProductUI{
+
+}
+}
+
+
+package "Controller" #DDDDDD {
+class AddPharmacyProductController{
+    +getProducts()
+    +addPharmacyProduct(product, stock)
+    +registersPharmacyProduct()
+}
+
+class ApplicationPOT
+{
+  +static getInstance()
+  +getPlatform()
+}
+
+class UserSession
+{
+  +getCurrentSession()
+}
+}
+
+
+package "Model" #DDDDDD {
+class Platform {
+  -String designation
+  +getPharmacyReg()
+  +getPharmacyManagerReg()
+}
+package "Registration" #DDDDDD {
+
+   class PharmacyRegistration{
+          +getPharmacyByManagerEmail(email)
+          +registersPharmacyProduct(pharmacy, product, stock)
+      }
+   class ProductRegistration{
+             +getProducts()
+         }
+ }
+}
+
+package "Model" #DDDDDD {
+abstract class User{
+-String email
+-String password
+-String name
+-Integer nif
+}
+
+class Pharmacy{
+-   int id
+-   String name
+}
+
+class PharmacyManager{
+}
+
+class Park{
+-   int maxSlotsNumber
+}
+
+class ChargingSlot{
+-   int id
+-   float outputPower
+}
+
+class ParkingSlot{
+-   int id
+}
+
+class Product{
+-   int id
+-   String name
+-   String description
+-   float unitaryPrice
+-   float unitaryWeight
+}
+
+}
+
+
+package "Data" #DDDDDD {
+class DataHandler{
+    +openConnection()
+    +closeAll()
+}
+}
+
+class PharmacyRegistration extends DataHandler
+class ProductRegistration extends DataHandler
+class PharmacyManager extends User
+
+AddPharmacyProductUI ..> AddPharmacyProductController
+AddPharmacyProductController ..> Platform
+AddPharmacyProductController ..> ApplicationPOT
+AddPharmacyProductController ..> UserSession
+Platform "1" --> "1" PharmacyRegistration : has
+PharmacyRegistration "1" --> "*" Pharmacy : manages
+ProductRegistration "1" --> "*" PharmacyManager : manages
+
+Pharmacy "1" -- "1" PharmacyManager : has >
+Pharmacy "1" -- "1" Park : has >
+Pharmacy "1" -- "*" Product : has >
+Park "1" -- "1" ChargingSlot : has >
+Park "1" -- "1" ParkingSlot : has >
+
+@enduml
