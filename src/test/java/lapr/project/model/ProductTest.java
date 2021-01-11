@@ -25,6 +25,7 @@ class ProductTest {
         Product productDif = new Product(2, "Produto 2", "Descrição 2", 3.0f, 3.0f);
         assertNotNull(product2);
         assertNotEquals(null, product);
+        assertNotEquals(product, null);
         assertEquals(product, productCopy);
         assertEquals(product, product);
         assertNotEquals(product, new Order());
@@ -36,5 +37,37 @@ class ProductTest {
         assertEquals("Descrição 1", product.getDescription());
         assertEquals(2.0f, product.getUnitaryPrice());
         assertEquals(2.0f, product.getUnitaryWeight());
+
+        product.setName("");
+        assertNotEquals(product, productCopy);
+
+        product.setName("Produto 1");
+        product.setDescription("");
+        assertNotEquals(product, productCopy);
+
+        product.setDescription("Descrição 1");
+        product.setUnitaryPrice(0f);
+        assertNotEquals(product, productCopy);
+
+        product.setUnitaryPrice(2.0f);
+        product.setUnitaryWeight(0f);
+        assertNotEquals(product, productCopy);
+
+
+        int expResult = -1;
+        int result = product.compareTo(productDif);
+        assertEquals(expResult, result);
+
+        expResult = 1;
+        result = productDif.compareTo(product);
+        assertEquals(expResult, result);
+
+        expResult = 0;
+        result = product.compareTo(productCopy);
+        assertEquals(expResult, result);
+
+        String expResultString = "Product{m_intId=1, m_strName='Produto 1', m_strDescription='Descrição 1', m_fltUnitaryPrice=2.0, m_fltUnitaryWeight=0.0}"
+        String resultString = product.toString();
+        assertEquals(expResultString, resultString);
     }
 }
