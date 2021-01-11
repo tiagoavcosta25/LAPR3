@@ -27,11 +27,8 @@ class NotifyAndRemoveControllerTest {
     @Mock
     private ClientRegistration mockClientRegistration;
 
-    private boolean assertTrue;
-
     @BeforeEach
     void setUp() {
-        this.assertTrue = true;
         this.notifyAndRemoveController = new NotifyAndRemoveController();
         this.mockOrderRegistration = Mockito.mock(OrderRegistration.class);
         this.mockClientRegistration = Mockito.mock(ClientRegistration.class);
@@ -43,8 +40,12 @@ class NotifyAndRemoveControllerTest {
         ApplicationPOT.getInstance().setCurrentSession(new UserSession("email3@gmail.com"));
         when(mockClientRegistration.getClientByEmail("email3@gmail.com")).thenReturn(new Client());
         when(mockOrderRegistration.getLatestOrder(new Client())).thenReturn(new Order());
-        when(mockOrderRegistration.notifyAndRemove(new Order())).thenReturn(assertTrue);
+        when(mockOrderRegistration.notifyAndRemove(new Order())).thenReturn(true);
         boolean result = notifyAndRemoveController.notifyAndRemove();
-        assertEquals(assertTrue, result);
+        assertTrue(result);
+
+        when(mockOrderRegistration.notifyAndRemove(new Order())).thenReturn(false);
+        result = notifyAndRemoveController.notifyAndRemove();
+        assertFalse(result);
     }
 }
