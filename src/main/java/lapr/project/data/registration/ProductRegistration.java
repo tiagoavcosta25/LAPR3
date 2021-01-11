@@ -165,5 +165,4 @@ public class ProductRegistration extends DataHandler {
         }
         throw new IllegalArgumentException("No Products Avaliable.");
     }
-
 }
