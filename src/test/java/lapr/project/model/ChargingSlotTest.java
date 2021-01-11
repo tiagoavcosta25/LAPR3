@@ -10,12 +10,16 @@ class ChargingSlotTest {
     private ChargingSlot c2;
     private ChargingSlot c3;
     private ChargingSlot c4;
+    private ChargingSlot cCopy;
+    private ChargingSlot cDif;
 
     public ChargingSlotTest(){
         c1 = new ChargingSlot(1,new Park(),new Scooter(),2.0f);
         c2 = new ChargingSlot(new Park(),2.0f);
         c3 = new ChargingSlot(1,new Park(),2.0f);
         c4 = new ChargingSlot();
+        cCopy = c1;
+        cDif = new ChargingSlot(2,new Park(),new Scooter(),3.0f);
     }
 
 
@@ -168,6 +172,10 @@ class ChargingSlotTest {
 
     @Test
     void testEquals() {
+        assertEquals(c1, cCopy);
+        assertEquals(null, c1);
+        assertEquals(c1, null);
+        assertEquals(c1, cDif);
         ChargingSlot oChargingSlot = new ChargingSlot();
         boolean expected = true;
         boolean real = oChargingSlot.equals(new ChargingSlot());
@@ -183,12 +191,24 @@ class ChargingSlotTest {
     }
 
     @Test
+    void testCompareTo() {
+        int expResult = -1;
+        int result = c1.compareTo(cDif);
+        assertEquals(expResult, result);
+
+        expResult = 1;
+        result = cDif.compareTo(c1);
+        assertEquals(expResult, result);
+
+        expResult = 0;
+        result = c1.compareTo(cCopy);
+        assertEquals(expResult, result);
+    }
+
+    @Test
     void testToString() {
-        ChargingSlot oChargingSlot = new ChargingSlot();
-        //String expected = "Park{m_intId=-1, m_intMaxSlotsNumber=-1, m_lstChargingSlots=";
-        //String real = oPark.toString().substring(0, 60);
-        boolean expected = true;
-        boolean real = true;
-        assertEquals(expected, real);
+        String expResult = "ChargingSlot{m_intId=1, m_oScooter=Scooter{Id = -1, Battery Perc = -1.0, Chargin Status = Not Charging, Potency = -1.0, Weight = -1.0, Battery Capacity = -1, Max Payload = -1.0, Pharmacy = Pharmacy{m_intId=-1, m_strName='No name.', m_oPharmacyManager=lapr.project.model.PharmacyManager@282003e1, m_oAddress=Address{m_id=-1, m_latitude=-22.0, m_longitude=-22.0, m_streetName='No Street Name', m_doorNumber='No Door Number', m_postalCode='No Postal Code', m_locality='No Locality', m_country='No Country'}, m_mapStock={}}}, m_fltOutputPower=2.0}";
+        String result = c1.toString();
+        assertEquals(expResult, result);
     }
 }
