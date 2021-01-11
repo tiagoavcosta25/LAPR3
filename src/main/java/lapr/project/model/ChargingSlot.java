@@ -98,7 +98,6 @@ public class ChargingSlot implements Comparable{
     public String toString() {
         return "ChargingSlot{" +
                 "m_intId=" + m_intId +
-                ", Park=" + m_oPark +
                 ", m_oScooter=" + m_oScooter +
                 ", m_fltOutputPower=" + m_fltOutputPower +
                 '}';
