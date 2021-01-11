@@ -1,6 +1,7 @@
 package lapr.project.controller;
 
 import lapr.project.model.Platform;
+import lapr.project.model.UserSession;
 
 public class ApplicationPOT {
 

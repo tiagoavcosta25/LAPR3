@@ -3,6 +3,7 @@ package lapr.project.controller;
 import lapr.project.model.Address;
 import lapr.project.model.Platform;
 import lapr.project.data.registration.CourierRegistration;
+import lapr.project.model.UserSession;
 
 /**
  * Register Courier Controller.
