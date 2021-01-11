@@ -89,6 +89,8 @@ public class UserSession {
             case 4:
                 this.m_role = Role.P_MANAGER;
                 break;
+            default:
+                this.m_role = null;
         }
         ApplicationPOT.getInstance().setCurrentSession(this);
     }
