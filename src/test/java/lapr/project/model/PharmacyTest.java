@@ -3,6 +3,7 @@ package lapr.project.model;
 import org.junit.jupiter.api.Test;
 
 import java.security.NoSuchAlgorithmException;
+import java.sql.Date;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -10,12 +11,38 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class PharmacyTest {
 
+    private Pharmacy p1;
+    private Pharmacy p2;
+    private Pharmacy p3;
+    private Pharmacy p4;
+    private Pharmacy p5;
+
+    public PharmacyTest(){
+        Map<Product,Integer> map = new TreeMap<>();
+        p1 = new Pharmacy(1,"testName",new PharmacyManager(),new Address(),map);
+        p2 = new Pharmacy("testName",new PharmacyManager(),new Address(),map);
+        p3 = new Pharmacy(1,"testName",new PharmacyManager(),new Address());
+        p4 = new Pharmacy("testName",new PharmacyManager(),new Address());
+        p5 = new Pharmacy();
+    }
+
     @Test
     void getId() {
-        Pharmacy oPharmacy = new Pharmacy();
-        Integer expected = -1;
-        Integer real = oPharmacy.getId();
+        Integer expected = 1;
+        Integer real = p1.getId();
         assertEquals(expected, real);
+        Integer expected2 = -1;
+        Integer real2 = p2.getId();
+        assertEquals(expected2, real2);
+        Integer expected3 = 1;
+        Integer real3 = p3.getId();
+        assertEquals(expected3, real3);
+        Integer expected4 = -1;
+        Integer real4 = p4.getId();
+        assertEquals(expected4, real4);
+        Integer expected5 = -1;
+        Integer real5 = p5.getId();
+        assertEquals(expected5, real5);
     }
 
     @Test

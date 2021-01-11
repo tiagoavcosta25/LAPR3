@@ -9,7 +9,9 @@ import java.text.SimpleDateFormat;
 import static org.junit.jupiter.api.Assertions.*;
 
 class UserTest {
-    Client u;
+
+    private Client u;
+
     public UserTest() throws ParseException, NoSuchAlgorithmException {
         u = new Client(5,"name",123456789,"email@","pw1234",0,102030.23, 103121.01,
                 "Rua 1", "2esq", "4444-111",
@@ -92,4 +94,15 @@ class UserTest {
         String real = u.getName();
         assertEquals(expected,real);
     }
+
+    @Test
+    void testEquals() throws ParseException {
+        Client oUser = new Client(5,"name",123456789,"email@","pw1234",0,102030.23, 103121.01,
+                "Rua 1", "2esq", "4444-111",
+                "Mafamude", "Portugal",1234123412341234L,new SimpleDateFormat("MM/yy").
+                parse("10/20"),123);
+        boolean real = u.equals(oUser);
+        assertTrue(real);
+    }
+
 }

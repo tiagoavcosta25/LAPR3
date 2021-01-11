@@ -5,9 +5,10 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class AddressTest {
-    Address a1;
-    Address a2;
-    Address a3;
+
+    private Address a1;
+    private Address a2;
+    private Address a3;
 
     public AddressTest() {
         a1 = new Address();
@@ -151,4 +152,36 @@ class AddressTest {
     }
 
 
+    @Test
+    void testEquals() {
+        Address oAddress = new Address(10,123112.0, 103121.01, "Rua 1", "2esq", "4444-111",
+                "Mafamude", "Portugal");
+        boolean real = a3.equals(oAddress);
+        assertTrue(real);
+    }
+
+    @Test
+    void testHashCode() {
+        Address oAddress = new Address();
+        int expected = 30;
+        int real = oAddress.hashCode();
+        assertEquals(expected, real);
+    }
+
+    @Test
+    void testToString() {
+        Address oAddress = new Address();
+        String expected = "Address{" +
+                "m_id=" + oAddress.getId() +
+                ", m_latitude=" + oAddress.getLatitude() +
+                ", m_longitude=" + oAddress.getLongitude() +
+                ", m_streetName='" + oAddress.getStreetName() + '\'' +
+                ", m_doorNumber='" + oAddress.getDoorNumber() + '\'' +
+                ", m_postalCode='" + oAddress.getPostalCode() + '\'' +
+                ", m_locality='" + oAddress.getLocality() + '\'' +
+                ", m_country='" + oAddress.getCountry() + '\'' +
+                '}';
+        String real = oAddress.toString();
+        assertEquals(expected, real);
+    }
 }

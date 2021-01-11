@@ -9,10 +9,10 @@ import java.text.SimpleDateFormat;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ClientTest {
-    Client c1;
-    Client c2;
-    Client c3;
-    Client c4;
+    private Client c1;
+    private Client c2;
+    private Client c3;
+    private Client c4;
 
     ClientTest() throws ParseException, NoSuchAlgorithmException {
         c1 = new Client("name", 123456789, "email@", "pw1234", 102030.23, 103121.01,
@@ -94,5 +94,17 @@ class ClientTest {
         c.addCredits(4);
         Integer real1 = c.getCredits();
         assertEquals(expected1, real1);
+    }
+
+    @Test
+    void testToString() {
+        Client oClient= new Client();
+        String expected = "Client{" +
+                "m_credits=" + oClient.getCredits() +
+                ", m_address=" + oClient.getAddress() +
+                ", m_creditCard=" + oClient.getCreditCard() +
+                '}';
+        String real = oClient.toString();
+        assertEquals(expected, real);
     }
 }
