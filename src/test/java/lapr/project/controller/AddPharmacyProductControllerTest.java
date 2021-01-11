@@ -61,6 +61,11 @@ class AddPharmacyProductControllerTest {
         addPharmacyProductController.setStock(1);
         boolean result = addPharmacyProductController.registerPharmacyProduct();
         assertEquals(expectedValue, result);
+
+        expectedValue = false;
+        when(mockPharmacyRegistration.registerPharmacyProduct(new Pharmacy(), new Product(), 1)).thenReturn(expectedValue);
+        result = addPharmacyProductController.registerPharmacyProduct();
+        assertEquals(expectedValue, result);
     }
 
     @Test

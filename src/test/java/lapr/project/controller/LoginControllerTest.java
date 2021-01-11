@@ -37,6 +37,10 @@ class LoginControllerTest {
         when(m_mockUserRegistration.login(email,pw)).thenReturn(true);
         boolean result = m_ctrl.login(email,pw);
         assertTrue(result);
+
+        when(m_mockUserRegistration.login(email,pw)).thenReturn(false);
+        result = m_ctrl.login(email,pw);
+        assertFalse(result);
     }
 
 

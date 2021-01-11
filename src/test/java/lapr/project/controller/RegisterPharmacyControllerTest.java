@@ -47,5 +47,9 @@ class RegisterPharmacyControllerTest {
         when(mockPharmacyRegistration.registerPharmacy(pharmacy)).thenReturn(expectedTrue);
         boolean result = this.registerPharmacyController.registerPharmacy();
         assertTrue(result);
+
+        when(mockPharmacyRegistration.registerPharmacy(pharmacy)).thenReturn(false);
+        result = this.registerPharmacyController.registerPharmacy();
+        assertFalse(result);
     }
 }
