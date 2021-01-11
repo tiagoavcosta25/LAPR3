@@ -50,5 +50,9 @@ class GenerateInvoiceControllerTest {
         when(mockInvoiceRegistration.registerInvoice(new Invoice())).thenReturn(false);
         result = this.generateInvoiceController.newInvoice(new Date(2020,12,2), 10f);
         assertFalse(result);
+
+        ApplicationPOT.getInstance().setCurrentSession(null);
+        result = this.generateInvoiceController.newInvoice(new Date(2020,12,2), 10f);
+        assertFalse(result);
     }
 }
