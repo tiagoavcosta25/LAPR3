@@ -103,6 +103,22 @@ class UserTest {
                 parse("10/20"),123);
         boolean real = u.equals(oUser);
         assertTrue(real);
+
+        assertEquals(u,u);
+
+        Client oUser1 = new Client(2,"name",123456789,"em","pw1234",0,102030.23, 103121.01,
+                "Rua 1", "2esq", "4444-111",
+                "Mafamude", "Portugal",1234123412341234L,new SimpleDateFormat("MM/yy").
+                parse("10/20"),123);
+
+        assertNotEquals(oUser1, u);
+
+        String s = "";
+        assertNotEquals(u,s);
+
+        Client oUser2 = null;
+        assertNotEquals(u,oUser2);
+
     }
 
     @Test

@@ -63,17 +63,29 @@ class PathTest {
         boolean real = path.equals(oPath);
         assertTrue(real);
 
-        assertTrue(path.equals(path));
+        assertEquals(path, path);
 
         Path oPath1 = new Path(3,5,"");
         boolean real1 = path.equals(oPath1);
         assertFalse(real1);
 
         String c = "";
-        assertFalse(path.equals(c));
+        assertNotEquals(c, path);
 
         Path oPath2 = null;
-        assertFalse(path.equals(oPath2));
+        assertNotEquals(oPath2, path);
+
+        Path oPath3 = new Path(2,5,"Rua das Flores");
+        boolean real3 = path.equals(oPath3);
+        assertFalse(real3);
+
+        Path oPath4 = new Path(5,4,"Rua das Flores");
+        boolean real4 = path.equals(oPath4);
+        assertFalse(real4);
+
+        Path oPath5 = new Path(2,4,"");
+        boolean real5 = path.equals(oPath5);
+        assertFalse(real5);
     }
 
     @Test

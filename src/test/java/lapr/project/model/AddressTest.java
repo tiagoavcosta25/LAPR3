@@ -158,6 +158,19 @@ class AddressTest {
                 "Mafamude", "Portugal");
         boolean real = a3.equals(oAddress);
         assertTrue(real);
+
+        assertTrue(a3.equals(a3));
+
+        Address oAddress1 = new Address(2,1232132.0,2131451.0,"","","","","");
+
+        boolean real1 = a3.equals(oAddress1);
+        assertFalse(real1);
+
+        String c = "";
+        assertFalse(a3.equals(c));
+
+        Address oAddress2 = null;
+        assertFalse(a3.equals(oAddress2));
     }
 
     @Test

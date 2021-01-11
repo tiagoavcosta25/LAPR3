@@ -68,6 +68,18 @@ class CreditCardTest {
                 123);
         boolean real = c.equals(oCreditCard);
         assertTrue(real);
+
+        assertEquals(c, c);
+
+        CreditCard oCreditCard1 = new CreditCard(1234123412341239L,new SimpleDateFormat("MM/yy").parse("10/20"),
+                123);
+        assertNotEquals(oCreditCard1, c);
+
+        String s = "";
+        assertNotEquals(s, c);
+
+        CreditCard oCreditCard2 = null;
+        assertNotEquals(oCreditCard2, c);
     }
 
     @Test
