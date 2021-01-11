@@ -92,6 +92,7 @@ public class MakeAnOrderController {
      */
     public Order newOrder(String strDescription, Boolean blIsHomeDelivery) {
         try {
+            this.m_oClient = m_oClientRegistration.getClientByEmail(ApplicationPOT.getInstance().getCurrentSession().getCurrentUserEmail());
             if(blIsHomeDelivery){
                 Address oAddress = m_oClient.getAddress();
                 this.m_oOrder = m_oOrderRegistration.newOrder(strDescription, m_oClient, oAddress.getLatitude(),

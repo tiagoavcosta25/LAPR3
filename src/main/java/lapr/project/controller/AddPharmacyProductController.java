@@ -65,8 +65,8 @@ public class AddPharmacyProductController {
     /**
      * The method that adds stock to a pharmacy.
      */
-    public void registerPharmacyProduct() {
-        this.m_oPharmacyRegistration.registerPharmacyProduct(m_oPharmacy, m_oProduct, m_intStock);
+    public boolean registerPharmacyProduct() {
+        return this.m_oPharmacyRegistration.registerPharmacyProduct(m_oPharmacy, m_oProduct, m_intStock);
     }
 
     /**

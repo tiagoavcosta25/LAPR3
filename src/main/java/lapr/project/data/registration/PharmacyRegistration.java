@@ -53,7 +53,7 @@ public class PharmacyRegistration extends DataHandler {
         throw new IllegalArgumentException("No Pharmacy with ID:" + id);
     }
 
-    private void addPharmacy(String strName, Integer intManagerId, Address oAddress) {
+    private boolean addPharmacy(String strName, Integer intManagerId, Address oAddress) {
         try {
             openConnection();
             CallableStatement callStmt = getConnection().prepareCall("{ call addPharmacy(?,?,?,?,?,?,?,?,?) }");
@@ -71,8 +71,10 @@ public class PharmacyRegistration extends DataHandler {
             callStmt.execute();
 
             closeAll();
+            return true;
         } catch (SQLException e) {
             e.printStackTrace();
+            return false;
         }
     }
 
@@ -94,8 +96,8 @@ public class PharmacyRegistration extends DataHandler {
 
     }
 
-    public void registerPharmacy(Pharmacy oPharmacy) {
-        addPharmacy(oPharmacy.getName(), oPharmacy.getPharmacyManager().getId(), oPharmacy.getAddress());
+    public boolean registerPharmacy(Pharmacy oPharmacy) {
+        return addPharmacy(oPharmacy.getName(), oPharmacy.getPharmacyManager().getId(), oPharmacy.getAddress());
     }
 
     public Pharmacy newPharmacy(String strName, PharmacyManager oPharmacyManager,Double dblLatitude,Double dblLongitude,
@@ -104,7 +106,7 @@ public class PharmacyRegistration extends DataHandler {
                 strLocality, strCountry));
     }
 
-    public void registerPharmacyProduct(Pharmacy m_oPharmacy, Product m_oProduct, Integer m_intStock) {
+    public boolean registerPharmacyProduct(Pharmacy m_oPharmacy, Product m_oProduct, Integer m_intStock) {
         try {
             openConnection();
             CallableStatement callStmt = getConnection().prepareCall("{ call addPharmacyProduct(?,?,?) }");
@@ -116,8 +118,10 @@ public class PharmacyRegistration extends DataHandler {
             callStmt.execute();
 
             closeAll();
+            return true;
         } catch (SQLException e) {
             e.printStackTrace();
+            return false;
         }
     }
 

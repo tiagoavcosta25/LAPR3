@@ -54,7 +54,7 @@ public class RegisterPharmacyController {
     /**
      * The method registers an order to the database.
      */
-    public void registerOrder() {
-        this.m_oPharmacyRegistration.registerPharmacy(m_oPharmacy);
+    public boolean registerPharmacy() {
+        return this.m_oPharmacyRegistration.registerPharmacy(m_oPharmacy);
     }
 }
