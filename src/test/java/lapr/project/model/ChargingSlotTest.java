@@ -173,9 +173,9 @@ class ChargingSlotTest {
     @Test
     void testEquals() {
         assertEquals(c1, cCopy);
-        assertEquals(null, c1);
-        assertEquals(c1, null);
-        assertEquals(c1, cDif);
+        assertNotEquals(null, c1);
+        assertNotEquals(c1, null);
+        assertNotEquals(c1, cDif);
         ChargingSlot oChargingSlot = new ChargingSlot();
         boolean expected = true;
         boolean real = oChargingSlot.equals(new ChargingSlot());
@@ -207,7 +207,7 @@ class ChargingSlotTest {
 
     @Test
     void testToString() {
-        String expResult = "ChargingSlot{m_intId=1, m_oScooter=Scooter{Id = -1, Battery Perc = -1.0, Chargin Status = Not Charging, Potency = -1.0, Weight = -1.0, Battery Capacity = -1, Max Payload = -1.0, Pharmacy = Pharmacy{m_intId=-1, m_strName='No name.', m_oPharmacyManager=lapr.project.model.PharmacyManager@282003e1, m_oAddress=Address{m_id=-1, m_latitude=-22.0, m_longitude=-22.0, m_streetName='No Street Name', m_doorNumber='No Door Number', m_postalCode='No Postal Code', m_locality='No Locality', m_country='No Country'}, m_mapStock={}}}, m_fltOutputPower=2.0}";
+        String expResult = "ChargingSlot{m_intId=1, m_oScooter=Scooter{Id = -1, Battery Perc = -1.0, Chargin Status = Not Charging, Potency = -1.0, Weight = -1.0, Battery Capacity = -1, Max Payload = -1.0, Pharmacy = Pharmacy{m_intId=-1, m_strName='No name.', m_oPharmacyManager=lapr.project.model.PharmacyManager@3c0a50da, m_oAddress=Address{m_id=-1, m_latitude=-22.0, m_longitude=-22.0, m_streetName='No Street Name', m_doorNumber='No Door Number', m_postalCode='No Postal Code', m_locality='No Locality', m_country='No Country'}, m_mapStock={}}}, m_fltOutputPower=2.0}";
         String result = c1.toString();
         assertEquals(expResult, result);
     }
