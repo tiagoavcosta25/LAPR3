@@ -67,6 +67,11 @@ class MakeAnOrderControllerTest {
         result = makeAnOrderController.newOrder(null, null, null, null, null, null, null, null);
         assertEquals(expectedNull, result);
 
+        ApplicationPOT.getInstance().setCurrentSession(null);
+        result = makeAnOrderController.newOrder(null, null, null, null, null, null, null, null);
+
+        assertEquals(null, result);
+
 
     }
 
@@ -86,6 +91,9 @@ class MakeAnOrderControllerTest {
 
         result = makeAnOrderController.newOrder(null, null);
         assertEquals(expectedNull, result);
+
+        result = makeAnOrderController.newOrder("Description", false);
+        assertEquals(expectedOrder, result);
     }
 
     @Test
@@ -125,6 +133,10 @@ class MakeAnOrderControllerTest {
         when(mockProductRegistration.getAvailableProducts(-1)).thenReturn(expectedListProducts);
 
         List<Product>  result = makeAnOrderController.getAvailableProducts(new Pharmacy());
+        assertEquals(expectedListProducts, result);
+
+        result = makeAnOrderController.getAvailableProducts(null);
+        expectedListProducts = null;
         assertEquals(expectedListProducts, result);
 
         result = makeAnOrderController.getAvailableProducts(null);
