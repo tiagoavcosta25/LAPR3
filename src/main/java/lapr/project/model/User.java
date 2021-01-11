@@ -161,4 +161,15 @@ public abstract class User {
         User user = (User) o;
         return this.m_strEmail.equals(user.m_strEmail);
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "m_intId=" + m_intId +
+                ", m_strEmail='" + m_strEmail + '\'' +
+                ", m_strPassword='" + m_strPassword + '\'' +
+                ", m_intNif=" + m_intNif +
+                ", m_strName='" + m_strName + '\'' +
+                '}';
+    }
 }
