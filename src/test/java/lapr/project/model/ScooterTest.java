@@ -183,20 +183,17 @@ public class ScooterTest {
 
         Scooter oScooter3 = new Scooter(3, "Not Charging", 2, 2,
                 2, 2, new Pharmacy());
+        Scooter oScooter4 = new Scooter(3, "Not Charging", 2, 2,
+                2, 2, new Pharmacy());
 
         assertNotEquals(oScooter3, scooterTest2);
 
-        expected = false;
         real = scooterTest3.equals(oScooter3);
-        assertEquals(expected, real);
+        assertFalse(real);
 
 
-        Scooter oScooter4 = new Scooter(4,3, "Not Charging", 2, 2,
-                2, 2);
-
-        expected = false;
-        real = scooterTest3.equals(oScooter4);
-        assertEquals(expected, real);
+        real = oScooter4.equals(oScooter3);
+        assertTrue(real);
 
     }
 
