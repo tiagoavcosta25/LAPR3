@@ -18,7 +18,7 @@ public class ValidationProduct {
     }
 
     public static boolean validateId(int intId) {
-        if(intId < 0) return false;
+        if(intId <= 0) return false;
         return true;
     }
 }

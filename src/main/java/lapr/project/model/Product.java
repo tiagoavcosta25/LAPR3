@@ -91,8 +91,7 @@ public class Product implements Comparable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Product product = (Product) o;
-        return m_intId == product.m_intId &&
-                Float.compare(product.m_fltUnitaryPrice, m_fltUnitaryPrice) == 0 &&
+        return Float.compare(product.m_fltUnitaryPrice, m_fltUnitaryPrice) == 0 &&
                 Float.compare(product.m_fltUnitaryWeight, m_fltUnitaryWeight) == 0 &&
                 m_strName.equals(product.m_strName) &&
                 m_strDescription.equals(product.m_strDescription);
@@ -100,7 +99,7 @@ public class Product implements Comparable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(m_intId, m_strName, m_strDescription, m_fltUnitaryPrice, m_fltUnitaryWeight);
+        return Objects.hash(m_strName, m_strDescription, m_fltUnitaryPrice, m_fltUnitaryWeight);
     }
 
     @Override
