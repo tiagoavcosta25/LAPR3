@@ -15,7 +15,7 @@ import java.util.Map;
 
 public class GraphAlgorithms {
 
-    public GraphAlgorithms() {
+    private GraphAlgorithms() {
     }
 
     /**
@@ -175,67 +175,6 @@ public class GraphAlgorithms {
 
     }
 
-    protected static <V, E> void shortestPathLength2(Graph<V, E> g, V vOrig,
-                                                    boolean[] visited, V[] pathKeys, double[] dist) {
-
-        int vKey = g.getKey(vOrig);
-        dist[vKey] = 0;
-        pathKeys[vKey] = vOrig;
-        while (vOrig != null) {
-            vKey = g.getKey(vOrig);
-            visited[vKey] = true;
-            for (V vAdj : g.adjVertices(vOrig)) {
-                int vKeyAdj = g.getKey(vAdj);
-                Edge<V, E> edge = g.getEdge(vOrig, vAdj);
-                if (!visited[vKeyAdj] && dist[vKeyAdj] > dist[vKey] + edge.getWeight()) {
-                    dist[vKeyAdj] = dist[vKey] + edge.getWeight();
-                    pathKeys[vKeyAdj] = vOrig;
-                }
-            }
-            double minDist = Double.MAX_VALUE;
-            vOrig = null;
-            for (V vert : g.vertices()) {
-                int i = g.getKey(vert);
-                if (!visited[i] && dist[i] < minDist) {
-                    minDist = dist[i];
-                    vOrig = vert;
-                }
-            }
-        }
-
-    }
-
-    protected static <V, E> void shortestPathLengthBorders(Graph<V, E> g, V vOrig,
-                                                     boolean[] visited, V[] pathKeys, double[] dist) {
-
-        int vKey = g.getKey(vOrig);
-        dist[vKey] = 0;
-        pathKeys[vKey] = vOrig;
-        while (vOrig != null) {
-            vKey = g.getKey(vOrig);
-            visited[vKey] = true;
-            for (V vAdj : g.adjVertices(vOrig)) {
-                int vKeyAdj = g.getKey(vAdj);
-                Edge<V, E> edge = g.getEdge(vOrig, vAdj);
-                if (!visited[vKeyAdj] && dist[vKeyAdj] > dist[vKey] + 1) {
-                    dist[vKeyAdj] = dist[vKey] + 1;
-                    pathKeys[vKeyAdj] = vOrig;
-                }
-            }
-            double minDist = Double.MAX_VALUE;
-            vOrig = null;
-            for (V vert : g.vertices()) {
-                int i = g.getKey(vert);
-                if (!visited[i] && dist[i] < minDist) {
-                    minDist = dist[i];
-                    vOrig = vert;
-                }
-            }
-        }
-
-    }
-
-
     /**
      * Extracts from pathKeys the minimum path between voInf and vdInf
      * The path is constructed from the end to the beginning
@@ -257,19 +196,6 @@ public class GraphAlgorithms {
             getPath(g, vOrig, vDest, verts, pathKeys, path);
         } else {
             path.push(vOrig);
-        }
-    }
-
-    protected static <V, E> void getPath2(Graph<V, E> g, V vOrig, V vDest, V[] pathKeys, LinkedList<V> path) {
-
-        if (vOrig.equals(vDest)) {
-            path.push(vOrig);
-        } else {
-            path.push(vDest);
-            int vkey = g.getKey(vDest);
-            vDest = pathKeys[vkey];
-
-            getPath2(g, vOrig, vDest, pathKeys, path);
         }
     }
 
@@ -335,62 +261,6 @@ public class GraphAlgorithms {
 
         return true;
     }
-
-    public static <V, E> double shortestPath2(Graph<V, E> g, V vOrig, V vDest, LinkedList<V> shortPath) {
-
-        if (!g.validVertex(vOrig) || !g.validVertex(vDest)) {
-            return -1;
-        }
-
-        int nverts = g.numVertices();
-        boolean[] visited = new boolean[nverts];
-        V[] pathKeys = (V[]) Array.newInstance(vOrig.getClass(), nverts);
-        double[] dist = new double[nverts];
-
-        for (int i = 0; i < nverts; i++) {
-            dist[i] = Double.MAX_VALUE;
-            pathKeys[i] = null;
-        }
-
-        shortestPathLength2(g, vOrig, visited, pathKeys, dist);
-
-        double lengthPath = dist[g.getKey(vDest)];
-
-        if (lengthPath != Double.MAX_VALUE) {
-            getPath2(g, vOrig, vDest, pathKeys, shortPath);
-            return lengthPath;
-        }
-        return 0;
-    }
-
-    public static <V, E> int shortestPathBorders(Graph<V, E> g, V vOrig, V vDest, LinkedList<V> shortPath) {
-
-        if (!g.validVertex(vOrig) || !g.validVertex(vDest)) {
-            return 0;
-        }
-
-        int nverts = g.numVertices();
-        boolean[] visited = new boolean[nverts];
-        V[] pathKeys = (V[]) Array.newInstance(vOrig.getClass(), nverts);
-        double[] dist = new double[nverts];
-
-        for (int i = 0; i < nverts; i++) {
-            dist[i] = Double.MAX_VALUE;
-            pathKeys[i] = null;
-        }
-
-        shortestPathLengthBorders(g, vOrig, visited, pathKeys, dist);
-
-        double lengthPath = dist[g.getKey(vDest)];
-
-        if (lengthPath != Double.MAX_VALUE) {
-            getPath2(g, vOrig, vDest, pathKeys, shortPath);
-            return (int) lengthPath;
-        }
-        return 0;
-    }
-
-
 
     /**
      * Reverses the path

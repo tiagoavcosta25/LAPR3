@@ -181,6 +181,7 @@ class ChargingSlotTest {
         assertNotEquals(null, c1);
         assertNotEquals(c1, null);
         assertNotEquals(c1, cDif);
+        assertNotEquals(cDif, c1);
         assertNotEquals(c1, u);
         assertNotEquals(c1, cDif2);
         assertNotEquals(cDif2, c1);
