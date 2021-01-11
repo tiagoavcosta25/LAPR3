@@ -9,7 +9,7 @@ public class RemoveProductController {
 
     private final ApplicationPOT app;
     private final Platform plat;
-    private final ProductRegistration pr;
+    private ProductRegistration pr;
 
     public RemoveProductController() {
         this.app = ApplicationPOT.getInstance();

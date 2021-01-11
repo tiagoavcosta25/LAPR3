@@ -10,7 +10,7 @@ public class UpdateProductController {
 
     private final ApplicationPOT app;
     private final Platform plat;
-    private final ProductRegistration pr;
+    private ProductRegistration pr;
 
     public UpdateProductController() {
         this.app = ApplicationPOT.getInstance();
