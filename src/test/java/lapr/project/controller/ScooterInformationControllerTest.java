@@ -45,6 +45,11 @@ class ScooterInformationControllerTest {
         when(m_mockScooterRegistration.getScootersList(-1)).thenReturn(new ArrayList<>());
         List<Scooter> result = m_ctrl.getScootersList();
         assertEquals(new ArrayList<>(),result);
+
+        when(m_mockPharmacyRegistration.getPharmacyByManagerEmail("email")).thenReturn(null);
+        when(m_mockScooterRegistration.getScootersList(-1)).thenReturn(null);
+        List<Scooter> result1 = m_ctrl.getScootersList();
+        assertEquals(null,result1);
     }
 
     @Test

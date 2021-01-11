@@ -18,7 +18,7 @@ public class ScooterInformationController {
     /**
      * Scooter class instance
      */
-    private Scooter m_oScooter;
+    //private Scooter m_oScooter;
 
     /**
      * Pharmacy class instance
