@@ -107,8 +107,9 @@ class UserTest {
 
     @Test
     void toStringTest() {
-        String expResult = "Client{m_credits=0, m_address=Address{m_id=null, m_latitude=102030.23, m_longitude=103121.01, m_streetName='Rua 1', m_doorNumber='2esq', m_postalCode='4444-111', m_locality='Mafamude', m_country='Portugal'}, m_creditCard=CreditCard{m_creditCardNr=1234123412341234, m_validityDate=Thu Oct 01 00:00:00 WEST 2020, m_CCV=123}}";
-        String result = u.toString();
+        PharmacyManager p = new PharmacyManager();
+        String expResult = "User{m_intId=null, m_strEmail='No Email Registered', m_strPassword='No Password Registered', m_intNif=0, m_strName='No Name'}";
+        String result = p.toString();
         assertEquals(expResult, result);
     }
 }
