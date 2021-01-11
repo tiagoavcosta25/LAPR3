@@ -24,12 +24,12 @@ public class UpdateScooterController {
     /**
      * Pharmacy Management class
      */
-    private final PharmacyRegistration m_oPharmacyRegistration;
+    private PharmacyRegistration m_oPharmacyRegistration;
 
     /**
      * Scooter Management class
      */
-    private final ScooterRegistration m_oScooterRegistration;
+    private ScooterRegistration m_oScooterRegistration;
 
 
     /**
