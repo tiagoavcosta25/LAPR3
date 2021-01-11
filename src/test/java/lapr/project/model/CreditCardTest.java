@@ -9,7 +9,8 @@ import java.util.Date;
 import static org.junit.jupiter.api.Assertions.*;
 
 class CreditCardTest {
-    CreditCard c;
+
+    private CreditCard c;
 
     public CreditCardTest() throws ParseException {
         c = new CreditCard(1234123412341234L,new SimpleDateFormat("MM/yy").parse("10/20"),
@@ -59,5 +60,33 @@ class CreditCardTest {
         c.setCCV(456);
         Integer real = c.getCCV();
         assertEquals(expected,real);
+    }
+
+    @Test
+    void testEquals() throws ParseException {
+        CreditCard oCreditCard = new CreditCard(1234123412341234L,new SimpleDateFormat("MM/yy").parse("10/20"),
+                123);
+        boolean real = c.equals(oCreditCard);
+        assertTrue(real);
+    }
+
+    @Test
+    void testHashCode() {
+        CreditCard oCreditCard = new CreditCard();
+        int expected = 31;
+        int real = oCreditCard.hashCode();
+        assertEquals(expected, real);
+    }
+
+    @Test
+    void testToString() {
+        CreditCard oCreditCard = new CreditCard();
+        String expected = "CreditCard{" +
+                "m_creditCardNr=" + oCreditCard.getCreditCardNr() +
+                ", m_validityDate=" + oCreditCard.getValidityDate() +
+                ", m_CCV=" + oCreditCard.getCCV() +
+                '}';
+        String real = oCreditCard.toString();
+        assertEquals(expected, real);
     }
 }
