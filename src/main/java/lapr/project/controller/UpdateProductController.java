@@ -26,8 +26,4 @@ public class UpdateProductController {
         if(validatedProduct == null) return false;
         return pr.updateProductFromDB(intId, strName, strDescription, fltUnitaryPrice, fltUnitaryWeight);
     }
-
-    public void setProductRegistration(ProductRegistration pr) {
-        this.pr = pr;
-    }
 }

@@ -28,8 +28,8 @@ class UpdateProductControllerTest {
     }
 
     @Test
-    void ensureProductRegistrationWorks() {
-        System.out.println("registerProductToDB");
+    void ensureUpdateProductWorks() {
+        System.out.println("updateProductFromDB");
         when(mockProductRegistration.updateProductFromDB(1, "Product 6969", "Description 1", 2.0f, 2.0f)).thenReturn(true);
 
         boolean result = updateProductController.updateProduct(1, "Product 6969", "Description 1", 2.0f, 2.0f);
@@ -39,6 +39,10 @@ class UpdateProductControllerTest {
         assertFalse(result);
 
         result = updateProductController.updateProduct(1, "", "Description 1", 2.0f, 2.0f);
+        assertFalse(result);
+
+        when(mockProductRegistration.updateProductFromDB(1, "Product 6969", "Description 1", 2.0f, 2.0f)).thenReturn(false);
+        result = updateProductController.updateProduct(1, "Product 6969", "Description 1", 2.0f, 2.0f);
         assertFalse(result);
     }
 }
