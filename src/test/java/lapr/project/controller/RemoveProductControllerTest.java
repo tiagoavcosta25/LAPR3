@@ -28,8 +28,8 @@ class RemoveProductControllerTest {
     }
 
     @Test
-    void ensureProductRegistrationWorks() {
-        System.out.println("registerProductToDB");
+    void ensureRemoveProductWorks() {
+        System.out.println("removeProductFromDB");
         when(mockProductRegistration.removeProductFromDB(1)).thenReturn(true);
         Boolean result = removeProductController.removeProductFromDB(1);
         assertTrue(result);
@@ -42,6 +42,20 @@ class RemoveProductControllerTest {
 
         when(mockProductRegistration.removeProductFromDB(1)).thenReturn(false);
         result = removeProductController.removeProductFromDB(1);
+        assertFalse(result);
+    }
+
+    @Test
+    void verifyProductIdTest() {
+        System.out.println("verifyProductId");
+        
+        boolean result = this.removeProductController.verifyProductId(1);
+        assertTrue(result);
+
+        result = this.removeProductController.verifyProductId(0);
+        assertFalse(result);
+
+        result = this.removeProductController.verifyProductId(-1);
         assertFalse(result);
     }
 }
