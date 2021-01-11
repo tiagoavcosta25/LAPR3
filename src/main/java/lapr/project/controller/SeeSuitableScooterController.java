@@ -35,18 +35,13 @@ public class SeeSuitableScooterController {
      */
     public SeeSuitableScooterController() {
         this.m_oPlatform = ApplicationPOT.getInstance().getPlatform();
-    }
-
-    public Scooter getSuitableScooter(){
-        m_oPlatform = ApplicationPOT.getInstance().getPlatform();
-        /*UserSession session = ApplicationPOT.getInstance().getCurrentSession();
-        String email = session.getCurrentUserEmail();*/
-        String email = "user6@gmail.com";
         oDeliveryRegistration = m_oPlatform.getDelReg();
         oScooterRegistration = m_oPlatform.getScooterReg();
-        double distance =0;
+    }
+
+    public Scooter getSuitableScooter(Double distance){
         float deliveryEnergy = oDeliveryRegistration.getDeliveryEnergy(distance);
-        return oScooterRegistration.getSuitableScooter(deliveryEnergy,email);
+        return oScooterRegistration.getSuitableScooter(deliveryEnergy, ApplicationPOT.getInstance().getCurrentSession().getCurrentUserEmail());
     }
 
 }

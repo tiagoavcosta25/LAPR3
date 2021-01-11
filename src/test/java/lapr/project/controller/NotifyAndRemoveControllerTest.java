@@ -39,11 +39,11 @@ class NotifyAndRemoveControllerTest {
 
     @Test
     void notifyAndRemove() {
-        /*ApplicationPOT.getInstance().setCurrentSession(new UserSession("email3@gmail.com"));
+        ApplicationPOT.getInstance().setCurrentSession(new UserSession("email3@gmail.com"));
         when(mockClientRegistration.getClientByEmail("email3@gmail.com")).thenReturn(new Client());
         when(mockOrderRegistration.getLatestOrder(new Client())).thenReturn(new Order());
         when(mockOrderRegistration.notifyAndRemove(new Order())).thenReturn(assertTrue);
         boolean result = notifyAndRemoveController.notifyAndRemove();
-        assertEquals(assertTrue, result);*/
+        assertEquals(assertTrue, result);
     }
 }

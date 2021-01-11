@@ -1,7 +1,10 @@
 package lapr.project.controller;
 
 import lapr.project.data.registration.CourierRegistration;
+import lapr.project.data.registration.DeliveryRegistration;
+import lapr.project.data.registration.ScooterRegistration;
 import lapr.project.model.ChargingSlot;
+import lapr.project.model.Scooter;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -15,27 +18,25 @@ import static org.mockito.MockitoAnnotations.initMocks;
 class AvailableChargingSlotControllerTest {
 
     @InjectMocks
-    private AvailableChargingSlotControllerTest availableChargingSlotControllerTest;
+    private AvailableChargingSlotController availableChargingSlotController;
 
     @Mock
-    private AvailableChargingSlotController mockAvailableChargingSlotController;
-
-    private ChargingSlot chargingSlotParameter;
+    private CourierRegistration mockCourierRegistration;
 
     @BeforeEach
     void setUp() {
-        this.chargingSlotParameter = new ChargingSlot();
-        this.availableChargingSlotControllerTest = new AvailableChargingSlotControllerTest();
-        this.mockAvailableChargingSlotController = Mockito.mock(AvailableChargingSlotController.class);
+        this.availableChargingSlotController = new AvailableChargingSlotController();
+        this.mockCourierRegistration = Mockito.mock(CourierRegistration.class);
         initMocks(this);
     }
 
 
     @Test
     void getAvailableChargingSlot() {
-        ChargingSlot chargingSlot = new ChargingSlot();
-        when(mockAvailableChargingSlotController.getAvailableChargingSlot()).thenReturn(chargingSlot);
-        ChargingSlot chargingSlot2 = mockAvailableChargingSlotController.getAvailableChargingSlot();
-        assertEquals(chargingSlotParameter,chargingSlot2);
+        ApplicationPOT.getInstance().setCurrentSession(new UserSession("email3@gmail.com"));
+        when(mockCourierRegistration.getAvailableChargingSlot("email3@gmail.com")).thenReturn(new ChargingSlot());
+        ChargingSlot expectedChargingSlot = new ChargingSlot();
+        ChargingSlot result = availableChargingSlotController.getAvailableChargingSlot();
+        assertEquals(expectedChargingSlot, result);
     }
 }

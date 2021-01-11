@@ -30,15 +30,11 @@ public class AvailableChargingSlotController {
      */
     public AvailableChargingSlotController() {
         this.m_oPlatform = ApplicationPOT.getInstance().getPlatform();
+        oCourierRegistration = m_oPlatform.getCourReg();
     }
 
     public ChargingSlot getAvailableChargingSlot(){
-        m_oPlatform = ApplicationPOT.getInstance().getPlatform();
-        /*UserSession session = ApplicationPOT.getInstance().getCurrentSession();
-        String email = session.getCurrentUserEmail();*/
-        String email = "user6@gmail.com";
-        oCourierRegistration = m_oPlatform.getCourReg();
-        return oCourierRegistration.getAvailableChargingSlot(email);
+        return oCourierRegistration.getAvailableChargingSlot(ApplicationPOT.getInstance().getCurrentSession().getCurrentUserEmail());
     }
 
 }

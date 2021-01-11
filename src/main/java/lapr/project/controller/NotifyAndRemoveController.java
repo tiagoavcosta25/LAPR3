@@ -37,11 +37,11 @@ public class NotifyAndRemoveController {
      */
     public NotifyAndRemoveController() {
         this.m_oPlatform = ApplicationPOT.getInstance().getPlatform();
+        this.oOrderRegistration = m_oPlatform.getOrderReg();
+        this.oClientRegistration = m_oPlatform.getClientReg();
     }
 
     public boolean notifyAndRemove(){
-        oOrderRegistration = m_oPlatform.getOrderReg();
-        oClientRegistration = m_oPlatform.getClientReg();
         Client client = oClientRegistration.getClientByEmail(ApplicationPOT.getInstance().getCurrentSession().getCurrentUserEmail());
         Order order = oOrderRegistration.getLatestOrder(client);
         return oOrderRegistration.notifyAndRemove(order);
