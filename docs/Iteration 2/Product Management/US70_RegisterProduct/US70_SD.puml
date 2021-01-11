@@ -1,0 +1,82 @@
+@startuml
+autonumber
+hide footbox
+
+actor "Admin" as U
+
+participant "RegisterProductUI" as UI
+participant "RegisterProductController" as CTRL
+participant "ApplicationPOT" as _APP
+participant "app\n:ApplicationPOT" as APP
+participant "plat\n:Platform" as PLAT
+participant "pr\n:ProductRegistration" as PREG
+
+participant "product\n:Product" as PROD
+
+
+activate U
+
+U -> UI : Engages the register product feature/button
+activate UI
+
+UI --> U : Asks for all the information required for the register (i.e. name, description, unitaryPrice, unitaryWeight)
+
+
+deactivate UI
+U -> UI : Fills all the information required
+activate UI
+
+
+UI -> CTRL : verifyProductId(productId)
+activate CTRL
+UI -> CTRL : verifyProductName(productName)
+UI -> CTRL : verifyProductDescription(productDescription)
+UI -> CTRL : verifyProductUnitaryPrice(unitaryPrice)
+UI -> CTRL : verifyProductUnitaryWeight(unitaryWeight)
+deactivate CTRL
+
+UI --> U : Validates, presents the data and asks for a confirmation
+deactivate UI
+
+opt if all the information given as input has a valid format
+
+
+U -> UI : Confirms
+activate UI
+UI -> CTRL : registerProductToDB(name, description, unitaryPrice, unitaryWeight)
+activate CTRL
+CTRL -> _APP: app = getInstance()
+activate _APP
+deactivate _APP
+
+CTRL -> APP: plat = getPlaform()
+activate APP
+deactivate APP
+CTRL -> PLAT : pr = getProductReg()
+activate PLAT
+deactivate PLAT
+
+CTRL -> PREG : addProductToDB(product)
+activate PREG
+
+
+PREG -> PROD** : create(name, description, unitaryPrice, unitaryWeight)
+
+PREG -> PREG : addProductToDB(name, description, unitaryPrice, unitaryWeight)
+ref over PREG
+SD_CONNECTIONS
+end ref
+
+
+deactivate PREG
+
+
+
+deactivate CTRL
+UI --> U : Validates all the information, informing of the success of the operation
+end opt
+deactivate UI
+deactivate U
+
+
+@enduml

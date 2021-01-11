@@ -1,0 +1,18 @@
+@startuml
+autonumber
+hide footbox
+
+actor "Courier" as COUR
+
+participant ":System" as SYST
+
+activate COUR
+
+COUR -> SYST : Sends a request regarding what is the shortest \nand efficient path to the destiny
+activate SYST
+SYST -> COUR : Shows the shortest and most efficient path, \ninforming of the success of the operation.
+deactivate SYST
+
+deactivate COUR
+
+@enduml

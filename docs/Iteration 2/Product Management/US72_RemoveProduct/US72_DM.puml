@@ -1,0 +1,27 @@
+@startuml
+skinparam classAttributeIconSize 0
+hide methods
+left to right direction
+
+class Platform {
+    -String designation
+}
+
+class Product{
+    -String productId
+    -String name
+    -String description
+    -Double unitaryPrice
+    -Double unitaryWeight
+}
+
+abstract class User{
+    -String email
+    -String password
+}
+
+User "1" -- "*" Product : creates
+Platform "1" -- "*" Product : has registered >
+Platform "1" -- "*" User : has registered >
+
+@enduml

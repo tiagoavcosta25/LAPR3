@@ -58,14 +58,14 @@ class MakeAnOrderControllerTest {
 
     @Test
     void testNewOrder() {
-        /*System.out.println("newOrder");
+        System.out.println("newOrder");
         ApplicationPOT.getInstance().setCurrentSession(new UserSession("email3@gmail.com"));
         c.setEmail("email3@gmail.com");
         when(mockClientRegistration.getClientByEmail("email3@gmail.com")).thenReturn(c);
         when(mockOrderRegistration.newOrder("Description", c, -1d, -1d, "Street", "1o Direito", "4400-123", "Locality",
                 "Country", null, new TreeMap<>())).thenReturn(expectedOrder);
         Order result = makeAnOrderController.newOrder("Description", true);
-        assertEquals(expectedOrder, result);*/
+        assertEquals(expectedOrder, result);
     }
 
     @Test

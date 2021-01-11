@@ -1,0 +1,83 @@
+@startuml
+autonumber
+hide footbox
+
+actor "Client" as CL
+
+participant "GenerateInvoiceUI" as UI
+participant "GenerateInvoiceController" as CTRL
+participant "PotApplication" as _APP
+participant "app\n:PotApplication" as APP
+participant "session\n:UserSession" as SESSION
+participant "plat\n:Platform" as PLAT
+participant "clientReg\n:ClientRegistration" as CR
+participant "orderReg\n:OrderRegistration" as OR
+participant "invoiceReg\n:InvoiceRegistration" as IR
+participant "invoice\n:Invoice" as I
+
+activate CL
+
+CL -> UI : sends a request to generate an invoice
+activate UI
+UI -> CTRL : generateInvoice()
+activate CTRL
+CTRL -> _APP: app = getInstance()
+activate _APP
+deactivate _APP
+
+CTRL -> APP: plat = getPlaform()
+activate APP
+deactivate APP
+
+CTRL -> APP: session = getCurrentSession()
+activate APP
+deactivate APP
+
+CTRL -> SESSION: email = getUserEmail()
+activate SESSION
+deactivate SESSION
+CTRL -> PLAT : clienteReg = getClientReg()
+activate PLAT
+deactivate PLAT
+CTRL -> CR : client = getUserByEmail(email)
+activate CR
+ref over CR
+SD_CONNECTIONS
+end ref
+deactivate CR
+
+CTRL -> PLAT : ordReg = getOrderReg()
+activate PLAT
+deactivate PLAT
+CTRL -> OR : order = getLatestOrder(client)
+activate OR
+ref over OR
+SD_CONNECTIONS
+end ref
+deactivate OR
+
+CTRL -> PLAT : invoiceReg = getInvoiceReg()
+activate PLAT
+deactivate PLAT
+
+CTRL -> IR : invoice = addInvoice(date, totalPrice, order, client)
+activate IR
+IR -> I** : create(date, totalPrice, order, client)
+IR -> IR : validateOrder(invoice)
+ref over IR
+SD_CONNECTIONS
+end ref
+deactivate IR
+
+CTRL -> IR : registerInvoice(invoice)
+activate IR
+ref over IR
+SD_CONNECTIONS
+end ref
+deactivate IR
+deactivate CTRL
+UI -> CL : sends the invoice
+deactivate UI
+deactivate CL
+
+@enduml

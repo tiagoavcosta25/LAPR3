@@ -1,0 +1,54 @@
+@startuml
+autonumber
+actor "Courier" as COURIER
+
+participant ":SeeSuitableScooterUI" as UI
+participant ":SeeSuitableScooterController" as CTRL
+participant "PotApplication" as PA
+participant "app \n:PotApplication" as APA
+participant "session \n:UserSession" as US
+participant "plat \n:Platform" as PLAT
+participant "deliveryReg \n:DeliveryRegistration" as DR
+participant "scooterReg \n:ScooterRegistration" as RF
+participant "scooter \n:Scooter" as CS
+
+
+activate COURIER
+
+COURIER -> UI :  wants to see the scooters available
+activate UI
+UI -> CTRL : scooter = getSuitableScooter()
+activate CTRL
+CTRL -> PA : app = getInstance()
+activate PA
+deactivate PA
+CTRL -> APA : plat = getPlatform()
+activate APA
+deactivate APA
+CTRL -> APA : session = getCurrentSession()
+activate APA
+deactivate APA
+CTRL -> US : email = getCurrentUserEmail()
+activate US
+deactivate US
+CTRL -> PLAT : deliveryReg = getDelReg()
+activate PLAT
+deactivate PLAT
+CTRL -> PLAT : scooterReg = getScooterReg()
+activate PLAT
+deactivate PLAT
+CTRL -> DR : deliveryEnergy = getDeliveryEnergy()
+activate DR
+deactivate DR
+CTRL -> RF : scooter = getSuitableScooter(deliveryEnergy,email)
+activate RF
+deactivate RF
+deactivate CTRL
+
+
+UI -> COURIER : presents the information about the available scooters
+deactivate UI
+
+deactivate COURIER
+
+@enduml

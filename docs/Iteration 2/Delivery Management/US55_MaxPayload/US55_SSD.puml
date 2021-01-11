@@ -1,0 +1,15 @@
+@startuml
+autonumber
+hide footbox
+actor "Courier" as COUR
+participant ":System" as SYST
+
+activate COUR
+COUR -> SYST : Sends a request regarding what is the maximum payload of the scooter
+activate SYST
+SYST -> COUR : The system returns it, informing of the success of the operation.
+deactivate SYST
+deactivate COUR
+
+@enduml
+getMaxPayloadOfScooterAssociatedT
