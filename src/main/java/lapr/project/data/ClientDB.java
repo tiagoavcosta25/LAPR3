@@ -17,6 +17,10 @@ public class ClientDB extends DataHandler {
         super(jdbcUrl, username, password);
     }
 
+    public ClientDB() {
+        super();
+    }
+
     /**
      * Registers a new Client in the Database
      *

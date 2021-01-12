@@ -8,7 +8,9 @@ participant "pharmacyTransfer\n:PharmacyTransfer" as PT
 [o-> CTRL : getStockFromAnotherPharamacy\n(order, product, quantity)
 activate CTRL
 CTRL -> PS** : create()
-CTRL -> PDB** : create()
+activate PS
+PS -> PDB** : create()
+deactivate PS
 CTRL -> PS : nearbyPharamcy = getClosestPharmacyWithStock\n(pharmacy, product, quantity)
 activate PS
 PS -> PDB : nearbyPharamcy = getClosestPharmacyWithStock\n(pharmacy, product, quantity)

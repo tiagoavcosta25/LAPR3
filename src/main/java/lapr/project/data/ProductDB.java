@@ -16,6 +16,10 @@ public class ProductDB extends DataHandler {
         super(jdbcUrl, username, password);
     }
 
+    public ProductDB() {
+        super();
+    }
+
     public Product getProductFromBD(int intId) {
 
         CallableStatement callStmt = null;

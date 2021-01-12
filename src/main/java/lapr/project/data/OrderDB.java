@@ -16,6 +16,10 @@ public class OrderDB extends DataHandler {
         super(jdbcUrl, username, password);
     }
 
+    public OrderDB() {
+        super();
+    }
+
     public Order getOrder(int id) {
 
         CallableStatement callStmt = null;
