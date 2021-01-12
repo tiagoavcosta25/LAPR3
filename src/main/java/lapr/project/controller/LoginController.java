@@ -4,10 +4,10 @@ import lapr.project.data.UserDB;
 
 public class LoginController {
 
-    private UserDB m_userReg;
+    private UserDB m_oUserDB;
 
     public LoginController(String jdbcUrl, String username, String password) {
-        m_userReg = new UserDB(jdbcUrl, username, password);
+        m_oUserDB = new UserDB(jdbcUrl, username, password);
     }
 
     /**
@@ -19,6 +19,6 @@ public class LoginController {
      * @return              True if the login operation was successful, false if otherwise
      */
     public boolean login(String email, String password) {
-        return m_userReg.login(email,password);
+        return m_oUserDB.login(email,password);
     }
 }

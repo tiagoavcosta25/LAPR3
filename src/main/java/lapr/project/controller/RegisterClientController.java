@@ -7,10 +7,10 @@ import java.util.Date;
 
 public class RegisterClientController {
 
-    private ClientDB clientReg;
+    private ClientDB m_oClientDB;
 
     public RegisterClientController(String jdbcUrl, String username, String password) {
-        clientReg = new ClientDB(jdbcUrl, username, password);
+        m_oClientDB = new ClientDB(jdbcUrl, username, password);
     }
 
     /**
@@ -44,7 +44,7 @@ public class RegisterClientController {
                     creditCardNr, vDate, CCV)) {
                 Client c = new Client(name, nif, email, password, latitude, longitude, streetName, doorNumber, postalCode, locality, country,
                         creditCardNr, vDate, CCV);
-                return clientReg.registerNewClient(c);
+                return m_oClientDB.registerNewClient(c);
             }
         } catch (Exception e) {
             return false;
