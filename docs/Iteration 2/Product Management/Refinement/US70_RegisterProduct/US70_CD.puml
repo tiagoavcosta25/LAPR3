@@ -8,17 +8,17 @@ package "UI" #DDDDDD {
 package "Controller" #DDDDDD {
     class RegisterProductController {
         -ProductService prodService
-        +registerProduct(strName, strDescription, fltUnitaryPrice, fltUnitaryWeight);
+        +registerProduct(strName, strDescription, fltUnitaryPrice, fltUnitaryWeight)
     }
 }
 
 package "Model" #DDDDDD {
     class Product {
-        -int intId;
-        -String strName;
-        -String strDescription;
-        -float fltUnitaryPrice;
-        -float fltUnitaryWeight;
+        -int intId
+        -String strName
+        -String strDescription
+        -float fltUnitaryPrice
+        -float fltUnitaryWeight
         +Product(strName, strDescription, fltUnitaryPrice, fltUnitaryWeight)
     }
 

@@ -9,11 +9,14 @@ participant "MakeAnOrderController" as CTRL
 participant "PotApplication" as _APP
 participant "app\n:PotApplication" as APP
 participant "session\n:UserSession" as SESSION
-participant "plat\n:Platform" as PLAT
-participant "clientReg\n:ClientRegistration" as CR
-participant "pharmacyReg\n:PharmacyRegistration" as PHR
-participant "prodReg\n:ProductRegistration" as PR
-participant "orderReg\n:OrderRegistration" as OR
+participant "clientServ\n:ClientService" as CS
+participant "clientDB\n:ClientDB" as CDB
+participant "pharmacyServ\n:PharmacyService" as PHS
+participant "pharmacyDB\n:PharmacyDB" as PHDB
+participant "productServ\n:ProductService" as PS
+participant "productDB\n:ProductDB" as PDB
+participant "orderServ\n:OrderService" as OS
+participant "orderDB\n:OrderDB" as ODB
 participant "order\n:Order" as O
 participant "address\n:Address" as AD
 participant "client\n:Client" as C
@@ -28,10 +31,6 @@ CTRL -> _APP: app = getInstance()
 activate _APP
 deactivate _APP
 
-CTRL -> APP: plat = getPlaform()
-activate APP
-deactivate APP
-
 CTRL -> APP: session = getCurrentSession()
 activate APP
 deactivate APP
@@ -39,24 +38,29 @@ deactivate APP
 CTRL -> SESSION: email = getUserEmail()
 activate SESSION
 deactivate SESSION
-CTRL -> PLAT : clienteReg = getClientReg()
-activate PLAT
-deactivate PLAT
-CTRL -> CR : client = getUserByEmail(email)
-activate CR
-ref over CR
+CTRL -> CS** : create()
+activate CS
+CS -> CDB** : create()
+deactivate CS
+CTRL -> CDB : client = getUserByEmail(email)
+activate CDB
+ref over CDB
 SD_CONNECTIONS
 end ref
-deactivate CR
-CTRL -> PLAT : pharmacyReg = getPharmacyReg()
-activate PLAT
-deactivate PLAT
-CTRL -> PHR : lstPharmacies = getPharmacies()
-activate PHR
-ref over PHR
+deactivate CDB
+CTRL -> PHS** : create()
+activate PHS
+PHS -> PHDB** : create()
+deactivate PHS
+CTRL -> PHS : lstPharmacies = getPharmacies()
+activate PHS
+PHS -> PHDB : lstPharmacies = getPharmacies()
+activate PHDB
+ref over PHDB
 SD_CONNECTIONS
 end ref
-deactivate PHR
+deactivate PHDB
+deactivate PHS
 deactivate CTRL
 
 UI -> CL : shows the list of the pharmacies
@@ -66,15 +70,19 @@ CL -> UI : chooses which products and which quantities to order
 activate UI
 UI -> CTRL : lstProducts = getAvailableProducts(pharmacy)
 activate CTRL
-CTRL -> PLAT : prodReg = getProductReg()
-activate PLAT
-deactivate PLAT
-CTRL -> PR : lstProducts = getAvailableProducts()
-activate PR
-ref over PR
+CTRL -> PS** : create()
+activate PS
+PS -> PDB** : create()
+deactivate PS
+CTRL -> PS : lstProducts = getAvailableProducts()
+activate PS
+PS -> PDB : lstProducts = getAvailableProducts()
+activate PDB
+ref over PDB
 SD_CONNECTIONS
 end ref
-deactivate PR
+deactivate PDB
+deactivate PS
 deactivate CTRL
 loop until there is no more products to add
 UI -> CL : shows the list of the available products
@@ -91,23 +99,23 @@ end
 
 CL -> UI : confirms that there is not more products
 activate UI
-UI -> CTRL : newOrder(address, amount, additionalFee, dateOrder, description, mapProducts)
+UI -> CTRL : newOrder(address, amount, additionalFee,\n dateOrder, description)
 activate CTRL
-CTRL -> PLAT : ordReg = getOrderReg()
-activate PLAT
-deactivate PLAT
-CTRL -> OR : order = addOrder(amount, additionalFee, dateOrder, description, mapProducts, client, streetName,doorNumber,locality,country,longitude,longitude)
-activate OR
-OR -> O** : create(amount, additionalFee, dateOrder, description, mapProducts, client, streetName,doorNumber,locality,country,longitude,longitude)
+
+CTRL -> OS** : create()
+activate OS
+OS -> ODB** : create()
+deactivate OS
+CTRL -> OS : order = addOrder(amount, additionalFee, dateOrder, description, mapProducts, client, streetName,doorNumber,locality,country,longitude,longitude)
+activate OS
+OS -> O** : create(amount, additionalFee, dateOrder, description, mapProducts, client, streetName,doorNumber,locality,country,longitude,longitude)
 activate O
 O -> AD** : create(streetName,doorNumber,locality,country,longitude,longitude)
-O -> C** : addCredits(addtionalCredits)
+O -> C : addCredits(addtionalCredits)
+activate C
+deactivate C
 deactivate O
-OR -> OR : validateOrder(order)
-ref over OR
-SD_CONNECTIONS
-end ref
-deactivate OR
+deactivate OS
 deactivate CTRL
 UI -> CL : validates, presents the order and asks for a confirmation
 deactivate UI
@@ -116,14 +124,17 @@ CL -> UI : confirms
 activate UI
 UI -> CTRL : registerOrder()
 activate CTRL
-CTRL -> OR : registerOrder(order)
-activate OR
-ref over OR
+CTRL -> OS : registerOrder(order)
+activate OS
+OS -> ODB : registerOrder(order)
+activate ODB
+ref over ODB
 SD_CONNECTIONS
 end ref
-deactivate OR
+deactivate ODB
+deactivate OS
 deactivate CTRL
-UI -> CL : registers the order and informs of the success of the operation
+UI -> CL : registers the order, generates the invoice\n and informs of the success of the operation
 deactivate UI
 deactivate CL
 

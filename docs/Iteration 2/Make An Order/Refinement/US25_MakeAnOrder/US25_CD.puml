@@ -3,7 +3,6 @@ skinparam classAttributeIconSize 0
 
 package "UI" #DDDDDD {
 class MakeAnOrderUI{
-
 }
 }
 
@@ -30,29 +29,30 @@ class UserSession
 }
 }
 
+database Database{
+}
+
 
 package "Model" #DDDDDD {
-class Platform {
-  -String designation
-  +getClientReg()
-  +getProductReg()
-  +getOrderReg()
-}
-package "Registration" #DDDDDD {
+package "Service" #DDDDDD {
 
-  class OrderRegistration{
+  class OrderService{
+       +OrderService()
        +addPharmacy(address, amount, additionalFee, dateOrder, description, mapProducts, client)
        +registerOrder(order)
   }
 
-  class PharmacyRegistration{
+  class PharmacyService{
+          +PharmacyService()
           +getPharmacies()
   }
 
-  class ProductRegistration{
+  class ProductService{
+          +ProductService()
           +getAvailableProducts(pharmacyId)
   }
-  class ClientRegistration{
+  class ClientService{
+        +ClientService()
         +getClientByEmail(email)
   }
  }
@@ -110,9 +110,6 @@ class Pharmacy{
 -   String name
 }
 
-class PharmacyManager{
-}
-
 }
 
 
@@ -121,27 +118,62 @@ class DataHandler{
     +openConnection()
     +closeAll()
 }
+
+class PharmacyDB{
+          +PharmacyDB()
+          +getPharmacies()
+      }
+
+class OrderDB{
+       +OrderDB()
+       +registerOrder(order)
+  }
+
+class ProductDB{
+          +ProductDB()
+          +getAvailableProducts(pharmacyId)
+  }
+
+class ClientDB{
+        +ClientDB()
+        +getClientByEmail(email)
+  }
 }
 
-class PharmacyRegistration extends DataHandler
-
-class PharmacyManager extends User
+class PharmacyDB extends DataHandler
+class ProductDB extends DataHandler
+class ClientDB extends DataHandler
+class OrderDB extends DataHandler
+class Client extends User
 
 MakeAnOrderUI ..> MakeAnOrderController
-MakeAnOrderController ..> Platform
 MakeAnOrderController ..> ApplicationPOT
 MakeAnOrderController ..> UserSession
-Platform "1" --> "1" ClientRegistration : has
-ClientRegistration "1" --> "*" Client : manages
-ProductRegistration "1" --> "*" Product : manages
-OrderRegistration "1" --> "*" Order : manages
-PharmacyRegistration "1" --> "*" Pharmacy : manages
+MakeAnOrderController ..> ClientService
+MakeAnOrderController ..> ProductService
+MakeAnOrderController ..> OrderService
+MakeAnOrderController ..> PharmacyService
+Database "1" -- "*" Client : has registered >
+Database "1" -- "*" Order : has registered >
+Database "1" -- "*" Product : has registered >
+Database "1" -- "*" Address : has registered >
+PharmacyDB -- Database : manages >
+ClientDB -- Database : manages >
+OrderDB -- Database : manages >
+ProductDB -- Database : manages >
+PharmacyService "1" --> "*" Pharmacy : manages services of
+PharmacyService "1" --> "1" PharmacyDB : uses
+OrderService "1" --> "*" Order : manages services of
+OrderService "1" --> "1" OrderDB : uses
+ClientService "1" --> "*" Client : manages services of
+ClientService "1" --> "1" ClientDB : uses
+ProductService "1" --> "*" Product : manages services of
+ProductService "1" --> "1" ProductDB : uses
 
 Order "1" -- "*" Product : has >
 Order "1" -- "1" Pharmacy : has >
 Client "1" -- "1" Order : makes >
 Client "1" -- "1" Address : has >
 Order "1" -- "1" Address : has >
-Pharmacy "1" -- "1" PharmacyManager : has >
 
 @enduml

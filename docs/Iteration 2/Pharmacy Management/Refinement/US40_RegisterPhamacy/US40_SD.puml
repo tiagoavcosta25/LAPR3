@@ -4,15 +4,10 @@ actor "Administrator" as ADMIN
 
 participant ":RegisterPharmacyUI" as UI
 participant ":RegisterPharmacyController" as CTRL
-participant "PotApplication" as PA
-participant "app \n:PotApplication" as APA
-participant "session \n:UserSession" as US
-participant "plat \n:Platform" as PLAT
-participant "pharmManReg \n:PharmacyManagerRegistration" as PMR
-participant "pharmReg \n:PharmacyRegistration" as PR
+participant "pharmacyServ\n:PharmacyService" as PS
 participant "pharmacy: Pharmacy" as PH
 participant "address: Address" as A
-participant "pharmacyManager: PharmacyManager" as PM
+participant "pharmacyDB\n:PharmacyDB" as PDB
 
 
 
@@ -20,42 +15,19 @@ activate ADMIN
 
 ADMIN -> UI : initiates the registration of a pharmacy
 activate UI
-UI -> ADMIN : asks for the required data for the pharmacy, as well as its Manager's data
+UI -> ADMIN : asks for the required data for the pharmacy
 deactivate UI
 
 ADMIN -> UI : inserts the required data
 activate UI
-UI -> CTRL : newPharmacy(managerName,email,password, nif, name,latitude,longitude,\nstreetName,doorNumber,postalCode,locality,country)
-activate CTRL
-CTRL -> PA : app = getInstance()
-activate PA
-deactivate PA
-CTRL -> APA : plat = getPlatform()
-activate APA
-deactivate APA
-CTRL -> PLAT : pharmManReg = getPharmacyManagerReg()
-activate PLAT
-deactivate PLAT
-CTRL -> PMR : pharmacyManager = newPharmacyManger(managerName,email,password, nif)
-activate PMR
-PMR -> PM ** : create(managerName,email,password, nif)
-PMR -> PMR : validatePharmacyManager()
-ref over PMR
-SD_CONNECTIONS
-end ref
-deactivate PMR
-CTRL -> PLAT : pharmReg = getPharmacyReg()
-activate PLAT
-deactivate PLAT
-CTRL -> PR : pharmacy= newPharmacy(name, pharmacyManager,latitude,longitude,streetName,doorNumber,\npostalCode,locality,country)
-activate PR
-PR -> PH ** : create(name, pharmacyManager, latitude,longitude,streetName,doorNumber,\npostalCode,locality,country)
-PR -> A ** : create(latitude,longitude,streetName,doorNumber,\npostalCode,locality,country)
-PR -> PR : validatePharmacy()
-ref over PR
-SD_CONNECTIONS
-end ref
-deactivate PR
+UI -> CTRL : newPharmacy(name,latitude,longitude,streetName,\ndoorNumber,postalCode,locality,country)
+CTRL -> PS : pharmacy = newPharmacy(name, latitude,longitude,\nstreetName,doorNumber,postalCode,locality,country)
+activate PS
+PS -> PH ** : create(name, latitude,longitude,streetName,\ndoorNumber,postalCode,locality,country)
+activate PH
+PH -> A ** : create(latitude,longitude,streetName,doorNumber,\npostalCode,locality,country)
+deactivate PH
+deactivate PS
 deactivate CTRL
 
 
@@ -64,16 +36,18 @@ deactivate UI
 
 ADMIN -> UI : confirms
 activate UI
-UI -> CTRL : registersCourier()
+UI -> CTRL : registersPharmacy()
 activate CTRL
-CTRL -> PR : registersPharmacy(pharmacy)
-activate PR
-ref over PR
+CTRL -> PS : registersPharmacy(pharmacy)
+activate PS
+PS -> PDB : registersPharmacy(pharmacy)
+activate PDB
+ref over PDB
 SD_CONNECTIONS
 end ref
-deactivate PR
+deactivate PDB
+deactivate PS
 UI -> ADMIN : informs the success of the operation
-deactivate PR
 deactivate CTRL
 deactivate UI
 
