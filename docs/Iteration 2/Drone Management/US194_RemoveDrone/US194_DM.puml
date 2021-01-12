@@ -9,18 +9,35 @@ database Database {
 class Pharmacy {
   -int id
   -String name
-  -int parkingSlots
-  -int chargingSlots
 }
 
-class Scooter{
+class DronePark{
+-   int maxSlotsNumber
+}
+
+class DroneChargingSlot{
+-   int id
+-   float outputPower
+}
+
+class DroneParkingSlot{
+-   int id
+}
+
+class Drone{
+}
+
+class Vehicle{
   -int id
-  -float batteryPerc
-  -String charginStatus
   -float potency
   -float weight
-  -int batteryCapacity
   -float maxPayload
+}
+
+class Battery{
+  -int id
+  -float batteryPerc
+  -int batteryCapacity
   -float batteryVoltage
 }
 
@@ -37,7 +54,13 @@ class Address{
 
 
 Database "1" -- "*" Pharmacy : has >
-Scooter "*" -- "1" Pharmacy : belongs to >
+Database "1" -- "*" Drone : has >
+Drone "*" -- "1" Pharmacy : belongs to >
+Drone "*" -- "1" Vehicle : is a type of >
+Vehicle "1" -- "1" Battery : has >
 Pharmacy "1" -- "1" Address : has >
+Pharmacy "1" -- "1" DronePark : has >
+DronePark "1" -- "1" DroneChargingSlot : has >
+DronePark "1" -- "1" DroneParkingSlot : has >
 @enduml
 
