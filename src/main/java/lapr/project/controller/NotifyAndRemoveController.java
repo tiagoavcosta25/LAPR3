@@ -2,9 +2,8 @@ package lapr.project.controller;
 
 import lapr.project.model.Client;
 import lapr.project.model.Order;
-import lapr.project.model.Platform;
-import lapr.project.data.registration.ClientRegistration;
-import lapr.project.data.registration.OrderRegistration;
+import lapr.project.data.ClientDB;
+import lapr.project.data.OrderDB;
 
 /**
  * Register Courier Controller.
@@ -18,33 +17,32 @@ import lapr.project.data.registration.OrderRegistration;
  * @author Rodrigo Costa <1191014@isep.ipp.pt>
  */
 public class NotifyAndRemoveController {
-    /**
-     * Platform class instance
-     */
-    private Platform m_oPlatform;
-    /**
-     * Courier Management class
-     */
-    private OrderRegistration oOrderRegistration;
 
     /**
      * Courier Management class
      */
-    private ClientRegistration oClientRegistration;
+    private OrderDB oOrderDB;
+
+    /**
+     * Courier Management class
+     */
+    private ClientDB oClientDB;
 
     /**
      * An empty constructor of RegisterCourierController that initiates the platform variable by getting it from the ApplicationPOT.
      */
+    public NotifyAndRemoveController(String jdbcUrl, String username, String password) {
+        this.oOrderDB = new OrderDB(jdbcUrl, username, password);
+        this.oClientDB = new ClientDB(jdbcUrl, username, password);
+    }
+
     public NotifyAndRemoveController() {
-        this.m_oPlatform = ApplicationPOT.getInstance().getPlatform();
-        this.oOrderRegistration = m_oPlatform.getOrderReg();
-        this.oClientRegistration = m_oPlatform.getClientReg();
     }
 
     public boolean notifyAndRemove(){
-        Client client = oClientRegistration.getClientByEmail(ApplicationPOT.getInstance().getCurrentSession().getCurrentUserEmail());
-        Order order = oOrderRegistration.getLatestOrder(client);
-        return oOrderRegistration.notifyAndRemove(order);
+        Client client = oClientDB.getClientByEmail(ApplicationPOT.getInstance().getCurrentSession().getCurrentUserEmail());
+        Order order = oOrderDB.getLatestOrder(client);
+        return oOrderDB.notifyAndRemove(order);
     }
 
 }

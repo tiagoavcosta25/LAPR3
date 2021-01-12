@@ -1,7 +1,7 @@
 package lapr.project.controller;
 
-import lapr.project.data.registration.DeliveryRegistration;
-import lapr.project.data.registration.ScooterRegistration;
+import lapr.project.data.DeliveryDB;
+import lapr.project.data.ScooterDB;
 import lapr.project.model.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -19,16 +19,16 @@ class SeeSuitableScooterControllerTest {
     private SeeSuitableScooterController seeSuitableScooterController;
 
     @Mock
-    private ScooterRegistration mockScooterRegistration;
+    private ScooterDB mockScooterDB;
 
     @Mock
-    private DeliveryRegistration mockDeliveryRegistration;
+    private DeliveryDB mockDeliveryDB;
 
     @BeforeEach
     void setUp() {
         this.seeSuitableScooterController = new SeeSuitableScooterController();
-        this.mockScooterRegistration = Mockito.mock(ScooterRegistration.class);
-        this.mockDeliveryRegistration = Mockito.mock(DeliveryRegistration.class);
+        this.mockScooterDB = Mockito.mock(ScooterDB.class);
+        this.mockDeliveryDB = Mockito.mock(DeliveryDB.class);
         initMocks(this);
     }
 
@@ -36,7 +36,7 @@ class SeeSuitableScooterControllerTest {
     @Test
     void getSuitableScooter() {
         ApplicationPOT.getInstance().setCurrentSession(new UserSession("email3@gmail.com"));
-        when(mockScooterRegistration.getSuitableScooter(-1d, "email3@gmail.com")).thenReturn(new Scooter());
+        when(mockScooterDB.getSuitableScooter(-1d, "email3@gmail.com")).thenReturn(new Scooter());
 
         Scooter expectedScooter = new Scooter();
         Scooter result = seeSuitableScooterController.getSuitableScooter(-1d);

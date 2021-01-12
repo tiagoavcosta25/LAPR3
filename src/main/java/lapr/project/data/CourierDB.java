@@ -1,4 +1,4 @@
-package lapr.project.data.registration;
+package lapr.project.data;
 
 import lapr.project.data.DataHandler;
 import lapr.project.model.*;
@@ -9,15 +9,13 @@ import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class CourierRegistration extends DataHandler {
+public class CourierDB extends DataHandler {
 
-    public CourierRegistration(String jdbcUrl, String username, String password) {
+    public CourierDB(String jdbcUrl, String username, String password) {
         super(jdbcUrl, username, password);
     }
 
     /*public Courier getCourier(int id) {
-
-
         CallableStatement callStmt = null;
         try {
             callStmt = getConnection().prepareCall("{ ? = call getCourier(?) }");

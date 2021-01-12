@@ -1,4 +1,4 @@
-package lapr.project.data.registration;
+package lapr.project.data;
 
 
 import lapr.project.data.DataHandler;
@@ -12,8 +12,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ScooterRegistration extends DataHandler {
+public class ScooterDB extends DataHandler {
 
+    public ScooterDB(String jdbcUrl, String username, String password) {
+        super(jdbcUrl, username, password);
+    }
 
     public Scooter getScooter(int id) {
 

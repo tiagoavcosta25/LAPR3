@@ -1,7 +1,7 @@
 package lapr.project.controller;
 
 import lapr.project.model.Client;
-import lapr.project.data.registration.ClientRegistration;
+import lapr.project.data.ClientDB;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -21,7 +21,7 @@ class RegisterClientControllerTest {
 
 
     @Mock
-    private ClientRegistration m_mockClientRegistration;
+    private ClientDB m_mockClientDB;
 
     RegisterClientControllerTest() {
     }
@@ -29,7 +29,7 @@ class RegisterClientControllerTest {
     @BeforeEach
     void setUp() {
         this.m_ctrl = new RegisterClientController();
-        this.m_mockClientRegistration = Mockito.mock(ClientRegistration.class);
+        this.m_mockClientDB = Mockito.mock(ClientDB.class);
         initMocks(this);
     }
 
@@ -39,7 +39,7 @@ class RegisterClientControllerTest {
                 1032323d,1999392d,"Test street","2ºesq","4444-111","Gaia",
                 "Portugal",1234123412341233L,new SimpleDateFormat("MM/yy").parse("10/20"),123);
 
-        when(m_mockClientRegistration.registerNewClient(c)).thenReturn(true);
+        when(m_mockClientDB.registerNewClient(c)).thenReturn(true);
         boolean result = m_ctrl.registerNewClient("TestName",123456788,"test@gmail.com","testpassword",
                 1032323d,1999392d,"Test street","2ºesq","4444-111","Gaia",
                 "Portugal",1234123412341233L,"10/22",123);
@@ -190,7 +190,7 @@ class RegisterClientControllerTest {
                 "Portugal",1234123412341233L,"13/21",123);
         assertFalse(result31);
 
-        when(m_mockClientRegistration.registerNewClient(c)).thenReturn(false);
+        when(m_mockClientDB.registerNewClient(c)).thenReturn(false);
         boolean result32 = m_ctrl.registerNewClient("TestName",123456788,"test@gmail.com","testpassword",
                 1032323d,1999392d,"Test street","2ºesq","4444-111","Gaia",
                 "Portugal",1234123412341233L,"10/22",123);

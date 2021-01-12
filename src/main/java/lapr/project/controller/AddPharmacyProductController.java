@@ -2,18 +2,14 @@ package lapr.project.controller;
 
 import lapr.project.model.Pharmacy;
 import lapr.project.model.PharmacyManager;
-import lapr.project.model.Platform;
 import lapr.project.model.Product;
-import lapr.project.data.registration.PharmacyRegistration;
-import lapr.project.data.registration.ProductRegistration;
+import lapr.project.data.PharmacyDB;
+import lapr.project.data.ProductDB;
 
 import java.util.List;
 
 public class AddPharmacyProductController {
-    /**
-     * Platform class instance
-     */
-    private Platform m_oPlatform;
+
     /**
      * Pharmacy class instance
      */
@@ -22,12 +18,12 @@ public class AddPharmacyProductController {
     /**
      * Pharmacy's Manager Management class
      */
-    private ProductRegistration m_oProductRegistration;
+    private ProductDB m_oProductDB;
 
     /**
      * Pharmacy Management class
      */
-    private PharmacyRegistration m_oPharmacyRegistration;
+    private PharmacyDB m_oPharmacyDB;
 
     /**
      * Pharmacy's Manager
@@ -45,13 +41,12 @@ public class AddPharmacyProductController {
     private Integer m_intStock;
 
 
-    /**
-     * An empty constructor of MakeAnOrderController that initiates the platform variable by getting it from the ApplicationPOT.
-     */
+    public AddPharmacyProductController(String jdbcUrl, String username, String password) {
+        this.m_oProductDB = new ProductDB(jdbcUrl, username, password);
+        this.m_oPharmacyDB = new PharmacyDB(jdbcUrl, username, password);
+    }
+
     public AddPharmacyProductController() {
-        this.m_oPlatform = ApplicationPOT.getInstance().getPlatform();
-        this.m_oProductRegistration = m_oPlatform.getProductReg();
-        this.m_oPharmacyRegistration = m_oPlatform.getPharmacyReg();
     }
 
     public boolean addPharmacyProduct(Product oProduct, Integer intStock) {
@@ -70,15 +65,15 @@ public class AddPharmacyProductController {
      * The method that adds stock to a pharmacy.
      */
     public boolean registerPharmacyProduct() {
-        this.m_oPharmacy = m_oPharmacyRegistration.getPharmacyByManagerEmail(ApplicationPOT.getInstance().getCurrentSession().getCurrentUserEmail());
-        return this.m_oPharmacyRegistration.registerPharmacyProduct(m_oPharmacy, m_oProduct, m_intStock);
+        this.m_oPharmacy = m_oPharmacyDB.getPharmacyByManagerEmail(ApplicationPOT.getInstance().getCurrentSession().getCurrentUserEmail());
+        return this.m_oPharmacyDB.registerPharmacyProduct(m_oPharmacy, m_oProduct, m_intStock);
     }
 
     /**
      * The method that returns every product in the database.
      */
     public List<Product> getProducts() {
-        return this.m_oProductRegistration.getProducts();
+        return this.m_oProductDB.getProducts();
     }
 
     /**

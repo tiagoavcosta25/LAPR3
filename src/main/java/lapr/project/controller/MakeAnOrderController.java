@@ -1,20 +1,16 @@
 package lapr.project.controller;
 
 import lapr.project.model.*;
-import lapr.project.data.registration.ClientRegistration;
-import lapr.project.data.registration.OrderRegistration;
-import lapr.project.data.registration.PharmacyRegistration;
-import lapr.project.data.registration.ProductRegistration;
+import lapr.project.data.ClientDB;
+import lapr.project.data.OrderDB;
+import lapr.project.data.PharmacyDB;
+import lapr.project.data.ProductDB;
 
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
 public class MakeAnOrderController {
-    /**
-     * Platform class instance
-     */
-    private Platform m_oPlatform;
     /**
      * Order class instance
      */
@@ -23,12 +19,12 @@ public class MakeAnOrderController {
     /**
      * Order Management class
      */
-    private OrderRegistration m_oOrderRegistration;
+    private OrderDB m_oOrderDB;
 
     /**
      * Order Management class
      */
-    private ClientRegistration m_oClientRegistration;
+    private ClientDB m_oClientDB;
 
     /**
      * Order's Client
@@ -38,16 +34,12 @@ public class MakeAnOrderController {
     /**
      * Pharmacy Management class
      */
-    private ProductRegistration m_oProductRegistration;
-    /**
-     * Order's Pharmacy
-     */
-    private Product m_oProduct;
+    private ProductDB m_oProductDB;
 
     /**
      * Pharmacy Management class
      */
-    private PharmacyRegistration m_oPharmacyRegistration;
+    private PharmacyDB m_oPharmacyDB;
 
     /**
      * Order's Pharmacy
@@ -63,12 +55,14 @@ public class MakeAnOrderController {
     /**
      * An empty constructor of MakeAnOrderController that initiates the platform variable by getting it from the ApplicationPOT.
      */
+    public MakeAnOrderController(String jdbcUrl, String username, String password) {
+        this.m_oPharmacyDB = new PharmacyDB(jdbcUrl, username, password);
+        this.m_oProductDB = new ProductDB(jdbcUrl, username, password);
+        this.m_oOrderDB = new OrderDB(jdbcUrl, username, password);
+        this.m_oClientDB = new ClientDB(jdbcUrl, username, password);
+    }
+
     public MakeAnOrderController() {
-        this.m_oPlatform = ApplicationPOT.getInstance().getPlatform();
-        this.m_oPharmacyRegistration = m_oPlatform.getPharmacyReg();
-        this.m_oProductRegistration = m_oPlatform.getProductReg();
-        this.m_oOrderRegistration = m_oPlatform.getOrderReg();
-        this.m_oClientRegistration = m_oPlatform.getClientReg();
     }
 
     /**
@@ -77,11 +71,11 @@ public class MakeAnOrderController {
     public Order newOrder(String strDescription, Double latitude, Double longitude, String streetName,
                          String doorNumber, String postalCode, String locality, String country) {
         try {
-            this.m_oClient = m_oClientRegistration.getClientByEmail(ApplicationPOT.getInstance().getCurrentSession().getCurrentUserEmail());
-            this.m_oOrder = m_oOrderRegistration.newOrder(strDescription, m_oClient, latitude, longitude,
+            this.m_oClient = m_oClientDB.getClientByEmail(ApplicationPOT.getInstance().getCurrentSession().getCurrentUserEmail());
+            this.m_oOrder = m_oOrderDB.newOrder(strDescription, m_oClient, latitude, longitude,
                     streetName, doorNumber, postalCode, locality, country, m_oPharmacy, this.m_mapProducts);
             return this.m_oOrder;
-        } catch (RuntimeException ex) {
+        } catch (Exception ex) {
             this.m_oOrder = null;
             return null;
         }
@@ -92,17 +86,17 @@ public class MakeAnOrderController {
      */
     public Order newOrder(String strDescription, Boolean blIsHomeDelivery) {
         try {
-            this.m_oClient = m_oClientRegistration.getClientByEmail(ApplicationPOT.getInstance().getCurrentSession().getCurrentUserEmail());
+            this.m_oClient = m_oClientDB.getClientByEmail(ApplicationPOT.getInstance().getCurrentSession().getCurrentUserEmail());
             if(blIsHomeDelivery){
                 Address oAddress = m_oClient.getAddress();
-                this.m_oOrder = m_oOrderRegistration.newOrder(strDescription, m_oClient, oAddress.getLatitude(),
+                this.m_oOrder = m_oOrderDB.newOrder(strDescription, m_oClient, oAddress.getLatitude(),
                         oAddress.getLongitude(), oAddress.getStreetName(), oAddress.getDoorNumber(), oAddress.getPostalCode(),
                         oAddress.getLocality(), oAddress.getCountry(), m_oPharmacy, this.m_mapProducts);
             } else{
-                this.m_oOrder = m_oOrderRegistration.newOrder(strDescription, m_oClient, m_oPharmacy, this.m_mapProducts);
+                this.m_oOrder = m_oOrderDB.newOrder(strDescription, m_oClient, m_oPharmacy, this.m_mapProducts);
             }
             return this.m_oOrder;
-        } catch (RuntimeException ex) {
+        } catch (Exception ex) {
             this.m_oOrder = null;
             return null;
         }
@@ -112,14 +106,14 @@ public class MakeAnOrderController {
      * The method registers an order to the database.
      */
     public boolean registerOrder() {
-        return this.m_oOrderRegistration.registerOrder(m_oOrder);
+        return this.m_oOrderDB.registerOrder(m_oOrder);
     }
 
     /**
      * The method returns the list of available products for a pharmacy.
      */
     public List<Pharmacy> getPharmacies() {
-        return this.m_oPharmacyRegistration.getPharmacies();
+        return this.m_oPharmacyDB.getPharmacies();
     }
 
     /**
@@ -128,8 +122,8 @@ public class MakeAnOrderController {
     public List<Product> getAvailableProducts(Pharmacy oPharmacy) {
         try {
             this.m_oPharmacy = oPharmacy;
-            return this.m_oProductRegistration.getAvailableProducts(oPharmacy.getId());
-        } catch (RuntimeException ex) {
+            return this.m_oProductDB.getAvailableProducts(oPharmacy.getId());
+        } catch (Exception ex) {
             ex.printStackTrace();
             return null;
         }

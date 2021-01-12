@@ -1,15 +1,11 @@
 package lapr.project.controller;
 
 import lapr.project.model.*;
-import lapr.project.data.registration.PharmacyManagerRegistration;
-import lapr.project.data.registration.PharmacyRegistration;
+import lapr.project.data.PharmacyManagerDB;
+import lapr.project.data.PharmacyDB;
 import java.security.NoSuchAlgorithmException;
 
 public class RegisterPharmacyController {
-    /**
-     * Platform class instance
-     */
-    private Platform m_oPlatform;
     /**
      * Pharmacy class instance
      */
@@ -18,12 +14,12 @@ public class RegisterPharmacyController {
     /**
      * Pharmacy's Manager Management class
      */
-    private PharmacyManagerRegistration m_oPharmacyManagerRegistration;
+    private PharmacyManagerDB m_oPharmacyManagerDB;
 
     /**
      * Pharmacy Management class
      */
-    private PharmacyRegistration m_oPharmacyRegistration;
+    private PharmacyDB m_oPharmacyDB;
 
     /**
      * Pharmacy's Manager
@@ -34,20 +30,22 @@ public class RegisterPharmacyController {
     /**
      * An empty constructor of MakeAnOrderController that initiates the platform variable by getting it from the ApplicationPOT.
      */
-    public RegisterPharmacyController() {
-        this.m_oPlatform = ApplicationPOT.getInstance().getPlatform();
-        this.m_oPharmacyManagerRegistration = m_oPlatform.getPharmacyManagerReg();
-        this.m_oPharmacyRegistration = m_oPlatform.getPharmacyReg();
+    public RegisterPharmacyController(String jdbcUrl, String username, String password) {
+        this.m_oPharmacyManagerDB = new PharmacyManagerDB(jdbcUrl, username, password);
+        this.m_oPharmacyDB = new PharmacyDB(jdbcUrl, username, password);
     }
 
-    public Pharmacy newPharmacy(String strManagerName, String strEmail, String strPassword, Integer intNIF, String strName,Double dblLatitude,
-                            Double dblLongitude,String strStreetName, String strDoorNumber, String strPostalCode, String strLocality, String strCountry) {
+    public RegisterPharmacyController() {
+    }
+
+    public Pharmacy newPharmacy(String strManagerName, String strEmail, String strPassword, Integer intNIF, String strName, Double dblLatitude,
+                                Double dblLongitude, String strStreetName, String strDoorNumber, String strPostalCode, String strLocality, String strCountry) {
         try {
-            this.m_oPharmacyManager = this.m_oPharmacyManagerRegistration.newPharmacyManager(strEmail, strPassword, intNIF, strManagerName);
-            this.m_oPharmacy = m_oPharmacyRegistration.newPharmacy(strName, this.m_oPharmacyManager, dblLatitude, dblLongitude, strStreetName, strDoorNumber,
+            this.m_oPharmacyManager = this.m_oPharmacyManagerDB.newPharmacyManager(strEmail, strPassword, intNIF, strManagerName);
+            this.m_oPharmacy = m_oPharmacyDB.newPharmacy(strName, this.m_oPharmacyManager, dblLatitude, dblLongitude, strStreetName, strDoorNumber,
                     strPostalCode, strLocality, strCountry);
             return this.m_oPharmacy;
-        } catch (RuntimeException | NoSuchAlgorithmException ex) {
+        } catch (Exception ex) {
             this.m_oPharmacy = null;
             return null;
         }
@@ -57,7 +55,7 @@ public class RegisterPharmacyController {
      * The method registers an order to the database.
      */
     public boolean registerPharmacy() {
-        return this.m_oPharmacyRegistration.registerPharmacy(m_oPharmacy);
+        return this.m_oPharmacyDB.registerPharmacy(m_oPharmacy);
     }
     public void setPharmacy(Pharmacy p){
         this.m_oPharmacy = p;

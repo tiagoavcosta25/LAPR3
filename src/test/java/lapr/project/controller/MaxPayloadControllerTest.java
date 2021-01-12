@@ -1,6 +1,6 @@
 package lapr.project.controller;
 
-import lapr.project.data.registration.DeliveryRegistration;
+import lapr.project.data.DeliveryDB;
 import lapr.project.model.UserSession;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -17,7 +17,7 @@ public class MaxPayloadControllerTest {
     private MaxPayloadController maxPayloadController;
 
     @Mock
-    private DeliveryRegistration mockDeliveryRegistration;
+    private DeliveryDB mockDeliveryDB;
 
     private float expectedTrue;
 
@@ -25,7 +25,7 @@ public class MaxPayloadControllerTest {
     void setUp() {
         this.expectedTrue = 10f;
         this.maxPayloadController = new MaxPayloadController();
-        this.mockDeliveryRegistration = Mockito.mock(DeliveryRegistration.class);
+        this.mockDeliveryDB = Mockito.mock(DeliveryDB.class);
         initMocks(this);
     }
 
@@ -34,7 +34,7 @@ public class MaxPayloadControllerTest {
         System.out.println("getMaxPayload");
         String email = "email6@gmail.com";
         ApplicationPOT.getInstance().setCurrentSession(new UserSession("email6@gmail.com"));
-        when(mockDeliveryRegistration.getMaxPayload(email)).thenReturn(expectedTrue);
+        when(mockDeliveryDB.getMaxPayload(email)).thenReturn(expectedTrue);
         float result = maxPayloadController.getMaxPayload();
         assertEquals(expectedTrue, result);
     }

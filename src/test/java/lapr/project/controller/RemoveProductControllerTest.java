@@ -1,6 +1,6 @@
 package lapr.project.controller;
 
-import lapr.project.data.registration.ProductRegistration;
+import lapr.project.data.ProductDB;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -18,19 +18,19 @@ class RemoveProductControllerTest {
     private RemoveProductController removeProductController;
 
     @Mock
-    private ProductRegistration mockProductRegistration;
+    private ProductDB mockProductDB;
 
     @BeforeEach
     void setUp() {
         this.removeProductController = new RemoveProductController();
-        this.mockProductRegistration = Mockito.mock(ProductRegistration.class);
+        this.mockProductDB = Mockito.mock(ProductDB.class);
         initMocks(this);
     }
 
     @Test
     void ensureRemoveProductWorks() {
         System.out.println("removeProductFromDB");
-        when(mockProductRegistration.removeProductFromDB(1)).thenReturn(true);
+        when(mockProductDB.removeProductFromDB(1)).thenReturn(true);
         Boolean result = removeProductController.removeProductFromDB(1);
         assertTrue(result);
 
@@ -40,7 +40,7 @@ class RemoveProductControllerTest {
         result = removeProductController.removeProductFromDB(0);
         assertFalse(result);
 
-        when(mockProductRegistration.removeProductFromDB(1)).thenReturn(false);
+        when(mockProductDB.removeProductFromDB(1)).thenReturn(false);
         result = removeProductController.removeProductFromDB(1);
         assertFalse(result);
     }

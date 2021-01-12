@@ -1,20 +1,18 @@
 package lapr.project.controller;
 
-import lapr.project.model.Platform;
 import lapr.project.model.Product;
-import lapr.project.data.registration.ProductRegistration;
+import lapr.project.data.ProductDB;
 import lapr.project.utils.ValidationProduct;
 
 public class RegisterProductController {
 
-    private final ApplicationPOT app;
-    private final Platform plat;
-    private ProductRegistration pr;
+    private ProductDB pr;
+
+    public RegisterProductController(String jdbcUrl, String username, String password) {
+        this.pr = new ProductDB(jdbcUrl, username, password);
+    }
 
     public RegisterProductController() {
-        this.app = ApplicationPOT.getInstance();
-        this.plat = app.getPlatform();
-        this.pr = plat.getProductReg();
     }
 
     private Product validateInput(String strName, String strDescription, float fltUnitaryPrice, float fltUnitaryWeight) {

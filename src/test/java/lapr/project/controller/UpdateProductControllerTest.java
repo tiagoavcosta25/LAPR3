@@ -1,6 +1,6 @@
 package lapr.project.controller;
 
-import lapr.project.data.registration.ProductRegistration;
+import lapr.project.data.ProductDB;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -18,19 +18,19 @@ class UpdateProductControllerTest {
     private UpdateProductController updateProductController;
 
     @Mock
-    private ProductRegistration mockProductRegistration;
+    private ProductDB mockProductDB;
 
     @BeforeEach
     void setUp() {
         this.updateProductController = new UpdateProductController();
-        this.mockProductRegistration = Mockito.mock(ProductRegistration.class);
+        this.mockProductDB = Mockito.mock(ProductDB.class);
         initMocks(this);
     }
 
     @Test
     void ensureUpdateProductWorks() {
         System.out.println("updateProductFromDB");
-        when(mockProductRegistration.updateProductFromDB(1, "Product 6969", "Description 1", 2.0f, 2.0f)).thenReturn(true);
+        when(mockProductDB.updateProductFromDB(1, "Product 6969", "Description 1", 2.0f, 2.0f)).thenReturn(true);
 
         boolean result = updateProductController.updateProduct(1, "Product 6969", "Description 1", 2.0f, 2.0f);
         assertTrue(result);
@@ -41,7 +41,7 @@ class UpdateProductControllerTest {
         result = updateProductController.updateProduct(1, "", "Description 1", 2.0f, 2.0f);
         assertFalse(result);
 
-        when(mockProductRegistration.updateProductFromDB(1, "Product 6969", "Description 1", 2.0f, 2.0f)).thenReturn(false);
+        when(mockProductDB.updateProductFromDB(1, "Product 6969", "Description 1", 2.0f, 2.0f)).thenReturn(false);
         result = updateProductController.updateProduct(1, "Product 6969", "Description 1", 2.0f, 2.0f);
         assertFalse(result);
     }

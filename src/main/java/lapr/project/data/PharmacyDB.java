@@ -1,4 +1,4 @@
-package lapr.project.data.registration;
+package lapr.project.data;
 
 import lapr.project.data.DataHandler;
 import lapr.project.model.*;
@@ -11,9 +11,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PharmacyRegistration extends DataHandler {
+public class PharmacyDB extends DataHandler {
 
-    public PharmacyRegistration(String jdbcUrl, String username, String password) {
+    public PharmacyDB(String jdbcUrl, String username, String password) {
         super(jdbcUrl, username, password);
     }
 

@@ -1,4 +1,4 @@
-package lapr.project.data.registration;
+package lapr.project.data;
 
 import lapr.project.data.DataHandler;
 import lapr.project.model.Address;
@@ -10,10 +10,10 @@ import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class ClientRegistration extends DataHandler {
+public class ClientDB extends DataHandler {
 
 
-    public ClientRegistration(String jdbcUrl, String username, String password) {
+    public ClientDB(String jdbcUrl, String username, String password) {
         super(jdbcUrl, username, password);
     }
 

@@ -1,8 +1,8 @@
 package lapr.project.controller;
 
-import lapr.project.data.registration.PharmacyRegistration;
+import lapr.project.data.PharmacyDB;
 import lapr.project.model.*;
-import lapr.project.data.registration.CourierRegistration;
+import lapr.project.data.CourierDB;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -21,10 +21,10 @@ class RegisterCourierControllerTest {
     private RegisterCourierController registerCourierController;
 
     @Mock
-    private CourierRegistration mockCourierRegistration;
+    private CourierDB mockCourierDB;
 
     @Mock
-    private PharmacyRegistration mockPharmacyRegistration;
+    private PharmacyDB mockPharmacyDB;
 
     private boolean assertTrue;
 
@@ -32,8 +32,8 @@ class RegisterCourierControllerTest {
     void setUp() {
         this.assertTrue = true;
         this.registerCourierController = new RegisterCourierController();
-        this.mockCourierRegistration = Mockito.mock(CourierRegistration.class);
-        this.mockPharmacyRegistration = Mockito.mock(PharmacyRegistration.class);
+        this.mockCourierDB = Mockito.mock(CourierDB.class);
+        this.mockPharmacyDB = Mockito.mock(PharmacyDB.class);
         initMocks(this);
     }
 
@@ -41,8 +41,8 @@ class RegisterCourierControllerTest {
     @Test
     void newCourier() throws NoSuchAlgorithmException {
         ApplicationPOT.getInstance().setCurrentSession(new UserSession("email3@gmail.com"));
-        when(mockPharmacyRegistration.getPharmacyByManagerEmail("email3@gmail.com")).thenReturn(new Pharmacy());
-        when(mockCourierRegistration.newCourier("Name", "email4@gmail.com", 250161761, "PT98003506514853185258910", new Pharmacy())).thenReturn(new Courier());
+        when(mockPharmacyDB.getPharmacyByManagerEmail("email3@gmail.com")).thenReturn(new Pharmacy());
+        when(mockCourierDB.newCourier("Name", "email4@gmail.com", 250161761, "PT98003506514853185258910", new Pharmacy())).thenReturn(new Courier());
         boolean result = registerCourierController.newCourier("Name", "email4@gmail.com", 250161761, "PT98003506514853185258910");
         assertEquals(assertTrue, result);
 
@@ -53,12 +53,12 @@ class RegisterCourierControllerTest {
     @Test
     void registersCourier() {
         ApplicationPOT.getInstance().setCurrentSession(new UserSession("email3@gmail.com"));
-        when(mockCourierRegistration.registersCourier(new Courier())).thenReturn(assertTrue);
+        when(mockCourierDB.registersCourier(new Courier())).thenReturn(assertTrue);
         registerCourierController.setCourier(new Courier());
         boolean result = registerCourierController.registersCourier();
         assertEquals(assertTrue, result);
 
-        when(mockCourierRegistration.registersCourier(new Courier())).thenReturn(false);
+        when(mockCourierDB.registersCourier(new Courier())).thenReturn(false);
         result = registerCourierController.registersCourier();
         assertEquals(false, result);
     }

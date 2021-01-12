@@ -1,31 +1,15 @@
 package lapr.project.controller;
 
 import lapr.project.model.Order;
-import lapr.project.model.Platform;
-import lapr.project.data.registration.OrderRegistration;
+import lapr.project.data.OrderDB;
 import lapr.project.model.UserSession;
 
 public class KnowDeliveryController {
 
     /**
-     * Platform class instance
-     */
-    private Platform m_oPlatform;
-
-    /**
-     * ApplicationPot class instance
-     */
-
-    private ApplicationPOT m_ApplicationPOT;
-
-    /**
-     * UserSession class instance
-     */
-    private UserSession m_oSession;
-    /**
      * Order Registration class
      */
-    private OrderRegistration oOrderRegistration;
+    private OrderDB oOrderDB;
 
     /**
      * Courier class instance
@@ -37,16 +21,16 @@ public class KnowDeliveryController {
      */
     private Order oOrder;
 
+    public KnowDeliveryController(String jdbcUrl, String username, String password) {
+        this.oOrderDB = new OrderDB(jdbcUrl, username, password);
+    }
+
     public KnowDeliveryController() {
-        this.m_ApplicationPOT = ApplicationPOT.getInstance();
-        this.m_oPlatform = m_ApplicationPOT.getPlatform();
-        this.oOrderRegistration = this.m_oPlatform.getOrderReg();
     }
 
     public Order getOrderByCour() {
-        this.m_oSession = m_ApplicationPOT.getCurrentSession();
-        this.oCourierEmail = m_oSession.getCurrentUserEmail();
-        this.oOrder = this.oOrderRegistration.getOrderByCourier(oCourierEmail);
+        this.oCourierEmail = ApplicationPOT.getInstance().getCurrentSession().getCurrentUserEmail();
+        this.oOrder = this.oOrderDB.getOrderByCourier(oCourierEmail);
         return oOrder;
     }
 

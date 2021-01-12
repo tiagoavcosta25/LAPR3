@@ -1,4 +1,4 @@
-package lapr.project.data.registration;
+package lapr.project.data;
 
 import lapr.project.data.DataHandler;
 import lapr.project.model.*;
@@ -10,9 +10,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Map;
 
-public class OrderRegistration extends DataHandler {
+public class OrderDB extends DataHandler {
 
-    public OrderRegistration(String jdbcUrl, String username, String password) {
+    public OrderDB(String jdbcUrl, String username, String password) {
         super(jdbcUrl, username, password);
     }
 

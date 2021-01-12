@@ -1,4 +1,4 @@
-package lapr.project.data.registration;
+package lapr.project.data;
 
 import lapr.project.data.DataHandler;
 import lapr.project.model.*;
@@ -10,9 +10,9 @@ import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class InvoiceRegistration extends DataHandler {
+public class InvoiceDB extends DataHandler {
 
-    public InvoiceRegistration(String jdbcUrl, String username, String password) {
+    public InvoiceDB(String jdbcUrl, String username, String password) {
         super(jdbcUrl, username, password);
     }
 

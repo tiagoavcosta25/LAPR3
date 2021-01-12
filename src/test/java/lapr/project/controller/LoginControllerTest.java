@@ -1,6 +1,6 @@
 package lapr.project.controller;
 
-import lapr.project.data.registration.UserRegistration;
+import lapr.project.data.UserDB;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -17,7 +17,7 @@ class LoginControllerTest {
 
 
     @Mock
-    private UserRegistration m_mockUserRegistration;
+    private UserDB m_mockUserDB;
 
     LoginControllerTest() {
 
@@ -26,7 +26,7 @@ class LoginControllerTest {
     @BeforeEach
     void setUp() {
         this.m_ctrl = new LoginController();
-        this.m_mockUserRegistration = Mockito.mock(UserRegistration.class);
+        this.m_mockUserDB = Mockito.mock(UserDB.class);
         initMocks(this);
     }
 
@@ -34,11 +34,11 @@ class LoginControllerTest {
     void login() {
         String email = "test@gmail.com";
         String pw = "testpassword";
-        when(m_mockUserRegistration.login(email,pw)).thenReturn(true);
+        when(m_mockUserDB.login(email,pw)).thenReturn(true);
         boolean result = m_ctrl.login(email,pw);
         assertTrue(result);
 
-        when(m_mockUserRegistration.login(email,pw)).thenReturn(false);
+        when(m_mockUserDB.login(email,pw)).thenReturn(false);
         result = m_ctrl.login(email,pw);
         assertFalse(result);
     }

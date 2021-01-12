@@ -1,12 +1,10 @@
 package lapr.project.controller;
 
-import lapr.project.data.registration.DeliveryRegistration;
-import lapr.project.data.registration.OrderRegistration;
+import lapr.project.data.DeliveryDB;
+import lapr.project.data.OrderDB;
 import lapr.project.model.Address;
 import lapr.project.model.Order;
-import lapr.project.model.UserSession;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
@@ -15,7 +13,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
 
 public class CalculateMostEfficientPathControllerTest {
@@ -23,9 +20,9 @@ public class CalculateMostEfficientPathControllerTest {
     private CalculateMostEfficientPathController calculateMostEfficientPathController;
 
     @Mock
-    private OrderRegistration mockOrderRegistrarion;
+    private OrderDB mockOrderRegistrarion;
     @Mock
-    private DeliveryRegistration mockDeliveryRegistrarion;
+    private DeliveryDB mockDeliveryRegistrarion;
     private Order auxTrue;
     private List<Address> aux2True;
 
@@ -34,8 +31,8 @@ public class CalculateMostEfficientPathControllerTest {
         this.auxTrue = new Order();
         this.aux2True = new ArrayList<>();
         this.calculateMostEfficientPathController = new CalculateMostEfficientPathController();
-        this.mockOrderRegistrarion = Mockito.mock(OrderRegistration.class);
-        this.mockDeliveryRegistrarion = Mockito.mock(DeliveryRegistration.class);
+        this.mockOrderRegistrarion = Mockito.mock(OrderDB.class);
+        this.mockDeliveryRegistrarion = Mockito.mock(DeliveryDB.class);
         initMocks(this);
     }
 

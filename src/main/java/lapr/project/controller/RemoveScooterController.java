@@ -1,19 +1,14 @@
 package lapr.project.controller;
 
 import lapr.project.model.Pharmacy;
-import lapr.project.model.Platform;
 import lapr.project.model.Scooter;
-import lapr.project.data.registration.PharmacyRegistration;
-import lapr.project.data.registration.ScooterRegistration;
+import lapr.project.data.PharmacyDB;
+import lapr.project.data.ScooterDB;
 import lapr.project.model.UserSession;
 
 import java.util.List;
 
 public class RemoveScooterController {
-    /**
-     * Platform class instance
-     */
-    private final Platform m_oPlatform;
 
     /**
      * Scooter class instance
@@ -28,50 +23,42 @@ public class RemoveScooterController {
     /**
      * Pharmacy Management class
      */
-    private PharmacyRegistration m_oPharmacyRegistration;
+    private PharmacyDB m_oPharmacyDB;
 
     /**
      * Scooter Management class
      */
-    private ScooterRegistration m_oScooterRegistration;
+    private ScooterDB m_oScooterDB;
 
     /**
      * Scooter's List
      */
     private List<Scooter> m_lstScooters;
 
-    /**
-     * User Session Class Instance
-     */
-    private UserSession m_oUserSession;
-
-    /**
-     * User's Email
-     */
-    private String m_strUserEmail;
 
     /**
      * An empty constructor of RegisterScooterController that initiates the platform variable by getting it from the ApplicationPOT.
      */
+    public RemoveScooterController(String jdbcUrl, String username, String password) {
+        this.m_oPharmacyDB = new PharmacyDB(jdbcUrl, username, password);
+        this.m_oScooterDB = new ScooterDB(jdbcUrl, username, password);
+    }
+
     public RemoveScooterController() {
-        this.m_oPlatform = ApplicationPOT.getInstance().getPlatform();
-        this.m_oPharmacyRegistration = m_oPlatform.getPharmacyReg();
-        this.m_oUserSession = ApplicationPOT.getInstance().getCurrentSession();
-        this.m_strUserEmail = m_oUserSession.getCurrentUserEmail();
-        this.m_oScooterRegistration = m_oPlatform.getScooterReg();
     }
 
     public List<Scooter> showScootersList () {
         try {
-            this.m_oPharmacy = m_oPharmacyRegistration.getPharmacyByManagerEmail(m_strUserEmail);
-            return m_oScooterRegistration.getScootersList(m_oPharmacy.getId());
-        } catch (RuntimeException ex) {
+            this.m_oPharmacy = m_oPharmacyDB.getPharmacyByManagerEmail(ApplicationPOT.getInstance().
+                    getCurrentSession().getCurrentUserEmail());
+            return m_oScooterDB.getScootersList(m_oPharmacy.getId());
+        } catch (Exception ex) {
             return this.m_lstScooters = null;
         }
     }
 
     public boolean removeScooter(int intScooterId){
-        return m_oScooterRegistration.removeScooterFromDB(intScooterId);
+        return m_oScooterDB.removeScooterFromDB(intScooterId);
     }
 
 }

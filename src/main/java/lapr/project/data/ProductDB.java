@@ -1,4 +1,4 @@
-package lapr.project.data.registration;
+package lapr.project.data;
 
 import lapr.project.data.DataHandler;
 import lapr.project.model.Product;
@@ -10,9 +10,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProductRegistration extends DataHandler {
+public class ProductDB extends DataHandler {
 
-    public ProductRegistration(String jdbcUrl, String username, String password) {
+    public ProductDB(String jdbcUrl, String username, String password) {
         super(jdbcUrl, username, password);
     }
 

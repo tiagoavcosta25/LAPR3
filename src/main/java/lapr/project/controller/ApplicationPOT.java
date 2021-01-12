@@ -1,21 +1,12 @@
 package lapr.project.controller;
 
-import lapr.project.model.Platform;
 import lapr.project.model.UserSession;
 
 public class ApplicationPOT {
 
-    private final Platform m_oPlataform;
     private UserSession m_currentSession;
 
     public ApplicationPOT() {
-        m_oPlataform = new Platform();
-    }
-
-
-    public Platform getPlatform()
-    {
-        return this.m_oPlataform;
     }
 
     private static ApplicationPOT singleton = null;

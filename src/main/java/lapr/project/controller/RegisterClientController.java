@@ -1,19 +1,19 @@
 package lapr.project.controller;
 
 import lapr.project.model.Client;
-import lapr.project.model.Platform;
-import lapr.project.data.registration.ClientRegistration;
+import lapr.project.data.ClientDB;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class RegisterClientController {
 
-    private ClientRegistration clientReg;
+    private ClientDB clientReg;
+
+    public RegisterClientController(String jdbcUrl, String username, String password) {
+        clientReg = new ClientDB(jdbcUrl, username, password);
+    }
 
     public RegisterClientController() {
-        ApplicationPOT app = ApplicationPOT.getInstance();
-        Platform plat = app.getPlatform();
-        clientReg = plat.getClientReg();
     }
 
     /**

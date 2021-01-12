@@ -2,9 +2,8 @@ package lapr.project.controller;
 
 import lapr.project.model.Courier;
 import lapr.project.model.Pharmacy;
-import lapr.project.model.Platform;
-import lapr.project.data.registration.CourierRegistration;
-import lapr.project.data.registration.PharmacyRegistration;
+import lapr.project.data.CourierDB;
+import lapr.project.data.PharmacyDB;
 
 import java.security.NoSuchAlgorithmException;
 
@@ -21,22 +20,18 @@ import java.security.NoSuchAlgorithmException;
  */
 public class RegisterCourierController {
     /**
-     * Platform class instance
-     */
-    private Platform m_oPlatform;
-    /**
      * Courier class instance
      */
     private Courier oCourier;
     /**
      * Courier Management class
      */
-    private CourierRegistration oCourierRegistration;
+    private CourierDB oCourierDB;
 
     /**
      * Pharmacy Management class
      */
-    private PharmacyRegistration oPharmacyRegistration;
+    private PharmacyDB oPharmacyDB;
 
     /**
      * Pharmacy
@@ -46,10 +41,12 @@ public class RegisterCourierController {
     /**
      * An empty constructor of RegisterCourierController that initiates the platform variable by getting it from the ApplicationPOT.
      */
+    public RegisterCourierController(String jdbcUrl, String username, String password) {
+        this.oCourierDB = new CourierDB(jdbcUrl, username, password);
+        this.oPharmacyDB = new PharmacyDB(jdbcUrl, username, password);
+    }
+
     public RegisterCourierController() {
-        this.m_oPlatform = ApplicationPOT.getInstance().getPlatform();
-        this.oCourierRegistration = m_oPlatform.getCourReg();
-        this.oPharmacyRegistration = m_oPlatform.getPharmacyReg();
     }
 
     /**
@@ -65,12 +62,12 @@ public class RegisterCourierController {
      */
     public boolean newCourier(String strName, String strEmail, Integer intNIF, String strIBAN) {
         try {
-            this.oPharmacy = oPharmacyRegistration.getPharmacyByManagerEmail(ApplicationPOT.getInstance().getCurrentSession().getCurrentUserEmail());
+            this.oPharmacy = oPharmacyDB.getPharmacyByManagerEmail(ApplicationPOT.getInstance().getCurrentSession().getCurrentUserEmail());
             if (validateInput(strName, strEmail, intNIF, strIBAN)) {
-                this.oCourier = oCourierRegistration.newCourier(strName, strEmail, intNIF, strIBAN, this.oPharmacy);
+                this.oCourier = oCourierDB.newCourier(strName, strEmail, intNIF, strIBAN, this.oPharmacy);
                 return true;
             }
-        } catch (RuntimeException | NoSuchAlgorithmException ex) {
+        } catch (Exception ex) {
             this.oCourier = null;
         }
         return false;
@@ -80,7 +77,7 @@ public class RegisterCourierController {
      * The method adds a Freelancer to the Organization of the current user.
      */
     public boolean registersCourier() {
-        return this.oCourierRegistration.registersCourier(this.oCourier);
+        return this.oCourierDB.registersCourier(this.oCourier);
     }
 
     /**

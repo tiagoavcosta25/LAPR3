@@ -1,16 +1,16 @@
 package lapr.project.controller;
 
-import lapr.project.model.Platform;
-import lapr.project.data.registration.UserRegistration;
+import lapr.project.data.UserDB;
 
 public class LoginController {
 
-    private UserRegistration m_userReg;
+    private UserDB m_userReg;
+
+    public LoginController(String jdbcUrl, String username, String password) {
+        m_userReg = new UserDB(jdbcUrl, username, password);
+    }
 
     public LoginController() {
-        ApplicationPOT app = ApplicationPOT.getInstance();
-        Platform plat = app.getPlatform();
-        m_userReg = plat.getUserReg();
     }
 
     /**

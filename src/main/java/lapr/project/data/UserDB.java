@@ -1,4 +1,4 @@
-package lapr.project.data.registration;
+package lapr.project.data;
 
 
 import lapr.project.model.UserSession;
@@ -10,9 +10,9 @@ import java.security.NoSuchAlgorithmException;
 import java.sql.CallableStatement;
 import java.sql.SQLException;
 
-public class UserRegistration extends DataHandler {
+public class UserDB extends DataHandler {
 
-    public UserRegistration(String jdbcUrl, String username, String password) {
+    public UserDB(String jdbcUrl, String username, String password) {
         super(jdbcUrl, username, password);
     }
 

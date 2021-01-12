@@ -1,9 +1,7 @@
 package lapr.project.controller;
 
-import lapr.project.data.registration.ClientRegistration;
-import lapr.project.data.registration.OrderRegistration;
-import lapr.project.data.registration.PharmacyRegistration;
-import lapr.project.data.registration.ProductRegistration;
+import lapr.project.data.PharmacyDB;
+import lapr.project.data.ProductDB;
 import lapr.project.model.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,7 +12,6 @@ import org.mockito.Mockito;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.TreeMap;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
@@ -26,10 +23,10 @@ class AddPharmacyProductControllerTest {
     private AddPharmacyProductController addPharmacyProductController;
 
     @Mock
-    private PharmacyRegistration mockPharmacyRegistration;
+    private PharmacyDB mockPharmacyDB;
 
     @Mock
-    private ProductRegistration mockProductRegistration;
+    private ProductDB mockProductDB;
 
     private boolean expectedValue;
 
@@ -37,8 +34,8 @@ class AddPharmacyProductControllerTest {
     void setUp() {
         this.expectedValue = true;
         this.addPharmacyProductController = new AddPharmacyProductController();
-        this.mockPharmacyRegistration = Mockito.mock(PharmacyRegistration.class);
-        this.mockProductRegistration = Mockito.mock(ProductRegistration.class);
+        this.mockPharmacyDB = Mockito.mock(PharmacyDB.class);
+        this.mockProductDB = Mockito.mock(ProductDB.class);
         initMocks(this);
     }
 
@@ -66,8 +63,8 @@ class AddPharmacyProductControllerTest {
     void registerPharmacyProduct() {
         System.out.println("registerPharmacyProduct");
         ApplicationPOT.getInstance().setCurrentSession(new UserSession("email3@gmail.com"));
-        when(mockPharmacyRegistration.getPharmacyByManagerEmail("email3@gmail.com")).thenReturn(new Pharmacy());
-        when(mockPharmacyRegistration.registerPharmacyProduct(new Pharmacy(), new Product(), 1)).thenReturn(expectedValue);
+        when(mockPharmacyDB.getPharmacyByManagerEmail("email3@gmail.com")).thenReturn(new Pharmacy());
+        when(mockPharmacyDB.registerPharmacyProduct(new Pharmacy(), new Product(), 1)).thenReturn(expectedValue);
 
         addPharmacyProductController.setProduct(new Product());
         addPharmacyProductController.setStock(1);
@@ -75,7 +72,7 @@ class AddPharmacyProductControllerTest {
         assertEquals(expectedValue, result);
 
         expectedValue = false;
-        when(mockPharmacyRegistration.registerPharmacyProduct(new Pharmacy(), new Product(), 1)).thenReturn(expectedValue);
+        when(mockPharmacyDB.registerPharmacyProduct(new Pharmacy(), new Product(), 1)).thenReturn(expectedValue);
         result = addPharmacyProductController.registerPharmacyProduct();
         assertEquals(expectedValue, result);
     }
@@ -86,7 +83,7 @@ class AddPharmacyProductControllerTest {
 
         List<Product> expectedListProducts = new ArrayList<>(Arrays.asList(new Product()));
 
-        when(mockProductRegistration.getProducts()).thenReturn(expectedListProducts);
+        when(mockProductDB.getProducts()).thenReturn(expectedListProducts);
 
         List<Product>  result = addPharmacyProductController.getProducts();
         assertEquals(expectedListProducts, result);

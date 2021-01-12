@@ -1,9 +1,8 @@
 package lapr.project.controller;
 
-import lapr.project.model.Platform;
 import lapr.project.model.Scooter;
-import lapr.project.data.registration.DeliveryRegistration;
-import lapr.project.data.registration.ScooterRegistration;
+import lapr.project.data.DeliveryDB;
+import lapr.project.data.ScooterDB;
 
 /**
  * Register Courier Controller.
@@ -18,29 +17,27 @@ import lapr.project.data.registration.ScooterRegistration;
  */
 public class SeeSuitableScooterController {
     /**
-     * Platform class instance
+     * Courier Management class
      */
-    private Platform m_oPlatform;
+    private DeliveryDB oDeliveryDB;
     /**
      * Courier Management class
      */
-    private DeliveryRegistration oDeliveryRegistration;
-    /**
-     * Courier Management class
-     */
-    private ScooterRegistration oScooterRegistration;
+    private ScooterDB oScooterDB;
 
     /**
      * An empty constructor of RegisterCourierController that initiates the platform variable by getting it from the ApplicationPOT.
      */
+    public SeeSuitableScooterController(String jdbcUrl, String username, String password) {
+        oDeliveryDB = new DeliveryDB(jdbcUrl, username, password);
+        oScooterDB = new ScooterDB(jdbcUrl, username, password);
+    }
+
     public SeeSuitableScooterController() {
-        this.m_oPlatform = ApplicationPOT.getInstance().getPlatform();
-        oDeliveryRegistration = m_oPlatform.getDelReg();
-        oScooterRegistration = m_oPlatform.getScooterReg();
     }
 
     public Scooter getSuitableScooter(Double distance){
-        return oScooterRegistration.getSuitableScooter(distance, ApplicationPOT.getInstance().getCurrentSession().getCurrentUserEmail());
+        return oScooterDB.getSuitableScooter(distance, ApplicationPOT.getInstance().getCurrentSession().getCurrentUserEmail());
     }
 
 }

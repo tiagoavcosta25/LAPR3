@@ -1,6 +1,8 @@
 package lapr.project.controller;
 
-import lapr.project.data.registration.*;
+import lapr.project.data.ClientDB;
+import lapr.project.data.InvoiceDB;
+import lapr.project.data.OrderDB;
 import lapr.project.model.Client;
 import lapr.project.model.Invoice;
 import lapr.project.model.Order;
@@ -22,32 +24,32 @@ class GenerateInvoiceControllerTest {
    @InjectMocks
     private GenerateInvoiceController generateInvoiceController;
     @Mock
-    private OrderRegistration mockOrderRegistration;
+    private OrderDB mockOrderDB;
     @Mock
-    private InvoiceRegistration mockInvoiceRegistration;
+    private InvoiceDB mockInvoiceDB;
     @Mock
-    private ClientRegistration mockClientRegistration;
+    private ClientDB mockClientDB;
 
     @BeforeEach
     void setUp() {
         this.generateInvoiceController = new GenerateInvoiceController();
-        this.mockOrderRegistration = Mockito.mock(OrderRegistration.class);
-        this.mockClientRegistration = Mockito.mock(ClientRegistration.class);
-        this.mockInvoiceRegistration = Mockito.mock(InvoiceRegistration.class);
+        this.mockOrderDB = Mockito.mock(OrderDB.class);
+        this.mockClientDB = Mockito.mock(ClientDB.class);
+        this.mockInvoiceDB = Mockito.mock(InvoiceDB.class);
         initMocks(this);
     }
 
     @Test
     void newInvoice() {
         ApplicationPOT.getInstance().setCurrentSession(new UserSession("email1@gmail.com"));
-        when(mockClientRegistration.getClientByEmail("email1@gmail.com")).thenReturn(new Client());
-        when(mockOrderRegistration.getLatestOrder(new Client())).thenReturn(new Order());
-        when(mockInvoiceRegistration.newInvoice(new Date(2020,12,2), 10f, new Order())).thenReturn(new Invoice());
-        when(mockInvoiceRegistration.registerInvoice(new Invoice())).thenReturn(true);
+        when(mockClientDB.getClientByEmail("email1@gmail.com")).thenReturn(new Client());
+        when(mockOrderDB.getLatestOrder(new Client())).thenReturn(new Order());
+        when(mockInvoiceDB.newInvoice(new Date(2020,12,2), 10f, new Order())).thenReturn(new Invoice());
+        when(mockInvoiceDB.registerInvoice(new Invoice())).thenReturn(true);
         boolean result = this.generateInvoiceController.newInvoice(new Date(2020,12,2), 10f);
         assertTrue(result);
 
-        when(mockInvoiceRegistration.registerInvoice(new Invoice())).thenReturn(false);
+        when(mockInvoiceDB.registerInvoice(new Invoice())).thenReturn(false);
         result = this.generateInvoiceController.newInvoice(new Date(2020,12,2), 10f);
         assertFalse(result);
 

@@ -1,7 +1,7 @@
 package lapr.project.controller;
 
-import lapr.project.data.registration.PharmacyRegistration;
-import lapr.project.data.registration.ScooterRegistration;
+import lapr.project.data.PharmacyDB;
+import lapr.project.data.ScooterDB;
 import lapr.project.model.Pharmacy;
 import lapr.project.model.Scooter;
 import lapr.project.model.UserSession;
@@ -24,36 +24,36 @@ class RemoveScooterControllerTest {
     private RemoveScooterController m_ctrl;
 
     @Mock
-    private ScooterRegistration m_mockScooterRegistration;
+    private ScooterDB m_mockScooterDB;
 
     @Mock
-    private PharmacyRegistration m_mockPharmacyRegistration;
+    private PharmacyDB m_mockPharmacyDB;
 
     @BeforeEach
     void setUp() {
         ApplicationPOT.getInstance().setCurrentSession(new UserSession("email"));
         this.m_ctrl = new RemoveScooterController();
-        this.m_mockScooterRegistration = Mockito.mock(ScooterRegistration.class);
-        this.m_mockPharmacyRegistration = Mockito.mock(PharmacyRegistration.class);
+        this.m_mockScooterDB = Mockito.mock(ScooterDB.class);
+        this.m_mockPharmacyDB = Mockito.mock(PharmacyDB.class);
         initMocks(this);
     }
 
     @Test
     void showScootersList() {
-        when(m_mockPharmacyRegistration.getPharmacyByManagerEmail("email")).thenReturn(new Pharmacy());
-        when(m_mockScooterRegistration.getScootersList(-1)).thenReturn(new ArrayList<>());
+        when(m_mockPharmacyDB.getPharmacyByManagerEmail("email")).thenReturn(new Pharmacy());
+        when(m_mockScooterDB.getScootersList(-1)).thenReturn(new ArrayList<>());
         List<Scooter> result = m_ctrl.showScootersList();
         assertEquals(new ArrayList<>(),result);
 
-        when(m_mockPharmacyRegistration.getPharmacyByManagerEmail("email")).thenReturn(null);
-        when(m_mockScooterRegistration.getScootersList(-1)).thenReturn(null);
+        when(m_mockPharmacyDB.getPharmacyByManagerEmail("email")).thenReturn(null);
+        when(m_mockScooterDB.getScootersList(-1)).thenReturn(null);
         List<Scooter> result1 = m_ctrl.showScootersList();
         assertEquals(null,result1);
     }
 
     @Test
     void removeScooter() {
-        when(m_mockScooterRegistration.removeScooterFromDB(-1)).thenReturn(true);
+        when(m_mockScooterDB.removeScooterFromDB(-1)).thenReturn(true);
         boolean real = m_ctrl.removeScooter(-1);
         assertTrue(real);
     }

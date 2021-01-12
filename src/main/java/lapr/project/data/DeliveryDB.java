@@ -1,4 +1,4 @@
-package lapr.project.data.registration;
+package lapr.project.data;
 
 import javafx.util.Pair;
 import lapr.project.data.DataHandler;
@@ -15,11 +15,11 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-public class DeliveryRegistration extends DataHandler {
+public class DeliveryDB extends DataHandler {
 
     private Graph<Address, String> m_graph;
 
-    public DeliveryRegistration(String jdbcUrl, String username, String password) {
+    public DeliveryDB(String jdbcUrl, String username, String password) {
         super(jdbcUrl, username, password);
         m_graph = new Graph<>(true);
     }

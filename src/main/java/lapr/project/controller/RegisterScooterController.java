@@ -1,19 +1,13 @@
 package lapr.project.controller;
 
 import lapr.project.model.Pharmacy;
-import lapr.project.model.Platform;
 import lapr.project.model.Scooter;
-import lapr.project.data.registration.PharmacyRegistration;
-import lapr.project.data.registration.ScooterRegistration;
+import lapr.project.data.PharmacyDB;
+import lapr.project.data.ScooterDB;
 
 import java.util.List;
 
 public class RegisterScooterController {
-
-    /**
-     * Platform class instance
-     */
-    private final Platform m_oPlatform;
 
     /**
      * Scooter class instance
@@ -28,20 +22,22 @@ public class RegisterScooterController {
     /**
      * Pharmacy Management class
      */
-    private PharmacyRegistration m_oPharmacyRegistration;
+    private PharmacyDB m_oPharmacyDB;
 
     /**
      * Scooter Management class
      */
-    private ScooterRegistration m_oScooterRegistration;
+    private ScooterDB m_oScooterDB;
 
     /**
      * An empty constructor of RegisterScooterController that initiates the platform variable by getting it from the ApplicationPOT.
      */
+    public RegisterScooterController(String jdbcUrl, String username, String password) {
+        this.m_oPharmacyDB = new PharmacyDB(jdbcUrl, username, password);
+        this.m_oScooterDB = new ScooterDB(jdbcUrl, username, password);
+    }
+
     public RegisterScooterController() {
-        this.m_oPlatform = ApplicationPOT.getInstance().getPlatform();
-        this.m_oPharmacyRegistration = m_oPlatform.getPharmacyReg();
-        this.m_oScooterRegistration = m_oPlatform.getScooterReg();
     }
 
     /**
@@ -59,12 +55,12 @@ public class RegisterScooterController {
     public boolean newScooter(float fltBatteryPerc, String strCharginStatus, float fltPotency,
                            float fltWeight, int intBatteryCapacity, float fltMaxPayload, Pharmacy oPharmacy) {
         try {
-            this.m_oPharmacy = m_oPharmacyRegistration.getPharmacy(oPharmacy.getId());
-            this.m_oScooter = m_oScooterRegistration.newScooter(fltBatteryPerc, strCharginStatus, fltPotency,
+            this.m_oPharmacy = m_oPharmacyDB.getPharmacy(oPharmacy.getId());
+            this.m_oScooter = m_oScooterDB.newScooter(fltBatteryPerc, strCharginStatus, fltPotency,
                     fltWeight, intBatteryCapacity, fltMaxPayload, oPharmacy);
             return true;
         }
-        catch(RuntimeException ex) {
+        catch(Exception ex) {
             this.m_oScooter = null;
         }
         return false;
@@ -74,14 +70,14 @@ public class RegisterScooterController {
      * The method registers an order to the database.
      */
     public boolean registersScooter() {
-       return this.m_oScooterRegistration.registerScooter(m_oScooter);
+       return this.m_oScooterDB.registerScooter(m_oScooter);
     }
 
     /**
      * The method returns the list of scooters for a pharmacy.
      */
     public List<Scooter> getScooters(int intPharmacyId) {
-        return this.m_oScooterRegistration.getScootersList(intPharmacyId);
+        return this.m_oScooterDB.getScootersList(intPharmacyId);
     }
 
     public void setScooter(Scooter oScooter) {

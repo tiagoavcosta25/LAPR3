@@ -1,15 +1,8 @@
 package lapr.project.controller;
 
-import javafx.util.Pair;
-import lapr.project.model.Address;
-import lapr.project.model.Order;
-import lapr.project.model.Platform;
-import lapr.project.data.registration.DeliveryRegistration;
-import lapr.project.data.registration.OrderRegistration;
+import lapr.project.data.DeliveryDB;
+import lapr.project.data.OrderDB;
 import lapr.project.model.UserSession;
-
-import java.util.LinkedList;
-import java.util.List;
 
 /**
  * Calculate Most Efficient Path Controller.
@@ -24,30 +17,27 @@ import java.util.List;
  * @author António Barbosa <1190404@isep.ipp.pt>
  */
 public class CalculateMostEfficientPathController {
-    /**
-     * Platform class instance
-     */
-    private Platform m_oPlatform;
+
     /**
      * Delivery Registration class
      */
-    private DeliveryRegistration oDeliveryRegistration;
+    private DeliveryDB oDeliveryDB;
+
     /**
      * Order Registration class
      */
-    private OrderRegistration oOrderRegistration;
-    private ApplicationPOT m_oApplicationPOT;
-    private UserSession m_oUserSession;
+    private OrderDB oOrderDB;
 
-    public CalculateMostEfficientPathController() {
-        this.m_oApplicationPOT = ApplicationPOT.getInstance();
-        this.m_oPlatform = this.m_oApplicationPOT.getPlatform();
-        this.oDeliveryRegistration = this.m_oPlatform.getDelReg();
-        this.oOrderRegistration = this.m_oPlatform.getOrderReg();
+    public CalculateMostEfficientPathController(String jdbcUrl, String username, String password) {
+        this.oDeliveryDB = new DeliveryDB(jdbcUrl, username, password);
+        this.oOrderDB = new OrderDB(jdbcUrl, username, password);
     }
 
-    /*TO IMPLEMENT
-    public double getShortestPath() {
+    public CalculateMostEfficientPathController() {
+    }
+
+    //TO IMPLEMENT
+    /*public double getShortestPath() {
         this.m_oUserSession = this.m_oApplicationPOT.getCurrentSession();
         String email = this.m_oUserSession.getCurrentUserEmail();
         List<Address> list = this.oDeliveryRegistration.getAddressesByDeliveryRunId(email);

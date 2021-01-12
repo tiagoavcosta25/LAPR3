@@ -1,9 +1,7 @@
 package lapr.project.controller;
 
 import lapr.project.model.Address;
-import lapr.project.model.Platform;
-import lapr.project.data.registration.CourierRegistration;
-import lapr.project.model.UserSession;
+import lapr.project.data.CourierDB;
 
 /**
  * Register Courier Controller.
@@ -18,30 +16,23 @@ import lapr.project.model.UserSession;
  */
 public class DeliveryAddressController {
     /**
-     * Platform class instance
-     */
-    private Platform m_oPlatform;
-    /**
      * Courier Management class
      */
-    private CourierRegistration m_oCourierRegistration;
-    /**
-     * User Session
-     */
-    private UserSession m_oUserSession;
+    private CourierDB m_oCourierDB;
 
     /**
      * An empty constructor of RegisterCourierController that initiates the platform variable by getting it from the ApplicationPOT.
      */
+    public DeliveryAddressController(String jdbcUrl, String username, String password) {
+        this.m_oCourierDB = new CourierDB(jdbcUrl, username, password);
+    }
+
     public DeliveryAddressController() {
-        this.m_oPlatform = ApplicationPOT.getInstance().getPlatform();
-        this.m_oUserSession = ApplicationPOT.getInstance().getCurrentSession();
-        this.m_oCourierRegistration = m_oPlatform.getCourReg();
     }
 
     public Address getDeliveryAddress(){
-        String email = m_oUserSession.getCurrentUserEmail();
-        return m_oCourierRegistration.getDeliveryAddress(email);
+        String email = ApplicationPOT.getInstance().getCurrentSession().getCurrentUserEmail();
+        return m_oCourierDB.getDeliveryAddress(email);
     }
 
 }
