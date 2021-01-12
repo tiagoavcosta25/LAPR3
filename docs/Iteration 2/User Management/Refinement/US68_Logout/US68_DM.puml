@@ -13,7 +13,12 @@ abstract class User{
 -String name
 }
 
+database Database {
 
+}
+
+
+Database "1" -- "*" User : has registered
 
 
 
