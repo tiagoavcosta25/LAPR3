@@ -32,16 +32,35 @@ package "Model" #DDDDDD {
 }
 
 package "Model" #DDDDDD {
+class DronePark{
+-   int maxSlotsNumber
+}
+
+class DroneChargingSlot{
+-   int id
+-   float outputPower
+}
+
+class DroneParkingSlot{
+-   int id
+}
+
 class Drone{
+  +Drone(batteryPerc, charginStatus, potency,\n weight, batteryCapacity, maxPayload, batteryVoltage, pharmacyId)
+}
+
+class Vehicle{
   -int id
-  -float batteryPerc
-  -String charginStatus
   -float potency
   -float weight
-  -int batteryCapacity
   -float maxPayload
+}
+
+class Battery{
+  -int id
+  -float batteryPerc
+  -int batteryCapacity
   -float batteryVoltage
-  +Drone(batteryPerc, charginStatus, potency,\n weight, batteryCapacity, maxPayload, batteryVoltage, pharmacyId)
 }
 
 class Address{
@@ -93,7 +112,12 @@ DroneService "1" --> "*" Drone : manage services of
 Database "1" -- "*" Pharmacy : has registered >
 Database "1" -- "*" Drone : has registered >
 
+Vehicle "1" -- "1" Battery : has >
+Drone "*" -- "1" Vehicle : is a type of >
 Drone "*" -- "1" Pharmacy : belongs to >
 Pharmacy "1" -- "1" Address : has >
+Pharmacy "1" -- "1" DronePark : has >
+DronePark "1" -- "1" DroneChargingSlot : has >
+DronePark "1" -- "1" DroneParkingSlot : has >
 
 @enduml
