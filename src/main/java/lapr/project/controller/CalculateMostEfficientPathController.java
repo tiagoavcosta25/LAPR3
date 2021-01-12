@@ -4,6 +4,7 @@ import javafx.util.Pair;
 import lapr.project.data.DeliveryDB;
 import lapr.project.model.Address;
 import lapr.project.model.UserSession;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -22,12 +23,15 @@ public class CalculateMostEfficientPathController {
         this.m_oUserSession = ApplicationPOT.getInstance().getCurrentSession();
         String email = this.m_oUserSession.getCurrentUserEmail();
         List<Address> list = this.oDeliveryDB.getAddressesByDeliveryRunId(email);
-        Address a = list.get(list.size() - 1);
-        list.remove(list.size() - 1);
-        Pair<LinkedList<Address>, Double> result = this.oDeliveryDB.calculateMostEfficientPath(a, a, list);
-        if (result == null) {
-            return -1;
+        if (list != null) {
+            Address a = list.get(list.size() - 1);
+            list.remove(list.size() - 1);
+            Pair<LinkedList<Address>, Double> result = this.oDeliveryDB.calculateMostEfficientPath(a, a, list);
+            if (result == null) {
+                return -1;
+            }
+            return result.getValue();
         }
-        return result.getValue();
+        return -1;
     }
 }
