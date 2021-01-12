@@ -1,0 +1,28 @@
+@startuml
+autonumber
+hide footbox
+
+actor "Pharmacy Manager" as PHARMAN
+
+participant ":System" as SYST
+
+activate PHARMAN
+
+PHARMAN -> SYST : Sends a request regarding the register of a drone
+activate SYST
+SYST --> PHARMAN : Asks for the data that features the drone (i.e., battery percentage, \nbattery capacity, maximum weight, potency,\nmaximum payload, battery voltage, status, pharmacy id)
+deactivate SYST
+
+PHARMAN -> SYST : Inserts the required data
+activate SYST
+SYST -> PHARMAN : Shows the information about the drone, requesting verification
+deactivate SYST
+
+PHARMAN -> SYST : Confirms the information
+activate SYST
+SYST -> PHARMAN : Informs the success of the operation.
+deactivate SYST
+
+deactivate PHARMAN
+
+@enduml

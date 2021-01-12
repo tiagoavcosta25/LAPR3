@@ -182,7 +182,7 @@ public class ScooterTest {
 
         String s = "";
         assertNotEquals(scooterTest2,s);
-        
+
         Scooter oScooter3 = new Scooter(3, "Not Charging", 2, 2,
                 2, 2, new Pharmacy());
         Scooter oScooter4 = new Scooter(3, "Not Charging", 2, 2,
