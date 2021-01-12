@@ -5,15 +5,15 @@ database Database {
 }
 
 package "UI" #DDDDDD {
-class RemoveScooterUI{
+class RemoveDroneUI{
 }
 }
 
 package "Controller" #DDDDDD {
-class RemoveScooterController{
+class RemoveDroneController{
 +showPharmacies()
-+showScootersList(pharmacyId)
-+removeScooter(scooterId)
++showDroneList(pharmacyId)
++removeDrone(droneId)
 }
 }
 
@@ -25,24 +25,43 @@ package "Model" #DDDDDD {
       +getPharmacies()
   }
 
-  class ScooterService{
-      +ScooterService()
-      +getScootersList()
-      +removeScooter(scooterId)
+  class DroneService{
+      +DroneService()
+      +getDrones()
+      +removeDrone(droneId)
    }
 }
 
 package "Model" #DDDDDD {
-class Scooter{
+class DronePark{
+-   int maxSlotsNumber
+}
+
+class DroneChargingSlot{
+-   int id
+-   float outputPower
+}
+
+class DroneParkingSlot{
+-   int id
+}
+
+class Drone{
+  +Drone(batteryPerc, charginStatus, potency,\n weight, batteryCapacity, maxPayload, batteryVoltage, pharmacyId)
+}
+
+class Vehicle{
   -int id
-  -float batteryPerc
-  -String charginStatus
   -float potency
   -float weight
-  -int batteryCapacity
   -float maxPayload
+}
+
+class Battery{
+  -int id
+  -float batteryPerc
+  -int batteryCapacity
   -float batteryVoltage
-  +Scooter(batteryPerc, charginStatus, potency,\n weight, batteryCapacity, maxPayload, batteryVoltage, pharmacyId)
 }
 
 class Address{
@@ -58,7 +77,7 @@ class Address{
 class Pharmacy {
   -int id
   -String name
-  +getScootersList(pharmacyId)
+  +getDrones(pharmacyId)
 }
 }
 
@@ -73,30 +92,35 @@ class PharmacyDB{
      +getPharmacies()
  }
 
- class ScooterDB{
-     +ScooterDB()
+ class DroneDB{
+     +DroneDB()
      +getScootersList(pharmacyId)
-     +removeScooterFromDB(scooterId)
+     +removeDroneFromDB(droneId)
   }
 }
 
 class PharmacyDB extends DataHandler
-class ScooterDB extends DataHandler
+class DroneDB extends DataHandler
 
-RemoveScooterUI ..> RemoveScooterController
-RemoveScooterController ..> PharmacyService
-RemoveScooterController ..> ScooterService
+RemoveDroneUI ..> RemoveDroneController
+RemoveDroneController ..> PharmacyService
+RemoveDroneController ..> DroneService
 Database "1" --> "1" PharmacyDB : manages
-Database "1" --> "1" ScooterDB : manages
-ScooterService "1" --> "*" PharmacyDB : uses
-PharmacyService "1" --> "*" ScooterDB : uses
+Database "1" --> "1" DroneDB : manages
+PharmacyService "1" --> "*" PharmacyDB : uses
+DroneService "1" --> "*" DroneDB : uses
 PharmacyService "1" --> "*" Pharmacy : manage services of
-ScooterService "1" --> "*" Scooter : manage services of
+DroneService "1" --> "*" Drone : manage services of
 
 Database "1" -- "*" Pharmacy : has registered >
-Database "1" -- "*" Scooter : has registered >
+Database "1" -- "*" Drone : has registered >
 
-Scooter "*" -- "1" Pharmacy : belongs to >
+Vehicle "1" -- "1" Battery : has >
+Drone "*" -- "1" Vehicle : is a type of >
+Drone "*" -- "1" Pharmacy : belongs to >
 Pharmacy "1" -- "1" Address : has >
+Pharmacy "1" -- "1" DronePark : has >
+DronePark "1" -- "1" DroneChargingSlot : has >
+DronePark "1" -- "1" DroneParkingSlot : has >
 
 @enduml
