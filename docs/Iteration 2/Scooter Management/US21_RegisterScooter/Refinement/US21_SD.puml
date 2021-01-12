@@ -3,7 +3,7 @@ autonumber
 actor "Admin" as ADMIN
 
 participant ":RegisterScooterUI" as UI
-participant ":RegisterScooterScooterController" as CTRL
+participant ":RegisterScooterController" as CTRL
 participant "pharmServ \n:PharmacyService" as PHS
 participant "pharmDB \n:PharmacyDB" as PHDB
 participant "scootServ \n:ScooterService" as SS

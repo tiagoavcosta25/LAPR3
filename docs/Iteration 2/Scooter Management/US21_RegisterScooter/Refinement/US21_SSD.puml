@@ -10,7 +10,13 @@ activate ADMIN
 
 ADMIN -> SYST : Sends a request regarding the register of an electric scooter
 activate SYST
-SYST --> ADMIN : Asks for the data that features the electric scooter (i.e., battery, \nbattery capacity, maximum Weight, pharmacy id, status, potency, battery voltage,)
+
+SYST --> ADMIN : Shows the list of pharmacies and asks to choose one
+deactivate SYST
+ADMIN -> SYST : Chooses the pharmacy
+activate SYST
+
+SYST --> ADMIN : Asks for the data that features the drone (i.e., battery, \nbattery capacity, maximum Weight, status, potency, battery voltage,)
 deactivate SYST
 
 ADMIN -> SYST : Inserts the required data

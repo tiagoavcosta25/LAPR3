@@ -88,6 +88,7 @@ Database "1" --> "1" ScooterDB : manages
 ScooterService "1" --> "*" PharmacyDB : uses
 PharmacyService "1" --> "*" ScooterDB : uses
 PharmacyService "1" --> "*" Pharmacy : manage services of
+ScooterService "1" --> "*" Scooter : manage services of
 
 Database "1" -- "*" Pharmacy : has registered >
 Database "1" -- "*" Scooter : has registered >
