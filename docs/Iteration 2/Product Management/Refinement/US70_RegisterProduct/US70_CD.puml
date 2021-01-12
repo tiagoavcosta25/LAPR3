@@ -1,0 +1,58 @@
+@startuml
+skinparam classAttributeIconSize 0
+package "UI" #DDDDDD {
+    class RegisterProductUI{
+    }
+}
+
+package "Controller" #DDDDDD {
+    class RegisterProductController {
+        -ProductService prodService
+        +registerProduct(strName, strDescription, fltUnitaryPrice, fltUnitaryWeight);
+    }
+}
+
+package "Model" #DDDDDD {
+    class Product {
+        -int intId;
+        -String strName;
+        -String strDescription;
+        -float fltUnitaryPrice;
+        -float fltUnitaryWeight;
+        +Product(strName, strDescription, fltUnitaryPrice, fltUnitaryWeight)
+    }
+
+    package "Service" #DDDDDD {
+        class ProductService {
+            -ProductDB productDB
+            +validateInput(strName, strDescription, fltUnitaryPrice, fltUnitaryWeight)
+            +registerProductToDB(p)
+        }
+    }
+}
+
+
+package "Data" #DDDDDD {
+    class ProductDB {
+            +openConnection()
+            +closeAll()
+            +addProductToDB(Product p)
+            +addProductToDB(strName, strDescription, fltUnitaryPrice, fltUnitaryWeight)
+    }
+
+    class DataHandler {
+    }
+}
+
+database Database {
+
+}
+
+RegisterProductUI ..> RegisterProductController
+RegisterProductController ..> ProductService
+ProductService --> Product : creates
+ProductService --> ProductDB : has
+ProductDB --> Product : adds
+ProductDB --> Database: manages
+class ProductDB extends DataHandler
+@enduml

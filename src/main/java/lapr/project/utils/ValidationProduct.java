@@ -15,10 +15,20 @@ public class ValidationProduct {
         return p;
     }
 
+    /*public static boolean validateInputWithId(int intId, String strName, String strDescription,
+                                              float fltUnitaryPrice, float fltUnitaryWeight) {
+        return validateInput(strName, strDescription, fltUnitaryPrice, fltUnitaryWeight) && validateId(intId);
+    }*/
+
     public static Product validateInput(String strName, String strDescription, float fltUnitaryPrice, float fltUnitaryWeight) {
         if ("".equals(strName) || "".equals(strDescription) || fltUnitaryPrice <= 0 || fltUnitaryWeight <= 0) return null;
         return new Product(strName, strDescription, fltUnitaryPrice, fltUnitaryWeight);
     }
+
+    /*public static boolean validateInput(String strName, String strDescription, float fltUnitaryPrice, float fltUnitaryWeight) {
+        if ("".equals(strName) || "".equals(strDescription) || fltUnitaryPrice <= 0 || fltUnitaryWeight <= 0) return false;
+        return true;
+    }*/
 
     public static boolean validateId(int intId) {
         if(intId <= 0) return false;
