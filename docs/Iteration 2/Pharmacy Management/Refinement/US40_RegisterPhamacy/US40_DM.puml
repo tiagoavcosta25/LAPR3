@@ -11,19 +11,31 @@ class Pharmacy{
 -   String name
 }
 
-class Park{
+class ScooterPark{
 -   int maxSlotsNumber
 }
 
-class ChargingSlot{
+class ScooterChargingSlot{
 -   int id
 -   float outputPower
 }
 
-class ParkingSlot{
+class ScooterParkingSlot{
 -   int id
 }
 
+class DronePark{
+-   int maxSlotsNumber
+}
+
+class DroneChargingSlot{
+-   int id
+-   float outputPower
+}
+
+class DroneParkingSlot{
+-   int id
+}
 class Address{
 -   String streetName
 -   String doorNumber
@@ -36,11 +48,17 @@ class Address{
 
 Database "1" -- "*" Pharmacy : has registered >
 Database "1" -- "*" Address : has registered >
-Database "1" -- "*" Park : has registered >
-Database "1" -- "*" ChargingSlot : has registered >
-Database "1" -- "*" ParkingSlot : has registered >
-Pharmacy "1" -- "1" Park : has >
-Park "1" -- "1" ChargingSlot : has >
-Park "1" -- "1" ParkingSlot : has >
+Database "1" -- "*" DronePark : has registered >
+Database "1" -- "*" DroneChargingSlot : has registered >
+Database "1" -- "*" DroneParkingSlot : has registered >
+Database "1" -- "*" ScooterPark : has registered >
+Database "1" -- "*" ScooterChargingSlot : has registered >
+Database "1" -- "*" ScooterParkingSlot : has registered >
+Pharmacy "1" -- "1" DronePark : has >
+DronePark "1" -- "1" DroneChargingSlot : has >
+DronePark "1" -- "1" DroneParkingSlot : has >
+Pharmacy "1" -- "1" ScooterPark : has >
+ScooterPark "1" -- "1" ScooterChargingSlot : has >
+ScooterPark "1" -- "1" ScooterParkingSlot : has >
 Pharmacy "1" -- "1" Address : has >
 @enduml
