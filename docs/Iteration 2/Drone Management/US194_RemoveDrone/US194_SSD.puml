@@ -1,0 +1,26 @@
+@startuml
+autonumber
+hide footbox
+
+actor "Admin" as ADMIN
+
+participant ":System" as SYST
+
+activate ADMIN
+
+ADMIN -> SYST : Sends a request regarding the remove of an drone
+activate SYST
+SYST --> ADMIN : Shows the list of pharmacies and asks to choose one
+deactivate SYST
+ADMIN -> SYST : Chooses the pharmacy
+activate SYST
+SYST --> ADMIN : Shows the list of drones and asks to choose one
+deactivate SYST
+ADMIN -> SYST : Chooses the drone
+activate SYST
+SYST --> ADMIN : Removes the drone
+deactivate SYST
+
+deactivate ADMIN
+
+@enduml
