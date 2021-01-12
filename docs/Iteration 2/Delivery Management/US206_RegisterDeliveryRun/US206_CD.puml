@@ -69,7 +69,7 @@ class UserSession{
 +getCurrentUserEmail()
 }
 
-class DeliveryStatus{
+enum DeliveryStatus{
 +DeliveryStatus()
 }
 

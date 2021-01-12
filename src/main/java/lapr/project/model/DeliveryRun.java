@@ -1,7 +1,8 @@
-/*package lapr.project.model;
+package lapr.project.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class DeliveryRun {
 
@@ -20,7 +21,7 @@ public class DeliveryRun {
         this.m_oCourier = new Courier();
         this.m_oScooter = null;
         this.m_lstDelivery = new ArrayList<>();
-        this.m_oStatus = new DeliveryStatus();
+        this.m_oStatus = DeliveryStatus.IDLE;
     }
 
     public DeliveryRun(Courier m_oCourier) {
@@ -28,7 +29,7 @@ public class DeliveryRun {
         this.m_oCourier = m_oCourier;
         this.m_oScooter = null;
         this.m_lstDelivery = new ArrayList<>();
-        this.m_oStatus = new DeliveryStatus();
+        this.m_oStatus = DeliveryStatus.IDLE;
     }
 
     public DeliveryRun(Courier m_oCourier, List<Delivery> m_lstDelivery) {
@@ -36,7 +37,7 @@ public class DeliveryRun {
         this.m_oCourier = m_oCourier;
         this.m_lstDelivery = m_lstDelivery;
         this.m_oScooter = null;
-        this.m_oStatus = new DeliveryStatus();
+        this.m_oStatus = DeliveryStatus.IDLE;
     }
 
     public Integer getId() {
@@ -79,5 +80,27 @@ public class DeliveryRun {
         this.m_oStatus = oStatus;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        DeliveryRun that = (DeliveryRun) o;
+        return Objects.equals(m_intId, that.m_intId);
+    }
 
-}*/
+    @Override
+    public int hashCode() {
+        return Objects.hash(m_intId);
+    }
+
+    @Override
+    public String toString() {
+        return "DeliveryRun{" +
+                "m_intId=" + m_intId +
+                ", m_oCourier=" + m_oCourier +
+                ", m_oScooter=" + m_oScooter +
+                ", m_lstDelivery=" + m_lstDelivery +
+                ", m_oStatus=" + m_oStatus +
+                '}';
+    }
+}

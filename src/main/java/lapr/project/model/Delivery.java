@@ -1,6 +1,7 @@
-/*package lapr.project.model;
+package lapr.project.model;
 
 import java.util.Date;
+import java.util.Objects;
 
 public class Delivery {
 
@@ -10,10 +11,16 @@ public class Delivery {
 
     private String m_strNotes;
 
-    public Delivery(Order m_oOrder, Date m_dtDeliveryDate, String m_strNotes) {
+    public Delivery() {
+        m_oOrder = null;
+        m_dtDeliveryDate = new Date();
+        m_strNotes = "";
+    }
+
+    public Delivery(Order m_oOrder) {
         this.m_oOrder = m_oOrder;
-        this.m_dtDeliveryDate = m_dtDeliveryDate;
-        this.m_strNotes = m_strNotes;
+        this.m_dtDeliveryDate = new Date();
+        this.m_strNotes = "";
     }
 
     public Order getOrder() {
@@ -39,4 +46,21 @@ public class Delivery {
     public void setNotes(String strNotes) {
         this.m_strNotes = strNotes;
     }
-}*/
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Delivery delivery = (Delivery) o;
+        return Objects.equals(m_oOrder, delivery.m_oOrder);
+    }
+
+    @Override
+    public String toString() {
+        return "Delivery{" +
+                "m_oOrder=" + m_oOrder +
+                ", m_dtDeliveryDate=" + m_dtDeliveryDate +
+                ", m_strNotes='" + m_strNotes + '\'' +
+                '}';
+    }
+}

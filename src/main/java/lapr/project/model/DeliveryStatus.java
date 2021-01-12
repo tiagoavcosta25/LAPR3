@@ -1,14 +1,13 @@
-/*package lapr.project.model;
+package lapr.project.model;
 
-public class DeliveryStatus {
+import java.util.Objects;
 
+public enum DeliveryStatus {
+
+    IDLE("Idle"),INPROGRESS("In Progress");
     private String m_strDesignation;
 
-    public DeliveryStatus() {
-        this.m_strDesignation = "Idle";
-    }
-
-    public DeliveryStatus(String designation) {
+    DeliveryStatus(String designation) {
         this.m_strDesignation = designation;
     }
 
@@ -19,4 +18,12 @@ public class DeliveryStatus {
     public void setDesignation(String designation) {
         this.m_strDesignation = designation;
     }
-}*/
+
+
+    @Override
+    public String toString() {
+        return "DeliveryStatus{" +
+                "m_strDesignation='" + m_strDesignation + '\'' +
+                '}';
+    }
+}
