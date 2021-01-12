@@ -3,9 +3,9 @@ skinparam classAttributeIconSize 0
 hide methods
 left to right direction
 
-class Platform {
--   String designation
+database Database {
 }
+
 class Client{
 -   int IBAN
 -   long creditCardNumber
@@ -58,8 +58,13 @@ class CreditCard{
 -   int CCV
 }
 
-Platform "1" -- "*" Client : has registered >
-Platform "1" -- "*" Order : has registered >
+Database "1" -- "*" Client : has registered >
+Database "1" -- "*" Order : has registered >
+Database "1" -- "*" Product : has registered >
+Database "1" -- "*" Address : has registered >
+Database "1" -- "*" Invoice : has registered >
+Database "1" -- "*" Client : has registered >
+Database "1" -- "*" CreditCard : has registered >
 Order "1" -- "*" Product : has >
 Client "0..1" -- "1" User: acts as >
 Client "1" -- "1" Order : makes >
