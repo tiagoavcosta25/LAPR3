@@ -12,9 +12,6 @@ public class RegisterProductController {
         this.pr = new ProductDB(jdbcUrl, username, password);
     }
 
-    public RegisterProductController() {
-    }
-
     private Product validateInput(String strName, String strDescription, float fltUnitaryPrice, float fltUnitaryWeight) {
         return ValidationProduct.validateInput(strName, strDescription, fltUnitaryPrice, fltUnitaryWeight);
     }

@@ -15,9 +15,6 @@ public class MaxPayloadController {
         this.oDeliveryDB = new DeliveryDB(jdbcUrl, username, password);
     }
 
-    public MaxPayloadController() {
-    }
-
     public float getMaxPayload() {
         return this.oDeliveryDB.getMaxPayload(ApplicationPOT.getInstance().getCurrentSession().getCurrentUserEmail());
     }

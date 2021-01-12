@@ -12,9 +12,6 @@ public class UpdateProductController {
         this.pr = new ProductDB(jdbcUrl, username, password);
     }
 
-    public UpdateProductController() {
-    }
-
     private Product validateInput(int intId, String strName, String strDescription, float fltUnitaryPrice, float fltUnitaryWeight) {
         return ValidationProduct.validateInputWithId(intId, strName, strDescription, fltUnitaryPrice, fltUnitaryWeight);
     }

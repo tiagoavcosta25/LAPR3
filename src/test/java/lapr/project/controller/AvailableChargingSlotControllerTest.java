@@ -23,7 +23,7 @@ class AvailableChargingSlotControllerTest {
 
     @BeforeEach
     void setUp() {
-        this.availableChargingSlotController = new AvailableChargingSlotController();
+        this.availableChargingSlotController = new AvailableChargingSlotController("","","");
         this.mockCourierDB = Mockito.mock(CourierDB.class);
         initMocks(this);
     }

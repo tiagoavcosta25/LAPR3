@@ -32,7 +32,7 @@ class RemoveScooterControllerTest {
     @BeforeEach
     void setUp() {
         ApplicationPOT.getInstance().setCurrentSession(new UserSession("email"));
-        this.m_ctrl = new RemoveScooterController();
+        this.m_ctrl = new RemoveScooterController("","","");
         this.m_mockScooterDB = Mockito.mock(ScooterDB.class);
         this.m_mockPharmacyDB = Mockito.mock(PharmacyDB.class);
         initMocks(this);

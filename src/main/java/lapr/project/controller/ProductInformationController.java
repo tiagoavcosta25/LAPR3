@@ -12,9 +12,6 @@ public class ProductInformationController {
         this.pr = new ProductDB(jdbcUrl, username, password);
     }
 
-    public ProductInformationController() {
-    }
-
     public boolean verifyProductId(int intId) {
         return ValidationProduct.validateId(intId);
     }

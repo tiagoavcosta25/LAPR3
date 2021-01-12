@@ -11,9 +11,6 @@ public class RemoveProductController {
         this.pr = new ProductDB(jdbcUrl, username, password);
     }
 
-    public RemoveProductController() {
-    }
-
     public boolean verifyProductId(int intId) {
         return ValidationProduct.validateId(intId);
     }

@@ -24,7 +24,7 @@ public class MaxPayloadControllerTest {
     @BeforeEach
     void setUp() {
         this.expectedTrue = 10f;
-        this.maxPayloadController = new MaxPayloadController();
+        this.maxPayloadController = new MaxPayloadController("","","");
         this.mockDeliveryDB = Mockito.mock(DeliveryDB.class);
         initMocks(this);
     }

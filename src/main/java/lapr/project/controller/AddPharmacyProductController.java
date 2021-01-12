@@ -46,9 +46,6 @@ public class AddPharmacyProductController {
         this.m_oPharmacyDB = new PharmacyDB(jdbcUrl, username, password);
     }
 
-    public AddPharmacyProductController() {
-    }
-
     public boolean addPharmacyProduct(Product oProduct, Integer intStock) {
         try {
             if (oProduct == null || intStock < 0) throw new Exception();

@@ -25,7 +25,7 @@ public class KnowDeliveryControllerTest {
     @BeforeEach
     void setUp() {
         this.expectedTrue = new Order();
-        this.knowDeliveryController = new KnowDeliveryController();
+        this.knowDeliveryController = new KnowDeliveryController("","","");
         this.mockOrderDB = Mockito.mock(OrderDB.class);
         initMocks(this);
     }

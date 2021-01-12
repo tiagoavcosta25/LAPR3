@@ -31,7 +31,7 @@ class RegisterCourierControllerTest {
     @BeforeEach
     void setUp() {
         this.assertTrue = true;
-        this.registerCourierController = new RegisterCourierController();
+        this.registerCourierController = new RegisterCourierController("","","");
         this.mockCourierDB = Mockito.mock(CourierDB.class);
         this.mockPharmacyDB = Mockito.mock(PharmacyDB.class);
         initMocks(this);

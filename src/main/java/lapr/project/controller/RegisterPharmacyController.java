@@ -35,9 +35,6 @@ public class RegisterPharmacyController {
         this.m_oPharmacyDB = new PharmacyDB(jdbcUrl, username, password);
     }
 
-    public RegisterPharmacyController() {
-    }
-
     public Pharmacy newPharmacy(String strManagerName, String strEmail, String strPassword, Integer intNIF, String strName, Double dblLatitude,
                                 Double dblLongitude, String strStreetName, String strDoorNumber, String strPostalCode, String strLocality, String strCountry) {
         try {

@@ -47,7 +47,7 @@ class MakeAnOrderControllerTest {
                 "1o Direito", "4400-123", "Locality", "Country"), new Pharmacy(), new TreeMap<>());
         this.expectedValue = true;
         this.expectedNull = null;
-        this.makeAnOrderController = new MakeAnOrderController();
+        this.makeAnOrderController = new MakeAnOrderController("","","");
         this.mockOrderDB = Mockito.mock(OrderDB.class);
         this.mockClientDB = Mockito.mock(ClientDB.class);
         initMocks(this);

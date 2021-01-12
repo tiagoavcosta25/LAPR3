@@ -27,9 +27,6 @@ public class DeliveryAddressController {
         this.m_oCourierDB = new CourierDB(jdbcUrl, username, password);
     }
 
-    public DeliveryAddressController() {
-    }
-
     public Address getDeliveryAddress(){
         String email = ApplicationPOT.getInstance().getCurrentSession().getCurrentUserEmail();
         return m_oCourierDB.getDeliveryAddress(email);

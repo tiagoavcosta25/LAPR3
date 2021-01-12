@@ -44,9 +44,6 @@ public class RemoveScooterController {
         this.m_oScooterDB = new ScooterDB(jdbcUrl, username, password);
     }
 
-    public RemoveScooterController() {
-    }
-
     public List<Scooter> showScootersList () {
         try {
             this.m_oPharmacy = m_oPharmacyDB.getPharmacyByManagerEmail(ApplicationPOT.getInstance().

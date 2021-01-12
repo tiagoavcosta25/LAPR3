@@ -25,9 +25,6 @@ public class KnowDeliveryController {
         this.oOrderDB = new OrderDB(jdbcUrl, username, password);
     }
 
-    public KnowDeliveryController() {
-    }
-
     public Order getOrderByCour() {
         this.oCourierEmail = ApplicationPOT.getInstance().getCurrentSession().getCurrentUserEmail();
         this.oOrder = this.oOrderDB.getOrderByCourier(oCourierEmail);

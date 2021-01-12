@@ -23,7 +23,7 @@ class RegisterProductControllerTest {
 
     @BeforeEach
     void setUp() {
-        this.registerProductController = new RegisterProductController();
+        this.registerProductController = new RegisterProductController("","","");
         this.mockProductDB = Mockito.mock(ProductDB.class);
         initMocks(this);
     }

@@ -46,9 +46,6 @@ public class RegisterCourierController {
         this.oPharmacyDB = new PharmacyDB(jdbcUrl, username, password);
     }
 
-    public RegisterCourierController() {
-    }
-
     /**
      * The method receives Courier's name, email, nif and iban.
      * Initiates the CourierRegistration instance and the Courier instance with the provided data.

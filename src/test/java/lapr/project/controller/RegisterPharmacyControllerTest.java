@@ -31,7 +31,7 @@ class RegisterPharmacyControllerTest {
 
     @BeforeEach
     void setUp() throws NoSuchAlgorithmException {
-        this.registerPharmacyController = new RegisterPharmacyController();
+        this.registerPharmacyController = new RegisterPharmacyController("","","");
         this.mockPharmacyManagerDB = Mockito.mock(PharmacyManagerDB.class);
         this.mockPharmacyDB = Mockito.mock(PharmacyDB.class);
         this.oManager = new PharmacyManager("joel123@gmail.com", "12345", 123456789, "Joel");

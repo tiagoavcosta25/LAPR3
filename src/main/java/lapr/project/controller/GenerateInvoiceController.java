@@ -48,9 +48,6 @@ public class GenerateInvoiceController {
         this.m_oClientDB = new ClientDB(jdbcUrl, username, password);
     }
 
-    public GenerateInvoiceController() {
-    }
-
     public boolean newInvoice(Date dtInvoiceDate, float fltTotalPrice) {
         try {
             this.m_oClient = m_oClientDB.getClientByEmail(ApplicationPOT.getInstance().getCurrentSession().getCurrentUserEmail());

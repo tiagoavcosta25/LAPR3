@@ -37,9 +37,6 @@ public class RegisterScooterController {
         this.m_oScooterDB = new ScooterDB(jdbcUrl, username, password);
     }
 
-    public RegisterScooterController() {
-    }
-
     /**
      * The method receives Scooter's battery percentage, charging status, potency, weight, battery capacity and a pharmacy.
      * Initiates the Pharmacy instance and the Scooter instance with the provided data.

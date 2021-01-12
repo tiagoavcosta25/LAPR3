@@ -26,7 +26,7 @@ class SeeSuitableScooterControllerTest {
 
     @BeforeEach
     void setUp() {
-        this.seeSuitableScooterController = new SeeSuitableScooterController();
+        this.seeSuitableScooterController = new SeeSuitableScooterController("","","");
         this.mockScooterDB = Mockito.mock(ScooterDB.class);
         this.mockDeliveryDB = Mockito.mock(DeliveryDB.class);
         initMocks(this);

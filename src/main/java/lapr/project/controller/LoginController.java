@@ -10,9 +10,6 @@ public class LoginController {
         m_userReg = new UserDB(jdbcUrl, username, password);
     }
 
-    public LoginController() {
-    }
-
     /**
      * Logs a User in, by checking if there's any User in the DataBase that has
      * the 'email' and 'password' given by parameter

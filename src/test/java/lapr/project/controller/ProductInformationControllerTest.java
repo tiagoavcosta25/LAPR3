@@ -26,7 +26,7 @@ class ProductInformationControllerTest {
     @BeforeEach
     void setUp() {
         this.expectedProduct = new Product();
-        this.productInformationController = new ProductInformationController();
+        this.productInformationController = new ProductInformationController("","","");
         this.mockProductDB = Mockito.mock(ProductDB.class);
         initMocks(this);
     }

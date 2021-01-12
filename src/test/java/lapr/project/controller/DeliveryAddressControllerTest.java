@@ -27,7 +27,7 @@ class DeliveryAddressControllerTest {
     @BeforeEach
     void setUp() {
         ApplicationPOT.getInstance().setCurrentSession(new UserSession("test@gmail.com"));
-        this.m_ctrl = new DeliveryAddressController();
+        this.m_ctrl = new DeliveryAddressController("","","");
         this.m_mockCourierDB = Mockito.mock(CourierDB.class);
         initMocks(this);
     }

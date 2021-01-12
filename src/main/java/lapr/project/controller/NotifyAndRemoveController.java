@@ -36,9 +36,6 @@ public class NotifyAndRemoveController {
         this.oClientDB = new ClientDB(jdbcUrl, username, password);
     }
 
-    public NotifyAndRemoveController() {
-    }
-
     public boolean notifyAndRemove(){
         Client client = oClientDB.getClientByEmail(ApplicationPOT.getInstance().getCurrentSession().getCurrentUserEmail());
         Order order = oOrderDB.getLatestOrder(client);

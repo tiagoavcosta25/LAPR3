@@ -13,9 +13,6 @@ public class RegisterClientController {
         clientReg = new ClientDB(jdbcUrl, username, password);
     }
 
-    public RegisterClientController() {
-    }
-
     /**
      * Registers a new Client in the Database
      *

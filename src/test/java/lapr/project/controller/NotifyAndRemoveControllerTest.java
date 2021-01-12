@@ -28,7 +28,7 @@ class NotifyAndRemoveControllerTest {
 
     @BeforeEach
     void setUp() {
-        this.notifyAndRemoveController = new NotifyAndRemoveController();
+        this.notifyAndRemoveController = new NotifyAndRemoveController("","","");
         this.mockOrderDB = Mockito.mock(OrderDB.class);
         this.mockClientDB = Mockito.mock(ClientDB.class);
         initMocks(this);

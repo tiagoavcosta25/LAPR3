@@ -25,7 +25,7 @@ class LoginControllerTest {
 
     @BeforeEach
     void setUp() {
-        this.m_ctrl = new LoginController();
+        this.m_ctrl = new LoginController("","","");
         this.m_mockUserDB = Mockito.mock(UserDB.class);
         initMocks(this);
     }

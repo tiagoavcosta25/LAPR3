@@ -32,7 +32,7 @@ class GenerateInvoiceControllerTest {
 
     @BeforeEach
     void setUp() {
-        this.generateInvoiceController = new GenerateInvoiceController();
+        this.generateInvoiceController = new GenerateInvoiceController("","","");
         this.mockOrderDB = Mockito.mock(OrderDB.class);
         this.mockClientDB = Mockito.mock(ClientDB.class);
         this.mockInvoiceDB = Mockito.mock(InvoiceDB.class);

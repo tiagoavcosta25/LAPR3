@@ -62,9 +62,6 @@ public class MakeAnOrderController {
         this.m_oClientDB = new ClientDB(jdbcUrl, username, password);
     }
 
-    public MakeAnOrderController() {
-    }
-
     /**
      * The method creates a new order for a delivery to an address.
      */

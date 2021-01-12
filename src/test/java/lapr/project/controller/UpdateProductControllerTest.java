@@ -22,7 +22,7 @@ class UpdateProductControllerTest {
 
     @BeforeEach
     void setUp() {
-        this.updateProductController = new UpdateProductController();
+        this.updateProductController = new UpdateProductController("","","");
         this.mockProductDB = Mockito.mock(ProductDB.class);
         initMocks(this);
     }

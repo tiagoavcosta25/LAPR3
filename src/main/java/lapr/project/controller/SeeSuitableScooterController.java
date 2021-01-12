@@ -33,9 +33,6 @@ public class SeeSuitableScooterController {
         oScooterDB = new ScooterDB(jdbcUrl, username, password);
     }
 
-    public SeeSuitableScooterController() {
-    }
-
     public Scooter getSuitableScooter(Double distance){
         return oScooterDB.getSuitableScooter(distance, ApplicationPOT.getInstance().getCurrentSession().getCurrentUserEmail());
     }

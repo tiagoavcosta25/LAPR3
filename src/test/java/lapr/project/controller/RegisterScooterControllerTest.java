@@ -34,7 +34,7 @@ class RegisterScooterControllerTest {
     void setUp() {
         this.expectedTrue = new Scooter(35.5f, "Charging Test", 250f, 30f,
                 100, 20f, new Pharmacy());
-        this.registerScooterController = new RegisterScooterController();
+        this.registerScooterController = new RegisterScooterController("","","");
         this.mockScooterDB = Mockito.mock(ScooterDB.class);
         this.mockPharmacyDB = Mockito.mock(PharmacyDB.class);
         initMocks(this);

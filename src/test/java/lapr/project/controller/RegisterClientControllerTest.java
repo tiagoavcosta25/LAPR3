@@ -28,7 +28,7 @@ class RegisterClientControllerTest {
 
     @BeforeEach
     void setUp() {
-        this.m_ctrl = new RegisterClientController();
+        this.m_ctrl = new RegisterClientController("","","");
         this.m_mockClientDB = Mockito.mock(ClientDB.class);
         initMocks(this);
     }

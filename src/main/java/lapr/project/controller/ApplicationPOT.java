@@ -6,9 +6,6 @@ public class ApplicationPOT {
 
     private UserSession m_currentSession;
 
-    public ApplicationPOT() {
-    }
-
     private static ApplicationPOT singleton = null;
 
     public static ApplicationPOT getInstance()

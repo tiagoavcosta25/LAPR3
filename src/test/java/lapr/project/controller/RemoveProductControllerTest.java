@@ -22,7 +22,7 @@ class RemoveProductControllerTest {
 
     @BeforeEach
     void setUp() {
-        this.removeProductController = new RemoveProductController();
+        this.removeProductController = new RemoveProductController("","","");
         this.mockProductDB = Mockito.mock(ProductDB.class);
         initMocks(this);
     }

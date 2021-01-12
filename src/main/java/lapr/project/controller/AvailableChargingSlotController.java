@@ -28,9 +28,6 @@ public class AvailableChargingSlotController {
         oCourierDB = new CourierDB(jdbcUrl, username, password);
     }
 
-    public AvailableChargingSlotController() {
-    }
-
     public ChargingSlot getAvailableChargingSlot(){
         return oCourierDB.getAvailableChargingSlot(ApplicationPOT.getInstance().getCurrentSession().getCurrentUserEmail());
     }

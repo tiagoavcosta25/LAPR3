@@ -34,9 +34,6 @@ public class UpdateScooterController {
         this.m_oScooterDB = new ScooterDB(jdbcUrl, username, password);
     }
 
-    public UpdateScooterController() {
-    }
-
     public List<Scooter> getScootersList () {
         try {
             this.m_oPharmacy = m_oPharmacyDB.getPharmacyByManagerEmail(ApplicationPOT.getInstance().

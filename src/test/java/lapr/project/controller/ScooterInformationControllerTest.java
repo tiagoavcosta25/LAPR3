@@ -33,7 +33,7 @@ class ScooterInformationControllerTest {
     @BeforeEach
     void setUp() {
         ApplicationPOT.getInstance().setCurrentSession(new UserSession("email"));
-        this.m_ctrl = new ScooterInformationController();
+        this.m_ctrl = new ScooterInformationController("","","");
         this.m_mockScooterDB = Mockito.mock(ScooterDB.class);
         this.m_mockPharmacyDB = Mockito.mock(PharmacyDB.class);
         initMocks(this);
