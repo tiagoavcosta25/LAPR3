@@ -1,6 +1,5 @@
 package lapr.project.data;
 
-import lapr.project.data.DataHandler;
 import lapr.project.model.Address;
 import lapr.project.model.Client;
 import oracle.jdbc.OracleTypes;

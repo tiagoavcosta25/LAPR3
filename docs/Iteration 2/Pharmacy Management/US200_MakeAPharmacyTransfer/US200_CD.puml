@@ -10,12 +10,10 @@ class MakeAPharmacyTransferController{
 class ApplicationPOT
 {
   +static getInstance()
-  +getPlatform()
 }
 }
 
 package "Service" #DDDDDD {
-
    class PharmacyService{
           +create()
           +getClosestPharmacyWithStock(pharmacy, product, quantity)
@@ -23,13 +21,6 @@ package "Service" #DDDDDD {
           +registersPharmacyTransfer(pharmacyTransfer)
       }
  }
-
-
-package "Model" #DDDDDD {
-class Platform {
-  -String designation
-  +getPharmacyReg()
-}
 
 
 package "Model" #DDDDDD {
@@ -107,6 +98,7 @@ class DataHandler{
 }
 
 class PharmacyDB{
+          +create()
           +getClosestPharmacyWithStock(pharmacy, product, quantity)
           +registersPharmacyTransfer(pharmacyTransfer)
       }
@@ -116,11 +108,10 @@ class PharmacyDB extends DataHandler
 class PharmacyManager extends User
 class Client extends User
 
-MakeAPharmacyTransferController ..> Platform
 MakeAPharmacyTransferController ..> ApplicationPOT
-PharmacyRegistration ..> PharmacyDB
-Platform "1" --> "1" PharmacyRegistration : has
-PharmacyRegistration "1" --> "*" Pharmacy : manages
+MakeAPharmacyTransferController ..> PharmacyService
+PharmacyService "1" --> "*" Pharmacy : manages services of
+PharmacyService "1" --> "*" PharmacyDB : uses
 Pharmacy "1" -- "1" Address : has >
 Pharmacy "1" -- "1" PharmacyManager : has >
 PharmacyManager "0..1" -- "1" User: acts as >

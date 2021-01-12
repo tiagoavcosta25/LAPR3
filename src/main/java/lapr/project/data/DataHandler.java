@@ -3,11 +3,10 @@ package lapr.project.data;
 
 import lapr.project.model.*;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.security.NoSuchAlgorithmException;
 import java.sql.*;
+import java.util.Properties;
 import java.util.TreeMap;
 
 /**
@@ -98,6 +97,18 @@ public class DataHandler {
      * Use connection properties set on file application.properties
      */
     public DataHandler() {
+        try {
+            Properties properties =
+                    new Properties(System.getProperties());
+            InputStream input = new FileInputStream("target/classes/application.properties");
+            properties.load(input);
+            input.close();
+            System.setProperties(properties);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         this.jdbcUrl = System.getProperty("database.url");
         this.username = System.getProperty("database.username");
         this.password = System.getProperty("database.password");

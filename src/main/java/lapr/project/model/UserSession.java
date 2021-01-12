@@ -21,6 +21,7 @@ public class UserSession {
      * The Current User's email
      */
     private String m_currentUserEmail;
+
     /**
      * The Current User's role
      */
