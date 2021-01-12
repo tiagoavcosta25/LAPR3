@@ -184,7 +184,7 @@ public class ScooterRegistration extends DataHandler {
         return true;
     }
 
-    public Scooter getSuitableScooter(float deliveryEnergy, String email) {
+    public Scooter getSuitableScooter(Double distance, String email) {
         /* Objeto "callStmt" para invocar a função "getSailor" armazenada na BD.
          *
          * FUNCTION getSailor(id NUMBER) RETURN pkgSailors.ref_cursor
@@ -197,7 +197,7 @@ public class ScooterRegistration extends DataHandler {
             // Regista o tipo de dados SQL para interpretar o resultado obtido.
             callStmt.registerOutParameter(1, OracleTypes.CURSOR);
             // Especifica o parâmetro de entrada da função "getSailor".
-            callStmt.setFloat(2, deliveryEnergy);
+            callStmt.setDouble(2, distance);
             callStmt.setString(3, email);
 
             // Executa a invocação da função "getSailor".
