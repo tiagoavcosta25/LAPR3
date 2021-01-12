@@ -14,21 +14,23 @@ class ApplicationPOT
 }
 }
 
+package "Service" #DDDDDD {
+
+   class PharmacyService{
+          +create()
+          +getClosestPharmacyWithStock(pharmacy, product, quantity)
+          +addPharmacyTransfer(order, product, quantity, nearbyPharamcy)
+          +registersPharmacyTransfer(pharmacyTransfer)
+      }
+ }
+
 
 package "Model" #DDDDDD {
 class Platform {
   -String designation
   +getPharmacyReg()
 }
-package "Registration" #DDDDDD {
 
-   class PharmacyRegistration{
-          +getClosestPharmacyWithStock(pharmacy, product, quantity)
-          +addPharmacyTransfer(order, product, quantity, nearbyPharamcy)
-          +registersPharmacyTransfer(pharmacyTransfer)
-      }
- }
-}
 
 package "Model" #DDDDDD {
 abstract class User{

@@ -1,49 +1,38 @@
 @startuml
 autonumber
 participant ":MakeAPharmacyTransferController" as CTRL
-participant "PotApplication" as PA
-participant "app \n:PotApplication" as APA
-participant "plat \n:Platform" as PLAT
-participant "pharmReg \n:PharmacyRegistration" as PR
-participant "PharmacyDB" as PDB
+participant "pharmServ \n:PharmacyService" as PS
+participant "pharamcyDB\n:PharmacyDB" as PDB
 participant "pharmacyTransfer\n:PharmacyTransfer" as PT
 
 [o-> CTRL : getStockFromAnotherPharamacy\n(order, product, quantity)
 activate CTRL
-CTRL -> PA : app = getInstance()
-activate PA
-deactivate PA
-CTRL -> APA : plat = getPlatform()
-activate APA
-deactivate APA
-CTRL -> PLAT : pharmReg = getPharmacyReg()
-activate PLAT
-deactivate PLAT
-CTRL -> PR : nearbyPharamcy = getClosestPharmacyWithStock(pharmacy, product, quantity)
-activate PR
-activate PDB
-PR -> PDB : nearbyPharamcy = getClosestPharmacyWithStock\n(pharmacy, product, quantity)
-ref over PDB
-SD_CONNECTIONS
-end ref
-deactivate PDB
-deactivate PR
-
-CTRL -> PR : addPharmacyTransfer(order, product, quantity, nearbyPharamcy)
-activate PR
-PR -> PT** : addPharmacyTransfer(order, product, quantity, nearbyPharamcy)
-deactivate PR
-
-CTRL -> PR : registersPharmacyTransfer(pharmacyTransfer)
-activate PR
-PR -> PDB : registersPharmacyTransfer(pharmacyTransfer)
+CTRL -> PS** : create()
+CTRL -> PDB** : create()
+CTRL -> PS : nearbyPharamcy = getClosestPharmacyWithStock\n(pharmacy, product, quantity)
+activate PS
+PS -> PDB : nearbyPharamcy = getClosestPharmacyWithStock\n(pharmacy, product, quantity)
 activate PDB
 ref over PDB
 SD_CONNECTIONS
 end ref
 deactivate PDB
-deactivate PR
-deactivate PR
+deactivate PS
+
+CTRL -> PS : newPharamacyTransfer\n(order, product, quantity, nearbyPharamcy)
+activate PS
+PS -> PT** : create(order, product, quantity, nearbyPharamcy)
+deactivate PS
+
+CTRL -> PS : registersPharmacyTransfer(pharmacyTransfer)
+activate PS
+PS -> PDB : registersPharmacyTransfer(pharmacyTransfer)
+activate PDB
+ref over PDB
+SD_CONNECTIONS
+end ref
+deactivate PDB
+deactivate PS
 deactivate CTRL
 
 @enduml
