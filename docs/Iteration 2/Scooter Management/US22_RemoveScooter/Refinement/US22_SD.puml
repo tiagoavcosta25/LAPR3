@@ -1,0 +1,78 @@
+@startuml
+autonumber
+actor "Admin" as ADMIN
+
+participant ":RemoveScooterUI" as UI
+participant ":RemoveScooterScooterController" as CTRL
+participant "pharmServ \n:PharmacyService" as PHS
+participant "pharmDB \n:PharmacyDB" as PHDB
+participant "scootServ \n:ScooterService" as SS
+participant "scootDB \n:ScooterDB" as SDB
+
+
+
+activate ADMIN
+
+ADMIN -> UI : Sends a request regarding the remove of an electric scooter
+activate UI
+UI -> CTRL : showPharmacies()
+activate CTRL
+CTRL -> PHS ** : create()
+activate PHS
+PHS -> PHDB ** : create()
+deactivate PHS
+CTRL -> PHS : lstPharmacies = getPharmacies()
+activate PHS
+PHS -> PHDB : lstPharmacies = getPharmacies()
+activate PHDB
+ref over PHDB
+SD_CONNECTIONS
+end ref
+deactivate PHDB
+deactivate PHS
+deactivate CTRL
+UI -> ADMIN : Shows the list of pharmacies and asks to choose one
+deactivate UI
+
+ADMIN -> UI : Chooses the pharmacy
+activate UI
+UI -> CTRL : showScooterList(pharmacyId)
+activate CTRL
+CTRL -> SS ** : create()
+activate SS
+SS -> SDB ** : create()
+deactivate SS
+CTRL -> SS : lstScooters = getScootersList()
+activate SS
+SS -> SDB : lstScooters = getScootersList()
+activate SDB
+ref over SDB
+SD_CONNECTIONS
+end ref
+deactivate SDB
+deactivate SS
+deactivate CTRL
+UI -> ADMIN : Shows the list of eletric scooters and asks to choose one
+deactivate UI
+
+ADMIN -> UI : Chooses the eletric scooter
+activate UI
+UI -> CTRL : removeScooter(scooterId)
+activate CTRL
+CTRL -> SS : removeScooter(scooterId)
+activate SS
+SS -> SDB : removeScooterFromDB(scooterId)
+activate SDB
+ref over SDB
+SD_Connections
+end ref
+deactivate SDB
+deactivate CTRL
+deactivate SS
+UI -> ADMIN : Removes the eletric scooter
+
+deactivate UI
+
+deactivate ADMIN
+
+@enduml

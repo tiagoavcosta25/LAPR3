@@ -1,0 +1,42 @@
+@startuml
+skinparam classAttributeIconSize 0
+hide methods
+left to right direction
+
+database Database {
+}
+
+class Pharmacy {
+  -int id
+  -String name
+  -int parkingSlots
+  -int chargingSlots
+}
+
+class Scooter{
+  -int id
+  -float batteryPerc
+  -String charginStatus
+  -float potency
+  -float weight
+  -int batteryCapacity
+  -float maxPayload
+}
+
+class Address{
+  -float longitude
+  -float latitude
+  -String doorNumber
+  -String streetName
+  -String postalCode
+  -String locality
+  -String country
+}
+
+
+
+Database "1" -- "*" Pharmacy : has >
+Scooter "*" -- "1" Pharmacy : belongs to >
+Pharmacy "1" -- "1" Address : has >
+@enduml
+
