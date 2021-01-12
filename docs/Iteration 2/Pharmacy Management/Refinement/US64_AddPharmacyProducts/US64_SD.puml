@@ -1,85 +1,73 @@
 @startuml
 autonumber
-actor "Pharmacy Manager" as PM
+actor "Admin" as ADM
 
 participant ":AddPharmacyProductUI" as UI
 participant ":AddPharmacyProductController" as CTRL
-participant "PotApplication" as PA
-participant "app \n:PotApplication" as APA
 participant "session \n:UserSession" as US
-participant "plat \n:Platform" as PLAT
-participant "productReg \n:ProductRegistration" as PR
-participant "pharmReg \n:PharmacyRegistration" as PHR
+participant "productServ\n:ProductService" as PS
+participant "productDB\n:ProductDB" as PDB
+participant "pharmacyServ\n:PharmacyService" as PHS
+participant "pharmacyDB\n:PharmacyDB" as PHDB
 
 
 
-activate PM
+activate ADM
 
-PM -> UI : initiates the process adding a product to a pharmacy
+ADM -> UI : initiates the process adding a product to a pharmacy
 activate UI
-UI -> CTRL : lstProducts = getProducts()
+UI -> CTRL : lstProducts = getProducts(pharmacyId)
 activate CTRL
-CTRL -> PA : app = getInstance()
-activate PA
-deactivate PA
-CTRL -> APA : plat = getPlatform()
-activate APA
-deactivate APA
-CTRL -> US: email = getUserEmail()
-activate US
-deactivate US
-CTRL -> PLAT : productReg = getProductReg()
-activate PLAT
-deactivate PLAT
-CTRL -> PR : lstProducts = getProducts()
-activate PR
-ref over PR
+CTRL -> PS** : create()
+activate PS
+PS -> PDB** : create()
+deactivate PS
+CTRL -> PS : lstProducts = getProducts(pharmacyId)
+activate PS
+PS -> PDB : lstProducts = getProducts(pharmacyId)
+activate PDB
+ref over PDB
 SD_CONNECTIONS
 end ref
-deactivate PR
+deactivate PDB
+deactivate PS
 deactivate CTRL
-UI -> PM : shows the pharmacy's product list
+UI -> ADM : shows the pharmacy's product list
 deactivate UI
 
-PM -> UI : selects the product
+ADM -> UI : selects the product
 activate UI
-UI -> PM : asks for the stock for said product
+UI -> ADM : asks for the stock for said product
 deactivate UI
 
-PM -> UI : introduces the stock
+ADM -> UI : introduces the stock
 activate UI
 UI -> CTRL : addPharmacyProduct(product, stock)
 activate CTRL
-CTRL -> PLAT : pharmRegReg = getPharmacyReg()
-activate PLAT
-deactivate PLAT
-CTRL -> PHR : pharmacy = getPharmacyByManagerEmail(email)
-activate PHR
-ref over PHR
-SD_CONNECTIONS
-end ref
-deactivate PHR
 deactivate CTRL
 
 
-UI -> PM : validates, presents the information and asks for confirmation
+UI -> ADM : validates, presents the information and asks for confirmation
 deactivate UI
 
-PM -> UI : confirms
+ADM -> UI : confirms
 activate UI
 UI -> CTRL : registersPharmacyProduct()
 activate CTRL
-CTRL -> PHR : registersPharmacyProduct(pharmacy, product, stock)
-activate PHR
-ref over PHR
+CTRL -> PHS : registersPharmacyProduct(pharmacyId, product, stock)
+activate PHS
+PHS -> PHDB : registersPharmacyProduct(pharmacyId, product, stock)
+activate PHDB
+ref over PHDB
 SD_CONNECTIONS
 end ref
-deactivate PHR
-UI -> PM : informs the success of the operation
-deactivate PHR
+deactivate PHDB
+UI -> ADM : informs the success of the operation
+deactivate PHDB
+deactivate PHS
 deactivate CTRL
 deactivate UI
 
-deactivate PM
+deactivate ADM
 
 @enduml

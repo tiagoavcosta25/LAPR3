@@ -3,23 +3,12 @@ skinparam classAttributeIconSize 0
 hide methods
 left to right direction
 
-class Platform {
--   String designation
+database Database {
 }
 
 class Pharmacy{
 -   int id
 -   String name
-}
-
-class User{
--   String name
--   String email
--   String password
--   Integer nif
-}
-
-class PharmacyManager{
 }
 
 class Park{
@@ -43,12 +32,25 @@ class Product{
 -   float unitaryWeight
 }
 
-Platform "1" -- "*" Pharmacy : has registered >
-Platform "1" -- "*" PharmacyManager : has registered >
-PharmacyManager "0..1" -- "1" User: acts as >
-Pharmacy "1" -- "1" PharmacyManager : has >
+class Address{
+-   String streetName
+-   String doorNumber
+-   String postalCode
+-   String locality
+-   String country
+-   float longitude
+-   float latitude
+}
+
+Database "1" -- "*" Pharmacy : has registered >
+Database "1" -- "*" Address : has registered >
+Database "1" -- "*" Park : has registered >
+Database "1" -- "*" ChargingSlot : has registered >
+Database "1" -- "*" ParkingSlot : has registered >
+Database "1" -- "*" Product : has registered >
 Pharmacy "1" -- "1" Park : has >
 Pharmacy "1" -- "*" Product : has >
+Pharmacy "1" -- "*" Address : has >
 Park "1" -- "1" ChargingSlot : has >
 Park "1" -- "1" ParkingSlot : has >
 @enduml
