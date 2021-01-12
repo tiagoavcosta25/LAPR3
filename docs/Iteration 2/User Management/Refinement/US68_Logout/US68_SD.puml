@@ -7,9 +7,10 @@ actor "Client" as U
 participant "LogoutUI" as UI
 participant "LogoutController" as CTRL
 
-
+participant "UserService" as US
 participant "session\n:UserSession" as SES
 participant "ApplicationPOT" as _APP
+
 participant "app\n:ApplicationPOT" as APP
 participant "user\n:User" as USER
 
@@ -24,6 +25,9 @@ deactivate UI
 U -> UI : Confirms
 activate UI
 
+UI -> US : create()
+activate US
+deactivate US
 UI -> CTRL : logout()
 activate CTRL
 CTRL -> _APP: app = getInstance()
@@ -31,15 +35,19 @@ activate _APP
 deactivate _APP
 
 
-CTRL -> SES** : create()
+CTRL -> US : newUserSession()
+activate US
+
+US -> SES** : create()
 activate SES
-deactivate SES
+
 SES -> _APP : clearCurrentSession()
-
-
 activate _APP
-deactivate _APP
+deactivate SES
 
+
+deactivate _APP
+deactivate US
 deactivate CTRL
 
 UI --> U : Deallocates the current session from the user and\ninforms about the success of the operation

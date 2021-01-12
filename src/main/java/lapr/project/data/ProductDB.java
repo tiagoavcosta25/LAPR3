@@ -107,7 +107,7 @@ public class ProductDB extends DataHandler {
             CallableStatement callStmt = getConnection().prepareCall("{call updateProduct(?,?,?,?,?)}");
 
             //Especifica o parâmetro de entrada da função "updateProduct".
-
+            callStmt.setInt(1, intId);
             callStmt.setString(2, strName);
             callStmt.setString(3, strDescription);
             callStmt.setFloat(4, fltUnitaryPrice);

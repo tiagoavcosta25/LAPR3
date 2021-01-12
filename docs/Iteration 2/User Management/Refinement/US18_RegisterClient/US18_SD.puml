@@ -8,7 +8,7 @@ participant "RegisterClientUI" as UI
 participant "RegisterClientController" as CTRL
 participant "ApplicationPOT" as _APP
 participant "app\n:ApplicationPOT" as APP
-participant "plat\n:Platform" as PLAT
+participant "clientService\n:ClientService" as CS
 participant "clientDB\n:ClientDB" as UREG
 
 participant "client\n:Client" as USER
@@ -41,15 +41,22 @@ U -> UI : Confirms
 activate UI
 UI -> CTRL : registerNewClient(name,nif,email,password,latitude,longitude,streetName,\ndoorNumber,postalCode,locality,country,creditCardNr,validityDate,CCV)
 activate CTRL
-CTRL -> CTRL : validateInput(name,nif,email,password,latitude,longitude,streetName,\ndoorNumber,postalCode,locality,country,creditCardNr,validityDate,CCV)
-
+CTRL -> CS** : create()
+activate CS
+CS -> UREG** : create()
+deactivate CS
+CTRL -> CS : validateInput(name,nif,email,password,latitude,longitude,streetName,\ndoorNumber,postalCode,locality,country,creditCardNr,validityDate,CCV)
+activate CS
+deactivate CS
 alt if all the information given as input has a valid format
 
 
 
 
-
-CTRL -> USER** : create(name,nif,email,password,latitude,longitude,streetName,\ndoorNumber,postalCode,locality,country,creditCardNr,validityDate,CCV)
+CTRL -> CS : newClient(name,nif,email,password,latitude,longitude,streetName,\ndoorNumber,postalCode,locality,country,creditCardNr,validityDate,CCV)
+activate CS
+CS -> USER** : create(name,nif,email,password,latitude,longitude,streetName,\ndoorNumber,postalCode,locality,country,creditCardNr,validityDate,CCV)
+deactivate CS
 activate USER
 
 USER -> US** : create(email,password,nif,name)
@@ -68,21 +75,20 @@ deactivate USER
 
 
 
-CTRL -> UREG : registerNewClient(client)
-activate UREG
-
-
-
-
-
-
-UREG -> UREG : addClientToDB(client)
+CTRL -> CS : registerNewClient(client)
+activate CS
+CS -> UREG : addClientToDB(client)
 ref over UREG
 SD_CONNECTIONS
 end ref
-
-
+activate UREG
 deactivate UREG
+
+
+
+
+
+deactivate CS
 
 
 

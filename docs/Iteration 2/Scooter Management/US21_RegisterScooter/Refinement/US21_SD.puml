@@ -1,0 +1,80 @@
+@startuml
+autonumber
+actor "Admin" as ADMIN
+
+participant ":RegisterScooterUI" as UI
+participant ":RegisterScooterController" as CTRL
+participant "pharmServ \n:PharmacyService" as PHS
+participant "pharmDB \n:PharmacyDB" as PHDB
+participant "scootServ \n:ScooterService" as SS
+participant "scootDB \n:ScooterDB" as SDB
+participant "scoot \n:Scooter" as SC
+
+activate ADMIN
+
+ADMIN -> UI : initializes the register of a new scooter
+activate UI
+UI -> CTRL : showPharmacies()
+activate CTRL
+CTRL -> PHS ** : create()
+activate PHS
+PHS -> PHDB ** : create()
+deactivate PHS
+CTRL -> PHS : lstPharmacies = getPharmacies()
+activate PHS
+PHS -> PHDB : lstPharmacies = getPharmacies()
+activate PHDB
+ref over PHDB
+SD_CONNECTIONS
+end ref
+deactivate PHDB
+deactivate PHS
+deactivate CTRL
+UI -> ADMIN : Shows the list of pharmacies and asks to choose one
+deactivate UI
+
+ADMIN -> UI : Chooses the pharmacy
+activate UI
+UI -> ADMIN : asks for the data that features the scooter (i.e., battery, \nbattery capacity, maximum weight, pharmacy, status, potency)
+deactivate UI
+
+ADMIN -> UI : inserts the required data
+activate UI
+UI -> CTRL : newScooter(batteryPerc, chargingStatus,\n potency, weight, batteryCapacity, maxPayload, pharmacyId)
+activate CTRL
+
+CTRL -> SS : create()
+activate SS
+SS -> SDB ** : create()
+deactivate SS
+
+CTRL -> SS : newScooter(batteryPerc, chargingStatus, potency, weight, batteryCapacity, maxPayload, pharmacyId)
+activate SS
+SS -> SC ** : create(batteryPerc, chargingStatus,\n potency, weight, batteryCapacity, maxPayload, pharmacyId)
+deactivate SS
+deactivate CTRL
+
+
+UI -> ADMIN : validates, presents the data and asks for a confirmation
+deactivate UI
+
+ADMIN -> UI : confirms
+activate UI
+UI -> CTRL : registersScooter()
+activate CTRL
+CTRL -> SS : registersScooter(scooter)
+activate SS
+SS -> SDB : registersScooter(scooter)
+activate SDB
+ref over SDB
+SD_Connections
+end ref
+deactivate SDB
+deactivate SS
+deactivate CTRL
+UI -> ADMIN : informs the success of the operation
+deactivate UI
+
+deactivate ADMIN
+
+@enduml

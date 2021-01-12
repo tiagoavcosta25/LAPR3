@@ -1,0 +1,56 @@
+@startuml
+skinparam classAttributeIconSize 0
+package "UI" #DDDDDD {
+    class ProductInformationUI{
+    }
+}
+
+package "Controller" #DDDDDD {
+    class ProductInformationController {
+        -ProductService prodService
+        +getProduct(intId);
+    }
+}
+
+package "Model" #DDDDDD {
+    class Product {
+        -int intId;
+        -String strName;
+        -String strDescription;
+        -float fltUnitaryPrice;
+        -float fltUnitaryWeight;
+        +Product(intId, strName, strDescription, fltUnitaryPrice, fltUnitaryWeight)
+    }
+
+    package "Service" #DDDDDD {
+        class ProductService {
+            -ProductDB productDB
+            +validateId(intId)
+            +getProductFromDB(intId)
+        }
+    }
+}
+
+
+package "Data" #DDDDDD {
+    class ProductDB {
+            +openConnection()
+            +closeAll()
+            +getProductFromDB(intId)
+    }
+
+    class DataHandler {
+    }
+}
+
+database Database {
+
+}
+
+ProductInformationUI ..> ProductInformationController
+ProductInformationController ..> ProductService
+ProductService --> ProductDB : has
+ProductDB --> Database: manages
+ProductDB --> Product : creates
+class ProductDB extends DataHandler
+@enduml

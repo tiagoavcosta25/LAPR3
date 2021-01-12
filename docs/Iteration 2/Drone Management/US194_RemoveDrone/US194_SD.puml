@@ -1,0 +1,78 @@
+@startuml
+autonumber
+actor "Admin" as ADMIN
+
+participant ":RemoveDroneUI" as UI
+participant ":RemoveDroneController" as CTRL
+participant "pharmServ \n:PharmacyService" as PHS
+participant "pharmDB \n:PharmacyDB" as PHDB
+participant "droneServ \n:DroneService" as DS
+participant "droneDB \n:DronerDB" as DDB
+
+
+
+activate ADMIN
+
+ADMIN -> UI : Sends a request regarding the remove of a drone
+activate UI
+UI -> CTRL : showPharmacies()
+activate CTRL
+CTRL -> PHS ** : create()
+activate PHS
+PHS -> PHDB ** : create()
+deactivate PHS
+CTRL -> PHS : lstPharmacies = getPharmacies()
+activate PHS
+PHS -> PHDB : lstPharmacies = getPharmacies()
+activate PHDB
+ref over PHDB
+SD_CONNECTIONS
+end ref
+deactivate PHDB
+deactivate PHS
+deactivate CTRL
+UI -> ADMIN : Shows the list of pharmacies and asks to choose one
+deactivate UI
+
+ADMIN -> UI : Chooses the pharmacy
+activate UI
+UI -> CTRL : showDroneList(pharmacyId)
+activate CTRL
+CTRL -> DS ** : create()
+activate DS
+DS -> DDB ** : create()
+deactivate DS
+CTRL -> DS : lstDrones = getDrones()
+activate DS
+DS -> SDB : lstDrones = getDrones()
+activate DDB
+ref over DDB
+SD_CONNECTIONS
+end ref
+deactivate DDB
+deactivate DS
+deactivate CTRL
+UI -> ADMIN : Shows the list of drones and asks to choose one
+deactivate UI
+
+ADMIN -> UI : Chooses the drone
+activate UI
+UI -> CTRL : removeDrone(droneId)
+activate CTRL
+CTRL -> DS : removeDrone(droneId)
+activate DS
+DS -> DDB : removeDroneFromDB(droneId)
+activate DDB
+ref over DDB
+SD_Connections
+end ref
+deactivate DDB
+deactivate CTRL
+deactivate DS
+UI -> ADMIN : Removes the drone
+
+deactivate UI
+
+deactivate ADMIN
+
+@enduml

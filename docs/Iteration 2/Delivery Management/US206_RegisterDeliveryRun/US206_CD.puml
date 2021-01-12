@@ -58,7 +58,7 @@ class Delivery{
 }
 
 class DeliveryRun{
-+DeliveryRun(courier,lstDelivery)
++DeliveryRun(courier,lstAddress)
 }
 
 }
@@ -69,32 +69,53 @@ class UserSession{
 +getCurrentUserEmail()
 }
 
+package "Service" #DDDDDD {
+
+class PharmacyService {
++getPharmacyByManagerEmail(email)
+}
+
+class OrderService {
++getOrdersFromPharmacy(pharmacy)
+}
+
+class DeliveryRunService {
++newDelivery(order)
++getSuitableCourier()
++newDeliveryRun(courier,lstAddress)
++addNewDeliveryRun(deliveryRun)
++addDelivery(lstDelivery)
+}
+
+}
+
 enum DeliveryStatus{
 +DeliveryStatus()
 }
-
-
-
-
 }
+
+
 
 
 
 
 RegisterDeliveryRunUI ..> RegisterDeliveryRunController
+RegisterDeliveryRunController ..> PharmacyService
+RegisterDeliveryRunController ..> OrderService
+RegisterDeliveryRunController ..> DeliveryRunService
 RegisterDeliveryRunController ..> ApplicationPOT
-RegisterDeliveryRunController ..> PharmacyDB
-RegisterDeliveryRunController ..> OrderDB
-RegisterDeliveryRunController ..> DeliveryRunDB
+PharmacyService "1" --> "1" PharmacyDB : has >
+OrderService "1" --> "1" OrderDB : has >
+DeliveryRunService "1" --> "1" DeliveryRunDB : has >
 
 DeliveryRun "1" --> "*" Delivery : has
 DeliveryRun "1" --> "1" DeliveryStatus : has
 
-OrderDB "1" --> "*" DeliveryRun : adds
+DeliveryRunService "1" --> "*" DeliveryRun : creates
 
 class DeliveryRunDB extends DataHandler
 class OrderDB extends DataHandler
 class PharmacyDB extends DataHandler
-ApplicationPOT "1" --> "1" UserSession : has
+ApplicationPOT "1" -> "1" UserSession : has
 
 @enduml
