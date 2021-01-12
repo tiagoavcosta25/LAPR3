@@ -17,6 +17,10 @@ public class PharmacyDB extends DataHandler {
         super(jdbcUrl, username, password);
     }
 
+    public PharmacyDB() {
+        super();
+    }
+
     public Pharmacy getPharmacy(int id) {
 
         CallableStatement callStmt = null;

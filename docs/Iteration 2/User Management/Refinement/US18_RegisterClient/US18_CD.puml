@@ -19,7 +19,6 @@ class RegisterClientUI{
 
 package "Controller" #DDDDDD {
 class RegisterClientController{
-+validateInput(name,nif,email,password,latitude,longitude,streetName,\ndoorNumber,postalCode,locality,country,creditCardNr,validityDate,CCV)
 +registerNewClient(name,nif,email,password,latitude,longitude,streetName,\ndoorNumber,postalCode,locality,country,creditCardNr,validityDate,CCV)
 }
 }
@@ -40,6 +39,17 @@ abstract class User{
 -Integer nif
 -String name
 +User(email,password,nif,name)
+}
+
+package Service #DDDDDD {
+
+class ClientService{
++ClientService()
++validateInput(name,nif,email,password,latitude,longitude,streetName,\ndoorNumber,postalCode,locality,country,creditCardNr,validityDate,CCV)
++newClient(name,nif,email,password,latitude,longitude,streetName,\ndoorNumber,postalCode,locality,country,creditCardNr,validityDate,CCV)
++registerNewClient(client)
+}
+
 }
 
 class Client extends User
@@ -81,7 +91,7 @@ class DataHandler{
 }
 
  class ClientDB{
- +registerNewClient(client)
+ +ClientDB()
  +addClientToDB(client)
  }
 
@@ -95,9 +105,12 @@ class EncryptPassword {
 }
 
 
+
 RegisterClientUI ..> RegisterClientController
 RegisterClientController ..> ApplicationPOT
-RegisterClientController ..> ClientDB
+RegisterClientController ..> ClientService
+ClientService "1" --> "*" Client : creates
+ClientService "1" -> "1" ClientDB : has
 ClientDB "1" --> "*" Client : adds
 class ClientDB extends DataHandler
 Client "1" --> "1" Address : has
