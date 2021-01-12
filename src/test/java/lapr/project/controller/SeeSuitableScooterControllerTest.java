@@ -36,8 +36,7 @@ class SeeSuitableScooterControllerTest {
     @Test
     void getSuitableScooter() {
         ApplicationPOT.getInstance().setCurrentSession(new UserSession("email3@gmail.com"));
-        when(mockDeliveryRegistration.getDeliveryEnergy(-1d)).thenReturn(-1f);
-        when(mockScooterRegistration.getSuitableScooter(-1f, "email3@gmail.com")).thenReturn(new Scooter());
+        when(mockScooterRegistration.getSuitableScooter(-1d, "email3@gmail.com")).thenReturn(new Scooter());
 
         Scooter expectedScooter = new Scooter();
         Scooter result = seeSuitableScooterController.getSuitableScooter(-1d);

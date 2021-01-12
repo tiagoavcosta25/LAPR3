@@ -40,8 +40,7 @@ public class SeeSuitableScooterController {
     }
 
     public Scooter getSuitableScooter(Double distance){
-        float deliveryEnergy = oDeliveryRegistration.getDeliveryEnergy(distance);
-        return oScooterRegistration.getSuitableScooter(deliveryEnergy, ApplicationPOT.getInstance().getCurrentSession().getCurrentUserEmail());
+        return oScooterRegistration.getSuitableScooter(distance, ApplicationPOT.getInstance().getCurrentSession().getCurrentUserEmail());
     }
 
 }
