@@ -39,6 +39,16 @@ class Order{
 -   String status
 }
 
+class Address{
+-   String streetName
+-   String doorNumber
+-   String postalCode
+-   String locality
+-   String country
+-   float longitude
+-   float latitude
+}
+
 class Product{
 -   int id
 -   String name
@@ -60,6 +70,7 @@ Platform "1" -- "*" Product : has registered >
 Platform "1" -- "*" Client : has registered >
 PharmacyManager "0..1" -- "1" User: acts as >
 Pharmacy "1" -- "1" PharmacyManager : has >
+Pharmacy "1" -- "1" Address : has >
 Order "1" -- "*" Product : has >
 Order "1" -- "*" Pharmacy : has >
 Client "0..1" -- "1" User: acts as >
