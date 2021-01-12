@@ -2,7 +2,7 @@
 autonumber
 hide footbox
 
-actor "Manager" as U
+actor "Admin" as U
 
 participant "RegisterDeliveryRunUI" as UI
 participant "RegisterDeliveryRunController" as CTRL
@@ -10,12 +10,13 @@ participant "ApplicationPOT" as _APP
 participant "app\n:ApplicationPOT" as APP
 participant "session\n:UserSession" as SESSION
 
-participant "PharmacyService" as PS
-participant "OrderService" as OS
-participant "DeliveryRunService" as DRS
-participant "PharmacyDB" as PDB
-participant "OrderDB" as ODB
-participant "DeliveryRunDB" as DB
+participant "pharmacyService\n:PharmacyService" as PS
+participant "orderService\n:OrderService" as OS
+participant "deliveryRunService\n:DeliveryRunService" as DRS
+participant "pharmacyDB\n:PharmacyDB" as PDB
+participant "orderDB\n:OrderDB" as ODB
+participant "deliveryRunDB\n:DeliveryRunDB" as DB
+participant "Address" as A
 participant "delivery\n:Delivery" as D
 participant "deliveryRun\n:DeliveryRun" as DR
 participant "status\n:DeliveryStatus" as DS
@@ -28,8 +29,42 @@ activate U
 U -> UI : Initiates the registration of a delivery run
 activate UI
 
-UI -> CTRL : lstOrders = getOrders()
+
+
+
+
+
+
+
+deactivate ODB
+deactivate CTRL
+
+
+UI --> U: Asks for a list of order ids
+
+deactivate UI
+
+
+
+
+U -> UI : Gives an order id list
+activate UI
+UI -> CTRL : addNewDelivery(lstOrderId)
 activate CTRL
+CTRL -> PS** : create()
+activate PS
+PS -> PDB** : create()
+deactivate PS
+
+CTRL -> OS** : create()
+activate OS
+OS -> ODB** : create()
+deactivate OS
+
+CTRL -> DRS** : create()
+activate DRS
+DRS -> DB** : create()
+deactivate DRS
 CTRL -> _APP: app = getInstance()
 activate _APP
 deactivate _APP
@@ -38,70 +73,19 @@ CTRL -> APP : session = getCurrentSession()
 activate APP
 deactivate APP
 
-CTRL -> SESSION: email = getCurrentUserEmail()
-activate SESSION
-deactivate SESSION
 
-
-CTRL -> PS : getPharmacyByManagerEmail(email)
-activate PS
-PS -> PDB : getPharmacyByManagerEmail(email)
-activate PDB
-deactivate PDB
-deactivate PS
-
-ref over PDB
-SD_CONNECTIONS
-end ref
-
-
-CTRL -> OS : getOrdersFromPharmacy(pharmacy)
-activate OS
-OS -> ODB : lstOrders = getOrdersFromPharmacy(pharmacy)
-activate ODB
-deactivate OS
-
-
-ref over ODB
-SD_CONNECTIONS
-end ref
-deactivate ODB
-deactivate CTRL
-
-
-loop until there are no more valid orders to choose\nfrom
-UI --> U: Shows the list of orders
-
-deactivate UI
-
-
-
-
-U -> UI : Chooses an order
-activate UI
-UI -> CTRL : addNewDelivery(order)
-activate CTRL
-CTRL -> DRS : newDelivery(order)
+CTRL -> DRS : lstAddress = getAddressesFromOrdersList(lstOrderId)
 activate DRS
-DRS -> DB : newDelivery(order)
-deactivate DRS
+DRS -> DB : getAddressesFromOrdersList(lstOrderId)
 activate DB
-DB -> D** : create(order)
+
+ref over DB
+SD_CONNECTIONS
+end ref
 deactivate DB
-
-UI --> U : Checks if the manager wants to choose\nanother order
-deactivate CTRL
-deactivate UI
-end
+deactivate DRS
 
 
-U -> UI : Confirms that there are no more orders\nthat he wants to add
-
-activate UI
-
-UI -> CTRL : newDeliveryRun()
-
-activate CTRL
 
 CTRL -> DRS : courier = getSuitableCourier()
 activate DRS
@@ -114,12 +98,12 @@ ref over DB
 SD_CONNECTIONS
 end ref
 
-CTRL -> DRS : lstDelivery = calculateShortestPath()
+CTRL -> DRS : lstAddress = calculateShortestPath()
 activate DRS
 deactivate DRS
-CTRL -> DRS : deliveryRun = newDeliveryRun(courier,lstDelivery)
+CTRL -> DRS : deliveryRun = newDeliveryRun(courier,lstAddress)
 activate DRS
-DRS -> DR** : create(courier,lstDelivery)
+DRS -> DR** : create(courier,lstAddress)
 activate DR
 DR -> DS** : create()
 deactivate DRS
@@ -153,6 +137,13 @@ deactivate CTRL
 
 UI --> U : Registers the delivery run and informs\nabout the success of the operation
 deactivate UI
+
+
+
+
+
+
+
 
 
 
