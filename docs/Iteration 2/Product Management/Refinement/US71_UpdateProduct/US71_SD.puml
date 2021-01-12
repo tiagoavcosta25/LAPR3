@@ -6,8 +6,8 @@ actor "Admin" as U
 
 participant "UpdateProductUI" as UI
 participant "UpdateProductController" as CTRL
-participant "ProductService" as SER
-participant "ProductDB" as DB
+participant "pSer:ProductService" as SER
+participant "pDB:ProductDB" as DB
 
 activate U
 U -> UI : Engages the update product feature/button
@@ -16,9 +16,13 @@ UI --> U : Asks for all the information required for the update (id, name, descr
 deactivate UI
 U -> UI : Fills all the information required
 activate UI
-UI -> CTRL : updateProduct(intId, strName, strDescription, fltUnitaryPrice, fltUnitaryWeight);
+UI -> CTRL : updateProduct(intId, strName, strDescription, fltUnitaryPrice, fltUnitaryWeight)
 activate CTRL
-CTRL -> SER : updateProduct(intId, strName, strDescription, fltUnitaryPrice, fltUnitaryWeight);
+CTRL -> SER** : create()
+activate SER
+SER -> DB** : create()
+deactivate SER
+CTRL -> SER : updateProduct(intId, strName, strDescription, fltUnitaryPrice, fltUnitaryWeight)
 activate SER
 SER -> SER : validateInputWithId(intId, strName, strDescription, fltUnitaryPrice, fltUnitaryWeight)
 SER -> SER : validateId(intId)

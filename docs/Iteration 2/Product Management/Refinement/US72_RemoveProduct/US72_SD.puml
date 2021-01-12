@@ -16,9 +16,13 @@ UI --> U : Asks for the id of the product to update
 deactivate UI
 U -> UI : Gives the required id
 activate UI
-UI -> CTRL : removeProduct(intId);
+UI -> CTRL : removeProduct(intId)
 activate CTRL
-CTRL -> SER : removeProduct(intId);
+CTRL -> SER** : create()
+activate SER
+SER -> DB** : create()
+deactivate SER
+CTRL -> SER : removeProduct(intId)
 activate SER
 SER -> SER : validateId(intId)
 opt if the id given as input has a valid format
