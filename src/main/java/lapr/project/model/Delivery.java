@@ -1,4 +1,4 @@
-package lapr.project.model;
+/*package lapr.project.model;
 
 import java.util.Date;
 
@@ -39,4 +39,4 @@ public class Delivery {
     public void setNotes(String strNotes) {
         this.m_strNotes = strNotes;
     }
-}
+}*/

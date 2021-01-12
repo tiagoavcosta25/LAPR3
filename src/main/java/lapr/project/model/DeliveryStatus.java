@@ -1,4 +1,4 @@
-package lapr.project.model;
+/*package lapr.project.model;
 
 public class DeliveryStatus {
 
@@ -19,4 +19,4 @@ public class DeliveryStatus {
     public void setDesignation(String designation) {
         this.m_strDesignation = designation;
     }
-}
+}*/
