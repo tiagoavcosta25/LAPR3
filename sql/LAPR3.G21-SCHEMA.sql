@@ -54,7 +54,7 @@ CREATE TABLE PaymentMethodInvoice (creditCardNr number(16) NOT NULL, invoiceId n
 CREATE TABLE Pharmacy (id number(10) GENERATED AS IDENTITY, name varchar2(70) NOT NULL, addressId number(10) NOT NULL, managerId number(10) NOT NULL, PRIMARY KEY (id));
 CREATE TABLE PharmacyManager (userId number(10) NOT NULL, PRIMARY KEY (userId));
 CREATE TABLE PharmacyProduct (pharmacyId number(10) NOT NULL, productId number(10) NOT NULL, stock number(10) DEFAULT 0 NOT NULL, PRIMARY KEY (pharmacyId, productId));
-CREATE TABLE PharmacyTransfer (id number(10) GENERATED AS IDENTITY, firstPharmacyId number(10) NOT NULL, secondPharmacyId number(10) NOT NULL, transferDate number(10) NOT NULL, productIid number(10) NOT NULL, orderId number(10) NOT NULL, PRIMARY KEY (id));
+CREATE TABLE PharmacyTransfer (id number(10) GENERATED AS IDENTITY, originPharmacyId number(10) NOT NULL, transferDate number(10) NOT NULL, productIid number(10) NOT NULL, orderId number(10) NOT NULL, PRIMARY KEY (id));
 CREATE TABLE Product (id number(10) GENERATED AS IDENTITY, name varchar2(70) NOT NULL UNIQUE, description varchar2(255), unitaryPrice float(10) NOT NULL, unitaryWeight float(10) NOT NULL, PRIMARY KEY (id));
 CREATE TABLE Scooter (id number(10) GENERATED AS IDENTITY, pharmacyId number(10) NOT NULL, batteryPerc float(5) NOT NULL, potency float(10) NOT NULL, weight float(10) NOT NULL, batteryCapacity number(10) NOT NULL, maxPayload float(10) NOT NULL, batteryVoltage float(10) NOT NULL, chargingStatus varchar2(20) NOT NULL, PRIMARY KEY (id));
 CREATE TABLE ScooterChargingSlot (id number(10) GENERATED AS IDENTITY, scooterParkPharmacyId number(10) NOT NULL, scooterId number(10) UNIQUE, outputPower float(10) NOT NULL, PRIMARY KEY (id));
@@ -106,7 +106,6 @@ ALTER TABLE Scooter ADD CONSTRAINT FKScooter100160 FOREIGN KEY (chargingStatus) 
 ALTER TABLE Scooter ADD CONSTRAINT FKScooter208093 FOREIGN KEY (pharmacyId) REFERENCES Pharmacy (id);
 ALTER TABLE DeliveryRun ADD CONSTRAINT FKDeliveryRu960113 FOREIGN KEY (droneId) REFERENCES Drone (id);
 ALTER TABLE Drone ADD CONSTRAINT FKDrone902152 FOREIGN KEY (pharmacyId) REFERENCES Pharmacy (id);
-ALTER TABLE PharmacyTransfer ADD CONSTRAINT FKPharmacyTr836999 FOREIGN KEY (firstPharmacyId) REFERENCES Pharmacy (id);
-ALTER TABLE PharmacyTransfer ADD CONSTRAINT FKPharmacyTr322693 FOREIGN KEY (secondPharmacyId) REFERENCES Pharmacy (id);
 ALTER TABLE PharmacyTransfer ADD CONSTRAINT FKPharmacyTr382212 FOREIGN KEY (productIid) REFERENCES Product (id);
 ALTER TABLE PharmacyTransfer ADD CONSTRAINT FKPharmacyTr526031 FOREIGN KEY (orderId) REFERENCES "Order" (id);
+ALTER TABLE PharmacyTransfer ADD CONSTRAINT FKPharmacyTr391212 FOREIGN KEY (originPharmacyId) REFERENCES Pharmacy (id);

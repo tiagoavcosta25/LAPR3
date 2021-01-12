@@ -1,0 +1,9 @@
+@startuml
+autonumber
+hide footbox
+
+actor Request as R
+
+participant ":System" as SYST
+R -> SYST : Starts the drone management, calculating if \nit is capable of efectuate the delivery run
+@enduml
