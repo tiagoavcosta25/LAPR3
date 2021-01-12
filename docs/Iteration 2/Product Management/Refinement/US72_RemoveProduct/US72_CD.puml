@@ -8,7 +8,7 @@ package "UI" #DDDDDD {
 package "Controller" #DDDDDD {
     class RemoveProductController {
         -ProductService prodService
-        +removeProduct(intId);
+        +removeProduct(intId)
     }
 }
 

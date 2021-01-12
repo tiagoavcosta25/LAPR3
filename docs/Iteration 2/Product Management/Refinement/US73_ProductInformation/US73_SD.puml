@@ -6,8 +6,8 @@ actor "Admin" as U
 
 participant "ProductInformationUI" as UI
 participant "ProductInformationController" as CTRL
-participant "ProductService" as SER
-participant "ProductDB" as DB
+participant "pSer:ProductService" as SER
+participant "pDB:ProductDB" as DB
 participant "product:Product" as PROD
 
 activate U
@@ -17,9 +17,14 @@ UI --> U : Asks for the id of the product to get information from
 deactivate UI
 U -> UI : Gives the required id
 activate UI
-UI -> CTRL : getProduct(intId);
+UI -> CTRL : getProduct(intId)
 activate CTRL
-CTRL -> SER : getProduct(intId);
+CTRL -> SER** : create()
+activate SER
+SER -> DB** : create()
+deactivate SER
+
+CTRL -> SER : getProduct(intId)
 activate SER
 SER -> SER : validateId(intId)
 opt if the id given as input has a valid format

@@ -6,9 +6,9 @@ actor "Admin" as U
 
 participant "RegisterProductUI" as UI
 participant "RegisterProductController" as CTRL
-participant "ProductService" as SER
-participant "ProductDB" as DB
-participant "product\n:Product" as PROD
+participant "pServ:ProductService" as SER
+participant "pDB:ProductDB" as DB
+participant "product:Product" as PROD
 
 activate U
 U -> UI : Engages the register product feature/button
@@ -17,9 +17,13 @@ UI --> U : Asks for all the information required for the register (id, name, des
 deactivate UI
 U -> UI : Fills all the information required
 activate UI
-UI -> CTRL : registerProduct(strName, strDescription, fltUnitaryPrice, fltUnitaryWeight);
+UI -> CTRL : registerProduct(strName, strDescription, fltUnitaryPrice, fltUnitaryWeight)
 activate CTRL
-CTRL -> SER : registerProduct(strName, strDescription, fltUnitaryPrice, fltUnitaryWeight);
+CTRL -> SER** : create()
+activate SER
+SER -> DB** : create()
+deactivate SER
+CTRL -> SER : registerProduct(strName, strDescription, fltUnitaryPrice, fltUnitaryWeight)
 activate SER
 SER -> SER : validateInput(strName, strDescription, fltUnitaryPrice, fltUnitaryWeight)
 opt if all the information given as input has a valid format

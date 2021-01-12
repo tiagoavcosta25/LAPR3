@@ -8,7 +8,7 @@ package "UI" #DDDDDD {
 package "Controller" #DDDDDD {
     class UpdateProductController {
         -ProductService prodService
-        +updateProduct(intId, strName, strDescription, fltUnitaryPrice, fltUnitaryWeight);
+        +updateProduct(intId, strName, strDescription, fltUnitaryPrice, fltUnitaryWeight)
     }
 }
 
