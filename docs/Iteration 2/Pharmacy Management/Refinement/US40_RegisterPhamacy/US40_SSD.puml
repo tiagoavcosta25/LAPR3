@@ -9,7 +9,7 @@ activate ADM
 
 ADM -> SYST : initiates the registration of a pharmacy
 activate SYST
-SYST --> ADM : asks for the required data for the pharmacy, as well as its Manager's data
+SYST --> ADM : asks for the required data for the pharmacy
 deactivate SYST
 
 ADM -> SYST : inserts the required data
