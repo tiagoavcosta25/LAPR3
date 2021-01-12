@@ -1,0 +1,132 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+package "UI" #DDDDDD {
+class RegisterDroneUI{
+
+}
+}
+
+
+package "Data" #DDDDDD {
+class DroneDB{
++registersDrone(drone)
+}
+
+class PharmacyDB{
++getPharmacyByManager(email)
+}
+}
+
+
+package "Controller" #DDDDDD {
+class RegisterDroneController{
++newDrone(batteryPerc, chargingStatus, potency, weight, batteryCapacity, maxPayload, batteryVoltage, pharmacy)
++registersDrone(drone)
+}
+
+class ApplicationPOT
+{
+  +static getInstance()
+  +getPlatform()
+}
+
+class UserSession
+{
+  +getCurrentSession()
+}
+}
+
+
+package "Model" #DDDDDD {
+class Platform {
+  -String designation
+  +gePharmReg()
+  +getDroneReg()
+}
+package "Registration" #DDDDDD {
+ class PharmacyRegistration{
+     +getPharmacyByManager(userEmail)
+     +getConnection()
+ }
+
+ class DroneRegistration{
+      +newDrone(batteryPerc, chargingStatus, potency, weight, batteryCapacity, maxPayload, batteryVoltage, pharmacy)
+      +create(batteryPerc, chargingStatus, potency, weight, batteryCapacity, maxPayload, batteryVoltage, pharmacy)
+  }
+ }
+}
+
+package "Model" #DDDDDD {
+class Drone{
+  -int id
+  -float batteryPerc
+  -String charginStatus
+  -float potency
+  -float weight
+  -int batteryCapacity
+  -float maxPayload
+  -float batteryVoltage
+  +Drone(batteryPerc, chargingStatus, potency, weight, batteryCapacity, maxPayload, batteryVoltage, pharmacy)
+}
+
+class Address{
+  -float longitude
+  -float latitude
+  -String doorNumber
+  -String streetName
+  -String postalCode
+  -String locality
+  -String country
+}
+
+class Pharmacy {
+  -int id
+  -String name
+}
+
+class User{
+-   String name
+-   String email
+-   String password
+-   Integer nif
+}
+
+class PharmacyManager {
+}
+
+}
+
+
+package "Data" #DDDDDD {
+class DataHandler{
+    +openConnection()
+    +closeAll()
+}
+}
+
+class PharmacyDB extends DataHandler
+class DroneDB extends DataHandler
+
+PharmacyRegistration ..> PharmacyDB
+DroneRegistration ..> DroneDB
+
+RegisterDroneUI ..> RegisterDroneController
+RegisterDroneController ..> Platform
+RegisterDroneController ..> ApplicationPOT
+RegisterDroneController ..> UserSession
+Platform "1" --> "1" PharmacyRegistration : has
+DroneRegistration "1" --> "*" Drone : manages
+
+Platform "1" -- "*" Pharmacy : has registered >
+Platform "1" -- "*" Drone : has registered >
+Platform "1" -- "*" PharmacyManager : has registered >
+
+PharmacyManager "0..1" -- "1" User: acts as >
+PharmacyManager "1" -- "1..*" Drone : registers >
+Pharmacy "1" -- "1" PharmacyManager : has >
+Pharmacy "1" -- "*" Drone : has >
+Pharmacy "1" -- "1" Address : has >
+Drone "*" -- "1" Pharmacy : belongs to >
+
+@enduml

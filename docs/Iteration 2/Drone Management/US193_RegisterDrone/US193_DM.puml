@@ -1,0 +1,58 @@
+@startuml
+skinparam classAttributeIconSize 0
+hide methods
+left to right direction
+
+class Platform {
+  -String designation
+}
+
+class Pharmacy {
+  -int id
+  -String name
+  -int parkingSlots
+  -int chargingSlots
+}
+
+class User{
+-   String name
+-   String email
+-   String password
+-   Integer nif
+}
+
+class PharmacyManager {
+}
+
+class Drone{
+  -int id
+  -float batteryPerc
+  -String charginStatus
+  -float potency
+  -float weight
+  -int batteryCapacity
+  -float maxPayload
+  -float batteryVoltage
+}
+
+class Address{
+  -float longitude
+  -float latitude
+  -String doorNumber
+  -String streetName
+  -String postalCode
+  -String locality
+  -String country
+}
+
+
+
+Platform "1" -- "*" Pharmacy : has >
+Platform "1" -- "*" PharmacyManager : has registered >
+PharmacyManager "0..1" -- "1" User: acts as >
+PharmacyManager "1" -- "1..*" Drone : registers >
+Pharmacy "1" -- "1" PharmacyManager : has >
+Drone "*" -- "1" Pharmacy : belongs to >
+Pharmacy "1" -- "1" Address : has >
+@enduml
+
