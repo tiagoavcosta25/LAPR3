@@ -24,12 +24,7 @@ public class DeliveryRegistration extends DataHandler {
         m_graph = new Graph<>(true);
     }
 
-    public float getDeliveryEnergy(double distance) {
-        float velocity = 4.84f;  //  m/s
-        float scooterPot = 250; //  W
-        float time = (float) distance / velocity;   //  s
-        return scooterPot * time;   //  J
-    }
+
 
     public Graph<Address, String> getM_graph() {
         return m_graph;

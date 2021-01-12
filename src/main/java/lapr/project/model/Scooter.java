@@ -158,8 +158,7 @@ public class Scooter {
                 Float.compare(scooter.m_fltWeight, m_fltWeight) == 0 &&
                 m_intBatteryCapacity == scooter.m_intBatteryCapacity &&
                 Float.compare(scooter.m_fltMaxPayload, m_fltMaxPayload) == 0 &&
-                m_strCharginStatus.equals(scooter.m_strCharginStatus) &&
-                m_oPharmacy.equals(scooter.m_oPharmacy);
+                m_strCharginStatus.equals(scooter.m_strCharginStatus);
     }
 
     @Override

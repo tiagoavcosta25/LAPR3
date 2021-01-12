@@ -1,0 +1,12 @@
+@startuml
+autonumber
+hide footbox
+
+participant ":System" as SYST
+
+
+SYST -> SYST : initiates the process of a pharmacy transaction\n when a pharmacy has no stock for a order
+activate SYST
+deactivate SYST
+
+@enduml

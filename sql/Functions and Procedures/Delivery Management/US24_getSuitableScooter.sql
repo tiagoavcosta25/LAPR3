@@ -1,27 +1,28 @@
-CREATE OR REPLACE FUNCTION getSuitableScooter(deliveryEnergy float%type, strEmail "User".EMAIL%type) RETURN SYS_REFCURSOR IS
+CREATE OR REPLACE FUNCTION getSuitableScooter(distance double precision, strEmail "User".EMAIL%type) RETURN SYS_REFCURSOR IS
     RFC SYS_REFCURSOR;
-    chargingSlot_not_found exception;
+    scooter_not_found exception;
 BEGIN
 
     OPEN RFC FOR
-    SELECT CS.ID,PH.ID, PH.NAME, PH.ADDRESSID, AD.LATITUDE, AD.LONGITUDE, AD.DOORNUMBER,
-           AD.STREETNAME, AD.POSTALCODE, AD.LOCALITY, AD.COUNTRY, P.MAXSLOTSNUMBER, CS.OUTPUTPOWER
-    FROM CHARGINGSLOT CS INNER JOIN PARK P on P.PHARMACYID = CS.PARKPHARMACYID
-                         INNER JOIN PHARMACY PH ON P.PHARMACYID = PH.ID
-                         INNER JOIN ADDRESS AD ON PH.ADDRESSID = AD.ID
-                         INNER JOIN COURIER C ON C.PHARMACYID = PH.ID
-                         INNER JOIN "User" U on C.USERID = U.ID
-    WHERE U.EMAIL = strEmail AND CS.SCOOTERID IS NULL;
+        SELECT S.ID, P.ID,P.NAME,S.BATTERYPERC,S.POTENCY,S.WEIGHT,S.BATTERYCAPACITY,S.CHARGINGSTATUS,S.MAXPAYLOAD,
+               A2.*, (S.POTENCY * (distance / 4.84f)) "deliverEnergy"
+        FROM SCOOTER S INNER JOIN PHARMACY P on P.ID = S.PHARMACYID
+                       INNER JOIN ADDRESS A2 on A2.ID = P.ADDRESSID
+                       INNER JOIN CHARGINGSLOT C2 on S.ID = C2.SCOOTERID
+                       INNER JOIN PARKINGSLOT P2 on S.ID = P2.SCOOTERID
+                       INNER JOIN COURIER C3 on P.ID = C3.PHARMACYID
+                       INNER JOIN "User" U on U.ID = C3.USERID
+        WHERE U.EMAIL = strEmail;
 
     IF RFC IS NULL THEN
-        RAISE chargingSlot_not_found;
+        RAISE scooter_not_found;
     END IF;
 
     RETURN RFC;
 
 EXCEPTION
-    WHEN chargingSlot_not_found THEN
-        raise_application_error(-20025, 'Address Not Found!');
+    WHEN scooter_not_found THEN
+        raise_application_error(-20025, 'Scooter Not Found!');
         RETURN NULL;
 END;
 

@@ -2,6 +2,8 @@ package lapr.project.model;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.TreeMap;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class ScooterTest {
@@ -168,20 +170,61 @@ public class ScooterTest {
     void testEquals() {
         Scooter oScooter2 = new Scooter(1, 1, "Not Charging", 1, 1,
                 1, 1, new Pharmacy());
-        Scooter oScooter3 = new Scooter(3, "Not Charging", 2, 2,
-                2, 2, new Pharmacy());
+
+        boolean real = scooterTest2.equals(oScooter2);
+        assertTrue(real);
+
+        assertEquals(scooterTest2, scooterTest2);
 
         boolean expected = false;
-        boolean real = scooterTest1.equals(null);
+        real = scooterTest2.equals(null);
         assertEquals(expected, real);
 
-        expected = true;
-        real = scooterTest2.equals(oScooter2);
-        assertEquals(expected, real);
+        String s = "";
+        assertNotEquals(scooterTest2,s);
+        
+        Scooter oScooter3 = new Scooter(3, "Not Charging", 2, 2,
+                2, 2, new Pharmacy());
+        Scooter oScooter4 = new Scooter(3, "Not Charging", 2, 2,
+                2, 2, new Pharmacy());
+        Scooter oScooter5 = new Scooter(4, "Not Charging", 2, 2,
+                2, 2, new Pharmacy());
+        Scooter oScooter6 = new Scooter(3, "Charging", 2, 2,
+                2, 2, new Pharmacy());
+        Scooter oScooter7 = new Scooter(3, "Not Charging", 4, 2,
+                2, 2, new Pharmacy());
+        Scooter oScooter8 = new Scooter(3, "Not Charging", 2, 4,
+                2, 2, new Pharmacy());
+        Scooter oScooter9 = new Scooter(3, "Not Charging", 2, 2,
+                4, 2, new Pharmacy());
+        Scooter oScooter10 = new Scooter(3, "Not Charging", 2, 2,
+                2, 4, new Pharmacy());
 
-        expected = false;
+        assertNotEquals(oScooter3, scooterTest2);
+
         real = scooterTest3.equals(oScooter3);
-        assertEquals(expected, real);
+        assertFalse(real);
+
+        real = oScooter4.equals(oScooter3);
+        assertTrue(real);
+
+        real = oScooter5.equals(oScooter3);
+        assertFalse(real);
+
+        real = oScooter6.equals(oScooter3);
+        assertFalse(real);
+
+        real = oScooter7.equals(oScooter3);
+        assertFalse(real);
+
+        real = oScooter8.equals(oScooter3);
+        assertFalse(real);
+
+        real = oScooter9.equals(oScooter3);
+        assertFalse(real);
+
+        real = oScooter10.equals(oScooter3);
+        assertFalse(real);
 
     }
 
