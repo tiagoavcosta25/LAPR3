@@ -10,6 +10,9 @@ participant "ApplicationPOT" as _APP
 participant "app\n:ApplicationPOT" as APP
 participant "session\n:UserSession" as SESSION
 
+participant "PharmacyService" as PS
+participant "OrderService" as OS
+participant "DeliveryRunService" as DRS
 participant "PharmacyDB" as PDB
 participant "OrderDB" as ODB
 participant "DeliveryRunDB" as DB
@@ -40,18 +43,24 @@ activate SESSION
 deactivate SESSION
 
 
-
-CTRL -> PDB : getPharmacyByManagerEmail(email)
+CTRL -> PS : getPharmacyByManagerEmail(email)
+activate PS
+PS -> PDB : getPharmacyByManagerEmail(email)
 activate PDB
+deactivate PDB
+deactivate PS
+
 ref over PDB
 SD_CONNECTIONS
 end ref
-deactivate PDB
 
 
-
-CTRL -> ODB : lstOrders = getOrdersFromPharmacy(pharmacy)
+CTRL -> OS : getOrdersFromPharmacy(pharmacy)
+activate OS
+OS -> ODB : lstOrders = getOrdersFromPharmacy(pharmacy)
 activate ODB
+deactivate OS
+
 
 ref over ODB
 SD_CONNECTIONS
@@ -72,7 +81,10 @@ U -> UI : Chooses an order
 activate UI
 UI -> CTRL : addNewDelivery(order)
 activate CTRL
-CTRL -> DB : newDelivery(order)
+CTRL -> DRS : newDelivery(order)
+activate DRS
+DRS -> DB : newDelivery(order)
+deactivate DRS
 activate DB
 DB -> D** : create(order)
 deactivate DB
@@ -91,32 +103,51 @@ UI -> CTRL : newDeliveryRun()
 
 activate CTRL
 
-CTRL -> DB : courier = getSuitableCourier()
+CTRL -> DRS : courier = getSuitableCourier()
+activate DRS
+DRS -> DB : getSuitableCourier()
 activate DB
-
 deactivate DB
+deactivate DRS
+
 ref over DB
 SD_CONNECTIONS
 end ref
-CTRL -> DR** : create(courier,lstDelivery)
-activate DR
 
+CTRL -> DRS : lstDelivery = calculateShortestPath()
+activate DRS
+deactivate DRS
+CTRL -> DRS : deliveryRun = newDeliveryRun(courier,lstDelivery)
+activate DRS
+DRS -> DR** : create(courier,lstDelivery)
+activate DR
 DR -> DS** : create()
+deactivate DRS
+
+
 
 deactivate DR
-CTRL -> DB : addNewDeliveryRun(deliveryRun)
+
+CTRL -> DRS : addNewDeliveryRun(deliveryRun)
+activate DRS
+DRS -> DB : addNewDeliveryRun(deliveryRun)
 activate DB
+deactivate DRS
 ref over DB
 SD_CONNECTIONS
 end ref
 deactivate DB
-CTRL -> DB : addDelivery(lstDelivery)
+
+CTRL -> DRS : addDelivery(lstDelivery)
+activate DRS
+DRS -> DB : addDelivery(lstDelivery)
 
 activate DB
 ref over DB
 SD_CONNECTIONS
 end ref
 deactivate DB
+deactivate DRS
 
 deactivate CTRL
 

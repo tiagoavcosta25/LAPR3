@@ -39,6 +39,15 @@ abstract class User{
 +User(email,password,nif,name)
 }
 
+package "Service" #DDDDDD {
+
+class UserService {
++UserService()
++login(email,password)
+}
+
+}
+
 class UserSession{
 -String email
 +UserSession(email,role)
@@ -57,8 +66,8 @@ class DataHandler{
 }
 
  class UserDB{
+ +UserDB()
  +login(email,password)
- +checkIfUserExistsInDB(user,password)
  }
 
 }
@@ -71,9 +80,12 @@ class EncryptPassword {
 }
 
 
+
+
 LoginUI ..> LoginController
 LoginController ..> ApplicationPOT
-LoginController ..> UserDB
+LoginController ..> UserService
+UserService "1" --> "1" UserDB : has
 UserDB "1" --> "*" UserSession : creates
 class UserDB extends DataHandler
 ApplicationPOT "1" --> "1" UserSession : has
