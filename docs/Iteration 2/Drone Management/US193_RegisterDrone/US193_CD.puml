@@ -2,16 +2,27 @@
 skinparam classAttributeIconSize 0
 
 package "UI" #DDDDDD {
-class RegisterScooterUI{
+class RegisterDroneUI{
 
+}
+}
+
+
+package "Data" #DDDDDD {
+class DroneDB{
++registersDrone(drone)
+}
+
+class PharmacyDB{
++getPharmacyByManager(email)
 }
 }
 
 
 package "Controller" #DDDDDD {
-class RegisterScooterController{
-+newScooter(batteryPerc, charginStatus, potency,\n weight, batteryCapacity, maxPayload, pharmacy)
-+registersScooter()
+class RegisterDroneController{
++newDrone(batteryPerc, chargingStatus, potency, weight, batteryCapacity, maxPayload, batteryVoltage, pharmacy)
++registersDrone(drone)
 }
 
 class ApplicationPOT
@@ -31,7 +42,7 @@ package "Model" #DDDDDD {
 class Platform {
   -String designation
   +gePharmReg()
-  +getScootReg()
+  +getDroneReg()
 }
 package "Registration" #DDDDDD {
  class PharmacyRegistration{
@@ -39,16 +50,15 @@ package "Registration" #DDDDDD {
      +getConnection()
  }
 
- class ScooterRegistration{
-      +newScooter(batteryPerc, charginStatus, potency,\n weight, batteryCapacity, maxPayload, pharmacy)
-      +create(batteryPerc, charginStatus, potency,\n weight, batteryCapacity, maxPayload, pharmacy)
-      +validateScooter(scoot)
+ class DroneRegistration{
+      +newDrone(batteryPerc, chargingStatus, potency, weight, batteryCapacity, maxPayload, batteryVoltage, pharmacy)
+      +create(batteryPerc, chargingStatus, potency, weight, batteryCapacity, maxPayload, batteryVoltage, pharmacy)
   }
  }
 }
 
 package "Model" #DDDDDD {
-class Scooter{
+class Drone{
   -int id
   -float batteryPerc
   -String charginStatus
@@ -56,7 +66,8 @@ class Scooter{
   -float weight
   -int batteryCapacity
   -float maxPayload
-  +Scooter(batteryPerc, charginStatus, potency,\n weight, batteryCapacity, maxPayload, pharmacy)
+  -float batteryVoltage
+  +Drone(batteryPerc, chargingStatus, potency, weight, batteryCapacity, maxPayload, batteryVoltage, pharmacy)
 }
 
 class Address{
@@ -94,25 +105,28 @@ class DataHandler{
 }
 }
 
-class PharmacyRegistration extends DataHandler
-class ScooterRegistration extends DataHandler
+class PharmacyDB extends DataHandler
+class DroneDB extends DataHandler
 
-RegisterScooterUI ..> RegisterScooterController
-RegisterScooterController ..> Platform
-RegisterScooterController ..> ApplicationPOT
-RegisterScooterController ..> UserSession
+PharmacyRegistration ..> PharmacyDB
+DroneRegistration ..> DroneDB
+
+RegisterDroneUI ..> RegisterDroneController
+RegisterDroneController ..> Platform
+RegisterDroneController ..> ApplicationPOT
+RegisterDroneController ..> UserSession
 Platform "1" --> "1" PharmacyRegistration : has
-ScooterRegistration "1" --> "*" Scooter : manages
+DroneRegistration "1" --> "*" Drone : manages
 
 Platform "1" -- "*" Pharmacy : has registered >
-Platform "1" -- "*" Scooter : has registered >
+Platform "1" -- "*" Drone : has registered >
 Platform "1" -- "*" PharmacyManager : has registered >
 
 PharmacyManager "0..1" -- "1" User: acts as >
-PharmacyManager "1" -- "1..*" Scooter : registers >
+PharmacyManager "1" -- "1..*" Drone : registers >
 Pharmacy "1" -- "1" PharmacyManager : has >
-Pharmacy "1" -- "*" Scooter : has >
+Pharmacy "1" -- "*" Drone : has >
 Pharmacy "1" -- "1" Address : has >
-Scooter "*" -- "1" Pharmacy : belongs to >
+Drone "*" -- "1" Pharmacy : belongs to >
 
 @enduml

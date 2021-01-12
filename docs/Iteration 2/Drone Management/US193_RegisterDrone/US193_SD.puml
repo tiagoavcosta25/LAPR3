@@ -2,28 +2,30 @@
 autonumber
 actor "Pharmacy Manager" as PHARMAN
 
-participant ":RegisterScooterUI" as UI
-participant ":RegisterScooterController" as CTRL
+participant ":RegisterDroneUI" as UI
+participant ":RegisterDroneController" as CTRL
 participant "PotApplication" as PA
 participant "app \n:PotApplication" as APA
 participant "session \n:UserSession" as US
 participant "plat \n:Platform" as PLAT
 participant "pharmReg \n:PharmacyRegistration" as PH
-participant "scootReg \n:ScooterRegistration" as RS
-participant "scoot: Scooter" as SC
+participant "droneReg \n:DroneRegistration" as RD
+participant "DroneDB" as DDB
+participant "PharmacyDB" as PDB
+participant "drone: Drone" as D
 
 
 
 activate PHARMAN
 
-PHARMAN -> UI : initializes the register of a new scooter
+PHARMAN -> UI : initializes the register of a new drone
 activate UI
-UI -> PHARMAN : asks for the data that features the scooter (i.e., battery, \nbattery capacity, maximum weight, pharmacy, status, potency)
+UI -> PHARMAN : asks for the data that features the drone (i.e., battery percentage, \nbattery capacity, maximum weight, potency, maximum payload, \nbattery voltage, status, pharmacy id)
 deactivate UI
 
 PHARMAN -> UI : inserts the required data
 activate UI
-UI -> CTRL : newScooter(batteryPerc, chargingStatus,\n potency, weight, batteryCapacity, maxPayload, pharmacy)
+UI -> CTRL : newDrone(batteryPerc, chargingStatus,\n potency, weight, batteryCapacity, maxPayload, batteryVoltage, pharmacy)
 activate CTRL
 CTRL -> PA : app = getInstance()
 activate PA
@@ -42,22 +44,22 @@ activate PLAT
 deactivate PLAT
 CTRL -> PH : pharmacy = getPharmacyByManager(email)
 activate PH
-ref over PH
+PH -> PDB : getPharmacyByManager(email)
+activate PDB
+ref over PDB
 SD_Connections
 end ref
 deactivate PH
-CTRL -> PLAT : scootReg = getScootReg()
+deactivate PDB
+CTRL -> PLAT : droneReg = getDroneReg()
 activate PLAT
 deactivate PLAT
-CTRL -> RS : newScooter(batteryPerc, chargingStatus,\n potency, weight, batteryCapacity, maxPayload, pharmacy)
-activate RS
-RS -> SC ** : create(batteryPerc, chargingStatus,\n potency, weight, batteryCapacity, maxPayload, pharmacy)
-RS -> RS : validateScooter(scoot)
-ref over RS
-SD_Connections
-end ref
-deactivate RS
+CTRL -> RD : newDrone(batteryPerc, chargingStatus, potency, weight, batteryCapacity, maxPayload, batteryVoltage, pharmacy)
+activate RD
+RD -> D ** : create(batteryPerc, chargingStatus,\n potency, weight, batteryCapacity,\n maxPayload, batteryVoltage, pharmacy)
+deactivate DDB
 deactivate CTRL
+deactivate RD
 
 
 UI -> PHARMAN : validates, presents the data and asks for a confirmation
@@ -65,14 +67,17 @@ deactivate UI
 
 PHARMAN -> UI : confirms
 activate UI
-UI -> CTRL : registersScooter()
+UI -> CTRL : registersDrone()
 activate CTRL
-CTRL -> RS : registersScooter(scooter)
-activate RS
-ref over RS
+CTRL -> RD : registersDrone(drone)
+activate RD
+RD -> DDB : registersDrone(drone)
+activate DDB
+ref over DDB
 SD_Connections
 end ref
-deactivate RS
+deactivate DDB
+deactivate RD
 deactivate CTRL
 UI -> PHARMAN : informs the success of the operation
 deactivate UI
