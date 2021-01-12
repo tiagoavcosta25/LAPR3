@@ -24,7 +24,7 @@ SYST --> U : checks if the manager wants to choose\nanother order
 deactivate SYST
 end
 
-U -> SYST : Confirms that there is no more orders\nthat he wants to add
+U -> SYST : Confirms that there are no more orders\nthat he wants to add
 
 activate SYST
 SYST --> U : Registers the delivery run and informs\nabout the success of the operation
