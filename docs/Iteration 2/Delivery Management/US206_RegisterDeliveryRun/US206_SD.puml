@@ -1,0 +1,156 @@
+@startuml
+autonumber
+hide footbox
+
+actor "Manager" as U
+
+participant "RegisterDeliveryRunUI" as UI
+participant "RegisterDeliveryRunController" as CTRL
+participant "ApplicationPOT" as _APP
+participant "app\n:ApplicationPOT" as APP
+participant "session\n:UserSession" as SESSION
+participant "plat\n:Platform" as PLAT
+participant "pharmacyReg\n:PharmacyRegistration" as PREG
+participant "PharmacyDB" as PDB
+participant "orderReg\n:OrderRegistration" as OREG
+participant "OrderDB" as ODB
+participant "deliveryRunReg\n:DeliveryRunRegistration" as UREG
+participant "DeliveryRunDB" as DB
+participant "delivery\n:Delivery" as D
+participant "deliveryRun\n:DeliveryRun" as DR
+participant "status\n:DeliveryStatus" as DS
+
+
+participant "DataHandler" as DH
+
+activate U
+
+U -> UI : Initiates the registration of a delivery run
+activate UI
+
+UI -> CTRL : lstOrders = getOrders()
+activate CTRL
+CTRL -> _APP: app = getInstance()
+activate _APP
+deactivate _APP
+
+CTRL -> APP : getCurrentSession()
+activate APP
+deactivate APP
+
+CTRL -> SESSION: email = getCurrentUserEmail()
+activate SESSION
+deactivate SESSION
+
+CTRL -> APP: plat = getPlaform()
+activate APP
+deactivate APP
+
+CTRL -> PLAT : pharmacyReg = getPharmacyReg();
+activate PLAT
+deactivate PLAT
+
+CTRL -> PREG : pharmacy = getPharmacyByManagerEmail(email)
+activate PREG
+PREG -> PDB : getPharmacyByManagerEmail(email)
+activate PDB
+ref over PDB
+SD_CONNECTIONS
+end ref
+deactivate PDB
+
+deactivate PREG
+
+CTRL -> PLAT : orderReg = getOrderReg()
+activate PLAT
+deactivate PLAT
+
+CTRL -> OREG : lstOrders = getOrdersFromPharmacy(pharmacy)
+activate OREG
+OREG -> ODB : getOrdersFromPharmacy(pharmacy)
+activate ODB
+ref over ODB
+SD_CONNECTIONS
+end ref
+deactivate ODB
+deactivate OREG
+deactivate CTRL
+
+
+loop until there are no more valid orders to choose\nfrom
+UI --> U: Shows the list of orders
+
+deactivate UI
+
+
+
+
+U -> UI : Chooses an order
+activate UI
+UI -> CTRL : addNewDelivery(order)
+activate CTRL
+CTRL -> UREG : newDelivery(order)
+activate UREG
+UREG -> D** : create(order)
+deactivate UREG
+
+UI --> U : Checks if the manager wants to choose\nanother order
+deactivate CTRL
+deactivate UI
+end
+
+
+U -> UI : Confirms that there is no more orders\nthat he wants to add
+activate UI
+UI --> U : Requests choice of transportation\n(i.e. scooter or drone)
+deactivate UI
+U -> UI : Chooses transportation
+activate UI
+
+UI -> CTRL : newDeliveryRun()
+
+activate CTRL
+CTRL -> PLAT : deliveryRunReg = getDeliveryRunReg()
+activate PLAT
+deactivate PLAT
+CTRL -> UREG : addNewDeliveryRun(lstDelivery)
+activate UREG
+
+UREG -> DB : courier = getSuitableCourier()
+activate DB
+deactivate DB
+ref over DB
+SD_CONNECTIONS
+end ref
+UREG -> DR** : create(courier,lstDelivery)
+activate DR
+DR -> DS : create()
+activate DS
+deactivate DS
+deactivate DR
+UREG -> DB : addNewDeliveryRun(deliveryRun)
+activate DB
+ref over DB
+SD_CONNECTIONS
+end ref
+deactivate DB
+UREG -> DB : addDelivery(lstDelivery)
+
+activate DB
+ref over DB
+SD_CONNECTIONS
+end ref
+deactivate DB
+
+deactivate UREG
+deactivate CTRL
+
+UI --> U : Registers the delivery run and informs\nabout the success of the operation
+deactivate UI
+
+
+
+deactivate U
+
+
+@enduml

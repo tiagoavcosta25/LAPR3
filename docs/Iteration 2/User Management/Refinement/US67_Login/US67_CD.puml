@@ -6,8 +6,7 @@ package "Controller" #DDDDDD {
 class ApplicationPOT
 {
   +static getInstance()
-  +getPlatform()
-  +clearCurrentSession()
+  +setCurrentSession(session)
 }
 }
 
@@ -26,18 +25,6 @@ class LoginController{
 }
 
 
-package "Model" #DDDDDD {
-class Platform {
-  -String designation
-  +getUserReg()
-}
-package "Registration" #DDDDDD {
- class UserRegistration{
- +login(email,password)
- +checkIfUserExistsInDB(user)
- }
- }
-}
 
 
 
@@ -54,9 +41,8 @@ abstract class User{
 
 class UserSession{
 -String email
-+UserSession()
++UserSession(email,role)
 }
-
 
 
 
@@ -70,17 +56,28 @@ class DataHandler{
 +closeAll()
 }
 
+ class UserDB{
+ +login(email,password)
+ +checkIfUserExistsInDB(user,password)
+ }
+
+}
+
+package "Utils" #DDDDDD {
+class EncryptPassword {
++encryptPasswordMD5(password)
+}
+
 }
 
 
 LoginUI ..> LoginController
-LoginController ..> Platform
 LoginController ..> ApplicationPOT
-Platform "1" --> "1" UserRegistration : has
-UserRegistration "1" --> "*" User : creates
-class UserRegistration extends DataHandler
+LoginController ..> UserDB
+UserDB "1" --> "*" UserSession : creates
+class UserDB extends DataHandler
 ApplicationPOT "1" --> "1" UserSession : has
 UserSession "1" --> "1" User : allocates
-
+User ..> EncryptPassword : encrypts using
 
 @enduml

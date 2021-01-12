@@ -1,0 +1,25 @@
+@startuml
+autonumber
+hide footbox
+
+actor "Client" as U
+
+participant ":System" as SYST
+
+activate U
+
+U -> SYST : Engages the login feature/button
+activate SYST
+SYST --> U : Asks for all the email and password\nrequired for the login
+deactivate SYST
+
+U -> SYST : Fills all the information required and confirms
+activate SYST
+SYST --> U : Validates and allocates a session\n for the user
+deactivate SYST
+
+
+
+deactivate U
+
+@enduml

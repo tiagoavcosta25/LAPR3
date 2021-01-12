@@ -6,7 +6,6 @@ package "Controller" #DDDDDD {
 class ApplicationPOT
 {
   +static getInstance()
-  +getPlatform()
 }
 }
 
@@ -27,17 +26,8 @@ class RegisterClientController{
 
 
 package "Model" #DDDDDD {
-class Platform {
-  -String designation
-  +getClientReg()
-}
-package "Registration" #DDDDDD {
- class ClientRegistration{
- +registerNewClient(client)
- +addClientToDB(client)
- }
- }
-}
+
+
 
 
 
@@ -90,6 +80,11 @@ class DataHandler{
 +closeAll()
 }
 
+ class ClientDB{
+ +registerNewClient(client)
+ +addClientToDB(client)
+ }
+
 }
 
 package "Utils" #DDDDDD {
@@ -101,11 +96,10 @@ class EncryptPassword {
 
 
 RegisterClientUI ..> RegisterClientController
-RegisterClientController ..> Platform
 RegisterClientController ..> ApplicationPOT
-Platform "1" --> "1" ClientRegistration : has
-ClientRegistration "1" --> "*" Client : creates
-class ClientRegistration extends DataHandler
+RegisterClientController ..> ClientDB
+ClientDB "1" --> "*" Client : adds
+class ClientDB extends DataHandler
 Client "1" --> "1" Address : has
 Client "*" --> "*" CreditCard : has
 User ..> EncryptPassword : encrypts using

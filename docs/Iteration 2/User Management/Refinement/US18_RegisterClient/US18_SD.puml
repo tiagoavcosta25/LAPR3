@@ -9,7 +9,7 @@ participant "RegisterClientController" as CTRL
 participant "ApplicationPOT" as _APP
 participant "app\n:ApplicationPOT" as APP
 participant "plat\n:Platform" as PLAT
-participant "clientReg\n:ClientRegistration" as UREG
+participant "clientDB\n:ClientDB" as UREG
 
 participant "client\n:Client" as USER
 participant "user\n:User" as US
@@ -45,16 +45,7 @@ CTRL -> CTRL : validateInput(name,nif,email,password,latitude,longitude,streetNa
 
 alt if all the information given as input has a valid format
 
-CTRL -> _APP: app = getInstance()
-activate _APP
-deactivate _APP
 
-CTRL -> APP: plat = getPlaform()
-activate APP
-deactivate APP
-CTRL -> PLAT : clientReg = getClientReg()
-activate PLAT
-deactivate PLAT
 
 
 

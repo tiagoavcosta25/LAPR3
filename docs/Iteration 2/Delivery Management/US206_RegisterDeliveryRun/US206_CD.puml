@@ -1,0 +1,127 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+
+package "Controller" #DDDDDD {
+class ApplicationPOT
+{
+  +static getInstance()
+  +getPlatform()
+  +getCurrentSession(session)
+}
+}
+
+package "Data" #DDDDDD {
+class PharmacyDB{
++getPharmacyByManagerEmail(email)
+}
+
+class OrderDB{
++getOrdersFromPharmacy(pharmacy)
+}
+
+class DeliveryRunDB {
++getSuitableCourier()
++addNewDeliveryRun(deliveryRun)
++addDelivery(lstDelivery)
+}
+
+class DataHandler{
++openConnection()
++closeAll()
+}
+
+}
+
+package "UI" #DDDDDD {
+class RegisterDeliveryRunUI{
+
+}
+
+
+
+}
+
+
+package "Controller" #DDDDDD {
+class RegisterDeliveryRunController{
++getOrders()
++addNewDeliveryOrder(order)
++newDeliveryRun()
+}
+}
+
+
+package "Model" #DDDDDD {
+class Platform {
+  -String designation
+  +getPharmacyReg()
+  +getOrderReg()
+  +getDeliveryRunReg()
+}
+
+class Delivery{
++Delivery(order)
+}
+
+class DeliveryRun{
++DeliveryRun(courier,lstDelivery)
+}
+
+}
+
+package "Registration" #DDDDDD {
+ class DeliveryRunRegistration{
+ +newDelivery(order)
+ +addNewDeliveryRun(lstDelivery)
+ }
+
+ class PharmacyRegistration{
++getPharmacyByManagerEmail(email)
+ }
+
+ class OrderRegistration{
++getOrdersFromPharmacy(pharmacy)
+ }
+
+}
+
+
+
+package "Model" #DDDDDD {
+class UserSession{
+-String email
++getCurrentUserEmail()
+}
+
+class DeliveryStatus{
++DeliveryStatus()
+}
+
+
+
+
+}
+
+
+
+
+RegisterDeliveryRunUI ..> RegisterDeliveryRunController
+RegisterDeliveryRunController ..> Platform
+RegisterDeliveryRunController ..> ApplicationPOT
+Platform "1" --> "1" DeliveryRunRegistration : has
+Platform "1" --> "1" OrderRegistration : has
+Platform "1" --> "1" PharmacyRegistration : has
+DeliveryRunRegistration "1" --> "1" DeliveryRunDB : accesses
+OrderRegistration "1" --> "1" OrderDB : accesses
+PharmacyRegistration "1" --> "1" PharmacyDB : accesses
+DeliveryRun "1" --> "*" Delivery : has
+DeliveryRun "1" --> "1" DeliveryStatus : has
+DeliveryRunRegistration "1" --> "*" DeliveryRun : manages
+
+class DeliveryRunDB extends DataHandler
+class OrderDB extends DataHandler
+class PharmacyDB extends DataHandler
+ApplicationPOT "1" --> "1" UserSession : has
+
+@enduml

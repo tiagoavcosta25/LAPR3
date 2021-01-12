@@ -8,7 +8,7 @@ participant "LoginUI" as UI
 participant "LoginController" as CTRL
 
 
-participant "userReg\n:UserRegistration" as UREG
+participant "userDB\n:UserDB" as UREG
 
 participant "session\n:UserSession" as SES
 participant "app\n:ApplicationPOT" as APP
@@ -25,7 +25,7 @@ activate U
 
 U -> UI : Engages the login feature/button
 activate UI
-UI --> U : Asks for all the email and password\nrequired for the login
+UI --> U : Asks for the email and password\nrequired for the login
 deactivate UI
 
 U -> UI : Fills all the information required and confirms
@@ -34,17 +34,7 @@ activate UI
 UI -> CTRL : login(email,password)
 activate CTRL
 
-CTRL -> _APP: app = getInstance()
-activate _APP
-deactivate _APP
 
-CTRL -> APP: plat = getPlaform()
-activate APP
-deactivate APP
-
-CTRL -> PLAT : userReg = getUserReg()
-activate PLAT
-deactivate PLAT
 
 CTRL -> UREG : login(email,password)
 activate UREG

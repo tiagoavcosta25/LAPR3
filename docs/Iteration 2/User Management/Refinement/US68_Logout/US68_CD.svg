@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="784px" preserveAspectRatio="none" style="width:235px;height:784px;" version="1.1" viewBox="0 0 235 784" width="235px" zoomAndPan="magnify"><defs><filter height="300%" id="f1je93sa5ph90k" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"/><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/></filter></defs><g><!--MD5=[1f2cfc53d9d308f53762fd0fcbaa4873]
+cluster Controller--><polygon fill="#DDDDDD" filter="url(#f1je93sa5ph90k)" points="38,139,115,139,122,162.6094,196,162.6094,196,390,38,390,38,139" style="stroke:#000000;stroke-width:1.5;"/><line style="stroke:#000000;stroke-width:1.5;" x1="38" x2="122" y1="162.6094" y2="162.6094"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="71" x="42" y="155.5332">Controller</text><!--MD5=[9681dc6e01e10c6b4fe06895ae94f592]
+cluster UI--><polygon fill="#DDDDDD" filter="url(#f1je93sa5ph90k)" points="63,6,83,6,90,29.6094,171,29.6094,171,106,63,106,63,6" style="stroke:#000000;stroke-width:1.5;"/><line style="stroke:#000000;stroke-width:1.5;" x1="63" x2="90" y1="29.6094" y2="29.6094"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="14" x="67" y="22.5332">UI</text><!--MD5=[15636c1ca4a123c16a2a1a8e90aca7a9]
+cluster Model--><polygon fill="#DDDDDD" filter="url(#f1je93sa5ph90k)" points="16,440,66,440,73,463.6094,218,463.6094,218,777,16,777,16,440" style="stroke:#000000;stroke-width:1.5;"/><line style="stroke:#000000;stroke-width:1.5;" x1="16" x2="73" y1="463.6094" y2="463.6094"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="44" x="20" y="456.5332">Model</text><!--MD5=[e45a4727c47b726c25e081782e8bc183]
+class ApplicationPOT--><rect codeLine="5" fill="#FEFECE" filter="url(#f1je93sa5ph90k)" height="75.6719" id="ApplicationPOT" style="stroke:#A80036;stroke-width:1.5;" width="125" x="54.5" y="298"/><ellipse cx="73.55" cy="314" fill="#ADD1B2" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M75.55,310.5 Q75.7531,310 75.9875,309.75 Q76.2219,309.5 76.4875,309.5 Q76.9563,309.5 77.2531,309.7813 Q77.55,310.0625 77.55,310.7188 L77.55,312.2813 Q77.55,312.9375 77.2688,313.2188 Q76.9875,313.5 76.55,313.5 Q76.1594,313.5 75.9094,313.3281 Q75.6594,313.1563 75.55,312.7031 Q75.5031,312.3906 75.3313,312.2188 Q75.0188,311.8906 74.4563,311.7031 Q73.8938,311.5 73.3313,311.5 Q72.6281,311.5 72.0344,311.7813 Q71.4563,312.0625 71.0031,312.6875 Q70.55,313.3125 70.55,314.1719 L70.55,315.0938 Q70.55,316.125 71.3938,316.8125 Q72.2375,317.5 73.7375,317.5 Q74.6281,317.5 75.2531,317.2969 Q75.6125,317.1875 76.0188,316.8281 Q76.2844,316.625 76.425,316.5625 Q76.5656,316.5 76.7375,316.5 Q77.0656,316.5 77.3,316.7656 Q77.55,317.0156 77.55,317.375 Q77.55,317.7188 77.2063,318.125 Q76.7063,318.7188 75.9094,319.0469 Q74.8625,319.5 73.5813,319.5 Q72.0813,319.5 70.8781,318.9063 Q69.9094,318.4375 69.2219,317.4219 Q68.55,316.4063 68.55,315.2031 L68.55,314.1094 Q68.55,312.8594 69.1438,311.7656 Q69.7531,310.6719 70.8,310.0938 Q71.8625,309.5 73.05,309.5 Q73.7688,309.5 74.3938,309.75 Q75.0188,310 75.55,310.5 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="84" x="88.45" y="318.9102">ApplicationPOT</text><line style="stroke:#A80036;stroke-width:1.5;" x1="55.5" x2="178.5" y1="330" y2="330"/><line style="stroke:#A80036;stroke-width:1.5;" x1="55.5" x2="178.5" y1="338" y2="338"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="99" x="60.5" y="353.4189">+static getInstance()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="113" x="60.5" y="367.2549">+clearCurrentSession()</text><!--MD5=[5103e3471bf31fadd75905833dcba617]
+class LoginController--><rect codeLine="21" fill="#FEFECE" filter="url(#f1je93sa5ph90k)" height="61.8359" id="LoginController" style="stroke:#A80036;stroke-width:1.5;" width="125" x="54.5" y="175"/><ellipse cx="73.1" cy="191" fill="#ADD1B2" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M75.1,187.5 Q75.3031,187 75.5375,186.75 Q75.7719,186.5 76.0375,186.5 Q76.5063,186.5 76.8031,186.7813 Q77.1,187.0625 77.1,187.7188 L77.1,189.2813 Q77.1,189.9375 76.8188,190.2188 Q76.5375,190.5 76.1,190.5 Q75.7094,190.5 75.4594,190.3281 Q75.2094,190.1563 75.1,189.7031 Q75.0531,189.3906 74.8813,189.2188 Q74.5688,188.8906 74.0063,188.7031 Q73.4438,188.5 72.8813,188.5 Q72.1781,188.5 71.5844,188.7813 Q71.0063,189.0625 70.5531,189.6875 Q70.1,190.3125 70.1,191.1719 L70.1,192.0938 Q70.1,193.125 70.9438,193.8125 Q71.7875,194.5 73.2875,194.5 Q74.1781,194.5 74.8031,194.2969 Q75.1625,194.1875 75.5688,193.8281 Q75.8344,193.625 75.975,193.5625 Q76.1156,193.5 76.2875,193.5 Q76.6156,193.5 76.85,193.7656 Q77.1,194.0156 77.1,194.375 Q77.1,194.7188 76.7563,195.125 Q76.2563,195.7188 75.4594,196.0469 Q74.4125,196.5 73.1313,196.5 Q71.6313,196.5 70.4281,195.9063 Q69.4594,195.4375 68.7719,194.4219 Q68.1,193.4063 68.1,192.2031 L68.1,191.1094 Q68.1,189.8594 68.6938,188.7656 Q69.3031,187.6719 70.35,187.0938 Q71.4125,186.5 72.6,186.5 Q73.3188,186.5 73.9438,186.75 Q74.5688,187 75.1,187.5 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="85" x="87.9" y="195.9102">LoginController</text><line style="stroke:#A80036;stroke-width:1.5;" x1="55.5" x2="178.5" y1="207" y2="207"/><line style="stroke:#A80036;stroke-width:1.5;" x1="55.5" x2="178.5" y1="215" y2="215"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="113" x="60.5" y="230.4189">+login(email,password)</text><!--MD5=[963343b82525635de3374bcb96d0dfc1]
+class LoginUI--><rect codeLine="14" fill="#FEFECE" filter="url(#f1je93sa5ph90k)" height="48" id="LoginUI" style="stroke:#A80036;stroke-width:1.5;" width="75" x="79.5" y="42"/><ellipse cx="94.5" cy="58" fill="#ADD1B2" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M96.5,54.5 Q96.7031,54 96.9375,53.75 Q97.1719,53.5 97.4375,53.5 Q97.9063,53.5 98.2031,53.7813 Q98.5,54.0625 98.5,54.7188 L98.5,56.2813 Q98.5,56.9375 98.2188,57.2188 Q97.9375,57.5 97.5,57.5 Q97.1094,57.5 96.8594,57.3281 Q96.6094,57.1563 96.5,56.7031 Q96.4531,56.3906 96.2813,56.2188 Q95.9688,55.8906 95.4063,55.7031 Q94.8438,55.5 94.2813,55.5 Q93.5781,55.5 92.9844,55.7813 Q92.4063,56.0625 91.9531,56.6875 Q91.5,57.3125 91.5,58.1719 L91.5,59.0938 Q91.5,60.125 92.3438,60.8125 Q93.1875,61.5 94.6875,61.5 Q95.5781,61.5 96.2031,61.2969 Q96.5625,61.1875 96.9688,60.8281 Q97.2344,60.625 97.375,60.5625 Q97.5156,60.5 97.6875,60.5 Q98.0156,60.5 98.25,60.7656 Q98.5,61.0156 98.5,61.375 Q98.5,61.7188 98.1563,62.125 Q97.6563,62.7188 96.8594,63.0469 Q95.8125,63.5 94.5313,63.5 Q93.0313,63.5 91.8281,62.9063 Q90.8594,62.4375 90.1719,61.4219 Q89.5,60.4063 89.5,59.2031 L89.5,58.1094 Q89.5,56.8594 90.0938,55.7656 Q90.7031,54.6719 91.75,54.0938 Q92.8125,53.5 94,53.5 Q94.7188,53.5 95.3438,53.75 Q95.9688,54 96.5,54.5 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="43" x="108.5" y="62.9102">LoginUI</text><line style="stroke:#A80036;stroke-width:1.5;" x1="80.5" x2="153.5" y1="74" y2="74"/><line style="stroke:#A80036;stroke-width:1.5;" x1="80.5" x2="153.5" y1="82" y2="82"/><!--MD5=[3fd616f346a44cd59a91eb10b19e157c]
+class User--><rect codeLine="35" fill="#FEFECE" filter="url(#f1je93sa5ph90k)" height="131.0156" id="User" style="stroke:#A80036;stroke-width:1.5;" width="170" x="32" y="630"/><ellipse cx="99.75" cy="646" fill="#A9DCDF" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M101.5,647.5 L98.2031,647.5 L97.7656,648.5 L97.7656,648.5 L98.2344,648.5 L98.75,649.125 L98.75,649.5 L98.75,649.875 L98.2344,650.5 L97.7656,650.5 L95.875,650.5 L95.2656,650.5 L94.75,649.875 L94.75,649.5 L94.75,649.125 L95.2656,648.5 L95.875,648.5 L98.1875,642.5 L97.3125,642.5 L96.2656,642.5 L95.75,641.875 L95.75,641.5 L95.75,641.125 L96.2656,640.5 L97.3125,640.5 L100.9844,640.5 L103.6719,648.5 L104.2344,648.5 L104.2344,648.5 L104.75,649.125 L104.75,649.5 L104.75,649.875 L104.2344,650.5 L103.6719,650.5 L101.7813,650.5 L101.2656,650.5 L100.75,649.875 L100.75,649.5 L100.75,649.125 L101.2656,648.5 L101.7813,648.5 L101.7813,648.5 L101.5,647.5 Z M100.9531,645.5 L99.75,641.9219 L98.7188,645.5 L100.9531,645.5 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacingAndGlyphs" textLength="26" x="120.25" y="650.9102">User</text><line style="stroke:#A80036;stroke-width:1.5;" x1="33" x2="201" y1="662" y2="662"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="48" x="38" y="677.4189">-Integer id</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="59" x="38" y="691.2549">-String email</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="85" x="38" y="705.0908">-String password</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="52" x="38" y="718.9268">-Integer nif</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="61" x="38" y="732.7627">-String name</text><line style="stroke:#A80036;stroke-width:1.5;" x1="33" x2="201" y1="739.1797" y2="739.1797"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="158" x="38" y="754.5986">+User(email,password,nif,name)</text><!--MD5=[c5b08e60048ef1bcd788d24cf324082e]
+class UserSession--><rect codeLine="44" fill="#FEFECE" filter="url(#f1je93sa5ph90k)" height="75.6719" id="UserSession" style="stroke:#A80036;stroke-width:1.5;" width="105" x="64.5" y="476"/><ellipse cx="79.5" cy="492" fill="#ADD1B2" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M81.5,488.5 Q81.7031,488 81.9375,487.75 Q82.1719,487.5 82.4375,487.5 Q82.9063,487.5 83.2031,487.7813 Q83.5,488.0625 83.5,488.7188 L83.5,490.2813 Q83.5,490.9375 83.2188,491.2188 Q82.9375,491.5 82.5,491.5 Q82.1094,491.5 81.8594,491.3281 Q81.6094,491.1563 81.5,490.7031 Q81.4531,490.3906 81.2813,490.2188 Q80.9688,489.8906 80.4063,489.7031 Q79.8438,489.5 79.2813,489.5 Q78.5781,489.5 77.9844,489.7813 Q77.4063,490.0625 76.9531,490.6875 Q76.5,491.3125 76.5,492.1719 L76.5,493.0938 Q76.5,494.125 77.3438,494.8125 Q78.1875,495.5 79.6875,495.5 Q80.5781,495.5 81.2031,495.2969 Q81.5625,495.1875 81.9688,494.8281 Q82.2344,494.625 82.375,494.5625 Q82.5156,494.5 82.6875,494.5 Q83.0156,494.5 83.25,494.7656 Q83.5,495.0156 83.5,495.375 Q83.5,495.7188 83.1563,496.125 Q82.6563,496.7188 81.8594,497.0469 Q80.8125,497.5 79.5313,497.5 Q78.0313,497.5 76.8281,496.9063 Q75.8594,496.4375 75.1719,495.4219 Q74.5,494.4063 74.5,493.2031 L74.5,492.1094 Q74.5,490.8594 75.0938,489.7656 Q75.7031,488.6719 76.75,488.0938 Q77.8125,487.5 79,487.5 Q79.7188,487.5 80.3438,487.75 Q80.9688,488 81.5,488.5 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="73" x="93.5" y="496.9102">UserSession</text><line style="stroke:#A80036;stroke-width:1.5;" x1="65.5" x2="168.5" y1="508" y2="508"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="59" x="70.5" y="523.4189">-String email</text><line style="stroke:#A80036;stroke-width:1.5;" x1="65.5" x2="168.5" y1="529.8359" y2="529.8359"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="76" x="70.5" y="545.2549">+UserSession()</text><!--MD5=[6eb40b7e2b28e3e84cf68ec0bdf96d8e]
+link LoginUI to LoginController--><path codeLine="59" d="M117,90.1 C117,111.8 117,144.6 117,169.6 " fill="none" id="LoginUI-to-LoginController" style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><polygon fill="#A80036" points="117,174.81,121,165.81,117,169.81,113,165.81,117,174.81" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[69b36f574466151ecf750fcd3277da81]
+link LoginController to ApplicationPOT--><path codeLine="60" d="M117,237.01 C117,253.63 117,274.55 117,292.79 " fill="none" id="LoginController-to-ApplicationPOT" style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><polygon fill="#A80036" points="117,297.85,121,288.85,117,292.85,113,288.85,117,297.85" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[b9af1f772d12807ca45af06731b7d10f]
+link ApplicationPOT to UserSession--><path codeLine="61" d="M117,374.33 C117,402.56 117,441.35 117,470.73 " fill="none" id="ApplicationPOT-to-UserSession" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="#A80036" points="117,475.73,121,466.73,117,470.73,113,466.73,117,475.73" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="21" x="118" y="420.4951">has</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="7" x="109.4422" y="395.2631">1</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="7" x="109.3766" y="465.0438">1</text><!--MD5=[261a9f975a95b8b9805b87baf77053d0]
+link UserSession to User--><path codeLine="62" d="M117,552.19 C117,573.09 117,599.86 117,624.53 " fill="none" id="UserSession-to-User" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="#A80036" points="117,629.76,121,620.76,117,624.76,113,620.76,117,629.76" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="52" x="118" y="596.4951">allocates</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="7" x="109.4422" y="573.1008">1</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="7" x="109.6172" y="619.2082">1</text><!--MD5=[c2b7f69c69108a559ae3d201be7c9b67]
+@startuml
+skinparam classAttributeIconSize 0
+
+
+package "Controller" #DDDDDD {
+class ApplicationPOT
+{
+  +static getInstance()
+  +clearCurrentSession()
+}
+}
+
+
+package "UI" #DDDDDD {
+class LoginUI{
+
+}
+}
+
+
+package "Controller" #DDDDDD {
+class LoginController{
++login(email,password)
+}
+}
+
+
+package "Model" #DDDDDD {
+
+}
+
+
+
+
+package "Model" #DDDDDD {
+abstract class User{
+-Integer id
+-String email
+-String password
+-Integer nif
+-String name
++User(email,password,nif,name)
+}
+
+class UserSession{
+-String email
++UserSession()
+}
+
+
+
+
+
+}
+
+
+
+
+
+LoginUI ..> LoginController
+LoginController ..> ApplicationPOT
+ApplicationPOT "1" - -> "1" UserSession : has
+UserSession "1" - -> "1" User : allocates
+
+
+@enduml
+
+PlantUML version 1.2020.23(Sun Dec 13 19:14:58 GMT 2020)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Default Encoding: Cp1252
+Language: pt
+Country: PT
+--></g></svg>

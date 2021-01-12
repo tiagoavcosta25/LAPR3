@@ -1,0 +1,66 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+
+package "Controller" #DDDDDD {
+class ApplicationPOT
+{
+  +static getInstance()
+  +clearCurrentSession()
+}
+}
+
+
+package "UI" #DDDDDD {
+class LoginUI{
+
+}
+}
+
+
+package "Controller" #DDDDDD {
+class LoginController{
++login(email,password)
+}
+}
+
+
+package "Model" #DDDDDD {
+
+}
+
+
+
+
+package "Model" #DDDDDD {
+abstract class User{
+-Integer id
+-String email
+-String password
+-Integer nif
+-String name
++User(email,password,nif,name)
+}
+
+class UserSession{
+-String email
++UserSession()
+}
+
+
+
+
+
+}
+
+
+
+
+
+LoginUI ..> LoginController
+LoginController ..> ApplicationPOT
+ApplicationPOT "1" --> "1" UserSession : has
+UserSession "1" --> "1" User : allocates
+
+
+@enduml

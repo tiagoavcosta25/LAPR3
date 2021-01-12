@@ -3,9 +3,7 @@ skinparam classAttributeIconSize 0
 hide methods
 left to right direction
 
-class Platform {
--   String designation
-}
+
 
 class Client{
 -String credits
@@ -43,6 +41,5 @@ class Client extends User
 Client "1" -- "1" Client : registers
 Client "1" -- "1" Address : has
 Client "*" -- "*" CreditCard : has
-Platform "1" -- "*" Client : has registered >
-Platform "1" -- "*" User : has registered >
+
 @enduml

@@ -1,0 +1,47 @@
+@startuml
+skinparam classAttributeIconSize 0
+hide methods
+left to right direction
+
+class Platform {
+-   String designation
+}
+
+
+class PharmacyManager{
+
+}
+
+abstract class User{
+-Integer id
+-String email
+-String password
+-Integer nif
+-String name
+}
+
+class Delivery{
+-Order order
+-Date deliveryDate
+-String notes
+}
+
+class DeliveryRun{
+-Integer id
+-Courier courier
+-Scooter scooter
+-Drone drone
+}
+
+class DeliveryStatus{
+-String designation
+}
+
+
+Platform "1" -- "*" PharmacyManager : has registered >
+PharmacyManager "1" -- "1" User : is a >
+DeliveryRun "1" -- "*" Delivery : has >
+DeliveryRun"1" -- "1" DeliveryStatus : has >
+PharmacyManager "1" -- "*" DeliveryRun : registers >
+
+@enduml

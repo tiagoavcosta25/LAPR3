@@ -3,9 +3,6 @@ skinparam classAttributeIconSize 0
 hide methods
 left to right direction
 
-class Platform {
--   String designation
-}
 
 
 abstract class User{
@@ -19,5 +16,5 @@ abstract class User{
 
 
 
-Platform "1" -- "*" User : has registered >
+
 @enduml

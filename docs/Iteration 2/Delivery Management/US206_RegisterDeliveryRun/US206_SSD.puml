@@ -1,0 +1,37 @@
+@startuml
+autonumber
+hide footbox
+
+actor "PharmacyManager" as U
+
+participant ":System" as SYST
+
+activate U
+
+U -> SYST : Initiates the registration of a delivery run
+activate SYST
+
+loop until there are no more valid orders to choose\nfrom
+SYST --> U: shows the list of orders
+
+deactivate SYST
+
+
+
+U -> SYST : chooses an order
+activate SYST
+SYST --> U : checks if the manager wants to choose\nanother order
+deactivate SYST
+end
+
+U -> SYST : Confirms that there is no more orders\nthat he wants to add
+
+activate SYST
+SYST --> U : Registers the delivery run and informs\nabout the success of the operation
+deactivate SYST
+
+
+
+deactivate U
+
+@enduml

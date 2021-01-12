@@ -8,7 +8,6 @@ participant "LogoutUI" as UI
 participant "LogoutController" as CTRL
 
 
-participant "userReg\n:UserRegistration" as UREG
 participant "session\n:UserSession" as SES
 participant "ApplicationPOT" as _APP
 participant "app\n:ApplicationPOT" as APP
