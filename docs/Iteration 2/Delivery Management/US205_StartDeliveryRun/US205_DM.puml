@@ -1,0 +1,46 @@
+@startuml
+skinparam classAttributeIconSize 0
+hide methods
+left to right direction
+
+class Courier {
+      -String iban
+}
+
+ class User{
+-Integer id
+-String email
+-String password
+-Integer nif
+-String name
+}
+
+class DeliveryRun{
+-Integer id
+}
+
+class Vehicle{
+  -int id
+  -float potency
+  -float weight
+  -float maxPayload
+}
+
+class Battery{
+  -int id
+  -float batteryPercentage
+  -int batteryCapacity
+  -float batteryVoltage
+}
+
+database database{
+
+}
+
+Courier "1" -- "1" User : acts as >
+Vehicle "1" -- "1" Battery : has a >
+Courier "1" -- "1" DeliveryRun : does a >
+DeliveryRun "1" -- "1" Vehicle :  has a >
+database "1" -- "*" Courier : has registered
+database "1" -- "*" DeliveryRun : has registered
+@enduml

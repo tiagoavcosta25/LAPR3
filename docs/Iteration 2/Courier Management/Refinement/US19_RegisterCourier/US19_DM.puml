@@ -3,20 +3,18 @@ skinparam classAttributeIconSize 0
 hide methods
 left to right direction
 
-class Platform {
-  -String strDesignation
+database database {
 }
 
 class Courier {
-      -Integer id
       -String iban
 }
 
-class PharmacyManager {
+class Administrator {
 }
 
-
 class User{
+  -Integer id
   -String email
   -String password
   -int nif
@@ -28,10 +26,10 @@ class Pharmacy{
 -   String name
 }
 
-Platform "1" -- "1" PharmacyManager : has registered >
-PharmacyManager "1" -- "1..*" Courier : registers >
+database "1" -- "1" Administrator : has registered >
+Administrator "1" -- "1..*" Courier : registers >
 Courier "1" -- "1" User: acts as  >
 Courier "1" -- "1" Pharmacy: belongs to a  >
-PharmacyManager "1" -- "1" User: acts as  >
+Administrator "1" -- "1" User: acts as  >
 @enduml
 

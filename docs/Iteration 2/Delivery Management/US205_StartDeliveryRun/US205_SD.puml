@@ -1,0 +1,58 @@
+@startuml
+autonumber
+actor "Courier" as ADMIN
+participant ":StartDeliveryRunUI" as UI
+participant ":StartDeliveryRunServiceController" as CTRL
+participant "PotApplication" as PA
+participant "app \n:PotApplication" as APA
+participant "deliveryServ \n:DeliveryRunService" as PR
+participant "vehicleServ:VehicleService" as SS
+participant "deliveryDB : DeliveryDB" as PDB
+participant "vehicleDB :VehicleDB" as SDB
+activate ADMIN
+
+ADMIN -> UI : Starts a delivery run
+activate UI
+
+UI -> CTRL : startDeliveryRun()
+activate CTRL
+CTRL -> PR : create()
+activate PR
+PR -> PDB** : create()
+deactivate PR
+CTRL -> SS : create()
+activate SS
+SS -> SDB** : create()
+deactivate SS
+CTRL -> PA : app = getInstance()
+activate PA
+deactivate PA
+CTRL -> APA : session = getCurrentSession()
+activate APA
+deactivate APA
+
+CTRL -> APA : email = getCurrentUserEmail()
+activate APA
+deactivate APA
+CTRL -> SS : vehicle = getSuitableVehicle(distance,email)
+activate SS
+SS -> SDB : vehicle = getSuitableVehicle(distance,email)
+activate SDB
+deactivate SDB
+deactivate SS
+CTRL -> PR : deliveryRun = updateDeliveryRun(vehicle,email)
+activate PR
+PR -> PDB : deliveryRun = updateDeliveryRun(scooter,email)
+activate PDB
+deactivate PDB
+deactivate PR
+
+CTRL -> PR : sendsEmail(deliveryRun)
+activate PR
+PR -> PR : sendsEmail(deliveryRun)
+deactivate PR
+deactivate CTRL
+UI -> ADMIN : informs of the success of the operation
+deactivate UI
+
+@enduml
