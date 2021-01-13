@@ -123,9 +123,9 @@ class UserTest {
 
     @Test
     void toStringTest() {
-        PharmacyManager p = new PharmacyManager();
+        Client c = new Client();
         String expResult = "User{m_intId=null, m_strEmail='No Email Registered', m_strPassword='No Password Registered', m_intNif=0, m_strName='No Name'}";
-        String result = p.toString();
+        String result = c.toString();
         assertEquals(expResult, result);
     }
 }

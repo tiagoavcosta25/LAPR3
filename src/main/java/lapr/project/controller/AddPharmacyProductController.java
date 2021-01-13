@@ -1,7 +1,6 @@
 package lapr.project.controller;
 
 import lapr.project.model.Pharmacy;
-import lapr.project.model.PharmacyManager;
 import lapr.project.model.Product;
 import lapr.project.data.PharmacyDB;
 import lapr.project.data.ProductDB;
@@ -24,11 +23,6 @@ public class AddPharmacyProductController {
      * Pharmacy Management class
      */
     private PharmacyDB m_oPharmacyDB;
-
-    /**
-     * Pharmacy's Manager
-     */
-    private PharmacyManager m_oPharmacyManager;
 
     /**
      * Product

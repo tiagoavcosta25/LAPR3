@@ -264,17 +264,7 @@ public class Order {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Order order = (Order) o;
-        return m_intId == order.m_intId &&
-                Float.compare(order.m_fltAmount, m_fltAmount) == 0 &&
-                Float.compare(order.m_fltTotalWeight, m_fltTotalWeight) == 0 &&
-                Float.compare(order.m_fltAdditionalFee, m_fltAdditionalFee) == 0 &&
-                Objects.equals(m_dtOrderDate, order.m_dtOrderDate) &&
-                m_strDescription.equals(order.m_strDescription) &&
-                m_strStatus.equals(order.m_strStatus) &&
-                m_oClient.equals(order.m_oClient) &&
-                m_oAddress.equals(order.m_oAddress) &&
-                m_oPharmacy.equals(order.m_oPharmacy) &&
-                m_mapProducts.equals(order.m_mapProducts);
+        return m_intId == order.m_intId;
     }
 
     @Override

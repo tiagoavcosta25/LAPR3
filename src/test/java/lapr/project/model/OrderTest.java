@@ -283,6 +283,13 @@ class OrderTest {
         boolean expected = true;
         boolean real = oOrder.equals(new Order());
         assertEquals(expected, real);
+        real = oOrder.equals(oOrder);
+        assertTrue(real);
+        real = oOrder.equals(null);
+        assertFalse(real);
+        oOrder.setId(-2);
+        real = oOrder.equals(new Pharmacy());
+        assertFalse(real);
     }
 
     @Test
