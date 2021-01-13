@@ -1,0 +1,173 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+package "UI" #DDDDDD {
+class GenerateInvoiceUI{
+
+}
+}
+
+database Database{
+}
+
+
+package "Controller" #DDDDDD {
+class GenerateInvoiceController{
++registerNewUser(name,email,password,address,gpsLocation,creditCardNr,validityDate,CCV)
+}
+
+class ApplicationPOT
+{
+  +static getInstance()
+  +getPlatform()
+}
+
+class UserSession
+{
+  +getCurrentSession()
+}
+}
+
+
+package "Model" #DDDDDD {
+package "Service" #DDDDDD {
+ class ClientService{
+          +ClientService()
+     +getUserByEmail(email)
+ }
+
+  class OrderService{
+          +OrderService()
+       +getLatestOrder()
+   }
+
+   class InvoiceService{
+          +InvoiceService()
+          +addInvoice(date, totalPrice, order, client)
+          +validateInvoice()
+          +registerInvoice()
+      }
+ }
+}
+
+package "Model" #DDDDDD {
+abstract class User{
+-String email
+-String password
+-String name
+}
+
+class Client{
+-int IBAN;
+-long creditCardNumber
+-Address address
+-int validityDate
+-int CCV
+}
+
+class Address{
+-   String streetName
+-   String doorNumber
+-   String postalCode
+-   String locality
+-   String country
+-   float longitude
+-   float latitude
+}
+
+class Order{
+-   int id
+-   float amount
+-   float totalWeight
+-   float additionalFee
+-   Date orderDate
+-   String description
+-   String status
++create(date, totalPrice, order, client)
+}
+
+class Product{
+-   int id
+-   String name
+-   String description
+-   float unitaryPrice
+-   float unitaryWeight
+}
+
+class Invoice{
+-   Date orderDate
+-   float amount
+}
+
+class CreditCard{
+-   int creditCardNumber
+-   Date validatyDate
+-   int CCV
+}
+
+}
+
+
+package "Data" #DDDDDD {
+class DataHandler{
+    +openConnection()
+    +closeAll()
+}
+class OrderDB{
+          +OrderDB()
+       +getLatestOrder()
+  }
+
+class InvoiceDB{
+          +InvoiceDB()
+          +addInvoice(date, totalPrice, order, client)
+          +validateInvoice()
+          +registerInvoice()
+  }
+
+class ClientDB{
+          +ClientDB()
+     +getUserByEmail(email)
+  }
+
+}
+
+class InvoiceDB extends DataHandler
+class ClientDB extends DataHandler
+class OrderDB extends DataHandler
+
+class Client extends User
+
+GenerateInvoiceUI ..> GenerateInvoiceController
+GenerateInvoiceController ..> ClientService
+GenerateInvoiceController ..> OrderService
+GenerateInvoiceController ..> InvoiceService
+GenerateInvoiceController ..> ApplicationPOT
+GenerateInvoiceController ..> UserSession
+
+Database "1" -- "*" Client : has registered >
+Database "1" -- "*" Order : has registered >
+Database "1" -- "*" Product : has registered >
+Database "1" -- "*" Address : has registered >
+Database "1" -- "*" Invoice : has registered >
+Database "1" -- "*" Client : has registered >
+Database "1" -- "*" CreditCard : has registered >
+InvoiceService "1" --> "*" Invoice : manages services of
+InvoiceService "1" --> "1" InvoiceDB : uses
+OrderService "1" --> "*" Order : manages services of
+OrderService "1" --> "1" OrderDB : uses
+ClientService "1" --> "*" Client : manages services of
+ClientService "1" --> "1" ClientDB : uses
+
+InvoiceDB -- Database : manages >
+ClientDB -- Database : manages >
+OrderDB -- Database : manages >
+Order "1" -- "*" Product : has >
+Client "1" -- "1" Order : makes >
+Client "1" -- "1" Address : has >
+Order "1" -- "1" Address : has >
+Invoice "1" -- "1" Order : has >
+Invoice "1" -- "*" Product : has >
+Invoice "1" -- "*" CreditCard : is payed using >
+
+@enduml

@@ -1,6 +1,5 @@
 package lapr.project.data;
 
-import lapr.project.data.DataHandler;
 import lapr.project.model.Address;
 import lapr.project.model.Client;
 import oracle.jdbc.OracleTypes;
@@ -15,6 +14,10 @@ public class ClientDB extends DataHandler {
 
     public ClientDB(String jdbcUrl, String username, String password) {
         super(jdbcUrl, username, password);
+    }
+
+    public ClientDB() {
+        super();
     }
 
     /**

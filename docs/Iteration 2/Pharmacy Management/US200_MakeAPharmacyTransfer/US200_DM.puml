@@ -3,8 +3,7 @@ skinparam classAttributeIconSize 0
 hide methods
 left to right direction
 
-class Platform {
--   String designation
+database Database {
 }
 
 class Pharmacy{
@@ -24,9 +23,6 @@ class User{
 -   String email
 -   String password
 -   Integer nif
-}
-
-class PharmacyManager{
 }
 
 class Order{
@@ -63,13 +59,9 @@ class PharmacyTransfer{
 -   int quantity
 }
 
-Platform "1" -- "*" Pharmacy : has registered >
-Platform "1" -- "*" PharmacyManager : has registered >
-Platform "1" -- "*" Order : has registered >
-Platform "1" -- "*" Product : has registered >
-Platform "1" -- "*" Client : has registered >
-PharmacyManager "0..1" -- "1" User: acts as >
-Pharmacy "1" -- "1" PharmacyManager : has >
+Database "1" -- "*" Order : has registered >
+Database "1" -- "*" Product : has registered >
+Database "1" -- "*" Client : has registered >
 Pharmacy "1" -- "1" Address : has >
 Order "1" -- "*" Product : has >
 Order "1" -- "*" Pharmacy : has >

@@ -1,0 +1,56 @@
+@startuml
+skinparam classAttributeIconSize 0
+hide methods
+left to right direction
+
+database Database {
+}
+
+class Pharmacy{
+-   int id
+-   String name
+}
+
+class Park{
+-   int maxSlotsNumber
+}
+
+class ChargingSlot{
+-   int id
+-   float outputPower
+}
+
+class ParkingSlot{
+-   int id
+}
+
+class Product{
+-   int id
+-   String name
+-   String description
+-   float unitaryPrice
+-   float unitaryWeight
+}
+
+class Address{
+-   String streetName
+-   String doorNumber
+-   String postalCode
+-   String locality
+-   String country
+-   float longitude
+-   float latitude
+}
+
+Database "1" -- "*" Pharmacy : has registered >
+Database "1" -- "*" Address : has registered >
+Database "1" -- "*" Park : has registered >
+Database "1" -- "*" ChargingSlot : has registered >
+Database "1" -- "*" ParkingSlot : has registered >
+Database "1" -- "*" Product : has registered >
+Pharmacy "1" -- "1" Park : has >
+Pharmacy "1" -- "*" Product : has >
+Pharmacy "1" -- "*" Address : has >
+Park "1" -- "1" ChargingSlot : has >
+Park "1" -- "1" ParkingSlot : has >
+@enduml

@@ -9,10 +9,8 @@ participant "CalculateMostEfficientPahtController" as CTRL
 participant "ApplicationPOT" as _APP
 participant "app\n:ApplicationPOT" as APP
 participant "session\n:UserSession" as SESSION
-participant "plat\n:Platform" as PLAT
-participant "ordReg\n:OrderRegistration" as ORDREG
-participant "delReg\n:DeliveryRegistration" as DELREG
-participant "pairAddress\nPair<Address, Address>" as PAIR
+participant "oDeliveryDB\n:DeliveryDB" as DELDB
+participant "list\nList<Address>>" as LIST
 
 activate COUR
 
@@ -24,9 +22,6 @@ CTRL -> _APP: app = getInstance()
 activate _APP
 deactivate _APP
 
-CTRL -> APP: plat = getPlaform()
-activate APP
-deactivate APP
 CTRL -> APP: session = getCurrentSession()
 activate APP
 deactivate APP
@@ -35,29 +30,17 @@ CTRL -> SESSION : email = getCurrentUserEmail()
 activate SESSION
 deactivate SESSION
 
-CTRL -> PLAT : delReg = getDelReg()
+CTRL -> DELDB : list = getAddressesByDeliveryRunId(email)
+activate DELDB
+DELDB -> DELDB : executeQuery(query)
+ref over DELDB : SD_CONNECTIONS
+deactivate DELDB
+CTRL -> DELDB : calculateMostEfficientPath(addressA, addressB, list)
+activate DELDB
+DELDB -> DELDB : executeQuery(query)
+ref over DELDB : SD_CONNECTIONS
+deactivate DELDB
 
-activate PLAT
-deactivate PLAT
-
-CTRL -> PLAT : ordReg = getOrderReg()
-
-activate PLAT
-deactivate PLAT
-
-CTRL -> ORDREG : order = getOrderByCourier(email)
-activate ORDREG
-ORDREG -> ORDREG : executeQuery(query)
-ref over ORDREG : SD_CONNECTIONS
-deactivate ORDREG
-CTRL -> DELREG : pairAddress = getStartingAndDeliveryAddressByOrder(order)
-activate DELREG
-DELREG -> DELREG : executeQuery(query)
-ref over DELREG : SD_CONNECTIONS
-deactivate DELREG
-CTRL -> DELREG : getShortestPath(pairAddress)
-activate DELREG
-deactivate DELREG
 deactivate CTRL
 UI -> COUR : Shows the shortest and most efficient path, \ninforming of the success of the operation.
 deactivate UI

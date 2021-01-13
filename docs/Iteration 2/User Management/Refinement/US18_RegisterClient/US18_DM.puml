@@ -35,10 +35,16 @@ class CreditCard{
 +CreditCard(creditCardNr,validityDate,CCV)
 }
 
+database Database {
+
+}
+
+
 class Client extends User
 
-
-Client "1" -- "1" Client : registers
+Database "1" -- "*" Client : has registered
+Database "1" -- "*" Address : has registered
+Database "1" -- "*" CreditCard : has registered
 Client "1" -- "1" Address : has
 Client "*" -- "*" CreditCard : has
 

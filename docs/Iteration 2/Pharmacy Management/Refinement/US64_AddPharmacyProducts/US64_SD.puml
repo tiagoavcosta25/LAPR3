@@ -1,0 +1,73 @@
+@startuml
+autonumber
+actor "Admin" as ADM
+
+participant ":AddPharmacyProductUI" as UI
+participant ":AddPharmacyProductController" as CTRL
+participant "session \n:UserSession" as US
+participant "productServ\n:ProductService" as PS
+participant "productDB\n:ProductDB" as PDB
+participant "pharmacyServ\n:PharmacyService" as PHS
+participant "pharmacyDB\n:PharmacyDB" as PHDB
+
+
+
+activate ADM
+
+ADM -> UI : initiates the process adding a product to a pharmacy
+activate UI
+UI -> CTRL : lstProducts = getProducts(pharmacyId)
+activate CTRL
+CTRL -> PS** : create()
+activate PS
+PS -> PDB** : create()
+deactivate PS
+CTRL -> PS : lstProducts = getProducts(pharmacyId)
+activate PS
+PS -> PDB : lstProducts = getProducts(pharmacyId)
+activate PDB
+ref over PDB
+SD_CONNECTIONS
+end ref
+deactivate PDB
+deactivate PS
+deactivate CTRL
+UI -> ADM : shows the pharmacy's product list
+deactivate UI
+
+ADM -> UI : selects the product
+activate UI
+UI -> ADM : asks for the stock for said product
+deactivate UI
+
+ADM -> UI : introduces the stock
+activate UI
+UI -> CTRL : addPharmacyProduct(product, stock)
+activate CTRL
+deactivate CTRL
+
+
+UI -> ADM : validates, presents the information and asks for confirmation
+deactivate UI
+
+ADM -> UI : confirms
+activate UI
+UI -> CTRL : registersPharmacyProduct()
+activate CTRL
+CTRL -> PHS : registersPharmacyProduct(pharmacyId, product, stock)
+activate PHS
+PHS -> PHDB : registersPharmacyProduct(pharmacyId, product, stock)
+activate PHDB
+ref over PHDB
+SD_CONNECTIONS
+end ref
+deactivate PHDB
+UI -> ADM : informs the success of the operation
+deactivate PHDB
+deactivate PHS
+deactivate CTRL
+deactivate UI
+
+deactivate ADM
+
+@enduml

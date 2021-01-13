@@ -1,36 +1,37 @@
-/*package lapr.project.controller;
+package lapr.project.controller;
 
+import javafx.util.Pair;
 import lapr.project.data.DeliveryDB;
-import lapr.project.data.OrderDB;
+import lapr.project.model.Address;
 import lapr.project.model.UserSession;
+
+import java.util.LinkedList;
+import java.util.List;
 
 
 public class CalculateMostEfficientPathController {
 
-
     private DeliveryDB oDeliveryDB;
 
-
-    private OrderDB oOrderDB;
+    private UserSession m_oUserSession;
 
     public CalculateMostEfficientPathController(String jdbcUrl, String username, String password) {
         this.oDeliveryDB = new DeliveryDB(jdbcUrl, username, password);
-        this.oOrderDB = new OrderDB(jdbcUrl, username, password);
     }
 
-    //TO IMPLEMENT
     public double getShortestPath() {
-        this.m_oUserSession = this.m_oApplicationPOT.getCurrentSession();
+        this.m_oUserSession = ApplicationPOT.getInstance().getCurrentSession();
         String email = this.m_oUserSession.getCurrentUserEmail();
-        List<Address> list = this.oDeliveryRegistration.getAddressesByDeliveryRunId(email);
-        Address a = new Address();
-        Address b = new Address();
-        Pair<LinkedList<Address>, Double> result = this.oDeliveryRegistration.calculateMostEfficientPath(a, b, list);
-        if (result == null) {
-            return -1;
+        List<Address> list = this.oDeliveryDB.getAddressesByDeliveryRunId(email);
+        if (list != null) {
+            Address a = list.get(list.size() - 1);
+            list.remove(list.size() - 1);
+            Pair<LinkedList<Address>, Double> result = this.oDeliveryDB.calculateMostEfficientPath(a, a, list);
+            if (result == null) {
+                return -1;
+            }
+            return result.getValue();
         }
-        return result.getValue();
+        return -1;
     }
-
-
-}*/
+}

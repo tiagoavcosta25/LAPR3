@@ -1,0 +1,56 @@
+@startuml
+autonumber
+actor "Administrator" as ADMIN
+
+participant ":RegisterPharmacyUI" as UI
+participant ":RegisterPharmacyController" as CTRL
+participant "pharmacyServ\n:PharmacyService" as PS
+participant "pharmacy: Pharmacy" as PH
+participant "address: Address" as A
+participant "pharmacyDB\n:PharmacyDB" as PDB
+
+
+
+activate ADMIN
+
+ADMIN -> UI : initiates the registration of a pharmacy
+activate UI
+UI -> ADMIN : asks for the required data for the pharmacy
+deactivate UI
+
+ADMIN -> UI : inserts the required data
+activate UI
+UI -> CTRL : newPharmacy(name,latitude,longitude,streetName,\ndoorNumber,postalCode,locality,country)
+CTRL -> PS : pharmacy = newPharmacy(name, latitude,longitude,\nstreetName,doorNumber,postalCode,locality,country)
+activate PS
+PS -> PH ** : create(name, latitude,longitude,streetName,\ndoorNumber,postalCode,locality,country)
+activate PH
+PH -> A ** : create(latitude,longitude,streetName,doorNumber,\npostalCode,locality,country)
+deactivate PH
+deactivate PS
+deactivate CTRL
+
+
+UI -> ADMIN : validates, presents the information and asks for confirmation
+deactivate UI
+
+ADMIN -> UI : confirms
+activate UI
+UI -> CTRL : registersPharmacy()
+activate CTRL
+CTRL -> PS : registersPharmacy(pharmacy)
+activate PS
+PS -> PDB : registersPharmacy(pharmacy)
+activate PDB
+ref over PDB
+SD_CONNECTIONS
+end ref
+deactivate PDB
+deactivate PS
+UI -> ADMIN : informs the success of the operation
+deactivate CTRL
+deactivate UI
+
+deactivate ADMIN
+
+@enduml

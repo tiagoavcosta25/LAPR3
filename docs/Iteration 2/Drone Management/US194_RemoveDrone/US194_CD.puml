@@ -1,0 +1,126 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+database Database {
+}
+
+package "UI" #DDDDDD {
+class RemoveDroneUI{
+}
+}
+
+package "Controller" #DDDDDD {
+class RemoveDroneController{
++showPharmacies()
++showDroneList(pharmacyId)
++removeDrone(droneId)
+}
+}
+
+
+package "Model" #DDDDDD {
+ package "Service" #DDDDDD {
+  class PharmacyService{
+      +PharmacyService()
+      +getPharmacies()
+  }
+
+  class DroneService{
+      +DroneService()
+      +getDrones()
+      +removeDrone(droneId)
+   }
+}
+
+package "Model" #DDDDDD {
+class DronePark{
+-   int maxSlotsNumber
+}
+
+class DroneChargingSlot{
+-   int id
+-   float outputPower
+}
+
+class DroneParkingSlot{
+-   int id
+}
+
+class Drone{
+  +Drone(batteryPerc, charginStatus, potency,\n weight, batteryCapacity, maxPayload, batteryVoltage, pharmacyId)
+}
+
+class Vehicle{
+  -int id
+  -float potency
+  -float weight
+  -float maxPayload
+}
+
+class Battery{
+  -int id
+  -float batteryPerc
+  -int batteryCapacity
+  -float batteryVoltage
+}
+
+class Address{
+  -float longitude
+  -float latitude
+  -String doorNumber
+  -String streetName
+  -String postalCode
+  -String locality
+  -String country
+}
+
+class Pharmacy {
+  -int id
+  -String name
+  +getDrones(pharmacyId)
+}
+}
+
+
+package "Data" #DDDDDD {
+class DataHandler{
+    +openConnection()
+    +closeAll()
+}
+class PharmacyDB{
+     +PharmacyDB()
+     +getPharmacies()
+ }
+
+ class DroneDB{
+     +DroneDB()
+     +getScootersList(pharmacyId)
+     +removeDroneFromDB(droneId)
+  }
+}
+
+class PharmacyDB extends DataHandler
+class DroneDB extends DataHandler
+
+RemoveDroneUI ..> RemoveDroneController
+RemoveDroneController ..> PharmacyService
+RemoveDroneController ..> DroneService
+Database "1" --> "1" PharmacyDB : manages
+Database "1" --> "1" DroneDB : manages
+PharmacyService "1" --> "*" PharmacyDB : uses
+DroneService "1" --> "*" DroneDB : uses
+PharmacyService "1" --> "*" Pharmacy : manage services of
+DroneService "1" --> "*" Drone : manage services of
+
+Database "1" -- "*" Pharmacy : has registered >
+Database "1" -- "*" Drone : has registered >
+
+Vehicle "1" -- "1" Battery : has >
+Drone "*" -- "1" Vehicle : is a type of >
+Drone "*" -- "1" Pharmacy : belongs to >
+Pharmacy "1" -- "1" Address : has >
+Pharmacy "1" -- "1" DronePark : has >
+DronePark "1" -- "1" DroneChargingSlot : has >
+DronePark "1" -- "1" DroneParkingSlot : has >
+
+@enduml

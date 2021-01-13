@@ -1,0 +1,45 @@
+@startuml
+autonumber
+hide footbox
+
+actor "Admin" as U
+
+participant "RemoveProductUI" as UI
+participant "RemoveProductController" as CTRL
+participant "ProductService" as SER
+participant "ProductDB" as DB
+
+activate U
+U -> UI : Engages the remove product feature/button
+activate UI
+UI --> U : Asks for the id of the product to update
+deactivate UI
+U -> UI : Gives the required id
+activate UI
+UI -> CTRL : removeProduct(intId)
+activate CTRL
+CTRL -> SER** : create()
+activate SER
+SER -> DB** : create()
+deactivate SER
+CTRL -> SER : removeProduct(intId)
+activate SER
+SER -> SER : validateId(intId)
+opt if the id given as input has a valid format
+SER -> DB : removeProductFromDB(intId)
+activate DB
+deactivate DB
+ref over DB
+SD_CONNECTIONS
+end ref
+deactivate SER
+deactivate CTRL
+deactivate CTRL
+UI --> U : Informs of the success of the operation
+else if id does not have a valid format
+UI -> U : Informs that the operation was not successful
+deactivate UI
+deactivate U
+end opt
+
+@enduml

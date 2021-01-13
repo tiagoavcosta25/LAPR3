@@ -63,6 +63,16 @@ public class MakeAnOrderController {
     }
 
     /**
+     * An empty constructor of MakeAnOrderController that initiates the platform variable by getting it from the ApplicationPOT.
+     */
+    public MakeAnOrderController() {
+        this.m_oPharmacyDB = new PharmacyDB();
+        this.m_oProductDB = new ProductDB();
+        this.m_oOrderDB = new OrderDB();
+        this.m_oClientDB = new ClientDB();
+    }
+
+    /**
      * The method creates a new order for a delivery to an address.
      */
     public Order newOrder(String strDescription, Double latitude, Double longitude, String streetName,

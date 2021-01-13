@@ -2,27 +2,33 @@
 autonumber
 hide footbox
 
-actor "Pharmacy Manager" as PHARMAN
+actor "Admin" as ADMIN
 
 participant ":System" as SYST
 
-activate PHARMAN
+activate ADMIN
 
-PHARMAN -> SYST : Sends a request regarding the register of a drone
+ADMIN -> SYST : Sends a request regarding the register of an drone
 activate SYST
-SYST --> PHARMAN : Asks for the data that features the drone (i.e., battery percentage, \nbattery capacity, maximum weight, potency,\nmaximum payload, battery voltage, status, pharmacy id)
+
+SYST --> ADMIN : Shows the list of pharmacies and asks to choose one
+deactivate SYST
+ADMIN -> SYST : Chooses the pharmacy
+activate SYST
+
+SYST --> ADMIN : Asks for the data that features the drone (i.e., battery, \nbattery capacity, maximum Weight, status, potency, battery voltage,)
 deactivate SYST
 
-PHARMAN -> SYST : Inserts the required data
+ADMIN -> SYST : Inserts the required data
 activate SYST
-SYST -> PHARMAN : Shows the information about the drone, requesting verification
+SYST -> ADMIN : Shows the information about the drone, requesting verification
 deactivate SYST
 
-PHARMAN -> SYST : Confirms the information
+ADMIN -> SYST : Confirms the information
 activate SYST
-SYST -> PHARMAN : Informs the success of the operation.
+SYST -> ADMIN : Informs the success of the operation.
 deactivate SYST
 
-deactivate PHARMAN
+deactivate ADMIN
 
 @enduml
