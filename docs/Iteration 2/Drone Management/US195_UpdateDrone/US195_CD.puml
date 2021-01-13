@@ -11,8 +11,8 @@ class UpdateDroneUI{
 
 package "Controller" #DDDDDD {
 class UpdateDroneController{
-+validate(battery percentage, pharmacy,potency,\nweight, batteryCapacity, maxPayload, batteryVoltage, \nchargingStatus)
-+updateDrone(battery percentage, pharmacy,potency,\nweight, batteryCapacity, maxPayload, batteryVoltage, \nchargingStatus)
++validate(batteryPercentage, pharmacyId,potency,\nweight, batteryCapacity, maxPayload, batteryVoltage, \nchargingStatus,droneId)
++updateDrone(batteryPercentage, pharmacyId,potency,\nweight, batteryCapacity, maxPayload, batteryVoltage, \nchargingStatus,droneId)
 }
 }
 
@@ -22,8 +22,8 @@ package "Model" #DDDDDD {
 
   class DroneService{
       +DroneService()
-+validate(battery percentage, pharmacy,potency,\nweight, batteryCapacity, maxPayload, batteryVoltage, \nchargingStatus)
-+updateDrone(battery percentage, pharmacy,potency,\nweight, batteryCapacity, maxPayload, batteryVoltage, \nchargingStatus)
++validate(batteryPercentage, pharmacyId,potency,\nweight, batteryCapacity, maxPayload, batteryVoltage, \nchargingStatus, droneId)
+updateDrone(batteryPercentage, pharmacyId,potency,\nweight, batteryCapacity, maxPayload, batteryVoltage, \nchargingStatus, droneId)
    }
 }
 
@@ -42,7 +42,6 @@ class DroneParkingSlot{
 }
 
 class Drone{
-+Scooter(batteryPerc, charginStatus, potency,\n weight, batteryCapacity, maxPayload, batteryVoltage, pharmacyId)
 
 }
 
@@ -86,7 +85,7 @@ class DataHandler{
 
  class DroneDB{
      +DroneDB()
-+updateDrone(battery percentage, pharmacy,potency,\nweight, batteryCapacity, maxPayload, batteryVoltage, \nchargingStatus)
++updateDrone(batteryPercentage, pharmacyId,potency,\nweight, batteryCapacity, maxPayload, batteryVoltage, \nchargingStatus, droneId)
   }
 }
 

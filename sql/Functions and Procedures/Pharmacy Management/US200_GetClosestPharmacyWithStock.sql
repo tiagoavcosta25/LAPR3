@@ -13,10 +13,11 @@ begin
         raise product_not_found;
     end if;
 
-    select PH.ID
+    select A2.ID
     into v_orderPharmacyId
     from "Order"
     inner join PHARMACY PH on "Order".PHARMACYID = PH.ID
+    inner join ADDRESS A2 on "Order".ADDRESSID = A2.ID
     where ID = p_orderId;
 
     if v_orderPharmacyId is null then

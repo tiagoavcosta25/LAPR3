@@ -8,8 +8,10 @@ class RegisterCourierUI {
 }
 package "Controller" #DDDDDD {
 class RegisterCourierController{
-+newCourier(name,email, nif, iban, pharmacyID)
-+registersCourier()
++getCourierByEmail(email)
++updateCourier(courier,name,email,nif,iban,pharmacyID)
++updateCourierDB(courier)
++validateInput(email)
 }
 
 class ApplicationPOT
@@ -22,9 +24,9 @@ class ApplicationPOT
 package "Model" #DDDDDD {
 package "Service" #DDDDDD {
    class CourierService{
-          +newCourier(name,email, nif, iban, pharmacy)
-          +registersCourier()
-
+          +getCourierByEmail(email)
+          +updateCourier(courier,name,email,nif,iban,pharmacy)
+          +updateCourierDB(courier)
       }
 
       class PharmacyService{
@@ -66,11 +68,12 @@ class DataHandler{
 }
 
 class CourierDB{
- +registersCourier(courier)
+ +getCourierByEmail(email)
+ +updateCourierDB(courier)
   }
 
   class PharmacyDB{
-   ++getPharmacyByID(pharmacyID)
+   +getPharmacyByID(pharmacyID)
     }
 }
 database database{

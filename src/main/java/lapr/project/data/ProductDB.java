@@ -74,7 +74,6 @@ public class ProductDB extends DataHandler {
             closeAll();
         } catch (SQLException e) {
             flag = false;
-            e.printStackTrace();
         }
         return flag;
     }
@@ -93,7 +92,6 @@ public class ProductDB extends DataHandler {
             closeAll();
         } catch (SQLException e) {
             flag = false;
-            e.printStackTrace();
         }
         return flag;
     }
@@ -142,9 +140,8 @@ public class ProductDB extends DataHandler {
             }
             return lstProducts;
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new IllegalArgumentException("No Products Avaliable.");
         }
-        throw new IllegalArgumentException("No Products Avaliable.");
     }
 
     public List<Product> getAvailableProducts(int intPharmacyId) {
@@ -165,8 +162,7 @@ public class ProductDB extends DataHandler {
             }
             return lstProducts;
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new IllegalArgumentException("No Products Avaliable.");
         }
-        throw new IllegalArgumentException("No Products Avaliable.");
     }
 }

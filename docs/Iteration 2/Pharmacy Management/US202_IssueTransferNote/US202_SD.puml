@@ -1,0 +1,19 @@
+@startuml
+autonumber
+participant ":IssueTransferNoteController" as CTRL
+participant "pharmTransferServ \n:PharmacyTransferService" as PTS
+participant "pharmTransferDB\n:PharmacyTransferDB" as PTDB
+
+[o-> CTRL : issueTransferNote\n(pharmacyTransfer)
+activate CTRL
+CTRL -> PTS** : create()
+activate PTS
+PTS -> PTDB** : create()
+deactivate PTS
+
+CTRL -> PTS : sendEmailWithTransferNote(pharmacyTransfer)
+activate PTS
+deactivate PTS
+deactivate CTRL
+
+@enduml

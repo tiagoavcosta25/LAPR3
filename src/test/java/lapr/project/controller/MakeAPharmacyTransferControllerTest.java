@@ -34,7 +34,7 @@ class MakeAPharmacyTransferControllerTest {
         this.m_oOrder = new Order();
         this.m_oPharmacy = new Pharmacy();
         this.m_oPharmacyTransfer = new PharmacyTransfer();
-        this.makeAPharmacyTransferController = new MakeAPharmacyTransferController(m_oOrder, new Product(), 1);
+        this.makeAPharmacyTransferController = new MakeAPharmacyTransferController();
         this.mockPharmacyTransferService = Mockito.mock(PharmacyTransferService.class);
         this.mockPharmacyService = Mockito.mock(PharmacyService.class);
         initMocks(this);
@@ -46,11 +46,11 @@ class MakeAPharmacyTransferControllerTest {
         when(mockPharmacyService.getClosestPharmacyWithStock(m_oOrder, new Product(), 1)).thenReturn(m_oPharmacy);
         when(mockPharmacyTransferService.newPharmacyTransfer(m_oOrder, new Product(), 1, m_oPharmacy)).thenReturn(m_oPharmacyTransfer);
         when(mockPharmacyTransferService.registerPharmacyTransfer(m_oPharmacyTransfer)).thenReturn(true);
-        boolean result = makeAPharmacyTransferController.getStockFromAnotherPharamacy();
+        boolean result = makeAPharmacyTransferController.getStockFromAnotherPharamacy(m_oOrder, new Product(), 1);
         assertTrue(result);
 
         when(mockPharmacyTransferService.registerPharmacyTransfer(m_oPharmacyTransfer)).thenThrow(new IllegalArgumentException());
-        result = makeAPharmacyTransferController.getStockFromAnotherPharamacy();
+        result = makeAPharmacyTransferController.getStockFromAnotherPharamacy(m_oOrder, new Product(), 1);
         assertFalse(result);
     }
 }

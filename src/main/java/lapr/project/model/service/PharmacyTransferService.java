@@ -26,4 +26,8 @@ public class PharmacyTransferService {
     public PharmacyTransfer newPharmacyTransfer(Order oOrder, Product oProduct, Integer intQuantity, Pharmacy oPharmacy) {
         return new PharmacyTransfer(oOrder, oProduct, intQuantity, oPharmacy);
     }
+
+    public boolean sendEmailWithTransferNote(PharmacyTransfer oPharmacyTransfer) {
+        return true;
+    }
 }

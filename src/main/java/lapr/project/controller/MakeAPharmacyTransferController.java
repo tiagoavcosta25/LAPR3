@@ -16,21 +16,6 @@ public class MakeAPharmacyTransferController {
     private PharmacyTransferService m_oPharmacyTransferService;
 
     /**
-     * Order
-     */
-    private Order m_oOrder;
-
-    /**
-     * Product
-     */
-    private Product m_oProduct;
-
-    /**
-     * Quantity
-     */
-    private Integer m_intQuantity;
-
-    /**
      * Pharmacy
      */
     private Pharmacy m_oPharmacy;
@@ -43,21 +28,18 @@ public class MakeAPharmacyTransferController {
     /**
      * An empty constructor of MakeAnOrderController that initiates the platform variable by getting it from the ApplicationPOT.
      */
-    public MakeAPharmacyTransferController(Order oOrder, Product oProduct, Integer intQuantity) {
+    public MakeAPharmacyTransferController() {
         this.m_oPharmacyService = new PharmacyService();
         this.m_oPharmacyTransferService = new PharmacyTransferService();
-        this.m_oOrder = oOrder;
-        this.m_oProduct = oProduct;
-        this.m_intQuantity = intQuantity;
     }
 
     /**
      * The method registers a new Pharmacy Transfer.
      */
-    public boolean getStockFromAnotherPharamacy() {
+    public boolean getStockFromAnotherPharamacy(Order oOrder, Product oProduct, Integer intQuantity) {
         try {
-            this.m_oPharmacy = m_oPharmacyService.getClosestPharmacyWithStock(m_oOrder, m_oProduct, m_intQuantity);
-            this.m_oPharmacyTransfer = m_oPharmacyTransferService.newPharmacyTransfer(this.m_oOrder, this.m_oProduct, this.m_intQuantity, this.m_oPharmacy);
+            this.m_oPharmacy = m_oPharmacyService.getClosestPharmacyWithStock(oOrder, oProduct, intQuantity);
+            this.m_oPharmacyTransfer = m_oPharmacyTransferService.newPharmacyTransfer(oOrder, oProduct, intQuantity, this.m_oPharmacy);
             return this.m_oPharmacyTransferService.registerPharmacyTransfer(this.m_oPharmacyTransfer);
         } catch (Exception ex) {
             return false;

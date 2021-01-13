@@ -3,6 +3,7 @@ autonumber
 actor "Courier" as ADMIN
 participant ":StartDeliveryRunUI" as UI
 participant ":StartDeliveryRunServiceController" as CTRL
+participant ":SeeSuitableVehicleController" as CTRLS
 participant "PotApplication" as PA
 participant "app \n:PotApplication" as APA
 participant "deliveryServ \n:DeliveryRunService" as PR
@@ -14,7 +15,10 @@ activate ADMIN
 ADMIN -> UI : Starts a delivery run
 activate UI
 
-UI -> CTRL : startDeliveryRun()
+UI -> CTRLS : vehicle = seeSuitableVehicle()
+activate CTRLS
+deactivate CTRLS
+UI -> CTRL : startDeliveryRun(vehicle)
 activate CTRL
 CTRL -> PR : create()
 activate PR
@@ -34,15 +38,6 @@ deactivate APA
 CTRL -> APA : email = getCurrentUserEmail()
 activate APA
 deactivate APA
-CTRL -> SS : vehicle = getSuitableVehicle(distance,email)
-activate SS
-SS -> SDB : scooter = getSuitableScooter(distance,email)
-activate SDB
-deactivate SDB
-SS -> SDB : drone = getSuitableDrone(distance,email)
-activate SDB
-deactivate SDB
-deactivate SS
 CTRL -> PR : deliveryRun = updateDeliveryRun(vehicle,email)
 activate PR
 PR -> PDB : deliveryRun = updateDeliveryRun(vehicle,email)

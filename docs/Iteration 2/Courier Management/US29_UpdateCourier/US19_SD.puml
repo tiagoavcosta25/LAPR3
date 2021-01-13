@@ -16,14 +16,14 @@ participant ":CourierDB" as CDB
 
 activate ADMIN
 
-ADMIN -> UI : initializes the register of a new Courier
+ADMIN -> UI : initializes the update of a Courier
 activate UI
-UI -> ADMIN : asks for the data that features the Courier \n(i.e., name, e-mail, NIF and bank account (IBAN) and pharmacyID)
+UI -> ADMIN : asks for courier's email
 deactivate UI
 
 ADMIN -> UI : inserts the required data
 activate UI
-UI -> CTRL : newCourier(name,email, nif, iban, pharmacyID)
+UI -> CTRL : courier = getCourierByEmail(email)
 activate CTRL
 CTRL -> PR : create()
 activate PR
@@ -34,10 +34,26 @@ activate RF
 RF -> CDB** : create()
 deactivate RF
 
-CTRL -> CTRL : validateInput(name,email, nif, iban, pharmacyID)
+CTRL -> CTRL : validateInput(email)
 CTRL -> PA : app = getInstance()
 activate PA
 deactivate PA
+CTRL -> RF : courier = getCourierByEmail(email)
+activate RF
+RF -> CDB : courier = getCourierByEmail(email)
+activate CDB
+deactivate RF
+deactivate CDB
+deactivate CTRL
+
+
+UI -> ADMIN : presents the courier info and asks for the data\n that features the courier's update (i.e., name, \ne-mail, NIF, bank account (IBAN) and pharmacyID)
+deactivate UI
+
+ADMIN -> UI : inserts the required data
+activate UI
+UI -> CTRL : courier = updateCourier(courier,name,email,nif,iban,pharmacyID)
+activate CTRL
 deactivate US
 CTRL -> PR : pharmacy = getPharmacyByID(pharmacyID)
 activate PR
@@ -46,34 +62,25 @@ activate PDB
 
 deactivate PR
 deactivate PDB
-CTRL -> RF : newCourier(name, nif, email, iban, pharmacy)
+deactivate RF
+CTRL -> RF : updateCourier(courier,name,email,nif,iban,pharmacy)
 activate RF
-RF -> PS : create()
-activate PS
-deactivate PS
-RF -> PS : password = generatePassword()
-activate PS
-deactivate PS
-RF -> CR ** : create(name, email, password, nif, iban, pharmacy)
+UI -> ADMIN : asks for confirmation
 deactivate RF
 deactivate CTRL
-
-
-UI -> ADMIN : validates, presents the data and asks for a confirmation
 deactivate UI
-
 ADMIN -> UI : confirms
 activate UI
-UI -> CTRL : registersCourier()
+UI -> CTRL : updateCourierDB(courier)
 activate CTRL
-CTRL -> RF : registersCourier(courier)
+CTRL -> RF : updateCourierDB(courier)
 activate RF
-RF -> CDB : registersCourier(courier)
+RF -> CDB : updateCourierDB(courier)
 activate CDB
 deactivate CDB
-UI -> ADMIN : informs the success of the operation
 deactivate RF
 deactivate CTRL
+UI -> ADMIN : informs of the success of the operation
 deactivate UI
 
 deactivate ADMIN

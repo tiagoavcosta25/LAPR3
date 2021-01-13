@@ -1,0 +1,45 @@
+@startuml
+skinparam classAttributeIconSize 3
+hide methods
+left to right direction
+class Drone{
+- int id
+- String vehicleType
+}
+class Vehicle{
+- int id
+- int pharmacyId
+- String vehicleType
+- float potency
+- float weight
+- float maxPayload
+- String chargingStatus
+}
+class Battery{
+- int vehicleId
+- float batteryPerc
+- int capacity
+- float voltage
+}
+class Address{
+-   String streetName
+-   String doorNumber
+-   String postalCode
+-   String locality
+-   String country
+-   float longitude
+-   float latitude
+}
+class DeliveryRun{
+- Integer id
+- Integer courierId
+- Integer vehicleId
+- String deliveryStatus
+}
+
+Vehicle "1" - "1" Battery : has
+class Drone extends Vehicle
+DeliveryRun "1" - "*" Address : has
+Vehicle "1" - "1" DeliveryRun : has associated
+
+@enduml
