@@ -41,12 +41,10 @@ public class ProductService {
     }
 
     public boolean validateInput(String strName, String strDescription, float fltUnitaryPrice, float fltUnitaryWeight) {
-        if ("".equals(strName) || "".equals(strDescription) || fltUnitaryPrice <= 0 || fltUnitaryWeight <= 0) return false;
-        return true;
+        return (!("".equals(strName) || "".equals(strDescription) || fltUnitaryPrice <= 0 || fltUnitaryWeight <= 0));
     }
 
     public boolean validateId(int intId) {
-        if(intId <= 0) return false;
-        return true;
+        return (intId > 0);
     }
 }
