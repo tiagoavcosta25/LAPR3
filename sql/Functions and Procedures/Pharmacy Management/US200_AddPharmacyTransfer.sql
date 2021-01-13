@@ -41,7 +41,7 @@ begin
     select ID
     into v_checkPharmacyTransferId
     from PHARMACYTRANSFER
-    where PHARMACYID = p_pharmacyId
+    where NEARBYPHARMACYID = p_pharmacyId
       and PRODUCTID = p_productId
     and ORDERID = p_orderId;
 
@@ -49,7 +49,7 @@ begin
         raise pharmacy_transfer_not_found;
     end if;
 
-        Insert into PHARMACYTRANSFER(ORDERID, PRODUCTID, QUANTITY, PHARMACYID)
+        Insert into PHARMACYTRANSFER(ORDERID, PRODUCTID, QUANTITY, NEARBYPHARMACYID)
         Values (p_orderId, p_productId, p_quantity, p_pharmacyId);
 
 EXCEPTION
