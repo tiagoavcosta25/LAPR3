@@ -68,16 +68,16 @@ class DeliveryRunTest {
 
     @Test
     void getDeliveryList() {
-        List<Address> expected = new ArrayList<>();
-        List<Address> real = m_deliveryRun.getDeliveryList();
+        List<Order> expected = new ArrayList<>();
+        List<Order> real = m_deliveryRun.getOrderList();
         assertEquals(expected,real);
     }
 
     @Test
     void setDeliveryList() {
-        List<Address> expected = null;
+        List<Order> expected = null;
         m_deliveryRun.setDeliveryList(null);
-        List<Address> real = m_deliveryRun.getDeliveryList();
+        List<Order> real = m_deliveryRun.getOrderList();
         assertEquals(expected,real);
     }
 
@@ -139,7 +139,7 @@ class DeliveryRunTest {
                 "m_intId=" + m_deliveryRun.getId() +
                 ", m_oCourier=" + m_deliveryRun.getCourier() +
                 ", m_oScooter=" + m_deliveryRun.getScooter() +
-                ", m_lstDelivery=" + m_deliveryRun.getDeliveryList() +
+                ", m_lstDelivery=" + m_deliveryRun.getOrderList() +
                 ", m_oStatus=" + m_deliveryRun.getStatus() +
                 '}';
         String real = m_deliveryRun.toString();

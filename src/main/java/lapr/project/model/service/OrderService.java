@@ -2,6 +2,9 @@ package lapr.project.model.service;
 
 import lapr.project.data.OrderDB;
 import lapr.project.model.*;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class OrderService {
@@ -45,5 +48,13 @@ public class OrderService {
 
     public boolean notifyAndRemove(Order oOrder) {
         return this.m_oOrderDB .notifyAndRemove(oOrder);
+    }
+
+    public List<Order> getOrderList(List<Integer> lstOrderId) {
+        List<Order> lstOrder = new ArrayList<>();
+        for (Integer orderId : lstOrderId) {
+            lstOrder.add(getOrder(orderId));
+        }
+        return lstOrder;
     }
 }

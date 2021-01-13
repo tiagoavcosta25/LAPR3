@@ -11,12 +11,14 @@ participant "app\n:ApplicationPOT" as APP
 participant "session\n:UserSession" as SESSION
 participant "deliveryRunService\n:DeliveryRunService" as DRS
 participant "pharmacyService\n:PharmacyService" as PS
+participant "orderService\n:OrderService" as OS
 participant "deliveryRunDB\n:DeliveryRunDB" as DB
 participant "pharmacyDB\n:PharmacyDB" as PDB
+participant "orderDB\n:OrderDB" as ODB
 participant "deliveryRun\n:DeliveryRun" as DR
 participant "status\n:DeliveryStatus" as DS
 participant "courier\n:Courier" as C
-participant "Address" as A
+participant "Order" as A
 
 participant "DataHandler" as DH
 
@@ -58,6 +60,12 @@ CTRL -> PS** : create()
 activate PS
 PS -> PDB** : create()
 deactivate PS
+
+CTRL -> OS** : create()
+activate OS
+OS -> ODB** : create()
+
+deactivate OS
 CTRL -> _APP: app = getInstance()
 activate _APP
 deactivate _APP
@@ -71,16 +79,17 @@ activate SESSION
 deactivate SESSION
 
 alt if user is authorized (if it's an admin)
-CTRL -> DRS : lstAddress = getAddressesFromOrdersList(lstOrderId)
-activate DRS
-DRS -> DB : getAddressesFromOrdersList(lstOrderId)
-activate DB
+CTRL -> OS : lstOrder = getOrderList(lstOrderId)
+activate OS
+OS -> ODB : getOrderList(lstOrderId)
+activate ODB
+deactivate ODB
 
-ref over DB
+ref over ODB
 SD_CONNECTIONS
 end ref
-deactivate DB
-deactivate DRS
+deactivate ODB
+deactivate OS
 
 
 
@@ -98,12 +107,10 @@ deactivate PS
 deactivate PDB
 
 
-CTRL -> DRS : lstPath = calculateShortestPath(lstAddress)
+
+CTRL -> DRS : deliveryRun = newDeliveryRun(courier,lstOrder)
 activate DRS
-deactivate DRS
-CTRL -> DRS : deliveryRun = newDeliveryRun(courier,lstPath)
-activate DRS
-DRS -> DR** : create(courier,lstPath)
+DRS -> DR** : create(courier,lstOrder)
 activate DR
 DR -> DS** : create()
 deactivate DRS

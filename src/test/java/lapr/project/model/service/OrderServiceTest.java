@@ -7,6 +7,9 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.TreeMap;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -109,5 +112,16 @@ class OrderServiceTest {
         when(mockOrderDB.notifyAndRemove(null)).thenReturn(false);
         result = orderService.notifyAndRemove(null);
         assertFalse(result);
+    }
+
+    @Test
+    void getOrderList() {
+        when (mockOrderDB.getOrder(1)).thenReturn(new Order());
+        List<Integer> lst = new ArrayList<>();
+        lst.add(1);
+        List<Order> result = orderService.getOrderList(lst);
+        List<Order> expected = new ArrayList<>();
+        expected.add(new Order());
+        assertEquals(expected,result);
     }
 }

@@ -14,13 +14,17 @@ package "Data" #DDDDDD {
 
 class DeliveryRunDB {
 +DeliveryRunDB()
-+getAddressesFromOrdersList(lstOrderId)
 +addNewDeliveryRun(deliveryRun)
 }
 
 class PharmacyDB {
 +PharmacyDB()
 +getSuitableCourier()
+}
+
+class OrderDB {
++OrderDB()
++getOrderList(lstOrderId)
 }
 
 class DataHandler{
@@ -71,15 +75,18 @@ package "Service" #DDDDDD {
 
 class DeliveryRunService {
 +DeliveryRunService()
-+getAddressesFromOrdersList(lstOrderId)
-+calculateShortestPath(lstAddress)
-+newDeliveryRun(courier,lstPath)
++newDeliveryRun(courier,lstOrder)
 +addNewDeliveryRun(deliveryRun)
 }
 
 class PharmacyService {
 +PharmacyService()
 +getSuitableCourier()
+}
+
+class OrderService {
++OrderService()
++getOrderList(lstOrderId)
 }
 
 }
@@ -98,6 +105,8 @@ RegisterDeliveryRunUI ..> RegisterDeliveryRunController
 RegisterDeliveryRunController ..> DeliveryRunService
 RegisterDeliveryRunController ..> ApplicationPOT
 RegisterDeliveryRunController ..> PharmacyService
+RegisterDeliveryRunController ..> OrderService
+OrderService "1" --> "1" OrderDB : has >
 PharmacyService "1" --> "1" PharmacyDB : has >
 DeliveryRunService "1" --> "1" DeliveryRunDB : has >
 DeliveryRun "1" --> "1" Courier : has >

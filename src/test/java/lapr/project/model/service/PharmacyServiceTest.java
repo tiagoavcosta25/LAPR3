@@ -1,6 +1,5 @@
 package lapr.project.model.service;
 
-import lapr.project.data.OrderDB;
 import lapr.project.data.PharmacyDB;
 import lapr.project.model.*;
 import org.junit.jupiter.api.BeforeEach;
@@ -8,11 +7,9 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.TreeMap;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
@@ -122,5 +119,12 @@ class PharmacyServiceTest {
         when(mockPharmacyDB.getSuitableCourier()).thenReturn(new Courier());
         Courier result = pharmacyService.getSuitableCourier();
         assertEquals(new Courier(), result);
+    }
+
+    @Test
+    void testGetSuitableCourier() {
+        when (mockPharmacyDB.getSuitableCourier()).thenReturn(new Courier());
+        Courier real = pharmacyService.getSuitableCourier();
+        assertEquals(new Courier(),real);
     }
 }

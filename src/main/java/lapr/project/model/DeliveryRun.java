@@ -12,7 +12,7 @@ public class DeliveryRun {
 
     private Scooter m_oScooter;
 
-    private List<Address> m_lstDelivery;
+    private List<Order> m_lstOrder;
 
     private DeliveryStatus m_oStatus;
 
@@ -20,7 +20,7 @@ public class DeliveryRun {
         this.m_intId = -1;
         this.m_oCourier = new Courier();
         this.m_oScooter = null;
-        this.m_lstDelivery = new ArrayList<>();
+        this.m_lstOrder = new ArrayList<>();
         this.m_oStatus = DeliveryStatus.IDLE;
     }
 
@@ -28,14 +28,14 @@ public class DeliveryRun {
         this.m_intId = -1;
         this.m_oCourier = m_oCourier;
         this.m_oScooter = null;
-        this.m_lstDelivery = new ArrayList<>();
+        this.m_lstOrder = new ArrayList<>();
         this.m_oStatus = DeliveryStatus.IDLE;
     }
 
-    public DeliveryRun(Courier m_oCourier, List<Address> m_lstDelivery) {
+    public DeliveryRun(Courier m_oCourier, List<Order> m_lstDelivery) {
         this.m_intId = -1;
         this.m_oCourier = m_oCourier;
-        this.m_lstDelivery = m_lstDelivery;
+        this.m_lstOrder = m_lstDelivery;
         this.m_oScooter = null;
         this.m_oStatus = DeliveryStatus.IDLE;
     }
@@ -64,12 +64,12 @@ public class DeliveryRun {
         this.m_oScooter = oScooter;
     }
 
-    public List<Address> getDeliveryList() {
-        return m_lstDelivery;
+    public List<Order> getOrderList() {
+        return m_lstOrder;
     }
 
-    public void setDeliveryList(List<Address> m_lstDelivery) {
-        this.m_lstDelivery = m_lstDelivery;
+    public void setDeliveryList(List<Order> m_lstDelivery) {
+        this.m_lstOrder = m_lstDelivery;
     }
 
     public DeliveryStatus getStatus() {
@@ -99,7 +99,7 @@ public class DeliveryRun {
                 "m_intId=" + m_intId +
                 ", m_oCourier=" + m_oCourier +
                 ", m_oScooter=" + m_oScooter +
-                ", m_lstDelivery=" + m_lstDelivery +
+                ", m_lstDelivery=" + m_lstOrder +
                 ", m_oStatus=" + m_oStatus +
                 '}';
     }

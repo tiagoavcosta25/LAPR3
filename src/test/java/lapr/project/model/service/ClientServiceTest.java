@@ -264,4 +264,13 @@ class ClientServiceTest {
         assertTrue(result);
 
     }
+
+
+    @Test
+    void getClientByEmail() {
+        Client expected = new Client();
+        when(m_ClientDB.getClientByEmail("")).thenReturn(new Client());
+        Client real = m_service.getClientByEmail("");
+        assertEquals(expected,real);
+    }
 }
