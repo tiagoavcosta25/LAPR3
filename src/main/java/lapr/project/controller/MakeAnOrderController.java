@@ -6,6 +6,8 @@ import lapr.project.data.ProductDB;
 import lapr.project.model.service.ClientService;
 import lapr.project.model.service.OrderService;
 import lapr.project.model.service.PharmacyService;
+import lapr.project.model.service.ProductService;
+
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -34,7 +36,7 @@ public class MakeAnOrderController {
     /**
      * Pharmacy Management class
      */
-    private ProductDB m_oProductDB;
+    private ProductService m_oProductService;
 
     /**
      * Pharmacy Management class
@@ -56,7 +58,7 @@ public class MakeAnOrderController {
      */
     public MakeAnOrderController() {
         this.m_oPharmacyService = new PharmacyService();
-        this.m_oProductDB = new ProductDB();
+        this.m_oProductService = new ProductService();
         this.m_oOrderService = new OrderService();
         this.m_oClientService = new ClientService();
     }
@@ -118,9 +120,8 @@ public class MakeAnOrderController {
     public List<Product> getAvailableProducts(Pharmacy oPharmacy) {
         try {
             this.m_oPharmacy = oPharmacy;
-            return this.m_oProductDB.getAvailableProducts(oPharmacy.getId());
+            return this.m_oProductService.getAvailableProducts(oPharmacy.getId());
         } catch (Exception ex) {
-            ex.printStackTrace();
             return null;
         }
     }

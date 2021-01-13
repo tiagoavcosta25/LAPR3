@@ -3,6 +3,12 @@ package lapr.project.model.service;
 import lapr.project.data.ProductDB;
 import lapr.project.model.Product;
 
+import java.sql.CallableStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
 public class ProductService {
 
     private ProductDB pDB;
@@ -46,5 +52,13 @@ public class ProductService {
 
     public boolean validateId(int intId) {
         return (intId > 0);
+    }
+
+    public List<Product> getProducts() {
+        return this.pDB.getProducts();
+    }
+
+    public List<Product> getAvailableProducts(int intPharmacyId) {
+        return this.pDB.getAvailableProducts(intPharmacyId);
     }
 }

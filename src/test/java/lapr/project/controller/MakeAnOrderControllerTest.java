@@ -4,6 +4,7 @@ import lapr.project.model.*;
 import lapr.project.model.service.ClientService;
 import lapr.project.model.service.OrderService;
 import lapr.project.model.service.PharmacyService;
+import lapr.project.model.service.ProductService;
 import org.junit.jupiter.api.Test;
 import lapr.project.data.ProductDB;
 import org.junit.jupiter.api.BeforeEach;
@@ -34,7 +35,7 @@ class MakeAnOrderControllerTest {
     private PharmacyService mockPharmacyService;
 
     @Mock
-    private ProductDB mockProductDB;
+    private ProductService mockProductService;
 
     private Order expectedOrder;
     private boolean expectedValue;
@@ -49,6 +50,7 @@ class MakeAnOrderControllerTest {
         this.makeAnOrderController = new MakeAnOrderController();
         this.mockOrderService = Mockito.mock(OrderService.class);
         this.mockClientService = Mockito.mock(ClientService.class);
+        this.mockProductService = Mockito.mock(ProductService.class);
         initMocks(this);
     }
 
@@ -129,13 +131,9 @@ class MakeAnOrderControllerTest {
 
         List<Product> expectedListProducts = new ArrayList<>(Arrays.asList(new Product()));
 
-        when(mockProductDB.getAvailableProducts(-1)).thenReturn(expectedListProducts);
+        when(mockProductService.getAvailableProducts(-1)).thenReturn(expectedListProducts);
 
         List<Product>  result = makeAnOrderController.getAvailableProducts(new Pharmacy());
-        assertEquals(expectedListProducts, result);
-
-        result = makeAnOrderController.getAvailableProducts(null);
-        expectedListProducts = null;
         assertEquals(expectedListProducts, result);
 
         result = makeAnOrderController.getAvailableProducts(null);
