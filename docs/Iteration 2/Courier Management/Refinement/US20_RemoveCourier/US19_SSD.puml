@@ -1,0 +1,23 @@
+@startuml
+autonumber
+actor "Administrator" as ADM
+
+activate ADM
+ADM -> ":System" : initializes the update of a new Courier
+activate ":System"
+":System" --> ADM : asks for the courier's email
+deactivate ":System"
+
+
+ADM -> ":System" : inserts the required data
+activate ":System"
+":System" --> ADM : validates, presents the data and asks for a confirmation
+deactivate ":System"
+
+ADM -> ":System" : confirms
+activate ":System"
+":System" --> ADM : operation succeeded
+deactivate ":System"
+
+deactivate ADM
+@enduml

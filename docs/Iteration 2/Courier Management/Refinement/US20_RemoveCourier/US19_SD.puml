@@ -1,0 +1,55 @@
+@startuml
+autonumber
+actor "Administrator" as ADMIN
+
+participant ":RegisterCourierUI" as UI
+participant ":RegisterCourierController" as CTRL
+participant "PotApplication" as PA
+participant "app \n:PotApplication" as APA
+participant "session \n:UserSession" as US
+participant "courServ \n:CourierService" as RF
+participant ":CourierDB" as CDB
+
+activate ADMIN
+
+ADMIN -> UI : initializes the remove of a Courier
+activate UI
+UI -> ADMIN : asks for the courier's email
+deactivate UI
+
+ADMIN -> UI : inserts the required data
+activate UI
+UI -> CTRL : validateCourier(email)
+activate CTRL
+CTRL -> RF : create()
+activate RF
+RF -> CDB** : create()
+deactivate RF
+CTRL -> PA : app = getInstance()
+activate PA
+deactivate PA
+deactivate US
+CTRL -> CTRL : validateEmail(email)
+deactivate RF
+deactivate CTRL
+
+UI -> ADMIN : validates, presents the data and asks for a confirmation
+deactivate UI
+
+ADMIN -> UI : confirms
+activate UI
+UI -> CTRL : removeCourier(email)
+activate CTRL
+CTRL -> RF : removeCourier(email)
+activate RF
+RF -> CDB : removeCourier(email)
+activate CDB
+deactivate CDB
+UI -> ADMIN : informs the success of the operation
+deactivate RF
+deactivate CTRL
+deactivate UI
+
+deactivate ADMIN
+
+@enduml

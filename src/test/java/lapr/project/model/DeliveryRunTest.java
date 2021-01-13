@@ -101,21 +101,26 @@ class DeliveryRunTest {
         DeliveryRun dR = new DeliveryRun(new Courier(1, "name", "e@gmail.com", "123",
                 123456789, "PT501234567890987654321234", new Pharmacy()), new ArrayList<>());
 
-        assertEquals(dR,m_deliveryRun);
+        boolean real = m_deliveryRun.equals(dR);
+        assertTrue(real);
 
-        assertEquals(m_deliveryRun,m_deliveryRun);
+        real = m_deliveryRun.equals(m_deliveryRun);
+        assertTrue(real);
 
         DeliveryRun dR2 = new DeliveryRun(new Courier(1, "name", "e@gmail.com", "123",
                 123456789, "PT501234567890987654321234", new Pharmacy()), new ArrayList<>());
         dR2.setId(2);
 
-        assertNotEquals(dR2,m_deliveryRun);
+        real = m_deliveryRun.equals(dR2);
+        assertFalse(real);
 
         String s = "";
-        assertNotEquals(s,m_deliveryRun);
+        real = m_deliveryRun.equals(s);
+        assertFalse(real);
 
         DeliveryRun dR3 = null;
-        assertNotEquals(dR3,m_deliveryRun);
+        real = m_deliveryRun.equals(dR3);
+        assertFalse(real);
 
 
     }
