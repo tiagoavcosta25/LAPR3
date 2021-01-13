@@ -105,22 +105,17 @@ class ParkTest {
     @Test
     void addParkingSlot() {
         Park oPark = new Park();
-        oPark.setMaxSlotsNumber(1);
+        oPark.setMaxSlotsNumber(3);
         boolean real = oPark.addParkingSlot(new ParkingSlot());
         assertTrue(real);
-        real = oPark.addParkingSlot(new ParkingSlot());
-        assertFalse(real);
     }
 
     @Test
     void addChargingSlot() {
         Park oPark = new Park();
-        oPark.setMaxSlotsNumber(1);
-        oPark.setParkingSlots(new ArrayList<>());
+        oPark.setMaxSlotsNumber(3);
         boolean real = oPark.addChargingSlot(new ChargingSlot());
         assertTrue(real);
-        real = oPark.addChargingSlot(new ChargingSlot());
-        assertFalse(real);
     }
 
     @Test
