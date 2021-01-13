@@ -6,8 +6,8 @@ actor "Admin" as U
 
 participant "RemoveProductUI" as UI
 participant "RemoveProductController" as CTRL
-participant "ProductService" as SER
-participant "ProductDB" as DB
+participant "pServ:ProductService" as SER
+participant "pDB:ProductDB" as DB
 
 activate U
 U -> UI : Engages the remove product feature/button
