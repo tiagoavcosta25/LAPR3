@@ -17,7 +17,6 @@ participant "pharmacyDB\n:PharmacyDB" as PDB
 participant "orderDB\n:OrderDB" as ODB
 participant "deliveryRunDB\n:DeliveryRunDB" as DB
 participant "Address" as A
-participant "delivery\n:Delivery" as D
 participant "deliveryRun\n:DeliveryRun" as DR
 participant "status\n:DeliveryStatus" as DS
 
@@ -49,7 +48,7 @@ deactivate UI
 
 U -> UI : Gives an order id list
 activate UI
-UI -> CTRL : addNewDelivery(lstOrderId)
+UI -> CTRL : registerDeliveryRun(lstOrderId)
 activate CTRL
 CTRL -> PS** : create()
 activate PS

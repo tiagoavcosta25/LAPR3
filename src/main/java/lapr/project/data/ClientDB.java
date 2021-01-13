@@ -20,15 +20,6 @@ public class ClientDB extends DataHandler {
         super();
     }
 
-    /**
-     * Registers a new Client in the Database
-     *
-     * @param c Client
-     * @return True if Client was registered, false if otherwise
-     */
-    public boolean registerNewClient(Client c) {
-        return addClientToDB(c);
-    }
 
     /**
      * DATABASE
