@@ -216,7 +216,7 @@ class ChargingSlotTest {
 
     @Test
     void testToString() {
-        String expResult = "ChargingSlot{m_intId=1, m_oScooter=Scooter{Id = -1, Battery Perc = -1.0, Chargin Status = Not Charging, Potency = -1.0, Weight = -1.0, Battery Capacity = -1, Max Payload = -1.0, Pharmacy = Pharmacy{m_intId=-1, m_strName='No name.', m_oPharmacyManager=User{m_intId=null, m_strEmail='No Email Registered', m_strPassword='No Password Registered', m_intNif=0, m_strName='No Name'}, m_oAddress=Address{m_id=-1, m_latitude=-22.0, m_longitude=-22.0, m_streetName='No Street Name', m_doorNumber='No Door Number', m_postalCode='No Postal Code', m_locality='No Locality', m_country='No Country'}, m_mapStock={}}}, m_fltOutputPower=2.0}";
+        String expResult = "ChargingSlot{m_intId=1, m_oScooter=Scooter{Id = -1, Battery Perc = -1.0, Chargin Status = Not Charging, Potency = -1.0, Weight = -1.0, Battery Capacity = -1, Max Payload = -1.0, Pharmacy = Pharmacy{m_intId=-1, m_strName='No name.', m_oAddress=Address{m_id=-1, m_latitude=-22.0, m_longitude=-22.0, m_streetName='No Street Name', m_doorNumber='No Door Number', m_postalCode='No Postal Code', m_locality='No Locality', m_country='No Country'}, m_mapStock={}}}, m_fltOutputPower=2.0}";
         String result = c1.toString();
         assertEquals(expResult, result);
     }

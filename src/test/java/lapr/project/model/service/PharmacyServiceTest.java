@@ -9,6 +9,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.TreeMap;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -67,20 +70,41 @@ class PharmacyServiceTest {
 
     @Test
     void newPharmacy() {
-        System.out.println("newOrder");
-        Order result = pharmacyService.newPharmacy();
-        assertEquals(pharmacyService, result);
+        System.out.println("newPharmacy");
+        Pharmacy result = pharmacyService.newPharmacy("Test", -22d, -22d, "No Street Name",
+                "No Door Number", "No Postal Code", "No Locality", "No Country");
+        assertEquals(expectedPharmacy, result);
     }
 
     @Test
     void registerPharmacyProduct() {
+        System.out.println("registerPharmacyProduct");
+        when(mockPharmacyDB.registerPharmacyProduct(expectedPharmacy, new Product(), 1)).thenReturn(true);
+        boolean result = pharmacyService.registerPharmacyProduct(expectedPharmacy, new Product(), 1);
+        assertTrue(result);
+
+        when(mockPharmacyDB.registerPharmacyProduct(null, null, -1)).thenReturn(false);
+        result = pharmacyService.registerPharmacyProduct(null, null, -1);
+        assertFalse(result);
     }
 
     @Test
     void getPharmacies() {
+        System.out.println("getPharmacies");
+
+        List<Pharmacy> expectedListPharmacies = new ArrayList<>(Arrays.asList(new Pharmacy()));
+
+        when(mockPharmacyDB.getPharmacies()).thenReturn(expectedListPharmacies);
+
+        List<Pharmacy>  result = pharmacyService.getPharmacies();
+        assertEquals(expectedListPharmacies, result);
     }
 
     @Test
     void getPharmacyByManagerEmail() {
+        System.out.println("getPharmacyByManagerEmail");
+        when(mockPharmacyDB.getPharmacyByManagerEmail("test@isep.ipp.pt")).thenReturn(new Pharmacy());
+        Pharmacy result = pharmacyService.getPharmacyByManagerEmail("test@isep.ipp.pt");
+        assertEquals(expectedPharmacy, result);
     }
 }

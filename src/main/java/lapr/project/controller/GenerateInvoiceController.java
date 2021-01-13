@@ -4,6 +4,7 @@ import lapr.project.model.*;
 import lapr.project.data.ClientDB;
 import lapr.project.data.InvoiceDB;
 import lapr.project.data.OrderDB;
+import lapr.project.model.service.ClientService;
 import lapr.project.model.service.InvoiceService;
 import lapr.project.model.service.OrderService;
 
@@ -24,7 +25,7 @@ public class GenerateInvoiceController {
     /**
      * Client Management class
      */
-    private ClientDB m_oClientDB;
+    private ClientService m_oClientService;
 
     /**
      * Invoice Management class
@@ -47,12 +48,12 @@ public class GenerateInvoiceController {
     public GenerateInvoiceController(String jdbcUrl, String username, String password) {
         this.m_oOrderService = new OrderService();
         this.m_oInvoiceService = new InvoiceService();
-        this.m_oClientDB = new ClientDB(jdbcUrl, username, password);
+        this.m_oClientService = new ClientService();
     }
 
     public boolean newInvoice(Date dtInvoiceDate, float fltTotalPrice) {
         try {
-            this.m_oClient = m_oClientDB.getClientByEmail(ApplicationPOT.getInstance().getCurrentSession().getCurrentUserEmail());
+            this.m_oClient = m_oClientService.getClientByEmail(ApplicationPOT.getInstance().getCurrentSession().getCurrentUserEmail());
             this.m_oOrder = m_oOrderService.getLatestOrder(m_oClient);
             this.m_oInvoice = m_oInvoiceService.newInvoice(dtInvoiceDate, fltTotalPrice, this.m_oOrder);
             return this.registerInvoice();

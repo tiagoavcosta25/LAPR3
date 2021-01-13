@@ -1,12 +1,10 @@
 package lapr.project.controller;
 
-import lapr.project.data.ClientDB;
-import lapr.project.data.InvoiceDB;
-import lapr.project.data.OrderDB;
 import lapr.project.model.Client;
 import lapr.project.model.Invoice;
 import lapr.project.model.Order;
 import lapr.project.model.UserSession;
+import lapr.project.model.service.ClientService;
 import lapr.project.model.service.InvoiceService;
 import lapr.project.model.service.OrderService;
 import org.junit.jupiter.api.BeforeEach;
@@ -30,13 +28,13 @@ class GenerateInvoiceControllerTest {
     @Mock
     private InvoiceService mockInvoiceService;
     @Mock
-    private ClientDB mockClientDB;
+    private ClientService mockClientService;
 
     @BeforeEach
     void setUp() {
         this.generateInvoiceController = new GenerateInvoiceController("","","");
         this.mockOrderService = Mockito.mock(OrderService.class);
-        this.mockClientDB = Mockito.mock(ClientDB.class);
+        this.mockClientService = Mockito.mock(ClientService.class);
         this.mockInvoiceService = Mockito.mock(InvoiceService.class);
         initMocks(this);
     }
@@ -44,19 +42,19 @@ class GenerateInvoiceControllerTest {
     @Test
     void newInvoice() {
         ApplicationPOT.getInstance().setCurrentSession(new UserSession("email1@gmail.com"));
-        when(mockClientDB.getClientByEmail("email1@gmail.com")).thenReturn(new Client());
+        when(mockClientService.getClientByEmail("email1@gmail.com")).thenReturn(new Client());
         when(mockOrderService.getLatestOrder(new Client())).thenReturn(new Order());
-        when(mockInvoiceService.newInvoice(new Date(2020,12,2), 10f, new Order())).thenReturn(new Invoice());
+        when(mockInvoiceService.newInvoice(new Date(1220227200), 10f, new Order())).thenReturn(new Invoice());
         when(mockInvoiceService.registerInvoice(new Invoice())).thenReturn(true);
-        boolean result = this.generateInvoiceController.newInvoice(new Date(2020,12,2), 10f);
+        boolean result = this.generateInvoiceController.newInvoice(new Date(1220227200), 10f);
         assertTrue(result);
 
         when(mockInvoiceService.registerInvoice(new Invoice())).thenReturn(false);
-        result = this.generateInvoiceController.newInvoice(new Date(2020,12,2), 10f);
+        result = this.generateInvoiceController.newInvoice(new Date(1220227200), 10f);
         assertFalse(result);
 
         ApplicationPOT.getInstance().setCurrentSession(null);
-        result = this.generateInvoiceController.newInvoice(new Date(2020,12,2), 10f);
+        result = this.generateInvoiceController.newInvoice(new Date(1220227200), 10f);
         assertFalse(result);
     }
 }

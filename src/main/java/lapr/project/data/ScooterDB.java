@@ -40,23 +40,20 @@ public class ScooterDB extends DataHandler {
                 int intBatteryCapacity = rSet.getInt(5);
                 float fltMaxPayload = rSet.getFloat(6);
                 int intId = rSet.getInt(7);
-                String strEmail = rSet.getString(8);
-                String strPassword = rSet.getString(9);
-                Integer intNIF = rSet.getInt(10);
-                String strName = rSet.getString(11);
-                Double fltLatitude = rSet.getDouble(12);
-                Double fltLongitude = rSet.getDouble(13);
-                String strStreetName = rSet.getString(14);
-                String strDoorNumber = rSet.getString(15);
-                String strPostalCode = rSet.getString(16);
-                String strLocality = rSet.getString(17);
-                String strCountry = rSet.getString(18);
+                String strName = rSet.getString(8);
+                Double fltLatitude = rSet.getDouble(9);
+                Double fltLongitude = rSet.getDouble(10);
+                String strStreetName = rSet.getString(11);
+                String strDoorNumber = rSet.getString(12);
+                String strPostalCode = rSet.getString(13);
+                String strLocality = rSet.getString(14);
+                String strCountry = rSet.getString(15);
 
                 return new Scooter(fltBatteryPerc, strCharginStatus, fltPotency, fltWeight,
-                        intBatteryCapacity, fltMaxPayload, new Pharmacy(strName, new PharmacyManager(intId, strEmail, strPassword, intNIF, strName), new Address(fltLatitude, fltLongitude, strStreetName,
+                        intBatteryCapacity, fltMaxPayload, new Pharmacy(strName, new Address(fltLatitude, fltLongitude, strStreetName,
                         strDoorNumber, strPostalCode, strLocality, strCountry)));
             }
-        } catch (SQLException | NoSuchAlgorithmException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         throw new IllegalArgumentException("No Scooter with ID:" + id);
@@ -223,7 +220,7 @@ public class ScooterDB extends DataHandler {
                 Address address = addressManager(rSet,10);
 
                 return new Scooter(scooterID,batteryPerc,charginStatus,potency,weight,
-                batteryCapacity, fltMaxPayload, new Pharmacy(pharmacyID,pharmacyName,new PharmacyManager(),address));
+                batteryCapacity, fltMaxPayload, new Pharmacy(pharmacyID,pharmacyName,address));
             }
         } catch (SQLException e) {
             e.printStackTrace();

@@ -57,20 +57,19 @@ public class PharmacyDB extends DataHandler {
         throw new IllegalArgumentException("No Pharmacy with ID:" + id);
     }
 
-    private boolean addPharmacy(String strName, Integer intManagerId, Address oAddress) {
+    private boolean addPharmacy(String strName, Address oAddress) {
         try {
             openConnection();
-            CallableStatement callStmt = getConnection().prepareCall("{ call addPharmacy(?,?,?,?,?,?,?,?,?) }");
+            CallableStatement callStmt = getConnection().prepareCall("{ call addPharmacy(?,?,?,?,?,?,?,?) }");
 
             callStmt.setString(1, strName);
-            callStmt.setFloat(2, intManagerId);
-            callStmt.setDouble(3, oAddress.getLatitude());
-            callStmt.setDouble(4, oAddress.getLongitude());
-            callStmt.setString(5, oAddress.getStreetName());
-            callStmt.setString(6, oAddress.getDoorNumber());
-            callStmt.setString(7, oAddress.getPostalCode());
-            callStmt.setString(8, oAddress.getLocality());
-            callStmt.setString(9, oAddress.getCountry());
+            callStmt.setDouble(2, oAddress.getLatitude());
+            callStmt.setDouble(3, oAddress.getLongitude());
+            callStmt.setString(4, oAddress.getStreetName());
+            callStmt.setString(5, oAddress.getDoorNumber());
+            callStmt.setString(6, oAddress.getPostalCode());
+            callStmt.setString(7, oAddress.getLocality());
+            callStmt.setString(8, oAddress.getCountry());
 
             callStmt.execute();
 
@@ -103,13 +102,7 @@ public class PharmacyDB extends DataHandler {
     }
 
     public boolean registerPharmacy(Pharmacy oPharmacy) {
-        return addPharmacy(oPharmacy.getName(), oPharmacy.getPharmacyManager().getId(), oPharmacy.getAddress());
-    }
-
-    public Pharmacy newPharmacy(String strName, PharmacyManager oPharmacyManager,Double dblLatitude,Double dblLongitude,
-                             String strStreetName, String strDoorNumber, String strPostalCode, String strLocality, String strCountry) {
-        return new Pharmacy(strName, oPharmacyManager, new Address(dblLatitude, dblLongitude, strStreetName, strDoorNumber, strPostalCode,
-                strLocality, strCountry));
+        return addPharmacy(oPharmacy.getName(), oPharmacy.getAddress());
     }
 
     public boolean registerPharmacyProduct(Pharmacy m_oPharmacy, Product m_oProduct, Integer m_intStock) {

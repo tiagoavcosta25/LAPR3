@@ -56,12 +56,7 @@ public class DataHandler {
     /**
      * Additional Number of columns added when executing the pharmacyManager method.
      */
-    private static int COLUMNS_ADDED_PHARMACY = 15;
-
-    /**
-     * Additional Number of columns added when executing the pharmacyManagerManager method.
-     */
-    private static int COLUMNS_ADDED_PHARMACY_MANAGER = 5;
+    private static int COLUMNS_ADDED_PHARMACY = 10;
 
     /**
      * Additional Number of columns added when executing the clientManager method.
@@ -239,32 +234,15 @@ public class DataHandler {
         return new CreditCard(dblCreditCardNr, utilStartDate, strCCV);
     }
 
-    protected Pharmacy pharmacyManager(ResultSet rSet, int firstColumn) throws SQLException, NoSuchAlgorithmException { // column number +15
+    protected Pharmacy pharmacyManager(ResultSet rSet, int firstColumn) throws SQLException, NoSuchAlgorithmException { // column number +10
 
         Integer pharmacyID = rSet.getInt(firstColumn);
         firstColumn++;
         String pharmacyName = rSet.getString(firstColumn);
         firstColumn++;
-        PharmacyManager oPharmacyManager = pharmacyManagerManager(rSet, firstColumn);
-        firstColumn+= COLUMNS_ADDED_PHARMACY_MANAGER;
         Address oAddress = addressManager(rSet, firstColumn);
 
-        return new Pharmacy(pharmacyID, pharmacyName, oPharmacyManager, oAddress);
-    }
-
-    protected PharmacyManager pharmacyManagerManager(ResultSet rSet, int firstColumn) throws SQLException, NoSuchAlgorithmException { // column number +5
-
-        Integer id = rSet.getInt(firstColumn);
-        firstColumn++;
-        String emailManager = rSet.getString(firstColumn);
-        firstColumn++;
-        String password = rSet.getString(firstColumn);
-        firstColumn++;
-        Integer nif = rSet.getInt(firstColumn);
-        firstColumn++;
-        String name = rSet.getString(firstColumn);
-        firstColumn++;
-        return new PharmacyManager(id, emailManager, password, nif, name);
+        return new Pharmacy(pharmacyID, pharmacyName, oAddress);
     }
 
     protected Client clientManager(ResultSet rSet, int firstColumn) throws SQLException { // column number +17
