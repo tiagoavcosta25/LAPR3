@@ -73,13 +73,20 @@ class CreditCardTest {
 
         CreditCard oCreditCard1 = new CreditCard(1234123412341239L,new SimpleDateFormat("MM/yy").parse("10/20"),
                 123);
-        assertNotEquals(oCreditCard1, c);
+        real = c.equals(oCreditCard1);
+        assertFalse(real);
 
         String s = "";
-        assertNotEquals(s, c);
+        real = c.equals(s);
+        assertFalse(real);
 
         CreditCard oCreditCard2 = null;
-        assertNotEquals(oCreditCard2, c);
+        real = c.equals(oCreditCard2);
+        assertFalse(real);
+
+        String s2 = null;
+        real = c.equals(s2);
+        assertFalse(real);
     }
 
     @Test

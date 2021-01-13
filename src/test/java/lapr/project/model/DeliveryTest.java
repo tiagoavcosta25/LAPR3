@@ -71,25 +71,36 @@ class DeliveryTest {
     void testEquals() {
         Delivery d = new Delivery(new Order(1, 2.0f, 3.0f, 2.0f, new java.sql.Date(2,2,2),
                 "testDesc", "testStatus", new Client(), new Address(), new Pharmacy(), new TreeMap<>()));
-        assertEquals(d, m_delivery);
 
-        assertEquals(m_delivery, m_delivery);
+        boolean real = m_delivery.equals(d);
+        assertTrue(real);
+
+        real = m_delivery.equals(m_delivery);
+
+        assertTrue(real);
 
         d = new Delivery(new Order(5, 1.0f, 1.0f, 2.0f, new java.sql.Date(5,5,5),
                 "testDesc", "testStatus", new Client(), new Address(), new Pharmacy(), new TreeMap<>()));
-        assertNotEquals(d, m_delivery);
+
+        real = m_delivery.equals(d);
+
+        assertFalse(real);
 
         String s = "";
-        assertNotEquals(s,m_delivery);
+        real = m_delivery.equals(s);
+        assertFalse(real);
 
         Order o = new Order();
-        assertNotEquals(o,m_delivery);
+        real = m_delivery.equals(o);
+        assertFalse(real);
 
         d = null;
-        assertNotEquals(d,m_delivery);
+        real = m_delivery.equals(d);
+        assertFalse(real);
 
         d = new Delivery();
-        assertEquals(d,m_emptyDelivery);
+        real = m_delivery.equals(d);
+        assertFalse(real);
 
     }
 
