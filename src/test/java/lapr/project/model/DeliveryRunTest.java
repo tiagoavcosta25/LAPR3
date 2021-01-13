@@ -68,16 +68,16 @@ class DeliveryRunTest {
 
     @Test
     void getDeliveryList() {
-        List<Delivery> expected = new ArrayList<>();
-        List<Delivery> real = m_deliveryRun.getDeliveryList();
+        List<Address> expected = new ArrayList<>();
+        List<Address> real = m_deliveryRun.getDeliveryList();
         assertEquals(expected,real);
     }
 
     @Test
     void setDeliveryList() {
-        List<Delivery> expected = null;
+        List<Address> expected = null;
         m_deliveryRun.setDeliveryList(null);
-        List<Delivery> real = m_deliveryRun.getDeliveryList();
+        List<Address> real = m_deliveryRun.getDeliveryList();
         assertEquals(expected,real);
     }
 
