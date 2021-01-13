@@ -1,0 +1,35 @@
+@startuml
+skinparam classAttributeIconSize 0
+hide methods
+left to right direction
+
+database database {
+}
+
+class Courier {
+      -String iban
+}
+
+class Administrator {
+}
+
+class User{
+  -Integer id
+  -String email
+  -String password
+  -int nif
+  -string name
+}
+
+class Pharmacy{
+-   int id
+-   String name
+}
+
+database "1" -- "1" Administrator : has registered >
+Administrator "1" -- "1..*" Courier : registers >
+Courier "1" -- "1" User: acts as  >
+Courier "1" -- "1" Pharmacy: belongs to a  >
+Administrator "1" -- "1" User: acts as  >
+@enduml
+
