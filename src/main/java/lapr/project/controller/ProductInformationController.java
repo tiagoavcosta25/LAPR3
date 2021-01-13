@@ -1,23 +1,17 @@
 package lapr.project.controller;
 
 import lapr.project.model.Product;
-import lapr.project.data.ProductDB;
-import lapr.project.utils.ValidationProduct;
+import lapr.project.model.service.ProductService;
 
 public class ProductInformationController {
 
-    private ProductDB pr;
+    private ProductService pServ;
 
-    public ProductInformationController(String jdbcUrl, String username, String password) {
-        this.pr = new ProductDB(jdbcUrl, username, password);
+    public ProductInformationController() {
+        this.pServ = new ProductService();
     }
 
-    public boolean verifyProductId(int intId) {
-        return ValidationProduct.validateId(intId);
-    }
-
-    public Product getProductFromDB(int intId) {
-        if(!verifyProductId(intId)) return null;
-        return pr.getProductFromBD(intId);
+    public Product getProduct(int intId) {
+        return pServ.getProduct(intId);
     }
 }

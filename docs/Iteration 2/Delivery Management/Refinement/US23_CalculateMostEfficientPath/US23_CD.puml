@@ -14,7 +14,6 @@ class CalculateMostEfficientPahtController{
 class ApplicationPOT
 {
   +static getInstance()
-  +getPlatform()
     +getCurrentSession()
 }
 class UserSession
@@ -23,29 +22,50 @@ class UserSession
 }
 }
 package "Model" #DDDDDD {
-class Platform {
-  -String designation
-  +DeliveryRegistration getDelReg()
-  +OrderRegistration getOrderReg()
+
+class Address{
+-Integer id
+-Double latitude
+-Double longitude
+-String streetName
+-String doorNumber
+-String postalCode
+-String locality
+-String country
++Address(latitude,longitude,streetName,doorNumber,postalCode,locality,country)
 }
-package "Registration" #DDDDDD {
-class DeliveryRegistration{
-+getShortestPath(pairAddress)
-+getStartingAndDeliveryAddressByOrder(order)
-}
-class OrderRegistration{
-+getOrderByCourier(email)
-}
-}
-class Database{
-}
+package Service #DDDDDD {
+
+class DeliveryRunService{
++DeliveryRunService()
++getAddressesByDeliveryRunId(email)
++calculateMostEfficientPath(addressA, addressB, list)
 }
 
+}
+}
+package "Data" #DDDDDD {
+class DataHandler{
++openConnection()
++closeAll()
+}
+
+ class DeliveryRunDB{
+ +DeliveryRunDB()
+ +getAddressesByDeliveryRunId(email)
+ +calculateMostEfficientPath(addressA, addressB, list)
+ }
+ database database{
+ }
+ }
+CalculateMostEfficientPahtController ..> UserSession
 CalculateMostEfficientPahtUI ..> CalculateMostEfficientPahtController
-CalculateMostEfficientPahtController ..> Platform
 CalculateMostEfficientPahtController ..> ApplicationPOT
-Platform "1" --> "1" DeliveryRegistration : has
-Platform "1" --> "1" OrderRegistration : has
-OrderRegistration "1" --> "1" Database : connects to
-DeliveryRegistration "1" --> "1" Database : connects to
+CalculateMostEfficientPahtController ..> DeliveryRunService
+DeliveryRunService  ->  DeliveryRunDB : has
+DeliveryRunService "1" -> "1" Address : gets
+DeliveryRunDB -> database : manages
+database ->Address : has
+class DeliveryRunDB extends DataHandler
+
 @enduml
