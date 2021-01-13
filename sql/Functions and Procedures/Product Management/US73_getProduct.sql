@@ -8,7 +8,7 @@ BEGIN
         from PRODUCT
         where id = intId;
 
-    if v_cursor is null then
+    if rf_cur is null then
         raise product_not_found;
     end if;
 
