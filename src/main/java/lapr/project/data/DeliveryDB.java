@@ -23,8 +23,9 @@ public class DeliveryDB extends DataHandler {
         super(jdbcUrl, username, password);
         m_graph = new Graph<>(true);
     }
-
-
+    public DeliveryDB(){
+        super();
+    }
 
     public Graph<Address, String> getM_graph() {
         return m_graph;
@@ -98,43 +99,6 @@ public class DeliveryDB extends DataHandler {
             e.printStackTrace();
         }
         throw new IllegalArgumentException("No Addresses Avaliable.");
-    }
-
-    public List<Address> getAddressesByDeliveryRunId(String email) {
-        CallableStatement callStmt = null;
-        try {
-            callStmt = getConnection().prepareCall("{ ? = call getDeliveryRunIdByCourierEmail(?) }");
-
-            callStmt.registerOutParameter(1, OracleTypes.NUMBER);
-            callStmt.setString(2, email);
-
-            callStmt.execute();
-
-            ResultSet rSet = (ResultSet) callStmt.getObject(1);
-            int delRunId = 0;
-            if (rSet.next()) {
-                delRunId = rSet.getInt(1);
-            }
-            callStmt = getConnection().prepareCall("{ ? = call getAddressesByDeliveryRunId(?) }");
-
-            callStmt.registerOutParameter(1, OracleTypes.CURSOR);
-            callStmt.setInt(2, delRunId);
-
-            callStmt.execute();
-
-            rSet = (ResultSet) callStmt.getObject(1);
-            List<Address> list = new ArrayList<>();
-            while (rSet.next()) {
-                Address a = addressManager(rSet, 1);
-                list.add(a);
-            }
-            return list;
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        throw new IllegalArgumentException("No Addresses in the delivery run associated with the courier with the following email:" + email);
-
     }
 
 

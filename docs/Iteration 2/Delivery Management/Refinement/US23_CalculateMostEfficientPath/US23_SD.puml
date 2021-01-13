@@ -10,7 +10,8 @@ participant "ApplicationPOT" as _APP
 participant "app\n:ApplicationPOT" as APP
 participant "session\n:UserSession" as SESSION
 participant "drService\n:DeliveryRunService" as DRS
-participant "oDeliveryDB\n:DeliveryRunDB" as DRDB
+participant "oDeliveryRunDB\n:DeliveryRunDB" as DRDB
+participant "oDeliveryDB\n:DeliveryDB" as DDB
 participant "list\nList<Address>" as LIST
 
 activate COUR
@@ -45,10 +46,11 @@ deactivate DRS
 opt list !=null
 CTRL -> DRS : calculateMostEfficientPath(addressA, addressB, list)
 activate DRS
-DRS -> DRDB : calculateMostEfficientPath(addressA, addressB, list)
-activate DRDB
-ref over DRDB : SD_CONNECTIONS
-deactivate DRDB
+DRS -> DDB* : create()
+DRS -> DDB : calculateMostEfficientPath(addressA, addressB, list)
+activate DDB
+ref over DDB : SD_CONNECTIONS
+deactivate DDB
 deactivate DRS
 end opt
 deactivate CTRL

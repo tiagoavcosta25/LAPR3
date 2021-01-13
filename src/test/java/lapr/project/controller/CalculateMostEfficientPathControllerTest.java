@@ -2,8 +2,10 @@ package lapr.project.controller;
 
 import javafx.util.Pair;
 import lapr.project.data.DeliveryDB;
+import lapr.project.data.DeliveryRunDB;
 import lapr.project.model.Address;
 import lapr.project.model.UserSession;
+import lapr.project.model.service.DeliveryRunService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -23,7 +25,7 @@ class CalculateMostEfficientPathControllerTest {
     private CalculateMostEfficientPathController calculateMostEfficientPathController;
 
     @Mock
-    private DeliveryDB mockDeliveryDB;
+    private DeliveryRunService mockDeliveryRunService;
 
     private Pair<LinkedList<Address>, Double> expectedTrue;
     private List<Address> expectedList;
@@ -31,8 +33,8 @@ class CalculateMostEfficientPathControllerTest {
 
     @BeforeEach
     void setUp() {
-        this.calculateMostEfficientPathController = new CalculateMostEfficientPathController("", "", "");
-        this.mockDeliveryDB = Mockito.mock(DeliveryDB.class);
+        this.calculateMostEfficientPathController = new CalculateMostEfficientPathController();
+        this.mockDeliveryRunService = Mockito.mock(DeliveryRunService.class);
         initMocks(this);
     }
 
@@ -42,9 +44,9 @@ class CalculateMostEfficientPathControllerTest {
         addAddress();
         String email = "email6@gmail.com";
         ApplicationPOT.getInstance().setCurrentSession(new UserSession("email6@gmail.com"));
-        when(mockDeliveryDB.getAddressesByDeliveryRunId(email)).thenReturn(expectedList);
+        when(mockDeliveryRunService.getAddressesByDeliveryRunId(email)).thenReturn(expectedList);
         this.pharmacyAddress = this.expectedList.get(this.expectedList.size() - 1);
-        when(mockDeliveryDB.calculateMostEfficientPath(this.pharmacyAddress, this.pharmacyAddress, this.expectedList)).thenReturn(expectedTrue);
+        when(mockDeliveryRunService.calculateMostEfficientPath(this.pharmacyAddress, this.pharmacyAddress, this.expectedList)).thenReturn(expectedTrue);
         double result = this.calculateMostEfficientPathController.getShortestPath();
         assertEquals(expectedTrue.getValue(), result);
     }
@@ -54,9 +56,9 @@ class CalculateMostEfficientPathControllerTest {
         String email = "email6@gmail.com";
         double expResult = -1;
         ApplicationPOT.getInstance().setCurrentSession(new UserSession("email6@gmail.com"));
-        when(mockDeliveryDB.getAddressesByDeliveryRunId(email)).thenReturn(expectedList);
+        when(mockDeliveryRunService.getAddressesByDeliveryRunId(email)).thenReturn(expectedList);
         this.pharmacyAddress = new Address();
-        when(mockDeliveryDB.calculateMostEfficientPath(this.pharmacyAddress, this.pharmacyAddress, this.expectedList)).thenReturn(null);
+        when(mockDeliveryRunService.calculateMostEfficientPath(this.pharmacyAddress, this.pharmacyAddress, this.expectedList)).thenReturn(null);
         double result = this.calculateMostEfficientPathController.getShortestPath();
         assertEquals(expResult, result);
     }
@@ -67,9 +69,9 @@ class CalculateMostEfficientPathControllerTest {
         double expResult = -1;
         addAddress();
         ApplicationPOT.getInstance().setCurrentSession(new UserSession("email6@gmail.com"));
-        when(mockDeliveryDB.getAddressesByDeliveryRunId(email)).thenReturn(expectedList);
+        when(mockDeliveryRunService.getAddressesByDeliveryRunId(email)).thenReturn(expectedList);
         this.pharmacyAddress = this.expectedList.get(this.expectedList.size() - 1);
-        when(mockDeliveryDB.calculateMostEfficientPath(this.pharmacyAddress, this.pharmacyAddress, this.expectedList)).thenReturn(null);
+        when(mockDeliveryRunService.calculateMostEfficientPath(this.pharmacyAddress, this.pharmacyAddress, this.expectedList)).thenReturn(null);
         double result = this.calculateMostEfficientPathController.getShortestPath();
         assertEquals(expResult, result);
     }
