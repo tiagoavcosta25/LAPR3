@@ -9,8 +9,8 @@ participant "KnowDeliveryController" as CTRL
 participant "ApplicationPOT" as _APP
 participant "app\n:ApplicationPOT" as APP
 participant "session\n:UserSession" as SESSION
-participant "plat\n:Platform" as PLAT
-participant "ordReg\n:OrderRegistration" as ORDREG
+participant "orderService\n:OrderService" as OS
+participant "orderDB\n:OrderDB" as ODB
 participant "order\n:Order" as O
 
 activate COUR
@@ -24,10 +24,6 @@ CTRL -> _APP: app = getInstance()
 activate _APP
 deactivate _APP
 
-CTRL -> APP: plat = getPlaform()
-activate APP
-deactivate APP
-
 CTRL -> APP: session = getCurrentSession()
 activate APP
 deactivate APP
@@ -36,14 +32,18 @@ CTRL -> SESSION : email = getCurrentUserEmail()
 activate SESSION
 deactivate SESSION
 
-CTRL -> PLAT : ordReg = getOrderReg()
-activate PLAT
-deactivate PLAT
-CTRL -> ORDREG : order = getOrderByCourier(email)
-activate ORDREG
-ORDREG -> ORDREG : executeQuery(query)
-ref over ORDREG : SD_CONNECTIONS
-deactivate ORDREG
+CTRL -> OS* : create()
+activate OS
+OS -> ODB* : create()
+deactivate OS
+CTRL -> OS : order = getOrderByCourier(email)
+activate OS
+OS -> ODB : getOrderByCourier(email)
+activate ODB
+deactivate ODB
+
+ref over ODB : SD_CONNECTIONS
+deactivate OS
 deactivate CTRL
 opt [ order == null]
 UI -> COUR : Informs that doesn't exist any order
