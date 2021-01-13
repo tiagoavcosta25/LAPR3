@@ -52,9 +52,11 @@ class Drone{
 
 class Vehicle{
   -int id
+  -String vehicleType
   -float potency
   -float weight
   -float maxPayload
+  -String charngingStatus
 }
 
 class Battery{
@@ -117,7 +119,7 @@ Database "1" -- "*" Drone : has registered >
 
 Vehicle "1" -- "1" Battery : has >
 Drone "*" -- "1" Vehicle : is a type of >
-Drone "*" -- "1" Pharmacy : belongs to >
+Vehicle "*" -- "1" Pharmacy : belongs to >
 Pharmacy "1" -- "1" Address : has >
 Pharmacy "1" -- "1" DronePark : has >
 DronePark "1" -- "1" DroneChargingSlot : has >
