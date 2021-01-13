@@ -2,29 +2,18 @@
 skinparam classAttributeIconSize 0
 
 package "Controller" #DDDDDD {
-class MakeAPharmacyTransferController{
-+newPharmacy(managerName,email,password, nif, name,latitude,longitude,\nstreetName,doorNumber,postalCode,locality,country)
-+registerPhamacy()
-}
-
-class ApplicationPOT
-{
-  +static getInstance()
+class IssueTransferNoteController{
++IssueTransferNoteController()
++issueTransferNote(pharmacyTransfer)
 }
 }
 
 package "Model" #DDDDDD {
 
 package "Service" #DDDDDD {
-   class PharmacyService{
-          +PharmacyService()
-          +getClosestPharmacyWithStock(pharmacy, product, quantity)
-      }
-
       class PharmacyTransferService{
                 +PharmacyTransferService()
-                +addPharmacyTransfer(order, product, quantity, nearbyPharamcy)
-                +registersPharmacyTransfer(pharmacyTransfer)
+                +sendEmailWithTransferNote(pharamacyTransfer)
             }
  }
 
@@ -98,33 +87,22 @@ class DataHandler{
     +closeAll()
 }
 
-class PharmacyDB{
-          +PharmacyDB()
-          +getClosestPharmacyWithStock(pharmacy, product, quantity)
-      }
-
-      class PharmacyTransferDB{
-                +PharmacyTransferDB()
-                +registersPharmacyTransfer(pharmacyTransfer)
-            }
+class PharmacyTransferDB{
+   +PharmacyTransferDB()
+}
 }
 
 database Database {
 }
 
-class PharmacyDB extends DataHandler
 class PharmacyTransferDB extends DataHandler
 class Client extends User
 
-MakeAPharmacyTransferController ..> ApplicationPOT
-MakeAPharmacyTransferController ..> PharmacyService
+IssueTransferNoteController ..> PharmacyTransferService
 Database "1" -- "*" Order : has registered >
 Database "1" -- "*" Product : has registered >
 Database "1" -- "*" Client : has registered >
-PharmacyDB -- Database : manages >
-PharmacyTransferDB -- Database : manages >
-PharmacyService "1" --> "*" Pharmacy : manages services of
-PharmacyService "1" --> "1" PharmacyDB : uses
+PharmacyTransferDB "1" --> "*" Database : manages
 PharmacyTransferService "1" --> "*" PharmacyTransfer : manages services of
 PharmacyTransferService "1" --> "1" PharmacyTransferDB : uses
 Pharmacy "1" -- "1" Address : has >

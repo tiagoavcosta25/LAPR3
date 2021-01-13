@@ -1,46 +1,18 @@
 @startuml
 autonumber
-participant ":MakeAPharmacyTransferController" as CTRL
-participant "pharmServ \n:PharmacyService" as PS
-participant "pharamcyDB\n:PharmacyDB" as PDB
+participant ":IssueTransferNoteController" as CTRL
 participant "pharmTransferServ \n:PharmacyTransferService" as PTS
 participant "pharmTransferDB\n:PharmacyTransferDB" as PTDB
-participant "pharmacyTransfer\n:PharmacyTransfer" as PT
 
-[o-> CTRL : getStockFromAnotherPharamacy\n(order, product, quantity)
+[o-> CTRL : issueTransferNote\n(pharmacyTransfer)
 activate CTRL
-CTRL -> PS** : create()
-activate PS
-PS -> PDB** : create()
-deactivate PS
-CTRL -> PS : nearbyPharamcy = getClosestPharmacyWithStock\n(pharmacy, product, quantity)
-activate PS
-PS -> PDB : nearbyPharamcy = getClosestPharmacyWithStock\n(pharmacy, product, quantity)
-activate PDB
-ref over PDB
-SD_CONNECTIONS
-end ref
-deactivate PDB
-deactivate PS
-
 CTRL -> PTS** : create()
 activate PTS
 PTS -> PTDB** : create()
 deactivate PTS
 
-CTRL -> PTS : newPharamacyTransfer\n(order, product, quantity, nearbyPharamcy)
+CTRL -> PTS : sendEmailWithTransferNote(pharmacyTransfer)
 activate PTS
-PTS -> PT** : create(order, product, quantity, nearbyPharamcy)
-deactivate PS
-
-CTRL -> PTS : registersPharmacyTransfer(pharmacyTransfer)
-activate PTS
-PTS -> PTDB : registersPharmacyTransfer(pharmacyTransfer)
-activate PTDB
-ref over PTDB
-SD_CONNECTIONS
-end ref
-deactivate PTDB
 deactivate PTS
 deactivate CTRL
 
