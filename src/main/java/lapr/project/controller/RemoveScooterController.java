@@ -13,16 +13,6 @@ import java.util.List;
 public class RemoveScooterController {
 
     /**
-     * Scooter class instance
-     */
-    private Scooter m_oScooter;
-
-    /**
-     * Pharmacy class instance
-     */
-    private Pharmacy m_oPharmacy;
-
-    /**
      * Pharmacy Management class
      */
     private PharmacyService m_oPharmacyService;
@@ -31,11 +21,6 @@ public class RemoveScooterController {
      * Scooter Management class
      */
     private ScooterService m_oScooterService;
-
-    /**
-     * Scooter's List
-     */
-    private List<Scooter> m_lstScooters;
 
 
     /**
@@ -60,7 +45,7 @@ public class RemoveScooterController {
         try {
             return m_oScooterService.getScootersList(intPharmacyId);
         } catch (Exception ex) {
-            return this.m_lstScooters = null;
+            return null;
         }
     }
 

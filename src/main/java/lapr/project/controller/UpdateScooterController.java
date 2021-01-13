@@ -14,11 +14,6 @@ import java.util.List;
 public class UpdateScooterController {
 
     /**
-     * Pharmacy class instance
-     */
-    private Pharmacy m_oPharmacy;
-
-    /**
      * Pharmacy Management class
      */
     private PharmacyService m_oPharmacyService;
@@ -50,7 +45,7 @@ public class UpdateScooterController {
         try {
             return m_oScooterService.getScootersList(intPharmacyId);
         } catch (Exception ex) {
-            return new ArrayList<>();
+            return null;
         }
     }
 

@@ -12,7 +12,6 @@ import java.util.List;
 
 public class ScooterInformationController {
 
-
     /**
      * Pharmacy Management class
      */
@@ -22,11 +21,6 @@ public class ScooterInformationController {
      * Scooter Management class
      */
     private ScooterService m_oScooterService;
-
-    /**
-     * Scooter's List
-     */
-    private List<Scooter> m_lstScooters;
 
     /**
      * An empty constructor of RegisterScooterController that initiates the platform variable by getting it from the ApplicationPOT.
@@ -51,7 +45,7 @@ public class ScooterInformationController {
         try {
             return m_oScooterService.getScootersList(intPharmacyId);
         } catch (Exception ex) {
-            return this.m_lstScooters = null;
+            return null;
         }
     }
 
