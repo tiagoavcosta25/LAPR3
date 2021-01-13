@@ -42,6 +42,10 @@ public class PharmacyService {
         return this.m_oPharmacyDB.getPharmacyByManagerEmail(email);
     }
 
+    public Pharmacy getClosestPharmacyWithStock(Order oOrder, Product oProduct, Integer intQuantity) {
+        return m_oPharmacyDB.getClosestPharmacyWithStock(oOrder, oProduct, intQuantity);
+    }
+
     public Courier getSuitableCourier() {
         return m_oPharmacyDB.getSuitableCourier();
     }

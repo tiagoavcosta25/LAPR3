@@ -19,7 +19,7 @@ public class PharmacyTransferService {
         return this.m_oPharmacyTransferDB.removePharmacyTransfer(intId);
     }
 
-    public boolean registerPharmacy(PharmacyTransfer oPharmacyTransfer) {
+    public boolean registerPharmacyTransfer(PharmacyTransfer oPharmacyTransfer) {
         return this.m_oPharmacyTransferDB .registerPharmacyTransfer(oPharmacyTransfer);
     }
 

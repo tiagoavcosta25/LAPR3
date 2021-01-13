@@ -107,4 +107,20 @@ class PharmacyServiceTest {
         Pharmacy result = pharmacyService.getPharmacyByManagerEmail("test@isep.ipp.pt");
         assertEquals(expectedPharmacy, result);
     }
+
+    @Test
+    void getClosestPharmacyWithStock() {
+        System.out.println("getClosestPharmacyWithStock");
+        when(mockPharmacyDB.getClosestPharmacyWithStock(new Order(), new Product(), 1)).thenReturn(new Pharmacy());
+        Pharmacy result = pharmacyService.getClosestPharmacyWithStock(new Order(), new Product(), 1);
+        assertEquals(expectedPharmacy, result);
+    }
+
+    @Test
+    void getSuitableCourier() {
+        System.out.println("getSuitableCourier");
+        when(mockPharmacyDB.getSuitableCourier()).thenReturn(new Courier());
+        Courier result = pharmacyService.getSuitableCourier();
+        assertEquals(new Courier(), result);
+    }
 }

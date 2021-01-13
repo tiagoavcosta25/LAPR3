@@ -58,9 +58,8 @@ public class MakeAPharmacyTransferController {
         try {
             this.m_oPharmacy = m_oPharmacyService.getClosestPharmacyWithStock(m_oOrder, m_oProduct, m_intQuantity);
             this.m_oPharmacyTransfer = m_oPharmacyTransferService.newPharmacyTransfer(this.m_oOrder, this.m_oProduct, this.m_intQuantity, this.m_oPharmacy);
-            return this.m_oPharmacyTransferService.registerPharmacy(this.m_oPharmacyTransfer);
+            return this.m_oPharmacyTransferService.registerPharmacyTransfer(this.m_oPharmacyTransfer);
         } catch (Exception ex) {
-            this.m_oOrder = null;
             return false;
         }
     }

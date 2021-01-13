@@ -158,6 +158,45 @@ public class PharmacyDB extends DataHandler {
         throw new IllegalArgumentException("No Pharmacies Avaliable.");
     }
 
+
+
+    public Pharmacy getClosestPharmacyWithStock(Order oOrder, Product oProduct, Integer intQuantity) {
+        CallableStatement callStmt = null;
+        try {
+            callStmt = getConnection().prepareCall("{ ? = call getClosestPharmacyWithStock(?, ?, ?) }");
+
+            callStmt.registerOutParameter(1, OracleTypes.CURSOR);
+            callStmt.setInt(oOrder.getId(), 2);
+            callStmt.setInt(oProduct.getId(), 3);
+            callStmt.setInt(intQuantity, 4);
+
+            callStmt.execute();
+
+            ResultSet rSet = (ResultSet) callStmt.getObject(1);
+
+            if (rSet.next()) {
+
+                Pharmacy oPharmacy = pharmacyManager(rSet, 1);
+
+                callStmt = getConnection().prepareCall("{ ? = call getStockByPharmacy(?) }");
+                callStmt.registerOutParameter(1, OracleTypes.CURSOR);
+                callStmt.setInt(oPharmacy.getId(), 2);
+
+                callStmt.execute();
+
+                ResultSet rSetProducts = (ResultSet) callStmt.getObject(1);
+
+                while (rSet.next()){
+                    oPharmacy = pharmacyProductManager(rSetProducts, 1, oPharmacy);
+                }
+                return oPharmacy;
+            }
+        } catch (SQLException | NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        throw new IllegalArgumentException("No Pharmacy with enough stock.");
+    }
+
     public Pharmacy getPharmacyByManagerEmail(String email) {
 
         CallableStatement callStmt = null;

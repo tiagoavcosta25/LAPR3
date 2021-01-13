@@ -145,7 +145,7 @@ class ParkTest {
     void testToString() {
         Park oPark = new Park();
         //String expected = "Park{m_intId=-1, m_intMaxSlotsNumber=-1, m_lstChargingSlots=";
-        String strReal = oPark.toString().substring(0, 60);
+        String strReal = oPark.toString();
         boolean expected = true;
         boolean real = true;
         assertEquals(expected, real);
