@@ -1,36 +1,35 @@
 package lapr.project.controller;
 
-import lapr.project.data.DeliveryRunDB;
-import lapr.project.data.OrderDB;
-import lapr.project.data.PharmacyDB;
 import lapr.project.model.Address;
-import lapr.project.model.Order;
-import lapr.project.model.Pharmacy;
+import lapr.project.model.Courier;
+import lapr.project.model.DeliveryRun;
 import lapr.project.model.UserSession;
+import lapr.project.model.service.DeliveryRunService;
+import lapr.project.model.service.PharmacyService;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class RegisterDeliveryRunController {
 
-    private DeliveryRunDB m_oDeliveryRunDB;
-    private PharmacyDB m_oPharmacyDB;
-    private OrderDB m_oOrderDB;
-    private List<Order> m_lstOrders;
+    private DeliveryRunService m_oDeliveryRunService;
+    private PharmacyService m_oPharmacyService;
 
-    public RegisterDeliveryRunController(String jdbcUrl, String username, String password) {
-        m_oDeliveryRunDB = new DeliveryRunDB(jdbcUrl, username, password);
-        m_oPharmacyDB = new PharmacyDB(jdbcUrl, username, password);
-        m_oOrderDB = new OrderDB(jdbcUrl, username, password);
+    public RegisterDeliveryRunController() {
+        m_oDeliveryRunService = new DeliveryRunService();
+        m_oPharmacyService = new PharmacyService();
     }
 
     public boolean registerDeliveryRun(List<Integer> lstOrderId){
-        String email = ApplicationPOT.getInstance().getCurrentSession().getCurrentUserEmail();
         if (ApplicationPOT.getInstance().getCurrentSession().getRole().equals(UserSession.Role.ADMIN)) {
-            List<Address> lstAddresses = null;
+            List<Address> lstAddress = m_oDeliveryRunService.getAddressesFromOrdersList(lstOrderId);
+            Courier courier = m_oPharmacyService.getSuitableCourier();
+            List<Address> path = m_oDeliveryRunService.calculateShortestPath(lstAddress);
+            DeliveryRun deliveryRun = m_oDeliveryRunService.newDeliveryRun(courier,path);
+            return m_oDeliveryRunService.addNewDeliveryRun(deliveryRun);
+        }else{
+            System.out.println("User is NOT Authorized!");
+            return false;
         }
-        //return m_oOrderDB.getOrdersFromPharmacy(p);
-        return false;
     }
 
 

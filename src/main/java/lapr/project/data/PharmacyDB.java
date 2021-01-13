@@ -192,4 +192,37 @@ public class PharmacyDB extends DataHandler {
         }
         throw new IllegalArgumentException("No Pharmacy with Manager Email: " + email);
     }
+
+
+    public Courier getSuitableCourier() {
+        try {
+            openConnection();
+
+            CallableStatement callStmt = getConnection().prepareCall("{ ? = call getSuitableCourier() }");
+
+            callStmt.registerOutParameter(1, OracleTypes.CURSOR);
+
+            callStmt.execute();
+
+            ResultSet rSet = (ResultSet) callStmt.getObject(1);
+
+            Courier oResult = null;
+            if (rSet.next()) {
+                Integer id = rSet.getInt(1);
+                String name = rSet.getString(2);
+                String email = rSet.getString(3);
+                String pw = rSet.getString(4);
+                Integer nif = rSet.getInt(5);
+                String iban = rSet.getString(6);
+                Pharmacy pharmacy = getPharmacy(rSet.getInt(7));
+                oResult = new Courier(id,name,email,pw,nif,iban,pharmacy);
+            }
+
+            closeAll();
+
+            return oResult;
+        } catch (SQLException | NoSuchAlgorithmException e) {
+            return null;
+        }
+    }
 }

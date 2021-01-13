@@ -41,4 +41,8 @@ public class PharmacyService {
     public Pharmacy getPharmacyByManagerEmail(String email) {
         return this.m_oPharmacyDB.getPharmacyByManagerEmail(email);
     }
+
+    public Courier getSuitableCourier() {
+        return m_oPharmacyDB.getSuitableCourier();
+    }
 }

@@ -12,7 +12,7 @@ public class DeliveryRun {
 
     private Scooter m_oScooter;
 
-    private List<Delivery> m_lstDelivery;
+    private List<Address> m_lstDelivery;
 
     private DeliveryStatus m_oStatus;
 
@@ -32,7 +32,7 @@ public class DeliveryRun {
         this.m_oStatus = DeliveryStatus.IDLE;
     }
 
-    public DeliveryRun(Courier m_oCourier, List<Delivery> m_lstDelivery) {
+    public DeliveryRun(Courier m_oCourier, List<Address> m_lstDelivery) {
         this.m_intId = -1;
         this.m_oCourier = m_oCourier;
         this.m_lstDelivery = m_lstDelivery;
@@ -64,11 +64,11 @@ public class DeliveryRun {
         this.m_oScooter = oScooter;
     }
 
-    public List<Delivery> getDeliveryList() {
+    public List<Address> getDeliveryList() {
         return m_lstDelivery;
     }
 
-    public void setDeliveryList(List<Delivery> m_lstDelivery) {
+    public void setDeliveryList(List<Address> m_lstDelivery) {
         this.m_lstDelivery = m_lstDelivery;
     }
 
