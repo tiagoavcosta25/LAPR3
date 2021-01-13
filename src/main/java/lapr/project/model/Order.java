@@ -231,6 +231,8 @@ public class Order {
 
     public void setProducts(Map<Product, Integer> mapProducts) {
         this.m_mapProducts = mapProducts;
+        calculateAmount();
+        calculateTotalWeight();
     }
 
     public boolean isDelivery() {

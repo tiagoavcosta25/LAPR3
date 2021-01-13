@@ -57,9 +57,10 @@ class PharmacyTest {
     @Test
     void hasId() {
         Pharmacy oPharmacy = new Pharmacy();
-        boolean expected = true;
         boolean real = oPharmacy.hasId(-1);
-        assertEquals(expected, real);
+        assertTrue(real);
+        real = oPharmacy.hasId(-2);
+        assertFalse(real);
     }
 
     @Test
@@ -119,9 +120,15 @@ class PharmacyTest {
     @Test
     void testEquals() {
         Pharmacy oPharmacy = new Pharmacy();
-        boolean expected = true;
         boolean real = oPharmacy.equals(new Pharmacy());
-        assertEquals(expected, real);
+        assertTrue(real);
+        real = oPharmacy.equals(oPharmacy);
+        assertTrue(real);
+        real = oPharmacy.equals(null);
+        assertFalse(real);
+        oPharmacy.setId(-2);
+        real = oPharmacy.equals(new Pharmacy());
+        assertFalse(real);
     }
 
     @Test

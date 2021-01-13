@@ -257,6 +257,12 @@ class OrderTest {
         oOrder.calculateAmount();
         Float real = oOrder.getAmount();
         assertEquals(expected, real);
+
+        map = new TreeMap<>();
+        oOrder.setProducts(map);
+        expected = 0f;
+        real = oOrder.getAmount();
+        assertEquals(expected, real);
     }
 
     @Test
