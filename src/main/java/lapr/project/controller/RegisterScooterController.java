@@ -2,9 +2,6 @@ package lapr.project.controller;
 
 import lapr.project.model.Pharmacy;
 import lapr.project.model.Scooter;
-import lapr.project.data.PharmacyDB;
-import lapr.project.data.ScooterDB;
-import lapr.project.model.service.OrderService;
 import lapr.project.model.service.PharmacyService;
 import lapr.project.model.service.ScooterService;
 
@@ -50,14 +47,14 @@ public class RegisterScooterController {
      * @param fltPotency Scooter's potency
      * @param fltWeight Scooter's weight
      * @param intBatteryCapacity Scooter's battery capacity
-     * @param oPharmacy Scooter's pharmacy
+     * @param oPharmacy Pharmacy's instance
      */
-    public boolean newScooter(float fltBatteryPerc, String strCharginStatus, float fltPotency,
-                           float fltWeight, int intBatteryCapacity, float fltMaxPayload, Pharmacy oPharmacy) {
+    public boolean newScooter( Float fltBatteryPerc, String strCharginStatus, Float fltPotency,
+                              Float fltWeight, int intBatteryCapacity, Float fltBatteryVoltage,
+                               Float fltMaxPayload, Pharmacy oPharmacy) {
         try {
-            this.m_oPharmacy = m_oPharmacyService.getPharmacy(oPharmacy.getId());
-            this.m_oScooter = m_oScooterService.newScooter(fltBatteryPerc, strCharginStatus, fltPotency,
-                    fltWeight, intBatteryCapacity, fltMaxPayload, oPharmacy);
+            this.m_oScooter = m_oScooterService.newScooter(fltBatteryPerc,strCharginStatus, fltPotency, fltWeight,
+                    intBatteryCapacity, fltBatteryVoltage, fltMaxPayload, oPharmacy);
             return true;
         }
         catch(Exception ex) {

@@ -2,13 +2,9 @@ package lapr.project.controller;
 
 import lapr.project.model.Pharmacy;
 import lapr.project.model.Scooter;
-import lapr.project.data.PharmacyDB;
-import lapr.project.data.ScooterDB;
-import lapr.project.model.UserSession;
 import lapr.project.model.service.PharmacyService;
 import lapr.project.model.service.ScooterService;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class UpdateScooterController {
@@ -53,10 +49,11 @@ public class UpdateScooterController {
      * The method updates a scooter from the database.
      */
     public boolean updateScooter(int intId, float fltBatteryPerc, String strCharginStatus, float fltPotency,
-                                 float fltWeight, int intBatteryCapacity, float fltMaxPayload){
+                                 float fltWeight, int intBatteryCapacity, float fltBatteryVoltage,
+                                 float fltMaxPayload, int intPharmacyId){
 
         return m_oScooterService.updateScooterFromDB(intId, fltBatteryPerc, strCharginStatus, fltPotency, fltWeight,
-                intBatteryCapacity, fltMaxPayload);
+                intBatteryCapacity, fltBatteryVoltage, fltMaxPayload, intPharmacyId);
     }
 
 }

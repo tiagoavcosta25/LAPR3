@@ -18,9 +18,11 @@ public class ScooterService {
         return m_oScooterDB.getScooter(intId);
     }
 
-    public boolean updateScooterFromDB(int intId, float fltBatteryPerc, String strCharginStatus, float fltPotency, float fltWeight,
-                                       int intBatteryCapacity, float fltMaxPayload){
-        return m_oScooterDB.updateScooterFromDB(intId, fltBatteryPerc, strCharginStatus, fltPotency, fltWeight, intBatteryCapacity, fltMaxPayload);
+    public boolean updateScooterFromDB(int intId, float fltBatteryPerc, String strCharginStatus, float fltPotency,
+                                       float fltWeight, int intBatteryCapacity, float fltBatteryVoltage,
+                                       float fltMaxPayload, int intPharmacyId){
+        return m_oScooterDB.updateScooterFromDB(intId, fltBatteryPerc, strCharginStatus, fltPotency, fltWeight,
+                intBatteryCapacity, fltBatteryVoltage, fltMaxPayload, intPharmacyId);
     }
 
     public List<Scooter> getScootersList(int intPharmacyId) { return m_oScooterDB.getScootersList(intPharmacyId);}
@@ -28,8 +30,9 @@ public class ScooterService {
     public boolean removeScooterFromDB(int intId) { return m_oScooterDB.removeScooterFromDB(intId);}
 
     public Scooter newScooter(float fltBatteryPerc, String strCharginStatus, float fltPotency, float fltWeight,
-                              int intBatteryCapacity, float fltMaxPayload, Pharmacy oPharmacy) {
-        return new Scooter(fltBatteryPerc, strCharginStatus, fltPotency, fltWeight, intBatteryCapacity, fltMaxPayload, oPharmacy);
+                              int intBatteryCapacity, float fltBatteryVoltage, float fltMaxPayload, Pharmacy oPharmacy) {
+        return new Scooter(fltPotency, fltWeight, fltMaxPayload, strCharginStatus, fltBatteryPerc,
+                intBatteryCapacity, fltBatteryVoltage, oPharmacy);
     }
 
     public boolean registerScooter(Scooter oScooter) {

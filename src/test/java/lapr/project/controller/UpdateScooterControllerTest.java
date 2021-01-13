@@ -56,27 +56,29 @@ class UpdateScooterControllerTest {
         List<Scooter> result = m_ctrl.showScootersList(1);
         assertEquals(new ArrayList<>(),result);
 
-        when(m_mockScooterService.getScootersList(-2)).thenReturn(null);
-         result = m_ctrl.showScootersList(-2);
-        assertEquals(null,result);
+        when(m_mockScooterService.getScootersList(-2)).thenThrow(new IllegalArgumentException());
+        result = m_ctrl.showScootersList(-2);
+        assertNull(result);
     }
 
     @Test
     void updateScooter() {
         System.out.println("updateScooter");
-        when(m_mockScooterService.updateScooterFromDB(1, 100, "Charging", 2.0f, 2.0f, 30, 200f)).thenReturn(true);
+        when(m_mockScooterService.updateScooterFromDB(1, 100f, "Charging", 2.0f,
+                2.0f, 30, 200f, 200f, 1)).thenReturn(true);
 
-        boolean result = m_ctrl.updateScooter(1, 100, "Charging", 2.0f, 2.0f, 30, 200f);
+        boolean result = m_ctrl.updateScooter(1, 100, "Charging", 2.0f,
+                2.0f, 30, 200f, 200f, 1);
         assertTrue(result);
 
-        result = m_ctrl.updateScooter(-1, 100, "Charging", 2.0f, 2.0f, 30, 200f);
+        result = m_ctrl.updateScooter(-1, 100, "Charging", 2.0f,
+                2.0f, 30, 200f,200f, 1);
         assertFalse(result);
 
-        result = m_ctrl.updateScooter(1, 101, "Charging", 2.0f, 2.0f, 30, 200f);
-        assertFalse(result);
-
-        when(m_mockScooterService.updateScooterFromDB(1, 100, "Charging", 2.0f, 2.0f, 30, 200f)).thenReturn(false);
-        result = m_ctrl.updateScooter(1, 100, "Charging", 2.0f, 2.0f, 30, 200f);
+        when(m_mockScooterService.updateScooterFromDB(1, 100, "Charging", 2.0f,
+                2.0f, 30, 200f,200f, 1)).thenReturn(false);
+        result = m_ctrl.updateScooter(1, 100, "Charging", 2.0f,
+                2.0f, 30, 200f,200f, 1);
         assertFalse(result);
     }
 }

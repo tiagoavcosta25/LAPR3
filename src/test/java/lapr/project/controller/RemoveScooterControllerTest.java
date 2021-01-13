@@ -60,9 +60,9 @@ class RemoveScooterControllerTest {
         List<Scooter> result = m_ctrl.showScootersList(1);
         assertEquals(new ArrayList<>(),result);
 
-        when(m_mockScooterService.getScootersList(-4)).thenReturn(null);
-        result = m_ctrl.showScootersList(-4);
-        assertEquals(null,result);
+        when(m_mockScooterService.getScootersList(-2)).thenThrow(new IllegalArgumentException());
+        result = m_ctrl.showScootersList(-2);
+        assertNull(result);
     }
 
     @Test

@@ -1,9 +1,6 @@
 package lapr.project.model.service;
 
-import lapr.project.controller.RegisterScooterController;
 import lapr.project.data.ScooterDB;
-import lapr.project.model.Client;
-import lapr.project.model.Order;
 import lapr.project.model.Pharmacy;
 import lapr.project.model.Scooter;
 import org.junit.jupiter.api.BeforeEach;
@@ -33,8 +30,8 @@ class ScooterServiceTest {
 
     @BeforeEach
     void setUp() {
-        this.expectedScooter = new Scooter(35.5f, "Charging Test", 250f, 30f,
-                100, 20f, new Pharmacy());
+        this.expectedScooter = new Scooter( 35.5f, 20.0f, 250f,
+                "No Charging",100, 20, 1,new Pharmacy());
         this.scooterService = new ScooterService();
         this.mockScooterDB = Mockito.mock(ScooterDB.class);
         initMocks(this);
@@ -52,16 +49,22 @@ class ScooterServiceTest {
     @Test
     void updateScooterFromDB() {
         System.out.println("updateScooterFromDB");
-        when(mockScooterDB.updateScooterFromDB(1, 100, "Charging", 2.0f, 2.0f, 30, 200f)).thenReturn(true);
+        when(mockScooterDB.updateScooterFromDB(1, 100, "Charging",
+                2.0f, 2.0f, 30, 200f, 20f, 1)).thenReturn(true);
 
-        boolean result = scooterService.updateScooterFromDB(1, 100, "Charging", 2.0f, 2.0f, 30, 200f);
+        boolean result = scooterService.updateScooterFromDB(1, 100,
+                "Charging", 2.0f, 2.0f, 30,
+                200f, 20f, 1);
         assertTrue(result);
 
-        result = scooterService.updateScooterFromDB(-1, 100, "Charging", 2.0f, 2.0f, 30, 200f);
+        result = scooterService.updateScooterFromDB(-1, 100, "Charging",
+                2.0f, 2.0f, 30, 200f, 20f, 1);
         assertFalse(result);
 
-        when(mockScooterDB.updateScooterFromDB(1, 100, "Charging", 2.0f, 2.0f, 30, 200f)).thenReturn(false);
-        result = scooterService.updateScooterFromDB(1, 100, "Charging", 2.0f, 2.0f, 30, 200f);
+        when(mockScooterDB.updateScooterFromDB(1, 100, "Charging",
+                2.0f, 2.0f, 30, 200f, 20f, 1)).thenReturn(false);
+        result = scooterService.updateScooterFromDB(1, 100, "Charging",
+                2.0f, 2.0f, 30, 200f, 20f, 1);
         assertFalse(result);
     }
 
@@ -89,8 +92,8 @@ class ScooterServiceTest {
     @Test
     void newScooter() {
         System.out.println("newScooter");
-        Scooter result = scooterService.newScooter(35.5f, "Charging Test", 250f, 30f,
-                100, 20f, new Pharmacy());
+        Scooter result = scooterService.newScooter(100f, "No Charging",
+                250f, 30f,20, 20, 1, new Pharmacy());
         assertEquals(expectedScooter, result);
     }
 
