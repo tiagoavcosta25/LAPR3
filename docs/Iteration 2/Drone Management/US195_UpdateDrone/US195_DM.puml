@@ -1,0 +1,66 @@
+@startuml
+skinparam classAttributeIconSize 0
+hide methods
+left to right direction
+
+database Database {
+}
+
+class Pharmacy {
+  -int id
+  -String name
+}
+
+class DronePark{
+-   int maxSlotsNumber
+}
+
+class DroneChargingSlot{
+-   int id
+-   float outputPower
+}
+
+class DroneParkingSlot{
+-   int id
+}
+
+class Drone{
+}
+
+class Vehicle{
+  -int id
+  -float potency
+  -float weight
+  -float maxPayload
+}
+
+class Battery{
+  -int id
+  -float batteryPerc
+  -int batteryCapacity
+  -float batteryVoltage
+}
+
+class Address{
+  -Double longitude
+  -Double latitude
+  -String doorNumber
+  -String streetName
+  -String postalCode
+  -String locality
+  -String country
+}
+
+
+
+Database "1" -- "*" Pharmacy : has >
+Database "1" -- "*" Drone : has >
+Drone "*" -- "1" Pharmacy : belongs to >
+Drone "*" -- "1" Vehicle : is a type of >
+Vehicle "1" -- "1" Battery : has >
+Pharmacy "1" -- "1" Address : has >
+Pharmacy "1" -- "1" DronePark : has >
+DronePark "1" -- "1" DroneParkingSlot : has >
+DronePark "1" -- "1" DroneChargingSlot : has >
+@enduml
+

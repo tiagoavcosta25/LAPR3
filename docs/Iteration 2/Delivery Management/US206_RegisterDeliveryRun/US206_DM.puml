@@ -15,12 +15,6 @@ abstract class User{
 -String name
 }
 
-class Delivery{
--Order order
--Date deliveryDate
--String notes
-}
-
 class DeliveryRun{
 -Integer id
 -Courier courier
@@ -38,8 +32,8 @@ database Database{
 
 
 Database "1" -- "*" User : has registered
+Database "1" -- "*" DeliveryRun : has registered
 Admin "1" -- "1" User : is a >
-DeliveryRun "1" -- "*" Delivery : has >
 DeliveryRun"1" -- "1" DeliveryStatus : has >
 Admin "1" -- "*" DeliveryRun : registers >
 

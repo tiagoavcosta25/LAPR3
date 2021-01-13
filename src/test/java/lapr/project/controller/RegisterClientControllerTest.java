@@ -70,7 +70,7 @@ class RegisterClientControllerTest {
         when (m_mockClientService.validateInput("as",123456789,"a@","1234567",1231d,124d,"asda",
                 "asd","434-243","loca","country",1234567890123456L,new SimpleDateFormat("MM/yy").
                         parse("11/22"),123)).thenReturn(false);
-        
+
         real = m_ctrl.registerNewClient("as",123456789,"a@","1234567",1231d,124d,"asda",
                 "asd","434-243","loca","country",1234567890123456L,"11/22",123);
 
