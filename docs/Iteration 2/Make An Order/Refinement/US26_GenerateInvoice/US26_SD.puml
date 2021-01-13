@@ -9,10 +9,12 @@ participant "GenerateInvoiceController" as CTRL
 participant "PotApplication" as _APP
 participant "app\n:PotApplication" as APP
 participant "session\n:UserSession" as SESSION
-participant "plat\n:Platform" as PLAT
-participant "clientReg\n:ClientRegistration" as CR
-participant "orderReg\n:OrderRegistration" as OR
-participant "invoiceReg\n:InvoiceRegistration" as IR
+participant "clientServ\n:ClientService" as CS
+participant "clientDB\n:ClientDB" as CDB
+participant "orderServ\n:OrderService" as OS
+participant "orderDB\n:OrderDB" as ODB
+participant "invoiceServ\n:InvoiceService" as IS
+participant "invoiceDB\n:InvoiceDB" as IDB
 participant "invoice\n:Invoice" as I
 
 activate CL
@@ -25,10 +27,6 @@ CTRL -> _APP: app = getInstance()
 activate _APP
 deactivate _APP
 
-CTRL -> APP: plat = getPlaform()
-activate APP
-deactivate APP
-
 CTRL -> APP: session = getCurrentSession()
 activate APP
 deactivate APP
@@ -36,45 +34,56 @@ deactivate APP
 CTRL -> SESSION: email = getUserEmail()
 activate SESSION
 deactivate SESSION
-CTRL -> PLAT : clienteReg = getClientReg()
-activate PLAT
-deactivate PLAT
-CTRL -> CR : client = getUserByEmail(email)
-activate CR
-ref over CR
+CTRL -> CS** : create()
+activate CS
+CS -> CDB** : create()
+deactivate CS
+CTRL -> CS : client = getUserByEmail(email)
+activate CS
+CS -> CDB : client = getUserByEmail(email)
+activate CDB
+ref over CDB
 SD_CONNECTIONS
 end ref
-deactivate CR
+deactivate CDB
+deactivate CS
 
-CTRL -> PLAT : ordReg = getOrderReg()
-activate PLAT
-deactivate PLAT
-CTRL -> OR : order = getLatestOrder(client)
-activate OR
-ref over OR
+CTRL -> OS** : create()
+activate OS
+OS -> ODB** : create()
+deactivate OS
+CTRL -> OS : order = getLatestOrder(client)
+activate OS
+OS -> ODB : order = getLatestOrder(client)
+activate ODB
+ref over ODB
 SD_CONNECTIONS
 end ref
-deactivate OR
+deactivate ODB
+deactivate OS
 
-CTRL -> PLAT : invoiceReg = getInvoiceReg()
-activate PLAT
-deactivate PLAT
+CTRL -> IS** : create()
+activate IS
+IS -> IDB** : create()
+deactivate IS
 
-CTRL -> IR : invoice = addInvoice(date, totalPrice, order, client)
-activate IR
-IR -> I** : create(date, totalPrice, order, client)
-IR -> IR : validateOrder(invoice)
-ref over IR
+CTRL -> IS : invoice = addInvoice(date, totalPrice, order, client)
+activate IS
+IS -> I** : create(date, totalPrice, order, client)
+ref over IS
 SD_CONNECTIONS
 end ref
-deactivate IR
+deactivate IS
 
-CTRL -> IR : registerInvoice(invoice)
-activate IR
-ref over IR
+CTRL -> IS : registerInvoice(invoice)
+activate IS
+IS -> IDB : registerInvoice(invoice)
+activate IDB
+ref over IDB
 SD_CONNECTIONS
 end ref
-deactivate IR
+deactivate IDB
+deactivate IS
 deactivate CTRL
 UI -> CL : sends the invoice
 deactivate UI

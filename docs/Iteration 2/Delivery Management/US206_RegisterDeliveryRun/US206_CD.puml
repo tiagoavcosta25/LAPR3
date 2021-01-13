@@ -58,7 +58,7 @@ class Delivery{
 }
 
 class DeliveryRun{
-+DeliveryRun(courier,lstDelivery)
++DeliveryRun(courier,lstAddress)
 }
 
 }
@@ -82,7 +82,7 @@ class OrderService {
 class DeliveryRunService {
 +newDelivery(order)
 +getSuitableCourier()
-+newDeliveryRun(courier,lstDelivery)
++newDeliveryRun(courier,lstAddress)
 +addNewDeliveryRun(deliveryRun)
 +addDelivery(lstDelivery)
 }

@@ -1,0 +1,46 @@
+@startuml
+skinparam classAttributeIconSize 0
+package "UI" #DDDDDD {
+    class RemoveProductUI{
+    }
+}
+
+package "Controller" #DDDDDD {
+    class RemoveProductController {
+        -ProductService prodService
+        +removeProduct(intId)
+    }
+}
+
+package "Model" #DDDDDD {
+    package "Service" #DDDDDD {
+        class ProductService {
+            -ProductDB productDB
+            +validateId(intId)
+            +removeProductFromDB(intId)
+        }
+    }
+}
+
+
+package "Data" #DDDDDD {
+    class ProductDB {
+            +openConnection()
+            +closeAll()
+            +removeProductFromDB(intId)
+    }
+
+    class DataHandler {
+    }
+}
+
+database Database {
+
+}
+
+RemoveProductUI ..> RemoveProductController
+RemoveProductController ..> ProductService
+ProductService --> ProductDB : has
+ProductDB --> Database: manages
+class ProductDB extends DataHandler
+@enduml

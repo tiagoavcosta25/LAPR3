@@ -7,6 +7,9 @@ class GenerateInvoiceUI{
 }
 }
 
+database Database{
+}
+
 
 package "Controller" #DDDDDD {
 class GenerateInvoiceController{
@@ -27,22 +30,19 @@ class UserSession
 
 
 package "Model" #DDDDDD {
-class Platform {
-  -String designation
-  +getClientReg()
-  +getProductReg()
-  +getOrderReg()
-}
-package "Registration" #DDDDDD {
- class ClientRegistration{
+package "Service" #DDDDDD {
+ class ClientService{
+          +ClientService()
      +getUserByEmail(email)
  }
 
-  class OrderRegistration{
+  class OrderService{
+          +OrderService()
        +getLatestOrder()
    }
 
-   class InvoiceRegistration{
+   class InvoiceService{
+          +InvoiceService()
           +addInvoice(date, totalPrice, order, client)
           +validateInvoice()
           +registerInvoice()
@@ -113,27 +113,55 @@ class DataHandler{
     +openConnection()
     +closeAll()
 }
+class OrderDB{
+          +OrderDB()
+       +getLatestOrder()
+  }
+
+class InvoiceDB{
+          +InvoiceDB()
+          +addInvoice(date, totalPrice, order, client)
+          +validateInvoice()
+          +registerInvoice()
+  }
+
+class ClientDB{
+          +ClientDB()
+     +getUserByEmail(email)
+  }
+
 }
 
-class ClientRegistration extends DataHandler
-class InvoiceRegistration extends DataHandler
-class OrderRegistration extends DataHandler
+class InvoiceDB extends DataHandler
+class ClientDB extends DataHandler
+class OrderDB extends DataHandler
 
 class Client extends User
 
 GenerateInvoiceUI ..> GenerateInvoiceController
-GenerateInvoiceController ..> Platform
+GenerateInvoiceController ..> ClientService
+GenerateInvoiceController ..> OrderService
+GenerateInvoiceController ..> InvoiceService
 GenerateInvoiceController ..> ApplicationPOT
 GenerateInvoiceController ..> UserSession
-Platform "1" --> "1" ClientRegistration : has
-Platform "1" --> "1" OrderRegistration : has
-Platform "1" --> "1" InvoiceRegistration : has
-ClientRegistration "1" --> "*" Client : manages
-InvoiceRegistration "1" --> "*" Invoice : manages
-OrderRegistration "1" --> "*" Order : manages
 
-Platform "1" -- "*" Client : has registered >
-Platform "1" -- "*" Order : has registered >
+Database "1" -- "*" Client : has registered >
+Database "1" -- "*" Order : has registered >
+Database "1" -- "*" Product : has registered >
+Database "1" -- "*" Address : has registered >
+Database "1" -- "*" Invoice : has registered >
+Database "1" -- "*" Client : has registered >
+Database "1" -- "*" CreditCard : has registered >
+InvoiceService "1" --> "*" Invoice : manages services of
+InvoiceService "1" --> "1" InvoiceDB : uses
+OrderService "1" --> "*" Order : manages services of
+OrderService "1" --> "1" OrderDB : uses
+ClientService "1" --> "*" Client : manages services of
+ClientService "1" --> "1" ClientDB : uses
+
+InvoiceDB -- Database : manages >
+ClientDB -- Database : manages >
+OrderDB -- Database : manages >
 Order "1" -- "*" Product : has >
 Client "1" -- "1" Order : makes >
 Client "1" -- "1" Address : has >

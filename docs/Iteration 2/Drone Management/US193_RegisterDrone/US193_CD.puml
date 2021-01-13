@@ -1,73 +1,66 @@
 @startuml
 skinparam classAttributeIconSize 0
 
+database Database {
+}
+
 package "UI" #DDDDDD {
 class RegisterDroneUI{
-
 }
 }
-
-
-package "Data" #DDDDDD {
-class DroneDB{
-+registersDrone(drone)
-}
-
-class PharmacyDB{
-+getPharmacyByManager(email)
-}
-}
-
 
 package "Controller" #DDDDDD {
 class RegisterDroneController{
-+newDrone(batteryPerc, chargingStatus, potency, weight, batteryCapacity, maxPayload, batteryVoltage, pharmacy)
-+registersDrone(drone)
-}
-
-class ApplicationPOT
-{
-  +static getInstance()
-  +getPlatform()
-}
-
-class UserSession
-{
-  +getCurrentSession()
++getPharmacies()
++newDrone(batteryPerc, chargingStatus, potency, weight, batteryCapacity, maxPayload, pharmacyId)
++registerDrone(drone)
 }
 }
 
 
 package "Model" #DDDDDD {
-class Platform {
-  -String designation
-  +gePharmReg()
-  +getDroneReg()
-}
-package "Registration" #DDDDDD {
- class PharmacyRegistration{
-     +getPharmacyByManager(userEmail)
-     +getConnection()
- }
-
- class DroneRegistration{
-      +newDrone(batteryPerc, chargingStatus, potency, weight, batteryCapacity, maxPayload, batteryVoltage, pharmacy)
-      +create(batteryPerc, chargingStatus, potency, weight, batteryCapacity, maxPayload, batteryVoltage, pharmacy)
+ package "Service" #DDDDDD {
+  class PharmacyService{
+      +PharmacyService()
+      +getPharmacies()
   }
- }
+
+  class DroneService{
+      +DroneService()
+      +registerDrone(drone)
+   }
 }
 
 package "Model" #DDDDDD {
+class DronePark{
+-   int maxSlotsNumber
+}
+
+class DroneChargingSlot{
+-   int id
+-   float outputPower
+}
+
+class DroneParkingSlot{
+-   int id
+}
+
 class Drone{
+  +Drone(batteryPerc, charginStatus, potency,\n weight, batteryCapacity, maxPayload, batteryVoltage, pharmacyId)
+}
+
+class Vehicle{
   -int id
-  -float batteryPerc
-  -String charginStatus
   -float potency
   -float weight
-  -int batteryCapacity
   -float maxPayload
+}
+
+class Battery{
+  -int id
+  -float batteryPerc
+  -int batteryCapacity
   -float batteryVoltage
-  +Drone(batteryPerc, chargingStatus, potency, weight, batteryCapacity, maxPayload, batteryVoltage, pharmacy)
 }
 
 class Address{
@@ -84,17 +77,6 @@ class Pharmacy {
   -int id
   -String name
 }
-
-class User{
--   String name
--   String email
--   String password
--   Integer nif
-}
-
-class PharmacyManager {
-}
-
 }
 
 
@@ -103,30 +85,39 @@ class DataHandler{
     +openConnection()
     +closeAll()
 }
+class PharmacyDB{
+     +PharmacyDB()
+     +getPharmacies()
+ }
+
+ class DroneDB{
+     +DroneDB()
+     +registerDrone(drone)
+  }
 }
 
 class PharmacyDB extends DataHandler
 class DroneDB extends DataHandler
 
-PharmacyRegistration ..> PharmacyDB
-DroneRegistration ..> DroneDB
-
 RegisterDroneUI ..> RegisterDroneController
-RegisterDroneController ..> Platform
-RegisterDroneController ..> ApplicationPOT
-RegisterDroneController ..> UserSession
-Platform "1" --> "1" PharmacyRegistration : has
-DroneRegistration "1" --> "*" Drone : manages
+RegisterDroneController ..> PharmacyService
+RegisterDroneController ..> DroneService
+Database "1" --> "1" PharmacyDB : manages
+Database "1" --> "1" DroneDB : manages
+DroneService "1" --> "*" PharmacyDB : uses
+DroneService "1" --> "*" DroneDB : uses
+PharmacyService "1" --> "*" Pharmacy : manage services of
+DroneService "1" --> "*" Drone : manage services of
 
-Platform "1" -- "*" Pharmacy : has registered >
-Platform "1" -- "*" Drone : has registered >
-Platform "1" -- "*" PharmacyManager : has registered >
+Database "1" -- "*" Pharmacy : has registered >
+Database "1" -- "*" Drone : has registered >
 
-PharmacyManager "0..1" -- "1" User: acts as >
-PharmacyManager "1" -- "1..*" Drone : registers >
-Pharmacy "1" -- "1" PharmacyManager : has >
-Pharmacy "1" -- "*" Drone : has >
-Pharmacy "1" -- "1" Address : has >
+Vehicle "1" -- "1" Battery : has >
+Drone "*" -- "1" Vehicle : is a type of >
 Drone "*" -- "1" Pharmacy : belongs to >
+Pharmacy "1" -- "1" Address : has >
+Pharmacy "1" -- "1" DronePark : has >
+DronePark "1" -- "1" DroneChargingSlot : has >
+DronePark "1" -- "1" DroneParkingSlot : has >
 
 @enduml

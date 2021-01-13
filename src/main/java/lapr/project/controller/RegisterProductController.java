@@ -1,24 +1,16 @@
 package lapr.project.controller;
 
-import lapr.project.model.Product;
-import lapr.project.data.ProductDB;
-import lapr.project.utils.ValidationProduct;
+import lapr.project.model.service.ProductService;
 
 public class RegisterProductController {
 
-    private ProductDB pr;
+    private ProductService pServ;
 
-    public RegisterProductController(String jdbcUrl, String username, String password) {
-        this.pr = new ProductDB(jdbcUrl, username, password);
+    public RegisterProductController() {
+        this.pServ = new ProductService();
     }
 
-    private Product validateInput(String strName, String strDescription, float fltUnitaryPrice, float fltUnitaryWeight) {
-        return ValidationProduct.validateInput(strName, strDescription, fltUnitaryPrice, fltUnitaryWeight);
-    }
-
-    public boolean registerProductToDB(String strName, String strDescription, float fltUnitaryPrice, float fltUnitaryWeight) {
-        Product validatedProduct = validateInput(strName, strDescription, fltUnitaryPrice, fltUnitaryWeight);
-        if(validatedProduct == null) return false;
-        return pr.addProductToDB(validatedProduct);
+    public boolean registerProduct(String strName, String strDescription, float fltUnitaryPrice, float fltUnitaryWeight) {
+        return pServ.registerProduct(strName, strDescription, fltUnitaryPrice, fltUnitaryWeight);
     }
 }

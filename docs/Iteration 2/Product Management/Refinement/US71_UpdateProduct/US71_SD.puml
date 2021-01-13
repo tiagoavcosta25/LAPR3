@@ -1,0 +1,47 @@
+@startuml
+autonumber
+hide footbox
+
+actor "Admin" as U
+
+participant "UpdateProductUI" as UI
+participant "UpdateProductController" as CTRL
+participant "pServ:ProductService" as SER
+participant "pDB:ProductDB" as DB
+
+activate U
+U -> UI : Engages the update product feature/button
+activate UI
+UI --> U : Asks for all the information required for the update (id, name, description, unitaryPrice, unitaryWeight)
+deactivate UI
+U -> UI : Fills all the information required
+activate UI
+UI -> CTRL : updateProduct(intId, strName, strDescription, fltUnitaryPrice, fltUnitaryWeight)
+activate CTRL
+CTRL -> SER** : create()
+activate SER
+SER -> DB** : create()
+deactivate SER
+CTRL -> SER : updateProduct(intId, strName, strDescription, fltUnitaryPrice, fltUnitaryWeight)
+activate SER
+SER -> SER : validateInputWithId(intId, strName, strDescription, fltUnitaryPrice, fltUnitaryWeight)
+SER -> SER : validateId(intId)
+SER -> SER : validateInput(strName, strDescription, fltUnitaryPrice, fltUnitaryWeight)
+opt if all the information given as input has a valid format
+SER -> DB : updateProductFromDB(product)
+activate DB
+deactivate DB
+ref over DB
+SD_CONNECTIONS
+end ref
+deactivate SER
+deactivate CTRL
+deactivate CTRL
+UI --> U : Validates all the information, informing of the success of the operation
+else if any information does not have a valid format
+UI -> U : Informs that the operation was not successful
+deactivate UI
+deactivate U
+end opt
+
+@enduml

@@ -2,31 +2,31 @@
 autonumber
 hide footbox
 
-actor "Pharmacy Manager" as PM
+actor "Admin" as ADM
 participant ":System" as SYST
 
-activate PM
+activate ADM
 
-PM -> SYST : initiates the process adding a product to a pharmacy
+ADM -> SYST : initiates the process adding a product to a pharmacy
 activate SYST
-SYST --> PM : shows the pharmacy's product list
+SYST --> ADM : shows the pharmacy's product list
 deactivate SYST
 
-PM -> SYST : selects the product
+ADM -> SYST : selects the product
 activate SYST
-SYST --> PM : asks for the stock for said product
+SYST --> ADM : asks for the stock for said product
 deactivate SYST
 
-PM -> SYST : introduces the stock
+ADM -> SYST : introduces the stock
 activate SYST
-SYST --> PM : validates, presents the information and asks for confirmation
+SYST --> ADM : validates, presents the information and asks for confirmation
 deactivate SYST
 
-PM -> SYST : confirms
+ADM -> SYST : confirms
 activate SYST
-SYST --> PM : informs of the success of the operation
+SYST --> ADM : informs of the success of the operation
 deactivate SYST
 
-deactivate PM
+deactivate ADM
 
 @enduml

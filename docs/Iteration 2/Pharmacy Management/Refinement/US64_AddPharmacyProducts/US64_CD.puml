@@ -14,52 +14,31 @@ class AddPharmacyProductController{
     +addPharmacyProduct(product, stock)
     +registersPharmacyProduct()
 }
-
-class ApplicationPOT
-{
-  +static getInstance()
-  +getPlatform()
 }
 
-class UserSession
-{
-  +getCurrentSession()
+database Database{
 }
-}
-
 
 package "Model" #DDDDDD {
-class Platform {
-  -String designation
-  +getPharmacyReg()
-  +getPharmacyManagerReg()
-}
-package "Registration" #DDDDDD {
+package "Service" #DDDDDD {
 
-   class PharmacyRegistration{
-          +getPharmacyByManagerEmail(email)
-          +registersPharmacyProduct(pharmacy, product, stock)
+   class PharmacyService{
+            +PharmacyService()
+            +getPharmacy(pharmacyId)
+          +registersPharmacyProduct(pharmacyId, product, stock)
       }
-   class ProductRegistration{
-             +getProducts()
+   class ProductService{
+            +ProductService()
+             +getProducts(pharamacyId)
          }
  }
 }
 
 package "Model" #DDDDDD {
-abstract class User{
--String email
--String password
--String name
--Integer nif
-}
 
 class Pharmacy{
 -   int id
 -   String name
-}
-
-class PharmacyManager{
 }
 
 class Park{
@@ -83,6 +62,16 @@ class Product{
 -   float unitaryWeight
 }
 
+class Address{
+-   String streetName
+-   String doorNumber
+-   String postalCode
+-   String locality
+-   String country
+-   float longitude
+-   float latitude
+}
+
 }
 
 
@@ -91,23 +80,36 @@ class DataHandler{
     +openConnection()
     +closeAll()
 }
+
+class PharmacyDB{
+          +PharmacyDB()
+          +registersPharmacyProduct(pharmacyId, product, stock)
+      }
+
+      class ProductDB{
+                +ProductDB()
+             +getProducts(pharamacyId)
+            }
 }
 
-class PharmacyRegistration extends DataHandler
-class ProductRegistration extends DataHandler
-class PharmacyManager extends User
+class PharmacyDB extends DataHandler
+class ProductDB extends DataHandler
 
 AddPharmacyProductUI ..> AddPharmacyProductController
-AddPharmacyProductController ..> Platform
-AddPharmacyProductController ..> ApplicationPOT
-AddPharmacyProductController ..> UserSession
-Platform "1" --> "1" PharmacyRegistration : has
-PharmacyRegistration "1" --> "*" Pharmacy : manages
-ProductRegistration "1" --> "*" PharmacyManager : manages
-
-Pharmacy "1" -- "1" PharmacyManager : has >
+AddPharmacyProductController ..> PharmacyService
+AddPharmacyProductController ..> ProductService
+Database "1" -- "*" Pharmacy : has registered >
+Database "1" -- "*" Address : has registered >
+Database "1" -- "*" Park : has registered >
+Database "1" -- "*" ChargingSlot : has registered >
+Database "1" -- "*" ParkingSlot : has registered >
+PharmacyDB -- Database : manages >
+PharmacyService "1" --> "*" Pharmacy : manages services of
+ProductDB -- Database : manages >
+ProductService "1" --> "*" Product : manages services of
 Pharmacy "1" -- "1" Park : has >
 Pharmacy "1" -- "*" Product : has >
+Pharmacy "1" -- "*" Address : has >
 Park "1" -- "1" ChargingSlot : has >
 Park "1" -- "1" ParkingSlot : has >
 

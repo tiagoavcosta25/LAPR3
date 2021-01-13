@@ -1,0 +1,48 @@
+@startuml
+autonumber
+hide footbox
+
+actor "Admin" as U
+
+participant "ProductInformationUI" as UI
+participant "ProductInformationController" as CTRL
+participant "pServ:ProductService" as SER
+participant "pDB:ProductDB" as DB
+participant "product:Product" as PROD
+
+activate U
+U -> UI : Engages the verify product information feature/button
+activate UI
+UI --> U : Asks for the id of the product to get information from
+deactivate UI
+U -> UI : Gives the required id
+activate UI
+UI -> CTRL : getProduct(intId)
+activate CTRL
+CTRL -> SER** : create()
+activate SER
+SER -> DB** : create()
+deactivate SER
+
+CTRL -> SER : getProduct(intId)
+activate SER
+SER -> SER : validateId(intId)
+opt if the id given as input has a valid format
+SER -> DB : getProductFromDB(intId)
+activate DB
+DB -> PROD** : create(intId, strName, strDescription, fltUnitaryPrice, fltUnitaryWeight)
+deactivate DB
+ref over DB
+SD_CONNECTIONS
+end ref
+deactivate SER
+deactivate CTRL
+deactivate CTRL
+UI --> U : Informs of the success of the operation
+else if id does not have a valid format
+UI -> U : Informs that the operation was not successful
+deactivate UI
+deactivate U
+end opt
+
+@enduml

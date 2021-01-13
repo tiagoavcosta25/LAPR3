@@ -6,6 +6,7 @@ import lapr.project.data.PharmacyDB;
 import lapr.project.model.Order;
 import lapr.project.model.Pharmacy;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class RegisterDeliveryRunController {
@@ -24,7 +25,8 @@ public class RegisterDeliveryRunController {
     public List<Order> getOrders() {
         String email = ApplicationPOT.getInstance().getCurrentSession().getCurrentUserEmail();
         Pharmacy p = m_oPharmacyDB.getPharmacyByManagerEmail(email);
-        return m_oOrderDB.getOrdersFromPharmacy(p);
+        //return m_oOrderDB.getOrdersFromPharmacy(p);
+        return new ArrayList<>();
     }
 
 

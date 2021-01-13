@@ -1,0 +1,31 @@
+@startuml
+autonumber
+hide footbox
+
+actor "Admin" as ADMIN
+
+participant ":System" as SYST
+
+activate ADMIN
+
+ADMIN -> SYST : Sends a request regarding the update of an electric scooter's data
+activate SYST
+SYST --> ADMIN : Shows the list of pharmacies and asks to choose one
+deactivate SYST
+ADMIN -> SYST : Chooses the pharmacy
+activate SYST
+SYST --> ADMIN : Shows the list of eletric scooters and asks to choose one
+deactivate SYST
+ADMIN -> SYST : Chooses the eletric scooter
+activate SYST
+SYST -> ADMIN : Shows the information about the scooter, asking to update
+deactivate SYST
+
+ADMIN -> SYST : Updates the information
+activate SYST
+SYST -> ADMIN : Validates all the information, informing of the success of the operation
+deactivate SYST
+
+deactivate ADMIN
+
+@enduml

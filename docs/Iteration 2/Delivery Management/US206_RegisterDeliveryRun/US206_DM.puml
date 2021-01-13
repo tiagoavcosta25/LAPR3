@@ -3,7 +3,7 @@ skinparam classAttributeIconSize 0
 hide methods
 left to right direction
 
-class PharmacyManager{
+class Admin{
 
 }
 
@@ -32,10 +32,15 @@ class DeliveryStatus{
 -String designation
 }
 
+database Database{
 
-PharmacyManager "1" -- "1" User : is a >
+}
+
+
+Database "1" -- "*" User : has registered
+Admin "1" -- "1" User : is a >
 DeliveryRun "1" -- "*" Delivery : has >
 DeliveryRun"1" -- "1" DeliveryStatus : has >
-PharmacyManager "1" -- "*" DeliveryRun : registers >
+Admin "1" -- "*" DeliveryRun : registers >
 
 @enduml

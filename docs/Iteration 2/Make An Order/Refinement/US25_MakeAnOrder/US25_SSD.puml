@@ -27,7 +27,7 @@ end
 CL -> SYST : confirms that there is not more products
 activate SYST
 
-SYST --> CL : registers the order and informs of the success of the operation
+SYST --> CL : registers the order, generates the invoice\n and informs of the success of the operation
 
 deactivate SYST
 

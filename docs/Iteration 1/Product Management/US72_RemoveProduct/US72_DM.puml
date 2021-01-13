@@ -3,8 +3,7 @@ skinparam classAttributeIconSize 0
 hide methods
 left to right direction
 
-class Platform {
-    -String designation
+database Database {
 }
 
 class Product{
@@ -15,13 +14,6 @@ class Product{
     -Double unitaryWeight
 }
 
-abstract class User{
-    -String email
-    -String password
-}
-
-User "1" -- "*" Product : creates
-Platform "1" -- "*" Product : has registered >
-Platform "1" -- "*" User : has registered >
+Database -- "*" Product : has registered >
 
 @enduml

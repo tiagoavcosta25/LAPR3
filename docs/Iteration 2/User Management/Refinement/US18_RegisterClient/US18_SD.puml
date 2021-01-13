@@ -8,7 +8,6 @@ participant "RegisterClientUI" as UI
 participant "RegisterClientController" as CTRL
 participant "ApplicationPOT" as _APP
 participant "app\n:ApplicationPOT" as APP
-participant "plat\n:Platform" as PLAT
 participant "clientService\n:ClientService" as CS
 participant "clientDB\n:ClientDB" as UREG
 
