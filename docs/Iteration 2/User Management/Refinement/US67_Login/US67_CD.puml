@@ -67,7 +67,7 @@ class DataHandler{
 
  class UserDB{
  +UserDB()
- +login(email,password)
+ +login(email,encryptedPassword)
  }
 
 }

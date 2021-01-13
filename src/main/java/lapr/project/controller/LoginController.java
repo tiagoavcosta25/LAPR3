@@ -1,13 +1,15 @@
 package lapr.project.controller;
 
-import lapr.project.data.UserDB;
+import lapr.project.model.service.UserService;
+
+import java.security.NoSuchAlgorithmException;
 
 public class LoginController {
 
-    private UserDB m_oUserDB;
+    private UserService m_oUserService;
 
-    public LoginController(String jdbcUrl, String username, String password) {
-        m_oUserDB = new UserDB(jdbcUrl, username, password);
+    public LoginController() {
+        m_oUserService = new UserService();
     }
 
     /**
@@ -18,7 +20,7 @@ public class LoginController {
      * @param password      User's password
      * @return              True if the login operation was successful, false if otherwise
      */
-    public boolean login(String email, String password) {
-        return m_oUserDB.login(email,password);
+    public boolean login(String email, String password) throws NoSuchAlgorithmException {
+        return m_oUserService.login(email,password);
     }
 }

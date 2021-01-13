@@ -43,13 +43,21 @@ activate CTRL
 
 CTRL -> US : login(email,password)
 activate US
-US -> EP : password = encryptPasswordMD5(password)
+US -> EP : encryptedPassword = encryptPasswordMD5(password)
 activate EP
 deactivate EP
-US -> UREG : userExists = login(email,password)
+US -> UREG : login(email,encryptedPassword)
 
 activate UREG
+alt if the user exists in the DataBase and password corresponds
 
+UREG -> SES** : create(email,role)
+
+activate SES
+SES -> _APP : setCurrentSession(session)
+activate _APP
+deactivate SES
+deactivate US
 deactivate UREG
 ref over UREG
 SD_CONNECTIONS
@@ -57,15 +65,7 @@ end ref
 
 
 
-alt if the user exists in the DataBase and password corresponds
 
-US -> SES** : create(email,role)
-
-activate SES
-SES -> _APP : setCurrentSession(session)
-activate _APP
-deactivate SES
-deactivate US
 
 
 deactivate _APP

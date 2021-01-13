@@ -25,11 +25,12 @@ deactivate UI
 U -> UI : Confirms
 activate UI
 
-UI -> US : create()
-activate US
-deactivate US
+
 UI -> CTRL : logout()
 activate CTRL
+CTRL -> US : create()
+activate US
+deactivate US
 CTRL -> _APP: app = getInstance()
 activate _APP
 deactivate _APP

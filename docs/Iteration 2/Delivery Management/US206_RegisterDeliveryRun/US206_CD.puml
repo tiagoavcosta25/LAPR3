@@ -45,9 +45,7 @@ class RegisterDeliveryRunUI{
 
 package "Controller" #DDDDDD {
 class RegisterDeliveryRunController{
-+getOrders()
-+addNewDeliveryOrder(order)
-+newDeliveryRun()
++registerDeliveryRun(lstOrderId)
 }
 }
 
