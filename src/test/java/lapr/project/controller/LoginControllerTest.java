@@ -1,11 +1,14 @@
 package lapr.project.controller;
 
-import lapr.project.data.UserDB;
+import lapr.project.model.service.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+
+import java.security.NoSuchAlgorithmException;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
@@ -17,28 +20,24 @@ class LoginControllerTest {
 
 
     @Mock
-    private UserDB m_mockUserDB;
-
-    LoginControllerTest() {
-
-    }
+    private UserService m_mockUserService;
 
     @BeforeEach
     void setUp() {
-        this.m_ctrl = new LoginController("","","");
-        this.m_mockUserDB = Mockito.mock(UserDB.class);
+        this.m_ctrl = new LoginController();
+        this.m_mockUserService = Mockito.mock(UserService.class);
         initMocks(this);
     }
 
     @Test
-    void login() {
+    void login() throws NoSuchAlgorithmException {
         String email = "test@gmail.com";
         String pw = "testpassword";
-        when(m_mockUserDB.login(email,pw)).thenReturn(true);
+        when(m_mockUserService.login(email,pw)).thenReturn(true);
         boolean result = m_ctrl.login(email,pw);
         assertTrue(result);
 
-        when(m_mockUserDB.login(email,pw)).thenReturn(false);
+        when(m_mockUserService.login(email,pw)).thenReturn(false);
         result = m_ctrl.login(email,pw);
         assertFalse(result);
     }

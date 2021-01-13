@@ -3,8 +3,10 @@ package lapr.project.controller;
 import lapr.project.data.DeliveryRunDB;
 import lapr.project.data.OrderDB;
 import lapr.project.data.PharmacyDB;
+import lapr.project.model.Address;
 import lapr.project.model.Order;
 import lapr.project.model.Pharmacy;
+import lapr.project.model.UserSession;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,11 +24,13 @@ public class RegisterDeliveryRunController {
         m_oOrderDB = new OrderDB(jdbcUrl, username, password);
     }
 
-    public List<Order> getOrders() {
+    public boolean registerDeliveryRun(List<Integer> lstOrderId){
         String email = ApplicationPOT.getInstance().getCurrentSession().getCurrentUserEmail();
-        Pharmacy p = m_oPharmacyDB.getPharmacyByManagerEmail(email);
+        if (ApplicationPOT.getInstance().getCurrentSession().getRole().equals(UserSession.Role.ADMIN)) {
+            List<Address> lstAddresses = null;
+        }
         //return m_oOrderDB.getOrdersFromPharmacy(p);
-        return new ArrayList<>();
+        return false;
     }
 
 

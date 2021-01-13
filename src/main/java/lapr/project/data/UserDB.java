@@ -12,8 +12,8 @@ import java.sql.SQLException;
 
 public class UserDB extends DataHandler {
 
-    public UserDB(String jdbcUrl, String username, String password) {
-        super(jdbcUrl, username, password);
+    public UserDB() {
+        super();
     }
 
     /**
@@ -35,7 +35,7 @@ public class UserDB extends DataHandler {
 
 
             callStmt.setString(2, email);
-            callStmt.setString(3, EncryptPassword.encryptPasswordMD5(password));
+            callStmt.setString(3, password);
             callStmt.registerOutParameter(1 , OracleTypes.INTEGER);
 
 
@@ -48,7 +48,7 @@ public class UserDB extends DataHandler {
             }else flag = false;
 
             closeAll();
-        } catch (SQLException | NoSuchAlgorithmException e) {
+        } catch (SQLException e) {
             flag = false;
             e.printStackTrace();
         }
