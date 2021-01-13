@@ -124,7 +124,7 @@ class PharmacyTest {
         assertTrue(real);
         real = oPharmacy.equals(oPharmacy);
         assertTrue(real);
-        real = oPharmacy.equals(null);
+        real = oPharmacy.equals(new Order());
         assertFalse(real);
         oPharmacy.setId(-2);
         real = oPharmacy.equals(new Pharmacy());

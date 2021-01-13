@@ -124,8 +124,8 @@ class UserTest {
     @Test
     void toStringTest() {
         Client c = new Client();
-        String expResult = "User{m_intId=null, m_strEmail='No Email Registered', m_strPassword='No Password Registered', m_intNif=0, m_strName='No Name'}";
-        String result = c.toString();
+        String expResult = "Client{m_credits=0, m_address=Address{m_id=-1, m_latitude=-22.0, m_longitude=-22.0, m_streetName='No Street Name', m_doorNumber='No Door Number', m_postalCode='No Postal Code', m_locality='No Locality', m_country='No Country'}, m_creditCard=CreditCard{m_creditCardNr=-1, m_validityDate=";
+        String result = c.toString().substring(0, 286);
         assertEquals(expResult, result);
     }
 }
