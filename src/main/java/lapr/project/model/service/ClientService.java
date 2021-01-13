@@ -66,4 +66,8 @@ public class ClientService {
         return m_oClientDB.addClientToDB(c);
     }
 
+    public Client getClientByEmail(String strEmail) {
+        return m_oClientDB.getClientByEmail(strEmail);
+    }
+
 }
