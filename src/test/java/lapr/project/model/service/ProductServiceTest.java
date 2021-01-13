@@ -20,8 +20,28 @@ class ProductServiceTest {
     @Mock
     private ProductDB mockPDB;
 
+    private int intId;
+
+    private String strName;
+
+    private String strDescription;
+
+    private float fltUnitaryPrice;
+
+    private float fltUnitaryWeight;
+
+    private Product expectedProduct;
+
     @BeforeEach
     void setUp() {
+
+        intId = 1;
+        strName = "Name";
+        strDescription = "Description";
+        fltUnitaryPrice = 1;
+        fltUnitaryWeight = 1;
+        expectedProduct = new Product(intId, strName, strDescription, fltUnitaryPrice, fltUnitaryWeight);
+
         this.pServ = new ProductService();
         this.mockPDB = Mockito.mock(ProductDB.class);
         initMocks(this);
@@ -71,7 +91,7 @@ class ProductServiceTest {
     void ensureRemoveProductWorks() {
         System.out.println("removeProduct");
         when(mockPDB.removeProductFromDB(1)).thenReturn(true);
-        Boolean result = pServ.removeProduct(1);
+        boolean result = pServ.removeProduct(1);
         assertTrue(result);
 
         result = pServ.removeProduct(-1);
@@ -88,7 +108,6 @@ class ProductServiceTest {
     @Test
     void ensureGetProduct() {
         System.out.println("getProduct");
-        Product expectedProduct = new Product();
         when(mockPDB.getProductFromBD(1)).thenReturn(expectedProduct);
 
         Product result = pServ.getProduct(1);
@@ -98,5 +117,82 @@ class ProductServiceTest {
 
         result = pServ.getProduct(-1);
         assertEquals(expectedProduct, result);
+    }
+
+    @Test
+    void validateInputWithId() {
+        assertTrue(pServ.validateInputWithId(intId, strName, strDescription, fltUnitaryPrice, fltUnitaryWeight));
+
+        intId = 0;
+        assertFalse(pServ.validateInputWithId(intId, strName, strDescription, fltUnitaryPrice, fltUnitaryWeight));
+
+        intId = -1;
+        assertFalse(pServ.validateInputWithId(intId, strName, strDescription, fltUnitaryPrice, fltUnitaryWeight));
+
+        intId = 0;
+        strName = "Name";
+        strDescription = "";
+        assertFalse(pServ.validateInputWithId(intId, strName, strDescription, fltUnitaryPrice, fltUnitaryWeight));
+
+        strDescription = "Description";
+        fltUnitaryPrice = -1;
+        assertFalse(pServ.validateInputWithId(intId, strName, strDescription, fltUnitaryPrice, fltUnitaryWeight));
+
+        fltUnitaryPrice = 0;
+        assertFalse(pServ.validateInputWithId(intId, strName, strDescription, fltUnitaryPrice, fltUnitaryWeight));
+
+        fltUnitaryPrice = 1;
+        fltUnitaryWeight = -1;
+        assertFalse(pServ.validateInputWithId(intId, strName, strDescription, fltUnitaryPrice, fltUnitaryWeight));
+
+        fltUnitaryWeight = 0;
+        assertFalse(pServ.validateInputWithId(intId, strName, strDescription, fltUnitaryPrice, fltUnitaryWeight));
+
+        strName = "";
+        strDescription = "";
+        fltUnitaryPrice = 0;
+        assertFalse(pServ.validateInputWithId(intId, strName, strDescription, fltUnitaryPrice, fltUnitaryWeight));
+}
+
+    @Test
+    void validateInput() {
+        assertTrue(pServ.validateInput(strName, strDescription, fltUnitaryPrice, fltUnitaryWeight));
+
+        strName = "";
+        assertFalse(pServ.validateInput(strName, strDescription, fltUnitaryPrice, fltUnitaryWeight));
+
+        strName = "Name";
+        strDescription = "";
+        assertFalse(pServ.validateInput(strName, strDescription, fltUnitaryPrice, fltUnitaryWeight));
+
+        strDescription = "Description";
+        fltUnitaryPrice = -1;
+        assertFalse(pServ.validateInput(strName, strDescription, fltUnitaryPrice, fltUnitaryWeight));
+
+        fltUnitaryPrice = 0;
+        assertFalse(pServ.validateInput(strName, strDescription, fltUnitaryPrice, fltUnitaryWeight));
+
+        fltUnitaryPrice = 1;
+        fltUnitaryWeight = -1;
+        assertFalse(pServ.validateInput(strName, strDescription, fltUnitaryPrice, fltUnitaryWeight));
+
+        fltUnitaryWeight = 0;
+        assertFalse(pServ.validateInput(strName, strDescription, fltUnitaryPrice, fltUnitaryWeight));
+
+        strName = "";
+        strDescription = "";
+        fltUnitaryPrice = 0;
+        assertFalse(pServ.validateInput(strName, strDescription, fltUnitaryPrice, fltUnitaryWeight));
+    }
+
+    @Test
+    void validateId() {
+        assertTrue(pServ.validateId(intId));
+
+        intId = -1;
+        assertFalse(pServ.validateId(intId));
+
+        intId = 0;
+        assertFalse(pServ.validateId(intId));
     }
 }
