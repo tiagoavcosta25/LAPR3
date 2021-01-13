@@ -3,6 +3,8 @@ autonumber
 participant ":MakeAPharmacyTransferController" as CTRL
 participant "pharmServ \n:PharmacyService" as PS
 participant "pharamcyDB\n:PharmacyDB" as PDB
+participant "pharmTransferServ \n:PharmacyTransferService" as PTS
+participant "pharmTransferDB\n:PharmacyTransferDB" as PTDB
 participant "pharmacyTransfer\n:PharmacyTransfer" as PT
 
 [o-> CTRL : getStockFromAnotherPharamacy\n(order, product, quantity)
@@ -21,20 +23,25 @@ end ref
 deactivate PDB
 deactivate PS
 
-CTRL -> PS : newPharamacyTransfer\n(order, product, quantity, nearbyPharamcy)
-activate PS
-PS -> PT** : create(order, product, quantity, nearbyPharamcy)
+CTRL -> PTS** : create()
+activate PTS
+PTS -> PTDB** : create()
+deactivate PTS
+
+CTRL -> PTS : newPharamacyTransfer\n(order, product, quantity, nearbyPharamcy)
+activate PTS
+PTS -> PT** : create(order, product, quantity, nearbyPharamcy)
 deactivate PS
 
-CTRL -> PS : registersPharmacyTransfer(pharmacyTransfer)
-activate PS
-PS -> PDB : registersPharmacyTransfer(pharmacyTransfer)
-activate PDB
-ref over PDB
+CTRL -> PTS : registersPharmacyTransfer(pharmacyTransfer)
+activate PTS
+PTS -> PTDB : registersPharmacyTransfer(pharmacyTransfer)
+activate PTDB
+ref over PTDB
 SD_CONNECTIONS
 end ref
-deactivate PDB
-deactivate PS
+deactivate PTDB
+deactivate PTS
 deactivate CTRL
 
 @enduml

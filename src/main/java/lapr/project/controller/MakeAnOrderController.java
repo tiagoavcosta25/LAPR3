@@ -1,13 +1,10 @@
 package lapr.project.controller;
 
 import lapr.project.model.*;
-import lapr.project.data.ClientDB;
-import lapr.project.data.ProductDB;
 import lapr.project.model.service.ClientService;
 import lapr.project.model.service.OrderService;
 import lapr.project.model.service.PharmacyService;
 import lapr.project.model.service.ProductService;
-
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;

@@ -124,6 +124,13 @@ class ParkTest {
         boolean expected = true;
         boolean real = oPark.equals(new Park());
         assertEquals(expected, real);
+        real = oPark.equals(oPark);
+        assertTrue(real);
+        real = oPark.equals(new Pharmacy());
+        assertFalse(real);
+        oPark.setId(-2);
+        real = oPark.equals(new Park());
+        assertFalse(real);
     }
 
     @Test

@@ -99,10 +99,7 @@ public class Park {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Park park = (Park) o;
-        return m_intId == park.m_intId &&
-                m_intMaxSlotsNumber == park.m_intMaxSlotsNumber &&
-                m_lstChargingSlots.equals(park.m_lstChargingSlots) &&
-                m_lstParkingSlots.equals(park.m_lstParkingSlots);
+        return m_intId == park.m_intId;
     }
 
     @Override
@@ -115,8 +112,6 @@ public class Park {
         return "Park{" +
                 "m_intId=" + m_intId +
                 ", m_intMaxSlotsNumber=" + m_intMaxSlotsNumber +
-                ", m_lstChargingSlots=" + m_lstChargingSlots +
-                ", m_lstParkingSlots=" + m_lstParkingSlots +
                 '}';
     }
 }

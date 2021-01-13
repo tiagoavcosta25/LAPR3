@@ -76,6 +76,8 @@ class ParkingSlotTest {
         assertTrue(real);
         real = oParkingSlot.equals(new Pharmacy());
         assertFalse(real);
+        real = oParkingSlot.equals(null);
+        assertFalse(real);
         oParkingSlot.setId(-2);
         real = oParkingSlot.equals(new ParkingSlot());
         assertFalse(real);
