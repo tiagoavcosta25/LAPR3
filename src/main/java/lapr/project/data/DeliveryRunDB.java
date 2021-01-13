@@ -1,6 +1,7 @@
 package lapr.project.data;
 
 import lapr.project.model.*;
+import oracle.jdbc.OracleTypes;
 
 import java.sql.CallableStatement;
 import java.sql.ResultSet;
@@ -98,6 +99,42 @@ public class DeliveryRunDB extends DataHandler {
         } catch (SQLException e) {
             return false;
         }
+    }
+    public List<Address> getAddressesByDeliveryRunId(String email) {
+        CallableStatement callStmt = null;
+        try {
+            callStmt = getConnection().prepareCall("{ ? = call getDeliveryRunIdByCourierEmail(?) }");
+
+            callStmt.registerOutParameter(1, OracleTypes.NUMBER);
+            callStmt.setString(2, email);
+
+            callStmt.execute();
+
+            ResultSet rSet = (ResultSet) callStmt.getObject(1);
+            int delRunId = 0;
+            if (rSet.next()) {
+                delRunId = rSet.getInt(1);
+            }
+            callStmt = getConnection().prepareCall("{ ? = call getAddressesByDeliveryRunId(?) }");
+
+            callStmt.registerOutParameter(1, OracleTypes.CURSOR);
+            callStmt.setInt(2, delRunId);
+
+            callStmt.execute();
+
+            rSet = (ResultSet) callStmt.getObject(1);
+            List<Address> list = new ArrayList<>();
+            while (rSet.next()) {
+                Address a = addressManager(rSet, 1);
+                list.add(a);
+            }
+            return list;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        throw new IllegalArgumentException("No Addresses in the delivery run associated with the courier with the following email:" + email);
+
     }
 
 

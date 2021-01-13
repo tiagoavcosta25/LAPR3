@@ -1,8 +1,8 @@
 package lapr.project.controller;
 
-import lapr.project.data.OrderDB;
 import lapr.project.model.Order;
 import lapr.project.model.UserSession;
+import lapr.project.model.service.OrderService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -18,15 +18,15 @@ public class KnowDeliveryControllerTest {
     private KnowDeliveryController knowDeliveryController;
 
     @Mock
-    private OrderDB mockOrderDB;
+    private OrderService mockOrderService;
 
     private Order expectedTrue;
 
     @BeforeEach
     void setUp() {
         this.expectedTrue = new Order();
-        this.knowDeliveryController = new KnowDeliveryController("","","");
-        this.mockOrderDB = Mockito.mock(OrderDB.class);
+        this.knowDeliveryController = new KnowDeliveryController();
+        this.mockOrderService = Mockito.mock(OrderService.class);
         initMocks(this);
     }
 
@@ -35,7 +35,7 @@ public class KnowDeliveryControllerTest {
         System.out.println("knowDelivery");
         String email = "email6@gmail.com";
         ApplicationPOT.getInstance().setCurrentSession(new UserSession("email6@gmail.com"));
-        when(mockOrderDB.getOrderByCourier(email)).thenReturn(expectedTrue);
+        when(mockOrderService.getOrderByCourier(email)).thenReturn(expectedTrue);
         Order result = knowDeliveryController.getOrderByCour();
         assertEquals(expectedTrue, result);
     }

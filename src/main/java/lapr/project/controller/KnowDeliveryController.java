@@ -3,13 +3,14 @@ package lapr.project.controller;
 import lapr.project.model.Order;
 import lapr.project.data.OrderDB;
 import lapr.project.model.UserSession;
+import lapr.project.model.service.OrderService;
 
 public class KnowDeliveryController {
 
     /**
      * Order Registration class
      */
-    private OrderDB oOrderDB;
+    private OrderService oOrderService;
 
     /**
      * Courier class instance
@@ -21,13 +22,13 @@ public class KnowDeliveryController {
      */
     private Order oOrder;
 
-    public KnowDeliveryController(String jdbcUrl, String username, String password) {
-        this.oOrderDB = new OrderDB(jdbcUrl, username, password);
+    public KnowDeliveryController() {
+        this.oOrderService = new OrderService();
     }
 
     public Order getOrderByCour() {
         this.oCourierEmail = ApplicationPOT.getInstance().getCurrentSession().getCurrentUserEmail();
-        this.oOrder = this.oOrderDB.getOrderByCourier(oCourierEmail);
+        this.oOrder = this.oOrderService.getOrderByCourier(oCourierEmail);
         return oOrder;
     }
 
