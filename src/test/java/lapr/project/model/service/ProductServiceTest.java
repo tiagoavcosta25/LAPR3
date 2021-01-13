@@ -101,7 +101,7 @@ class ProductServiceTest {
         assertFalse(result);
 
         when(mockPDB.removeProductFromDB(1)).thenReturn(false);
-        result = mockPDB.removeProductFromDB(1);
+        result = pServ.removeProduct(1);
         assertFalse(result);
     }
 
