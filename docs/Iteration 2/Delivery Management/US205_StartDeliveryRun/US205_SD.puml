@@ -36,13 +36,16 @@ activate APA
 deactivate APA
 CTRL -> SS : vehicle = getSuitableVehicle(distance,email)
 activate SS
-SS -> SDB : vehicle = getSuitableVehicle(distance,email)
+SS -> SDB : scooter = getSuitableScooter(distance,email)
+activate SDB
+deactivate SDB
+SS -> SDB : drone = getSuitableDrone(distance,email)
 activate SDB
 deactivate SDB
 deactivate SS
 CTRL -> PR : deliveryRun = updateDeliveryRun(vehicle,email)
 activate PR
-PR -> PDB : deliveryRun = updateDeliveryRun(scooter,email)
+PR -> PDB : deliveryRun = updateDeliveryRun(vehicle,email)
 activate PDB
 deactivate PDB
 deactivate PR

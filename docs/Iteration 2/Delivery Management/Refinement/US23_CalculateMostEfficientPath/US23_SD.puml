@@ -9,8 +9,9 @@ participant "CalculateMostEfficientPahtController" as CTRL
 participant "ApplicationPOT" as _APP
 participant "app\n:ApplicationPOT" as APP
 participant "session\n:UserSession" as SESSION
-participant "oDeliveryDB\n:DeliveryDB" as DELDB
-participant "list\nList<Address>>" as LIST
+participant "drService\n:DeliveryRunService" as DRS
+participant "oDeliveryDB\n:DeliveryRunDB" as DRDB
+participant "list\nList<Address>" as LIST
 
 activate COUR
 
@@ -30,17 +31,26 @@ CTRL -> SESSION : email = getCurrentUserEmail()
 activate SESSION
 deactivate SESSION
 
-CTRL -> DELDB : list = getAddressesByDeliveryRunId(email)
-activate DELDB
-DELDB -> DELDB : executeQuery(query)
-ref over DELDB : SD_CONNECTIONS
-deactivate DELDB
-CTRL -> DELDB : calculateMostEfficientPath(addressA, addressB, list)
-activate DELDB
-DELDB -> DELDB : executeQuery(query)
-ref over DELDB : SD_CONNECTIONS
-deactivate DELDB
-
+CTRL ->DRS* : create()
+activate DRS
+DRS -> DRDB* : create()
+deactivate DRS
+CTRL -> DRS : list = getAddressesByDeliveryRunId(email)
+activate DRS
+DRS -> DRDB : list = getAddressesByDeliveryRunId(email)
+activate DRDB
+ref over DRDB : SD_CONNECTIONS
+deactivate DRDB
+deactivate DRS
+opt list !=null
+CTRL -> DRS : calculateMostEfficientPath(addressA, addressB, list)
+activate DRS
+DRS -> DRDB : calculateMostEfficientPath(addressA, addressB, list)
+activate DRDB
+ref over DRDB : SD_CONNECTIONS
+deactivate DRDB
+deactivate DRS
+end opt
 deactivate CTRL
 UI -> COUR : Shows the shortest and most efficient path, \ninforming of the success of the operation.
 deactivate UI

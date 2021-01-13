@@ -6,7 +6,7 @@ actor "Admin" as U
 
 participant "UpdateProductUI" as UI
 participant "UpdateProductController" as CTRL
-participant "pSer:ProductService" as SER
+participant "pServ:ProductService" as SER
 participant "pDB:ProductDB" as DB
 
 activate U

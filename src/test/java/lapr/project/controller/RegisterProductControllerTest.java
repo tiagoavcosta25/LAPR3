@@ -1,7 +1,7 @@
 package lapr.project.controller;
 
 import lapr.project.model.Product;
-import lapr.project.data.ProductDB;
+import lapr.project.model.service.ProductService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -19,33 +19,33 @@ class RegisterProductControllerTest {
     private RegisterProductController registerProductController;
 
     @Mock
-    private ProductDB mockProductDB;
+    private ProductService mockPServ;
 
     @BeforeEach
     void setUp() {
-        this.registerProductController = new RegisterProductController("","","");
-        this.mockProductDB = Mockito.mock(ProductDB.class);
+        this.registerProductController = new RegisterProductController();
+        this.mockPServ = Mockito.mock(ProductService.class);
         initMocks(this);
     }
 
     @Test
     void ensureProductRegistrationWorks() {
-        System.out.println("registerProductToDB");
+        System.out.println("registerProduct");
         Product p = new Product("Product 6969", "Description 1", 2.0f, 2.0f);
 
-        when(mockProductDB.addProductToDB(p)).thenReturn(true);
+        when(mockPServ.registerProduct("Product 6969", "Description 1", 2.0f, 2.0f)).thenReturn(true);
 
-        boolean result = registerProductController.registerProductToDB("Product 6969", "Description 1", 2.0f, 2.0f);
+        boolean result = registerProductController.registerProduct("Product 6969", "Description 1", 2.0f, 2.0f);
         assertTrue(result);
 
-        result = registerProductController.registerProductToDB("", "Description 1", 2.0f, 2.0f);
+        result = registerProductController.registerProduct("", "Description 1", 2.0f, 2.0f);
         assertFalse(result);
 
-        result = registerProductController.registerProductToDB("Product 6868", "Description 1", -2.0f, 2.0f);
+        result = registerProductController.registerProduct("Product 6868", "Description 1", -2.0f, 2.0f);
         assertFalse(result);
 
-        when(mockProductDB.addProductToDB(p)).thenReturn(false);
-        result = registerProductController.registerProductToDB("Product 6969", "Description 1", 2.0f, 2.0f);
+        when(mockPServ.registerProduct("Product 6969", "Description 1", 2.0f, 2.0f)).thenReturn(false);
+        result = registerProductController.registerProduct("Product 6969", "Description 1", 2.0f, 2.0f);
         assertFalse(result);
 
     }

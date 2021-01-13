@@ -3,8 +3,7 @@ skinparam classAttributeIconSize 0
 hide methods
 left to right direction
 
-class Platform {
--   String designation
+database database {
 }
 
 class Pharmacy{
@@ -20,12 +19,19 @@ class Park{
 
 class ChargingSlot{
 -int id;
--float m_outputPower;
+-float outputPower;
 }
 
 class Courier {
-      -String id
       -String iban
+}
+
+abstract User{
+  -Integer id
+  -String email
+  -String password
+  -int nif
+  -string name
 }
 
 class Scooter {
@@ -34,10 +40,11 @@ class Scooter {
 -int CharginStatus;
 -int Potency;
 -int Weight;
--int m_intBatteryCapacity;
+-int intBatteryCapacity
 }
 
-Platform "1" -- "*" Courier : has registered >
+database "1" -- "*" Courier : has registered >
+Courier "1" -- "1" User : acts as >
 Courier "1" -- "*" Pharmacy : is associated to >
 Pharmacy "1" -- "1" Park : has >
 Pharmacy "1" -- "*" Scooter : has >

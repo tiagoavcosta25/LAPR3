@@ -3,8 +3,7 @@ skinparam classAttributeIconSize 0
 hide methods
 left to right direction
 
-class Platform {
--   String designation
+database Database {
 }
 class Courier {
       -String id
@@ -26,8 +25,8 @@ class Order{
 -   String status
 }
 
-Platform "1" -- "*" Courier : has registered >
-Platform "1" -- "*" Order : has registered >
+Database "1" -- "*" Courier : has registered >
+Database "1" -- "*" Order : has registered >
 Courier "0..1" -- "1" User: acts as >
 Order "1" -- "1" Courier : has >
 @enduml

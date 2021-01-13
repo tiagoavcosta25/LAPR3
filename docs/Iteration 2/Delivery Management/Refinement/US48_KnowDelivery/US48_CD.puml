@@ -5,7 +5,6 @@ package "Controller" #DDDDDD {
 class ApplicationPOT
 {
   +static getInstance()
-  +getPlatform()
   +getCurrentSession()
 }
 
@@ -23,23 +22,33 @@ class KnowDeliveryUI{
 }
 }
 package "Model" #DDDDDD {
-class Platform {
-  -String designation
-  +OrdersRegistration getOrdReg()
-}
+package Service #DDDDDD {
 
-class OrdersRegistration{
+class OrderService{
++OrderService()
 +getOrderByCourier(email)
 }
-class Database{
 }
+}
+package "Data" #DDDDDD {
+class DataHandler{
++openConnection()
++closeAll()
 }
 
+ class OrderDB{
+ +OrderDB()
+ +getOrderByCourier(email)
+ }
+ database database{
+ }
+ }
 KnowDeliveryUI ..> KnowDeliveryController
-KnowDeliveryController ..> Platform
 KnowDeliveryController ..> ApplicationPOT
 KnowDeliveryController ..> UserSession
-Platform "1" --> "1" OrdersRegistration : has
-OrdersRegistration "1" --> "1" Database : connects to
+KnowDeliveryController ..> OrderService
+OrderService  ->  OrderDB : has
+OrderDB -> database : manages
+class OrderDB extends DataHandler
 
 @enduml

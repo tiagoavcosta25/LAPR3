@@ -104,6 +104,10 @@ public class MakeAnOrderController {
         return this.m_oOrderService.registerOrder(m_oOrder);
     }
 
+    public boolean registerOrder2(Order order) {
+        return this.m_oOrderDB.registerOrder(order);
+    }
+
     /**
      * The method returns the list of available products for a pharmacy.
      */
