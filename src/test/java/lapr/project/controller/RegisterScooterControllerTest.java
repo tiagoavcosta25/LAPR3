@@ -1,9 +1,7 @@
 package lapr.project.controller;
 
-import lapr.project.data.PharmacyDB;
 import lapr.project.model.Pharmacy;
 import lapr.project.model.Scooter;
-import lapr.project.data.ScooterDB;
 import lapr.project.model.service.PharmacyService;
 import lapr.project.model.service.ScooterService;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,6 +11,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -84,8 +83,11 @@ class RegisterScooterControllerTest {
     void showPharmacies() {
         System.out.println("showPharmacies");
 
-        when(mockPharmacyService.getPharmacies()).thenReturn(new ArrayList<>());
+        List<Pharmacy> expectedListPharmacies = new ArrayList<>(Arrays.asList(new Pharmacy()));
+
+        when(mockPharmacyService.getPharmacies()).thenReturn(expectedListPharmacies);
+
         List<Pharmacy> result = registerScooterController.showPharmacies();
-        assertEquals(new ArrayList<>(), result);
+        assertEquals(expectedListPharmacies, result);
     }
 }

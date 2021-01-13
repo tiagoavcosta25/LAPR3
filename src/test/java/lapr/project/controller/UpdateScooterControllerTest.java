@@ -1,8 +1,6 @@
 package lapr.project.controller;
 
-import lapr.project.data.PharmacyDB;
 import lapr.project.model.*;
-import lapr.project.data.ScooterDB;
 import lapr.project.model.service.PharmacyService;
 import lapr.project.model.service.ScooterService;
 import org.junit.jupiter.api.BeforeEach;
@@ -12,6 +10,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -42,9 +41,12 @@ class UpdateScooterControllerTest {
     void showPharmacies() {
         System.out.println("showPharmacies");
 
-        when(m_mockPharmacyService.getPharmacies()).thenReturn(new ArrayList<>());
+        List<Pharmacy> expectedListPharmacies = new ArrayList<>(Arrays.asList(new Pharmacy()));
+
+        when(m_mockPharmacyService.getPharmacies()).thenReturn(expectedListPharmacies);
+
         List<Pharmacy> result = m_ctrl.showPharmacies();
-        assertEquals(new ArrayList<>(), result);
+        assertEquals(expectedListPharmacies, result);
     }
 
     @Test
@@ -54,9 +56,9 @@ class UpdateScooterControllerTest {
         List<Scooter> result = m_ctrl.showScootersList(1);
         assertEquals(new ArrayList<>(),result);
 
-        when(m_mockScooterService.getScootersList(-1)).thenReturn(null);
-        List<Scooter> result1 = m_ctrl.showScootersList(-1);
-        assertEquals(null,result1);
+        when(m_mockScooterService.getScootersList(-2)).thenReturn(null);
+         result = m_ctrl.showScootersList(-2);
+        assertEquals(null,result);
     }
 
     @Test
