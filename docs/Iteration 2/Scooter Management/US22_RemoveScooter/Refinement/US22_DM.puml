@@ -42,8 +42,8 @@ class Battery{
 }
 
 class Address{
-  -float longitude
-  -float latitude
+  -double longitude
+  -double latitude
   -String doorNumber
   -String streetName
   -String postalCode
