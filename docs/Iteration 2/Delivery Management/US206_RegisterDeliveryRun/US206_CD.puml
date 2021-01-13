@@ -11,19 +11,16 @@ class ApplicationPOT
 }
 
 package "Data" #DDDDDD {
-class PharmacyDB{
-+getPharmacyByManagerEmail(email)
-}
-
-class OrderDB{
-+getOrdersFromPharmacy(pharmacy)
-}
 
 class DeliveryRunDB {
-+newDelivery(order)
-+getSuitableCourier()
++DeliveryRunDB()
++getAddressesFromOrdersList(lstOrderId)
 +addNewDeliveryRun(deliveryRun)
-+addDelivery(lstDelivery)
+}
+
+class PharmacyDB {
++PharmacyDB()
++getSuitableCourier()
 }
 
 class DataHandler{
@@ -51,12 +48,14 @@ class RegisterDeliveryRunController{
 
 
 package "Model" #DDDDDD {
-class Delivery{
-+Delivery(order)
+
+
+class Courier{
++Courier(id,name,email,pw,nif,iban,pharmacy)
 }
 
 class DeliveryRun{
-+DeliveryRun(courier,lstAddress)
++DeliveryRun(courier,lstPath)
 }
 
 }
@@ -64,25 +63,23 @@ class DeliveryRun{
 package "Model" #DDDDDD {
 class UserSession{
 -String email
-+getCurrentUserEmail()
++getRole()
 }
 
 package "Service" #DDDDDD {
 
-class PharmacyService {
-+getPharmacyByManagerEmail(email)
-}
-
-class OrderService {
-+getOrdersFromPharmacy(pharmacy)
-}
 
 class DeliveryRunService {
-+newDelivery(order)
-+getSuitableCourier()
-+newDeliveryRun(courier,lstAddress)
++DeliveryRunService()
++getAddressesFromOrdersList(lstOrderId)
++calculateShortestPath(lstAddress)
++newDeliveryRun(courier,lstPath)
 +addNewDeliveryRun(deliveryRun)
-+addDelivery(lstDelivery)
+}
+
+class PharmacyService {
++PharmacyService()
++getSuitableCourier()
 }
 
 }
@@ -98,22 +95,17 @@ enum DeliveryStatus{
 
 
 RegisterDeliveryRunUI ..> RegisterDeliveryRunController
-RegisterDeliveryRunController ..> PharmacyService
-RegisterDeliveryRunController ..> OrderService
 RegisterDeliveryRunController ..> DeliveryRunService
 RegisterDeliveryRunController ..> ApplicationPOT
+RegisterDeliveryRunController ..> PharmacyService
 PharmacyService "1" --> "1" PharmacyDB : has >
-OrderService "1" --> "1" OrderDB : has >
 DeliveryRunService "1" --> "1" DeliveryRunDB : has >
-
-DeliveryRun "1" --> "*" Delivery : has
+DeliveryRun "1" --> "1" Courier : has >
 DeliveryRun "1" --> "1" DeliveryStatus : has
 
 DeliveryRunService "1" --> "*" DeliveryRun : creates
 
 class DeliveryRunDB extends DataHandler
-class OrderDB extends DataHandler
-class PharmacyDB extends DataHandler
 ApplicationPOT "1" -> "1" UserSession : has
 
 @enduml

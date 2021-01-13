@@ -9,17 +9,14 @@ participant "RegisterDeliveryRunController" as CTRL
 participant "ApplicationPOT" as _APP
 participant "app\n:ApplicationPOT" as APP
 participant "session\n:UserSession" as SESSION
-
-participant "pharmacyService\n:PharmacyService" as PS
-participant "orderService\n:OrderService" as OS
 participant "deliveryRunService\n:DeliveryRunService" as DRS
-participant "pharmacyDB\n:PharmacyDB" as PDB
-participant "orderDB\n:OrderDB" as ODB
+participant "pharmacyService\n:PharmacyService" as PS
 participant "deliveryRunDB\n:DeliveryRunDB" as DB
-participant "Address" as A
+participant "pharmacyDB\n:PharmacyDB" as PDB
 participant "deliveryRun\n:DeliveryRun" as DR
 participant "status\n:DeliveryStatus" as DS
-
+participant "courier\n:Courier" as C
+participant "Address" as A
 
 participant "DataHandler" as DH
 
@@ -34,8 +31,6 @@ activate UI
 
 
 
-
-deactivate ODB
 deactivate CTRL
 
 
@@ -50,29 +45,32 @@ U -> UI : Gives an order id list
 activate UI
 UI -> CTRL : registerDeliveryRun(lstOrderId)
 activate CTRL
-CTRL -> PS** : create()
-activate PS
-PS -> PDB** : create()
-deactivate PS
 
-CTRL -> OS** : create()
-activate OS
-OS -> ODB** : create()
-deactivate OS
+
+
 
 CTRL -> DRS** : create()
 activate DRS
 DRS -> DB** : create()
 deactivate DRS
+
+CTRL -> PS** : create()
+activate PS
+PS -> PDB** : create()
+deactivate PS
 CTRL -> _APP: app = getInstance()
 activate _APP
 deactivate _APP
 
-CTRL -> APP : session = getCurrentSession()
+CTRL -> APP : getCurrentSession()
 activate APP
 deactivate APP
 
+CTRL -> SESSION : getRole()
+activate SESSION
+deactivate SESSION
 
+alt if user is authorized (if it's an admin)
 CTRL -> DRS : lstAddress = getAddressesFromOrdersList(lstOrderId)
 activate DRS
 DRS -> DB : getAddressesFromOrdersList(lstOrderId)
@@ -86,23 +84,26 @@ deactivate DRS
 
 
 
-CTRL -> DRS : courier = getSuitableCourier()
-activate DRS
-DRS -> DB : getSuitableCourier()
-activate DB
-deactivate DB
-deactivate DRS
 
-ref over DB
+CTRL -> PS : courier = getSuitableCourier()
+activate PS
+PS -> PDB : getSuitableCourier()
+activate PDB
+ref over PDB
 SD_CONNECTIONS
 end ref
+PDB -> C** : create(id,name,email,pw,nif,iban,pharmacy)
+deactivate DB
+deactivate PS
+deactivate PDB
 
-CTRL -> DRS : lstAddress = calculateShortestPath()
+
+CTRL -> DRS : lstPath = calculateShortestPath(lstAddress)
 activate DRS
 deactivate DRS
-CTRL -> DRS : deliveryRun = newDeliveryRun(courier,lstAddress)
+CTRL -> DRS : deliveryRun = newDeliveryRun(courier,lstPath)
 activate DRS
-DRS -> DR** : create(courier,lstAddress)
+DRS -> DR** : create(courier,lstPath)
 activate DR
 DR -> DS** : create()
 deactivate DRS
@@ -121,14 +122,7 @@ SD_CONNECTIONS
 end ref
 deactivate DB
 
-CTRL -> DRS : addDelivery(lstDelivery)
-activate DRS
-DRS -> DB : addDelivery(lstDelivery)
 
-activate DB
-ref over DB
-SD_CONNECTIONS
-end ref
 deactivate DB
 deactivate DRS
 
@@ -137,7 +131,13 @@ deactivate CTRL
 UI --> U : Registers the delivery run and informs\nabout the success of the operation
 deactivate UI
 
+else if User is not authorized
 
+
+UI --> U : Informs about the unsuccess of\nthe operation
+activate UI
+deactivate UI
+end
 
 
 
