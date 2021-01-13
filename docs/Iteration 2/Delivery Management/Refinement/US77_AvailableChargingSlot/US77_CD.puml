@@ -1,56 +1,102 @@
 @startuml
 skinparam classAttributeIconSize 0
 
-
 package "UI" #DDDDDD{
-class AvailableChargingSlotUI {
-    
+class AvailableChargingUI {
+
 }
 }
-package "controller" #DDDDDD{
-class AvailableChargingSlotController {
-    
-  +getAvailableChargingSlot()
+package "Controller" #DDDDDD {
+class AvailableChargingSlotController{
++getAvailableChargingSlot()
 }
-class PotApplication
+
+class ApplicationPOT
 {
   +static getInstance()
-  +getPlatform()
-  +getCurrentSession()
-}
-
-class UserSession
-{
-  +getM_currentUserEmail()
-}
-}
-package "model" #DDDDDD{
-class Platform {
-  -String strDesignation
-  +getCourReg()
-}
-
-package "registration" #DDDDDD{
-class CourierRegistration {
-
-  +getAvailableChargingSlot(email)
-
-}
+  +getCurrentUserEmail()
 }
 }
 
 
-Platform "1" -- "1" CourierRegistration: has >
+package "Model" #DDDDDD {
+package "Service" #DDDDDD {
+   class CourierService{
+          +getAvailableChargingSlot(email)
+      }
+ }
+}
+
+package "Model" #DDDDDD {
+class Pharmacy{
+-int id
+-String name
+-Address address
+}
+
+class Park{
+-int id
+-int maxSlotsNumber
+}
+
+class ChargingSlot{
+-int id
+-float outputPower
+}
+
+class Courier {
+      -String id
+      -String iban
+}
+
+class Scooter {
+-int Id
+-int BatteryPerc
+-int CharginStatus
+-int Potency
+-int Weight
+-int intBatteryCapacity
+}
+
+abstract User{
+  -Integer id
+  -String email
+  -String password
+  -int nif
+  -string name
+}
 
 
-AvailableChargingSlotUI ..> AvailableChargingSlotController
+}
 
-AvailableChargingSlotController ..> Platform
-AvailableChargingSlotController ..> CourierRegistration
-AvailableChargingSlotController ..> PotApplication
-AvailableChargingSlotController ..> UserSession
+package "Data" #DDDDDD {
+class DataHandler{
+    +openConnection()
+    +closeAll()
+}
 
+class CourierDB{
+ +getAvailableChargingSlot(email)
+  }
+
+}
+database database{
+
+}
+class CourierDB extends DataHandler
+
+AvailableChargingSlotController ..> ApplicationPOT
+AvailableChargingUI ..> AvailableChargingSlotController
+AvailableChargingSlotController ..> CourierService : has
+CourierService ..> CourierDB : has
+CourierDB --> database : manages
+
+database "1" -- "*" Courier : has registered >
+Courier "1" -- "1" User : acts as >
+Courier "1" -- "*" Pharmacy : is associated to >
+Pharmacy "1" -- "1" Park : has >
+Pharmacy "1" -- "*" Scooter : has >
+Park "1" -- "1" ChargingSlot : has >
+Scooter "1" -- "1" ChargingSlot : belongs to >
 
 @enduml
-
-
