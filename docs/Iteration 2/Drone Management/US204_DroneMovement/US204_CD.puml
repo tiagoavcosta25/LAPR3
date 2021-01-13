@@ -1,0 +1,69 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+package "Controller" #DDDDDD {
+class MoveDroneController{
++moveDrone(pathInfo, drone)
+}
+
+}
+
+
+package "Model" #DDDDDD {
+package "Service" #DDDDDD {
+   class DroneService{
+          +checkEnergy(distance, drone)
+          +startDelivery
+      }
+ }
+}
+
+package "Model" #DDDDDD {
+class Address{
+-   String streetName
+-   String doorNumber
+-   String postalCode
+-   String locality
+-   String country
+-   float longitude
+-   float latitude
+}
+
+class DeliveryRun{
+- Integer id
+- Integer courierId
+- Integer vehicleId
+- String deliveryStatus
+}
+
+class Vehicle{
+  -int id
+  -float batteryPerc
+  -String charginStatus
+  -float potency
+  -float weight
+  -int batteryCapacity
+  -float maxPayload
+}
+
+class Battery{
+  -int id
+  -float batteryPercentage
+  -int batteryCapacity
+  -float batteryVoltage
+}
+
+
+}
+
+
+class Vehicle extends Battery
+
+MoveDroneController ..> DroneService : has
+
+DeliveryRun "1" -- "1" Vehicle :  has a >
+DeliveryRun "1" -- "*" Address :  has
+DroneService "1" -- "1" DeliveryRun : has associated
+
+
+@enduml
