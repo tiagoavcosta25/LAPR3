@@ -1,6 +1,5 @@
 package lapr.project.data;
 
-import lapr.project.data.DataHandler;
 import lapr.project.model.*;
 import oracle.jdbc.OracleTypes;
 
@@ -14,6 +13,10 @@ public class InvoiceDB extends DataHandler {
 
     public InvoiceDB(String jdbcUrl, String username, String password) {
         super(jdbcUrl, username, password);
+    }
+
+    public InvoiceDB() {
+        super();
     }
 
     public Invoice getInvoice(int id) {
@@ -82,7 +85,7 @@ public class InvoiceDB extends DataHandler {
         }
     }
 
-    public void removeInvoice(int intId) {
+    public boolean removeInvoice(int intId) {
 
         try {
             openConnection();
@@ -94,8 +97,11 @@ public class InvoiceDB extends DataHandler {
             callStmt.execute();
 
             closeAll();
+
+            return true;
         } catch (SQLException e) {
             e.printStackTrace();
+            return false;
         }
 
     }
@@ -104,7 +110,5 @@ public class InvoiceDB extends DataHandler {
         return addInvoice(oInvoice.getInvoiceDate(), oInvoice.getTotalPrice(), oInvoice.getOrder());
     }
 
-    public Invoice newInvoice(Date dtInvoiceDate, float fltTotalPrice, Order oOrder) {
-        return new Invoice(dtInvoiceDate, fltTotalPrice, oOrder);
-    }
+
 }

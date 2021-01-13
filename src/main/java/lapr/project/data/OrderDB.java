@@ -20,6 +20,7 @@ public class OrderDB extends DataHandler {
         super();
     }
 
+
     public Order getOrder(int id) {
 
         CallableStatement callStmt = null;
@@ -106,7 +107,7 @@ public class OrderDB extends DataHandler {
         }
     }
 
-    public void removeOrder(int intId) {
+    public boolean removeOrder(int intId) {
 
         try {
             openConnection();
@@ -118,25 +119,17 @@ public class OrderDB extends DataHandler {
             callStmt.execute();
 
             closeAll();
+
+            return true;
         } catch (SQLException e) {
             e.printStackTrace();
+            return false;
         }
-
     }
 
     public boolean registerOrder(Order oOrder) {
          return addOrder(oOrder.getAmount(), oOrder.getTotalWeight(), oOrder.getAdditionalFee(), oOrder.getOrderDate(),
                 oOrder.getDescription(), oOrder.getStatus(), oOrder.getClient(), oOrder.getAddress(), oOrder.getPharmacy().getId(), oOrder.getProducts());
-    }
-
-    public Order newOrder(String strDescription, Client oClient, Double latitude, Double longitude, String streetName,
-                          String doorNumber, String postalCode, String locality, String country, Pharmacy oPharmacy, Map<Product, Integer> mapProducts) {
-        return new Order(strDescription, oClient, new Address(latitude, longitude, streetName, doorNumber,
-                postalCode, locality, country), oPharmacy, mapProducts);
-    }
-
-    public Order newOrder(String strDescription, Client oClient, Pharmacy oPharmacy, Map<Product, Integer> mapProducts) {
-        return new Order(strDescription, oClient, oPharmacy, mapProducts);
     }
 
     public Order getLatestOrder(Client oClient) {

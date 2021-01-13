@@ -1,9 +1,9 @@
 package lapr.project.controller;
 
 import lapr.project.data.ClientDB;
-import lapr.project.data.OrderDB;
-import lapr.project.data.PharmacyDB;
 import lapr.project.model.*;
+import lapr.project.model.service.OrderService;
+import lapr.project.model.service.PharmacyService;
 import org.junit.jupiter.api.Test;
 import lapr.project.data.ProductDB;
 import org.junit.jupiter.api.BeforeEach;
@@ -26,13 +26,13 @@ class MakeAnOrderControllerTest {
     private MakeAnOrderController makeAnOrderController;
 
     @Mock
-    private OrderDB mockOrderDB;
+    private OrderService mockOrderService;
 
     @Mock
     private ClientDB mockClientDB;
 
     @Mock
-    private PharmacyDB mockPharmacyDB;
+    private PharmacyService mockPharmacyService;
 
     @Mock
     private ProductDB mockProductDB;
@@ -47,8 +47,8 @@ class MakeAnOrderControllerTest {
                 "1o Direito", "4400-123", "Locality", "Country"), new Pharmacy(), new TreeMap<>());
         this.expectedValue = true;
         this.expectedNull = null;
-        this.makeAnOrderController = new MakeAnOrderController("","","");
-        this.mockOrderDB = Mockito.mock(OrderDB.class);
+        this.makeAnOrderController = new MakeAnOrderController();
+        this.mockOrderService = Mockito.mock(OrderService.class);
         this.mockClientDB = Mockito.mock(ClientDB.class);
         initMocks(this);
     }
@@ -58,7 +58,7 @@ class MakeAnOrderControllerTest {
         System.out.println("newOrder");
         ApplicationPOT.getInstance().setCurrentSession(new UserSession("email3@gmail.com"));
         when(mockClientDB.getClientByEmail("email3@gmail.com")).thenReturn(new Client());
-        when(mockOrderDB.newOrder("Description", new Client(), -1d, -1d, "Street", "1o Direito", "4400-123", "Locality",
+        when(mockOrderService.newOrder("Description", new Client(), -1d, -1d, "Street", "1o Direito", "4400-123", "Locality",
                 "Country", null, new TreeMap<>())).thenReturn(expectedOrder);
         Order result = makeAnOrderController.newOrder("Description", -1d, -1d, "Street", "1o Direito", "4400-123", "Locality",
                 "Country");
@@ -81,12 +81,12 @@ class MakeAnOrderControllerTest {
         ApplicationPOT.getInstance().setCurrentSession(new UserSession("email3@gmail.com"));
         Address a = new Address();
         when(mockClientDB.getClientByEmail("email3@gmail.com")).thenReturn(new Client());
-        when(mockOrderDB.newOrder("Description", new Client(), a.getLatitude(), a.getLongitude(), a.getStreetName(), a.getDoorNumber(), a.getPostalCode(), a.getLocality(),
+        when(mockOrderService.newOrder("Description", new Client(), a.getLatitude(), a.getLongitude(), a.getStreetName(), a.getDoorNumber(), a.getPostalCode(), a.getLocality(),
                 a.getCountry(), null, new TreeMap<>())).thenReturn(expectedOrder);
         Order result = makeAnOrderController.newOrder("Description", true);
         assertEquals(expectedOrder, result);
 
-        when(mockOrderDB.newOrder("Description", new Client(), null, new TreeMap<>())).thenReturn(expectedOrder);
+        when(mockOrderService.newOrder("Description", new Client(), null, new TreeMap<>())).thenReturn(expectedOrder);
         assertEquals(expectedOrder, result);
 
         result = makeAnOrderController.newOrder(null, null);
@@ -99,14 +99,14 @@ class MakeAnOrderControllerTest {
     @Test
     void registerOrder() {
         System.out.println("registerOrder");
-        when(mockOrderDB.registerOrder(this.expectedOrder)).thenReturn(expectedValue);
+        when(mockOrderService.registerOrder(this.expectedOrder)).thenReturn(expectedValue);
 
         makeAnOrderController.setOrder(this.expectedOrder);
         boolean result = makeAnOrderController.registerOrder();
         assertEquals(expectedValue, result);
 
         expectedValue = false;
-        when(mockOrderDB.registerOrder(this.expectedOrder)).thenReturn(expectedValue);
+        when(mockOrderService.registerOrder(this.expectedOrder)).thenReturn(expectedValue);
 
         result = makeAnOrderController.registerOrder();
         assertEquals(expectedValue, result);
@@ -118,7 +118,7 @@ class MakeAnOrderControllerTest {
 
         List<Pharmacy> expectedListPharmacies = new ArrayList<>(Arrays.asList(new Pharmacy()));
 
-        when(mockPharmacyDB.getPharmacies()).thenReturn(expectedListPharmacies);
+        when(mockPharmacyService.getPharmacies()).thenReturn(expectedListPharmacies);
 
         List<Pharmacy>  result = makeAnOrderController.getPharmacies();
         assertEquals(expectedListPharmacies, result);

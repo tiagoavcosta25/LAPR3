@@ -2,10 +2,9 @@ package lapr.project.controller;
 
 import lapr.project.model.*;
 import lapr.project.data.ClientDB;
-import lapr.project.data.OrderDB;
-import lapr.project.data.PharmacyDB;
 import lapr.project.data.ProductDB;
-
+import lapr.project.model.service.OrderService;
+import lapr.project.model.service.PharmacyService;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -19,7 +18,7 @@ public class MakeAnOrderController {
     /**
      * Order Management class
      */
-    private OrderDB m_oOrderDB;
+    private OrderService m_oOrderService;
 
     /**
      * Order Management class
@@ -39,7 +38,7 @@ public class MakeAnOrderController {
     /**
      * Pharmacy Management class
      */
-    private PharmacyDB m_oPharmacyDB;
+    private PharmacyService m_oPharmacyService;
 
     /**
      * Order's Pharmacy
@@ -51,24 +50,13 @@ public class MakeAnOrderController {
      */
     private Map<Product, Integer> m_mapProducts = new TreeMap<>();
 
-
-    /**
-     * An empty constructor of MakeAnOrderController that initiates the platform variable by getting it from the ApplicationPOT.
-     */
-    public MakeAnOrderController(String jdbcUrl, String username, String password) {
-        this.m_oPharmacyDB = new PharmacyDB(jdbcUrl, username, password);
-        this.m_oProductDB = new ProductDB(jdbcUrl, username, password);
-        this.m_oOrderDB = new OrderDB(jdbcUrl, username, password);
-        this.m_oClientDB = new ClientDB(jdbcUrl, username, password);
-    }
-
     /**
      * An empty constructor of MakeAnOrderController that initiates the platform variable by getting it from the ApplicationPOT.
      */
     public MakeAnOrderController() {
-        this.m_oPharmacyDB = new PharmacyDB();
+        this.m_oPharmacyService = new PharmacyService();
         this.m_oProductDB = new ProductDB();
-        this.m_oOrderDB = new OrderDB();
+        this.m_oOrderService = new OrderService();
         this.m_oClientDB = new ClientDB();
     }
 
@@ -79,7 +67,7 @@ public class MakeAnOrderController {
                          String doorNumber, String postalCode, String locality, String country) {
         try {
             this.m_oClient = m_oClientDB.getClientByEmail(ApplicationPOT.getInstance().getCurrentSession().getCurrentUserEmail());
-            this.m_oOrder = m_oOrderDB.newOrder(strDescription, m_oClient, latitude, longitude,
+            this.m_oOrder = m_oOrderService.newOrder(strDescription, m_oClient, latitude, longitude,
                     streetName, doorNumber, postalCode, locality, country, m_oPharmacy, this.m_mapProducts);
             return this.m_oOrder;
         } catch (Exception ex) {
@@ -96,11 +84,11 @@ public class MakeAnOrderController {
             this.m_oClient = m_oClientDB.getClientByEmail(ApplicationPOT.getInstance().getCurrentSession().getCurrentUserEmail());
             if(blIsHomeDelivery){
                 Address oAddress = m_oClient.getAddress();
-                this.m_oOrder = m_oOrderDB.newOrder(strDescription, m_oClient, oAddress.getLatitude(),
+                this.m_oOrder = m_oOrderService.newOrder(strDescription, m_oClient, oAddress.getLatitude(),
                         oAddress.getLongitude(), oAddress.getStreetName(), oAddress.getDoorNumber(), oAddress.getPostalCode(),
                         oAddress.getLocality(), oAddress.getCountry(), m_oPharmacy, this.m_mapProducts);
             } else{
-                this.m_oOrder = m_oOrderDB.newOrder(strDescription, m_oClient, m_oPharmacy, this.m_mapProducts);
+                this.m_oOrder = m_oOrderService.newOrder(strDescription, m_oClient, m_oPharmacy, this.m_mapProducts);
             }
             return this.m_oOrder;
         } catch (Exception ex) {
@@ -113,14 +101,14 @@ public class MakeAnOrderController {
      * The method registers an order to the database.
      */
     public boolean registerOrder() {
-        return this.m_oOrderDB.registerOrder(m_oOrder);
+        return this.m_oOrderService.registerOrder(m_oOrder);
     }
 
     /**
      * The method returns the list of available products for a pharmacy.
      */
     public List<Pharmacy> getPharmacies() {
-        return this.m_oPharmacyDB.getPharmacies();
+        return this.m_oPharmacyService.getPharmacies();
     }
 
     /**

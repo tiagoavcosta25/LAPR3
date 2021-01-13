@@ -82,7 +82,7 @@ public class PharmacyDB extends DataHandler {
         }
     }
 
-    public void removePharmacy(int intId) {
+    public boolean removePharmacy(int intId) {
 
         try {
             openConnection();
@@ -94,8 +94,10 @@ public class PharmacyDB extends DataHandler {
             callStmt.execute();
 
             closeAll();
+            return true;
         } catch (SQLException e) {
             e.printStackTrace();
+            return false;
         }
 
     }
