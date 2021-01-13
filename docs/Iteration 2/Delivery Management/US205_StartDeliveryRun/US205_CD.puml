@@ -11,6 +11,11 @@ class StartDeliveryRunController{
 +startDeliveryRun()
 }
 
+class SeeSuitableVehicleController{
++seeSuitableVehicle()
+}
+
+
 class ApplicationPOT
 {
   +static getInstance()
@@ -96,6 +101,7 @@ class VehicleDB extends DataHandler
 
 StartDeliveryRunController ..> ApplicationPOT
 StartDeliveryRunUI ..> StartDeliveryRunController
+StartDeliveryRunUI ..> SeeSuitableVehicleController
 StartDeliveryRunController ..> DeliveryRunService : has
 StartDeliveryRunController ..> VehicleService : has
 DeliveryRunService ..> DeliveryDB : has
