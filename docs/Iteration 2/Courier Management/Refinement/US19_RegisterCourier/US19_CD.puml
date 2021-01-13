@@ -1,0 +1,98 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+package "UI" #DDDDDD{
+class RegisterCourierUI {
+
+}
+}
+package "Controller" #DDDDDD {
+class RegisterCourierController{
++newCourier(name,email, nif, iban, pharmacyID)
++registersCourier()
+}
+
+class ApplicationPOT
+{
+  +static getInstance()
+}
+}
+
+
+package "Model" #DDDDDD {
+package "Service" #DDDDDD {
+   class CourierService{
+          +newCourier(name,email, nif, iban, pharmacy)
+          +registersCourier()
+
+      }
+
+      class PharmacyService{
+                +getPharmacyByID(pharmacyID)
+            }
+ }
+}
+
+package "Model" #DDDDDD {
+abstract class User{
+-Integer Id
+-String email
+-String password
+-String name
+-Integer nif
+}
+
+class Courier {
+      -Integer id
+      -String iban
+}
+
+class Administrator {
+}
+
+
+class Pharmacy{
+-   int id
+-   String name
+}
+
+
+}
+
+package "Data" #DDDDDD {
+class DataHandler{
+    +openConnection()
+    +closeAll()
+}
+
+class CourierDB{
+ +registersCourier(courier)
+  }
+
+  class PharmacyDB{
+   ++getPharmacyByID(pharmacyID)
+    }
+}
+database database{
+
+}
+class CourierDB extends DataHandler
+class PharmacyDB extends DataHandler
+
+RegisterCourierController ..> ApplicationPOT
+RegisterCourierUI ..> RegisterCourierController
+RegisterCourierController ..> CourierService : has
+RegisterCourierController ..> PharmacyService : has
+CourierService ..> CourierDB : has
+PharmacyService ..> PharmacyDB : has
+CourierDB --> database : manages
+PharmacyDB --> database : manages
+
+database "1" -- "1" Administrator : has registered >
+database "1" -- "1" Pharmacy : has registered >
+Administrator "1" -- "1..*" Courier : registers >
+Courier "1" -- "1" User: acts as  >
+Courier "1" -- "1" Pharmacy: belongs to a  >
+Administrator "1" -- "1" User: acts as  >
+
+@enduml
