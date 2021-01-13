@@ -3,6 +3,8 @@ package lapr.project.controller;
 import lapr.project.data.PharmacyDB;
 import lapr.project.model.*;
 import lapr.project.data.ScooterDB;
+import lapr.project.model.service.PharmacyService;
+import lapr.project.model.service.ScooterService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -21,41 +23,58 @@ class UpdateScooterControllerTest {
     @InjectMocks
     private UpdateScooterController m_ctrl;
 
+    @Mock
+    private ScooterService m_mockScooterService;
 
     @Mock
-    private ScooterDB m_mockScooterDB;
-
-    @Mock
-    private PharmacyDB m_mockPharmacyDB;
+    private PharmacyService m_mockPharmacyService;
 
     @BeforeEach
     void setUp() {
         ApplicationPOT.getInstance().setCurrentSession(new UserSession("email"));
-        this.m_ctrl = new UpdateScooterController("","","");
-        this.m_mockScooterDB = Mockito.mock(ScooterDB.class);
-        this.m_mockPharmacyDB = Mockito.mock(PharmacyDB.class);
+        this.m_ctrl = new UpdateScooterController();
+        this.m_mockScooterService = Mockito.mock(ScooterService.class);
+        this.m_mockPharmacyService = Mockito.mock(PharmacyService.class);
         initMocks(this);
     }
 
     @Test
-    void getScootersList() {
-        when(m_mockPharmacyDB.getPharmacyByManagerEmail("email")).thenReturn(new Pharmacy());
-        when(m_mockScooterDB.getScootersList(-1)).thenReturn(new ArrayList<>());
-        List<Scooter> result = m_ctrl.getScootersList();
+    void showPharmacies() {
+        System.out.println("showPharmacies");
+
+        when(m_mockPharmacyService.getPharmacies()).thenReturn(new ArrayList<>());
+        List<Pharmacy> result = m_ctrl.showPharmacies();
+        assertEquals(new ArrayList<>(), result);
+    }
+
+    @Test
+    void showScootersList() {
+        System.out.println("showScootersList");
+        when(m_mockScooterService.getScootersList(1)).thenReturn(new ArrayList<>());
+        List<Scooter> result = m_ctrl.showScootersList(1);
         assertEquals(new ArrayList<>(),result);
 
-        when(m_mockPharmacyDB.getPharmacyByManagerEmail("email")).thenReturn(null);
-        when(m_mockScooterDB.getScootersList(-1)).thenReturn(null);
-        List<Scooter> result1 = m_ctrl.getScootersList();
-        assertEquals(new ArrayList<>(),result1);
+        when(m_mockScooterService.getScootersList(-1)).thenReturn(null);
+        List<Scooter> result1 = m_ctrl.showScootersList(-1);
+        assertEquals(null,result1);
     }
 
     @Test
     void updateScooter() {
-        when(m_mockScooterDB.updateScooterFromDB(1,1.0f,"idle",1.0f,1.0f,
-                1,1.0f)).thenReturn(true);
-        boolean result = m_ctrl.updateScooter(1,1.0f,"idle",1.0f,1.0f,1,
-                1.0f);
+        System.out.println("updateScooter");
+        when(m_mockScooterService.updateScooterFromDB(1, 100, "Charging", 2.0f, 2.0f, 30, 200f)).thenReturn(true);
+
+        boolean result = m_ctrl.updateScooter(1, 100, "Charging", 2.0f, 2.0f, 30, 200f);
         assertTrue(result);
+
+        result = m_ctrl.updateScooter(-1, 100, "Charging", 2.0f, 2.0f, 30, 200f);
+        assertFalse(result);
+
+        result = m_ctrl.updateScooter(1, 101, "Charging", 2.0f, 2.0f, 30, 200f);
+        assertFalse(result);
+
+        when(m_mockScooterService.updateScooterFromDB(1, 100, "Charging", 2.0f, 2.0f, 30, 200f)).thenReturn(false);
+        result = m_ctrl.updateScooter(1, 100, "Charging", 2.0f, 2.0f, 30, 200f);
+        assertFalse(result);
     }
 }

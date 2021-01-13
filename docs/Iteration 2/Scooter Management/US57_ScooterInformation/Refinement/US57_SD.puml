@@ -34,7 +34,7 @@ deactivate UI
 
 ADMIN -> UI : Chooses the pharmacy
 activate UI
-UI -> CTRL : showElectricScooterList(pharmacyId)
+UI -> CTRL : showScooterList(pharmacyId)
 activate CTRL
 CTRL -> SS ** : create()
 activate SS

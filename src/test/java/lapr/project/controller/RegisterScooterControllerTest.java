@@ -4,6 +4,8 @@ import lapr.project.data.PharmacyDB;
 import lapr.project.model.Pharmacy;
 import lapr.project.model.Scooter;
 import lapr.project.data.ScooterDB;
+import lapr.project.model.service.PharmacyService;
+import lapr.project.model.service.ScooterService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -23,10 +25,10 @@ class RegisterScooterControllerTest {
     private RegisterScooterController registerScooterController;
 
     @Mock
-    private ScooterDB mockScooterDB;
+    private ScooterService mockScooterService;
 
     @Mock
-    private PharmacyDB mockPharmacyDB;
+    private PharmacyService mockPharmacyService;
 
     private Scooter expectedTrue;
 
@@ -34,9 +36,9 @@ class RegisterScooterControllerTest {
     void setUp() {
         this.expectedTrue = new Scooter(35.5f, "Charging Test", 250f, 30f,
                 100, 20f, new Pharmacy());
-        this.registerScooterController = new RegisterScooterController("","","");
-        this.mockScooterDB = Mockito.mock(ScooterDB.class);
-        this.mockPharmacyDB = Mockito.mock(PharmacyDB.class);
+        this.registerScooterController = new RegisterScooterController();
+        this.mockScooterService = Mockito.mock(ScooterService.class);
+        this.mockPharmacyService = Mockito.mock(PharmacyService.class);
         initMocks(this);
     }
 
@@ -48,17 +50,17 @@ class RegisterScooterControllerTest {
         Pharmacy p = new Pharmacy();
         p.setId(1);
 
-        when(mockPharmacyDB.getPharmacy(1)).thenReturn(new Pharmacy());
+        when(mockPharmacyService.getPharmacy(1)).thenReturn(new Pharmacy());
 
-        when(mockScooterDB.newScooter(35.5f, "Charging Test", 250f, 30f,
+        when(mockScooterService.newScooter(35.5f, "Charging Test", 250f, 30f,
                 100, 20f, p)).thenReturn(expectedTrue);
 
         boolean result = registerScooterController.newScooter(35.5f, "Charging Test", 250f, 30f,
                 100, 20f, p);
         assertTrue(result);
 
-        when(mockPharmacyDB.getPharmacy(1)).thenReturn(null);
-        when(mockScooterDB.newScooter(35.5f, "Charging Test", 250f, 30f,
+        when(mockPharmacyService.getPharmacy(1)).thenReturn(null);
+        when(mockScooterService.newScooter(35.5f, "Charging Test", 250f, 30f,
                 100, 20f, null)).thenReturn(null);
 
         boolean result1 = registerScooterController.newScooter(35.5f, "Charging Test", 250f, 30f,
@@ -68,24 +70,22 @@ class RegisterScooterControllerTest {
 
     @Test
     void registersScooter() {
-        System.out.println("registerScooterToDB");
+        System.out.println("registerScooter");
         Scooter s = new Scooter(35.5f, "Charging Test", 250f, 30f,
                 100, 20f, new Pharmacy());
 
         registerScooterController.setScooter(s);
-        when(mockScooterDB.registerScooter(s)).thenReturn(true);
+        when(mockScooterService.registerScooter(s)).thenReturn(true);
         boolean result = registerScooterController.registersScooter();
         assertTrue(result);
     }
 
     @Test
-    void getScooters() {
-        Scooter s = new Scooter(35.5f, "Charging Test", 250f, 30f,
-                100, 20f, new Pharmacy());
-        int pharmacyId = 1;
+    void showPharmacies() {
+        System.out.println("showPharmacies");
 
-        when(mockScooterDB.getScootersList(pharmacyId)).thenReturn(new ArrayList<>());
-        List<Scooter> result = registerScooterController.getScooters(pharmacyId);
+        when(mockPharmacyService.getPharmacies()).thenReturn(new ArrayList<>());
+        List<Pharmacy> result = registerScooterController.showPharmacies();
         assertEquals(new ArrayList<>(), result);
     }
 }

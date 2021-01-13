@@ -29,9 +29,11 @@ class Scooter{
 
 class Vehicle{
   -int id
+  -String vehicleType
   -float potency
   -float weight
   -float maxPayload
+  -String charngingStatus
 }
 
 class Battery{
@@ -55,9 +57,9 @@ class Address{
 
 Database "1" -- "*" Pharmacy : has >
 Database "1" -- "*" Scooter : has >
-Scooter "*" -- "1" Pharmacy : belongs to >
 Scooter "*" -- "1" Vehicle : is a type of >
 Vehicle "1" -- "1" Battery : has >
+Vehicle "*" -- "1" Pharmacy : belongs to a >
 Pharmacy "1" -- "1" Address : has >
 Pharmacy "1" -- "1" ScooterPark : has >
 ScooterPark "1" -- "1" ScooterChargingSlot : has >

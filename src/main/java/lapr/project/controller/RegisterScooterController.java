@@ -4,6 +4,9 @@ import lapr.project.model.Pharmacy;
 import lapr.project.model.Scooter;
 import lapr.project.data.PharmacyDB;
 import lapr.project.data.ScooterDB;
+import lapr.project.model.service.OrderService;
+import lapr.project.model.service.PharmacyService;
+import lapr.project.model.service.ScooterService;
 
 import java.util.List;
 
@@ -22,19 +25,19 @@ public class RegisterScooterController {
     /**
      * Pharmacy Management class
      */
-    private PharmacyDB m_oPharmacyDB;
+    private PharmacyService m_oPharmacyService;
 
     /**
      * Scooter Management class
      */
-    private ScooterDB m_oScooterDB;
+    private ScooterService m_oScooterService;
 
     /**
      * An empty constructor of RegisterScooterController that initiates the platform variable by getting it from the ApplicationPOT.
      */
-    public RegisterScooterController(String jdbcUrl, String username, String password) {
-        this.m_oPharmacyDB = new PharmacyDB(jdbcUrl, username, password);
-        this.m_oScooterDB = new ScooterDB(jdbcUrl, username, password);
+    public RegisterScooterController() {
+        this.m_oPharmacyService = new PharmacyService();
+        this.m_oScooterService = new ScooterService();
     }
 
     /**
@@ -52,8 +55,8 @@ public class RegisterScooterController {
     public boolean newScooter(float fltBatteryPerc, String strCharginStatus, float fltPotency,
                            float fltWeight, int intBatteryCapacity, float fltMaxPayload, Pharmacy oPharmacy) {
         try {
-            this.m_oPharmacy = m_oPharmacyDB.getPharmacy(oPharmacy.getId());
-            this.m_oScooter = m_oScooterDB.newScooter(fltBatteryPerc, strCharginStatus, fltPotency,
+            this.m_oPharmacy = m_oPharmacyService.getPharmacy(oPharmacy.getId());
+            this.m_oScooter = m_oScooterService.newScooter(fltBatteryPerc, strCharginStatus, fltPotency,
                     fltWeight, intBatteryCapacity, fltMaxPayload, oPharmacy);
             return true;
         }
@@ -67,16 +70,19 @@ public class RegisterScooterController {
      * The method registers an order to the database.
      */
     public boolean registersScooter() {
-       return this.m_oScooterDB.registerScooter(m_oScooter);
+       return this.m_oScooterService.registerScooter(m_oScooter);
     }
 
     /**
-     * The method returns the list of scooters for a pharmacy.
+     * The method returns the list of pharmacies.
      */
-    public List<Scooter> getScooters(int intPharmacyId) {
-        return this.m_oScooterDB.getScootersList(intPharmacyId);
+    public List<Pharmacy> showPharmacies() {
+        return this.m_oPharmacyService.getPharmacies();
     }
 
+    /**
+     * The method sets the scooter.
+     */
     public void setScooter(Scooter oScooter) {
          this.m_oScooter = oScooter;
     }

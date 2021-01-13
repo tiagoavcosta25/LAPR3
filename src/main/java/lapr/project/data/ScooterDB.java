@@ -18,6 +18,10 @@ public class ScooterDB extends DataHandler {
         super(jdbcUrl, username, password);
     }
 
+    public ScooterDB() {
+        super();
+    }
+
     public Scooter getScooter(int id) {
 
         CallableStatement callStmt = null;
@@ -103,15 +107,6 @@ public class ScooterDB extends DataHandler {
         return flag;
     }
 
-    public Scooter newScooter(float fltBatteryPerc, String strCharginStatus, float fltPotency, float fltWeight,
-                              int intBatteryCapacity, float fltMaxPayload, Pharmacy oPharmacy) {
-        return new Scooter(fltBatteryPerc, strCharginStatus, fltPotency, fltWeight, intBatteryCapacity, fltMaxPayload, oPharmacy);
-    }
-
-    public boolean registerScooter(Scooter oScooter) {
-        return addScooter(oScooter);
-    }
-
     public boolean updateScooterFromDB(int intId, float fltBatteryPerc, String strCharginStatus, float fltPotency, float fltWeight,
                                        int intBatteryCapacity, float fltMaxPayload) {
         try {
@@ -182,6 +177,11 @@ public class ScooterDB extends DataHandler {
             return false;
         }
         return true;
+    }
+
+    public boolean registerScooter(Scooter oScooter) {
+        return addScooter(oScooter.getBatteryPerc(), oScooter.getCharginStatus(), oScooter.getPotency(), oScooter.getWeight(),
+                oScooter.getBatteryCapacity(), oScooter.getMaxPayload(), oScooter.getPharmacy());
     }
 
     public Scooter getSuitableScooter(Double distance, String email) {
