@@ -1,7 +1,7 @@
 package lapr.project.controller;
 
-import lapr.project.data.ClientDB;
 import lapr.project.model.*;
+import lapr.project.model.service.ClientService;
 import lapr.project.model.service.OrderService;
 import lapr.project.model.service.PharmacyService;
 import org.junit.jupiter.api.Test;
@@ -10,7 +10,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -29,7 +28,7 @@ class MakeAnOrderControllerTest {
     private OrderService mockOrderService;
 
     @Mock
-    private ClientDB mockClientDB;
+    private ClientService mockClientService;
 
     @Mock
     private PharmacyService mockPharmacyService;
@@ -49,7 +48,7 @@ class MakeAnOrderControllerTest {
         this.expectedNull = null;
         this.makeAnOrderController = new MakeAnOrderController();
         this.mockOrderService = Mockito.mock(OrderService.class);
-        this.mockClientDB = Mockito.mock(ClientDB.class);
+        this.mockClientService = Mockito.mock(ClientService.class);
         initMocks(this);
     }
 
@@ -57,7 +56,7 @@ class MakeAnOrderControllerTest {
     void newOrder() {
         System.out.println("newOrder");
         ApplicationPOT.getInstance().setCurrentSession(new UserSession("email3@gmail.com"));
-        when(mockClientDB.getClientByEmail("email3@gmail.com")).thenReturn(new Client());
+        when(mockClientService.getClientByEmail("email3@gmail.com")).thenReturn(new Client());
         when(mockOrderService.newOrder("Description", new Client(), -1d, -1d, "Street", "1o Direito", "4400-123", "Locality",
                 "Country", null, new TreeMap<>())).thenReturn(expectedOrder);
         Order result = makeAnOrderController.newOrder("Description", -1d, -1d, "Street", "1o Direito", "4400-123", "Locality",
@@ -80,7 +79,7 @@ class MakeAnOrderControllerTest {
         System.out.println("testNewOrder");
         ApplicationPOT.getInstance().setCurrentSession(new UserSession("email3@gmail.com"));
         Address a = new Address();
-        when(mockClientDB.getClientByEmail("email3@gmail.com")).thenReturn(new Client());
+        when(mockClientService.getClientByEmail("email3@gmail.com")).thenReturn(new Client());
         when(mockOrderService.newOrder("Description", new Client(), a.getLatitude(), a.getLongitude(), a.getStreetName(), a.getDoorNumber(), a.getPostalCode(), a.getLocality(),
                 a.getCountry(), null, new TreeMap<>())).thenReturn(expectedOrder);
         Order result = makeAnOrderController.newOrder("Description", true);

@@ -20,7 +20,7 @@ public class PharmacyService {
         return this.m_oPharmacyDB.removePharmacy(intId);
     }
 
-    public boolean registerOrder(Pharmacy oPharmacy) {
+    public boolean registerPharmacy(Pharmacy oPharmacy) {
         return this.m_oPharmacyDB .registerPharmacy(oPharmacy);
     }
 

@@ -3,6 +3,7 @@ package lapr.project.controller;
 import lapr.project.model.*;
 import lapr.project.data.ClientDB;
 import lapr.project.data.ProductDB;
+import lapr.project.model.service.ClientService;
 import lapr.project.model.service.OrderService;
 import lapr.project.model.service.PharmacyService;
 import java.util.List;
@@ -21,9 +22,9 @@ public class MakeAnOrderController {
     private OrderService m_oOrderService;
 
     /**
-     * Order Management class
+     * Client Management class
      */
-    private ClientDB m_oClientDB;
+    private ClientService m_oClientService;
 
     /**
      * Order's Client
@@ -57,7 +58,7 @@ public class MakeAnOrderController {
         this.m_oPharmacyService = new PharmacyService();
         this.m_oProductDB = new ProductDB();
         this.m_oOrderService = new OrderService();
-        this.m_oClientDB = new ClientDB();
+        this.m_oClientService = new ClientService();
     }
 
     /**
@@ -66,7 +67,7 @@ public class MakeAnOrderController {
     public Order newOrder(String strDescription, Double latitude, Double longitude, String streetName,
                          String doorNumber, String postalCode, String locality, String country) {
         try {
-            this.m_oClient = m_oClientDB.getClientByEmail(ApplicationPOT.getInstance().getCurrentSession().getCurrentUserEmail());
+            this.m_oClient = m_oClientService.getClientByEmail(ApplicationPOT.getInstance().getCurrentSession().getCurrentUserEmail());
             this.m_oOrder = m_oOrderService.newOrder(strDescription, m_oClient, latitude, longitude,
                     streetName, doorNumber, postalCode, locality, country, m_oPharmacy, this.m_mapProducts);
             return this.m_oOrder;
@@ -81,7 +82,7 @@ public class MakeAnOrderController {
      */
     public Order newOrder(String strDescription, Boolean blIsHomeDelivery) {
         try {
-            this.m_oClient = m_oClientDB.getClientByEmail(ApplicationPOT.getInstance().getCurrentSession().getCurrentUserEmail());
+            this.m_oClient = m_oClientService.getClientByEmail(ApplicationPOT.getInstance().getCurrentSession().getCurrentUserEmail());
             if(blIsHomeDelivery){
                 Address oAddress = m_oClient.getAddress();
                 this.m_oOrder = m_oOrderService.newOrder(strDescription, m_oClient, oAddress.getLatitude(),
@@ -102,10 +103,6 @@ public class MakeAnOrderController {
      */
     public boolean registerOrder() {
         return this.m_oOrderService.registerOrder(m_oOrder);
-    }
-
-    public boolean registerOrder2(Order order) {
-        return this.m_oOrderDB.registerOrder(order);
     }
 
     /**
