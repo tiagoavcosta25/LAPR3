@@ -84,9 +84,7 @@ public class ChargingSlot implements Comparable{
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ChargingSlot that = (ChargingSlot) o;
-        return m_intId == that.m_intId &&
-                Float.compare(that.m_fltOutputPower, m_fltOutputPower) == 0 &&
-                m_oPark.equals(that.m_oPark);
+        return m_intId == that.m_intId;
     }
 
     @Override

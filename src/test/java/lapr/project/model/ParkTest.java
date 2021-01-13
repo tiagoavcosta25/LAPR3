@@ -13,7 +13,7 @@ class ParkTest {
 
     @Test
     void getId() {
-        Park oPark = new Park();
+        Park oPark = new Park(-1, 1, new Pharmacy());
         Integer expected = -1;
         Integer real = oPark.getId();
         assertEquals(expected, real);
@@ -21,7 +21,7 @@ class ParkTest {
 
     @Test
     void setId() {
-        Park oPark = new Park();
+        Park oPark = new Park(2);
         Integer expected = -2;
         oPark.setId(expected);
         Integer real = oPark.getId();
@@ -105,19 +105,22 @@ class ParkTest {
     @Test
     void addParkingSlot() {
         Park oPark = new Park();
-        boolean expected = true;
-        oPark.setMaxSlotsNumber(3);
+        oPark.setMaxSlotsNumber(1);
         boolean real = oPark.addParkingSlot(new ParkingSlot());
-        assertEquals(expected, real);
+        assertTrue(real);
+        real = oPark.addParkingSlot(new ParkingSlot());
+        assertFalse(real);
     }
 
     @Test
     void addChargingSlot() {
         Park oPark = new Park();
-        boolean expected = true;
-        oPark.setMaxSlotsNumber(3);
+        oPark.setMaxSlotsNumber(1);
+        oPark.setParkingSlots(new ArrayList<>());
         boolean real = oPark.addChargingSlot(new ChargingSlot());
-        assertEquals(expected, real);
+        assertTrue(real);
+        real = oPark.addChargingSlot(new ChargingSlot());
+        assertFalse(real);
     }
 
     @Test
@@ -140,7 +143,7 @@ class ParkTest {
     void testToString() {
         Park oPark = new Park();
         //String expected = "Park{m_intId=-1, m_intMaxSlotsNumber=-1, m_lstChargingSlots=";
-        //String real = oPark.toString().substring(0, 60);
+        String strReal = oPark.toString().substring(0, 60);
         boolean expected = true;
         boolean real = true;
         assertEquals(expected, real);

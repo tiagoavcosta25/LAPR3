@@ -73,10 +73,7 @@ public class Invoice {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Invoice invoice = (Invoice) o;
-        return m_intId == invoice.m_intId &&
-                Float.compare(invoice.m_fltTotalPrice, m_fltTotalPrice) == 0 &&
-                m_dtInvoiceDate.equals(invoice.m_dtInvoiceDate) &&
-                m_oOrder.equals(invoice.m_oOrder);
+        return m_intId == invoice.m_intId;
     }
 
     @Override

@@ -58,11 +58,27 @@ class ParkingSlotTest {
     }
 
     @Test
+    void testCompareTo() {
+        ParkingSlot oParkingSlot = new ParkingSlot(new Park());
+        oParkingSlot.setId(-2);
+        int expected = -1;
+        int real = oParkingSlot.compareTo(new ParkingSlot());
+        assertEquals(expected, real);
+    }
+
+    @Test
     void testEquals() {
         ParkingSlot oParkingSlot = new ParkingSlot();
         boolean expected = true;
         boolean real = oParkingSlot.equals(new ParkingSlot());
         assertEquals(expected, real);
+        real = oParkingSlot.equals(oParkingSlot);
+        assertTrue(real);
+        real = oParkingSlot.equals(new Pharmacy());
+        assertFalse(real);
+        oParkingSlot.setId(-2);
+        real = oParkingSlot.equals(new ParkingSlot());
+        assertFalse(real);
     }
 
     @Test
@@ -77,7 +93,7 @@ class ParkingSlotTest {
     void testToString() {
         ParkingSlot oParkingSlot = new ParkingSlot();
         //String expected = "ParkingSlot{m_intId=-1, m_oPark=Park{m_intId=-1, m_intMaxSlotsNumber=-1, m_lstChargingSlots=[], m_lstParkingSlots=[]}, m_oScooter=null}";
-        //String real = oParkingSlot.toString();
+        String realString = oParkingSlot.toString();
         boolean expected = true;
         boolean real = true;
         assertEquals(expected, real);

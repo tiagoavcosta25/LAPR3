@@ -288,7 +288,7 @@ class OrderTest {
         real = oOrder.equals(new Pharmacy());
         assertFalse(real);
         oOrder.setId(-2);
-        real = oOrder.equals(new Pharmacy());
+        real = oOrder.equals(new Order());
         assertFalse(real);
     }
 

@@ -11,7 +11,7 @@ class InvoiceTest {
 
     @Test
     void getId() {
-        Invoice oInvoice = new Invoice();
+        Invoice oInvoice = new Invoice(-1, new Date(Calendar.getInstance().getTimeInMillis()), 100f,new Order());
         Integer expected = -1;
         Integer real = oInvoice.getId();
         assertEquals(expected, real);
@@ -85,6 +85,13 @@ class InvoiceTest {
         boolean expected = true;
         boolean real = oInvoice.equals(new Invoice());
         assertEquals(expected, real);
+        real = oInvoice.equals(oInvoice);
+        assertTrue(real);
+        real = oInvoice.equals(new Pharmacy());
+        assertFalse(real);
+        oInvoice.setId(-2);
+        real = oInvoice.equals(new Invoice());
+        assertFalse(real);
     }
 
     @Test

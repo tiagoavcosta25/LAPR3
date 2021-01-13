@@ -65,9 +65,7 @@ public class ParkingSlot implements Comparable{
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ParkingSlot that = (ParkingSlot) o;
-        return m_intId == that.m_intId &&
-                Objects.equals(m_oPark, that.m_oPark) &&
-                Objects.equals(m_oScooter, that.m_oScooter);
+        return m_intId == that.m_intId;
     }
 
     @Override
