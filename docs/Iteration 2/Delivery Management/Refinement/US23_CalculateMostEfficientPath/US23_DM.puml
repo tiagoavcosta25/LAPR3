@@ -3,8 +3,7 @@ skinparam classAttributeIconSize 0
 hide methods
 left to right direction
 
-class Platform {
--   String designation
+database Database {
 }
 
 class User{
@@ -13,6 +12,7 @@ class User{
 -   String password
 -   Integer nif
 }
+
 class Courier {
       -String id
       -String iban
@@ -38,8 +38,8 @@ class Order{
 -   String status
 }
 
-Platform "1" -- "*" Courier : has registered >
-Platform "1" -- "*" Order : has registered >
+Database "1" -- "*" Courier : has registered >
+Database "1" -- "*" Order : has registered >
 Courier "0..1" -- "1" User: acts as >
 Order "1" -- "2" Address : has >
 @enduml

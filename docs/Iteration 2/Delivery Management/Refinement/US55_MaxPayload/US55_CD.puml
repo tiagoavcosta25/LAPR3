@@ -23,23 +23,36 @@ class KnowDeliveryUI{
 }
 }
 package "Model" #DDDDDD {
-class Platform {
-  -String designation
-  +DeliveryRegistration getDelReg()
-}
+package Service #DDDDDD {
 
-class DeliveryRegistration{
+class DeliveryService{
++DeliveryService()
 +getMaxPayload(email)
 }
-class Database{
-}
 }
 
+}
+package "Data" #DDDDDD {
+class DataHandler{
++openConnection()
++closeAll()
+}
+
+ class DeliveryDB{
+ +DeliveryDB()
+ +getAddressesByDeliveryRunId(email)
+ +calculateMostEfficientPath(addressA, addressB, list)
+ }
+ database database{
+ }
+ }
 KnowDeliveryUI ..> KnowDeliveryController
-KnowDeliveryController ..> Platform
 KnowDeliveryController ..> ApplicationPOT
 KnowDeliveryController ..> UserSession
-Platform "1" --> "1" DeliveryRegistration : has
-DeliveryRegistration "1" --> "1" Database : connects to
+
+KnowDeliveryController ..> DeliveryService
+DeliveryService  ->  DeliveryDB : has
+DeliveryDB -> database : manages
+class DeliveryDB extends DataHandler
 
 @enduml
