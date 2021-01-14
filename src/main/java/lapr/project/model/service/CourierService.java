@@ -31,12 +31,13 @@ public class CourierService {
     }
 
     public Courier updateCourier(Courier courier, String strName, String strEmail, Integer intNif, String strIban, Pharmacy oPharmacy) {
-        if(!strName.isEmpty()) courier.setName(strName);
-        if(!strEmail.isEmpty()) courier.setEmail(strEmail);
-        if(!(intNif == 0)) courier.setNif(intNif);
-        if(!strIban.isEmpty()) courier.setM_iban(strIban);
-        if(oPharmacy == null) courier.setM_Pharmacy(oPharmacy);
-        return courier;
+        Courier courierCopy = courier;
+        if(!strName.isEmpty()) courierCopy.setName(strName);
+        if(!strEmail.isEmpty()) courierCopy.setEmail(strEmail);
+        if(!(intNif == 0)) courierCopy.setNif(intNif);
+        if(!strIban.isEmpty()) courierCopy.setM_iban(strIban);
+        if(oPharmacy == null) courierCopy.setM_Pharmacy(oPharmacy);
+        return courierCopy;
     }
 
     public boolean updateCourierDB(Courier oCourier) {

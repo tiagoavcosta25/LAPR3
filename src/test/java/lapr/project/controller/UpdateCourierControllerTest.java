@@ -47,24 +47,25 @@ class UpdateCourierControllerTest {
 
     @Test
     void updateCourier() throws NoSuchAlgorithmException {
-        Courier c3 = new Courier("name","email@gmail.com","b01e2cc9f906c73617538cc0e9d88f33",
-                123456789,"PT98003506514853185258910",mockPharmacyService.getPharmacy(1));
-        when(mockPharmacyService.getPharmacy(1)).thenReturn(new Pharmacy());
+        when(mockPharmacyService.getPharmacy(-1)).thenReturn(new Pharmacy());
         when(mockCourierService.updateCourier(new Courier(),"name","email@gmail.com",123456789,
-                "PT98003506514853185258910",mockPharmacyService.getPharmacy(1))).thenReturn(c3);
+                "PT98003506514853185258910",mockPharmacyService.getPharmacy(-1))).thenReturn(new Courier());
 
-        assertEquals(c3,c3);
+        Courier c2 = updateCourierController.updateCourier(new Courier(),"name","email@gmail.com",123456789,
+                "PT98003506514853185258910",-1);
+
+        assertEquals(new Courier(),c2);
     }
 
     @Test
     void updateCourierDB() {
         when(mockCourierService.updateCourierDB(new Courier())).thenReturn(assertTrue);
-        boolean result = mockCourierService.updateCourierDB(new Courier());
+        boolean result = updateCourierController.updateCourierDB(new Courier());
 
         assertEquals(assertTrue,result);
 
         when(mockCourierService.updateCourierDB(new Courier())).thenReturn(false);
-        result = mockCourierService.updateCourierDB(new Courier());
+        result = updateCourierController.updateCourierDB(new Courier());
 
         assertEquals(false,result);
     }

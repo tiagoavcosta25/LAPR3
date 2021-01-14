@@ -26,12 +26,12 @@ public class UpdateCourierController {
     /**
      * Courier Management class
      */
-    private final CourierService oCourierService;
+    private CourierService oCourierService;
 
     /**
      * Pharmacy Management class
      */
-    private final PharmacyService oPharmacyService;
+    private PharmacyService oPharmacyService;
 
     /**
      * Pharmacy
@@ -73,7 +73,10 @@ public class UpdateCourierController {
         try{
             oPharmacy = this.oPharmacyService.getPharmacy(pharmacyID);
             oCourier = this.oCourierService.updateCourier(courier,strName,strEmail,intNif,strIban,oPharmacy);
+            System.out.println(oCourier);
+            return this.oCourier;
         } catch (Exception ex) {
+            ex.printStackTrace();
             this.oCourier = null;
         }
         return null;
