@@ -32,11 +32,11 @@ public class Delivery {
     }
 
     public Date getDeliveryDate() {
-        return m_dtDeliveryDate;
+        return (Date) m_dtDeliveryDate.clone();
     }
 
     public void setDeliveryDate(Date dtDeliveryDate) {
-        this.m_dtDeliveryDate = dtDeliveryDate;
+        this.m_dtDeliveryDate = (Date) dtDeliveryDate.clone();
     }
 
     public String getNotes() {
