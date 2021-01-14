@@ -17,14 +17,14 @@ public class Invoice {
 
     public Invoice(int intId, Date dtInvoiceDate, float fltTotalPrice, Order oOrder) {
         this.m_intId = intId;
-        this.m_dtInvoiceDate = dtInvoiceDate;
+        this.m_dtInvoiceDate = (Date) dtInvoiceDate.clone();
         this.m_fltTotalPrice = fltTotalPrice;
         this.m_oOrder = oOrder;
     }
 
     public Invoice(Date dtInvoiceDate, float fltTotalPrice, Order oOrder) {
         this.m_intId = DEFAULT_ID;
-        this.m_dtInvoiceDate = dtInvoiceDate;
+        this.m_dtInvoiceDate = (Date) dtInvoiceDate.clone();
         this.m_fltTotalPrice = fltTotalPrice;
         this.m_oOrder = oOrder;
     }
@@ -45,11 +45,11 @@ public class Invoice {
     }
 
     public Date getInvoiceDate() {
-        return m_dtInvoiceDate;
+        return (Date) m_dtInvoiceDate.clone();
     }
 
     public void setInvoiceDate(Date m_dtInvoiceDate) {
-        this.m_dtInvoiceDate = m_dtInvoiceDate;
+        this.m_dtInvoiceDate = (Date) m_dtInvoiceDate.clone();
     }
 
     public float getTotalPrice() {

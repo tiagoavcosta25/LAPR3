@@ -55,19 +55,19 @@ public class Park {
     }
 
     public List<ChargingSlot> getChargingSlots() {
-        return m_lstChargingSlots;
+        return new ArrayList<>(m_lstChargingSlots);
     }
 
     public void setChargingSlots(List<ChargingSlot> m_lstChargingSlots) {
-        this.m_lstChargingSlots = m_lstChargingSlots;
+        this.m_lstChargingSlots = new ArrayList<>(m_lstChargingSlots);
     }
 
     public List<ParkingSlot> getParkingSlots() {
-        return m_lstParkingSlots;
+        return new ArrayList<>(m_lstParkingSlots);
     }
 
     public void setParkingSlots(List<ParkingSlot> m_lstParkingSlots) {
-        this.m_lstParkingSlots = m_lstParkingSlots;
+        this.m_lstParkingSlots = new ArrayList<>(m_lstParkingSlots);
     }
 
     public Pharmacy getPharmacy() {
