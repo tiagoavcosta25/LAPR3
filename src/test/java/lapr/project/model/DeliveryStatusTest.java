@@ -22,14 +22,6 @@ class DeliveryStatusTest {
     }
 
     @Test
-    void setDesignation() {
-        String expected = "In Progress";
-        m_emptyDeliveryStatus.setDesignation("In Progress");
-        String real = m_emptyDeliveryStatus.getDesignation();
-        assertEquals(expected,real);
-    }
-
-    @Test
     void testEquals() {
         DeliveryStatus d = DeliveryStatus.INPROGRESS;
         assertEquals(d,m_deliveryStatus);
