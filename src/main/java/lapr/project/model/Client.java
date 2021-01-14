@@ -72,7 +72,8 @@ public class Client extends User {
 
     @Override
     public String toString() {
-        return "Client{" +
+
+        return  super.toString() + "Client{" +
                 "m_credits=" + m_intCredits +
                 ", m_address=" + m_oAddress +
                 ", m_creditCard=" + m_oCreditCard +

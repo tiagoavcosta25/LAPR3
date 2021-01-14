@@ -1,6 +1,7 @@
 package lapr.project.model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -35,7 +36,7 @@ public class DeliveryRun {
     public DeliveryRun(Courier m_oCourier, List<Order> m_lstDelivery) {
         this.m_intId = -1;
         this.m_oCourier = m_oCourier;
-        this.m_lstOrder = m_lstDelivery;
+        this.m_lstOrder = new ArrayList<>(m_lstDelivery);
         this.m_oVehicle = null;
         this.m_oStatus = DeliveryStatus.IDLE;
     }
@@ -65,11 +66,11 @@ public class DeliveryRun {
     }
 
     public List<Order> getOrderList() {
-        return m_lstOrder;
+        return new ArrayList<>(m_lstOrder);
     }
 
     public void setDeliveryList(List<Order> m_lstDelivery) {
-        this.m_lstOrder = m_lstDelivery;
+        this.m_lstOrder = new ArrayList<>(m_lstDelivery);
     }
 
     public DeliveryStatus getStatus() {

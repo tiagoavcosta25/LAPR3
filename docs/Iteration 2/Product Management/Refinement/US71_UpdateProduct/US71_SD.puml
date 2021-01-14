@@ -8,6 +8,9 @@ participant "UpdateProductUI" as UI
 participant "UpdateProductController" as CTRL
 participant "pServ:ProductService" as SER
 participant "pDB:ProductDB" as DB
+participant "ApplicationPOT" as APP
+participant "app:ApplicationPOT" as APPP
+participant "UserSession" as US
 
 activate U
 U -> UI : Engages the update product feature/button
@@ -22,12 +25,22 @@ CTRL -> SER** : create()
 activate SER
 SER -> DB** : create()
 deactivate SER
+CTRL -> APP : getInstance()
+activate APP
+deactivate APP
+CTRL -> APPP : getCurrentSession()
+activate APPP
+APPP -> US : getRole()
+activate US
+deactivate US
+deactivate APPP
+alt if user is authorized (if it's an admin)
 CTRL -> SER : updateProduct(intId, strName, strDescription, fltUnitaryPrice, fltUnitaryWeight)
 activate SER
 SER -> SER : validateInputWithId(intId, strName, strDescription, fltUnitaryPrice, fltUnitaryWeight)
 SER -> SER : validateId(intId)
 SER -> SER : validateInput(strName, strDescription, fltUnitaryPrice, fltUnitaryWeight)
-opt if all the information given as input has a valid format
+alt if all the information given as input has a valid format
 SER -> DB : updateProductFromDB(product)
 activate DB
 deactivate DB
@@ -42,6 +55,7 @@ else if any information does not have a valid format
 UI -> U : Informs that the operation was not successful
 deactivate UI
 deactivate U
-end opt
+end alt
+end alt
 
 @enduml

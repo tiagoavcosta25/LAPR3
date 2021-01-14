@@ -39,7 +39,7 @@ public class Order {
         this.m_fltAmount = fltAmount;
         this.m_fltTotalWeight = fltTotalWeight;
         this.m_fltAdditionalFee = fltAdditionalFee;
-        this.m_dtOrderDate = dtOrderDate;
+        this.m_dtOrderDate = (Date) dtOrderDate.clone();
         this.m_strDescription = strDescription;
         this.m_strStatus = strStatus;
         this.m_oClient = oClient;
@@ -54,7 +54,7 @@ public class Order {
         this.m_fltAmount = fltAmount;
         this.m_fltTotalWeight = fltTotalWeight;
         this.m_fltAdditionalFee = fltAdditionalFee;
-        this.m_dtOrderDate = dtOrderDate;
+        this.m_dtOrderDate = (Date) dtOrderDate.clone();
         this.m_strDescription = strDescription;
         this.m_strStatus = strStatus;
         this.m_oClient = oClient;
@@ -178,11 +178,11 @@ public class Order {
     }
 
     public Date getOrderDate() {
-        return m_dtOrderDate;
+        return (Date) m_dtOrderDate.clone();
     }
 
     public void setOrderDate(Date dtOrderDate) {
-        this.m_dtOrderDate = dtOrderDate;
+        this.m_dtOrderDate = (Date) dtOrderDate.clone();
     }
 
     public String getDescription() {
