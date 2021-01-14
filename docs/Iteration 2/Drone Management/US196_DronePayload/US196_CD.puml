@@ -11,9 +11,7 @@ class DronePayloadUI{
 
 package "Controller" #DDDDDD {
 class DronePayloadController{
-+getPharmacies()
-+newDrone(batteryPerc, chargingStatus, potency, weight, batteryCapacity, maxPayload, pharmacyId)
-+DronePayload(drone)
++getDronePayload(droneId)
 }
 }
 
@@ -23,7 +21,7 @@ package "Model" #DDDDDD {
 
   class DroneService{
       +DroneService()
-      +DronePayload(drone)
+      +getDronePayload(droneId)
    }
 }
 
