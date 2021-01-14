@@ -53,7 +53,7 @@ public class UserSession {
     public UserSession() {
         this.m_currentUserEmail = null;
         this.m_role = null;
-        ApplicationPOT.getInstance().setCurrentSession(this);
+        ApplicationPOT.getInstance().clearCurrentSession();
     }
 
     /**
