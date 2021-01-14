@@ -11,6 +11,7 @@ import org.mockito.Mockito;
 
 import java.security.NoSuchAlgorithmException;
 import java.util.TreeMap;
+import java.util.concurrent.ExecutionException;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
@@ -72,9 +73,25 @@ class CourierServiceTest {
     }
 
     @Test
-    void  updateCourierDB() {
+    void  updateCourierDB() throws NoSuchAlgorithmException {
         when(mockCourierDB.updateCourierDB(new Courier())).thenReturn(assertTrue);
         boolean result = courierService.updateCourierDB(new Courier());
+        assertEquals(assertTrue,result);
+
+        when(mockCourierDB.updateCourierDB(new Courier("", "email4@gmail.com", "",250161761,"PT98003506514853185258910", new Pharmacy()))).thenReturn(assertTrue);
+        result = courierService.updateCourierDB(new Courier("", "email4@gmail.com", "",250161761,"PT98003506514853185258910", new Pharmacy()));
+        assertEquals(assertTrue,result);
+
+        when(mockCourierDB.updateCourierDB(new Courier("123", "email4@gmail.com", "",0,"PT98003506514853185258910", new Pharmacy()))).thenReturn(assertTrue);
+        result = courierService.updateCourierDB(new Courier("123", "email4@gmail.com", "",0,"PT98003506514853185258910", new Pharmacy()));
+        assertEquals(assertTrue,result);
+
+        when(mockCourierDB.updateCourierDB(new Courier("123", "email4@gmail.com", "",250161761,"", new Pharmacy()))).thenReturn(assertTrue);
+        result = courierService.updateCourierDB(new Courier("123", "email4@gmail.com", "",250161761,"", new Pharmacy()));
+        assertEquals(assertTrue,result);
+
+        when(mockCourierDB.updateCourierDB(new Courier("123", "email4@gmail.com", "",250161761,"PT98003506514853185258910", null))).thenReturn(assertTrue);
+        result = courierService.updateCourierDB(new Courier("123", "email4@gmail.com", "",250161761,"PT98003506514853185258910", null));
         assertEquals(assertTrue,result);
 
         when(mockCourierDB.updateCourierDB(new Courier())).thenReturn(false);
@@ -91,7 +108,10 @@ class CourierServiceTest {
 
         when(mockCourierDB.removeCourier(-1)).thenReturn(false);
         result = courierService.removeCourier(-1);
+        assertFalse(result);
 
+        when(mockCourierDB.removeCourier(1)).thenThrow(new RuntimeException());
+        result = courierService.removeCourier(1);
         assertFalse(result);
     }
 }

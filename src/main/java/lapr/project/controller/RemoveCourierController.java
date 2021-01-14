@@ -56,7 +56,7 @@ public class RemoveCourierController {
      * @return True if input is valid, false if otherwise
      */
     public boolean validateInput(Integer intID) {
-        return (!(intID <= 0 || intID == null));
+        return (!(intID <= 0));
     }
 }
 
