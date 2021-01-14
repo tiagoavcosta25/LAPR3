@@ -41,7 +41,7 @@ class UpdateCourierControllerTest {
     @Test
     void getCourierByID() {
         when(mockCourierService.getCourierByID(1)).thenReturn(new Courier());
-        Courier courier = mockCourierService.getCourierByID(1);
+        Courier courier = updateCourierController.getCourierByID(1);
         assertEquals(new Courier(),courier);
     }
 
