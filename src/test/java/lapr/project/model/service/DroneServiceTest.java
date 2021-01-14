@@ -3,11 +3,17 @@ package lapr.project.model.service;
 import lapr.project.data.DroneDB;
 import lapr.project.model.Drone;
 import lapr.project.model.Pharmacy;
+import lapr.project.model.Scooter;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import static org.mockito.Mockito.when;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.MockitoAnnotations.initMocks;
@@ -163,6 +169,27 @@ class DroneServiceTest {
 
         when(m_mockDroneDB.registerDrone(null)).thenReturn(false);
         result = m_oDroneService.registerDrone(null);
+        assertFalse(result);
+    }
+
+    @Test
+    void getDronesList() {
+        System.out.println("getScootersList");
+        List<Drone> expectedListDrones = new ArrayList<>(Arrays.asList(new Drone()));
+        when(m_oDroneService.getDronesList(-1)).thenReturn(expectedListDrones);
+        List<Drone>  result = m_oDroneService.getDronesList(-1);
+        assertEquals(expectedListDrones, result);
+    }
+
+    @Test
+    void removeDroneFromDB() {
+        System.out.println("removeDroneFromDB");
+        when(m_mockDroneDB.removeDroneFromDB(1)).thenReturn(true);
+        boolean result = m_oDroneService.removeDroneFromDB(1);
+        assertTrue(result);
+
+        when(m_mockDroneDB.removeDroneFromDB(-1)).thenReturn(false);
+        result = m_oDroneService.removeDroneFromDB(2);
         assertFalse(result);
     }
 }
