@@ -73,10 +73,8 @@ public class UpdateCourierController {
         try{
             oPharmacy = this.oPharmacyService.getPharmacy(pharmacyID);
             oCourier = this.oCourierService.updateCourier(courier,strName,strEmail,intNif,strIban,oPharmacy);
-            System.out.println(oCourier);
             return this.oCourier;
         } catch (Exception ex) {
-            ex.printStackTrace();
             this.oCourier = null;
         }
         return null;
@@ -84,13 +82,6 @@ public class UpdateCourierController {
 
     public boolean updateCourierDB(Courier oCourier){
         return oCourierService.updateCourierDB(oCourier);
-    }
-
-    /**
-     * The method sets the courier.
-     */
-    public void setCourier(Courier oCourier) {
-        this.oCourier = oCourier;
     }
 
 
