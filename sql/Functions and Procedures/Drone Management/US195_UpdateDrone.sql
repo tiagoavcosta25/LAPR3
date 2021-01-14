@@ -1,4 +1,4 @@
-create PROCEDURE updateDrone(p_percentage
+create or replace PROCEDURE updateDrone(p_percentage
     Drone.BATTERYPERC%type, p_pharmacyId Drone.pharmacyId%type,
                             p_potency Drone.potency%type, p_weight Drone.weight%type, p_batteryCapacity Drone.BATTERYCAPACITY%type,
                             p_maxPayload Drone.MAXPAYLOAD%type, p_batteryVoltage Drone.BATTERYVOLTAGE%type,

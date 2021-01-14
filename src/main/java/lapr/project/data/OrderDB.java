@@ -1,6 +1,5 @@
 package lapr.project.data;
 
-import lapr.project.data.DataHandler;
 import lapr.project.model.*;
 import oracle.jdbc.OracleTypes;
 import java.security.NoSuchAlgorithmException;
@@ -28,7 +27,7 @@ public class OrderDB extends DataHandler {
             callStmt = getConnection().prepareCall("{ ? = call getOrder(?) }");
 
             callStmt.registerOutParameter(1, OracleTypes.CURSOR);
-            callStmt.setInt(id, 2);
+            callStmt.setInt(2,id);
 
             callStmt.execute();
 
@@ -39,7 +38,7 @@ public class OrderDB extends DataHandler {
 
                 callStmt = getConnection().prepareCall("{ ? = call getProductsByOrder(?) }");
                 callStmt.registerOutParameter(1, OracleTypes.CURSOR);
-                callStmt.setInt(oOrder.getId(), 2);
+                callStmt.setInt(2,oOrder.getId());
 
                 callStmt.execute();
 
@@ -53,7 +52,7 @@ public class OrderDB extends DataHandler {
         } catch (SQLException | NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
-        throw new IllegalArgumentException("No Order with ID:" + id);
+        return null;
     }
 
     private boolean addOrder(float fltAmount, float fltTotalWeight, float fltAdditionalFee, Date dtOrderDate,

@@ -71,7 +71,6 @@ public class DeliveryRunDB extends DataHandler {
     public boolean addNewDeliveryRun(Integer id, Courier courier, List<Order> lst, DeliveryStatus status) {
         try {
             openConnection();
-            List<Address> oResult = new ArrayList<>();
 
 
             CallableStatement callStmt = getConnection().prepareCall("{ ? = call addNewDeliveryRun(?,?,?) }");
@@ -79,7 +78,7 @@ public class DeliveryRunDB extends DataHandler {
             callStmt.setInt(2, id);
             callStmt.setInt(3,courier.getId());
             callStmt.setString(4,status.getDesignation());
-
+            callStmt.registerOutParameter(1, OracleTypes.INTEGER);
             callStmt.execute();
 
             Integer deliveryRunId = callStmt.getInt(1);

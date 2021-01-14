@@ -81,7 +81,7 @@ deactivate SESSION
 alt if user is authorized (if it's an admin)
 CTRL -> OS : lstOrder = getOrderList(lstOrderId)
 activate OS
-OS -> ODB : getOrderList(lstOrderId)
+OS -> ODB : getOrder(orderId)
 activate ODB
 deactivate ODB
 
