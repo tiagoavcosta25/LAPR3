@@ -24,7 +24,6 @@ class RegisterProductControllerTest {
 
     @BeforeEach
     void setUp() {
-        ApplicationPOT.getInstance().setCurrentSession(new UserSession("", 2));
         this.registerProductController = new RegisterProductController();
         this.mockPServ = Mockito.mock(ProductService.class);
         initMocks(this);
@@ -33,8 +32,7 @@ class RegisterProductControllerTest {
     @Test
     void ensureProductRegistrationWorks() {
         System.out.println("registerProduct");
-        Product p = new Product("Product 6969", "Description 1", 2.0f, 2.0f);
-
+        ApplicationPOT.getInstance().setCurrentSession(new UserSession("", 2));
         when(mockPServ.registerProduct("Product 6969", "Description 1", 2.0f, 2.0f)).thenReturn(true);
 
         boolean result = registerProductController.registerProduct("Product 6969", "Description 1", 2.0f, 2.0f);
@@ -50,5 +48,19 @@ class RegisterProductControllerTest {
         result = registerProductController.registerProduct("Product 6969", "Description 1", 2.0f, 2.0f);
         assertFalse(result);
 
+        ApplicationPOT.getInstance().clearCurrentSession();
+        ApplicationPOT.getInstance().setCurrentSession(new UserSession("", 1));
+        result = registerProductController.registerProduct("", "Description 1", 2.0f, 2.0f);
+        assertFalse(result);
+
+        ApplicationPOT.getInstance().clearCurrentSession();
+        ApplicationPOT.getInstance().setCurrentSession(new UserSession("", 3));
+        result = registerProductController.registerProduct("", "Description 1", 2.0f, 2.0f);
+        assertFalse(result);
+
+        ApplicationPOT.getInstance().clearCurrentSession();
+        ApplicationPOT.getInstance().setCurrentSession(new UserSession("", 4));
+        result = registerProductController.registerProduct("", "Description 1", 2.0f, 2.0f);
+        assertFalse(result);
     }
 }
