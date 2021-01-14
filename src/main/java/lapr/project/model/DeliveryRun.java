@@ -10,7 +10,7 @@ public class DeliveryRun {
 
     private Courier m_oCourier;
 
-    private Scooter m_oScooter;
+    private Vehicle m_oVehicle;
 
     private List<Order> m_lstOrder;
 
@@ -19,7 +19,7 @@ public class DeliveryRun {
     public DeliveryRun() {
         this.m_intId = -1;
         this.m_oCourier = new Courier();
-        this.m_oScooter = null;
+        this.m_oVehicle = null;
         this.m_lstOrder = new ArrayList<>();
         this.m_oStatus = DeliveryStatus.IDLE;
     }
@@ -27,7 +27,7 @@ public class DeliveryRun {
     public DeliveryRun(Courier m_oCourier) {
         this.m_intId = -1;
         this.m_oCourier = m_oCourier;
-        this.m_oScooter = null;
+        this.m_oVehicle = null;
         this.m_lstOrder = new ArrayList<>();
         this.m_oStatus = DeliveryStatus.IDLE;
     }
@@ -36,7 +36,7 @@ public class DeliveryRun {
         this.m_intId = -1;
         this.m_oCourier = m_oCourier;
         this.m_lstOrder = m_lstDelivery;
-        this.m_oScooter = null;
+        this.m_oVehicle = null;
         this.m_oStatus = DeliveryStatus.IDLE;
     }
 
@@ -56,12 +56,12 @@ public class DeliveryRun {
         this.m_oCourier = oCourier;
     }
 
-    public Scooter getScooter() {
-        return m_oScooter;
+    public Vehicle getVehicle() {
+        return m_oVehicle;
     }
 
-    public void setScooter(Scooter oScooter) {
-        this.m_oScooter = oScooter;
+    public void setVehicle(Vehicle oVehicle) {
+        this.m_oVehicle = oVehicle;
     }
 
     public List<Order> getOrderList() {
@@ -98,8 +98,8 @@ public class DeliveryRun {
         return "DeliveryRun{" +
                 "m_intId=" + m_intId +
                 ", m_oCourier=" + m_oCourier +
-                ", m_oScooter=" + m_oScooter +
-                ", m_lstDelivery=" + m_lstOrder +
+                ", m_oVehicle=" + m_oVehicle +
+                ", m_lstOrder=" + m_lstOrder +
                 ", m_oStatus=" + m_oStatus +
                 '}';
     }

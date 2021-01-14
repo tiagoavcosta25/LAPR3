@@ -25,7 +25,7 @@ public class DroneDB extends DataHandler  {
             CallableStatement callStmt = getConnection().prepareCall("{call updateDrone(?,?,?,?,?,?,?,?,?)}");
 
             callStmt.setFloat(1, percentage);
-            callStmt.setFloat(2, pharmacyId);
+            callStmt.setInt(2, pharmacyId);
             callStmt.setFloat(3, potency);
             callStmt.setFloat(4, weight);
             callStmt.setDouble(5, batteryCapacity);
@@ -38,6 +38,7 @@ public class DroneDB extends DataHandler  {
             closeAll();
 
         } catch (SQLException e) {
+            e.printStackTrace();
             return false;
         }
         return true;

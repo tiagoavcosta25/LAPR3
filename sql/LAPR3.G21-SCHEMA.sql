@@ -38,7 +38,7 @@ CREATE TABLE Client (userId number(10) NOT NULL, credits number(6) DEFAULT 0 NOT
 CREATE TABLE Courier (userId number(10) NOT NULL, iban varchar2(34) NOT NULL, pharmacyId number(10) NOT NULL, PRIMARY KEY (userId));
 CREATE TABLE CreditCard (creditCardNr number(16), validityDate date NOT NULL, ccv number(3) NOT NULL, PRIMARY KEY (creditCardNr));
 CREATE TABLE CreditCardClient (creditCardNr number(16) NOT NULL, clientId number(10) NOT NULL, PRIMARY KEY (creditCardNr, clientId));
-CREATE TABLE DeliveryRun (id number(10) GENERATED AS IDENTITY, courierId number(10) NOT NULL, deliveryStatus varchar2(20) NOT NULL, vehicleid number(10) NOT NULL, PRIMARY KEY (id));
+CREATE TABLE DeliveryRun (id number(10) GENERATED AS IDENTITY, courierId number(10) NOT NULL, deliveryStatus varchar2(20) NOT NULL, vehicleid number(10), PRIMARY KEY (id));
 CREATE TABLE DeliveryStatus (designation varchar2(20) NOT NULL, PRIMARY KEY (designation));
 CREATE TABLE Drone (vehicleId number(10) NOT NULL, PRIMARY KEY (vehicleId));
 CREATE TABLE Invoice (id number(10) GENERATED AS IDENTITY, orderId number(10) NOT NULL UNIQUE, invoiceDate date NOT NULL, totalPrice float(10) NOT NULL, PRIMARY KEY (id));

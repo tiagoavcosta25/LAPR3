@@ -59,6 +59,11 @@ class Courier{
 }
 
 class DeliveryRun{
+-Integer m_intId
+-Courier m_oCourier
+-Vehicle m_oVehicle
+-List<Order> m_lstOrder
+-DeliveryStatus m_oStatus
 +DeliveryRun(courier,lstPath)
 }
 

@@ -64,20 +64,19 @@ public class DeliveryRunDB extends DataHandler {
     }
 
     public boolean addNewDeliveryRun(DeliveryRun oDeliveryRun) {
-        return addNewDeliveryRun(oDeliveryRun.getId(),oDeliveryRun.getCourier(),
+        return addNewDeliveryRun(oDeliveryRun.getCourier(),
                 oDeliveryRun.getOrderList(),oDeliveryRun.getStatus());
     }
 
-    public boolean addNewDeliveryRun(Integer id, Courier courier, List<Order> lst, DeliveryStatus status) {
+    public boolean addNewDeliveryRun(Courier courier, List<Order> lst, DeliveryStatus status) {
         try {
             openConnection();
 
 
-            CallableStatement callStmt = getConnection().prepareCall("{ ? = call addNewDeliveryRun(?,?,?) }");
+            CallableStatement callStmt = getConnection().prepareCall("{ ? = call addNewDeliveryRun(?,?) }");
 
-            callStmt.setInt(2, id);
-            callStmt.setInt(3,courier.getId());
-            callStmt.setString(4,status.getDesignation());
+            callStmt.setInt(2,courier.getId());
+            callStmt.setString(3,status.getDesignation());
             callStmt.registerOutParameter(1, OracleTypes.INTEGER);
             callStmt.execute();
 
