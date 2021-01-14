@@ -41,5 +41,5 @@ public class ApplicationPOT {
         m_currentSession = session;
     }
 
-    public void clearCurrentSession() { m_currentSession = new UserSession(); }
+    public void clearCurrentSession() { m_currentSession = null; }
 }
