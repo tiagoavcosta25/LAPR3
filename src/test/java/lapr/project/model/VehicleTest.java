@@ -9,6 +9,9 @@ class VehicleTest {
     private Scooter scooterTest;
     private Scooter scooterTest1;
     private Scooter scooterTest2;
+    private Drone droneTest;
+    private Drone droneTest1;
+    private Drone droneTest2;
 
     public VehicleTest(){
         scooterTest = new Scooter(200f, 200f, 20f, "Not Charging",
@@ -16,6 +19,11 @@ class VehicleTest {
         scooterTest1 = new Scooter(-2, 200f, 200f, 20f, "Not Charging",
                 32f,100, 32f, new Pharmacy());
         scooterTest2 = new Scooter();
+        droneTest = new Drone(200f, 200f, 20f, "Not Charging",
+                32f,100, 32f, new Pharmacy());
+        droneTest1 = new Drone(-2, 200f, 200f, 20f, "Not Charging",
+                32f,100, 32f, new Pharmacy());
+        droneTest2 = new Drone();
     }
 
     @Test
@@ -46,22 +54,22 @@ class VehicleTest {
     @Test
     void getPharmacyId() {
         Integer expected = 0;
-        Integer real = scooterTest.getPharmacyId();
+        Integer real = droneTest.getPharmacyId();
         assertEquals(expected, real);
     }
 
     @Test
     void setPharmacyId() {
         Integer expected = -2;
-        scooterTest1.setPharmacyId(expected);
-        Integer real = scooterTest1.getPharmacyId();
+        droneTest1.setPharmacyId(expected);
+        Integer real = droneTest1.getPharmacyId();
         assertEquals(expected, real);
     }
 
     @Test
     void getPotency() {
-        float expected = -1.0f;
-        float real = scooterTest2.getPotency();
+        float expected = -1f;
+        float real = droneTest2.getPotency();
         assertEquals(expected, real);
     }
 

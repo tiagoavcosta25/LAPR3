@@ -24,7 +24,7 @@ class PharmacyDB {
 
 class OrderDB {
 +OrderDB()
-+getOrderList(lstOrderId)
++getOrder(orderId)
 }
 
 class DataHandler{

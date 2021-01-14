@@ -4,7 +4,7 @@ create or replace procedure addNewDeliveryRun(p_deliveryRunId DELIVERYRUN.id%typ
 begin
 
     update "Order"
-    set "Order".deliveryRunID = p_deliveryRunId
+    set "Order".run = p_deliveryRunId
     where "Order".ID = p_orderId;
 
 
