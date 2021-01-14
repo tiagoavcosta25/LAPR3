@@ -28,7 +28,7 @@ public class PharmacyDB extends DataHandler {
             callStmt = getConnection().prepareCall("{ ? = call getPharmacy(?) }");
 
             callStmt.registerOutParameter(1, OracleTypes.CURSOR);
-            callStmt.setInt(id, 2);
+            callStmt.setInt(2,id);
 
             callStmt.execute();
 
@@ -40,7 +40,7 @@ public class PharmacyDB extends DataHandler {
 
                 callStmt = getConnection().prepareCall("{ ? = call getStockByPharmacy(?) }");
                 callStmt.registerOutParameter(1, OracleTypes.CURSOR);
-                callStmt.setInt(oPharmacy.getId(), 2);
+                callStmt.setInt(2,oPharmacy.getId());
 
                 callStmt.execute();
 
@@ -261,6 +261,7 @@ public class PharmacyDB extends DataHandler {
 
             return oResult;
         } catch (SQLException | NoSuchAlgorithmException e) {
+            e.printStackTrace();
             return null;
         }
     }

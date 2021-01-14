@@ -53,16 +53,16 @@ class DeliveryRunTest {
 
     @Test
     void getScooter() {
-        Scooter expected = null;
-        Scooter real = m_emptyDeliveryRun.getScooter();
+        Vehicle expected = null;
+        Vehicle real = m_emptyDeliveryRun.getVehicle();
         assertEquals(expected,real);
     }
 
     @Test
     void setScooter() {
-        Scooter expected = new Scooter();
-        m_emptyDeliveryRun.setScooter(new Scooter());
-        Scooter real = m_emptyDeliveryRun.getScooter();
+        Vehicle expected = new Scooter();
+        m_emptyDeliveryRun.setVehicle(new Scooter());
+        Vehicle real = m_emptyDeliveryRun.getVehicle();
         assertEquals(expected,real);
     }
 
@@ -138,8 +138,8 @@ class DeliveryRunTest {
         String expected = "DeliveryRun{" +
                 "m_intId=" + m_deliveryRun.getId() +
                 ", m_oCourier=" + m_deliveryRun.getCourier() +
-                ", m_oScooter=" + m_deliveryRun.getScooter() +
-                ", m_lstDelivery=" + m_deliveryRun.getOrderList() +
+                ", m_oVehicle=" + m_deliveryRun.getVehicle() +
+                ", m_lstOrder=" + m_deliveryRun.getOrderList() +
                 ", m_oStatus=" + m_deliveryRun.getStatus() +
                 '}';
         String real = m_deliveryRun.toString();

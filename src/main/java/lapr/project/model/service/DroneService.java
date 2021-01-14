@@ -5,6 +5,8 @@ import lapr.project.model.Drone;
 import lapr.project.model.Pharmacy;
 import lapr.project.model.Scooter;
 
+import java.util.List;
+
 public class DroneService {
 
     private DroneDB m_oDroneDB;
@@ -35,4 +37,10 @@ public class DroneService {
     public boolean registerDrone(Drone oDrone) {
         return m_oDroneDB.registerDrone(oDrone);
     }
+
+    public List<Drone> getDronesList(int intPharmacyId) { return m_oDroneDB.getDronesList(intPharmacyId);}
+
+    public boolean removeDroneFromDB(int intId) { return m_oDroneDB.removeDroneFromDB(intId);}
+
+
 }
