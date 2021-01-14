@@ -11,6 +11,10 @@ import java.sql.SQLException;
 
 public class CourierDB extends DataHandler {
 
+    public CourierDB() {
+        super();
+    }
+
     public CourierDB(String jdbcUrl, String username, String password) {
         super(jdbcUrl, username, password);
     }
@@ -56,7 +60,7 @@ public class CourierDB extends DataHandler {
      * @param strNif  o nome do marinheiro.
      * @param strIban o "rating" do marinheiro.
      */
-    private boolean addCourierToDB(String strName, String strEmail, String strPassword, Integer strNif, String strIban, Integer pharmacyId) {
+    public boolean addCourierToDB(String strName, String strEmail, String strPassword, Integer strNif, String strIban, Integer pharmacyId) {
         boolean flag = true;
         try {
             openConnection();
@@ -93,7 +97,7 @@ public class CourierDB extends DataHandler {
      *
      * @param intId o identificador do marinheiro a remover.
      */
-    public void removeSailor(int intId) {
+    public void removeCourier(int intId) {
 
         try {
             openConnection();
@@ -117,16 +121,7 @@ public class CourierDB extends DataHandler {
 
     }
 
-    public Courier newCourier(String strName, String strEmail, Integer strNIF, String strIBAN,Pharmacy oPharmacy) throws NoSuchAlgorithmException {
-        PassGenerator pass = new PassGenerator();
-        String password = pass.generatePassword();
 
-        return new Courier(strName, strEmail, password, strNIF, strIBAN,oPharmacy);
-    }
-
-    public boolean registersCourier(Courier oCourier) {
-        return addCourierToDB(oCourier.getName(), oCourier.getEmail(), oCourier.getPw(), oCourier.getNif(), oCourier.getM_iban(), oCourier.getM_Pharmacy().getId());
-    }
 
     public Address getDeliveryAddress(String email) {
         /* Objeto "callStmt" para invocar a função "getSailor" armazenada na BD.

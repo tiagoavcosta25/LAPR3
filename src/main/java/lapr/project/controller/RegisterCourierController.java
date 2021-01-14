@@ -4,6 +4,8 @@ import lapr.project.model.Courier;
 import lapr.project.model.Pharmacy;
 import lapr.project.data.CourierDB;
 import lapr.project.data.PharmacyDB;
+import lapr.project.model.service.CourierService;
+import lapr.project.model.service.PharmacyService;
 
 import java.security.NoSuchAlgorithmException;
 
@@ -23,15 +25,16 @@ public class RegisterCourierController {
      * Courier class instance
      */
     private Courier oCourier;
+
     /**
      * Courier Management class
      */
-    private CourierDB oCourierDB;
+    private CourierService oCourierService;
 
     /**
      * Pharmacy Management class
      */
-    private PharmacyDB oPharmacyDB;
+    private PharmacyService oPharmacyService;
 
     /**
      * Pharmacy
@@ -39,11 +42,11 @@ public class RegisterCourierController {
     private Pharmacy oPharmacy;
 
     /**
-     * An empty constructor of RegisterCourierController that initiates the platform variable by getting it from the ApplicationPOT.
+     * A constructor of RegisterCourierController that initiates the platform variable by getting it from the ApplicationPOT.
      */
-    public RegisterCourierController(String jdbcUrl, String username, String password) {
-        this.oCourierDB = new CourierDB(jdbcUrl, username, password);
-        this.oPharmacyDB = new PharmacyDB(jdbcUrl, username, password);
+    public RegisterCourierController() {
+        this.oCourierService = new CourierService();
+        this.oPharmacyService = new PharmacyService();
     }
 
     /**
@@ -57,11 +60,11 @@ public class RegisterCourierController {
      * @param intNIF   Courier's nif.
      * @param strIBAN  Courier's iban.
      */
-    public boolean newCourier(String strName, String strEmail, Integer intNIF, String strIBAN) {
+    public boolean newCourier(String strName, String strEmail, Integer intNIF, String strIBAN, Integer intPharmacyID) {
         try {
-            this.oPharmacy = oPharmacyDB.getPharmacyByManagerEmail(ApplicationPOT.getInstance().getCurrentSession().getCurrentUserEmail());
+            this.oPharmacy = oPharmacyService.getPharmacy(intPharmacyID);
             if (validateInput(strName, strEmail, intNIF, strIBAN)) {
-                this.oCourier = oCourierDB.newCourier(strName, strEmail, intNIF, strIBAN, this.oPharmacy);
+                this.oCourier = oCourierService.newCourier(strName, strEmail, intNIF, strIBAN, this.oPharmacy);
                 return true;
             }
         } catch (Exception ex) {
@@ -74,7 +77,7 @@ public class RegisterCourierController {
      * The method adds a Freelancer to the Organization of the current user.
      */
     public boolean registersCourier() {
-        return this.oCourierDB.registersCourier(this.oCourier);
+        return this.oCourierService.registersCourier(this.oCourier);
     }
 
     /**
@@ -82,6 +85,13 @@ public class RegisterCourierController {
      */
     public void setCourier(Courier oCourier) {
         this.oCourier = oCourier;
+    }
+
+    /**
+     * The method sets the pharmacy.
+     */
+    public void setPharmacy(Pharmacy oPharmacy) {
+        this.oPharmacy = oPharmacy;
     }
 
     /**
