@@ -56,7 +56,7 @@ CREATE TABLE PharmacyTransfer (id number(10) GENERATED AS IDENTITY, nearbyPharma
 CREATE TABLE Product (id number(10) GENERATED AS IDENTITY, name varchar2(70) NOT NULL UNIQUE, description varchar2(255), unitaryPrice float(10) NOT NULL, unitaryWeight float(10) NOT NULL, PRIMARY KEY (id));
 CREATE TABLE Scooter (vehicleId number(10) NOT NULL, PRIMARY KEY (vehicleId));
 CREATE TABLE "User" (id number(10) GENERATED AS IDENTITY, email varchar2(320) NOT NULL UNIQUE, password varchar2(128) NOT NULL, nif number(10) NOT NULL UNIQUE, name varchar2(100) NOT NULL, PRIMARY KEY (id));
-CREATE TABLE Vehicle (id number(10) GENERATED AS IDENTITY, pharmacyId number(10) NOT NULL, batteryId number(10) NOT NULL, vehicleType varchar2(20) NOT NULL, potency float(10) NOT NULL, weight float(10) NOT NULL, maxPayload float(10) NOT NULL, chargingStatus varchar2(20) NOT NULL, PRIMARY KEY (id));
+CREATE TABLE Vehicle (id number(10) GENERATED AS IDENTITY, pharmacyId number(10) NOT NULL, batteryId number(10) NOT NULL, potency float(10) NOT NULL, weight float(10) NOT NULL, maxPayload float(10) NOT NULL, chargingStatus varchar2(20) NOT NULL, PRIMARY KEY (id));
 CREATE TABLE VehicleType (designation varchar2(20) NOT NULL, PRIMARY KEY (designation));
 ALTER TABLE Courier ADD CONSTRAINT FKCourier212758 FOREIGN KEY (userId) REFERENCES "User" (id);
 ALTER TABLE Client ADD CONSTRAINT FKClient741658 FOREIGN KEY (userId) REFERENCES "User" (id);
@@ -100,4 +100,3 @@ ALTER TABLE Vehicle ADD CONSTRAINT FKVehicle650965 FOREIGN KEY (pharmacyId) REFE
 ALTER TABLE ChargingSlot ADD CONSTRAINT FKChargingSl179944 FOREIGN KEY (vehicleType) REFERENCES VehicleType (designation);
 ALTER TABLE ParkingSlot ADD CONSTRAINT FKParkingSlo648969 FOREIGN KEY (vehicleType) REFERENCES VehicleType (designation);
 ALTER TABLE Vehicle ADD CONSTRAINT FKVehicle813452 FOREIGN KEY (batteryId) REFERENCES Battery (id);
-
