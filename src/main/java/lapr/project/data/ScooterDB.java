@@ -37,27 +37,19 @@ public class ScooterDB extends DataHandler {
 
             if (rSet.next()) {
 
-                float fltBatteryPerc = rSet.getInt(1);
-                String strCharginStatus = rSet.getString(2);
-                float fltPotency = rSet.getFloat(3);
-                float fltWeight = rSet.getFloat(4);
-                int intBatteryCapacity = rSet.getInt(5);
-                float fltMaxPayload = rSet.getFloat(6);
-                int intId = rSet.getInt(7);
-                String strName = rSet.getString(8);
-                Double fltLatitude = rSet.getDouble(9);
-                Double fltLongitude = rSet.getDouble(10);
-                String strStreetName = rSet.getString(11);
-                String strDoorNumber = rSet.getString(12);
-                String strPostalCode = rSet.getString(13);
-                String strLocality = rSet.getString(14);
-                String strCountry = rSet.getString(15);
+                float fltPotency = rSet.getFloat(1);
+                float fltWeight = rSet.getFloat(2);
+                float fltMaxPayload = rSet.getFloat(3);
+                String strCharginStatus = rSet.getString(4);
+                float fltBatteryPerc = rSet.getInt(5);
+                int intBatteryCapacity = rSet.getInt(6);
+                float fltBatteryVoltage = rSet.getFloat(7);
+                Pharmacy oPharmacy = pharmacyManager(rSet,8);
 
-                return new Scooter(fltBatteryPerc, strCharginStatus, fltPotency, fltWeight,
-                        intBatteryCapacity, fltMaxPayload, new Pharmacy(strName, new Address(fltLatitude, fltLongitude, strStreetName,
-                        strDoorNumber, strPostalCode, strLocality, strCountry)));
+                return new Scooter(fltPotency, fltWeight, fltMaxPayload, strCharginStatus, fltBatteryPerc,
+                        intBatteryCapacity, fltBatteryVoltage, oPharmacy);
             }
-        } catch (SQLException e) {
+        } catch (SQLException | NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
         throw new IllegalArgumentException("No Scooter with ID:" + id);
@@ -69,33 +61,27 @@ public class ScooterDB extends DataHandler {
 
 
     public boolean addScooter(Scooter s) {
-        return addScooter(s.getBatteryPerc(), s.getCharginStatus(), s.getPotency(), s.getWeight(),
-                s.getBatteryCapacity(), s.getMaxPayload(), s.getPharmacy());
+        return addScooter(s.getPotency(), s.getWeight(), s.getMaxPayload(), s.getCharginStatus(),
+                s.getBattery(), s.getPharmacy());
     }
 
-    private boolean addScooter(float fltBatteryPerc, String strCharginStatus, float fltPotency, float fltWeight,
-                               int intBatteryCapacity, float fltMaxPayload, Pharmacy oPharmacy) {
+    private boolean addScooter(float fltPotency, float fltWeight, float fltMaxPayload, String strCharginStatus,
+                               Battery oBattery, Pharmacy oPharmacy) {
         boolean flag = true;
         try {
             openConnection();
 
-            CallableStatement callStmt = getConnection().prepareCall("{ call addScooter(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) }");
+            CallableStatement callStmt = getConnection().prepareCall("{ call addScooter(?,?,?,?,?,?,?,?) }");
 
-            callStmt.setFloat(1, fltBatteryPerc);
-            callStmt.setString(2, strCharginStatus);
-            callStmt.setFloat(3, fltPotency);
-            callStmt.setFloat(4, fltWeight);
-            callStmt.setInt(5, intBatteryCapacity);
-            callStmt.setFloat(6, fltMaxPayload);
-            callStmt.setInt(7, oPharmacy.getId());
-            callStmt.setString(8, oPharmacy.getName());
-            callStmt.setDouble(9, oPharmacy.getAddress().getLatitude());
-            callStmt.setDouble(10, oPharmacy.getAddress().getLongitude());
-            callStmt.setString(11, oPharmacy.getAddress().getStreetName());
-            callStmt.setString(12, oPharmacy.getAddress().getDoorNumber());
-            callStmt.setString(13, oPharmacy.getAddress().getPostalCode());
-            callStmt.setString(14, oPharmacy.getAddress().getLocality());
-            callStmt.setString(15, oPharmacy.getAddress().getCountry());
+
+            callStmt.setFloat(1, fltPotency);
+            callStmt.setFloat(2, fltWeight);
+            callStmt.setFloat(3, fltMaxPayload);
+            callStmt.setString(4, strCharginStatus);
+            callStmt.setFloat(5, oBattery.getBatteryPerc());
+            callStmt.setFloat(6, oBattery.getBatteryCapacity());
+            callStmt.setFloat(7, oBattery.getBatteryVoltage());
+            callStmt.setInt(8, oPharmacy.getId());
 
             callStmt.execute();
 
@@ -107,19 +93,22 @@ public class ScooterDB extends DataHandler {
         return flag;
     }
 
-    public boolean updateScooterFromDB(int intId, float fltBatteryPerc, String strCharginStatus, float fltPotency, float fltWeight,
-                                       int intBatteryCapacity, float fltMaxPayload) {
+    public boolean updateScooterFromDB(int intId, float fltBatteryPerc, String strCharginStatus, float fltPotency,
+                                       float fltWeight, int intBatteryCapacity, float fltBatteryVoltage,
+                                       float fltMaxPayload, int intPharmacyId) {
         try {
             openConnection();
-            CallableStatement callStmt = getConnection().prepareCall("{call updateScooter(?,?,?,?,?,?,?)}");
+            CallableStatement callStmt = getConnection().prepareCall("{call updateScooter(?,?,?,?,?,?,?,?)}");
 
             callStmt.setInt(1, intId);
-            callStmt.setFloat(2, fltBatteryPerc);
-            callStmt.setString(3, strCharginStatus);
-            callStmt.setFloat(4, fltPotency);
-            callStmt.setFloat(5, fltWeight);
-            callStmt.setInt(6, intBatteryCapacity);
-            callStmt.setFloat(7, fltMaxPayload);
+            callStmt.setFloat(2, fltPotency);
+            callStmt.setFloat(3, fltWeight);
+            callStmt.setFloat(4, fltMaxPayload);
+            callStmt.setString(5, strCharginStatus);
+            callStmt.setFloat(6, fltBatteryPerc);
+            callStmt.setFloat(7, intBatteryCapacity);
+            callStmt.setFloat(8, fltBatteryVoltage);
+            callStmt.setInt(9, intPharmacyId);
 
             callStmt.execute();
             closeAll();
@@ -143,19 +132,21 @@ public class ScooterDB extends DataHandler {
 
             while(rSet.next()){
                 int intId = rSet.getInt(1);
-                float fltBatteryPerc = rSet.getFloat(2);
-                String strCharginStatus = rSet.getString(3);
-                float fltPotency = rSet.getFloat(4);
-                float fltWeight = rSet.getFloat(5);
-                int intBatteryCapacity = rSet.getInt(6);
-                float fltMaxPayload = rSet.getFloat(7);
+                float fltPotency = rSet.getFloat(2);
+                float fltWeight = rSet.getFloat(3);
+                float fltMaxPayload = rSet.getFloat(4);
+                String strCharginStatus = rSet.getString(5);
+                float fltBatteryPerc = rSet.getInt(6);
+                int intBatteryCapacity = rSet.getInt(7);
+                float fltBatteryVoltage = rSet.getFloat(8);
+                Pharmacy oPharmacy = pharmacyManager(rSet,9);
 
-                lstScooter.add(new Scooter(intId, fltBatteryPerc, strCharginStatus, fltPotency, fltWeight,
-                        intBatteryCapacity, fltMaxPayload));
+                lstScooter.add(new Scooter(intId, fltPotency, fltWeight, fltMaxPayload, strCharginStatus, fltBatteryPerc,
+                        intBatteryCapacity, fltBatteryVoltage, oPharmacy));
 
                 rSet.next();
             }
-        } catch (SQLException e) {
+        } catch (SQLException | NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
         throw new IllegalArgumentException("No Scooters Avaliable.");
@@ -179,9 +170,9 @@ public class ScooterDB extends DataHandler {
         return true;
     }
 
-    public boolean registerScooter(Scooter oScooter) {
-        return addScooter(oScooter.getBatteryPerc(), oScooter.getCharginStatus(), oScooter.getPotency(), oScooter.getWeight(),
-                oScooter.getBatteryCapacity(), oScooter.getMaxPayload(), oScooter.getPharmacy());
+    public boolean registerScooter(Scooter s) {
+        return addScooter(s.getPotency(), s.getWeight(), s.getMaxPayload(), s.getCharginStatus(),
+                s.getBattery(), s.getPharmacy());
     }
 
     public Scooter getSuitableScooter(Double distance, String email) {
@@ -209,20 +200,19 @@ public class ScooterDB extends DataHandler {
             if (rSet.next()) {
                 int scooterID = rSet.getInt(1);
                 int pharmacyID = rSet.getInt(2);
-                String pharmacyName = rSet.getString(3);
-                float batteryPerc = rSet.getFloat(4);
-                float potency = rSet.getFloat(5);
-                float weight = rSet.getFloat(6);
-                Integer batteryCapacity = rSet.getInt(7);
-                String charginStatus = rSet.getString(8);
-                float fltMaxPayload = rSet.getFloat(9);
-                // Address
-                Address address = addressManager(rSet,10);
+                float batteryPerc = rSet.getFloat(3);
+                float potency = rSet.getFloat(4);
+                float weight = rSet.getFloat(5);
+                Integer batteryCapacity = rSet.getInt(6);
+                String charginStatus = rSet.getString(7);
+                float fltMaxPayload = rSet.getFloat(8);
+                float fltBatteryVoltage = rSet.getFloat(9);
+                Pharmacy oPharmacy = pharmacyManager(rSet,10);
 
-                return new Scooter(scooterID,batteryPerc,charginStatus,potency,weight,
-                batteryCapacity, fltMaxPayload, new Pharmacy(pharmacyID,pharmacyName,address));
+                return new Scooter(scooterID, potency, weight, fltMaxPayload, charginStatus, batteryPerc,
+                        batteryCapacity, fltBatteryVoltage, oPharmacy);
             }
-        } catch (SQLException e) {
+        } catch (SQLException | NoSuchAlgorithmException e) {
             e.printStackTrace();
             return null;
         }

@@ -33,8 +33,8 @@ class RegisterScooterControllerTest {
 
     @BeforeEach
     void setUp() {
-        this.expectedTrue = new Scooter(35.5f, "Charging Test", 250f, 30f,
-                100, 20f, new Pharmacy());
+        this.expectedTrue = new Scooter(35.5f, 30f, 30f, "No Charging",
+                250f, 100, 20, new Pharmacy());
         this.registerScooterController = new RegisterScooterController();
         this.mockScooterService = Mockito.mock(ScooterService.class);
         this.mockPharmacyService = Mockito.mock(PharmacyService.class);
@@ -44,34 +44,30 @@ class RegisterScooterControllerTest {
     @Test
     void newScooter() {
         System.out.println("newScooter");
-        Scooter s = new Scooter(35.5f, "Charging Test", 250f, 30f,
-                100, 20f, new Pharmacy());
-        Pharmacy p = new Pharmacy();
-        p.setId(1);
 
         when(mockPharmacyService.getPharmacy(1)).thenReturn(new Pharmacy());
 
-        when(mockScooterService.newScooter(35.5f, "Charging Test", 250f, 30f,
-                100, 20f, p)).thenReturn(expectedTrue);
+        when(mockScooterService.newScooter(35.5f, "No Charging",
+                250f, 30f,100, 20, 30f, new Pharmacy())).thenReturn(expectedTrue);
 
-        boolean result = registerScooterController.newScooter(35.5f, "Charging Test", 250f, 30f,
-                100, 20f, p);
+        boolean result = registerScooterController.newScooter(35.5f, "No Charging",
+                250f, 30f,100, 20f, 30f,new Pharmacy());
         assertTrue(result);
 
-        when(mockPharmacyService.getPharmacy(1)).thenReturn(null);
-        when(mockScooterService.newScooter(35.5f, "Charging Test", 250f, 30f,
-                100, 20f, null)).thenReturn(null);
 
-        boolean result1 = registerScooterController.newScooter(35.5f, "Charging Test", 250f, 30f,
-                100, 20f, null);
-        assertFalse(result1);
+        when(mockScooterService.newScooter(0, null, 0, 250f,
+                0, 100, 20, new Pharmacy())).thenReturn(null);
+
+        result = registerScooterController.newScooter(null, null, null, null,
+                0, null, null, new Pharmacy());
+        assertFalse(result);
     }
 
     @Test
     void registersScooter() {
         System.out.println("registerScooter");
-        Scooter s = new Scooter(35.5f, "Charging Test", 250f, 30f,
-                100, 20f, new Pharmacy());
+        Scooter s = new Scooter(35.5f, 30f, 30f, "No Charging",
+                250f, 100, 20, new Pharmacy());
 
         registerScooterController.setScooter(s);
         when(mockScooterService.registerScooter(s)).thenReturn(true);

@@ -1,6 +1,9 @@
 package lapr.project.model.service;
 
 import lapr.project.data.DroneDB;
+import lapr.project.model.Drone;
+import lapr.project.model.Pharmacy;
+import lapr.project.model.Scooter;
 
 public class DroneService {
 
@@ -21,5 +24,15 @@ public class DroneService {
     public boolean updateDrone(Float percentage, Integer pharmacyId, Float potency, Float weight, Double batteryCapacity,
                                Float maxPayload, Float batteryVoltage, String chargingStatus,Integer droneId) {
         return m_oDroneDB.updateDrone(percentage,pharmacyId,potency,weight,batteryCapacity,maxPayload,batteryVoltage,chargingStatus,droneId);
+    }
+
+    public Drone newDrone(Float fltBatteryPerc, String strCharginStatus, Float fltPotency, Float fltWeight,
+                          int intBatteryCapacity, Float fltBatteryVoltage, Float fltMaxPayload, Pharmacy oPharmacy) {
+        return new Drone(fltPotency, fltWeight, fltMaxPayload, strCharginStatus, fltBatteryPerc,
+                intBatteryCapacity, fltBatteryVoltage, oPharmacy);
+    }
+
+    public boolean registerDrone(Drone oDrone) {
+        return m_oDroneDB.registerDrone(oDrone);
     }
 }

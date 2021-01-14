@@ -44,7 +44,7 @@ DS -> DDB ** : create()
 deactivate DS
 CTRL -> DS : lstDrones = getDrones()
 activate DS
-DS -> SDB : lstDrones = getDrones()
+DS -> DDB : lstDrones = getDrones()
 activate DDB
 ref over DDB
 SD_CONNECTIONS

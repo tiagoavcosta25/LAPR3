@@ -2,9 +2,6 @@ package lapr.project.controller;
 
 import lapr.project.model.Pharmacy;
 import lapr.project.model.Scooter;
-import lapr.project.data.PharmacyDB;
-import lapr.project.data.ScooterDB;
-import lapr.project.model.UserSession;
 import lapr.project.model.service.PharmacyService;
 import lapr.project.model.service.ScooterService;
 

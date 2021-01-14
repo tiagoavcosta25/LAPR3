@@ -1,6 +1,8 @@
 package lapr.project.model.service;
 
 import lapr.project.data.DroneDB;
+import lapr.project.model.Drone;
+import lapr.project.model.Pharmacy;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -18,8 +20,12 @@ class DroneServiceTest {
     @Mock
     private DroneDB m_mockDroneDB;
 
+    private Drone expectedDrone;
+
     @BeforeEach
     void setUp() {
+        this.expectedDrone = new Drone(250f, 30f, 1f, "No Charging",
+                100f, 20, 20f, new Pharmacy());
         this.m_oDroneService = new DroneService();
         this.m_mockDroneDB = Mockito.mock(DroneDB.class);
         initMocks(this);
@@ -137,6 +143,26 @@ class DroneServiceTest {
         result = m_oDroneService.updateDrone(1f,1,1f,1f,1d,
                 1f,1f,"As",2);
 
+        assertFalse(result);
+    }
+
+    @Test
+    void newDrone() {
+        System.out.println("newScooter");
+        Drone result = m_oDroneService.newDrone(100f, "No Charging",
+                250f, 30f,20, 20f, 1f, new Pharmacy());
+        assertEquals(expectedDrone, result);
+    }
+
+    @Test
+    void registerDrone() {
+        System.out.println("registerDrone");
+        when(m_mockDroneDB.registerDrone(expectedDrone)).thenReturn(true);
+        boolean result = m_oDroneService.registerDrone(expectedDrone);
+        assertTrue(result);
+
+        when(m_mockDroneDB.registerDrone(null)).thenReturn(false);
+        result = m_oDroneService.registerDrone(null);
         assertFalse(result);
     }
 }

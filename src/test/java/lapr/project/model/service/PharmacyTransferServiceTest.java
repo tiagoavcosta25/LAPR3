@@ -72,4 +72,12 @@ class PharmacyTransferServiceTest {
         PharmacyTransfer result = pharmacyTransferService.newPharmacyTransfer(new Order(), new Product(), -1, new Pharmacy());
         assertEquals(expectedPharmacyTransfer, result);
     }
+
+
+    @Test
+    void sendEmailWithTransferNote() {
+        System.out.println("issueTransferNote");
+        boolean result = pharmacyTransferService.sendEmailWithTransferNote(expectedPharmacyTransfer);
+        assertTrue(result);
+    }
 }
