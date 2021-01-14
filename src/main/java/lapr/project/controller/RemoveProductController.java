@@ -1,5 +1,6 @@
 package lapr.project.controller;
 
+import lapr.project.model.UserSession;
 import lapr.project.model.service.ProductService;
 
 public class RemoveProductController {
@@ -11,6 +12,8 @@ public class RemoveProductController {
     }
 
     public boolean removeProductFromDB(int intId) {
-        return pServ.removeProduct(intId);
+        if(ApplicationPOT.getInstance().getCurrentSession().getRole().equals(UserSession.Role.ADMIN))
+            return pServ.removeProduct(intId);
+        return false;
     }
 }

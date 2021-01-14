@@ -1,5 +1,6 @@
 package lapr.project.controller;
 
+import lapr.project.model.UserSession;
 import lapr.project.model.service.ProductService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -22,6 +23,7 @@ class RemoveProductControllerTest {
 
     @BeforeEach
     void setUp() {
+        ApplicationPOT.getInstance().setCurrentSession(new UserSession("", 2));
         this.removeProductController = new RemoveProductController();
         this.mockPServ = Mockito.mock(ProductService.class);
         initMocks(this);
