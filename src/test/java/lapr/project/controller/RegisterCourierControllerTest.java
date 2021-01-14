@@ -46,6 +46,13 @@ class RegisterCourierControllerTest {
 
         result = registerCourierController.newCourier("", "email4@gmail.com", 250161761, "PT98003506514853185258910", -1);
         assertFalse(result);
+
+        result = registerCourierController.newCourier("", "email4@gmail.com", 250161761, "PT98003506514853185258910", -1);
+        assertFalse(result);
+
+        when(mockPharmacyService.getPharmacy(1)).thenThrow(new NullPointerException());
+        result = registerCourierController.newCourier("", "email4@gmail.com", 250161761, "PT98003506514853185258910", 1);
+        assertFalse(result);
     }
 
     @Test
@@ -88,6 +95,13 @@ class RegisterCourierControllerTest {
 
         real = registerCourierController.validateInput("Ernesto", "ernesto@gmail.com", 2501761, "PT98003506514853185258910",1);
         assertFalse(real);
+
+        real = registerCourierController.validateInput("Ernesto", "ernesto@gmail.com", 2501761, "PT98003506514853185258910",0);
+        assertFalse(real);
+
+        real = registerCourierController.validateInput("Ernesto", "ernesto@gmail.com", 2501761, "PT98003506514853185258910",-2);
+        assertFalse(real);
+
 
 
     }

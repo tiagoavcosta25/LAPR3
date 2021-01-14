@@ -43,6 +43,13 @@ class UpdateCourierControllerTest {
         when(mockCourierService.getCourierByID(1)).thenReturn(new Courier());
         Courier courier = updateCourierController.getCourierByID(1);
         assertEquals(new Courier(),courier);
+
+        when(mockCourierService.getCourierByID(1)).thenThrow(new NullPointerException());
+        courier = updateCourierController.getCourierByID(1);
+        assertNull(courier);
+
+        courier = updateCourierController.getCourierByID(0);
+        assertNull(courier);
     }
 
     @Test
@@ -55,6 +62,11 @@ class UpdateCourierControllerTest {
                 "PT98003506514853185258910",-1);
 
         assertEquals(new Courier(),c2);
+
+        when(mockPharmacyService.getPharmacy(-1)).thenThrow(new NullPointerException());
+        c2 = updateCourierController.updateCourier(new Courier(),"name","email@gmail.com",123456789,
+                "PT98003506514853185258910",-1);
+        assertNull(c2);
     }
 
     @Test
@@ -101,6 +113,10 @@ class UpdateCourierControllerTest {
 
         real = updateCourierController.validateInput("Ernesto", "ernesto@gmail.com", 250161761, "PT98003506514853185258910");
         assertEquals(assertTrue, real);
+
+        real = updateCourierController.validateInput("Ernesto", "ernesto@gmail.com", 250161761, "PT9800350651485318525891");
+        assertEquals(false, real);
+
     }
 
     @Test
