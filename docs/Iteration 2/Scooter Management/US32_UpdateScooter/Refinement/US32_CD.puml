@@ -28,7 +28,7 @@ package "Model" #DDDDDD {
   class ScooterService{
       +ScooterService()
       +getScootersList(pharmacyId)
-      +updateScooter(scoot)
+      +updateScooter(batteryPerc, chargingStatus,\n potency, weight, batteryCapacity, maxPayload, pharmacyId)
    }
 }
 
@@ -98,7 +98,7 @@ class PharmacyDB{
  class ScooterDB{
      +ScooterDB()
      +getScootersList()
-     +updateScooterFromDB(scoot)
+     +updateScooterFromDB(batteryPerc, chargingStatus,\n potency, weight, batteryCapacity, maxPayload, pharmacyId)
   }
 }
 
