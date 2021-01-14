@@ -40,114 +40,114 @@ class DroneServiceTest {
     @Test
     void validate() {
         boolean expected = false;
-        boolean real = m_oDroneService.validate(-2f,1,1f,21f,21d,
-                12f,121f,"aas",152);
-        assertEquals(expected,real);
+        boolean real = m_oDroneService.validate(-2f, 1, 1f, 21f, 21d,
+                12f, 121f, "aas", 152);
+        assertEquals(expected, real);
 
         expected = false;
-        real = m_oDroneService.validate(2f,-1,1f,21f,21d,
-                12f,21f,"asa",12);
-        assertEquals(expected,real);
+        real = m_oDroneService.validate(2f, -1, 1f, 21f, 21d,
+                12f, 21f, "asa", 12);
+        assertEquals(expected, real);
 
 
         expected = false;
-        real = m_oDroneService.validate(2f,1,-1f,21f,21d,
-                12f,21f,"asa",12);
-        assertEquals(expected,real);
+        real = m_oDroneService.validate(2f, 1, -1f, 21f, 21d,
+                12f, 21f, "asa", 12);
+        assertEquals(expected, real);
 
         expected = false;
-        real = m_oDroneService.validate(2f,1,1f,-1f,21d,
-                12f,21f,"asa",12);
-        assertEquals(expected,real);
+        real = m_oDroneService.validate(2f, 1, 1f, -1f, 21d,
+                12f, 21f, "asa", 12);
+        assertEquals(expected, real);
 
         expected = false;
-        real = m_oDroneService.validate(2f,1,1f,2f,-1d,
-                12f,21f,"asa",12);
-        assertEquals(expected,real);
+        real = m_oDroneService.validate(2f, 1, 1f, 2f, -1d,
+                12f, 21f, "asa", 12);
+        assertEquals(expected, real);
 
         expected = false;
-        real = m_oDroneService.validate(2f,1,1f,23f,21d,
-                -1f,21f,"asa",12);
-        assertEquals(expected,real);
+        real = m_oDroneService.validate(2f, 1, 1f, 23f, 21d,
+                -1f, 21f, "asa", 12);
+        assertEquals(expected, real);
 
         expected = false;
-        real = m_oDroneService.validate(2f,1,1f,32f,21d,
-                12f,-1f,"asa",12);
-        assertEquals(expected,real);
+        real = m_oDroneService.validate(2f, 1, 1f, 32f, 21d,
+                12f, -1f, "asa", 12);
+        assertEquals(expected, real);
 
         expected = false;
-        real = m_oDroneService.validate(2f,1,1f,232f,21d,
-                12f,21f,"",12);
-        assertEquals(expected,real);
+        real = m_oDroneService.validate(2f, 1, 1f, 232f, 21d,
+                12f, 21f, "", 12);
+        assertEquals(expected, real);
 
-        real = m_oDroneService.validate(2f,1,1f,232f,21d,
-                12f,21f,"Das",-1);
-        assertEquals(expected,real);
+        real = m_oDroneService.validate(2f, 1, 1f, 232f, 21d,
+                12f, 21f, "Das", -1);
+        assertEquals(expected, real);
 
         expected = true;
-        real = m_oDroneService.validate(2f,1,1f,232f,21d,
-                12f,21f,"Das",113);
-        assertEquals(expected,real);
+        real = m_oDroneService.validate(2f, 1, 1f, 232f, 21d,
+                12f, 21f, "Das", 113);
+        assertEquals(expected, real);
 
         expected = false;
-        real = m_oDroneService.validate(101f,1,1f,232f,21d,
-                12f,21f,"Das",3);
-        assertEquals(expected,real);
+        real = m_oDroneService.validate(101f, 1, 1f, 232f, 21d,
+                12f, 21f, "Das", 3);
+        assertEquals(expected, real);
 
         expected = true;
-        real = m_oDroneService.validate(100f,1,1f,232f,21d,
-                12f,21f,"Das",3);
-        assertEquals(expected,real);
+        real = m_oDroneService.validate(100f, 1, 1f, 232f, 21d,
+                12f, 21f, "Das", 3);
+        assertEquals(expected, real);
 
 
-        real = m_oDroneService.validate(0f,1,1f,232f,21d,
-                12f,21f,"Das",3);
-        assertEquals(expected,real);
+        real = m_oDroneService.validate(0f, 1, 1f, 232f, 21d,
+                12f, 21f, "Das", 3);
+        assertEquals(expected, real);
 
         expected = false;
-        real = m_oDroneService.validate(32f,0,1f,232f,21d,
-                12f,21f,"Das",3);
-        assertEquals(expected,real);
+        real = m_oDroneService.validate(32f, 0, 1f, 232f, 21d,
+                12f, 21f, "Das", 3);
+        assertEquals(expected, real);
 
-        real = m_oDroneService.validate(32f,1,0f,232f,21d,
-                12f,21f,"Das",3);
-        assertEquals(expected,real);
+        real = m_oDroneService.validate(32f, 1, 0f, 232f, 21d,
+                12f, 21f, "Das", 3);
+        assertEquals(expected, real);
 
-        real = m_oDroneService.validate(32f,1,1f,0f,21d,
-                12f,21f,"Das",3);
-        assertEquals(expected,real);
+        real = m_oDroneService.validate(32f, 1, 1f, 0f, 21d,
+                12f, 21f, "Das", 3);
+        assertEquals(expected, real);
 
-        real = m_oDroneService.validate(32f,1,1f,232f,0d,
-                12f,21f,"Das",3);
-        assertEquals(expected,real);
+        real = m_oDroneService.validate(32f, 1, 1f, 232f, 0d,
+                12f, 21f, "Das", 3);
+        assertEquals(expected, real);
 
-        real = m_oDroneService.validate(32f,1,1f,232f,21d,
-                0f,21f,"Das",3);
-        assertEquals(expected,real);
+        real = m_oDroneService.validate(32f, 1, 1f, 232f, 21d,
+                0f, 21f, "Das", 3);
+        assertEquals(expected, real);
 
-        real = m_oDroneService.validate(32f,1,1f,232f,21d,
-                12f,0f,"Das",3);
-        assertEquals(expected,real);
+        real = m_oDroneService.validate(32f, 1, 1f, 232f, 21d,
+                12f, 0f, "Das", 3);
+        assertEquals(expected, real);
 
-        real = m_oDroneService.validate(32f,1,1f,232f,21d,
-                12f,21f,"Das",0);
-        assertEquals(expected,real);
+        real = m_oDroneService.validate(32f, 1, 1f, 232f, 21d,
+                12f, 21f, "Das", 0);
+        assertEquals(expected, real);
 
 
     }
 
     @Test
     void updateDrone() {
-        when(m_mockDroneDB.updateDrone(1f,1,1f,1f,1d,
-                1f,1f,"As",2)).thenReturn(true);
-        boolean result = m_oDroneService.updateDrone(1f,1,1f,1f,1d,
-                1f,1f,"As",2);
+        when(m_mockDroneDB.updateDrone(1f, 1, 1f, 1f, 1d,
+                1f, 1f, "As", 2)).thenReturn(true);
+        boolean result = m_oDroneService.updateDrone(1f, 1, 1f, 1f, 1d,
+                1f, 1f, "As", 2);
         assertTrue(result);
 
-        when(m_mockDroneDB.updateDrone(1f,1,1f,1f,1d,
-                1f,1f,"As",2)).thenReturn(false);
-        result = m_oDroneService.updateDrone(1f,1,1f,1f,1d,
-                1f,1f,"As",2);
+        when(m_mockDroneDB.updateDrone(1f, 1, 1f, 1f, 1d,
+                1f, 1f, "As", 2)).thenReturn(false);
+        result = m_oDroneService.updateDrone(1f, 1, 1f, 1f, 1d,
+                1f, 1f, "As", 2);
 
         assertFalse(result);
     }
@@ -156,7 +156,7 @@ class DroneServiceTest {
     void newDrone() {
         System.out.println("newScooter");
         Drone result = m_oDroneService.newDrone(100f, "No Charging",
-                250f, 30f,20, 20f, 1f, new Pharmacy());
+                250f, 30f, 20, 20f, 1f, new Pharmacy());
         assertEquals(expectedDrone, result);
     }
 
@@ -177,7 +177,7 @@ class DroneServiceTest {
         System.out.println("getScootersList");
         List<Drone> expectedListDrones = new ArrayList<>(Arrays.asList(new Drone()));
         when(m_oDroneService.getDronesList(-1)).thenReturn(expectedListDrones);
-        List<Drone>  result = m_oDroneService.getDronesList(-1);
+        List<Drone> result = m_oDroneService.getDronesList(-1);
         assertEquals(expectedListDrones, result);
     }
 
@@ -192,4 +192,25 @@ class DroneServiceTest {
         result = m_oDroneService.removeDroneFromDB(2);
         assertFalse(result);
     }
+
+    @Test
+    void checkEnergy() {
+        System.out.println("checkEnergy");
+        boolean result = m_oDroneService.checkEnergy(2500, new Drone(250, 5, 2.5f, "charged", 50, 15, 2, new Pharmacy()));
+        assertFalse(result);
+    }
+
+    @Test
+    void checkEnergy2() {
+        System.out.println("checkEnergy2");
+        boolean result2 = m_oDroneService.checkEnergy(10, new Drone());
+        assertTrue(result2);
+    }
+    @Test
+    void startDelivery(){
+        System.out.println("startDelivery");
+        boolean result = m_oDroneService.startDelivery();
+        assertTrue(result);
+    }
+
 }

@@ -3,7 +3,7 @@ package lapr.project.model.service;
 import lapr.project.data.DroneDB;
 import lapr.project.model.Drone;
 import lapr.project.model.Pharmacy;
-import lapr.project.model.Scooter;
+import lapr.project.utils.Constants;
 
 import java.util.List;
 
@@ -17,15 +17,15 @@ public class DroneService {
 
     public boolean validate(Float percentage, Integer pharmacyId, Float potency, Float weight, Double batteryCapacity,
                             Float maxPayload, Float batteryVoltage, String chargingStatus, Integer droneId) {
-        if (percentage < 0 || percentage > 100 || pharmacyId <= 0 || potency <= 0 || weight <= 0|| batteryCapacity <= 0
+        if (percentage < 0 || percentage > 100 || pharmacyId <= 0 || potency <= 0 || weight <= 0 || batteryCapacity <= 0
                 || maxPayload <= 0 || batteryVoltage <= 0 || chargingStatus.isEmpty() || droneId <= 0) return false;
 
         return true;
     }
 
     public boolean updateDrone(Float percentage, Integer pharmacyId, Float potency, Float weight, Double batteryCapacity,
-                               Float maxPayload, Float batteryVoltage, String chargingStatus,Integer droneId) {
-        return m_oDroneDB.updateDrone(percentage,pharmacyId,potency,weight,batteryCapacity,maxPayload,batteryVoltage,chargingStatus,droneId);
+                               Float maxPayload, Float batteryVoltage, String chargingStatus, Integer droneId) {
+        return m_oDroneDB.updateDrone(percentage, pharmacyId, potency, weight, batteryCapacity, maxPayload, batteryVoltage, chargingStatus, droneId);
     }
 
     public Drone newDrone(Float fltBatteryPerc, String strCharginStatus, Float fltPotency, Float fltWeight,
@@ -38,9 +38,36 @@ public class DroneService {
         return m_oDroneDB.registerDrone(oDrone);
     }
 
-    public List<Drone> getDronesList(int intPharmacyId) { return m_oDroneDB.getDronesList(intPharmacyId);}
+    public List<Drone> getDronesList(int intPharmacyId) {
+        return m_oDroneDB.getDronesList(intPharmacyId);
+    }
 
-    public boolean removeDroneFromDB(int intId) { return m_oDroneDB.removeDroneFromDB(intId);}
+    public boolean removeDroneFromDB(int intId) {
+        return m_oDroneDB.removeDroneFromDB(intId);
+    }
 
+    public boolean checkEnergy(double distance, Drone oDrone) {
+        //calcular energia
+        float energyNecessary = 0f;
 
+        float motorPotency = oDrone.getPotency();
+        //calcular velocidade
+        float velocity = 1f;
+
+        //adicionar payload
+
+        float potentialEnergy = oDrone.getWeight() * Constants.GRAVITIC_ACCELERATION * Constants.DEFAULT_HEIGHT;
+        float kineticEnergy = oDrone.getWeight() * velocity * velocity / 2;
+        float totalEnergy = potentialEnergy + kineticEnergy;
+        if (velocity != 0) {
+            energyNecessary = motorPotency * ((float) distance / velocity);
+            //conversão de unidades
+            return (oDrone.getBattery().getBatteryCapacity() * oDrone.getBattery().getBatteryPerc() >= energyNecessary);
+        }
+        return false;
+    }
+
+    public boolean startDelivery() {
+        return true;
+    }
 }
