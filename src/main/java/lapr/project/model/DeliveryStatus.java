@@ -13,11 +13,6 @@ public enum DeliveryStatus {
         return m_strDesignation;
     }
 
-    public void setDesignation(String designation) {
-        this.m_strDesignation = designation;
-    }
-
-
     @Override
     public String toString() {
         return "DeliveryStatus{" +

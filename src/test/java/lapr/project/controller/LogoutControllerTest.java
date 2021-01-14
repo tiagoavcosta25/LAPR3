@@ -1,5 +1,6 @@
 package lapr.project.controller;
 
+import lapr.project.model.UserSession;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
@@ -16,9 +17,9 @@ class LogoutControllerTest {
 
     @Test
     void logout() {
-        String expected = null;
+        UserSession expected = null;
         m_ctrl.logout();
-        String real = ApplicationPOT.getInstance().getCurrentSession().getCurrentUserEmail();
+        UserSession real = ApplicationPOT.getInstance().getCurrentSession();
         assertEquals(expected,real);
     }
 

@@ -1,5 +1,6 @@
 package lapr.project.controller;
 
+import lapr.project.model.UserSession;
 import lapr.project.model.service.ProductService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -30,6 +31,7 @@ class RemoveProductControllerTest {
     @Test
     void ensureRemoveProductWorks() {
         System.out.println("removeProduct");
+        ApplicationPOT.getInstance().setCurrentSession(new UserSession("", 2));
         when(mockPServ.removeProduct(1)).thenReturn(true);
         Boolean result = removeProductController.removeProductFromDB(1);
         assertTrue(result);
@@ -41,6 +43,21 @@ class RemoveProductControllerTest {
         assertFalse(result);
 
         when(mockPServ.removeProduct(1)).thenReturn(false);
+        result = removeProductController.removeProductFromDB(1);
+        assertFalse(result);
+
+        ApplicationPOT.getInstance().clearCurrentSession();
+        ApplicationPOT.getInstance().setCurrentSession(new UserSession("", 1));
+        result = removeProductController.removeProductFromDB(1);
+        assertFalse(result);
+
+        ApplicationPOT.getInstance().clearCurrentSession();
+        ApplicationPOT.getInstance().setCurrentSession(new UserSession("", 3));
+        result = removeProductController.removeProductFromDB(1);
+        assertFalse(result);
+
+        ApplicationPOT.getInstance().clearCurrentSession();
+        ApplicationPOT.getInstance().setCurrentSession(new UserSession("", 4));
         result = removeProductController.removeProductFromDB(1);
         assertFalse(result);
     }

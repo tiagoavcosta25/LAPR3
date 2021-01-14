@@ -17,7 +17,7 @@ public class CreditCard {
 
     public CreditCard(long creditCardNr, Date validityDate, Integer CCV) {
         this.m_lCreditCardNr = creditCardNr;
-        this.m_dtValidityDate = validityDate;
+        this.m_dtValidityDate = (Date) validityDate.clone();
         this.m_intCCV = CCV;
     }
 
@@ -30,11 +30,11 @@ public class CreditCard {
     }
 
     public Date getValidityDate() {
-        return m_dtValidityDate;
+        return (Date) m_dtValidityDate.clone();
     }
 
     public void setValidityDate(Date m_validityDate) {
-        this.m_dtValidityDate = m_validityDate;
+        this.m_dtValidityDate = (Date) m_validityDate.clone();
     }
 
     public Integer getCCV() {

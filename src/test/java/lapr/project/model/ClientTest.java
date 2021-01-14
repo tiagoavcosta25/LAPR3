@@ -104,7 +104,7 @@ class ClientTest {
                 ", m_address=" + oClient.getAddress() +
                 ", m_creditCard=" + oClient.getCreditCard() +
                 '}';
-        String real = oClient.toString();
+        String real = oClient.toString().substring(125);
         assertEquals(expected, real);
     }
 }

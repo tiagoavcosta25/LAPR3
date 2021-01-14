@@ -75,8 +75,10 @@ class DeliveryRunTest {
 
     @Test
     void setDeliveryList() {
-        List<Order> expected = null;
-        m_deliveryRun.setDeliveryList(null);
+        Order order1 = new Order();
+        ArrayList<Order> expected = new ArrayList<>();
+        expected.add(order1);
+        m_deliveryRun.setDeliveryList(expected);
         List<Order> real = m_deliveryRun.getOrderList();
         assertEquals(expected,real);
     }

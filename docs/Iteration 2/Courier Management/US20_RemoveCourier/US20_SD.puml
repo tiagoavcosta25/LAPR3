@@ -2,8 +2,8 @@
 autonumber
 actor "Administrator" as ADMIN
 
-participant ":RegisterCourierUI" as UI
-participant ":RegisterCourierController" as CTRL
+participant ":RemoveCourierUI" as UI
+participant ":RemoveCourierController" as CTRL
 participant "PotApplication" as PA
 participant "app \n:PotApplication" as APA
 participant "session \n:UserSession" as US
@@ -14,12 +14,12 @@ activate ADMIN
 
 ADMIN -> UI : initializes the remove of a Courier
 activate UI
-UI -> ADMIN : asks for the courier's email
+UI -> ADMIN : asks for the courier's id
 deactivate UI
 
 ADMIN -> UI : inserts the required data
 activate UI
-UI -> CTRL : validateCourier(email)
+UI -> CTRL : validateCourier(id)
 activate CTRL
 CTRL -> RF : create()
 activate RF
@@ -29,7 +29,7 @@ CTRL -> PA : app = getInstance()
 activate PA
 deactivate PA
 deactivate US
-CTRL -> CTRL : validateEmail(email)
+CTRL -> CTRL : validateInput(id)
 deactivate RF
 deactivate CTRL
 
@@ -38,11 +38,11 @@ deactivate UI
 
 ADMIN -> UI : confirms
 activate UI
-UI -> CTRL : removeCourier(email)
+UI -> CTRL : removeCourier(id)
 activate CTRL
-CTRL -> RF : removeCourier(email)
+CTRL -> RF : removeCourier(id)
 activate RF
-RF -> CDB : removeCourier(email)
+RF -> CDB : removeCourier(id)
 activate CDB
 deactivate CDB
 UI -> ADMIN : informs the success of the operation

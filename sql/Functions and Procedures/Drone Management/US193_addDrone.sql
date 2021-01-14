@@ -1,4 +1,4 @@
-create or replace procedure addScooter(p_potency "VEHICLE".POTENCY%type, p_weight "VEHICLE".WEIGHT%type, p_maxPayload "VEHICLE".MAXPAYLOAD%type,
+create or replace procedure addDrone(p_potency "VEHICLE".POTENCY%type, p_weight "VEHICLE".WEIGHT%type, p_maxPayload "VEHICLE".MAXPAYLOAD%type,
                                        p_chargingStatus "VEHICLE".CHARGINGSTATUS%type, p_batteryPerc "BATTERY".BATTERYPERC%type,
                                        p_batteryCapacity "BATTERY".BATTERYCAPACITY%type, p_batteryVoltage "BATTERY".BATTERYVOLTAGE%type,
                                        p_pharmacyID "PHARMACY".ID%type)
@@ -6,7 +6,7 @@ create or replace procedure addScooter(p_potency "VEHICLE".POTENCY%type, p_weigh
     v_checkPharmacyId PHARMACY.ID%type;
     v_batteryId BATTERY.ID%type;
     v_vehicleId VEHICLE.ID%type;
-    scooter_not_found exception;
+    drone_not_found exception;
 begin
 
     select ID
@@ -15,7 +15,7 @@ begin
     where ID = p_pharmacyID;
 
     if v_checkPharmacyID is null then
-        raise scooter_not_found;
+        raise drone_not_found;
     end if;
 
 -- Creates a new Battery
@@ -43,12 +43,12 @@ begin
       AND MAXPAYLOAD = p_maxPayload
       AND PHARMACYID = p_pharmacyID;
 
--- Creates a new Scooter
-    INSERT INTO SCOOTER(VEHICLEID)
+-- Creates a new Drone
+    INSERT INTO DRONE(VEHICLEID)
     VALUES (v_vehicleId);
 
 EXCEPTION
-    when scooter_not_found then
-        raise_application_error(-20912, 'Scooter Not Found!');
+    when drone_not_found then
+        raise_application_error(-20912, 'Drone Not Found!');
 
 end;

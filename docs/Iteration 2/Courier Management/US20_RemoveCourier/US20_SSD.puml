@@ -5,7 +5,7 @@ actor "Administrator" as ADM
 activate ADM
 ADM -> ":System" : initializes the update of a new Courier
 activate ":System"
-":System" --> ADM : asks for the courier's email
+":System" --> ADM : asks for the courier's id
 deactivate ":System"
 
 
