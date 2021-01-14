@@ -19,7 +19,7 @@ public class CourierService {
         PassGenerator pass = new PassGenerator();
         String password = pass.generatePassword();
 
-        return new Courier(strName, strEmail, password, strNIF, strIBAN,oPharmacy);
+        return new Courier(strName, strEmail, password, strNIF, strIBAN, oPharmacy);
     }
 
     public boolean registersCourier(Courier oCourier) {
@@ -32,15 +32,23 @@ public class CourierService {
 
     public Courier updateCourier(Courier courier, String strName, String strEmail, Integer intNif, String strIban, Pharmacy oPharmacy) {
         Courier courierCopy = courier;
-        if(!strName.isEmpty()) courierCopy.setName(strName);
-        if(!strEmail.isEmpty()) courierCopy.setEmail(strEmail);
-        if(!(intNif == 0)) courierCopy.setNif(intNif);
-        if(!strIban.isEmpty()) courierCopy.setM_iban(strIban);
-        if(oPharmacy == null) courierCopy.setM_Pharmacy(oPharmacy);
+        if (!strName.isEmpty()) courierCopy.setName(strName);
+        if (!strEmail.isEmpty()) courierCopy.setEmail(strEmail);
+        if (!(intNif == 0)) courierCopy.setNif(intNif);
+        if (!strIban.isEmpty()) courierCopy.setM_iban(strIban);
+        if (oPharmacy == null) courierCopy.setM_Pharmacy(oPharmacy);
         return courierCopy;
     }
 
     public boolean updateCourierDB(Courier oCourier) {
         return oCourierDB.updateCourierDB(oCourier);
+    }
+
+    public boolean removeCourier(Integer id) {
+        try {
+            return oCourierDB.removeCourier(id);
+        } catch (Exception e) {
+            return false;
+        }
     }
 }

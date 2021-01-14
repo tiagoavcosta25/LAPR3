@@ -97,8 +97,8 @@ public class CourierDB extends DataHandler {
      *
      * @param intId o identificador do marinheiro a remover.
      */
-    public void removeCourier(int intId) {
-
+    public boolean removeCourier(int intId) {
+        boolean flag = true;
         try {
             openConnection();
             /*
@@ -116,8 +116,10 @@ public class CourierDB extends DataHandler {
 
             closeAll();
         } catch (SQLException e) {
+            flag = false;
             e.printStackTrace();
         }
+        return flag;
 
     }
 
@@ -211,15 +213,14 @@ public class CourierDB extends DataHandler {
              *  PROCEDURE addSailor(sid NUMBER, sname VARCHAR, rating NUMBER, age NUMBER)
              *  PACKAGE pkgSailors AS TYPE ref_cursor IS REF CURSOR; END pkgSailors;
              */
-            CallableStatement callStmt = getConnection().prepareCall("{ call updateCourier(?,?,?,?,?,?,?) }");
+            CallableStatement callStmt = getConnection().prepareCall("{ call updateCourier(?,?,?,?,?,?) }");
 
             callStmt.setInt(1, oCourier.getId());
             callStmt.setString(2, oCourier.getName());
             callStmt.setString(3, oCourier.getEmail());
-            callStmt.setString(4, oCourier.getPw());
-            callStmt.setInt(5, oCourier.getNif());
-            callStmt.setString(6, oCourier.getM_iban());
-            callStmt.setInt(7,oCourier.getM_Pharmacy().getId());
+            callStmt.setInt(4, oCourier.getNif());
+            callStmt.setString(5, oCourier.getM_iban());
+            callStmt.setInt(6, oCourier.getM_Pharmacy().getId());
 
             callStmt.execute();
 
@@ -262,7 +263,7 @@ public class CourierDB extends DataHandler {
                 String strIban = rSet.getString(6);
                 Pharmacy oPharmacy = pharmacyManager(rSet, 7);
 
-                return new Courier(courierID, courierName, courierEmail,password,strNIF,strIban,oPharmacy);
+                return new Courier(courierID, courierName, courierEmail, password, strNIF, strIban, oPharmacy);
             }
         } catch (SQLException | NoSuchAlgorithmException e) {
             e.printStackTrace();

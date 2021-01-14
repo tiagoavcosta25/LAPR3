@@ -82,4 +82,16 @@ class CourierServiceTest {
 
         assertFalse(result);
     }
+
+    @Test
+    void  removeCourier() {
+        when(mockCourierDB.removeCourier(1)).thenReturn(assertTrue);
+        boolean result = courierService.removeCourier(1);
+        assertEquals(assertTrue,result);
+
+        when(mockCourierDB.removeCourier(-1)).thenReturn(false);
+        result = courierService.removeCourier(-1);
+
+        assertFalse(result);
+    }
 }
