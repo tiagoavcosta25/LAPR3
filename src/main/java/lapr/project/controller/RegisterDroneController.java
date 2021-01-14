@@ -1,18 +1,18 @@
 package lapr.project.controller;
 
+import lapr.project.model.Drone;
 import lapr.project.model.Pharmacy;
-import lapr.project.model.Scooter;
+import lapr.project.model.service.DroneService;
 import lapr.project.model.service.PharmacyService;
-import lapr.project.model.service.ScooterService;
 
 import java.util.List;
 
-public class RegisterScooterController {
+public class RegisterDroneController {
 
     /**
-     * Scooter class instance
+     * Drone class instance
      */
-    private Scooter m_oScooter;
+    private Drone m_oDrone;
 
     /**
      * Pharmacy Management class
@@ -20,22 +20,22 @@ public class RegisterScooterController {
     private PharmacyService m_oPharmacyService;
 
     /**
-     * Scooter Management class
+     * Drone Management class
      */
-    private ScooterService m_oScooterService;
+    private DroneService m_oDroneService;
 
     /**
-     * An empty constructor of RegisterScooterController that initiates the platform variable by getting it from the ApplicationPOT.
+     * An empty constructor of RegisterDroneController.
      */
-    public RegisterScooterController() {
+    public RegisterDroneController() {
         this.m_oPharmacyService = new PharmacyService();
-        this.m_oScooterService = new ScooterService();
+        this.m_oDroneService = new DroneService();
     }
 
     /**
-     * The method receives Scooter's battery percentage, charging status, potency, weight, battery capacity and a pharmacy.
+     * The method receives Drone's battery percentage, charging status, potency, weight, battery capacity and a pharmacy.
      * Initiates the Pharmacy instance and the Scooter instance with the provided data.
-     * The method returns the validation of that instance of Scooter. True if the data is correct and false if
+     * The method returns the validation of that instance of Drone. True if the data is correct and false if
      * it doesn't.
      * @param fltBatteryPerc Scooter's battery percentage
      * @param strCharginStatus Scooter's charging status
@@ -44,16 +44,16 @@ public class RegisterScooterController {
      * @param intBatteryCapacity Scooter's battery capacity
      * @param oPharmacy Pharmacy's instance
      */
-    public boolean newScooter( Float fltBatteryPerc, String strCharginStatus, Float fltPotency,
-                              Float fltWeight, int intBatteryCapacity, Float fltBatteryVoltage,
+    public boolean newDrone( Float fltBatteryPerc, String strCharginStatus, Float fltPotency,
+                               Float fltWeight, int intBatteryCapacity, Float fltBatteryVoltage,
                                Float fltMaxPayload, Pharmacy oPharmacy) {
         try {
-            this.m_oScooter = m_oScooterService.newScooter(fltBatteryPerc,strCharginStatus, fltPotency, fltWeight,
+            this.m_oDrone = m_oDroneService.newDrone(fltBatteryPerc,strCharginStatus, fltPotency, fltWeight,
                     intBatteryCapacity, fltBatteryVoltage, fltMaxPayload, oPharmacy);
             return true;
         }
         catch(Exception ex) {
-            this.m_oScooter = null;
+            this.m_oDrone = null;
         }
         return false;
     }
@@ -61,8 +61,8 @@ public class RegisterScooterController {
     /**
      * The method registers an order to the database.
      */
-    public boolean registersScooter() {
-       return this.m_oScooterService.registerScooter(m_oScooter);
+    public boolean registersDrone() {
+        return this.m_oDroneService.registerDrone(m_oDrone);
     }
 
     /**
@@ -75,7 +75,7 @@ public class RegisterScooterController {
     /**
      * The method sets the scooter.
      */
-    public void setScooter(Scooter oScooter) {
-         this.m_oScooter = oScooter;
+    public void setDrone(Drone oDrone) {
+        this.m_oDrone = oDrone;
     }
 }

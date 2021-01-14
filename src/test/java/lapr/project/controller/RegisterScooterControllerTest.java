@@ -58,9 +58,9 @@ class RegisterScooterControllerTest {
         when(mockScooterService.newScooter(0, null, 0, 250f,
                 0, 100, 20, new Pharmacy())).thenReturn(null);
 
-        boolean result1 = registerScooterController.newScooter(null, null, null, null,
+        result = registerScooterController.newScooter(null, null, null, null,
                 0, null, null, new Pharmacy());
-        assertFalse(result1);
+        assertFalse(result);
     }
 
     @Test
