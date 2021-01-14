@@ -61,18 +61,18 @@ class ChargingSlotTest {
 
 
     @Test
-    void getScooter() {
-        Scooter expected4 = null;
-        Scooter real4 = c4.getScooter();
+    void getVehicle() {
+        Vehicle expected4 = null;
+        Vehicle real4 = c4.getVehicle();
         assertEquals(expected4, real4);
-        Scooter expected3 = null;
-        Scooter real3 = c3.getScooter();
+        Vehicle expected3 = null;
+        Vehicle real3 = c3.getVehicle();
         assertEquals(expected3, real3);
-        Scooter expected2 = null;
-        Scooter real2 = c2.getScooter();
+        Vehicle expected2 = null;
+        Vehicle real2 = c2.getVehicle();
         assertEquals(expected2, real2);
-        Scooter expected = new Scooter();
-        Scooter real = c1.getScooter();
+        Vehicle expected = new Scooter();
+        Vehicle real = c1.getVehicle();
         assertEquals(expected, real);
     }
 
@@ -115,22 +115,22 @@ class ChargingSlotTest {
 
 
     @Test
-    void setScooter() {
-        c4.setScooter(new Scooter());
-        c3.setScooter(new Scooter());
-        c2.setScooter(new Scooter());
-        c1.setScooter(new Scooter());
-        Scooter expected4 = new Scooter();
-        Scooter real4 = c4.getScooter();
+    void setVehicle() {
+        c4.setVehicle(new Scooter());
+        c3.setVehicle(new Scooter());
+        c2.setVehicle(new Scooter());
+        c1.setVehicle(new Scooter());
+        Vehicle expected4 = new Scooter();
+        Vehicle real4 = c4.getVehicle();
         assertEquals(expected4, real4);
-        Scooter expected3 = new Scooter();
-        Scooter real3 = c3.getScooter();
+        Vehicle expected3 = new Scooter();
+        Vehicle real3 = c3.getVehicle();
         assertEquals(expected3, real3);
-        Scooter expected2 = new Scooter();
-        Scooter real2 = c2.getScooter();
+        Vehicle expected2 = new Scooter();
+        Vehicle real2 = c2.getVehicle();
         assertEquals(expected2, real2);
-        Scooter expected = new Scooter();
-        Scooter real = c1.getScooter();
+        Vehicle expected = new Scooter();
+        Vehicle real = c1.getVehicle();
         assertEquals(expected, real);
     }
 

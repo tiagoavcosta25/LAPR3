@@ -1,7 +1,7 @@
 package lapr.project.controller;
 
 import lapr.project.model.ChargingSlot;
-import lapr.project.data.CourierDB;
+import lapr.project.model.service.CourierService;
 
 /**
  * Register Courier Controller.
@@ -19,17 +19,17 @@ public class AvailableChargingSlotController {
     /**
      * Courier Management class
      */
-    private CourierDB oCourierDB;
+    private CourierService oCourierService;
 
     /**
      * An empty constructor of RegisterCourierController that initiates the platform variable by getting it from the ApplicationPOT.
      */
-    public AvailableChargingSlotController(String jdbcUrl, String username, String password) {
-        oCourierDB = new CourierDB(jdbcUrl, username, password);
+    public AvailableChargingSlotController() {
+        oCourierService = new CourierService();
     }
 
-    public ChargingSlot getAvailableChargingSlot(){
-        return oCourierDB.getAvailableChargingSlot(ApplicationPOT.getInstance().getCurrentSession().getCurrentUserEmail());
+    public ChargingSlot getAvailableChargingSlot(String vehycleType){
+        return oCourierService.getAvailableChargingSlot(ApplicationPOT.getInstance().getCurrentSession().getCurrentUserEmail(),vehycleType);
     }
 
 }

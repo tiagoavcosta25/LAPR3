@@ -1,5 +1,6 @@
 package lapr.project.controller;
 
+import lapr.project.model.UserSession;
 import lapr.project.model.service.ProductService;
 
 public class RegisterProductController {
@@ -11,6 +12,9 @@ public class RegisterProductController {
     }
 
     public boolean registerProduct(String strName, String strDescription, float fltUnitaryPrice, float fltUnitaryWeight) {
-        return pServ.registerProduct(strName, strDescription, fltUnitaryPrice, fltUnitaryWeight);
+        if(ApplicationPOT.getInstance().getCurrentSession().getRole().equals(UserSession.Role.ADMIN))
+            return pServ.registerProduct(strName, strDescription, fltUnitaryPrice, fltUnitaryWeight);
+        else
+            return false;
     }
 }

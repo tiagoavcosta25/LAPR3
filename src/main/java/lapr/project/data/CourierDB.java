@@ -1,6 +1,5 @@
 package lapr.project.data;
 
-import lapr.project.data.DataHandler;
 import lapr.project.model.*;
 import oracle.jdbc.OracleTypes;
 
@@ -161,7 +160,7 @@ public class CourierDB extends DataHandler {
         throw new IllegalArgumentException("No Address for Courier:" + email);
     }
 
-    public ChargingSlot getAvailableChargingSlot(String email) {
+    public ChargingSlot getAvailableChargingSlot(String email, String vehicleType) {
         /* Objeto "callStmt" para invocar a função "getSailor" armazenada na BD.
          *
          * FUNCTION getSailor(id NUMBER) RETURN pkgSailors.ref_cursor
@@ -169,12 +168,13 @@ public class CourierDB extends DataHandler {
          */
         CallableStatement callStmt = null;
         try {
-            callStmt = getConnection().prepareCall("{ ? = call getAvailableChargingSlot(?) }");
+            callStmt = getConnection().prepareCall("{ ? = call getAvailableChargingSlot(?,?) }");
 
             // Regista o tipo de dados SQL para interpretar o resultado obtido.
             callStmt.registerOutParameter(1, OracleTypes.CURSOR);
             // Especifica o parâmetro de entrada da função "getSailor".
             callStmt.setString(2, email);
+            callStmt.setString(3, vehicleType);
 
             // Executa a invocação da função "getSailor".
             callStmt.execute();
@@ -184,16 +184,24 @@ public class CourierDB extends DataHandler {
 
             if (rSet.next()) {
                 int chargingSlotID = rSet.getInt(1);
-                int pharmacyID = rSet.getInt(2);
-                String pharmacyName = rSet.getString(3);
+                String vehicleString = rSet.getString(2);
+                float outputPower = rSet.getFloat(3);
+                int pharmacyID = rSet.getInt(4);
+                String pharmacyName = rSet.getString(5);
+                Integer maxSlotsNumber = rSet.getInt(6);
                 // Address
-                Address address = addressManager(rSet, 4);
+                Address address = addressManager(rSet, 7);
 
-                int maxSlotsNumber = rSet.getInt(12);
-                float outputPower = rSet.getFloat(13);
+                Vehicle v = null;
+                if (vehicleString.equals("drone")) {
+                    v = new Drone();
+                } else {
+                    if (vehicleString.equals("scooter"))
+                        v = new Scooter();
+                }
 
                 return new ChargingSlot(chargingSlotID, new Park(pharmacyID, maxSlotsNumber,
-                        new Pharmacy(pharmacyID, pharmacyName, address)), outputPower);
+                        new Pharmacy(pharmacyID, pharmacyName, address)), v, outputPower);
             }
         } catch (SQLException e) {
             e.printStackTrace();

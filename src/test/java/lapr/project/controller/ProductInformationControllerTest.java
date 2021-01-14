@@ -1,6 +1,7 @@
 package lapr.project.controller;
 
 import lapr.project.model.Product;
+import lapr.project.model.UserSession;
 import lapr.project.model.service.ProductService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -23,6 +24,7 @@ class ProductInformationControllerTest {
 
     @BeforeEach
     void setUp() {
+        ApplicationPOT.getInstance().setCurrentSession(new UserSession("", 2));
         this.productInformationController = new ProductInformationController();
         this.mockPServ = Mockito.mock(ProductService.class);
         initMocks(this);
