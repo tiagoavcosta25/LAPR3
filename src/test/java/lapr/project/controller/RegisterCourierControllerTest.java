@@ -9,6 +9,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 
+import java.security.NoSuchAlgorithmException;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
@@ -37,9 +39,9 @@ class RegisterCourierControllerTest {
 
 
     @Test
-    void newCourier() {
-        when(mockPharmacyService.getPharmacy(-1)).thenReturn(new Pharmacy());
-        boolean result = registerCourierController.newCourier("Name", "email4@gmail.com", 250161761, "PT98003506514853185258910", -1);
+    void newCourier() throws NoSuchAlgorithmException {
+        when(mockPharmacyService.getPharmacy(1)).thenReturn(new Pharmacy());
+        boolean result = registerCourierController.newCourier("Name", "email4@gmail.com", 250161761, "PT98003506514853185258910", 1);
         assertEquals(assertTrue, result);
 
         result = registerCourierController.newCourier("", "email4@gmail.com", 250161761, "PT98003506514853185258910", -1);
@@ -48,45 +50,45 @@ class RegisterCourierControllerTest {
 
     @Test
     void registersCourier() {
-        Courier c = new Courier();
-        registerCourierController.setCourier(c);
-        when(mockCourierService.registersCourier(c)).thenReturn(assertTrue);
+        when(mockCourierService.registersCourier(new Courier())).thenReturn(assertTrue);
+        registerCourierController.setCourier(new Courier());
         boolean result = registerCourierController.registersCourier();
         assertEquals(assertTrue, result);
 
-        when(mockCourierService.registersCourier(c)).thenReturn(false);
+        when(mockCourierService.registersCourier(new Courier())).thenReturn(false);
         result = registerCourierController.registersCourier();
         assertEquals(false, result);
     }
 
     @Test
     void validateInput() {
-        boolean real = registerCourierController.validateInput("Ernesto", "ernesto@gmail.com", 250161761, "PT98003506514853185258910");
+        boolean real = registerCourierController.validateInput("Ernesto", "ernesto@gmail.com", 250161761, "PT98003506514853185258910",1);
         assertEquals(assertTrue, real);
 
-        real = registerCourierController.validateInput("", "ernesto@gmail.com", 250161761, "PT98003506514853185258910");
+        real = registerCourierController.validateInput("", "ernesto@gmail.com", 250161761, "PT98003506514853185258910",1);
         assertFalse(real);
 
-        real = registerCourierController.validateInput("Ernesto", "", 250161761, "PT98003506514853185258910");
+        real = registerCourierController.validateInput("Ernesto", "", 250161761, "PT98003506514853185258910",1);
         assertFalse(real);
 
-        real = registerCourierController.validateInput("Ernesto", "ernesto@gmail.com", 0, "PT98003506514853185258910");
+        real = registerCourierController.validateInput("Ernesto", "ernesto@gmail.com", 0, "PT98003506514853185258910",1);
         assertFalse(real);
 
-        real = registerCourierController.validateInput("Ernesto", "ernesto@gmail.com", -1, "PT98003506514853185258910");
+        real = registerCourierController.validateInput("Ernesto", "ernesto@gmail.com", -1, "PT98003506514853185258910",1);
         assertFalse(real);
 
-        real = registerCourierController.validateInput("Ernesto", "ernesto@gmail.com", 250161761, "");
+        real = registerCourierController.validateInput("Ernesto", "ernesto@gmail.com", 250161761, "",1);
         assertFalse(real);
 
-        real = registerCourierController.validateInput("Ernesto", "ernesto.com", 250161761, "PT98003506514853185258910");
+        real = registerCourierController.validateInput("Ernesto", "ernesto.com", 250161761, "PT98003506514853185258910",1);
         assertFalse(real);
 
-        real = registerCourierController.validateInput("Ernesto", "ernesto@gmail.com", 250161761, "PT98003506514853aasd185258910");
+        real = registerCourierController.validateInput("Ernesto", "ernesto@gmail.com", 250161761, "PT98003506514853aasd185258910",1);
         assertFalse(real);
 
-        real = registerCourierController.validateInput("Ernesto", "ernesto@gmail.com", 2501761, "PT98003506514853185258910");
+        real = registerCourierController.validateInput("Ernesto", "ernesto@gmail.com", 2501761, "PT98003506514853185258910",1);
         assertFalse(real);
+
 
     }
 }

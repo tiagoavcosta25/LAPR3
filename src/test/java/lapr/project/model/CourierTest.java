@@ -20,16 +20,6 @@ class CourierTest {
     }
 
     @Test
-    void getM_id() {
-        int expected = 1;
-        int result = c1.getId();
-        assertEquals(expected,result);
-        int expected3 = -1;
-        int result3 = c3.getId();
-        assertEquals(expected3,result3);
-    }
-
-    @Test
     void getM_iban() {
         String expected = "PT501234567890987654321234";
         String result = c1.getM_iban();
@@ -53,14 +43,6 @@ class CourierTest {
         Pharmacy expected3 = new Pharmacy();
         Pharmacy result3 = c3.getM_Pharmacy();
         assertEquals(expected3,result3);
-    }
-
-    @Test
-    void setM_id() {
-        c1.setM_id(2);
-        int expected = 2;
-        int result = c1.getId();
-        assertEquals(expected,result);
     }
 
     @Test

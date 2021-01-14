@@ -2,16 +2,16 @@
 skinparam classAttributeIconSize 0
 
 package "UI" #DDDDDD{
-class RegisterCourierUI {
+class UpdateCourierUI {
 
 }
 }
 package "Controller" #DDDDDD {
-class RegisterCourierController{
-+getCourierByEmail(email)
+class UpdateCourierController{
++getCourierByID(id)
 +updateCourier(courier,name,email,nif,iban,pharmacyID)
 +updateCourierDB(courier)
-+validateInput(email)
++validateInput(id)
 }
 
 class ApplicationPOT
@@ -24,7 +24,7 @@ class ApplicationPOT
 package "Model" #DDDDDD {
 package "Service" #DDDDDD {
    class CourierService{
-          +getCourierByEmail(email)
+          +getCourierByID(id)
           +updateCourier(courier,name,email,nif,iban,pharmacy)
           +updateCourierDB(courier)
       }
@@ -68,7 +68,7 @@ class DataHandler{
 }
 
 class CourierDB{
- +getCourierByEmail(email)
+ +getCourierByID(id)
  +updateCourierDB(courier)
   }
 
@@ -82,10 +82,10 @@ database database{
 class CourierDB extends DataHandler
 class PharmacyDB extends DataHandler
 
-RegisterCourierController ..> ApplicationPOT
-RegisterCourierUI ..> RegisterCourierController
-RegisterCourierController ..> CourierService : has
-RegisterCourierController ..> PharmacyService : has
+UpdateCourierController ..> ApplicationPOT
+UpdateCourierUI ..> UpdateCourierController
+UpdateCourierController ..> CourierService : has
+UpdateCourierController ..> PharmacyService : has
 CourierService ..> CourierDB : has
 PharmacyService ..> PharmacyDB : has
 CourierDB --> database : manages

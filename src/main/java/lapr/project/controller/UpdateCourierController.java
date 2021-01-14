@@ -17,7 +17,7 @@ import lapr.project.model.service.PharmacyService;
  * @author Pedro Santos <1190967@isep.ipp.pt>
  * @author Rodrigo Costa <1191014@isep.ipp.pt>
  */
-public class RegisterCourierController {
+public class UpdateCourierController {
     /**
      * Courier class instance
      */
@@ -26,12 +26,12 @@ public class RegisterCourierController {
     /**
      * Courier Management class
      */
-    private CourierService oCourierService;
+    private final CourierService oCourierService;
 
     /**
      * Pharmacy Management class
      */
-    private PharmacyService oPharmacyService;
+    private final PharmacyService oPharmacyService;
 
     /**
      * Pharmacy
@@ -41,41 +41,46 @@ public class RegisterCourierController {
     /**
      * A constructor of RegisterCourierController that initiates the platform variable by getting it from the ApplicationPOT.
      */
-    public RegisterCourierController() {
+    public UpdateCourierController() {
         this.oCourierService = new CourierService();
         this.oPharmacyService = new PharmacyService();
     }
 
     /**
-     * The method receives Courier's name, email, nif and iban.
+     * The method receives Courier's email.
      * Initiates the CourierRegistration instance and the Courier instance with the provided data.
      * The method returns the validation of that instance of Courier. True if the data is correct and false if
      * it doesn't.
      *
-     * @param strName  Courier's name.
-     * @param strEmail Courier's email.
-     * @param intNIF   Courier's nif.
-     * @param strIBAN  Courier's iban.
+     * @param intID Courier's email.
      */
-    public boolean newCourier(String strName, String strEmail, Integer intNIF, String strIBAN, Integer intPharmacyID) {
+    public Courier getCourierByID(Integer intID) {
         try {
-            this.oPharmacy = oPharmacyService.getPharmacy(intPharmacyID);
-            if (validateInput(strName, strEmail, intNIF, strIBAN,intPharmacyID)) {
-                this.oCourier = oCourierService.newCourier(strName, strEmail, intNIF, strIBAN, this.oPharmacy);
-                return true;
+            if (validateInput(intID)) {
+                this.oCourier = oCourierService.getCourierByID(intID);
+                return oCourier;
             }
         } catch (Exception ex) {
             this.oCourier = null;
         }
-        return false;
+        return null;
     }
 
     /**
      * The method adds a Freelancer to the Organization of the current user.
      */
-    public boolean registersCourier() {
-        System.out.println(this.oCourier);
-        return this.oCourierService.registersCourier(this.oCourier);
+    public Courier updateCourier(Courier courier, String strName, String strEmail, Integer intNif, String strIban,Integer pharmacyID) {
+        try{
+            oPharmacy = this.oPharmacyService.getPharmacy(pharmacyID);
+            oCourier = this.oCourierService.updateCourier(courier,strName,strEmail,intNif,strIban,oPharmacy);
+        } catch (Exception ex) {
+            this.oCourier = null;
+        }
+        return null;
+    }
+
+    public boolean updateCourierDB(Courier oCourier){
+        return oCourierService.updateCourierDB(oCourier);
     }
 
     /**
@@ -96,14 +101,28 @@ public class RegisterCourierController {
      * @param strIBAN  Courier's iban.
      * @return True if input is valid, false if otherwise
      */
-    public boolean validateInput(String strName, String strEmail, Integer intNIF, String strIBAN, Integer intPharmacyID) {
+    public boolean validateInput(String strName, String strEmail, Integer intNIF, String strIBAN) {
 
-        if (strName.isEmpty() || intNIF <= 0 || strEmail.isEmpty() || strIBAN.isEmpty() || intPharmacyID <= 0) return false;
+        if (strName.isEmpty() || intNIF <= 0 || strEmail.isEmpty() || strIBAN.isEmpty()) return false;
 
         if (!strEmail.contains("@")) return false;
 
         if ((strIBAN.trim().length() != 25)
                 || (int) (Math.log10(intNIF) + 1) != 9) return false;
+
+        return true;
+    }
+
+    /**
+     * Validates the input information regarding
+     * a Courier
+     *
+     * @param intID Courier's email.
+     * @return True if input is valid, false if otherwise
+     */
+    public boolean validateInput(Integer intID) {
+
+        if (intID == null || intID <= 0) return false;
 
         return true;
     }

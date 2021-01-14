@@ -2,8 +2,8 @@
 autonumber
 actor "Administrator" as ADMIN
 
-participant ":RegisterCourierUI" as UI
-participant ":RegisterCourierController" as CTRL
+participant ":UpdateCourierUI" as UI
+participant ":UpdateCourierController" as CTRL
 participant "PotApplication" as PA
 participant "app \n:PotApplication" as APA
 participant "session \n:UserSession" as US
@@ -23,7 +23,7 @@ deactivate UI
 
 ADMIN -> UI : inserts the required data
 activate UI
-UI -> CTRL : courier = getCourierByEmail(email)
+UI -> CTRL : courier = getCourierByID(id)
 activate CTRL
 CTRL -> PR : create()
 activate PR
@@ -34,13 +34,13 @@ activate RF
 RF -> CDB** : create()
 deactivate RF
 
-CTRL -> CTRL : validateInput(email)
+CTRL -> CTRL : validateInput(id)
 CTRL -> PA : app = getInstance()
 activate PA
 deactivate PA
-CTRL -> RF : courier = getCourierByEmail(email)
+CTRL -> RF : courier = getCourierByID(id)
 activate RF
-RF -> CDB : courier = getCourierByEmail(email)
+RF -> CDB : courier = getCourierByID(id)
 activate CDB
 deactivate RF
 deactivate CDB
@@ -55,6 +55,7 @@ activate UI
 UI -> CTRL : courier = updateCourier(courier,name,email,nif,iban,pharmacyID)
 activate CTRL
 deactivate US
+CTRL -> CTRL : validateInput(name,email,nif,iban,pharmacyID)
 CTRL -> PR : pharmacy = getPharmacyByID(pharmacyID)
 activate PR
 PR -> PDB : pharmacy = getPharmacyByID(pharmacyID)

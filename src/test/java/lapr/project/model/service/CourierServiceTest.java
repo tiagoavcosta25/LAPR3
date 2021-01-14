@@ -26,8 +26,11 @@ class CourierServiceTest {
 
     private Courier expectedCourier;
 
+    private boolean assertTrue;
+
     @BeforeEach
     void setUp() throws NoSuchAlgorithmException {
+        this.assertTrue = true;
         this.expectedCourier = new Courier("Name", "email4@gmail.com","pwd",250161761,"PT98003506514853185258910", new Pharmacy());
         this.courierService = new CourierService();
         this.mockCourierDB = Mockito.mock(CourierDB.class);
@@ -50,6 +53,33 @@ class CourierServiceTest {
 
         when(mockCourierDB.addCourierToDB("Name", "email4@gmail.com","9003d1df22eb4d3820015070385194c8",250161761,"PT98003506514853185258910", -1)).thenReturn(false);
         result = courierService.registersCourier(expectedCourier);
+        assertFalse(result);
+    }
+
+    @Test
+    void getCourierByID() {
+        when(mockCourierDB.getCourierByID(-1)).thenReturn(new Courier());
+        Courier c = courierService.getCourierByID(-1);
+        assertEquals(new Courier(),c);
+    }
+
+    @Test
+    void updateCourier() {
+        Courier c = courierService.updateCourier(new Courier(),"123","email@gmail.com",123456789,
+                "PT98003506514853185258910",new Pharmacy());
+        assertNotEquals(c,new Courier());
+
+    }
+
+    @Test
+    void  updateCourierDB() {
+        when(mockCourierDB.updateCourierDB(new Courier())).thenReturn(assertTrue);
+        boolean result = courierService.updateCourierDB(new Courier());
+        assertEquals(assertTrue,result);
+
+        when(mockCourierDB.updateCourierDB(new Courier())).thenReturn(false);
+        result = courierService.updateCourierDB(new Courier());
+
         assertFalse(result);
     }
 }

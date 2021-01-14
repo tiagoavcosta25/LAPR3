@@ -25,4 +25,21 @@ public class CourierService {
     public boolean registersCourier(Courier oCourier) {
         return oCourierDB.addCourierToDB(oCourier.getName(), oCourier.getEmail(), oCourier.getPw(), oCourier.getNif(), oCourier.getM_iban(), oCourier.getM_Pharmacy().getId());
     }
+
+    public Courier getCourierByID(Integer intID) {
+        return oCourierDB.getCourierByID(intID);
+    }
+
+    public Courier updateCourier(Courier courier, String strName, String strEmail, Integer intNif, String strIban, Pharmacy oPharmacy) {
+        if(!strName.isEmpty()) courier.setName(strName);
+        if(!strEmail.isEmpty()) courier.setEmail(strEmail);
+        if(!(intNif == 0)) courier.setNif(intNif);
+        if(!strIban.isEmpty()) courier.setM_iban(strIban);
+        if(oPharmacy == null) courier.setM_Pharmacy(oPharmacy);
+        return courier;
+    }
+
+    public boolean updateCourierDB(Courier oCourier) {
+        return oCourierDB.updateCourierDB(oCourier);
+    }
 }

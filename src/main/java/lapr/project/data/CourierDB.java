@@ -121,8 +121,6 @@ public class CourierDB extends DataHandler {
 
     }
 
-
-
     public Address getDeliveryAddress(String email) {
         /* Objeto "callStmt" para invocar a função "getSailor" armazenada na BD.
          *
@@ -187,25 +185,89 @@ public class CourierDB extends DataHandler {
                 int pharmacyID = rSet.getInt(2);
                 String pharmacyName = rSet.getString(3);
                 // Address
-                int addressID = rSet.getInt(4);
-                Double latitude = rSet.getDouble(5);
-                Double longitude = rSet.getDouble(6);
-                String doorNumber = rSet.getString(7);
-                String streetName = rSet.getString(8);
-                String postalCode = rSet.getString(9);
-                String locality = rSet.getString(10);
-                String country = rSet.getString(11);
+                Address address = addressManager(rSet, 4);
 
                 int maxSlotsNumber = rSet.getInt(12);
                 float outputPower = rSet.getFloat(13);
 
-                return new ChargingSlot(chargingSlotID,new Park(pharmacyID,maxSlotsNumber,
-                        new Pharmacy(pharmacyID,pharmacyName, new Address(addressID,latitude,longitude,streetName,doorNumber,postalCode,locality,country))), outputPower);
+                return new ChargingSlot(chargingSlotID, new Park(pharmacyID, maxSlotsNumber,
+                        new Pharmacy(pharmacyID, pharmacyName, address)), outputPower);
             }
         } catch (SQLException e) {
             e.printStackTrace();
             return null;
         }
         throw new IllegalArgumentException("No Charging Slot for Courier: " + email);
+    }
+
+    public boolean updateCourierDB(Courier oCourier) {
+        boolean flag = true;
+        try {
+            openConnection();
+            /*
+             *  Objeto "callStmt" para invocar o procedimento "addSailor" armazenado
+             *  na BD.
+             *
+             *  PROCEDURE addSailor(sid NUMBER, sname VARCHAR, rating NUMBER, age NUMBER)
+             *  PACKAGE pkgSailors AS TYPE ref_cursor IS REF CURSOR; END pkgSailors;
+             */
+            CallableStatement callStmt = getConnection().prepareCall("{ call updateCourier(?,?,?,?,?,?,?) }");
+
+            callStmt.setInt(1, oCourier.getId());
+            callStmt.setString(2, oCourier.getName());
+            callStmt.setString(3, oCourier.getEmail());
+            callStmt.setString(4, oCourier.getPw());
+            callStmt.setInt(5, oCourier.getNif());
+            callStmt.setString(6, oCourier.getM_iban());
+            callStmt.setInt(7,oCourier.getM_Pharmacy().getId());
+
+            callStmt.execute();
+
+            closeAll();
+        } catch (SQLException e) {
+            flag = false;
+            e.printStackTrace();
+        }
+        return flag;
+    }
+
+    public Courier getCourierByID(Integer id) {
+
+        /* Objeto "callStmt" para invocar a função "getSailor" armazenada na BD.
+         *
+         * FUNCTION getSailor(id NUMBER) RETURN pkgSailors.ref_cursor
+         * PACKAGE pkgSailors AS TYPE ref_cursor IS REF CURSOR; END pkgSailors;
+         */
+        CallableStatement callStmt = null;
+        try {
+            callStmt = getConnection().prepareCall("{ ? = call getCourierByID(?) }");
+
+            // Regista o tipo de dados SQL para interpretar o resultado obtido.
+            callStmt.registerOutParameter(1, OracleTypes.CURSOR);
+            // Especifica o parâmetro de entrada da função "getSailor".
+            callStmt.setInt(2, id);
+
+            // Executa a invocação da função "getSailor".
+            callStmt.execute();
+
+            // Guarda o cursor retornado num objeto "ResultSet".
+            ResultSet rSet = (ResultSet) callStmt.getObject(1);
+
+            if (rSet.next()) {
+                int courierID = rSet.getInt(1);
+                String courierName = rSet.getString(2);
+                String courierEmail = rSet.getString(3);
+                String password = rSet.getString(4);
+                Integer strNIF = rSet.getInt(5);
+                String strIban = rSet.getString(6);
+                Pharmacy oPharmacy = pharmacyManager(rSet, 7);
+
+                return new Courier(courierID, courierName, courierEmail,password,strNIF,strIban,oPharmacy);
+            }
+        } catch (SQLException | NoSuchAlgorithmException e) {
+            e.printStackTrace();
+            return null;
+        }
+        throw new IllegalArgumentException("No Courier: " + id);
     }
 }
