@@ -19,8 +19,11 @@ class RemoveCourierControllerTest {
     @Mock
     private CourierService mockCServ;
 
+    private boolean assertTrue;
+
     @BeforeEach
     void setUp() {
+        this.assertTrue = true;
         this.removeCourierController = new RemoveCourierController();
         this.mockCServ = Mockito.mock(CourierService.class);
         initMocks(this);
@@ -41,8 +44,9 @@ class RemoveCourierControllerTest {
 
     @Test
     void removeCourier() {
-        when(mockCServ.removeCourier(1)).thenReturn(true);
-        boolean result = removeCourierController.removeCourier(1);
+        when(mockCServ.removeCourier(1)).thenReturn(assertTrue);
+        boolean result = this.removeCourierController.removeCourier(1);
+        assertTrue(result);
 
         when(mockCServ.removeCourier(-1)).thenReturn(false);
         result = removeCourierController.removeCourier(-1);
