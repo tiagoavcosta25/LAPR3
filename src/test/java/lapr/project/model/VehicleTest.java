@@ -9,6 +9,7 @@ class VehicleTest {
     private Scooter scooterTest;
     private Scooter scooterTest1;
     private Scooter scooterTest2;
+    private Scooter scooterTest3;
     private Drone droneTest;
     private Drone droneTest1;
     private Drone droneTest2;
@@ -19,6 +20,9 @@ class VehicleTest {
         scooterTest1 = new Scooter(-2, 200f, 200f, 20f, "Not Charging",
                 32f,100, 32f, new Pharmacy());
         scooterTest2 = new Scooter();
+        scooterTest3 = new Scooter(-2, 200f, 200f, 20f, "Not Charging",
+                0,-1.0f,-1, -1.0f, new Pharmacy());
+
         droneTest = new Drone(200f, 200f, 20f, "Not Charging",
                 32f,100, 32f, new Pharmacy());
         droneTest1 = new Drone(-2, 200f, 200f, 20f, "Not Charging",
@@ -129,7 +133,7 @@ class VehicleTest {
     @Test
     void getBattery() {
         Battery expected = new Battery();
-        Battery real = scooterTest2.getBattery();
+        Battery real = scooterTest3.getBattery();
         assertEquals(expected, real);
     }
 

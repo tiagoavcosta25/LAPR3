@@ -1,9 +1,11 @@
-create or replace procedure addScooter(p_batteryPerc "SCOOTER".BATTERYPERC%type, p_chargingStatus "SCOOTER".CHARGINGSTATUS%type,
-                                     p_potency "SCOOTER".POTENCY%type, p_weight "SCOOTER".WEIGHT%type,
-                                     p_batteryCapacity "SCOOTER".BATTERYCAPACITY%type, p_maxPayload "SCOOTER".MAXPAYLOAD%type ,
-                                     p_pharmacyID "PHARMACY".ID%type)
+create or replace procedure addScooter(p_potency "VEHICLE".POTENCY%type, p_weight "VEHICLE".WEIGHT%type, p_maxPayload "VEHICLE".MAXPAYLOAD%type,
+                                       p_chargingStatus "VEHICLE".CHARGINGSTATUS%type, p_batteryPerc "BATTERY".BATTERYPERC%type,
+                                       p_batteryCapacity "BATTERY".BATTERYCAPACITY%type, p_batteryVoltage "BATTERY".BATTERYVOLTAGE%type,
+                                       p_pharmacyID "PHARMACY".ID%type)
     is
     v_checkPharmacyId PHARMACY.ID%type;
+    v_batteryId BATTERY.ID%type;
+    v_vehicleId VEHICLE.ID%type;
     scooter_not_found exception;
 begin
 
@@ -16,9 +18,34 @@ begin
         raise scooter_not_found;
     end if;
 
+-- Creates a new Battery
+    INSERT INTO BATTERY(BATTERYPERC, BATTERYCAPACITY, BATTERYVOLTAGE)
+    VALUES (p_batteryPerc, p_batteryCapacity, p_batteryVoltage);
+
+    SELECT max(ID)
+    INTO v_batteryId
+    FROM BATTERY
+    WHERE BATTERYPERC = p_batteryPerc
+    AND BATTERYCAPACITY = p_batteryCapacity
+    AND BATTERYVOLTAGE = p_batteryVoltage;
+
+-- Creates a new Vehicle
+    Insert into VEHICLE(BATTERYID,CHARGINGSTATUS,POTENCY,WEIGHT, MAXPAYLOAD, PHARMACYID)
+    Values (v_batteryId, p_chargingStatus, p_potency, p_weight, p_maxPayload, p_pharmacyID);
+
+    SELECT max(ID)
+    INTO v_vehicleId
+    FROM VEHICLE
+    WHERE BATTERYID = v_batteryId
+      AND CHARGINGSTATUS = p_chargingStatus
+      AND POTENCY = p_potency
+      AND WEIGHT = p_weight
+      AND MAXPAYLOAD = p_maxPayload
+      AND PHARMACYID = p_pharmacyID;
+
 -- Creates a new Scooter
-    Insert into SCOOTER(BATTERYPERC,CHARGINGSTATUS,POTENCY,WEIGHT,BATTERYCAPACITY, MAXPAYLOAD, PHARMACYID)
-    Values (p_batteryPerc, p_chargingStatus, p_potency, p_weight, p_batteryCapacity, p_maxPayload, p_pharmacyID);
+    INSERT INTO SCOOTER(VEHICLEID)
+    VALUES (v_vehicleId);
 
 EXCEPTION
     when scooter_not_found then
