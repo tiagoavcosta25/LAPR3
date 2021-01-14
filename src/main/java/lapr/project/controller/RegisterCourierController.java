@@ -74,7 +74,6 @@ public class RegisterCourierController {
      * The method adds a Freelancer to the Organization of the current user.
      */
     public boolean registersCourier() {
-        System.out.println(this.oCourier);
         return this.oCourierService.registersCourier(this.oCourier);
     }
 
