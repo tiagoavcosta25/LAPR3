@@ -95,13 +95,14 @@ public class DroneDB extends DataHandler  {
                 float fltWeight = rSet.getFloat(3);
                 float fltMaxPayload = rSet.getFloat(4);
                 String strCharginStatus = rSet.getString(5);
-                float fltBatteryPerc = rSet.getInt(6);
-                int intBatteryCapacity = rSet.getInt(7);
-                float fltBatteryVoltage = rSet.getFloat(8);
-                Pharmacy oPharmacy = pharmacyManager(rSet,9);
+                int intBatteryId = rSet.getInt(6);
+                float fltBatteryPerc = rSet.getInt(7);
+                int intBatteryCapacity = rSet.getInt(8);
+                float fltBatteryVoltage = rSet.getFloat(9);
+                Pharmacy oPharmacy = pharmacyManager(rSet,10);
 
-                lstDrone.add(new Drone(intId, fltPotency, fltWeight, fltMaxPayload, strCharginStatus, fltBatteryPerc,
-                        intBatteryCapacity, fltBatteryVoltage, oPharmacy));
+                lstDrone.add(new Drone(intId, fltPotency, fltWeight, fltMaxPayload, strCharginStatus, intBatteryId,
+                        fltBatteryPerc, intBatteryCapacity, fltBatteryVoltage, oPharmacy));
 
                 rSet.next();
             }

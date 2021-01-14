@@ -13,6 +13,7 @@ class VehicleTest {
     private Drone droneTest;
     private Drone droneTest1;
     private Drone droneTest2;
+    private Drone droneTest3;
 
     public VehicleTest(){
         scooterTest = new Scooter(200f, 200f, 20f, "Not Charging",
@@ -28,6 +29,8 @@ class VehicleTest {
         droneTest1 = new Drone(-2, 200f, 200f, 20f, "Not Charging",
                 32f,100, 32f, new Pharmacy());
         droneTest2 = new Drone();
+        droneTest3 = new Drone(-2, 200f, 200f, 20f, "Not Charging",
+                -2,32f,100, 32f, new Pharmacy());
     }
 
     @Test
@@ -103,7 +106,7 @@ class VehicleTest {
     @Test
     void getMaxPayload() {
         float expected = 20;
-        float real = scooterTest1.getMaxPayload();
+        float real = droneTest3.getMaxPayload();
         assertEquals(expected, real);
     }
 
