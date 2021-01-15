@@ -6,6 +6,7 @@ import lapr.project.data.DeliveryRunDB;
 import lapr.project.model.Address;
 import lapr.project.model.Courier;
 import lapr.project.model.DeliveryRun;
+import lapr.project.model.Drone;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -74,5 +75,19 @@ class DeliveryRunServiceTest {
     float result = m_oDeliveryRunService.getMaxPayload("email");
     assertEquals(result, 10f);
 
+    }
+
+    @Test
+    void startDeliveryRun() {
+        when(m_oDeliveryDB.startDeliveryRun(new Drone(),"123")).thenReturn(new ArrayList<>());
+        ArrayList result = m_oDeliveryRunService.startDeliveryRun(new Drone(),"123");
+        assertEquals(new ArrayList(), result);
+
+    }
+
+    @Test
+    void sendsEmail() {
+        boolean result = m_oDeliveryRunService.sendsEmail(new ArrayList());
+        assertTrue(result);
     }
 }
