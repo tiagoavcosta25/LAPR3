@@ -5,11 +5,9 @@ create or replace function getPharmacies
 begin
 
     open v_cursor for
-        select P.ID, P.NAME, U.*, A.*
+        select P.ID, P.NAME, A.*
         from PHARMACY P
-            inner join ADDRESS A on P.ADDRESSID = A.ID
-            inner join PHARMACYMANAGER PM on P.MANAGERID = PM.USERID
-            inner join "User" U on PM.USERID = U.ID;
+            inner join ADDRESS A on P.ADDRESSID = A.ID;
 
     if v_cursor is null then
         raise pharamcy_not_found;

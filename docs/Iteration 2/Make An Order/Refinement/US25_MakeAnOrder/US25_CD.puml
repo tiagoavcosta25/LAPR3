@@ -9,12 +9,18 @@ class MakeAnOrderUI{
 
 package "Controller" #DDDDDD {
 class MakeAnOrderController{
-+newOrder(amount, totalWeight, additionalFee, orderDate, description, status, latitude,
-longitude, streetName, doorNumber, postalCode, locality, country, products)
++newOrder(description)
 +registerOrder()
 +getAvailableProducts(pharmacyId)
 +getPharmacies()
 +addProductToOrder(product, quantity)
++setHomeDelivery(homeDelivery)
++lstCreditCards = getCreditCardsByClient(email)
++addPayment(creditCard, amount)
+}
+
+class GenerateInvoiceController{
++generateInvoice(order, mapPayments)
 }
 
 class ApplicationPOT
@@ -38,7 +44,7 @@ package "Service" #DDDDDD {
 
   class OrderService{
        +OrderService()
-       +addPharmacy(address, amount, additionalFee, dateOrder, description, mapProducts, client)
+       +addOrder(description, mapProducts, client, pharmacy, isHomeDelivery)
        +registerOrder(order)
   }
 
@@ -53,7 +59,8 @@ package "Service" #DDDDDD {
   }
   class ClientService{
         +ClientService()
-        +getClientByEmail(email)
+        +getUserByEmail(email)
+        +getCreditCardsByClient(email)
   }
  }
 }
@@ -67,15 +74,15 @@ abstract class User{
 }
 
 class Client{
--int IBAN;
--long creditCardNumber
--Address address
--int validityDate
--int CCV
+-   int IBAN
+-   long creditCardNumber
+-   int validityDate
+-   int CCV
 +addCredits(addtionalCredits)
 }
 
 class Address{
+-   int id
 -   String streetName
 -   String doorNumber
 -   String postalCode
@@ -83,7 +90,6 @@ class Address{
 -   String country
 -   float longitude
 -   float latitude
-+create(streetName,doorNumber,locality,country,longitude,longitude)
 }
 
 class Order{
@@ -94,7 +100,11 @@ class Order{
 -   Date orderDate
 -   String description
 -   String status
-+create(amount, additionalFee, dateOrder, description, mapProducts, client, streetName,doorNumber,locality,country,longitude,longitude)
+-   boolean isHomeDelivery
+-   Map<Product, Integer> mapProducts
++Order(description, mapProducts, \nclient, pharmacy, isHomeDelivery)
++calculateAmount()
++calculateTotalWeight()
 }
 
 class Product{
@@ -108,6 +118,20 @@ class Product{
 class Pharmacy{
 -   int id
 -   String name
+}
+
+class CreditCard{
+-   int id
+-   Long creditCardNr
+-   String validityDate
+-   Integer CCV
+}
+
+class Invoice{
+-   int id
+-   Date orderDate
+-   float totalAmount
+-   Map<CreditCard, Float> mapPayments
 }
 
 }
@@ -136,7 +160,8 @@ class ProductDB{
 
 class ClientDB{
         +ClientDB()
-        +getClientByEmail(email)
+        +getUserByEmail(email)
+                +getCreditCardsByClient(email)
   }
 }
 
@@ -147,6 +172,7 @@ class OrderDB extends DataHandler
 class Client extends User
 
 MakeAnOrderUI ..> MakeAnOrderController
+MakeAnOrderUI ..> GenerateInvoiceController
 MakeAnOrderController ..> ApplicationPOT
 MakeAnOrderController ..> UserSession
 MakeAnOrderController ..> ClientService
@@ -157,6 +183,7 @@ Database "1" -- "*" Client : has registered >
 Database "1" -- "*" Order : has registered >
 Database "1" -- "*" Product : has registered >
 Database "1" -- "*" Address : has registered >
+Database "1" -- "*" CreditCard : has registered >
 PharmacyDB -- Database : manages >
 ClientDB -- Database : manages >
 OrderDB -- Database : manages >
@@ -174,6 +201,9 @@ Order "1" -- "*" Product : has >
 Order "1" -- "1" Pharmacy : has >
 Client "1" -- "1" Order : makes >
 Client "1" -- "1" Address : has >
-Order "1" -- "1" Address : has >
+Client "*" -- "*" CreditCard : has >
+Invoice "1" -- "*" Product : has >
+Invoice "1" -- "1" Order : has >
+Invoice "1" -- "1" Client : has >
 
 @enduml

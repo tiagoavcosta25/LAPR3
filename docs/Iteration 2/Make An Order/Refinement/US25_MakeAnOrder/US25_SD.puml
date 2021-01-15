@@ -18,8 +18,8 @@ participant "productDB\n:ProductDB" as PDB
 participant "orderServ\n:OrderService" as OS
 participant "orderDB\n:OrderDB" as ODB
 participant "order\n:Order" as O
-participant "address\n:Address" as AD
 participant "client\n:Client" as C
+participant "GenerateInvoiceController" as INVCTRL
 
 activate CL
 
@@ -42,12 +42,15 @@ CTRL -> CS** : create()
 activate CS
 CS -> CDB** : create()
 deactivate CS
-CTRL -> CDB : client = getUserByEmail(email)
+CTRL -> CS : client = getUserByEmail(email)
+activate CS
+CS -> CDB : client = getUserByEmail(email)
 activate CDB
 ref over CDB
 SD_CONNECTIONS
 end ref
 deactivate CDB
+deactivate CS
 CTRL -> PHS** : create()
 activate PHS
 PHS -> PHDB** : create()
@@ -99,29 +102,63 @@ end
 
 CL -> UI : confirms that there is not more products
 activate UI
-UI -> CTRL : newOrder(address, amount, additionalFee,\n dateOrder, description)
+UI -> CTRL : newOrder(description)
 activate CTRL
 
 CTRL -> OS** : create()
 activate OS
 OS -> ODB** : create()
 deactivate OS
-CTRL -> OS : order = addOrder(amount, additionalFee, dateOrder, description, mapProducts, client, streetName,doorNumber,locality,country,longitude,longitude)
+CTRL -> OS : order = addOrder(description, mapProducts, client, pharmacy, isHomeDelivery)
 activate OS
-OS -> O** : create(amount, additionalFee, dateOrder, description, mapProducts, client, streetName,doorNumber,locality,country,longitude,longitude)
+OS -> O** : create(description, mapProducts, \nclient, pharmacy, isHomeDelivery)
 activate O
-O -> AD** : create(streetName,doorNumber,locality,country,longitude,longitude)
+O -> O : calculateAmount()
+O -> O : calculateTotalWeight()
 O -> C : addCredits(addtionalCredits)
 activate C
 deactivate C
 deactivate O
 deactivate OS
 deactivate CTRL
-UI -> CL : validates, presents the order and asks for a confirmation
+
+UI -> CL : asks if it is a home delivery or a store pick up
+deactivate UI
+
+CL -> UI : chooses the delivery type
+activate UI
+UI -> CTRL : setHomeDelivery(homeDelivery)
+activate CTRL
+deactivate CTRL
+
+UI -> CL : validates, presents the information with the \ntotal price of the order and asks for confirmation
 deactivate UI
 
 CL -> UI : confirms
 activate UI
+UI -> CTRL : lstCreditCards = getCreditCardsByClient(email)
+activate CTRL
+CTRL -> CS : lstCreditCards = getCreditCardsByClient(email)
+activate CS
+CS -> CDB : lstCreditCards = getCreditCardsByClient(email)
+activate CDB
+ref over CDB
+SD_CONNECTIONS
+end ref
+deactivate CDB
+deactivate CS
+deactivate CTRL
+deactivate CTRL
+loop until the full amount is payed
+UI -> CL : shows the list of his registered credit cards
+deactivate UI
+
+CL -> UI : chooses which credit card to use in order \npay the order and the amount for said card
+activate UI
+UI -> CTRL : addPayment(creditCard, amount)
+activate CTRL
+deactivate CTRL
+end
 UI -> CTRL : registerOrder()
 activate CTRL
 CTRL -> OS : registerOrder(order)
@@ -134,6 +171,13 @@ end ref
 deactivate ODB
 deactivate OS
 deactivate CTRL
+UI -> INVCTRL** : create()
+UI -> INVCTRL : generateInvoice(order, mapPayments)
+activate INVCTRL
+ref over INVCTRL
+US26_SD
+end ref
+deactivate INVCTRL
 UI -> CL : registers the order, generates the invoice\n and informs of the success of the operation
 deactivate UI
 deactivate CL

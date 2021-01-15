@@ -14,6 +14,7 @@ class Client{
 }
 
 class User{
+-   int id
 -   String name
 -   String email
 -   String password
@@ -21,6 +22,7 @@ class User{
 }
 
 class Address{
+-   int id
 -   String streetName
 -   String doorNumber
 -   String postalCode
@@ -38,6 +40,7 @@ class Order{
 -   Date orderDate
 -   String description
 -   String status
+-   boolean isHomeDelivery
 }
 
 class Product{
@@ -53,15 +56,40 @@ class Pharmacy{
 -   String name
 }
 
+class CreditCard{
+-   int id
+-   Long creditCardNr
+-   String validityDate
+-   Integer CCV
+}
+
+class Payment{
+-   float value
+}
+
+class Invoice{
+-   int id
+-   Date orderDate
+-   float totalAmount
+}
+
 Database "1" -- "*" Client : has registered >
 Database "1" -- "*" Order : has registered >
 Database "1" -- "*" Product : has registered >
 Database "1" -- "*" Address : has registered >
+Database "1" -- "*" CreditCard : has registered >
+Database "1" -- "*" Payment : has registered >
+Database "1" -- "*" Invoice : has registered >
 Order "1" -- "*" Product : has >
 Order "1" -- "*" Pharmacy : has >
 Client "0..1" -- "1" User: acts as >
 Client "1" -- "1" Order : makes >
 Client "1" -- "1" Address : has >
-Order "1" -- "1" Address : has >
 Pharmacy "1" -- "1" Address : has >
+Client "*" -- "*" CreditCard : has >
+Payment "*" -- "1" CreditCard : has >
+Invoice "1" -- "*" Payment : has >
+Invoice "1" -- "*" Product : has >
+Invoice "1" -- "1" Order : has >
+Invoice "1" -- "1" Client : has >
 @enduml

@@ -27,10 +27,28 @@ end
 CL -> SYST : confirms that there is not more products
 activate SYST
 
-SYST --> CL : registers the order, generates the invoice\n and informs of the success of the operation
-
+SYST --> CL : asks if it is a home delivery or a store pick up
 deactivate SYST
 
+CL -> SYST : chooses the delivery type
+activate SYST
+
+SYST --> CL : validates, presents the information with the \ntotal price of the order and asks for confirmation
+deactivate SYST
+
+CL -> SYST : confirms
+activate SYST
+
+loop until the full amount is payed
+SYST --> CL : shows the list of his registered credit cards
+deactivate SYST
+
+CL -> SYST : chooses which credit card to use in order \npay the order and the amount for said card
+activate SYST
+end
+
+SYST --> CL : registers the order, the payment, generates the invoice\n and informs of the success of the operation
+deactivate SYST
 deactivate CL
 
 @enduml
