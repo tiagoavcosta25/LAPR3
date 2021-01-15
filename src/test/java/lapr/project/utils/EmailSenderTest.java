@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class EmailSenderTest {
 
-    /*@Test
+    @Test
     void emailSender() {
         boolean result = EmailSender.emailSender("csxmutilation@gmail.com", "Test", "Test");
         assertTrue(result);
@@ -22,5 +22,5 @@ class EmailSenderTest {
 
         result = EmailSender.emailSender("csxmutilation@gmail.com", "Test", "");
         assertFalse(result);
-    }*/
+    }
 }
