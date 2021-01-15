@@ -23,7 +23,6 @@ class UpdateProductControllerTest {
 
     @BeforeEach
     void setUp() {
-        ApplicationPOT.getInstance().setCurrentSession(new UserSession("", 2));
         this.updateProductController = new UpdateProductController();
         this.mockPServ = Mockito.mock(ProductService.class);
         initMocks(this);
@@ -32,6 +31,7 @@ class UpdateProductControllerTest {
     @Test
     void ensureUpdateProductWorks() {
         System.out.println("updateProduct");
+        ApplicationPOT.getInstance().setCurrentSession(new UserSession("", 2));
         when(mockPServ.updateProduct(1, "Product 6969", "Description 1", 2.0f, 2.0f)).thenReturn(true);
 
         boolean result = updateProductController.updateProduct(1, "Product 6969", "Description 1", 2.0f, 2.0f);
@@ -44,6 +44,21 @@ class UpdateProductControllerTest {
         assertFalse(result);
 
         when(mockPServ.updateProduct(1, "Product 6969", "Description 1", 2.0f, 2.0f)).thenReturn(false);
+        result = updateProductController.updateProduct(1, "Product 6969", "Description 1", 2.0f, 2.0f);
+        assertFalse(result);
+
+        ApplicationPOT.getInstance().clearCurrentSession();
+        ApplicationPOT.getInstance().setCurrentSession(new UserSession("", 1));
+        result = updateProductController.updateProduct(1, "Product 6969", "Description 1", 2.0f, 2.0f);
+        assertFalse(result);
+
+        ApplicationPOT.getInstance().clearCurrentSession();
+        ApplicationPOT.getInstance().setCurrentSession(new UserSession("", 3));
+        result = updateProductController.updateProduct(1, "Product 6969", "Description 1", 2.0f, 2.0f);
+        assertFalse(result);
+
+        ApplicationPOT.getInstance().clearCurrentSession();
+        ApplicationPOT.getInstance().setCurrentSession(new UserSession("", 4));
         result = updateProductController.updateProduct(1, "Product 6969", "Description 1", 2.0f, 2.0f);
         assertFalse(result);
     }

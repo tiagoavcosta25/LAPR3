@@ -12,7 +12,7 @@ class RegisterDroneUI{
 package "Controller" #DDDDDD {
 class RegisterDroneController{
 +getPharmacies()
-+newDrone(batteryPerc, chargingStatus, potency, weight, batteryCapacity, maxPayload, pharmacyId)
++newDrone(batteryPerc, chargingStatus, potency, weight, batteryCapacity, maxPayload, pharmacy)
 +registerDrone(drone)
 }
 }
@@ -46,7 +46,7 @@ class DroneParkingSlot{
 }
 
 class Drone{
-  +Drone(batteryPerc, charginStatus, potency,\n weight, batteryCapacity, maxPayload, batteryVoltage, pharmacyId)
+  +Drone(batteryPerc, charginStatus, potency,\n weight, batteryCapacity, maxPayload, batteryVoltage, pharmacy)
 }
 
 class Vehicle{
