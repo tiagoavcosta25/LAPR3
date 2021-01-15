@@ -14,8 +14,6 @@ public class Invoice {
     private Map<CreditCard, Float> m_mapPayments;
 
     private static int DEFAULT_ID = -1;
-    private static Date CURRENT_DATE = new Date(Calendar.getInstance().getTimeInMillis());
-    private static float DEFAULT_TOTAL_PRICE = -1;
     private static Order DEFAULT_ORDER = new Order();
     private static Map<CreditCard, Float> DEFAULT_PAYMENTS = new TreeMap<>();
 

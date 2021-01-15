@@ -108,7 +108,8 @@ public class InvoiceService {
             strBody += String.format("\n\t\t\t\tTHANK YOU!");
             strBody += String.format("\n_______________________________________");
 
-            return EmailSender.emailSender(strEmail, "Invoice Number: " + oInvoice.getId(), strBody);
+            EmailSender.emailSender(strEmail, "Invoice Number: " + oInvoice.getId(), strBody);
+            return true;
         } catch (Exception e){
             return false;
         }
