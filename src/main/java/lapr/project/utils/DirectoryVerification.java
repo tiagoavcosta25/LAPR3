@@ -18,8 +18,7 @@ public class DirectoryVerification {
             File dir = new File(path);
             try {
                 if (!dir.isDirectory()) {
-                    System.out.println("Path does not exist!");
-                    throw new InterruptedException();
+                    return "";
                 }
                 String[] list = dir.list(fileFilter);
                 if (list.length == 0)
@@ -27,10 +26,7 @@ public class DirectoryVerification {
                 else
                     return list[0].substring(0, list[0].length() - filter.length());
                 Thread.sleep(SLEEP_TIME);
-            } catch (InterruptedException e) {
-                System.out.println("Path does not exist!");
-                Thread.currentThread().interrupt();
-                return "";
+            } catch (InterruptedException ignored) {
             }
         }
         return "";
