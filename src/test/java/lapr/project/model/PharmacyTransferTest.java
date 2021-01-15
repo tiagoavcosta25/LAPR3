@@ -27,6 +27,25 @@ class PharmacyTransferTest {
     }
 
     @Test
+    void setTransferDate() {
+        PharmacyTransfer oPharmacyTransfer = new PharmacyTransfer();
+        Date date = new Date(Calendar.getInstance().getTimeInMillis());
+        oPharmacyTransfer.setTransferDate(date);
+        Date expected = date;
+        Date real = oPharmacyTransfer.getTransferDate();
+        assertEquals(expected, real);
+    }
+
+    @Test
+    void getTransferDate() {
+        PharmacyTransfer oPharmacyTransfer = new PharmacyTransfer();
+        Date expected = new Date(Calendar.getInstance().getTimeInMillis());
+        oPharmacyTransfer.setTransferDate(expected);
+        Date real = oPharmacyTransfer.getTransferDate();
+        assertEquals(expected, real);
+    }
+
+    @Test
     void getOrder() {
         Order expected = new Order();
         PharmacyTransfer pt = new PharmacyTransfer(expected, new Product(), 1, new Pharmacy());
@@ -36,7 +55,7 @@ class PharmacyTransferTest {
 
     @Test
     void setOrder() {
-        PharmacyTransfer oPharmacyTransfer = new PharmacyTransfer();
+        PharmacyTransfer oPharmacyTransfer = new PharmacyTransfer(1, new Date(Calendar.getInstance().getTimeInMillis()), new Order(), new Product(), 1, new Pharmacy());
         Order expected = new Order();
         oPharmacyTransfer.setOrder(expected);
         Order real = oPharmacyTransfer.getOrder();
@@ -46,7 +65,7 @@ class PharmacyTransferTest {
     @Test
     void getProduct() {
         Product expected = new Product();
-        PharmacyTransfer pt = new PharmacyTransfer(-1, new Order(), new Product(), 1, new Pharmacy());
+        PharmacyTransfer pt = new PharmacyTransfer(new Date(Calendar.getInstance().getTimeInMillis()), new Order(), new Product(), 1, new Pharmacy());
         Product real = pt.getProduct();
         assertEquals(expected, real);
     }
@@ -120,7 +139,7 @@ class PharmacyTransferTest {
     @Test
     void testToString() {
         PharmacyTransfer oPharmacyTransfer = new PharmacyTransfer();
-        String expected = "PharmacyTransfer{m_intId=-1, m_oOrder=Order";
+        String expected = "PharmacyTransfer{m_intId=-1, m_dtTransferDa";
         String real = oPharmacyTransfer.toString().substring(0, 43);
         assertEquals(expected, real);
     }

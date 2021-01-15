@@ -1,15 +1,16 @@
 package lapr.project.model.service;
 
 import lapr.project.data.PharmacyTransferDB;
-import lapr.project.model.Order;
-import lapr.project.model.Pharmacy;
-import lapr.project.model.PharmacyTransfer;
-import lapr.project.model.Product;
+import lapr.project.model.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+
+import java.util.Date;
+import java.util.Map;
+import java.util.TreeMap;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
@@ -76,8 +77,19 @@ class PharmacyTransferServiceTest {
 
     @Test
     void sendEmailWithTransferNote() {
-        System.out.println("issueTransferNote");
-        boolean result = pharmacyTransferService.sendEmailWithTransferNote(expectedPharmacyTransfer);
+        System.out.println("sendEmailWithTransferNote");
+        PharmacyTransfer oPharmacyTransfer = new PharmacyTransfer();
+        oPharmacyTransfer.setProduct(new Product(1,"SARS-CoV-2 Vaccine", "Description.", 7.5f, 1f));
+        oPharmacyTransfer.setQuantity(2);
+        oPharmacyTransfer.getNearbyPharmacy().setEmail("farmacyservice.g21@gmail.com");
+        oPharmacyTransfer.getOrder().getPharmacy().setEmail("farmacyservice.g21@gmail.com");
+
+        boolean result = pharmacyTransferService.sendEmailWithTransferNote(oPharmacyTransfer);
         assertTrue(result);
+
+        oPharmacyTransfer.getOrder().getPharmacy().setEmail(null);
+        oPharmacyTransfer.getNearbyPharmacy().setEmail(null);
+        result = pharmacyTransferService.sendEmailWithTransferNote(oPharmacyTransfer);
+        assertFalse(result);
     }
 }

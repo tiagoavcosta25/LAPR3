@@ -8,6 +8,15 @@ class IssueTransferNoteController{
 }
 }
 
+package "Utils" #DDDDDD {
+class EmailSender{
++emailSender(email, subject, body)
+}
+}
+
+database Database {
+}
+
 package "Model" #DDDDDD {
 
 package "Service" #DDDDDD {
@@ -78,8 +87,6 @@ class PharmacyTransfer{
 +PharmacyTransfer(order, product, quantity, nearbyPharamacy)
 }
 
-}
-
 
 package "Data" #DDDDDD {
 class DataHandler{
@@ -92,9 +99,6 @@ class PharmacyTransferDB{
 }
 }
 
-database Database {
-}
-
 class PharmacyTransferDB extends DataHandler
 class Client extends User
 
@@ -103,6 +107,7 @@ Database "1" -- "*" Order : has registered >
 Database "1" -- "*" Product : has registered >
 Database "1" -- "*" Client : has registered >
 PharmacyTransferDB "1" --> "*" Database : manages
+PharmacyTransferService "1" --> "1" EmailSender : uses
 PharmacyTransferService "1" --> "*" PharmacyTransfer : manages services of
 PharmacyTransferService "1" --> "1" PharmacyTransferDB : uses
 Pharmacy "1" -- "1" Address : has >

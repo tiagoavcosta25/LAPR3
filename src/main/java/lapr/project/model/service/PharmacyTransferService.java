@@ -2,6 +2,9 @@ package lapr.project.model.service;
 
 import lapr.project.data.PharmacyTransferDB;
 import lapr.project.model.*;
+import lapr.project.utils.EmailSender;
+
+import java.util.Map;
 
 public class PharmacyTransferService {
 
@@ -28,6 +31,42 @@ public class PharmacyTransferService {
     }
 
     public boolean sendEmailWithTransferNote(PharmacyTransfer oPharmacyTransfer) {
-        return true;
+        try{
+            String strEmail = oPharmacyTransfer.getOrder().getPharmacy().getEmail();
+            String strBody = String.format("_______________________________________\n\n\t\t\tTransfer No. %d", oPharmacyTransfer.getId());
+            strBody += String.format("\n\t\t\t\t%td-%<tb-%<tY", oPharmacyTransfer.getTransferDate());
+            strBody += String.format("\n_______________________________________");
+
+            strBody += String.format("\n\n---------------------------------------");
+            strBody += String.format("\n\t\t\tSending Pharmacy:\n---------------------------------------\n\n\n\n\t\t\t%s", oPharmacyTransfer.getNearbyPharmacy().getName());
+            strBody += String.format("\n\n\t\t\t%s", oPharmacyTransfer.getNearbyPharmacy().getEmail());
+            strBody += String.format("\n\t\t\t%s", oPharmacyTransfer.getNearbyPharmacy().getAddress().getStreetName());
+            strBody += String.format("\n\t\t\t%s", oPharmacyTransfer.getNearbyPharmacy().getAddress().getDoorNumber());
+            strBody += String.format("\n\t\t\t%s", oPharmacyTransfer.getNearbyPharmacy().getAddress().getPostalCode());
+            strBody += String.format("\n\t\t\t%s", oPharmacyTransfer.getNearbyPharmacy().getAddress().getLocality());
+            strBody += String.format("\n\t\t\t%s", oPharmacyTransfer.getNearbyPharmacy().getAddress().getCountry());
+            strBody += String.format("\n\n\n\n---------------------------------------");
+            strBody += String.format("\n\t\t\tReceiving Pharmacy:\n---------------------------------------\n\n\n\n\t\t\t%s", oPharmacyTransfer.getOrder().getPharmacy().getName());
+            strBody += String.format("\n\n\t\t\t%s", oPharmacyTransfer.getOrder().getPharmacy().getEmail());
+            strBody += String.format("\n\t\t\t%s", oPharmacyTransfer.getOrder().getPharmacy().getAddress().getStreetName());
+            strBody += String.format("\n\t\t\t%s", oPharmacyTransfer.getOrder().getPharmacy().getAddress().getDoorNumber());
+            strBody += String.format("\n\t\t\t%s", oPharmacyTransfer.getOrder().getPharmacy().getAddress().getPostalCode());
+            strBody += String.format("\n\t\t\t%s", oPharmacyTransfer.getOrder().getPharmacy().getAddress().getLocality());
+            strBody += String.format("\n\t\t\t%s", oPharmacyTransfer.getOrder().getPharmacy().getAddress().getCountry());
+            strBody += String.format("\n\n\n\n---------------------------------------");
+            strBody += String.format("\n\t\t\tProduct Ordered");
+            strBody += String.format("\n---------------------------------------\n\n\n\n%dx %s", oPharmacyTransfer.getQuantity(), oPharmacyTransfer.getProduct().getName());
+            strBody += String.format("\n\n\n\n_______________________________________");
+            strBody += String.format("\n\t\t\t\tProduct Sent!");
+            strBody += String.format("\n_______________________________________");
+            strBody += String.format("\n\t\t\t\tTHANK YOU!");
+            strBody += String.format("\n_______________________________________");
+
+            EmailSender.emailSender(strEmail, "Transfer Number: " + oPharmacyTransfer.getId(), strBody);
+            EmailSender.emailSender(oPharmacyTransfer.getNearbyPharmacy().getEmail(), "Transfer Number: " + oPharmacyTransfer.getId(), "Transfer Sent!");
+            return true;
+        } catch (Exception e){
+            return false;
+        }
     }
 }
