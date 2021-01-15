@@ -54,7 +54,7 @@ public class EmailSender {
 
 
     private static String htmlBody(String body) {
-        if(body == null || body.equals(""))
+        if(body.equals(""))
             return "";
         return body.replace("\n", "<br />");
     }

@@ -11,9 +11,6 @@ class EmailSenderTest {
         boolean result = EmailSender.emailSender("csxmutilation@gmail.com", "Test", "Test");
         assertTrue(result);
 
-        result = EmailSender.emailSender("teste@gmail.com", "Test", null);
-        assertFalse(result);
-
         result = EmailSender.emailSender("teste@gmail.com", "Test", "");
         assertFalse(result);
 
