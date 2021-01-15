@@ -40,7 +40,7 @@ deactivate UI
 
 ADMIN -> UI : inserts the required data
 activate UI
-UI -> CTRL : newDrone(batteryPerc, chargingStatus,\n potency, weight, batteryCapacity, maxPayload, pharmacyId)
+UI -> CTRL : newDrone(batteryPerc, chargingStatus,\n potency, weight, batteryCapacity, maxPayload, pharmacy)
 activate CTRL
 
 CTRL -> DS : create()
@@ -48,9 +48,9 @@ activate DS
 DS -> DDB ** : create()
 deactivate DS
 
-CTRL -> DS : newScooter(batteryPerc, chargingStatus, potency, weight, batteryCapacity, maxPayload, pharmacyId)
+CTRL -> DS : newScooter(batteryPerc, chargingStatus, potency, weight, batteryCapacity, maxPayload, pharmacy)
 activate DS
-DS -> D ** : create(batteryPerc, chargingStatus,\n potency, weight, batteryCapacity, maxPayload, pharmacyId)
+DS -> D ** : create(batteryPerc, chargingStatus,\n potency, weight, batteryCapacity, maxPayload, pharmacy)
 deactivate DS
 deactivate CTRL
 

@@ -5,6 +5,7 @@ import lapr.project.data.DeliveryDB;
 import lapr.project.data.DeliveryRunDB;
 import lapr.project.model.*;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -39,4 +40,11 @@ public class DeliveryRunService {
     }
 
 
+    public ArrayList<String> startDeliveryRun(Vehicle vehicle, String currentUserEmail) {
+        return m_oDeliveryDB.startDeliveryRun(vehicle,currentUserEmail);
+    }
+
+    public boolean sendsEmail(List lstClients) {
+        return true; //IMPLEMENT METHOD
+    }
 }

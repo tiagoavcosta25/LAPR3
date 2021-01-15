@@ -1,4 +1,4 @@
-CREATE OR REPLACE PROCEDURE removeScooter(p_id IN VEHICLE.ID%TYPE)
+CREATE OR REPLACE PROCEDURE removeDrone(p_id IN VEHICLE.ID%TYPE)
 IS
     v_batteryId BATTERY.ID%type;
 BEGIN
@@ -12,6 +12,6 @@ BEGIN
 
     DELETE from BATTERY WHERE ID = v_batteryId;
 
-    DELETE from SCOOTER WHERE VEHICLEID = p_id;
+    DELETE from DRONE WHERE VEHICLEID = p_id;
 
 end;

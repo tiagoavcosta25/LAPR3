@@ -3,6 +3,7 @@ package lapr.project.controller;
 import lapr.project.data.CourierDB;
 import lapr.project.model.ChargingSlot;
 import lapr.project.model.UserSession;
+import lapr.project.model.service.CourierService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -19,12 +20,12 @@ class AvailableChargingSlotControllerTest {
     private AvailableChargingSlotController availableChargingSlotController;
 
     @Mock
-    private CourierDB mockCourierDB;
+    private CourierService mockCourierService;
 
     @BeforeEach
     void setUp() {
-        this.availableChargingSlotController = new AvailableChargingSlotController("","","");
-        this.mockCourierDB = Mockito.mock(CourierDB.class);
+        this.availableChargingSlotController = new AvailableChargingSlotController();
+        this.mockCourierService = Mockito.mock(CourierService.class);
         initMocks(this);
     }
 
@@ -32,9 +33,9 @@ class AvailableChargingSlotControllerTest {
     @Test
     void getAvailableChargingSlot() {
         ApplicationPOT.getInstance().setCurrentSession(new UserSession("email3@gmail.com"));
-        when(mockCourierDB.getAvailableChargingSlot("email3@gmail.com")).thenReturn(new ChargingSlot());
+        when(mockCourierService.getAvailableChargingSlot("email3@gmail.com","drone")).thenReturn(new ChargingSlot());
         ChargingSlot expectedChargingSlot = new ChargingSlot();
-        ChargingSlot result = availableChargingSlotController.getAvailableChargingSlot();
+        ChargingSlot result = availableChargingSlotController.getAvailableChargingSlot("drone");
         assertEquals(expectedChargingSlot, result);
     }
 }

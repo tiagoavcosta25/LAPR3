@@ -1,0 +1,32 @@
+@startuml
+skinparam classAttributeIconSize 0
+hide methods
+left to right direction
+
+database Database {
+}
+
+class Pharmacy {
+  -int id
+  -String name
+}
+
+class Drone{
+}
+
+class Vehicle{
+  -int id
+  -String vehicleType
+  -float potency
+  -float weight
+  -float maxPayload
+  -String charngingStatus
+}
+
+
+
+Database "1" -- "*" Drone : has >
+Vehicle "*" -- "1" Pharmacy : belongs to >
+class Drone extends Vehicle
+@enduml
+

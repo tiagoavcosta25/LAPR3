@@ -92,6 +92,8 @@ class BatteryTest {
         assertTrue(real);
         real = oBattery.equals(new Scooter());
         assertFalse(real);
+        real = oBattery.equals(null);
+        assertFalse(real);
         oBattery.setId(-2);
         real = oBattery.equals(new Battery());
         assertFalse(real);

@@ -1,6 +1,7 @@
 package lapr.project.controller;
 
 import lapr.project.model.Product;
+import lapr.project.model.UserSession;
 import lapr.project.model.service.ProductService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -31,6 +32,7 @@ class ProductInformationControllerTest {
     @Test
     void ensureGetProductWorks() {
         System.out.println("getProduct");
+        ApplicationPOT.getInstance().setCurrentSession(new UserSession("", 2));
         Product expectedProduct = new Product();
         when(mockPServ.getProduct(1)).thenReturn(expectedProduct);
 
@@ -39,6 +41,21 @@ class ProductInformationControllerTest {
 
         expectedProduct = null;
 
+        result = productInformationController.getProduct(-1);
+        assertEquals(expectedProduct, result);
+
+        ApplicationPOT.getInstance().clearCurrentSession();
+        ApplicationPOT.getInstance().setCurrentSession(new UserSession("", 1));
+        result = productInformationController.getProduct(-1);
+        assertEquals(expectedProduct, result);
+
+        ApplicationPOT.getInstance().clearCurrentSession();
+        ApplicationPOT.getInstance().setCurrentSession(new UserSession("", 3));
+        result = productInformationController.getProduct(-1);
+        assertEquals(expectedProduct, result);
+
+        ApplicationPOT.getInstance().clearCurrentSession();
+        ApplicationPOT.getInstance().setCurrentSession(new UserSession("", 4));
         result = productInformationController.getProduct(-1);
         assertEquals(expectedProduct, result);
     }

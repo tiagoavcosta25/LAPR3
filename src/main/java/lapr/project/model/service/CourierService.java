@@ -1,6 +1,7 @@
 package lapr.project.model.service;
 
 import lapr.project.data.CourierDB;
+import lapr.project.model.ChargingSlot;
 import lapr.project.model.Courier;
 import lapr.project.model.PassGenerator;
 import lapr.project.model.Pharmacy;
@@ -13,6 +14,10 @@ public class CourierService {
 
     public CourierService() {
         oCourierDB = new CourierDB();
+    }
+
+    public ChargingSlot getAvailableChargingSlot(String currentUserEmail, String vehicleType) {
+        return this.oCourierDB.getAvailableChargingSlot(currentUserEmail,vehicleType);
     }
 
     public Courier newCourier(String strName, String strEmail, Integer strNIF, String strIBAN, Pharmacy oPharmacy) throws NoSuchAlgorithmException {

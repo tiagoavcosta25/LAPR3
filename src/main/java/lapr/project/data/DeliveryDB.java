@@ -4,10 +4,10 @@ import javafx.util.Pair;
 import lapr.project.data.DataHandler;
 import lapr.project.graph.map.Graph;
 import lapr.project.graph.map.GraphAlgorithms;
-import lapr.project.model.Address;
-import lapr.project.model.Path;
+import lapr.project.model.*;
 import oracle.jdbc.OracleTypes;
 
+import java.security.NoSuchAlgorithmException;
 import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -227,5 +227,28 @@ public class DeliveryDB extends DataHandler {
         }
         throw new IllegalArgumentException("No payload found for the DR with the courier with the following email:" + email);
 
+    }
+
+    public ArrayList<String> startDeliveryRun(Vehicle vehicle, String currentUserEmail) {
+        CallableStatement callStmt = null;
+        List<String> lstClients = new ArrayList<>();
+        try {
+            callStmt = getConnection().prepareCall("{ ? = call startDeliveryRun(?,?) }");
+
+            callStmt.registerOutParameter(1, oracle.jdbc.internal.OracleTypes.CURSOR);
+            callStmt.setInt(2, vehicle.getId());
+            callStmt.setString(3, currentUserEmail);
+            callStmt.execute();
+            ResultSet rSet = (ResultSet) callStmt.getObject(1);
+
+            while(rSet.next()){
+                String clientEmail = rSet.getString(1);
+                lstClients.add(clientEmail);
+                rSet.next();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        throw new IllegalArgumentException("No Scooters Avaliable.");
     }
 }

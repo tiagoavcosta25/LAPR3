@@ -1,0 +1,17 @@
+@startuml
+actor "Admin" as ADMIN
+
+participant ":System" as SYST
+
+activate ADMIN
+ADMIN -> SYST : Requests the drone payload
+activate SYST
+SYST --> ADMIN : Asks for the drone ID
+deactivate SYST
+
+ADMIN -> SYST : Fills the information
+activate SYST
+
+SYST --> ADMIN : Validates and presents the drone payload.
+deactivate SYST
+@enduml

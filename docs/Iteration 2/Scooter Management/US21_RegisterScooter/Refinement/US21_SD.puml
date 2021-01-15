@@ -40,7 +40,7 @@ deactivate UI
 
 ADMIN -> UI : inserts the required data
 activate UI
-UI -> CTRL : newScooter(batteryPerc, chargingStatus,\n potency, weight, batteryCapacity, maxPayload, pharmacyId)
+UI -> CTRL : newScooter(batteryPerc, chargingStatus,\n potency, weight, batteryCapacity, maxPayload, pharmacy)
 activate CTRL
 
 CTRL -> SS : create()
@@ -48,9 +48,9 @@ activate SS
 SS -> SDB ** : create()
 deactivate SS
 
-CTRL -> SS : newScooter(batteryPerc, chargingStatus, potency, weight, batteryCapacity, maxPayload, pharmacyId)
+CTRL -> SS : newScooter(batteryPerc, chargingStatus, potency, weight, batteryCapacity, maxPayload, pharmacy)
 activate SS
-SS -> SC ** : create(batteryPerc, chargingStatus,\n potency, weight, batteryCapacity, maxPayload, pharmacyId)
+SS -> SC ** : create(batteryPerc, chargingStatus,\n potency, weight, batteryCapacity, maxPayload, pharmacy)
 deactivate SS
 deactivate CTRL
 

@@ -12,7 +12,7 @@ class RegisterScooterUI{
 package "Controller" #DDDDDD {
 class RegisterScooterController{
 +getPharmacies()
-+newScooter(batteryPerc, chargingStatus, potency, weight, batteryCapacity, maxPayload, pharmacyId)
++newScooter(batteryPerc, chargingStatus, potency, weight, batteryCapacity, maxPayload, pharmacy)
 +registerScooter(scoot)
 }
 }
@@ -46,7 +46,7 @@ class ScooterParkingSlot{
 }
 
 class Scooter{
-+Scooter(batteryPerc, charginStatus, potency,\n weight, batteryCapacity, maxPayload, batteryVoltage, pharmacyId)
++Scooter(batteryPerc, charginStatus, potency,\n weight, batteryCapacity, maxPayload, batteryVoltage, pharmacy)
 
 }
 

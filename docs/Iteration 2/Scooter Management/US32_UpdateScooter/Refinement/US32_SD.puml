@@ -60,11 +60,11 @@ deactivate UI
 
 ADMIN -> UI : Updates the information
 activate UI
-UI -> CTRL : updateScooter(scoot)
+UI -> CTRL : updateScooter(batteryPerc, chargingStatus,\n potency, weight, batteryCapacity, maxPayload, pharmacyId)
 activate CTRL
-CTRL -> SS : updateScooter(scoot)
+CTRL -> SS : updateScooter(batteryPerc, chargingStatus,\n potency, weight, batteryCapacity, maxPayload, pharmacyId)
 activate SS
-SS -> SDB : updateScooterFromDB(scoot)
+SS -> SDB : updateScooterFromDB(batteryPerc, chargingStatus,\n potency, weight, batteryCapacity, maxPayload, pharmacyId)
 activate SDB
 ref over SDB
 SD_Connections
