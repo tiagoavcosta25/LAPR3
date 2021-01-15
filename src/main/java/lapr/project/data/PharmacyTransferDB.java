@@ -76,4 +76,22 @@ public class PharmacyTransferDB extends DataHandler {
     public boolean registerPharmacyTransfer(PharmacyTransfer oPharmacyTransfer) {
         return addPharmacyTransfer(oPharmacyTransfer.getOrder(), oPharmacyTransfer.getProduct(), oPharmacyTransfer.getQuantity(), oPharmacyTransfer.getNearbyPharmacy());
     }
+
+    public boolean updateStockFromTransfer(int intPharmacyTransferId) {
+        try {
+            openConnection();
+
+            CallableStatement callStmt = getConnection().prepareCall("{ call updateStockFromTransfer(?) }");
+
+            callStmt.setInt(1, intPharmacyTransferId);
+
+            callStmt.execute();
+
+            closeAll();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 }

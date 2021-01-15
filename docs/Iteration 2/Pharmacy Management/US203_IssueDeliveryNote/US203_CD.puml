@@ -14,14 +14,20 @@ class IssueDeliveryNoteController{
 }
 }
 
+package "Utils" #DDDDDD {
+class EmailSender{
++emailSender(email, subject, body)
+}
+}
+
 package "Model" #DDDDDD {
 
 package "Service" #DDDDDD {
       class PharmacyTransferService{
                 +PharmacyTransferService()
                 +getPharmacyTransfer(pharmacyTransferId)
-                +updateStockFromTransfer(pharmacyTransfer)
-                +sendEmailWithDeliveryNote(pharamacyDelivery)
+                +updateStockFromTransfer(pharmacyTransferId)
+                +sendEmailWithDeliveryNote(pharmacyTransfer)
             }
  }
 
@@ -98,7 +104,7 @@ class DataHandler{
 class PharmacyTransferDB{
    +PharmacyTransferDB()
    +getPharmacyTransfer(pharmacyTransferId)
-   +updateStockFromTransfer(pharmacyTransfer)
+   +updateStockFromTransfer(pharmacyTransferId)
 }
 }
 
@@ -114,6 +120,7 @@ IssueDeliveryNoteController ..> PharmacyTransferService
 PharmacyTransferDB "1" --> "*" Database : manages
 PharmacyTransferService "1" --> "*" PharmacyTransfer : manages services of
 PharmacyTransferService "1" --> "1" PharmacyTransferDB : uses
+PharmacyTransferService "1" --> "1" EmailSender : uses
 Database "1" -- "*" Order : has registered >
 Database "1" -- "*" Product : has registered >
 Database "1" -- "*" Client : has registered >

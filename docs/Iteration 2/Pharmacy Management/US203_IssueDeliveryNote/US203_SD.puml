@@ -27,9 +27,9 @@ SD_CONNECTIONS
 end
 deactivate PTDB
 deactivate PTS
-CTRL -> PTS : updateStockFromTransfer(pharmacyTransfer)
+CTRL -> PTS : updateStockFromTransfer(pharmacyTransferId)
 activate PTS
-PTS -> PTDB : updateStockFromTransfer(pharmacyTransfer)
+PTS -> PTDB : updateStockFromTransfer(pharmacyTransferId)
 activate PTDB
 ref over PTDB
 SD_CONNECTIONS
@@ -38,7 +38,16 @@ deactivate PTDB
 deactivate PTS
 CTRL -> PTS : sendEmailWithDeliveryNote(pharmacyTransfer)
 activate PTS
-PTS -> E : sendEmail(email,subject,body)
+PTS -> E : emailSender(email,subject,body)
+activate E
+ref over E
+SD_EMAILSENDER
+end
+deactivate E
+deactivate PTS
+CTRL -> PTS : sendEmailWithDeliveryNote(pharmacyTransfer)
+activate PTS
+PTS -> E : emailSender(email,subject,body)
 activate E
 ref over E
 SD_EMAILSENDER

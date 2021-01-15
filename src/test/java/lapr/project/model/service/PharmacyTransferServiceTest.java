@@ -81,8 +81,8 @@ class PharmacyTransferServiceTest {
         PharmacyTransfer oPharmacyTransfer = new PharmacyTransfer();
         oPharmacyTransfer.setProduct(new Product(1,"SARS-CoV-2 Vaccine", "Description.", 7.5f, 1f));
         oPharmacyTransfer.setQuantity(2);
-        oPharmacyTransfer.getNearbyPharmacy().setEmail("farmacyservice.g21@gmail.com");
-        oPharmacyTransfer.getOrder().getPharmacy().setEmail("farmacyservice.g21@gmail.com");
+        oPharmacyTransfer.getNearbyPharmacy().setEmail("g21@trash-mail.com");
+        oPharmacyTransfer.getOrder().getPharmacy().setEmail("g21@trash-mail.com");
 
         boolean result = pharmacyTransferService.sendEmailWithTransferNote(oPharmacyTransfer);
         assertTrue(result);
@@ -90,6 +90,36 @@ class PharmacyTransferServiceTest {
         oPharmacyTransfer.getOrder().getPharmacy().setEmail(null);
         oPharmacyTransfer.getNearbyPharmacy().setEmail(null);
         result = pharmacyTransferService.sendEmailWithTransferNote(oPharmacyTransfer);
+        assertFalse(result);
+    }
+
+    @Test
+    void updateStockFromTransfer() {
+        System.out.println("updateStockFromTransfer");
+        when(mockPharmacyTransferDB.updateStockFromTransfer(1)).thenReturn(true);
+        boolean result = pharmacyTransferService.updateStockFromTransfer(1);
+        assertTrue(result);
+
+        when(mockPharmacyTransferDB.updateStockFromTransfer(-1)).thenReturn(false);
+        result = pharmacyTransferService.updateStockFromTransfer(-1);
+        assertFalse(result);
+    }
+
+    @Test
+    void sendEmailWithDeliveryNote() {
+        System.out.println("sendEmailWithDeliveryNote");
+        PharmacyTransfer oPharmacyTransfer = new PharmacyTransfer();
+        oPharmacyTransfer.setProduct(new Product(1,"SARS-CoV-2 Vaccine", "Description.", 7.5f, 1f));
+        oPharmacyTransfer.setQuantity(2);
+        oPharmacyTransfer.getNearbyPharmacy().setEmail("g21@trash-mail.com");
+        oPharmacyTransfer.getOrder().getPharmacy().setEmail("g21@trash-mail.com");
+
+        boolean result = pharmacyTransferService.sendEmailWithDeliveryNote(oPharmacyTransfer);
+        assertTrue(result);
+
+        oPharmacyTransfer.getOrder().getPharmacy().setEmail(null);
+        oPharmacyTransfer.getNearbyPharmacy().setEmail(null);
+        result = pharmacyTransferService.sendEmailWithDeliveryNote(oPharmacyTransfer);
         assertFalse(result);
     }
 }

@@ -33,6 +33,34 @@ public class PharmacyTransferService {
     public boolean sendEmailWithTransferNote(PharmacyTransfer oPharmacyTransfer) {
         try{
             String strEmail = oPharmacyTransfer.getOrder().getPharmacy().getEmail();
+            String strBody = getBody(oPharmacyTransfer, "Product Sent!");
+
+            EmailSender.emailSender(strEmail, "Transfer Number: " + oPharmacyTransfer.getId(), strBody);
+            EmailSender.emailSender(oPharmacyTransfer.getNearbyPharmacy().getEmail(), "Transfer Number: " + oPharmacyTransfer.getId(), "Transfer Note Sent With Success!");
+            return true;
+        } catch (Exception e){
+            return false;
+        }
+    }
+
+    public boolean updateStockFromTransfer(int intPharmacyTransferId) {
+        return this.m_oPharmacyTransferDB.updateStockFromTransfer(intPharmacyTransferId);
+    }
+
+    public boolean sendEmailWithDeliveryNote(PharmacyTransfer oPharmacyTransfer) {
+        try{
+            String strEmail = oPharmacyTransfer.getNearbyPharmacy().getEmail();
+            String strBody = getBody(oPharmacyTransfer, "Product Delivered!");
+
+            EmailSender.emailSender(strEmail, "Transfer Number: " + oPharmacyTransfer.getId(), strBody);
+            EmailSender.emailSender(oPharmacyTransfer.getOrder().getPharmacy().getEmail(), "Transfer Number: " + oPharmacyTransfer.getId(), "Delivery Note Sent With Success!");
+            return true;
+        } catch (Exception e){
+            return false;
+        }
+    }
+
+    private String getBody(PharmacyTransfer oPharmacyTransfer, String strNote){
             String strBody = String.format("_______________________________________\n\n\t\t\tTransfer No. %d", oPharmacyTransfer.getId());
             strBody += String.format("\n\t\t\t\t%td-%<tb-%<tY", oPharmacyTransfer.getTransferDate());
             strBody += String.format("\n_______________________________________");
@@ -57,16 +85,10 @@ public class PharmacyTransferService {
             strBody += String.format("\n\t\t\tProduct Ordered");
             strBody += String.format("\n---------------------------------------\n\n\n\n%dx %s", oPharmacyTransfer.getQuantity(), oPharmacyTransfer.getProduct().getName());
             strBody += String.format("\n\n\n\n_______________________________________");
-            strBody += String.format("\n\t\t\t\tProduct Sent!");
+            strBody += String.format("\n\t\t\t\t%s", strNote);
             strBody += String.format("\n_______________________________________");
             strBody += String.format("\n\t\t\t\tTHANK YOU!");
             strBody += String.format("\n_______________________________________");
-
-            EmailSender.emailSender(strEmail, "Transfer Number: " + oPharmacyTransfer.getId(), strBody);
-            EmailSender.emailSender(oPharmacyTransfer.getNearbyPharmacy().getEmail(), "Transfer Number: " + oPharmacyTransfer.getId(), "Transfer Sent!");
-            return true;
-        } catch (Exception e){
-            return false;
-        }
+            return strBody;
     }
 }
