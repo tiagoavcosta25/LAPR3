@@ -1,19 +1,18 @@
-create or replace function getDroneById(droneId DRONE.VEHICLEID%TYPE) RETURN SYS_REFCURSOR
+create or replace function getDronePayload(droneId DRONE.VEHICLEID%TYPE) RETURN VEHICLE.MAXPAYLOAD%TYPE
     IS
-    droneInfo SYS_REFCURSOR;
+    payload VEHICLE.MAXPAYLOAD%TYPE;
     drone_not_found exception;
 BEGIN
 
-    OPEN droneInfo FOR
-        select *
+        select V.MAXPAYLOAD into payload
         FROM VEHICLE V
                  INNER JOIN DRONE D ON D.VEHICLEID = V.ID
         where droneId = V.ID;
 
-    if droneInfo is null then
+    if payload is null then
         raise drone_not_found;
     end if;
-    RETURN DRONEINFO;
+    RETURN payload;
 EXCEPTION
     when drone_not_found then
         raise_application_error(-20042, 'Drone Not Found!');

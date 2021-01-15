@@ -4,6 +4,7 @@ package lapr.project.data;
 import lapr.project.model.Battery;
 import lapr.project.model.Drone;
 import lapr.project.model.Pharmacy;
+import oracle.jdbc.internal.OracleTypes;
 
 import java.security.NoSuchAlgorithmException;
 import java.sql.CallableStatement;
@@ -12,14 +13,14 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DroneDB extends DataHandler  {
+public class DroneDB extends DataHandler {
 
     public DroneDB() {
 
     }
 
     public boolean updateDrone(Float percentage, Integer pharmacyId, Float potency, Float weight, Double batteryCapacity,
-                               Float maxPayload, Float batteryVoltage, String chargingStatus,Integer droneId) {
+                               Float maxPayload, Float batteryVoltage, String chargingStatus, Integer droneId) {
         try {
             openConnection();
             CallableStatement callStmt = getConnection().prepareCall("{call updateDrone(?,?,?,?,?,?,?,?,?)}");
@@ -31,8 +32,8 @@ public class DroneDB extends DataHandler  {
             callStmt.setDouble(5, batteryCapacity);
             callStmt.setFloat(6, maxPayload);
             callStmt.setFloat(7, batteryVoltage);
-            callStmt.setString(8,chargingStatus);
-            callStmt.setInt(9,droneId);
+            callStmt.setString(8, chargingStatus);
+            callStmt.setInt(9, droneId);
 
             callStmt.execute();
             closeAll();
@@ -50,7 +51,7 @@ public class DroneDB extends DataHandler  {
     }
 
     public boolean addDrone(float fltPotency, float fltWeight, float fltMaxPayload, String strCharginStatus,
-                               Battery oBattery, Pharmacy oPharmacy) {
+                            Battery oBattery, Pharmacy oPharmacy) {
         boolean flag = true;
         try {
             openConnection();
@@ -89,7 +90,7 @@ public class DroneDB extends DataHandler  {
             callStmt.execute();
             ResultSet rSet = (ResultSet) callStmt.getObject(1);
 
-            while(rSet.next()){
+            while (rSet.next()) {
                 int intId = rSet.getInt(1);
                 float fltPotency = rSet.getFloat(2);
                 float fltWeight = rSet.getFloat(3);
@@ -99,7 +100,7 @@ public class DroneDB extends DataHandler  {
                 float fltBatteryPerc = rSet.getInt(7);
                 int intBatteryCapacity = rSet.getInt(8);
                 float fltBatteryVoltage = rSet.getFloat(9);
-                Pharmacy oPharmacy = pharmacyManager(rSet,10);
+                Pharmacy oPharmacy = pharmacyManager(rSet, 10);
 
                 lstDrone.add(new Drone(intId, fltPotency, fltWeight, fltMaxPayload, strCharginStatus, intBatteryId,
                         fltBatteryPerc, intBatteryCapacity, fltBatteryVoltage, oPharmacy));
@@ -129,5 +130,26 @@ public class DroneDB extends DataHandler  {
         }
         return true;
 
+    }
+
+    public float getDronePayload(int droneId) {
+
+        CallableStatement callStmt = null;
+        float payload = 0f;
+        try {
+            callStmt = getConnection().prepareCall("{ ? = call getDronePayload(?) }");
+
+            callStmt.registerOutParameter(1, OracleTypes.FLOAT);
+            callStmt.setInt(2, droneId);
+            callStmt.execute();
+            ResultSet rSet = (ResultSet) callStmt.getObject(1);
+            if (rSet.next()) {
+                payload = rSet.getFloat(1);
+            }
+            return payload;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        throw new IllegalArgumentException("No Drone with the ID.");
     }
 }

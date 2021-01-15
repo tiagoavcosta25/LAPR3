@@ -70,4 +70,8 @@ public class DroneService {
     public boolean startDelivery() {
         return true;
     }
+
+    public float getDronePayload(int droneId){
+        return m_oDroneDB.getDronePayload(droneId);
+    }
 }

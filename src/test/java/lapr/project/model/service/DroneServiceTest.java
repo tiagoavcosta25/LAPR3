@@ -27,11 +27,13 @@ class DroneServiceTest {
     private DroneDB m_mockDroneDB;
 
     private Drone expectedDrone;
+    private float expPayload;
 
     @BeforeEach
     void setUp() {
         this.expectedDrone = new Drone(250f, 30f, 1f, "No Charging",
                 100f, 20, 20f, new Pharmacy());
+        this.expPayload = 10f;
         this.m_oDroneService = new DroneService();
         this.m_mockDroneDB = Mockito.mock(DroneDB.class);
         initMocks(this);
@@ -206,11 +208,20 @@ class DroneServiceTest {
         boolean result2 = m_oDroneService.checkEnergy(10, new Drone());
         assertTrue(result2);
     }
+
     @Test
-    void startDelivery(){
+    void startDelivery() {
         System.out.println("startDelivery");
         boolean result = m_oDroneService.startDelivery();
         assertTrue(result);
+    }
+
+    @Test
+    void getDronePayload() {
+        System.out.println("getDronePayload");
+        when(m_mockDroneDB.getDronePayload(1)).thenReturn(expPayload);
+        float result = this.m_oDroneService.getDronePayload(1);
+        assertEquals(expPayload, result);
     }
 
 }
