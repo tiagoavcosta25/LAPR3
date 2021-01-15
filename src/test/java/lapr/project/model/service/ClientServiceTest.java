@@ -2,6 +2,7 @@ package lapr.project.model.service;
 
 import lapr.project.data.ClientDB;
 import lapr.project.model.Client;
+import lapr.project.utils.EmailSender;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -24,11 +25,14 @@ class ClientServiceTest {
 
     @Mock
     private ClientDB m_ClientDB;
+    @Mock
+    private EmailSender m_EmailSender;
 
     @BeforeEach
     void setUp() {
         this.m_service = new ClientService();
         this.m_ClientDB = Mockito.mock(ClientDB.class);
+        this.m_EmailSender = Mockito.mock(EmailSender.class);
         initMocks(this);
     }
 
@@ -262,6 +266,12 @@ class ClientServiceTest {
                 1032323d,1999392d,"Test street","2ºesq","4444-111","Gaia",
                 "Portugal",1234123412341233L,new SimpleDateFormat("MM/yy").parse("10/22"),123));
         assertTrue(result);
+
+        when(m_ClientDB.addClientToDB(c)).thenReturn(false);
+        result = m_service.registerNewClient(new Client("TestName",123456788,"test@gmail.com","testpassword",
+                1032323d,1999392d,"Test street","2ºesq","4444-111","Gaia",
+                "Portugal",1234123412341233L,new SimpleDateFormat("MM/yy").parse("10/22"),123));
+        assertFalse(result);
 
     }
 

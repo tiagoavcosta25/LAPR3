@@ -2,7 +2,11 @@ package lapr.project.model.service;
 
 import lapr.project.data.ClientDB;
 import lapr.project.model.Client;
+<<<<<<< HEAD
 import lapr.project.model.CreditCard;
+=======
+import lapr.project.utils.EmailSender;
+>>>>>>> d1ca5899d2c0fb28013364a2be451708362c42a3
 
 import java.security.NoSuchAlgorithmException;
 import java.util.Date;
@@ -65,7 +69,14 @@ public class ClientService {
     }
 
     public boolean registerNewClient(Client c) {
-        return m_oClientDB.addClientToDB(c);
+        if (m_oClientDB.addClientToDB(c)) {
+            EmailSender.emailSender(c.getEmail(),"Account Creation",
+                    String.format("Your brand new account has been registered to the System!\n___________________________________________________________________\n" +
+                            "Account Information:\n\nName: %s\nNIF: %s\nAddress: %s, %s, %s, %s\nCredit Card: %d\n\n___________________________________________________________________\n\n" +
+                            "Thank you for choosing us.\nKing regards,\nPharmacy Service G21.",c.getName(),c.getNif(),c.getAddress().getStreetName(),
+                            c.getAddress().getDoorNumber(), c.getAddress().getLocality(),c.getAddress().getCountry(),c.getCreditCard().getCreditCardNr()));
+            return true;
+        }else return false;
     }
 
     public Client getClientByEmail(String strEmail) {
