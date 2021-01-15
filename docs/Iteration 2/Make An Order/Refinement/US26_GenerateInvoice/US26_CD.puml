@@ -103,6 +103,13 @@ class InvoiceDB{
 
 }
 
+package "Utils" #DDDDDD {
+class EmailSender{
+    +sendEmail(invoice)
+}
+
+}
+
 class InvoiceDB extends DataHandler
 
 class Client extends User
@@ -110,6 +117,7 @@ class Client extends User
 GenerateInvoiceController ..> InvoiceService
 InvoiceService "1" --> "*" Invoice : manages services of
 InvoiceService "1" --> "1" InvoiceDB : uses
+InvoiceService "1" --> "1" EmailSender : uses
 
 InvoiceDB -- Database : manages >
 

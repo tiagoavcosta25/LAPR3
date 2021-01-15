@@ -16,20 +16,16 @@ class OrderTest {
     private Order o3;
     private Order o4;
     private Order o5;
-    private Order o6;
-    private Order o7;
 
     public OrderTest(){
         Map<Product, Integer> d1 = new TreeMap<>();
         o1 = new Order(1, 2.0f, 3.0f, 2.0f, new Date(12 - 12 - 13),
-                "testDesc", "testStatus", new Client(), new Address(), new Pharmacy(), d1);
+                "testDesc", "testStatus", true, new Client(), new Pharmacy(), d1);
         o2 = new Order(2.0f, 3.0f, 2.0f, new Date(12 - 12 - 13),
-                "testDesc", "testStatus", new Client(), new Address(), new Pharmacy(), d1);
-        o3 = new Order(1,"testDesc",new Client(),new Address(),new Pharmacy(),d1);
-        o4 = new Order("testDesc",new Client(),new Address(),new Pharmacy(),d1);
-        o5 = new Order(1,"testDesc",new Client(),new Pharmacy(),d1);
-        o6 = new Order("testDesc",new Client(),new Pharmacy(),d1);
-        o7 = new Order();
+                "testDesc", "testStatus", true, new Client(), new Pharmacy(), d1);
+        o3 = new Order(1, "", false, new Client(), new Pharmacy(), new TreeMap<>());
+        o4 = new Order("", true, new Client(), new Pharmacy(), new TreeMap<>());
+        o5 = new Order();
     }
 
 
@@ -41,12 +37,10 @@ class OrderTest {
         Integer expected3 = 1;
         Integer real3 = o3.getId();
         assertEquals(expected3, real3);
-        Integer expected5 = 1;
+        Integer expected5 = -1;
         Integer real5 = o5.getId();
         assertEquals(expected5, real5);
         Integer expected7 = -1;
-        Integer real7 = o7.getId();
-        assertEquals(expected7, real7);
 
     }
 
@@ -83,7 +77,7 @@ class OrderTest {
 
     @Test
     void getDescription() {
-        String expected = "testDesc";
+        String expected = "";
         String real = o4.getDescription();
         assertEquals(expected, real);
     }
@@ -101,14 +95,6 @@ class OrderTest {
         Order oOrder = new Order();
         Client expected = new Client();
         Client real = oOrder.getClient();
-        assertEquals(expected, real);
-    }
-
-    @Test
-    void getAddress() {
-        Order oOrder = new Order();
-        Address expected = new Address();
-        Address real = oOrder.getAddress();
         assertEquals(expected, real);
     }
 
@@ -163,16 +149,6 @@ class OrderTest {
         Client expected = new Client();
         oOrder.setClient(expected);
         Client real = oOrder.getClient();
-        assertEquals(expected, real);
-    }
-
-
-    @Test
-    void setAddress() {
-        Order oOrder = new Order();
-        Address expected = new Address();
-        oOrder.setAddress(expected);
-        Address real = oOrder.getAddress();
         assertEquals(expected, real);
     }
 
@@ -234,16 +210,22 @@ class OrderTest {
     }
 
     @Test
-    void isDelivery() {
+    void isHomeDelivery() {
         Order oOrder = new Order();
         boolean expected = false;
-        boolean real = oOrder.isDelivery();
+        boolean real = oOrder.isHomeDelivery();
         assertEquals(expected, real);
 
-        Address address = new Address();
-        address.setId(4);
-        Order orderF = new Order(1, "Teste", new Client(), address, new Pharmacy(), new HashMap<>());
-        real = orderF.isDelivery();
+        Order orderF = new Order("Teste", true, new Client(), new Pharmacy(), new HashMap<>());
+        real = orderF.isHomeDelivery();
+        assertTrue(real);
+    }
+
+    @Test
+    void setHomeDelivery() {
+        Order oOrder = new Order();
+        oOrder.setHomeDelivery(true);
+        boolean real = oOrder.isHomeDelivery();
         assertTrue(real);
     }
 

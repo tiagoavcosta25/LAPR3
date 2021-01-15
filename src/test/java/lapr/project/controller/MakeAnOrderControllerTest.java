@@ -37,20 +37,23 @@ class MakeAnOrderControllerTest {
     @Mock
     private ProductService mockProductService;
 
+    @Mock
+    private GenerateInvoiceController mockGenerateInvoiceController;
+
     private Order expectedOrder;
     private boolean expectedValue;
     private Order expectedNull;
 
     @BeforeEach
     void setUp() {
-        this.expectedOrder = new Order("Description", new Client(), new Address(-1d, -1d, "Street",
-                "1o Direito", "4400-123", "Locality", "Country"), new Pharmacy(), new TreeMap<>());
+        this.expectedOrder = new Order();
         this.expectedValue = true;
         this.expectedNull = null;
         this.makeAnOrderController = new MakeAnOrderController();
         this.mockOrderService = Mockito.mock(OrderService.class);
         this.mockClientService = Mockito.mock(ClientService.class);
         this.mockProductService = Mockito.mock(ProductService.class);
+        this.mockGenerateInvoiceController = Mockito.mock(GenerateInvoiceController.class);
         initMocks(this);
     }
 
@@ -59,42 +62,26 @@ class MakeAnOrderControllerTest {
         System.out.println("newOrder");
         ApplicationPOT.getInstance().setCurrentSession(new UserSession("email3@gmail.com"));
         when(mockClientService.getClientByEmail("email3@gmail.com")).thenReturn(new Client());
-        when(mockOrderService.newOrder("Description", new Client(), -1d, -1d, "Street", "1o Direito", "4400-123", "Locality",
-                "Country", null, new TreeMap<>())).thenReturn(expectedOrder);
-        Order result = makeAnOrderController.newOrder("Description", -1d, -1d, "Street", "1o Direito", "4400-123", "Locality",
-                "Country");
-        assertEquals(expectedOrder, result);
+        when(mockOrderService.newOrder("Description", true, new Client(), new Pharmacy(), new TreeMap<>())).thenReturn(expectedOrder);
 
-        result = makeAnOrderController.newOrder(null, null, null, null, null, null, null, null);
-        assertEquals(expectedNull, result);
-
-        ApplicationPOT.getInstance().setCurrentSession(null);
-        result = makeAnOrderController.newOrder(null, null, null, null, null, null, null, null);
-
-        assertEquals(null, result);
-
-
-    }
-
-    @Test
-    void testNewOrder() {
-        System.out.println("testNewOrder");
-        ApplicationPOT.getInstance().setCurrentSession(new UserSession("email3@gmail.com"));
-        Address a = new Address();
-        when(mockClientService.getClientByEmail("email3@gmail.com")).thenReturn(new Client());
-        when(mockOrderService.newOrder("Description", new Client(), a.getLatitude(), a.getLongitude(), a.getStreetName(), a.getDoorNumber(), a.getPostalCode(), a.getLocality(),
-                a.getCountry(), null, new TreeMap<>())).thenReturn(expectedOrder);
+        makeAnOrderController.getPharmacies();
+        makeAnOrderController.getAvailableProducts(new Pharmacy());
         Order result = makeAnOrderController.newOrder("Description", true);
         assertEquals(expectedOrder, result);
 
-        when(mockOrderService.newOrder("Description", new Client(), null, new TreeMap<>())).thenReturn(expectedOrder);
+        makeAnOrderController.getPharmacies();
+        makeAnOrderController.getAvailableProducts(new Pharmacy());
+        when(mockOrderService.newOrder(null, false, new Client(), new Pharmacy(), new TreeMap<>())).thenReturn(expectedOrder);
+        result = makeAnOrderController.newOrder(null, false);
         assertEquals(expectedOrder, result);
 
+        makeAnOrderController.getPharmacies();
+        ApplicationPOT.getInstance().setCurrentSession(null);
         result = makeAnOrderController.newOrder(null, null);
+
         assertEquals(expectedNull, result);
 
-        result = makeAnOrderController.newOrder("Description", false);
-        assertEquals(expectedOrder, result);
+
     }
 
     @Test
@@ -119,6 +106,8 @@ class MakeAnOrderControllerTest {
 
         List<Pharmacy> expectedListPharmacies = new ArrayList<>(Arrays.asList(new Pharmacy()));
 
+        ApplicationPOT.getInstance().setCurrentSession(new UserSession("email3@gmail.com"));
+        when(mockClientService.getClientByEmail("email3@gmail.com")).thenReturn(new Client());
         when(mockPharmacyService.getPharmacies()).thenReturn(expectedListPharmacies);
 
         List<Pharmacy>  result = makeAnOrderController.getPharmacies();
@@ -152,5 +141,61 @@ class MakeAnOrderControllerTest {
         real = makeAnOrderController.addProductToOrder(null, 1);
         expected = false;
         assertEquals(expected, real);
+    }
+
+    @Test
+    void addPayment() {
+        System.out.println("addPayment");
+
+        makeAnOrderController.setOrder(new Order());
+        boolean  result = makeAnOrderController.addPayment(new CreditCard(), -1f);
+        assertTrue(result);
+
+        result = makeAnOrderController.addPayment(new CreditCard(), 2f);
+        assertFalse(result);
+
+        result = makeAnOrderController.addPayment(null, null);
+        assertFalse(result);
+
+    }
+
+    @Test
+    void generateInvoice() {
+        System.out.println("generateInvoice");
+
+        when(mockGenerateInvoiceController.generateInvoice(expectedOrder, new TreeMap<>())).thenReturn(true);
+
+        makeAnOrderController.setOrder(expectedOrder);
+        boolean result = makeAnOrderController.generateInvoice();
+        assertTrue(result);
+
+        when(mockGenerateInvoiceController.generateInvoice(expectedOrder, new TreeMap<>())).thenReturn(false);
+
+        result = makeAnOrderController.generateInvoice();
+        assertFalse(result);
+
+        when(mockGenerateInvoiceController.generateInvoice(expectedOrder, new TreeMap<>())).thenThrow(new IllegalArgumentException());
+
+        result = makeAnOrderController.generateInvoice();
+        assertFalse(result);
+
+    }
+
+    @Test
+    void getCreditCardsByClient() {
+        System.out.println("getCreditCardsByClient");
+
+        List<CreditCard> expectedListCreditCards = new ArrayList<>(Arrays.asList(new CreditCard()));
+
+        ApplicationPOT.getInstance().setCurrentSession(new UserSession("email3@gmail.com"));
+        when(mockClientService.getCreditCardsByClient("email3@gmail.com")).thenReturn(expectedListCreditCards);
+
+        List<CreditCard>  result = makeAnOrderController.getCreditCardsByClient("email3@gmail.com");
+        assertEquals(expectedListCreditCards, result);
+
+        when(mockClientService.getCreditCardsByClient(null)).thenThrow(new IllegalArgumentException());
+        result = makeAnOrderController.getCreditCardsByClient(null);
+        expectedListCreditCards = null;
+        assertEquals(expectedListCreditCards, result);
     }
 }

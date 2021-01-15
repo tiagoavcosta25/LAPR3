@@ -3,7 +3,7 @@ package lapr.project.model;
 import java.util.Date;
 import java.util.Objects;
 
-public class CreditCard {
+public class CreditCard implements Comparable{
 
     private Long m_lCreditCardNr;
     private Date m_dtValidityDate;
@@ -43,6 +43,17 @@ public class CreditCard {
 
     public void setCCV(Integer m_CCV) {
         this.m_intCCV = m_CCV;
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        CreditCard c = (CreditCard) o;
+        if(this.m_lCreditCardNr < c.getCreditCardNr()){
+            return -1;
+        } else if(this.m_lCreditCardNr == c.getCreditCardNr()){
+            return 0;
+        }
+        return 1;
     }
 
     @Override

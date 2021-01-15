@@ -8,6 +8,7 @@ import java.sql.CallableStatement;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Map;
 
 public class InvoiceDB extends DataHandler {
 
@@ -42,7 +43,7 @@ public class InvoiceDB extends DataHandler {
         throw new IllegalArgumentException("No Invoice with ID:" + id);
     }
 
-    private boolean addInvoice(Date dtInvoiceDate, float fltTotalPrice, Order oOrder) {
+    private boolean addInvoice(Date dtInvoiceDate, float fltTotalPrice, Order oOrder, Map<CreditCard, Float> mapPayments) {
         try {
             openConnection();
             CallableStatement callStmt = getConnection().prepareCall("{ call addInvoice(?,?,?) }");
@@ -74,6 +75,15 @@ public class InvoiceDB extends DataHandler {
                     callStmt.execute();
 
                     c++;
+                }
+
+                for (CreditCard oCreditCard : mapPayments.keySet()) {
+                    callStmt = getConnection().prepareCall("{ call addPayment(?,?,?) }");
+
+                    callStmt.setInt(1, intInvoiceId);
+                    callStmt.setLong(2, oCreditCard.getCreditCardNr());
+                    callStmt.setFloat(3, mapPayments.get(oCreditCard));
+                    callStmt.execute();
                 }
             }
 
@@ -107,7 +117,7 @@ public class InvoiceDB extends DataHandler {
     }
 
     public boolean registerInvoice(Invoice oInvoice) {
-        return addInvoice(oInvoice.getInvoiceDate(), oInvoice.getTotalPrice(), oInvoice.getOrder());
+        return addInvoice(oInvoice.getInvoiceDate(), oInvoice.getTotalPrice(), oInvoice.getOrder(), oInvoice.getPayments());
     }
 
 

@@ -15,15 +15,13 @@ class DeliveryTest {
     DeliveryTest() {
         Date d = new Date(2, 2, 2);
         java.sql.Date date = new java.sql.Date(d.getTime());
-        m_delivery = new Delivery(new Order(1, 2.0f, 3.0f, 2.0f, date,
-                "testDesc", "testStatus", new Client(), new Address(), new Pharmacy(), new TreeMap<>()));
+        m_delivery = new Delivery(new Order());
         m_emptyDelivery = new Delivery();
     }
 
     @Test
     void getOrder() {
-        Order expected = new Order(1, 2.0f, 3.0f, 2.0f, (new java.sql.Date(2, 2, 2)),
-                "testDesc", "testStatus", new Client(), new Address(), new Pharmacy(), new TreeMap<>());
+        Order expected = new Order();
         Order real = m_delivery.getOrder();
         assertEquals(expected, real);
     }
@@ -69,8 +67,7 @@ class DeliveryTest {
 
     @Test
     void testEquals() {
-        Delivery d = new Delivery(new Order(1, 2.0f, 3.0f, 2.0f, new java.sql.Date(2,2,2),
-                "testDesc", "testStatus", new Client(), new Address(), new Pharmacy(), new TreeMap<>()));
+        Delivery d = new Delivery(new Order());
 
         boolean real = m_delivery.equals(d);
         assertTrue(real);
@@ -79,8 +76,8 @@ class DeliveryTest {
 
         assertTrue(real);
 
-        d = new Delivery(new Order(5, 1.0f, 1.0f, 2.0f, new java.sql.Date(5,5,5),
-                "testDesc", "testStatus", new Client(), new Address(), new Pharmacy(), new TreeMap<>()));
+        d = new Delivery(new Order(3,5f, 1.0f, 1.0f, new java.sql.Date(5,5,5),
+                "testDesc", "testStatus", true, new Client(), new Pharmacy(), new TreeMap<>()));
 
         real = m_delivery.equals(d);
 

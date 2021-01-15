@@ -28,8 +28,7 @@ class OrderServiceTest {
 
     @BeforeEach
     void setUp() {
-        this.expectedOrder = new Order("Description", new Client(), new Address(-1d, -1d, "Street",
-                "1o Direito", "4400-123", "Locality", "Country"), new Pharmacy(), new TreeMap<>());
+        this.expectedOrder = new Order("Description", true, new Client(),  new Pharmacy(), new TreeMap<>());
         this.orderService = new OrderService();
         this.mockOrderDB = Mockito.mock(OrderDB.class);
         initMocks(this);
@@ -71,16 +70,15 @@ class OrderServiceTest {
     @Test
     void newOrder() {
         System.out.println("newOrder");
-        Order result = orderService.newOrder("Description", new Client(), -1d, -1d, "Street",
-                "1o Direito", "4400-123", "Locality","Country", new Pharmacy(), new TreeMap<>());
+        Order result = orderService.newOrder("Description", false, new Client(),  new Pharmacy(), new TreeMap<>());
         assertEquals(expectedOrder, result);
     }
 
     @Test
     void testNewOrder() {
         System.out.println("testNewOrder");
-        Order expected = new Order("Description", new Client(), new Pharmacy(), new TreeMap<>());
-        Order result = orderService.newOrder("Description", new Client(), new Pharmacy(), new TreeMap<>());
+        Order expected = new Order("Description", true, new Client(), new Pharmacy(), new TreeMap<>());
+        Order result = orderService.newOrder("Description", true, new Client(), new Pharmacy(), new TreeMap<>());
         assertEquals(expected, result);
     }
 

@@ -16,9 +16,8 @@ begin
     end if;
 
     open v_cursor for
-        select O.ID, O.DESCRIPTION, O.ORDERSTATUS, O.ORDERDATE, O.TOTALWEIGHT, O.AMOUNT, O.ADDITIONALFEE, A.*, U.*, C.CREDITS, A1.*, CC.*, P.ID, P.NAME, U2.*, A3.*
+        select O.ID, O.DESCRIPTION, O.ORDERSTATUS, O.ORDERDATE, O.TOTALWEIGHT, O.AMOUNT, O.ADDITIONALFEE, U.*, C.CREDITS, A1.*, CC.*, P.ID, P.NAME, U2.*, A3.*
         from "Order" O
-                 inner join ADDRESS A on O.ADDRESSID = A.ID
                  inner join CLIENT C on O.CLIENTID = C.USERID
                  inner join "User" U on C.USERID = U.ID
                  inner join ADDRESS A1 on A1.ID = C.ADDRESSID

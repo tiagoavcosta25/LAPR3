@@ -27,14 +27,8 @@ public class OrderService {
         return this.m_oOrderDB .registerOrder(oOrder);
     }
 
-    public Order newOrder(String strDescription, Client oClient, Double latitude, Double longitude, String streetName,
-                          String doorNumber, String postalCode, String locality, String country, Pharmacy oPharmacy, Map<Product, Integer> mapProducts) {
-        return new Order(strDescription, oClient, new Address(latitude, longitude, streetName, doorNumber,
-                postalCode, locality, country), oPharmacy, mapProducts);
-    }
-
-    public Order newOrder(String strDescription, Client oClient, Pharmacy oPharmacy, Map<Product, Integer> mapProducts) {
-        return new Order(strDescription, oClient, oPharmacy, mapProducts);
+    public Order newOrder(String strDescription, boolean blIsHomeDelivery, Client oClient, Pharmacy oPharmacy, Map<Product, Integer> mapProducts) {
+        return new Order(strDescription, blIsHomeDelivery, oClient, oPharmacy, mapProducts);
     }
 
     public Order getLatestOrder(Client oClient) {

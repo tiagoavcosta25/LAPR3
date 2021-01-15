@@ -14,6 +14,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 
 import java.sql.Date;
+import java.util.TreeMap;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
@@ -32,7 +33,7 @@ class GenerateInvoiceControllerTest {
 
     @BeforeEach
     void setUp() {
-        this.generateInvoiceController = new GenerateInvoiceController("","","");
+        this.generateInvoiceController = new GenerateInvoiceController();
         this.mockOrderService = Mockito.mock(OrderService.class);
         this.mockClientService = Mockito.mock(ClientService.class);
         this.mockInvoiceService = Mockito.mock(InvoiceService.class);
@@ -44,17 +45,13 @@ class GenerateInvoiceControllerTest {
         ApplicationPOT.getInstance().setCurrentSession(new UserSession("email1@gmail.com"));
         when(mockClientService.getClientByEmail("email1@gmail.com")).thenReturn(new Client());
         when(mockOrderService.getLatestOrder(new Client())).thenReturn(new Order());
-        when(mockInvoiceService.newInvoice(new Date(1220227200), 10f, new Order())).thenReturn(new Invoice());
+        when(mockInvoiceService.newInvoice(new Order(), new TreeMap<>())).thenReturn(new Invoice());
         when(mockInvoiceService.registerInvoice(new Invoice())).thenReturn(true);
-        boolean result = this.generateInvoiceController.newInvoice(new Date(1220227200), 10f);
+        boolean result = this.generateInvoiceController.generateInvoice(new Order(), new TreeMap<>());
         assertTrue(result);
 
-        when(mockInvoiceService.registerInvoice(new Invoice())).thenReturn(false);
-        result = this.generateInvoiceController.newInvoice(new Date(1220227200), 10f);
-        assertFalse(result);
-
-        ApplicationPOT.getInstance().setCurrentSession(null);
-        result = this.generateInvoiceController.newInvoice(new Date(1220227200), 10f);
+        when(mockInvoiceService.registerInvoice(new Invoice())).thenThrow(new IllegalArgumentException());
+        result = this.generateInvoiceController.generateInvoice(new Order(), new TreeMap<>());
         assertFalse(result);
     }
 }

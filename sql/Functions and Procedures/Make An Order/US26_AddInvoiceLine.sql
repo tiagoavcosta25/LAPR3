@@ -3,7 +3,8 @@ create or replace procedure addInvoiceLine(p_line INVOICELINE.id%type, p_invoice
                                     p_description PRODUCT.DESCRIPTION%type, p_unitaryPrice PRODUCT.UNITARYPRICE%type,
                                     p_unitaryWeight PRODUCT.UNITARYWEIGHT%type, p_value INVOICELINE.VALUE%type)
     is
-    v_checkOrderId CLIENT.USERID%type;
+    v_checkInvoiceId INVOICE.ID%type;
+    v_checkOrderId "Order".ID%type;
     v_checkProductId PRODUCT.ID%type;
     invoice_not_found exception;
     order_not_found exception;
@@ -11,11 +12,11 @@ create or replace procedure addInvoiceLine(p_line INVOICELINE.id%type, p_invoice
 begin
 
     select ID
-    into v_checkOrderId
-    from "Order"
-    where ID = p_orderId;
+    into v_checkInvoiceId
+    from INVOICE
+    where ID = p_invoiceId;
 
-    if v_checkOrderId is null then
+    if v_checkInvoiceId is null then
         raise invoice_not_found;
     end if;
 
@@ -43,8 +44,8 @@ begin
 
 -- Creates a new InvoiceLine
 
-    Insert into INVOICELINE(ID, ORDERID, PRODUCTID, VALUE)
-    Values (p_line, p_orderId, p_productId, p_value);
+    Insert into INVOICELINE(ID, ORDERID, PRODUCTID, VALUE, INVOICEID)
+    Values (p_line, p_orderId, p_productId, p_value, p_invoiceId);
 
 EXCEPTION
     when invoice_not_found then

@@ -2,9 +2,11 @@ package lapr.project.model.service;
 
 import lapr.project.data.ClientDB;
 import lapr.project.model.Client;
+import lapr.project.model.CreditCard;
 
 import java.security.NoSuchAlgorithmException;
 import java.util.Date;
+import java.util.List;
 
 public class ClientService {
 
@@ -70,4 +72,7 @@ public class ClientService {
         return m_oClientDB.getClientByEmail(strEmail);
     }
 
+    public List<CreditCard> getCreditCardsByClient(String strEmail) {
+        return this.m_oClientDB.getCreditCardsByClient(strEmail);
+    }
 }

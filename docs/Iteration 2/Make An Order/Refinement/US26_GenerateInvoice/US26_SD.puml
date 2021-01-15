@@ -6,7 +6,7 @@ participant "GenerateInvoiceController" as CTRL
 participant "invoiceServ\n:InvoiceService" as IS
 participant "invoiceDB\n:InvoiceDB" as IDB
 participant "invoice\n:Invoice" as I
-
+participant "EmailSender" as E
 
 [o-> CTRL : generateInvoice(order, mapPayments)
 activate CTRL
@@ -29,6 +29,16 @@ ref over IDB
 SD_CONNECTIONS
 end ref
 deactivate IDB
+deactivate IS
+
+CTRL -> IS : sendEmail(invoice)
+activate IS
+IS -> E : sendEmail(invoice)
+activate E
+ref over E
+SD_CONNECTIONS
+end ref
+deactivate E
 deactivate IS
 deactivate CTRL
 

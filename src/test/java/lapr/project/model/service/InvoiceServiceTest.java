@@ -71,7 +71,7 @@ class InvoiceServiceTest {
     @Test
     void newInvoice() {
         System.out.println("newInvoice");
-        Invoice result = invoiceService.newInvoice(expectedInvoice.getInvoiceDate(), -1f, expectedOrder);
+        Invoice result = invoiceService.newInvoice(expectedOrder, new TreeMap<>());
         assertEquals(expectedInvoice, result);
     }
 }

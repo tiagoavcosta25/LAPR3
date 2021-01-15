@@ -14,8 +14,8 @@ public class Order {
     private Date m_dtOrderDate;
     private String m_strDescription;
     private String m_strStatus;
+    private boolean m_blIsHomeDelivery;
     private Client m_oClient;
-    private Address m_oAddress;
     private Pharmacy m_oPharmacy;
     private Map<Product, Integer> m_mapProducts;
 
@@ -23,18 +23,18 @@ public class Order {
     private static float DEFAULT_AMOUNT = -1;
     private static float DEFAULT_TOTAL_WEIGHT = -1;
     private static float DEFAULT_ADDITIONAL_FEE = -1;
-    private static float DELIVERY_FEE = 5;
+    private static float HOME_DELIVERY_FEE = 5;
     private static float STORE_PICKUP_FEE = 0;
     private static Date CURRENT_DATE = new Date(Calendar.getInstance().getTimeInMillis());
     private static String DEFAULT_DESCRIPTION = "No Description.";
     private static String DEFAULT_STATUS = "ordered";
+    private static boolean DEFAULT_IS_HOME_DELIVERY = false;
     private static Client DEFAULT_CLIENT = new Client();
-    private static Address DEFAULT_ADDRESS = new Address();
     private static Pharmacy DEFAULT_PHARMACY = new Pharmacy();
     private static Map<Product, Integer> DEFAULT_PRODUCT_MAP = new TreeMap<>();
 
     public Order(int intId, float fltAmount, float fltTotalWeight, float fltAdditionalFee, Date dtOrderDate,
-                 String strDescription, String strStatus, Client oClient, Address oAddress, Pharmacy oPharmacy, Map<Product, Integer> mapProducts) {
+                 String strDescription, String strStatus, boolean blIsHomeDelivery, Client oClient, Pharmacy oPharmacy, Map<Product, Integer> mapProducts) {
         this.m_intId = intId;
         this.m_fltAmount = fltAmount;
         this.m_fltTotalWeight = fltTotalWeight;
@@ -42,14 +42,14 @@ public class Order {
         this.m_dtOrderDate = (Date) dtOrderDate.clone();
         this.m_strDescription = strDescription;
         this.m_strStatus = strStatus;
+        this.m_blIsHomeDelivery = blIsHomeDelivery;
         this.m_oClient = oClient;
-        this.m_oAddress = oAddress;
         this.m_oPharmacy = oPharmacy;
         this.m_mapProducts = mapProducts;
     }
 
     public Order(float fltAmount, float fltTotalWeight, float fltAdditionalFee, Date dtOrderDate, String strDescription,
-                 String strStatus, Client oClient, Address oAddress, Pharmacy oPharmacy, Map<Product, Integer> mapProducts) {
+                 String strStatus, boolean blIsHomeDelivery, Client oClient, Pharmacy oPharmacy, Map<Product, Integer> mapProducts) {
         this.m_intId = DEFAULT_ID;
         this.m_fltAmount = fltAmount;
         this.m_fltTotalWeight = fltTotalWeight;
@@ -57,75 +57,42 @@ public class Order {
         this.m_dtOrderDate = (Date) dtOrderDate.clone();
         this.m_strDescription = strDescription;
         this.m_strStatus = strStatus;
+        this.m_blIsHomeDelivery = blIsHomeDelivery;
         this.m_oClient = oClient;
-        this.m_oAddress = oAddress;
         this.m_oPharmacy = oPharmacy;
         this.m_mapProducts = mapProducts;
     }
 
-    public Order(int intId, String strDescription, Client oClient, Address oAddress,
+    public Order(int intId, String strDescription, boolean blIsHomeDelivery, Client oClient,
                  Pharmacy oPharmacy, Map<Product, Integer> mapProducts) {
         this.m_intId = intId;
-        this.m_fltAdditionalFee = DELIVERY_FEE;
         this.m_dtOrderDate = CURRENT_DATE;
         this.m_strDescription = strDescription;
         this.m_strStatus = DEFAULT_STATUS;
+        this.m_blIsHomeDelivery = blIsHomeDelivery;
         this.m_oClient = oClient;
-        this.m_oAddress = oAddress;
         this.m_oPharmacy = oPharmacy;
         this.m_mapProducts = mapProducts;
 
+        calculateAdditonalFee();
         calculateAmount();
         calculateTotalWeight();
         this.m_oClient.addCredits((int)(this.m_fltAmount + this.m_fltAdditionalFee) / 5);
     }
 
-    public Order(String strDescription, Client oClient, Address oAddress,
+    public Order(String strDescription, boolean blIsHomeDelivery, Client oClient,
                  Pharmacy oPharmacy, Map<Product, Integer> mapProducts) {
         this.m_intId = DEFAULT_ID;
-        this.m_fltAdditionalFee = DELIVERY_FEE;
+        this.m_fltAdditionalFee = HOME_DELIVERY_FEE;
         this.m_dtOrderDate = CURRENT_DATE;
         this.m_strDescription = strDescription;
         this.m_strStatus = DEFAULT_STATUS;
+        this.m_blIsHomeDelivery = blIsHomeDelivery;
         this.m_oClient = oClient;
-        this.m_oAddress = oAddress;
         this.m_oPharmacy = oPharmacy;
         this.m_mapProducts = mapProducts;
 
-        calculateAmount();
-        calculateTotalWeight();
-        this.m_oClient.addCredits((int)(this.m_fltAmount + this.m_fltAdditionalFee) / 5);
-    }
-
-    public Order(int intId, String strDescription, Client oClient,
-                 Pharmacy oPharmacy, Map<Product, Integer> mapProducts) {
-        this.m_intId = intId;
-        this.m_fltAdditionalFee = STORE_PICKUP_FEE;
-        this.m_dtOrderDate = CURRENT_DATE;
-        this.m_strDescription = strDescription;
-        this.m_strStatus = DEFAULT_STATUS;
-        this.m_oClient = oClient;
-        this.m_oAddress = DEFAULT_ADDRESS;
-        this.m_oPharmacy = oPharmacy;
-        this.m_mapProducts = mapProducts;
-
-        calculateAmount();
-        calculateTotalWeight();
-        this.m_oClient.addCredits((int)(this.m_fltAmount + this.m_fltAdditionalFee) / 5);
-    }
-
-    public Order(String strDescription, Client oClient,
-                 Pharmacy oPharmacy, Map<Product, Integer> mapProducts) {
-        this.m_intId = DEFAULT_ID;
-        this.m_fltAdditionalFee = STORE_PICKUP_FEE;
-        this.m_dtOrderDate = CURRENT_DATE;
-        this.m_strDescription = strDescription;
-        this.m_strStatus = DEFAULT_STATUS;
-        this.m_oClient = oClient;
-        this.m_oAddress = DEFAULT_ADDRESS;
-        this.m_oPharmacy = oPharmacy;
-        this.m_mapProducts = mapProducts;
-
+        calculateAdditonalFee();
         calculateAmount();
         calculateTotalWeight();
         this.m_oClient.addCredits((int)(this.m_fltAmount + this.m_fltAdditionalFee) / 5);
@@ -139,9 +106,9 @@ public class Order {
         this.m_dtOrderDate = CURRENT_DATE;
         this.m_strDescription = DEFAULT_DESCRIPTION;
         this.m_strStatus = DEFAULT_STATUS;
+        this.m_blIsHomeDelivery = DEFAULT_IS_HOME_DELIVERY;
         this.m_oClient = DEFAULT_CLIENT;
         this.m_oPharmacy = DEFAULT_PHARMACY;
-        this.m_oAddress = DEFAULT_ADDRESS;
         this.m_mapProducts = DEFAULT_PRODUCT_MAP;
     }
 
@@ -201,20 +168,20 @@ public class Order {
         this.m_strStatus = strStatus;
     }
 
+    public boolean isHomeDelivery() {
+        return m_blIsHomeDelivery;
+    }
+
+    public void setHomeDelivery(boolean blIsHomeDelivery) {
+        this.m_blIsHomeDelivery = blIsHomeDelivery;
+    }
+
     public Client getClient() {
         return m_oClient;
     }
 
     public void setClient(Client m_oClient) {
         this.m_oClient = m_oClient;
-    }
-
-    public Address getAddress() {
-        return m_oAddress;
-    }
-
-    public void setAddress(Address m_oAddress) {
-        this.m_oAddress = m_oAddress;
     }
 
     public Pharmacy getPharmacy() {
@@ -235,11 +202,12 @@ public class Order {
         calculateTotalWeight();
     }
 
-    public boolean isDelivery() {
-        if(this.m_oAddress.equals(new Address())){
-            return false;
+    public void calculateAdditonalFee() {
+        if(this.m_blIsHomeDelivery){
+            this.m_fltAdditionalFee = HOME_DELIVERY_FEE;
+        } else{
+            this.m_fltAdditionalFee = STORE_PICKUP_FEE;
         }
-        return true;
     }
 
     public void calculateAmount() {
@@ -272,6 +240,7 @@ public class Order {
         return Objects.hash(m_intId);
     }
 
+
     @Override
     public String toString() {
         return "Order{" +
@@ -282,8 +251,8 @@ public class Order {
                 ", m_dtOrderDate=" + m_dtOrderDate +
                 ", m_strDescription='" + m_strDescription + '\'' +
                 ", m_strStatus='" + m_strStatus + '\'' +
+                ", m_blIsHomeDelivery=" + m_blIsHomeDelivery +
                 ", m_oClient=" + m_oClient +
-                ", m_oAddress=" + m_oAddress +
                 ", m_oPharmacy=" + m_oPharmacy +
                 ", m_mapProducts=" + m_mapProducts +
                 '}';

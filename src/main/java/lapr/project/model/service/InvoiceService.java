@@ -3,6 +3,7 @@ package lapr.project.model.service;
 import lapr.project.data.InvoiceDB;
 import lapr.project.model.*;
 import java.sql.Date;
+import java.util.Map;
 
 public class InvoiceService {
 
@@ -24,7 +25,7 @@ public class InvoiceService {
         return this.m_oInvoiceDB .registerInvoice(oInvoice);
     }
 
-    public Invoice newInvoice(Date dtInvoiceDate, float fltTotalPrice, Order oOrder) {
-        return new Invoice(dtInvoiceDate, fltTotalPrice, oOrder);
+    public Invoice newInvoice(Order oOrder, Map<CreditCard, Float> mapPayments) {
+        return new Invoice(oOrder, mapPayments);
     }
 }

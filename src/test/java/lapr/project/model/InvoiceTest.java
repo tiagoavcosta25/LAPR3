@@ -4,6 +4,9 @@ import org.junit.jupiter.api.Test;
 
 import java.sql.Date;
 import java.util.Calendar;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -80,6 +83,26 @@ class InvoiceTest {
     }
 
     @Test
+    void getPayments() {
+        Invoice oInvoice = new Invoice();
+        Map<CreditCard, Float> expected = new TreeMap<>();
+        expected.put(new CreditCard(), 1f);
+        oInvoice.setPayments(expected);
+        Map<CreditCard, Float> real = oInvoice.getPayments();
+        assertEquals(expected, real);
+    }
+
+    @Test
+    void setPayments() {
+        Invoice oInvoice = new Invoice();
+        Map<CreditCard, Float> expected = new TreeMap<>();
+        expected.put(new CreditCard(), 1f);
+        oInvoice.setPayments(expected);
+        Map<CreditCard, Float> real = oInvoice.getPayments();
+        assertEquals(expected, real);
+    }
+
+    @Test
     void testEquals() {
         Invoice oInvoice = new Invoice();
         boolean expected = true;
@@ -104,7 +127,7 @@ class InvoiceTest {
 
     @Test
     void testToString() {
-        Invoice oInvoice = new Invoice();
+        Invoice oInvoice = new Invoice(-1, new Order(), new TreeMap<>());
         String expected = "Invoice{m_intId=-1, m_dtInvoiceDate=";
         String real = oInvoice.toString().substring(0, 36);
         assertEquals(expected, real);

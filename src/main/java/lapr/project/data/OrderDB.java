@@ -56,7 +56,7 @@ public class OrderDB extends DataHandler {
     }
 
     private boolean addOrder(float fltAmount, float fltTotalWeight, float fltAdditionalFee, Date dtOrderDate,
-                          String strDescription, String strStatus, Client oClient, Address oAddress, int intPharmacyId, Map<Product, Integer> mapProducts) {
+                          String strDescription, String strStatus, Client oClient, int intPharmacyId, Map<Product, Integer> mapProducts) {
         try {
             openConnection();
             CallableStatement callStmt = getConnection().prepareCall("{ call addOrder(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) }");
@@ -69,14 +69,7 @@ public class OrderDB extends DataHandler {
             callStmt.setString(6, strStatus);
             callStmt.setInt(7, oClient.getId());
             callStmt.setInt(8, oClient.getCredits());
-            callStmt.setDouble(9, oAddress.getLatitude());
-            callStmt.setDouble(10, oAddress.getLongitude());
-            callStmt.setString(11, oAddress.getStreetName());
-            callStmt.setString(12, oAddress.getDoorNumber());
-            callStmt.setString(13, oAddress.getPostalCode());
-            callStmt.setString(14, oAddress.getLocality());
-            callStmt.setString(15, oAddress.getCountry());
-            callStmt.setInt(16, intPharmacyId);
+            callStmt.setInt(7, intPharmacyId);
 
             callStmt.execute();
 
@@ -128,7 +121,7 @@ public class OrderDB extends DataHandler {
 
     public boolean registerOrder(Order oOrder) {
          return addOrder(oOrder.getAmount(), oOrder.getTotalWeight(), oOrder.getAdditionalFee(), oOrder.getOrderDate(),
-                oOrder.getDescription(), oOrder.getStatus(), oOrder.getClient(), oOrder.getAddress(), oOrder.getPharmacy().getId(), oOrder.getProducts());
+                oOrder.getDescription(), oOrder.getStatus(), oOrder.getClient(), oOrder.getPharmacy().getId(), oOrder.getProducts());
     }
 
     public Order getLatestOrder(Client oClient) {

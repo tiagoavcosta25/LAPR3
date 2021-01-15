@@ -2,38 +2,53 @@ package lapr.project.model;
 
 import java.sql.Date;
 import java.util.Calendar;
+import java.util.Map;
 import java.util.Objects;
+import java.util.TreeMap;
 
 public class Invoice {
     private int m_intId;
     private Date m_dtInvoiceDate;
     private float m_fltTotalPrice;
     private Order m_oOrder;
+    private Map<CreditCard, Float> m_mapPayments;
 
     private static int DEFAULT_ID = -1;
     private static Date CURRENT_DATE = new Date(Calendar.getInstance().getTimeInMillis());
     private static float DEFAULT_TOTAL_PRICE = -1;
     private static Order DEFAULT_ORDER = new Order();
+    private static Map<CreditCard, Float> DEFAULT_PAYMENTS = new TreeMap<>();
 
-    public Invoice(int intId, Date dtInvoiceDate, float fltTotalPrice, Order oOrder) {
+    public Invoice(int intId, Date dtDate, float fltTotalAmount, Order oOrder) {
         this.m_intId = intId;
-        this.m_dtInvoiceDate = (Date) dtInvoiceDate.clone();
-        this.m_fltTotalPrice = fltTotalPrice;
+        this.m_dtInvoiceDate = (Date) dtDate.clone();
+        this.m_fltTotalPrice = fltTotalAmount;
         this.m_oOrder = oOrder;
+        this.m_mapPayments = DEFAULT_PAYMENTS;
     }
 
-    public Invoice(Date dtInvoiceDate, float fltTotalPrice, Order oOrder) {
-        this.m_intId = DEFAULT_ID;
-        this.m_dtInvoiceDate = (Date) dtInvoiceDate.clone();
-        this.m_fltTotalPrice = fltTotalPrice;
+    public Invoice(int intId, Order oOrder, Map<CreditCard, Float> mapPayments) {
+        this.m_intId = intId;
+        this.m_dtInvoiceDate = (Date) oOrder.getOrderDate().clone();
+        this.m_fltTotalPrice = oOrder.getAmount();
         this.m_oOrder = oOrder;
+        this.m_mapPayments = mapPayments;
+    }
+
+    public Invoice(Order oOrder, Map<CreditCard, Float> mapPayments) {
+        this.m_intId = DEFAULT_ID;
+        this.m_dtInvoiceDate = (Date) oOrder.getOrderDate().clone();
+        this.m_fltTotalPrice = oOrder.getAmount();
+        this.m_oOrder = oOrder;
+        this.m_mapPayments = mapPayments;
     }
 
     public Invoice() {
         this.m_intId = DEFAULT_ID;
-        this.m_dtInvoiceDate = CURRENT_DATE;
-        this.m_fltTotalPrice = DEFAULT_TOTAL_PRICE;
+        this.m_dtInvoiceDate = DEFAULT_ORDER.getOrderDate();
+        this.m_fltTotalPrice = DEFAULT_ORDER.getAmount();
         this.m_oOrder = DEFAULT_ORDER;
+        this.m_mapPayments = DEFAULT_PAYMENTS;
     }
 
     public int getId() {
@@ -68,6 +83,14 @@ public class Invoice {
         this.m_oOrder = m_oOrder;
     }
 
+    public Map<CreditCard, Float> getPayments() {
+        return m_mapPayments;
+    }
+
+    public void setPayments(Map<CreditCard, Float> mapPayments) {
+        this.m_mapPayments = mapPayments;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -88,6 +111,7 @@ public class Invoice {
                 ", m_dtInvoiceDate=" + m_dtInvoiceDate +
                 ", m_fltTotalPrice=" + m_fltTotalPrice +
                 ", m_oOrder=" + m_oOrder +
+                ", m_mapPayments=" + m_mapPayments +
                 '}';
     }
 }

@@ -102,7 +102,14 @@ end
 
 CL -> UI : confirms that there is not more products
 activate UI
-UI -> CTRL : newOrder(description)
+deactivate CTRL
+
+UI -> CL : asks if it is a home delivery or a store pick up
+deactivate UI
+
+CL -> UI : chooses the delivery type
+activate UI
+UI -> CTRL : newOrder(description, isHomeDelivery)
 activate CTRL
 
 CTRL -> OS** : create()
@@ -120,15 +127,6 @@ activate C
 deactivate C
 deactivate O
 deactivate OS
-deactivate CTRL
-
-UI -> CL : asks if it is a home delivery or a store pick up
-deactivate UI
-
-CL -> UI : chooses the delivery type
-activate UI
-UI -> CTRL : setHomeDelivery(homeDelivery)
-activate CTRL
 deactivate CTRL
 
 UI -> CL : validates, presents the information with the \ntotal price of the order and asks for confirmation
@@ -171,14 +169,17 @@ end ref
 deactivate ODB
 deactivate OS
 deactivate CTRL
-UI -> INVCTRL** : create()
-UI -> INVCTRL : generateInvoice(order, mapPayments)
+UI -> CTRL : generateInvoice()
+activate CTRL
+CTRL -> INVCTRL** : create()
+CTRL -> INVCTRL : generateInvoice(order, mapPayments)
 activate INVCTRL
 ref over INVCTRL
 US26_SD
 end ref
 deactivate INVCTRL
 UI -> CL : registers the order, generates the invoice\n and informs of the success of the operation
+deactivate CTRL
 deactivate UI
 deactivate CL
 

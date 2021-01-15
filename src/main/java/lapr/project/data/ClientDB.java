@@ -2,12 +2,15 @@ package lapr.project.data;
 
 import lapr.project.model.Address;
 import lapr.project.model.Client;
+import lapr.project.model.Product;
 import oracle.jdbc.OracleTypes;
 import lapr.project.model.CreditCard;
 
 import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ClientDB extends DataHandler {
 
@@ -97,5 +100,27 @@ public class ClientDB extends DataHandler {
             e.printStackTrace();
         }
         throw new IllegalArgumentException("No Client with the following email:" + strEmail);
+    }
+
+    public List<CreditCard> getCreditCardsByClient(String strEmail) {
+        CallableStatement callStmt = null;
+        List<CreditCard> lstCreditCards = new ArrayList<>();
+        try {
+            callStmt = getConnection().prepareCall("{ ? = call getCreditCardsByClient(?) }");
+
+            callStmt.registerOutParameter(1, oracle.jdbc.OracleTypes.CURSOR);
+            callStmt.setString(2, strEmail);
+            callStmt.execute();
+            ResultSet rSet = (ResultSet) callStmt.getObject(1);
+
+            while (rSet.next()) {
+                CreditCard oCreditCard = creditCardManager(rSet, 1);
+
+                lstCreditCards.add(oCreditCard);
+            }
+            return lstCreditCards;
+        } catch (SQLException e) {
+            throw new IllegalArgumentException("No Credit Cards Avaliable.");
+        }
     }
 }

@@ -66,7 +66,7 @@ public class DataHandler {
     /**
      * Additional Number of columns added when executing the orderManager method.
      */
-    private static int COLUMNS_ADDED_ORDER = 44;
+    private static int COLUMNS_ADDED_ORDER = 37;
 
     /**
      * Additional Number of columns added when executing the invoiceManager method.
@@ -266,7 +266,7 @@ public class DataHandler {
         return new Client(intId, strName, strNif, strEmail, strPassword, intCredits, oClientAddress, oCreditCard);
     }
 
-    protected Order orderManager(ResultSet rSet, int firstColumn) throws SQLException, NoSuchAlgorithmException { // column number +44
+    protected Order orderManager(ResultSet rSet, int firstColumn) throws SQLException, NoSuchAlgorithmException { // column number +37
 
         int intId = rSet.getInt(firstColumn);
         firstColumn++;
@@ -282,15 +282,15 @@ public class DataHandler {
         firstColumn++;
         float fltAdditionalFee = rSet.getFloat(firstColumn);
         firstColumn++;
-        Address oAddress = addressManager(rSet, firstColumn);
-        firstColumn+= COLUMNS_ADDED_ADDRESS;
+        boolean blIsHomeDelivery = rSet.getBoolean(firstColumn);
+        firstColumn++;
         Client oClient = clientManager(rSet, firstColumn);
         firstColumn+= COLUMNS_ADDED_CLIENT;
         Pharmacy oPharmacy = pharmacyManager(rSet, firstColumn);
 
 
         return new Order(intId, fltAmount, fltTotalWeight, fltAdditionalFee, dtOrderDate, strDescription,
-                strStatus, oClient, oAddress, oPharmacy, new TreeMap<>());
+                strStatus, blIsHomeDelivery, oClient, oPharmacy, new TreeMap<>());
     }
 
     protected Invoice invoiceManager(ResultSet rSet, int firstColumn) throws SQLException, NoSuchAlgorithmException { // column number +47
@@ -345,6 +345,18 @@ public class DataHandler {
         oOrder.getProducts().put(oProduct, intQuantity);
 
         return oOrder;
+    }
+
+    protected Invoice invoiceProductManager(ResultSet rSet, int firstColumn, Invoice oInvoice) throws SQLException { // column number +6
+
+        float intValue = rSet.getFloat(firstColumn);
+        firstColumn++;
+        CreditCard oCreditCard = creditCardManager(rSet, firstColumn);
+        firstColumn+= COLUMNS_ADDED_ORDER;
+
+        oInvoice.getPayments().put(oCreditCard, intValue);
+
+        return oInvoice;
     }
 
     public void genericRemove(int intId, String strProcedureCall) {

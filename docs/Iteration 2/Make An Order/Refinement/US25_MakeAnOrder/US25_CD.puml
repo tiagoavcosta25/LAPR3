@@ -17,9 +17,11 @@ class MakeAnOrderController{
 +setHomeDelivery(homeDelivery)
 +lstCreditCards = getCreditCardsByClient(email)
 +addPayment(creditCard, amount)
++generateInvoice()
 }
 
 class GenerateInvoiceController{
++GenerateInvoiceController()
 +generateInvoice(order, mapPayments)
 }
 
