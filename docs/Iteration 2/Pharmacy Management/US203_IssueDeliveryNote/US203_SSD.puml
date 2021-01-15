@@ -1,0 +1,17 @@
+@startuml
+autonumber
+hide footbox
+
+actor "Admin" as ADMIN
+
+participant ":System" as SYST
+
+activate ADMIN
+
+ADMIN -> SYST : Initiates the process of issue a delivery note \n by introducing the transfer's id
+activate SYST
+SYST -> ADMIN : Informs the success of the operation
+deactivate SYST
+deactivate ADMIN
+
+@enduml

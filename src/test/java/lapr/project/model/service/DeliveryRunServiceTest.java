@@ -1,6 +1,5 @@
 package lapr.project.model.service;
 
-import javafx.util.Pair;
 import lapr.project.data.DeliveryDB;
 import lapr.project.data.DeliveryRunDB;
 import lapr.project.model.Address;
@@ -15,9 +14,8 @@ import org.mockito.Mockito;
 
 import static org.mockito.Mockito.when;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
+import java.util.concurrent.ExecutionException;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.MockitoAnnotations.initMocks;
@@ -73,15 +71,17 @@ class DeliveryRunServiceTest {
 
     @Test
     void startDeliveryRun() {
-        when(m_oDeliveryDB.startDeliveryRun(new Drone(),"123")).thenReturn(new ArrayList<>());
-        ArrayList result = m_oDeliveryRunService.startDeliveryRun(new Drone(),"123");
-        assertEquals(new ArrayList(), result);
+        Map<String,String> lst = new TreeMap<>();
+        when(m_oDeliveryDB.startDeliveryRun(new Drone(),"123")).thenReturn(lst);
+        Map<String,String> result = m_oDeliveryRunService.startDeliveryRun(new Drone(),"123");
+        assertEquals(lst, result);
 
     }
 
     @Test
     void sendsEmail() {
-        boolean result = m_oDeliveryRunService.sendsEmail(new ArrayList());
+        Map<String,String> lst = new TreeMap<>();
+        boolean result = m_oDeliveryRunService.sendsEmail(lst);
         assertTrue(result);
     }
 }

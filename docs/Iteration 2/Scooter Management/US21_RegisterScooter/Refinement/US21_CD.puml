@@ -80,6 +80,7 @@ class Address{
 class Pharmacy {
   -int id
   -String name
+-   String email
 }
 }
 

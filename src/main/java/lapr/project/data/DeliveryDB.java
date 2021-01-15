@@ -1,19 +1,12 @@
 package lapr.project.data;
 
-import javafx.util.Pair;
-import lapr.project.data.DataHandler;
 import lapr.project.graph.map.Graph;
-import lapr.project.graph.map.GraphAlgorithms;
 import lapr.project.model.*;
 import oracle.jdbc.OracleTypes;
-
-import java.security.NoSuchAlgorithmException;
 import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public class DeliveryDB extends DataHandler {
 
@@ -128,9 +121,9 @@ public class DeliveryDB extends DataHandler {
 
     }
 
-    public ArrayList<String> startDeliveryRun(Vehicle vehicle, String currentUserEmail) {
+    public Map<String,String> startDeliveryRun(Vehicle vehicle, String currentUserEmail) {
         CallableStatement callStmt = null;
-        List<String> lstClients = new ArrayList<>();
+        Map<String,String> lstClients = new TreeMap<>();
         try {
             callStmt = getConnection().prepareCall("{ ? = call startDeliveryRun(?,?) }");
 
@@ -142,9 +135,14 @@ public class DeliveryDB extends DataHandler {
 
             while(rSet.next()){
                 String clientEmail = rSet.getString(1);
-                lstClients.add(clientEmail);
+                Integer orderID = rSet.getInt(2);
+                String orderDesc = rSet.getString(3);
+                String info = ("Tracking number: " + orderID + "\nOrder description: " + orderDesc);
+                lstClients.put(clientEmail,info);
                 rSet.next();
             }
+
+            return lstClients;
         } catch (SQLException e) {
             e.printStackTrace();
         }
