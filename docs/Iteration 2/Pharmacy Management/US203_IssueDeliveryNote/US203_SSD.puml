@@ -8,7 +8,7 @@ participant ":System" as SYST
 
 activate ADMIN
 
-ADMIN -> SYST : Initiates the process of issue a delivery note
+ADMIN -> SYST : Initiates the process of issue a delivery note \n by introducing the transfer's id
 activate SYST
 SYST -> ADMIN : Informs the success of the operation
 deactivate SYST
