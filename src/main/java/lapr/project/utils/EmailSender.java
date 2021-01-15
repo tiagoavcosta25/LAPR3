@@ -16,6 +16,9 @@ import javax.mail.internet.MimeMessage;
 
 public class EmailSender {
 
+    private EmailSender() {
+    }
+
     public static boolean emailSender(String emailToFoward, String subject, String body) {
         Properties props = new Properties();
         props.put("mail.smtp.auth", "true");
@@ -50,7 +53,7 @@ public class EmailSender {
 
 
     private static String htmlBody(String body) {
-        if(body.equals(null) || body.equals(""))
+        if(body == null || body.equals(""))
             return "";
         return body.replace("\n", "<br />");
     }
