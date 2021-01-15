@@ -40,6 +40,7 @@ public class EmailSender {
                 throw new MessagingException();
             }
             Message message = new MimeMessage(session);
+            message.setFrom(new InternetAddress("FarmacyService"));
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(emailToFoward));
             message.setSubject(subject);
             message.setContent(strHtmlBody, "text/html; charset=utf-8");
