@@ -230,36 +230,6 @@ class OrderTest {
     }
 
     @Test
-    void calculateAmount() {
-        Order oOrder = new Order();
-        Map<Product, Integer> map = new TreeMap<>();
-        map.put(new Product("Name", "Description", 10, 10), 2);
-        oOrder.setProducts(map);
-        Float expected = 20f;
-        oOrder.calculateAmount();
-        Float real = oOrder.getAmount();
-        assertEquals(expected, real);
-
-        map = new TreeMap<>();
-        oOrder.setProducts(map);
-        expected = 0f;
-        real = oOrder.getAmount();
-        assertEquals(expected, real);
-    }
-
-    @Test
-    void calculateTotalWeight() {
-        Order oOrder = new Order();
-        Map<Product, Integer> map = new TreeMap<>();
-        map.put(new Product("Name", "Description", 10, 1), 2);
-        oOrder.setProducts(map);
-        Float expected = 20f;
-        oOrder.calculateAmount();
-        Float real = oOrder.getAmount();
-        assertEquals(expected, real);
-    }
-
-    @Test
     void testEquals() {
         Order oOrder = new Order();
         boolean expected = true;

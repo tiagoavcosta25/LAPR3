@@ -106,7 +106,7 @@ class InvoiceDB{
 
 package "Utils" #DDDDDD {
 class EmailSender{
-    +sendEmail(invoice)
+    +sendEmail(email, subject, body)
 }
 
 }

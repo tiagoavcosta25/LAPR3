@@ -54,7 +54,7 @@ CREATE TABLE Path (addressIdA number(10) NOT NULL, addressIdB number(10) NOT NUL
 CREATE TABLE Payment (creditCardNr number(16) NOT NULL, invoiceId number(10) NOT NULL, value float(10) NOT NULL, PRIMARY KEY (creditCardNr, invoiceId));
 CREATE TABLE Pharmacy (id number(10) GENERATED AS IDENTITY, name varchar2(70) NOT NULL, email varchar2(320) NOT NULL, addressId number(10) NOT NULL, PRIMARY KEY (id));
 CREATE TABLE PharmacyProduct (pharmacyId number(10) NOT NULL, productId number(10) NOT NULL, stock number(10) DEFAULT 0 NOT NULL, PRIMARY KEY (pharmacyId, productId));
-CREATE TABLE PharmacyTransfer (id number(10) GENERATED AS IDENTITY, nearbyPharmacyId number(10) NOT NULL, transferDate date NOT NULL, productId number(10) NOT NULL, orderId number(10) NOT NULL, PRIMARY KEY (id));
+CREATE TABLE PharmacyTransfer (id number(10) GENERATED AS IDENTITY, transferDate date NOT NULL, quantity number(5) NOT NULL, nearbyPharmacyId number(10) NOT NULL, productId number(10) NOT NULL, orderId number(10) NOT NULL, PRIMARY KEY (id));
 CREATE TABLE Product (id number(10) GENERATED AS IDENTITY, name varchar2(70) NOT NULL UNIQUE, description varchar2(255), unitaryPrice float(10) NOT NULL, unitaryWeight float(10) NOT NULL, PRIMARY KEY (id));
 CREATE TABLE Scooter (vehicleId number(10) NOT NULL, PRIMARY KEY (vehicleId));
 CREATE TABLE "User" (id number(10) GENERATED AS IDENTITY, email varchar2(320) NOT NULL UNIQUE, password varchar2(128) NOT NULL, nif number(10) NOT NULL UNIQUE, name varchar2(100) NOT NULL, PRIMARY KEY (id));
@@ -100,4 +100,3 @@ ALTER TABLE Vehicle ADD CONSTRAINT FKVehicle813452 FOREIGN KEY (batteryId) REFER
 ALTER TABLE Park ADD CONSTRAINT FKPark9109 FOREIGN KEY (vehicleType) REFERENCES VehicleType (designation);
 ALTER TABLE ChargingSlot ADD CONSTRAINT FKChargingSl406134 FOREIGN KEY (parkingSlotId) REFERENCES ParkingSlot (id);
 ALTER TABLE NonChargingSlot ADD CONSTRAINT FKNonChargin337152 FOREIGN KEY (parkingSlotId) REFERENCES ParkingSlot (id);
-

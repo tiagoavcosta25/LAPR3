@@ -23,8 +23,9 @@ public class Order {
     private static float DEFAULT_AMOUNT = -1;
     private static float DEFAULT_TOTAL_WEIGHT = -1;
     private static float DEFAULT_ADDITIONAL_FEE = -1;
-    private static float HOME_DELIVERY_FEE = 5;
-    private static float STORE_PICKUP_FEE = 0;
+    private static float HOME_DELIVERY_FEE = 5f;
+    private static float STORE_PICKUP_FEE = 0f;
+    private static int MIN_OF_CREDITS_FOR_FREE_DELIVERY = 10;
     private static Date CURRENT_DATE = new Date(Calendar.getInstance().getTimeInMillis());
     private static String DEFAULT_DESCRIPTION = "No Description.";
     private static String DEFAULT_STATUS = "ordered";
@@ -74,7 +75,7 @@ public class Order {
         this.m_oPharmacy = oPharmacy;
         this.m_mapProducts = mapProducts;
 
-        calculateAdditonalFee();
+        calculateAdditonalFee(this.m_oClient.getCredits());
         calculateAmount();
         calculateTotalWeight();
         this.m_oClient.addCredits((int)(this.m_fltAmount + this.m_fltAdditionalFee) / 5);
@@ -92,7 +93,7 @@ public class Order {
         this.m_oPharmacy = oPharmacy;
         this.m_mapProducts = mapProducts;
 
-        calculateAdditonalFee();
+        calculateAdditonalFee(this.m_oClient.getCredits());
         calculateAmount();
         calculateTotalWeight();
         this.m_oClient.addCredits((int)(this.m_fltAmount + this.m_fltAdditionalFee) / 5);
@@ -202,15 +203,15 @@ public class Order {
         calculateTotalWeight();
     }
 
-    public void calculateAdditonalFee() {
-        if(this.m_blIsHomeDelivery){
-            this.m_fltAdditionalFee = HOME_DELIVERY_FEE;
-        } else{
+    private void calculateAdditonalFee(int intCredits) {
+        if(!this.m_blIsHomeDelivery || intCredits >= MIN_OF_CREDITS_FOR_FREE_DELIVERY){
             this.m_fltAdditionalFee = STORE_PICKUP_FEE;
+        } else{
+            this.m_fltAdditionalFee = HOME_DELIVERY_FEE;
         }
     }
 
-    public void calculateAmount() {
+    private void calculateAmount() {
         float fltAmount = 0f;
         for(Product p : this.m_mapProducts.keySet()){
             fltAmount += p.getUnitaryPrice() * (float) this.m_mapProducts.get(p);
@@ -218,7 +219,7 @@ public class Order {
         this.m_fltAmount = fltAmount;
     }
 
-    public void calculateTotalWeight() {
+    private void calculateTotalWeight() {
         float fltTotalWeight = 0f;
         for(Product p : this.m_mapProducts.keySet()){
             fltTotalWeight += p.getUnitaryWeight() * (float) this.m_mapProducts.get(p);

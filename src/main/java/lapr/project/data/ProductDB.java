@@ -37,15 +37,7 @@ public class ProductDB extends DataHandler {
             // Guarda o cursor retornado num objeto "ResultSet".
             ResultSet rSet = (ResultSet) callStmt.getObject(1);
 
-            if (rSet.next()) {
-                int intID = rSet.getInt(1);
-                String strName = rSet.getString(2);
-                String strDescription = rSet.getString(3);
-                float fltUnitaryPrice = rSet.getFloat(4);
-                float fltUnitaryWeight = rSet.getFloat(5);
-
-                return new Product(intID, strName, strDescription, fltUnitaryPrice, fltUnitaryWeight);
-            }
+            return productManager(rSet, 1);
         } catch (SQLException e) {
             e.printStackTrace();
         }

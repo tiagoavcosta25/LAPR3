@@ -14,7 +14,13 @@ deactivate PTS
 
 CTRL -> PTS : sendEmailWithTransferNote(pharmacyTransfer)
 activate PTS
-PTS -> E : sendEmail(email, subject, body)
+PTS -> E : emailSender(email, subject, body)
+activate E
+ref over E
+SD_EMAILSENDER
+end ref
+deactivate E
+PTS -> E : emailSender(email, subject, body)
 activate E
 ref over E
 SD_EMAILSENDER
