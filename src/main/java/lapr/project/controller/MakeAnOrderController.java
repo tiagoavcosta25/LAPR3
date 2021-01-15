@@ -160,6 +160,22 @@ public class MakeAnOrderController {
     }
 
     /**
+     * The method adds a payment method to the map and its value.
+     */
+    /*public boolean payWithCredits(int intCredits) {
+        try{
+            if(intCredits > this.m_oClient.getCredits()){
+                throw new Exception();
+            }
+            this.m_fltCurrentPayment -= (double) this.m_oClient.getCredits() / 5f;
+            this.m_oClientService.deductCredits(this.m_oClient, this.m_oClient.getCredits());
+            return true;
+        } catch(Exception e){
+            return false;
+        }
+    }*/
+
+    /**
      * The method generates the invoice and sends it by email to the client.
      */
     public boolean generateInvoice() {
