@@ -26,7 +26,9 @@ public class DirectoryVerification {
                 else
                     return list[0].substring(0, list[0].length() - filter.length());
                 Thread.sleep(SLEEP_TIME);
-            } catch (InterruptedException ignored) {
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                e.printStackTrace();
             }
         }
         return "";
