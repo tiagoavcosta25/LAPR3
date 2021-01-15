@@ -13,7 +13,19 @@ class DirectoryVerificationTest {
         assertEquals(expResult, result);
 
         expResult = "";
-        result = DirectoryVerification.verifyFileCreation("/doesntexist" ,"1", 5);
+        result = DirectoryVerification.verifyFileCreation("doesntexist/" ,"1", 200);
+        assertEquals(expResult, result);
+
+        result = DirectoryVerification.verifyFileCreation("doesntexist/" ,"1", 5);
+        assertEquals(expResult, result);
+
+        result = DirectoryVerification.verifyFileCreation("doesntexist/" ,"1", 0);
+        assertEquals(expResult, result);
+
+        result = DirectoryVerification.verifyFileCreation("doesntexist/" ,"1", -10);
+        assertEquals(expResult, result);
+
+        result = DirectoryVerification.verifyFileCreation(".", ".nonexistant", 10);
         assertEquals(expResult, result);
     }
 }
