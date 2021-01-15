@@ -2,77 +2,23 @@
 autonumber
 hide footbox
 
-actor "Client" as CL
-
-participant "GenerateInvoiceUI" as UI
 participant "GenerateInvoiceController" as CTRL
-participant "PotApplication" as _APP
-participant "app\n:PotApplication" as APP
-participant "session\n:UserSession" as SESSION
-participant "clientServ\n:ClientService" as CS
-participant "clientDB\n:ClientDB" as CDB
-participant "orderServ\n:OrderService" as OS
-participant "orderDB\n:OrderDB" as ODB
 participant "invoiceServ\n:InvoiceService" as IS
 participant "invoiceDB\n:InvoiceDB" as IDB
 participant "invoice\n:Invoice" as I
 
-activate CL
 
-CL -> UI : sends a request to generate an invoice
-activate UI
-UI -> CTRL : generateInvoice()
+[o-> CTRL : generateInvoice(order, mapPayments)
 activate CTRL
-CTRL -> _APP: app = getInstance()
-activate _APP
-deactivate _APP
-
-CTRL -> APP: session = getCurrentSession()
-activate APP
-deactivate APP
-
-CTRL -> SESSION: email = getUserEmail()
-activate SESSION
-deactivate SESSION
-CTRL -> CS** : create()
-activate CS
-CS -> CDB** : create()
-deactivate CS
-CTRL -> CS : client = getUserByEmail(email)
-activate CS
-CS -> CDB : client = getUserByEmail(email)
-activate CDB
-ref over CDB
-SD_CONNECTIONS
-end ref
-deactivate CDB
-deactivate CS
-
-CTRL -> OS** : create()
-activate OS
-OS -> ODB** : create()
-deactivate OS
-CTRL -> OS : order = getLatestOrder(client)
-activate OS
-OS -> ODB : order = getLatestOrder(client)
-activate ODB
-ref over ODB
-SD_CONNECTIONS
-end ref
-deactivate ODB
-deactivate OS
 
 CTRL -> IS** : create()
 activate IS
 IS -> IDB** : create()
 deactivate IS
 
-CTRL -> IS : invoice = addInvoice(date, totalPrice, order, client)
+CTRL -> IS : invoice = addInvoice(order, mapPayments)
 activate IS
-IS -> I** : create(date, totalPrice, order, client)
-ref over IS
-SD_CONNECTIONS
-end ref
+IS -> I** : create(order, mapPayments)
 deactivate IS
 
 CTRL -> IS : registerInvoice(invoice)
@@ -85,8 +31,5 @@ end ref
 deactivate IDB
 deactivate IS
 deactivate CTRL
-UI -> CL : sends the invoice
-deactivate UI
-deactivate CL
 
 @enduml
