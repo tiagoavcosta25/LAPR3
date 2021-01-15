@@ -65,7 +65,7 @@ public class ClientService {
 
     public boolean registerNewClient(Client c) {
         if (m_oClientDB.addClientToDB(c)) {
-            EmailSender.emailSender("1191460@isep.ipp.pt","Account Creation",
+            EmailSender.emailSender(c.getEmail(),"Account Creation",
                     String.format("Your brand new account has been registered to the System!\n___________________________________________________________________\n" +
                             "Account Information:\n\nName: %s\nNIF: %s\nAddress: %s, %s, %s, %s\nCredit Card: %d\n\n___________________________________________________________________\n\n" +
                             "Thank you for choosing us.\nKing regards,\nPharmacy Service G21.",c.getName(),c.getNif(),c.getAddress().getStreetName(),
