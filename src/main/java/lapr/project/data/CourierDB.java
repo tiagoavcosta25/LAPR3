@@ -179,28 +179,14 @@ public class CourierDB extends DataHandler {
             // Executa a invocação da função "getSailor".
             callStmt.execute();
 
-            // Guarda o cursor retornado num objeto "ResultSet".
+            // Guarda o cursor retornado num objeto "ResultSet"
             ResultSet rSet = (ResultSet) callStmt.getObject(1);
 
             if (rSet.next()) {
                 int chargingSlotID = rSet.getInt(1);
-                String vehicleString = rSet.getString(2);
-                float outputPower = rSet.getFloat(3);
-                int pharmacyID = rSet.getInt(4);
-                String pharmacyName = rSet.getString(5);
-                Integer maxSlotsNumber = rSet.getInt(6);
-                // Address
-                Address address = addressManager(rSet, 7);
+                float outputPower = rSet.getFloat(2);
 
-                Vehicle v = null;
-                if (vehicleString.equals("drone")) {
-                    v = new Drone();
-                } else {
-                    if (vehicleString.equals("scooter"))
-                        v = new Scooter();
-                }
-
-                return new ChargingSlot(chargingSlotID, v, outputPower);
+                return new ChargingSlot(chargingSlotID, null, outputPower);
             }
         } catch (SQLException e) {
             e.printStackTrace();

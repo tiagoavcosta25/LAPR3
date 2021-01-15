@@ -26,8 +26,6 @@ public class EmailSender {
         props.put("mail.smtp.host", "smtp.gmail.com");
         props.put("mail.smtp.port", "587");
 
-        String strHtmlBody = htmlBody(body);
-
         Session session = Session.getInstance(props,
                 new javax.mail.Authenticator() {
 
@@ -37,6 +35,10 @@ public class EmailSender {
                     }
                 });
         try {
+            String strHtmlBody = htmlBody(body);
+            if(strHtmlBody.equals("") || subject.equals("")) {
+                throw new MessagingException();
+            }
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress("FarmacyService"));
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(emailToFoward));
@@ -53,7 +55,7 @@ public class EmailSender {
 
 
     private static String htmlBody(String body) {
-        if(body == null || body.equals(""))
+        if(body.equals(""))
             return "";
         return body.replace("\n", "<br />");
     }

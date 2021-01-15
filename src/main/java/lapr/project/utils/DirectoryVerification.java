@@ -21,7 +21,7 @@ public class DirectoryVerification {
             if (list.length == 0)
                 slept += SLEEP_TIME;
             else
-                return list[0].substring(0, list[0].length() - 5);
+                return list[0].substring(0, list[0].length() - filter.length());
             try {
                 Thread.sleep(SLEEP_TIME);
             } catch (InterruptedException e) {
