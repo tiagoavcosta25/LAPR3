@@ -38,4 +38,9 @@ public class ScooterService {
     public boolean registerScooter(Scooter oScooter) {
         return m_oScooterDB.registerScooter(oScooter);
     }
+
+    public boolean parkScooter(int idScooter, int idParkingSlot) {
+        return false;
+    }
+
 }

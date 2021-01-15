@@ -4,8 +4,6 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -85,20 +83,20 @@ class ParkTest {
     @Test
     void getParkingSlots() {
         Park oPark = new Park();
-        List<ParkingSlot> expected = new ArrayList<>();
-        expected.add(new ParkingSlot());
+        List<NonChargingSlot> expected = new ArrayList<>();
+        expected.add(new NonChargingSlot());
         oPark.setParkingSlots(expected);
-        List<ParkingSlot> real = oPark.getParkingSlots();
+        List<NonChargingSlot> real = oPark.getParkingSlots();
         assertEquals(expected, real);
     }
 
     @Test
     void setParkingSlots() {
         Park oPark = new Park();
-        List<ParkingSlot> expected = new ArrayList<>();
-        expected.add(new ParkingSlot());
+        List<NonChargingSlot> expected = new ArrayList<>();
+        expected.add(new NonChargingSlot());
         oPark.setParkingSlots(expected);
-        List<ParkingSlot> real = oPark.getParkingSlots();
+        List<NonChargingSlot> real = oPark.getParkingSlots();
         assertEquals(expected, real);
     }
 
@@ -106,7 +104,7 @@ class ParkTest {
     void addParkingSlot() {
         Park oPark = new Park();
         oPark.setMaxSlotsNumber(3);
-        boolean real = oPark.addParkingSlot(new ParkingSlot());
+        boolean real = oPark.addParkingSlot(new NonChargingSlot());
         assertTrue(real);
     }
 

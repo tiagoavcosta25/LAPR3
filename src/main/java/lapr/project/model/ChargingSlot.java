@@ -1,68 +1,30 @@
 package lapr.project.model;
 
-import java.util.Objects;
+public class ChargingSlot extends ParkingSlot implements Comparable{
 
-public class ChargingSlot implements Comparable{
-    private int m_intId;
-    private Park m_oPark;
-    private Vehicle m_oVehicle;
     private float m_fltOutputPower;
 
-    private static int DEFAULT_ID = -1;
-    private static Park DEFAULT_PARK = new Park();
-    private static Scooter DEFAULT_SCOOTER = null;
-    private static float DEFAULT_OUTPUT_POWER = -1;
-
-    public ChargingSlot(int intId, Park oPark, Vehicle oVehicle, float oOutputPower) {
-        this.m_intId = intId;
-        this.m_oPark = oPark;
-        this.m_oVehicle = oVehicle;
-        this.m_fltOutputPower = oOutputPower;
-    }
-
-    public ChargingSlot(Park oPark, float oOutputPower) {
-        this.m_intId = DEFAULT_ID;
-        this.m_oPark = oPark;
-        this.m_oVehicle = DEFAULT_SCOOTER;
-        this.m_fltOutputPower = oOutputPower;
-    }
-
-    public ChargingSlot(int intID, Park oPark, float oOutputPower) {
-        this.m_intId = intID;
-        this.m_oPark = oPark;
-        this.m_oVehicle = DEFAULT_SCOOTER;
-        this.m_fltOutputPower = oOutputPower;
-    }
-
     public ChargingSlot() {
-        this.m_intId = DEFAULT_ID;
-        this.m_oPark = DEFAULT_PARK;
-        this.m_oVehicle = DEFAULT_SCOOTER;
-        this.m_fltOutputPower = DEFAULT_OUTPUT_POWER;
+        m_fltOutputPower = -1;
     }
 
-    public int getId() {
-        return m_intId;
+    public ChargingSlot(float m_fltOutputPower) {
+        this.m_fltOutputPower = m_fltOutputPower;
     }
 
-    public void setId(int m_intId) {
-        this.m_intId = m_intId;
+    public ChargingSlot(int m_intId, float m_fltOutputPower) {
+        super(m_intId);
+        this.m_fltOutputPower = m_fltOutputPower;
     }
 
-    public Park getPark() {
-        return m_oPark;
+    public ChargingSlot(Vehicle m_oVehicle, float m_fltOutputPower) {
+        super(m_oVehicle);
+        this.m_fltOutputPower = m_fltOutputPower;
     }
 
-    public void setPark(Park m_oPark) {
-        this.m_oPark = m_oPark;
-    }
-
-    public Vehicle getVehicle() {
-        return this.m_oVehicle;
-    }
-
-    public void setVehicle(Vehicle vehicle) {
-        this.m_oVehicle = vehicle;
+    public ChargingSlot(int m_intId, Vehicle m_oVehicle, float m_fltOutputPower) {
+        super(m_intId, m_oVehicle);
+        this.m_fltOutputPower = m_fltOutputPower;
     }
 
     public float getOutputPower() {
@@ -84,19 +46,14 @@ public class ChargingSlot implements Comparable{
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ChargingSlot that = (ChargingSlot) o;
-        return m_intId == that.m_intId;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(m_intId);
+        return super.getId() == that.getId();
     }
 
     @Override
     public String toString() {
         return "ChargingSlot{" +
-                "m_intId=" + m_intId +
-                ", m_oScooter=" + m_oVehicle +
+                "m_intId=" + super.getId() +
+                ", m_oScooter=" + super.getVehicle() +
                 ", m_fltOutputPower=" + m_fltOutputPower +
                 '}';
     }

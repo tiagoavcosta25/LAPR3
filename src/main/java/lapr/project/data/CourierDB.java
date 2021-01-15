@@ -200,8 +200,7 @@ public class CourierDB extends DataHandler {
                         v = new Scooter();
                 }
 
-                return new ChargingSlot(chargingSlotID, new Park(pharmacyID, maxSlotsNumber,
-                        new Pharmacy(pharmacyID, pharmacyName, address)), v, outputPower);
+                return new ChargingSlot(chargingSlotID, v, outputPower);
             }
         } catch (SQLException e) {
             e.printStackTrace();

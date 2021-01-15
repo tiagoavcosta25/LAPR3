@@ -15,15 +15,13 @@ class ChargingSlotTest {
     private ChargingSlot cDif2;
 
     public ChargingSlotTest(){
-        c1 = new ChargingSlot(1,new Park(),new Scooter(),2.0f);
-        c2 = new ChargingSlot(new Park(),2.0f);
-        c3 = new ChargingSlot(1,new Park(),2.0f);
+        c1 = new ChargingSlot(1,new Scooter(),2.0f);
+        c2 = new ChargingSlot(2.0f);
+        c3 = new ChargingSlot(1,2.0f);
         c4 = new ChargingSlot();
         cCopy = c1;
-        cDif = new ChargingSlot(2,new Park(),new Scooter(),3.0f);
-        Park p = new Park();
-        p.setMaxSlotsNumber(10);
-        cDif2 = new ChargingSlot(2, p,new Scooter(),2.0f);
+        cDif = new ChargingSlot(2,new Scooter(),3.0f);
+        cDif2 = new ChargingSlot(2,new Scooter(),2.0f);
     }
 
 
@@ -42,23 +40,6 @@ class ChargingSlotTest {
         Integer real = c1.getId();
         assertEquals(expected, real);
     }
-
-    @Test
-    void getPark() {
-        Park expected4 = new Park();
-        Park real4 = c4.getPark();
-        assertEquals(expected4, real4);
-        Park expected3 = new Park();
-        Park real3 = c3.getPark();
-        assertEquals(expected3, real3);
-        Park expected2 = new Park();
-        Park real2 = c2.getPark();
-        assertEquals(expected2, real2);
-        Park expected = new Park();
-        Park real = c1.getPark();
-        assertEquals(expected, real);
-    }
-
 
     @Test
     void getVehicle() {
@@ -91,28 +72,6 @@ class ChargingSlotTest {
         float real = c1.getOutputPower();
         assertEquals(expected, real);
     }
-
-    @Test
-    void setPark() {
-        c1.setPark(null);
-        c2.setPark(null);
-        c3.setPark(null);
-        c4.setPark(null);
-        Park expected4 = null;
-        Park real4 = c4.getPark();
-        assertEquals(expected4, real4);
-        Park expected3 = null;
-        Park real3 = c3.getPark();
-        assertEquals(expected3, real3);
-        Park expected2 = null;
-        Park real2 = c2.getPark();
-        assertEquals(expected2, real2);
-        Park expected = null;
-        Park real = c1.getPark();
-        assertEquals(expected, real);
-    }
-
-
 
     @Test
     void setVehicle() {

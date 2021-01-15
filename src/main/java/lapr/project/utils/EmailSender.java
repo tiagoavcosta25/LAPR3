@@ -46,7 +46,7 @@ public class EmailSender {
             System.out.println("Email Sent!");
             return true;
         } catch (MessagingException e) {
-            System.out.println("Error sending the email.");
+            System.err.println("Error sending the email.");
         }
         return false;
     }
