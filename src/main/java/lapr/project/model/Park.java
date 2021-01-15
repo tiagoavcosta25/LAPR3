@@ -8,20 +8,17 @@ public class Park {
 
     private int m_intId;
     private int m_intMaxSlotsNumber;
-    private Pharmacy m_oPharmacy;
     private List<ChargingSlot> m_lstChargingSlots;
     private List<NonChargingSlot> m_lstNonChargingSlots;
 
     private static int DEFAULT_ID = -1;
     private static int DEFAULT_MAX_SLOTS = -1;
-    private static Pharmacy DEFAULT_PHARMACY = new Pharmacy();
     private static List<ChargingSlot> DEFAULT_CHARGING_SLOTS = new ArrayList<>();
     private static List<NonChargingSlot> DEFAULT_PARKING_SLOTS = new ArrayList<>();
 
-    public Park(int intId, int intMaxSlotsNumber, Pharmacy oPharmacy) {
+    public Park(int intId, int intMaxSlotsNumber) {
         this.m_intId = intId;
         this.m_intMaxSlotsNumber = intMaxSlotsNumber;
-        this.setPharmacy(oPharmacy);
         this.m_lstChargingSlots = DEFAULT_CHARGING_SLOTS;
         this.m_lstNonChargingSlots = DEFAULT_PARKING_SLOTS;
     }
@@ -29,7 +26,6 @@ public class Park {
     public Park() {
         this.m_intId = DEFAULT_ID;
         this.m_intMaxSlotsNumber = DEFAULT_MAX_SLOTS;
-        this.setPharmacy(DEFAULT_PHARMACY);
         this.m_lstChargingSlots = DEFAULT_CHARGING_SLOTS;
         this.m_lstNonChargingSlots = DEFAULT_PARKING_SLOTS;
     }
@@ -68,14 +64,6 @@ public class Park {
 
     public void setParkingSlots(List<NonChargingSlot> m_lstNonChargingSlots) {
         this.m_lstNonChargingSlots = new ArrayList<>(m_lstNonChargingSlots);
-    }
-
-    public Pharmacy getPharmacy() {
-        return m_oPharmacy;
-    }
-
-    public void setPharmacy(Pharmacy m_oPharmacy) {
-        this.m_oPharmacy = m_oPharmacy;
     }
 
     public boolean addParkingSlot(NonChargingSlot oNonChargingSlot) {

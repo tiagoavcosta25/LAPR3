@@ -11,7 +11,7 @@ class ParkTest {
 
     @Test
     void getId() {
-        Park oPark = new Park(-1, 1, new Pharmacy());
+        Park oPark = new Park(-1, 1);
         Integer expected = -1;
         Integer real = oPark.getId();
         assertEquals(expected, real);
@@ -40,23 +40,6 @@ class ParkTest {
         Integer expected = -2;
         oPark.setMaxSlotsNumber(expected);
         Integer real = oPark.getMaxSlotsNumber();
-        assertEquals(expected, real);
-    }
-
-    @Test
-    void getPharmacy() {
-        Park oPark = new Park();
-        Pharmacy expected = new Pharmacy();
-        Pharmacy real = oPark.getPharmacy();
-        assertEquals(expected, real);
-    }
-
-    @Test
-    void setPharmacy() {
-        Park oPark = new Park();
-        Pharmacy expected = new Pharmacy();
-        oPark.setPharmacy(expected);
-        Pharmacy real = oPark.getPharmacy();
         assertEquals(expected, real);
     }
 
