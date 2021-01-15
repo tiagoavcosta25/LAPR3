@@ -19,7 +19,7 @@ begin
         WHERE ID = deliveryRunID;
 
     OPEN v_emails FOR
-        SELECT U.EMAIL
+        SELECT U.EMAIL, O.ID, O.DESCRIPTION
         FROM "User" U INNER JOIN CLIENT C2 on U.ID = C2.USERID
                       INNER JOIN "Order" O on C2.USERID = O.CLIENTID
                       INNER JOIN DELIVERYRUN D2 on D2.ID = O.DELIVERYRUNID

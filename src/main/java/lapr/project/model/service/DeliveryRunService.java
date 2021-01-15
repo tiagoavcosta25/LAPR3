@@ -5,10 +5,9 @@ import lapr.project.controller.ApplicationPOT;
 import lapr.project.data.DeliveryDB;
 import lapr.project.data.DeliveryRunDB;
 import lapr.project.model.*;
+import lapr.project.utils.EmailSender;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public class DeliveryRunService {
 
@@ -41,11 +40,22 @@ public class DeliveryRunService {
     }
 
 
-    public ArrayList<String> startDeliveryRun(Vehicle vehicle, String currentUserEmail) {
-        return m_oDeliveryDB.startDeliveryRun(vehicle,currentUserEmail);
+    public Map<String, String> startDeliveryRun(Vehicle vehicle, String currentUserEmail) {
+        return m_oDeliveryDB.startDeliveryRun(vehicle, currentUserEmail);
     }
 
-    public boolean sendsEmail(List lstClients) {
-        return true; //IMPLEMENT METHOD
+    public boolean sendsEmail(Map lstClients) {
+        boolean flag = true;
+        try {
+            Iterator it = lstClients.entrySet().iterator();
+            while (it.hasNext()) {
+                Map.Entry pair = (Map.Entry) it.next();
+                EmailSender.emailSender(pair.getKey().toString(), "Order Status",
+                        "Your order has been dispatched!\n" + pair.getValue().toString());
+            }
+        } catch (Exception e) {
+            flag = false;
+        }
+        return flag;
     }
 }
