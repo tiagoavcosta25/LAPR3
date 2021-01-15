@@ -1,6 +1,7 @@
 package lapr.project.model.service;
 
 import javafx.util.Pair;
+import lapr.project.controller.ApplicationPOT;
 import lapr.project.data.DeliveryDB;
 import lapr.project.data.DeliveryRunDB;
 import lapr.project.model.*;
@@ -32,7 +33,7 @@ public class DeliveryRunService {
     }
 
     public Pair<LinkedList<Address>, Double> calculateMostEfficientPath(Address a, Address b, List<Address> list) {
-        return m_oDeliveryDB.calculateMostEfficientPath(a, b, list);
+        return ApplicationPOT.getInstance().getWorldMap().calculateMostEfficientPath(a, b, list);
     }
 
     public float getMaxPayload(String email) {

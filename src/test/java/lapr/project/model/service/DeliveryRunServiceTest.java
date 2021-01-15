@@ -62,12 +62,6 @@ class DeliveryRunServiceTest {
         assertEquals(result, new ArrayList<>());
     }
 
-    @Test
-    void calculateMostEfficientPath() {
-    when(m_oDeliveryDB.calculateMostEfficientPath(new Address(), new Address(), new LinkedList<>())).thenReturn(new Pair<>(null, -1.0));
-    Pair<LinkedList<Address>, Double> result = m_oDeliveryRunService.calculateMostEfficientPath(new Address(), new Address(), new LinkedList<>());
-    assertEquals(-1, result.getValue());
-    }
 
     @Test
     void getMaxPayload() {

@@ -1,6 +1,7 @@
 package lapr.project.controller;
 
 import lapr.project.model.UserSession;
+import lapr.project.model.WorldMap;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -10,8 +11,13 @@ import java.util.Properties;
 public class ApplicationPOT {
 
     private UserSession m_currentSession;
+    private WorldMap m_worldMap;
 
     private static ApplicationPOT singleton = null;
+
+    public ApplicationPOT() {
+        m_worldMap = new WorldMap();
+    }
 
     public static ApplicationPOT getInstance()
     {
@@ -42,4 +48,9 @@ public class ApplicationPOT {
     }
 
     public void clearCurrentSession() { m_currentSession = null; }
+
+    public WorldMap getWorldMap() {
+        return m_worldMap;
+    }
+
 }

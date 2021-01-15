@@ -9,12 +9,12 @@ class CalculateMostEfficientPahtUI{
 }
 package "Controller" #DDDDDD {
 class CalculateMostEfficientPahtController{
-+getShortestPath()
++getShortestPath(startAddress, endAddress, deliveryPoints)
 }
 class ApplicationPOT
 {
   +static getInstance()
-    +getCurrentSession()
+  +getWorldMap()
 }
 class UserSession
 {
@@ -22,6 +22,9 @@ class UserSession
 }
 }
 package "Model" #DDDDDD {
+ class WorldMap {
+ +calculateMostEfficientPath(startAddress, endAddress, deliveryPoints)
+ }
 
 class Address{
 -Integer id
@@ -34,15 +37,7 @@ class Address{
 -String country
 +Address(latitude,longitude,streetName,doorNumber,postalCode,locality,country)
 }
-package Service #DDDDDD {
 
-class DeliveryRunService{
-+DeliveryRunService()
-+getAddressesByDeliveryRunId(email)
-+calculateMostEfficientPath(addressA, addressB, list)
-}
-
-}
 }
 package "Data" #DDDDDD {
 class DataHandler{
@@ -50,22 +45,18 @@ class DataHandler{
 +closeAll()
 }
 
- class DeliveryRunDB{
- +DeliveryRunDB()
- +getAddressesByDeliveryRunId(email)
- +calculateMostEfficientPath(addressA, addressB, list)
- }
+
  database database{
  }
  }
+
+
 CalculateMostEfficientPahtController ..> UserSession
 CalculateMostEfficientPahtUI ..> CalculateMostEfficientPahtController
 CalculateMostEfficientPahtController ..> ApplicationPOT
 CalculateMostEfficientPahtController ..> DeliveryRunService
-DeliveryRunService  ->  DeliveryRunDB : has
-DeliveryRunService "1" -> "1" Address : gets
-DeliveryRunDB -> database : manages
+ApplicationPOT "1" ..> "1" WorldMap
 database ->Address : has
-class DeliveryRunDB extends DataHandler
+
 
 @enduml
