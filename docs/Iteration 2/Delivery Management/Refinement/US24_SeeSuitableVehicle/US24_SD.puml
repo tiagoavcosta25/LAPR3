@@ -7,8 +7,8 @@ participant ":SeeSuitableVehicleController" as CTRL
 participant "ApplicationPot" as PA
 participant "app \n:ApplicationPot" as APA
 participant "session \n:UserSession" as US
-participant "scooterReg \n:VehicleService" as RF
-participant "vehicleDB \n:VehicleDB" as SDB
+participant "droneService \n:VehicleService" as RF
+participant "droneDB \n:VehicleDB" as SDB
 participant "scooter \n:Scooter" as CS
 participant "drone \n:Drone" as DR
 
@@ -22,8 +22,9 @@ CTRL -> RF : create()
 activate RF
 RF -> SDB : create()
 activate SDB
-deactivate RF
 deactivate SDB
+deactivate RF
+
 CTRL -> PA : app = getInstance()
 activate PA
 deactivate PA
@@ -33,12 +34,9 @@ deactivate APA
 CTRL -> US : email = getCurrentUserEmail()
 activate US
 deactivate US
-CTRL -> RF : scooter = getSuitableVehicle(distance,email)
+CTRL -> RF : vehicle = getSuitableVehicle(distanceScooter,distanceDrone,email)
 activate RF
-RF -> SDB : scooter = getSuitableScooter(distance,email)
-activate SDB
-deactivate SDB
-RF -> SDB : drone = getSuitableDrone(distance,email)
+RF -> SDB : vehicle = getSuitableVehicle(distanceScooter,distanceDrone,email)
 activate SDB
 deactivate SDB
 deactivate RF

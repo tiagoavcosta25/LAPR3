@@ -176,47 +176,4 @@ public class ScooterDB extends DataHandler {
                 s.getBattery(), s.getPharmacy());
     }
 
-    public Scooter getSuitableScooter(Double distance, String email) {
-        /* Objeto "callStmt" para invocar a função "getSailor" armazenada na BD.
-         *
-         * FUNCTION getSailor(id NUMBER) RETURN pkgSailors.ref_cursor
-         * PACKAGE pkgSailors AS TYPE ref_cursor IS REF CURSOR; END pkgSailors;
-         */
-        CallableStatement callStmt = null;
-        try {
-            callStmt = getConnection().prepareCall("{ ? = call getSuitableScooter(?,?) }");
-
-            // Regista o tipo de dados SQL para interpretar o resultado obtido.
-            callStmt.registerOutParameter(1, OracleTypes.CURSOR);
-            // Especifica o parâmetro de entrada da função "getSailor".
-            callStmt.setDouble(2, distance);
-            callStmt.setString(3, email);
-
-            // Executa a invocação da função "getSailor".
-            callStmt.execute();
-
-            // Guarda o cursor retornado num objeto "ResultSet".
-            ResultSet rSet = (ResultSet) callStmt.getObject(1);
-
-            if (rSet.next()) {
-                int scooterID = rSet.getInt(1);
-                int pharmacyID = rSet.getInt(2);
-                float batteryPerc = rSet.getFloat(3);
-                float potency = rSet.getFloat(4);
-                float weight = rSet.getFloat(5);
-                Integer batteryCapacity = rSet.getInt(6);
-                String charginStatus = rSet.getString(7);
-                float fltMaxPayload = rSet.getFloat(8);
-                float fltBatteryVoltage = rSet.getFloat(9);
-                Pharmacy oPharmacy = pharmacyManager(rSet,10);
-
-                return new Scooter(scooterID, potency, weight, fltMaxPayload, charginStatus, batteryPerc,
-                        batteryCapacity, fltBatteryVoltage, oPharmacy);
-            }
-        } catch (SQLException | NoSuchAlgorithmException e) {
-            e.printStackTrace();
-            return null;
-        }
-        throw new IllegalArgumentException("No Charging Slot for Courier: " + email);
-    }
 }

@@ -1,8 +1,12 @@
 package lapr.project.controller;
 
+import lapr.project.model.Drone;
 import lapr.project.model.Scooter;
 import lapr.project.data.DeliveryDB;
 import lapr.project.data.ScooterDB;
+import lapr.project.model.Vehicle;
+import lapr.project.model.service.ScooterService;
+import lapr.project.model.service.VehicleService;
 
 /**
  * Register Courier Controller.
@@ -15,26 +19,21 @@ import lapr.project.data.ScooterDB;
  * @author Pedro Santos <1190967@isep.ipp.pt>
  * @author Rodrigo Costa <1191014@isep.ipp.pt>
  */
-public class SeeSuitableScooterController {
+public class SeeSuitableVehicleController {
     /**
      * Courier Management class
      */
-    private DeliveryDB oDeliveryDB;
-    /**
-     * Courier Management class
-     */
-    private ScooterDB oScooterDB;
+    private VehicleService oVehicleService;
 
     /**
      * An empty constructor of RegisterCourierController that initiates the platform variable by getting it from the ApplicationPOT.
      */
-    public SeeSuitableScooterController(String jdbcUrl, String username, String password) {
-        oDeliveryDB = new DeliveryDB(jdbcUrl, username, password);
-        oScooterDB = new ScooterDB(jdbcUrl, username, password);
+    public SeeSuitableVehicleController() {
+        oVehicleService = new VehicleService();
     }
 
-    public Scooter getSuitableScooter(Double distance){
-        return oScooterDB.getSuitableScooter(distance, ApplicationPOT.getInstance().getCurrentSession().getCurrentUserEmail());
+    public Vehicle getSuitableVehicle(Double distanceScooter, Double distanceDrone) {
+        return oVehicleService.getSuitableVehicle(distanceScooter, distanceDrone, ApplicationPOT.getInstance().getCurrentSession().getCurrentUserEmail());
     }
 
 }
