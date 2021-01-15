@@ -5,6 +5,9 @@ import java.io.FilenameFilter;
 
 public class DirectoryVerification {
 
+    private DirectoryVerification() {
+    }
+
     private static final int SLEEP_TIME = 5000;
 
     public static String verifyFileCreation(String path, String filter, int secTimeToTest) {
@@ -26,6 +29,7 @@ public class DirectoryVerification {
                 Thread.sleep(SLEEP_TIME);
             } catch (InterruptedException e) {
                 System.out.println("Path does not exist!");
+                Thread.currentThread().interrupt();
                 return "";
             }
         }

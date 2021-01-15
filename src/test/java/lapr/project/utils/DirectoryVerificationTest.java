@@ -22,6 +22,9 @@ class DirectoryVerificationTest {
         result = DirectoryVerification.verifyFileCreation("doesntexist/" ,"1", 0);
         assertEquals(expResult, result);
 
+        result = DirectoryVerification.verifyFileCreation("doesntexist/" ,"1", -10);
+        assertEquals(expResult, result);
+
         result = DirectoryVerification.verifyFileCreation(".", ".nonexistant", 10);
         assertEquals(expResult, result);
     }
