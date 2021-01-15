@@ -1,10 +1,7 @@
 package lapr.project.ui;
 
 import lapr.project.controller.*;
-import lapr.project.model.UserSession;
-
-import java.util.ArrayList;
-import java.util.List;
+import lapr.project.utils.EmailSender;
 
 /**
  * @author Nuno Bettencourt <nmb@isep.ipp.pt> on 24/05/16.
@@ -26,6 +23,7 @@ class Main {
      */
     public static void main(String[] args) {
         System.out.println("Hello");
+        EmailSender.emailSender("farmacyservice.g21@gmail.com", "Subject do email", "Olá!\nO meu nome é Tiago e bem vindo à forex!");
 
     }
 }

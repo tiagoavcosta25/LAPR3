@@ -2,6 +2,7 @@ package lapr.project.model.service;
 
 import lapr.project.data.ClientDB;
 import lapr.project.model.Client;
+import lapr.project.model.CreditCard;
 import lapr.project.utils.EmailSender;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -12,7 +13,9 @@ import org.mockito.Mockito;
 import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
@@ -281,6 +284,14 @@ class ClientServiceTest {
         Client expected = new Client();
         when(m_ClientDB.getClientByEmail("")).thenReturn(new Client());
         Client real = m_service.getClientByEmail("");
+        assertEquals(expected,real);
+    }
+
+    @Test
+    void getCreditCardsByClient() {
+        List<CreditCard> expected = new ArrayList<>();
+        when(m_ClientDB.getCreditCardsByClient("")).thenReturn(new ArrayList<>());
+        List<CreditCard> real = m_service.getCreditCardsByClient("");
         assertEquals(expected,real);
     }
 }

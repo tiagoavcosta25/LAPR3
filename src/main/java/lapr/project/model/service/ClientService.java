@@ -2,11 +2,8 @@ package lapr.project.model.service;
 
 import lapr.project.data.ClientDB;
 import lapr.project.model.Client;
-<<<<<<< HEAD
 import lapr.project.model.CreditCard;
-=======
 import lapr.project.utils.EmailSender;
->>>>>>> d1ca5899d2c0fb28013364a2be451708362c42a3
 
 import java.security.NoSuchAlgorithmException;
 import java.util.Date;
