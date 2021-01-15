@@ -4,6 +4,7 @@ import lapr.project.model.*;
 import lapr.project.model.service.DeliveryRunService;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 public class StartDeliveryRunController {
 
@@ -29,7 +30,7 @@ public class StartDeliveryRunController {
      */
     public boolean startDeliveryRun(Vehicle vehicle) {
         try {
-            ArrayList<String> clientList = oDeliveryRunService.startDeliveryRun(vehicle,ApplicationPOT.getInstance().getCurrentSession().getCurrentUserEmail());
+            Map<String,String> clientList = oDeliveryRunService.startDeliveryRun(vehicle,ApplicationPOT.getInstance().getCurrentSession().getCurrentUserEmail());
              return oDeliveryRunService.sendsEmail(clientList);
         }catch (Exception e){
             return false;
