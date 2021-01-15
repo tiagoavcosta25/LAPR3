@@ -31,12 +31,12 @@ end ref
 deactivate IDB
 deactivate IS
 
-CTRL -> IS : sendEmail(invoice)
+CTRL -> IS : sendInvoiceByEmail(invoice)
 activate IS
-IS -> E : sendEmail(invoice)
+IS -> E : sendEmail(email, subject, body)
 activate E
 ref over E
-SD_CONNECTIONS
+SD_EMAILSENDER
 end ref
 deactivate E
 deactivate IS

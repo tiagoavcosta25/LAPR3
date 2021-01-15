@@ -71,6 +71,7 @@ class Product{
 class Pharmacy{
 -   int id
 -   String name
+-   String email
 }
 
 class CreditCard{

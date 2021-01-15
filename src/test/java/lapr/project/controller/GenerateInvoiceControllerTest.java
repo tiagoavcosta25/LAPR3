@@ -1,9 +1,6 @@
 package lapr.project.controller;
 
-import lapr.project.model.Client;
-import lapr.project.model.Invoice;
-import lapr.project.model.Order;
-import lapr.project.model.UserSession;
+import lapr.project.model.*;
 import lapr.project.model.service.ClientService;
 import lapr.project.model.service.InvoiceService;
 import lapr.project.model.service.OrderService;
@@ -43,10 +40,9 @@ class GenerateInvoiceControllerTest {
     @Test
     void newInvoice() {
         ApplicationPOT.getInstance().setCurrentSession(new UserSession("email1@gmail.com"));
-        when(mockClientService.getClientByEmail("email1@gmail.com")).thenReturn(new Client());
-        when(mockOrderService.getLatestOrder(new Client())).thenReturn(new Order());
         when(mockInvoiceService.newInvoice(new Order(), new TreeMap<>())).thenReturn(new Invoice());
         when(mockInvoiceService.registerInvoice(new Invoice())).thenReturn(true);
+        when(mockInvoiceService.sendInvoiceByEmail(new Invoice())).thenReturn(true);
         boolean result = this.generateInvoiceController.generateInvoice(new Order(), new TreeMap<>());
         assertTrue(result);
 

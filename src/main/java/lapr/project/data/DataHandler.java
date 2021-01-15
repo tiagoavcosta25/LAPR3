@@ -56,7 +56,7 @@ public class DataHandler {
     /**
      * Additional Number of columns added when executing the pharmacyManager method.
      */
-    private static int COLUMNS_ADDED_PHARMACY = 10;
+    private static int COLUMNS_ADDED_PHARMACY = 11;
 
     /**
      * Additional Number of columns added when executing the clientManager method.
@@ -234,15 +234,17 @@ public class DataHandler {
         return new CreditCard(dblCreditCardNr, utilStartDate, strCCV);
     }
 
-    protected Pharmacy pharmacyManager(ResultSet rSet, int firstColumn) throws SQLException, NoSuchAlgorithmException { // column number +10
+    protected Pharmacy pharmacyManager(ResultSet rSet, int firstColumn) throws SQLException, NoSuchAlgorithmException { // column number +11
 
         Integer pharmacyID = rSet.getInt(firstColumn);
         firstColumn++;
         String pharmacyName = rSet.getString(firstColumn);
         firstColumn++;
+        String strEmail = rSet.getString(firstColumn);
+        firstColumn++;
         Address oAddress = addressManager(rSet, firstColumn);
 
-        return new Pharmacy(pharmacyID, pharmacyName, oAddress);
+        return new Pharmacy(pharmacyID, pharmacyName, strEmail, oAddress);
     }
 
     protected Client clientManager(ResultSet rSet, int firstColumn) throws SQLException { // column number +17

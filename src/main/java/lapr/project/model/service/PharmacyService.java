@@ -24,9 +24,9 @@ public class PharmacyService {
         return this.m_oPharmacyDB .registerPharmacy(oPharmacy);
     }
 
-    public Pharmacy newPharmacy(String strName ,Double dblLatitude,Double dblLongitude,
+    public Pharmacy newPharmacy(String strName, String strEmail, Double dblLatitude,Double dblLongitude,
                                 String strStreetName, String strDoorNumber, String strPostalCode, String strLocality, String strCountry) {
-        return new Pharmacy(strName, new Address(dblLatitude, dblLongitude, strStreetName, strDoorNumber, strPostalCode,
+        return new Pharmacy(strName, strEmail, new Address(dblLatitude, dblLongitude, strStreetName, strDoorNumber, strPostalCode,
                 strLocality, strCountry));
     }
 

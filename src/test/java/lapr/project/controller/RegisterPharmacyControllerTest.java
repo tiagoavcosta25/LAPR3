@@ -29,20 +29,20 @@ class RegisterPharmacyControllerTest {
 
     @Test
     void newPharmacy() {
-        Pharmacy expResult = new Pharmacy("Farmacia 1", new Address(41.014152, -8.218524, "Rua2", "2ºesq", "4460-222", "Porto", "Portugal"));
-        when(mockPharmacyService.newPharmacy("Farmacia 1", 41.014152, -8.218524, "Rua2", "2ºesq", "4460-222", "Porto", "Portugal")).thenReturn(expResult);
-        Pharmacy result = this.registerPharmacyController.newPharmacy("Farmacia 1", 41.014152, -8.218524, "Rua2", "2ºesq", "4460-222", "Porto", "Portugal");
+        Pharmacy expResult = new Pharmacy("Farmacia 1", "email", new Address(41.014152, -8.218524, "Rua2", "2ºesq", "4460-222", "Porto", "Portugal"));
+        when(mockPharmacyService.newPharmacy("Farmacia 1", "email", 41.014152, -8.218524, "Rua2", "2ºesq", "4460-222", "Porto", "Portugal")).thenReturn(expResult);
+        Pharmacy result = this.registerPharmacyController.newPharmacy("Farmacia 1", "email", 41.014152, -8.218524, "Rua2", "2ºesq", "4460-222", "Porto", "Portugal");
         assertEquals(expResult, result);
 
         this.registerPharmacyController.setPharmacyService(null);
-        result = this.registerPharmacyController.newPharmacy(null, null, null, null, null, null, null, null);
+        result = this.registerPharmacyController.newPharmacy(null, null, null, null, null, null, null, null, null);
         expResult = null;
         assertEquals(expResult, result);
     }
 
     @Test
     void registerPharmacy() {
-        Pharmacy pharmacy = new Pharmacy("Farmacia 1", new Address(41.014152, -8.218524, "Rua2", "2ºesq", "4460-222", "Porto", "Portugal"));
+        Pharmacy pharmacy = new Pharmacy("Farmacia 1", "email", new Address(41.014152, -8.218524, "Rua2", "2ºesq", "4460-222", "Porto", "Portugal"));
         this.registerPharmacyController.setPharmacy(pharmacy);
         when(mockPharmacyService.registerPharmacy(pharmacy)).thenReturn(true);
         boolean result = this.registerPharmacyController.registerPharmacy();
