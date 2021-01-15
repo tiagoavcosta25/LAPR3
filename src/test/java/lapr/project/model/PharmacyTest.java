@@ -19,10 +19,10 @@ class PharmacyTest {
 
     public PharmacyTest(){
         Map<Product,Integer> map = new TreeMap<>();
-        p1 = new Pharmacy(1,"testName",new Address(),map);
-        p2 = new Pharmacy("testName",new Address(),map);
-        p3 = new Pharmacy(1,"testName",new Address());
-        p4 = new Pharmacy("testName",new Address());
+        p1 = new Pharmacy(1,"testName", "email",new Address(),map);
+        p2 = new Pharmacy("testName", "email",new Address(),map);
+        p3 = new Pharmacy(1,"testName", "email",new Address());
+        p4 = new Pharmacy("testName", "email",new Address());
         p5 = new Pharmacy();
     }
 
@@ -77,6 +77,23 @@ class PharmacyTest {
         String expected = "This is a test.";
         oPharmacy.setName(expected);
         String real = oPharmacy.getName();
+        assertEquals(expected, real);
+    }
+
+    @Test
+    void getEmail() {
+        Pharmacy oPharmacy = new Pharmacy();
+        String expected = "No email.";
+        String real = oPharmacy.getEmail();
+        assertEquals(expected, real);
+    }
+
+    @Test
+    void setEmail() {
+        Pharmacy oPharmacy = new Pharmacy();
+        String expected = "This is a test.";
+        oPharmacy.setEmail(expected);
+        String real = oPharmacy.getEmail();
         assertEquals(expected, real);
     }
 
@@ -142,7 +159,7 @@ class PharmacyTest {
     @Test
     void testToString() {
         Pharmacy oPharmacy = new Pharmacy();
-        String expected = "Pharmacy{m_intId=-1, m_strName='No name.', m_oAddress=Address{m_id=-1, m_latitude=-22.0, m_longitude=-22.0, m_streetName='No Street Name', m_doorNumber='No Door Number', m_postalCode='No Postal Code', m_locality='No Locality', m_country='No Country'}, m_mapStock={}}";
+        String expected = "Pharmacy{m_intId=-1, m_strName='No name.', m_strEmail='No email.', m_oAddress=Address{m_id=-1, m_latitude=-22.0, m_longitude=-22.0, m_streetName='No Street Name', m_doorNumber='No Door Number', m_postalCode='No Postal Code', m_locality='No Locality', m_country='No Country'}, m_mapStock={}}";
         String real = oPharmacy.toString();
         assertEquals(expected, real);
     }

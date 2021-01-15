@@ -3,12 +3,15 @@ package lapr.project.model.service;
 import lapr.project.data.InvoiceDB;
 import lapr.project.data.OrderDB;
 import lapr.project.model.*;
+import lapr.project.utils.EmailSender;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 
+import java.util.Date;
+import java.util.Map;
 import java.util.TreeMap;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -73,5 +76,32 @@ class InvoiceServiceTest {
         System.out.println("newInvoice");
         Invoice result = invoiceService.newInvoice(expectedOrder, new TreeMap<>());
         assertEquals(expectedInvoice, result);
+    }
+
+    @Test
+    void sendInvoiceByEmail() {
+        System.out.println("sendInvoiceByEmail");
+        Map<CreditCard, Float> mapPayments = new TreeMap<>();
+        mapPayments.put(new CreditCard(123456789, new Date(), 123), 19.19f);
+        mapPayments.put(new CreditCard(987654321, new Date(), 119), 11.17f);
+        Map<Product, Integer> mapProducts = new TreeMap<>();
+        mapProducts.put(new Product(1,"SARS-CoV-2 Vaccine", "Description.", 7.5f, 1f), 2);
+        mapProducts.put(new Product(2,"Benuron", "Description.", 5.12f, 2f), 3);
+        Invoice oInvoice = new Invoice(62176, new Order("Description", true, new Client(1, "", 12, "farmacyservice.g21@gmail.com",
+                "", 1, new Address(1d, 1d, "Rua Pádua Correia",
+                "nº19 1º Direito", "4400-123", "Vila Nova de Gaia", "Portugal"), new CreditCard()),
+                new Pharmacy("LAPR3 Pharmacy", "info@lapr3Pharmacy.com", new Address(1d, 1d, "Avenida dos Aliados",
+                "nº11 R/C", "4532-987", "Porto", "Portugal")), mapProducts), mapPayments);
+
+        boolean result = invoiceService.sendInvoiceByEmail(oInvoice);
+        assertTrue(result);
+
+        oInvoice.getOrder().setHomeDelivery(false);
+        result = invoiceService.sendInvoiceByEmail(oInvoice);
+        assertTrue(result);
+
+        oInvoice.getOrder().getClient().setEmail(null);
+        result = invoiceService.sendInvoiceByEmail(oInvoice);
+        assertFalse(result);
     }
 }

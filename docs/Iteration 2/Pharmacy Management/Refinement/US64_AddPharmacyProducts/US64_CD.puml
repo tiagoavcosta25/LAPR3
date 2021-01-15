@@ -39,6 +39,7 @@ package "Model" #DDDDDD {
 class Pharmacy{
 -   int id
 -   String name
+-   String email
 }
 
 class Park{

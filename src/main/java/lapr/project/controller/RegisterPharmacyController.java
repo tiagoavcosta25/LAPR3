@@ -22,10 +22,10 @@ public class RegisterPharmacyController {
         this.m_oPharmacyService = new PharmacyService();
     }
 
-    public Pharmacy newPharmacy(String strName, Double dblLatitude, Double dblLongitude, String strStreetName,
+    public Pharmacy newPharmacy(String strName, String strEmail, Double dblLatitude, Double dblLongitude, String strStreetName,
                                 String strDoorNumber, String strPostalCode, String strLocality, String strCountry) {
         try {
-            this.m_oPharmacy = m_oPharmacyService.newPharmacy(strName, dblLatitude, dblLongitude, strStreetName, strDoorNumber,
+            this.m_oPharmacy = m_oPharmacyService.newPharmacy(strName, strEmail, dblLatitude, dblLongitude, strStreetName, strDoorNumber,
                     strPostalCode, strLocality, strCountry);
             return this.m_oPharmacy;
         } catch (Exception ex) {

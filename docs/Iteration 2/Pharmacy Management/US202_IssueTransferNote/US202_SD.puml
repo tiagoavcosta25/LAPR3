@@ -3,6 +3,7 @@ autonumber
 participant ":IssueTransferNoteController" as CTRL
 participant "pharmTransferServ \n:PharmacyTransferService" as PTS
 participant "pharmTransferDB\n:PharmacyTransferDB" as PTDB
+participant "EmailSender" as E
 
 [o-> CTRL : issueTransferNote\n(pharmacyTransfer)
 activate CTRL
@@ -13,6 +14,12 @@ deactivate PTS
 
 CTRL -> PTS : sendEmailWithTransferNote(pharmacyTransfer)
 activate PTS
+PTS -> E : sendEmail(email, subject, body)
+activate E
+ref over E
+SD_EMAILSENDER
+end ref
+deactivate E
 deactivate PTS
 deactivate CTRL
 

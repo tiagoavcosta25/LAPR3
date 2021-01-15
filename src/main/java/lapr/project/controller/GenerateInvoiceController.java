@@ -33,8 +33,8 @@ public class GenerateInvoiceController {
     public boolean generateInvoice(Order oOrder, Map<CreditCard, Float> mapPayments) {
         try {
             this.m_oInvoice = m_oInvoiceService.newInvoice(oOrder, mapPayments);
-            // mandar email
-            return this.m_oInvoiceService.registerInvoice(this.m_oInvoice);
+            this.m_oInvoiceService.registerInvoice(this.m_oInvoice);
+            return this.m_oInvoiceService.sendInvoiceByEmail(this.m_oInvoice);
         } catch (Exception ex) {
             this.m_oInvoice = null;
             return false;

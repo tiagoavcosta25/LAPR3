@@ -68,7 +68,7 @@ class PharmacyServiceTest {
     @Test
     void newPharmacy() {
         System.out.println("newPharmacy");
-        Pharmacy result = pharmacyService.newPharmacy("Test", -22d, -22d, "No Street Name",
+        Pharmacy result = pharmacyService.newPharmacy("Test", "Test", -22d, -22d, "No Street Name",
                 "No Door Number", "No Postal Code", "No Locality", "No Country");
         assertEquals(expectedPharmacy, result);
     }
