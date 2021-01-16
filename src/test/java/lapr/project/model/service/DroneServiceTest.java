@@ -1,18 +1,18 @@
 package lapr.project.model.service;
 
 import lapr.project.data.DroneDB;
-import lapr.project.model.Drone;
-import lapr.project.model.Pharmacy;
-import lapr.project.model.Scooter;
+import lapr.project.model.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.TreeMap;
 
 import static org.mockito.Mockito.when;
 import static org.junit.jupiter.api.Assertions.*;
@@ -198,16 +198,44 @@ class DroneServiceTest {
     @Test
     void checkEnergy() {
         System.out.println("checkEnergy");
-        boolean result = m_oDroneService.checkEnergy(2500, new Drone(250, 5, 2.5f, "charged", 50, 15, 2, new Pharmacy()));
-        assertFalse(result);
+        List<Order> list = new ArrayList<>();
+        list.add(new Order(1f, 0.25f,0, new Date(System.currentTimeMillis()), null, null, false, new Client(), new Pharmacy(), new TreeMap<>()));
+        list.add(new Order(1f, 1f,0, new Date(System.currentTimeMillis()), null, null, false, new Client(), new Pharmacy(),new TreeMap<>()));
+        DeliveryRun dr = new DeliveryRun(new Courier(),list);
+        dr.setVehicle(new Drone(100, 2, 1.5f, "charged", 90, 10, 4, new Pharmacy()));
+        dr.setStatus(DeliveryStatus.IDLE);
+        boolean result = m_oDroneService.checkEnergy(10000, dr);
+        assertTrue(result);
     }
 
     @Test
     void checkEnergy2() {
         System.out.println("checkEnergy2");
-        boolean result2 = m_oDroneService.checkEnergy(10, new Drone());
-        assertTrue(result2);
+        DeliveryRun dr = new DeliveryRun(new Courier(), new ArrayList<>());
+        dr.setVehicle(new Drone());
+        boolean result2 = m_oDroneService.checkEnergy(10, dr);
+        assertFalse(result2);
     }
+     @Test
+     void checkEnergy3(){
+         System.out.println("checkEnergy3");
+         List<Order> list = new ArrayList<>();
+         list.add(new Order(1f, 0.25f,0, new Date(System.currentTimeMillis()), null, null, false, new Client(), new Pharmacy(), new TreeMap<>()));
+         list.add(new Order(1f, 1f,0, new Date(System.currentTimeMillis()), null, null, false, new Client(), new Pharmacy(),new TreeMap<>()));
+         DeliveryRun dr = new DeliveryRun(new Courier(),list);
+         dr.setVehicle(new Scooter(300, 15, 10, "charged", 100, 22, 12, new Pharmacy()));
+         dr.setStatus(DeliveryStatus.IDLE);
+         boolean result = m_oDroneService.checkEnergy(1000, dr);
+         assertTrue(result);
+     }
+     @Test
+     void checkEnergy4(){
+         System.out.println("checkEnergy4");
+         DeliveryRun dr = new DeliveryRun(new Courier(), new ArrayList<>());
+         dr.setVehicle(new Scooter());
+         boolean result2 = m_oDroneService.checkEnergy(10, dr);
+         assertFalse(result2);
+        }
 
     @Test
     void startDelivery() {
