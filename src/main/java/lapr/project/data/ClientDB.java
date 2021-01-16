@@ -94,8 +94,10 @@ public class ClientDB extends DataHandler {
 
             ResultSet rSet = (ResultSet) callStmt.getObject(1);
 
+
             if (rSet.next()) {
-                return clientManager(rSet, 1);
+                Client oClient = clientManager(rSet, 1);
+                oClient.setLstCreditCard(getCreditCardsByClient(oClient.getEmail()));
             }
 
         } catch (SQLException e) {
