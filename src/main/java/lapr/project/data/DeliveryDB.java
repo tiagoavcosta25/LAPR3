@@ -54,6 +54,7 @@ public class DeliveryDB extends DataHandler {
         CallableStatement callStmt = null;
         List<Path> lstPaths = new ArrayList<>();
         try {
+            openConnection();
             callStmt = getConnection().prepareCall("{ ? = call getPaths() }");
 
             callStmt.registerOutParameter(1, oracle.jdbc.internal.OracleTypes.CURSOR);
@@ -66,6 +67,7 @@ public class DeliveryDB extends DataHandler {
                 String strName = rSet.getString(3);
                 lstPaths.add(new Path(intIdAddress1, intIdAddress2, strName));
             }
+            closeAll();
             return lstPaths;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -78,6 +80,7 @@ public class DeliveryDB extends DataHandler {
         CallableStatement callStmt = null;
         List<Address> lstAddress = new ArrayList<>();
         try {
+            openConnection();
             callStmt = getConnection().prepareCall("{ ? = call getAllAddress() }");
 
             callStmt.registerOutParameter(1, oracle.jdbc.internal.OracleTypes.CURSOR);
@@ -87,6 +90,7 @@ public class DeliveryDB extends DataHandler {
             while (rSet.next()) {
                 lstAddress.add(addressManager(rSet, 1));
             }
+            closeAll();
             return lstAddress;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -99,6 +103,7 @@ public class DeliveryDB extends DataHandler {
     public float getMaxPayload(String email) {
         CallableStatement callStmt = null;
         try {
+            openConnection();
             callStmt = getConnection().prepareCall("{ ? = call getMaxPayload(?) }");
 
             callStmt.registerOutParameter(1, OracleTypes.FLOAT);
@@ -111,7 +116,7 @@ public class DeliveryDB extends DataHandler {
             if (rSet.next()) {
                 maxPayload= rSet.getFloat(1);
             }
-
+            closeAll();
             return maxPayload;
 
         } catch (SQLException e) {
@@ -125,6 +130,7 @@ public class DeliveryDB extends DataHandler {
         CallableStatement callStmt = null;
         Map<String,String> lstClients = new TreeMap<>();
         try {
+            openConnection();
             callStmt = getConnection().prepareCall("{ ? = call startDeliveryRun(?,?) }");
 
             callStmt.registerOutParameter(1, oracle.jdbc.internal.OracleTypes.CURSOR);
@@ -141,7 +147,7 @@ public class DeliveryDB extends DataHandler {
                 lstClients.put(clientEmail,info);
                 rSet.next();
             }
-
+            closeAll();
             return lstClients;
         } catch (SQLException e) {
             e.printStackTrace();

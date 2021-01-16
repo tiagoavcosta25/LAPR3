@@ -24,6 +24,7 @@ public class OrderDB extends DataHandler {
 
         CallableStatement callStmt = null;
         try {
+            openConnection();
             callStmt = getConnection().prepareCall("{ ? = call getOrder(?) }");
 
             callStmt.registerOutParameter(1, OracleTypes.CURSOR);
@@ -47,6 +48,7 @@ public class OrderDB extends DataHandler {
                 while (rSet.next()){
                     oOrder = orderProductManager(rSetProducts, 1, oOrder);
                 }
+                closeAll();
                 return oOrder;
             }
         } catch (SQLException | NoSuchAlgorithmException e) {
@@ -128,6 +130,7 @@ public class OrderDB extends DataHandler {
 
         CallableStatement callStmt = null;
         try {
+            openConnection();
             callStmt = getConnection().prepareCall("{ ? = call getLatestOrder(?) }");
 
             callStmt.registerOutParameter(1, OracleTypes.CURSOR);
@@ -151,6 +154,7 @@ public class OrderDB extends DataHandler {
                 while (rSet.next()){
                     oOrder = orderProductManager(rSetProducts, 1, oOrder);
                 }
+                closeAll();
                 return oOrder;
             }
         } catch (SQLException | NoSuchAlgorithmException e) {
@@ -163,6 +167,7 @@ public class OrderDB extends DataHandler {
 
         CallableStatement callStmt = null;
         try {
+            openConnection();
             callStmt = getConnection().prepareCall("{ ? = call getOrderByCourier(?) }");
 
             callStmt.registerOutParameter(1, OracleTypes.CURSOR);
@@ -173,8 +178,10 @@ public class OrderDB extends DataHandler {
             ResultSet rSet = (ResultSet) callStmt.getObject(1);
 
             if (rSet.next()) {
+                closeAll();
                 return orderManager(rSet, 1);
             }
+            closeAll();
         } catch (SQLException | NoSuchAlgorithmException e) {
             e.printStackTrace();
             return null;

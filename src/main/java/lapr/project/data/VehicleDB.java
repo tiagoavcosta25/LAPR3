@@ -25,6 +25,7 @@ public class VehicleDB extends DataHandler {
          */
         CallableStatement callStmt = null;
         try {
+            openConnection();
             callStmt = getConnection().prepareCall("{ ? = call getSuitableScooter(?,?) }");
 
             // Regista o tipo de dados SQL para interpretar o resultado obtido.
@@ -74,7 +75,7 @@ public class VehicleDB extends DataHandler {
                     String charginStatusDrone = rSet.getString(7);
                     float fltMaxPayloadDrone = rSet.getFloat(8);
                     float fltBatteryVoltageDrone = rSet.getFloat(9);
-
+                    closeAll();
                     if(finalBatteryEnergyScooter > finalBatteryEnergyDrone){
                         return new Scooter(scooterID, potencyScooter, weightScooter, fltMaxPayloadScooter, charginStatusScooter, batteryPercScooter,
                                 batteryCapacityScooter, fltBatteryVoltageScooter, oPharmacyScooter);
@@ -83,8 +84,7 @@ public class VehicleDB extends DataHandler {
                                 batteryCapacityDrone, fltBatteryVoltageDrone, oPharmacyScooter);
                     }
             }
-
-
+            closeAll();
         } catch (SQLException | NoSuchAlgorithmException e) {
             e.printStackTrace();
             return null;

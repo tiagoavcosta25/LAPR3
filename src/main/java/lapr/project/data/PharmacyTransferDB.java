@@ -13,6 +13,7 @@ public class PharmacyTransferDB extends DataHandler {
 
         CallableStatement callStmt = null;
         try {
+            openConnection();
             callStmt = getConnection().prepareCall("{ ? = call getPharmacy(?) }");
 
             callStmt.registerOutParameter(1, OracleTypes.CURSOR);
@@ -25,8 +26,10 @@ public class PharmacyTransferDB extends DataHandler {
             if (rSet.next()) {
 
                 // IMPLEMENTAR
+                closeAll();
                 return new PharmacyTransfer();
             }
+            closeAll();
         } catch (SQLException e) {
             e.printStackTrace();
         }

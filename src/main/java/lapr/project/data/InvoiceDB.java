@@ -24,6 +24,7 @@ public class InvoiceDB extends DataHandler {
 
         CallableStatement callStmt = null;
         try {
+            openConnection();
             callStmt = getConnection().prepareCall("{ ? = call getInvoice(?) }");
 
             callStmt.registerOutParameter(1, OracleTypes.CURSOR);
@@ -37,6 +38,7 @@ public class InvoiceDB extends DataHandler {
 
                 return invoiceManager(rSet, 1);
             }
+            closeAll();
         } catch (SQLException | NoSuchAlgorithmException e) {
             e.printStackTrace();
         }

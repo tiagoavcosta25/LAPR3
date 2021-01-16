@@ -26,6 +26,7 @@ public class ScooterDB extends DataHandler {
 
         CallableStatement callStmt = null;
         try {
+            openConnection();
             callStmt = getConnection().prepareCall("{ ? = call getScooter(?) }");
 
             callStmt.registerOutParameter(1, OracleTypes.CURSOR);
@@ -45,10 +46,11 @@ public class ScooterDB extends DataHandler {
                 int intBatteryCapacity = rSet.getInt(6);
                 float fltBatteryVoltage = rSet.getFloat(7);
                 Pharmacy oPharmacy = pharmacyManager(rSet,8);
-
+                closeAll();
                 return new Scooter(fltPotency, fltWeight, fltMaxPayload, strCharginStatus, fltBatteryPerc,
                         intBatteryCapacity, fltBatteryVoltage, oPharmacy);
             }
+            closeAll();
         } catch (SQLException | NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
@@ -123,6 +125,7 @@ public class ScooterDB extends DataHandler {
         CallableStatement callStmt = null;
         List<Scooter> lstScooter = new ArrayList<>();
         try {
+            openConnection();
             callStmt = getConnection().prepareCall("{ ? = call getScootersList(?) }");
 
             callStmt.registerOutParameter(1, oracle.jdbc.internal.OracleTypes.CURSOR);
@@ -147,6 +150,7 @@ public class ScooterDB extends DataHandler {
 
                 rSet.next();
             }
+            closeAll();
         } catch (SQLException | NoSuchAlgorithmException e) {
             e.printStackTrace();
         }

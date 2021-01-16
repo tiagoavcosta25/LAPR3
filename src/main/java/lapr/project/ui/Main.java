@@ -23,6 +23,6 @@ class Main {
      */
     public static void main(String[] args) {
         System.out.println("Hello");
-        System.out.println(DirectoryVerification.verifyFileCreation("src-C/estimate_files", ".data.flag", 45000));
+        System.out.println(DirectoryVerification.verifyFileCreation("src-C/estimate_files", ".flag", 45000));
     }
 }

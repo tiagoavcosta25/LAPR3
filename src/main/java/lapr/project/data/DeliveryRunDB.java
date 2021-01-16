@@ -23,6 +23,7 @@ public class DeliveryRunDB extends DataHandler {
         CallableStatement callStmt = null;
         List<Path> lstPaths = new ArrayList<>();
         try {
+            openConnection();
             callStmt = getConnection().prepareCall("{ ? = call getPaths() }");
 
             callStmt.registerOutParameter(1, oracle.jdbc.internal.OracleTypes.CURSOR);
@@ -35,6 +36,7 @@ public class DeliveryRunDB extends DataHandler {
                 String strName = rSet.getString(3);
                 lstPaths.add(new Path(intIdAddress1, intIdAddress2, strName));
             }
+            closeAll();
             return lstPaths;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -47,6 +49,7 @@ public class DeliveryRunDB extends DataHandler {
         CallableStatement callStmt = null;
         List<Address> lstAddress = new ArrayList<>();
         try {
+            openConnection();
             callStmt = getConnection().prepareCall("{ ? = call getAllAddress() }");
 
             callStmt.registerOutParameter(1, oracle.jdbc.internal.OracleTypes.CURSOR);
@@ -56,6 +59,7 @@ public class DeliveryRunDB extends DataHandler {
             while (rSet.next()) {
                 lstAddress.add(addressManager(rSet, 1));
             }
+            closeAll();
             return lstAddress;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -101,6 +105,7 @@ public class DeliveryRunDB extends DataHandler {
     public List<Address> getAddressesByDeliveryRunId(String email) {
         CallableStatement callStmt = null;
         try {
+            openConnection();
             callStmt = getConnection().prepareCall("{ ? = call getDeliveryRunIdByCourierEmail(?) }");
 
             callStmt.registerOutParameter(1, OracleTypes.NUMBER);
@@ -126,6 +131,7 @@ public class DeliveryRunDB extends DataHandler {
                 Address a = addressManager(rSet, 1);
                 list.add(a);
             }
+            closeAll();
             return list;
 
         } catch (SQLException e) {

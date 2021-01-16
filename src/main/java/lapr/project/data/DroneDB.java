@@ -84,6 +84,7 @@ public class DroneDB extends DataHandler {
         CallableStatement callStmt = null;
         List<Drone> lstDrone = new ArrayList<>();
         try {
+            openConnection();
             callStmt = getConnection().prepareCall("{ ? = call getDronesList(?) }");
 
             callStmt.registerOutParameter(1, oracle.jdbc.internal.OracleTypes.CURSOR);
@@ -107,6 +108,7 @@ public class DroneDB extends DataHandler {
                         fltBatteryPerc, intBatteryCapacity, fltBatteryVoltage, oPharmacy));
 
                 rSet.next();
+                closeAll();
             }
         } catch (SQLException | NoSuchAlgorithmException e) {
             e.printStackTrace();
@@ -138,6 +140,7 @@ public class DroneDB extends DataHandler {
         CallableStatement callStmt = null;
         float payload = 0f;
         try {
+            openConnection();
             callStmt = getConnection().prepareCall("{ ? = call getDronePayload(?) }");
 
             callStmt.registerOutParameter(1, OracleTypes.FLOAT);
@@ -147,6 +150,7 @@ public class DroneDB extends DataHandler {
             if (rSet.next()) {
                 payload = rSet.getFloat(1);
             }
+            closeAll();
             return payload;
         } catch (SQLException e) {
             e.printStackTrace();

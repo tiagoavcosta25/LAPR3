@@ -130,6 +130,7 @@ public class CourierDB extends DataHandler {
          */
         CallableStatement callStmt = null;
         try {
+            openConnection();
             callStmt = getConnection().prepareCall("{ ? = call getDeliveryAddress(?) }");
 
             // Regista o tipo de dados SQL para interpretar o resultado obtido.
@@ -151,9 +152,10 @@ public class CourierDB extends DataHandler {
                 String postalCode = rSet.getString(5);
                 String locality = rSet.getString(6);
                 String country = rSet.getString(7);
-
+                closeAll();
                 return new Address(latitude, longitude, streetName, doorNumber, postalCode, locality, country);
             }
+            closeAll();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -168,6 +170,7 @@ public class CourierDB extends DataHandler {
          */
         CallableStatement callStmt = null;
         try {
+            openConnection();
             callStmt = getConnection().prepareCall("{ ? = call getAvailableChargingSlot(?,?) }");
 
             // Regista o tipo de dados SQL para interpretar o resultado obtido.
@@ -185,9 +188,10 @@ public class CourierDB extends DataHandler {
             if (rSet.next()) {
                 int chargingSlotID = rSet.getInt(1);
                 float outputPower = rSet.getFloat(2);
-
+                closeAll();
                 return new ChargingSlot(chargingSlotID, null, outputPower);
             }
+            closeAll();
         } catch (SQLException e) {
             e.printStackTrace();
             return null;
@@ -234,6 +238,7 @@ public class CourierDB extends DataHandler {
          */
         CallableStatement callStmt = null;
         try {
+            openConnection();
             callStmt = getConnection().prepareCall("{ ? = call getCourierByID(?) }");
 
             // Regista o tipo de dados SQL para interpretar o resultado obtido.
@@ -255,9 +260,10 @@ public class CourierDB extends DataHandler {
                 Integer strNIF = rSet.getInt(5);
                 String strIban = rSet.getString(6);
                 Pharmacy oPharmacy = pharmacyManager(rSet, 7);
-
+                closeAll();
                 return new Courier(courierID, courierName, courierEmail, password, strNIF, strIban, oPharmacy);
             }
+            closeAll();
         } catch (SQLException | NoSuchAlgorithmException e) {
             e.printStackTrace();
             return null;

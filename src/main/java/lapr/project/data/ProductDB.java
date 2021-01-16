@@ -1,6 +1,5 @@
 package lapr.project.data;
 
-import lapr.project.data.DataHandler;
 import lapr.project.model.Product;
 import oracle.jdbc.internal.OracleTypes;
 
@@ -24,6 +23,7 @@ public class ProductDB extends DataHandler {
 
         CallableStatement callStmt = null;
         try {
+            openConnection();
             callStmt = getConnection().prepareCall("{ ? = call getProduct(?) }");
 
             // Regista o tipo de dados SQL para interpretar o resultado obtido.
@@ -36,7 +36,7 @@ public class ProductDB extends DataHandler {
 
             // Guarda o cursor retornado num objeto "ResultSet".
             ResultSet rSet = (ResultSet) callStmt.getObject(1);
-
+            closeAll();
             return productManager(rSet, 1);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -116,6 +116,7 @@ public class ProductDB extends DataHandler {
         CallableStatement callStmt = null;
         List<Product> lstProducts = new ArrayList<>();
         try {
+            openConnection();
             callStmt = getConnection().prepareCall("{ ? = call getProducts() }");
 
             callStmt.execute();
@@ -130,6 +131,7 @@ public class ProductDB extends DataHandler {
 
                 lstProducts.add(new Product(intId, strName, strDescription, fltUnitaryPrice, fltUnitaryWeight));
             }
+            closeAll();
             return lstProducts;
         } catch (SQLException e) {
             throw new IllegalArgumentException("No Products Avaliable.");
@@ -140,6 +142,7 @@ public class ProductDB extends DataHandler {
         CallableStatement callStmt = null;
         List<Product> lstProducts = new ArrayList<>();
         try {
+            openConnection();
             callStmt = getConnection().prepareCall("{ ? = call getAvailableProducts(?) }");
 
             callStmt.registerOutParameter(1, oracle.jdbc.OracleTypes.CURSOR);
@@ -152,6 +155,7 @@ public class ProductDB extends DataHandler {
 
                 lstProducts.add(oProduct);
             }
+            closeAll();
             return lstProducts;
         } catch (SQLException e) {
             throw new IllegalArgumentException("No Products Avaliable.");

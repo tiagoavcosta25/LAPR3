@@ -2,7 +2,6 @@ package lapr.project.data;
 
 import lapr.project.model.Address;
 import lapr.project.model.Client;
-import lapr.project.model.Product;
 import oracle.jdbc.OracleTypes;
 import lapr.project.model.CreditCard;
 
@@ -72,9 +71,9 @@ public class ClientDB extends DataHandler {
 
     public Client getClientByEmail(String strEmail) {
 
-        CallableStatement callStmt = null;
         try {
-            callStmt = getConnection().prepareCall("{ ? = call getClientByEmail(?) }");
+            openConnection();
+            CallableStatement callStmt = getConnection().prepareCall("{ ? = call getClientByEmail(?) }");
 
             callStmt.registerOutParameter(1, OracleTypes.CURSOR);
             callStmt.setString(2, strEmail);
@@ -93,7 +92,7 @@ public class ClientDB extends DataHandler {
                 Integer intCredits = rSet.getInt(6);
                 Address oClientAddress = addressManager(rSet, 7);
                 CreditCard oCreditCard = creditCardManager(rSet, 15);
-
+                closeAll();
                 return new Client(intId, strName, strNif, strEmail, strPassword, intCredits, oClientAddress, oCreditCard);
             }
         } catch (SQLException e) {
@@ -103,10 +102,10 @@ public class ClientDB extends DataHandler {
     }
 
     public List<CreditCard> getCreditCardsByClient(String strEmail) {
-        CallableStatement callStmt = null;
         List<CreditCard> lstCreditCards = new ArrayList<>();
         try {
-            callStmt = getConnection().prepareCall("{ ? = call getCreditCardsByClient(?) }");
+            openConnection();
+            CallableStatement callStmt = getConnection().prepareCall("{ ? = call getCreditCardsByClient(?) }");
 
             callStmt.registerOutParameter(1, oracle.jdbc.OracleTypes.CURSOR);
             callStmt.setString(2, strEmail);
@@ -118,6 +117,7 @@ public class ClientDB extends DataHandler {
 
                 lstCreditCards.add(oCreditCard);
             }
+            closeAll();
             return lstCreditCards;
         } catch (SQLException e) {
             throw new IllegalArgumentException("No Credit Cards Avaliable.");

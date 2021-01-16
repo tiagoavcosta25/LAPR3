@@ -25,6 +25,7 @@ public class PharmacyDB extends DataHandler {
 
         CallableStatement callStmt = null;
         try {
+            openConnection();
             callStmt = getConnection().prepareCall("{ ? = call getPharmacy(?) }");
 
             callStmt.registerOutParameter(1, OracleTypes.CURSOR);
@@ -49,6 +50,7 @@ public class PharmacyDB extends DataHandler {
                 while (rSet.next()){
                     oPharmacy = pharmacyProductManager(rSetProducts, 1, oPharmacy);
                 }
+                closeAll();
                 return oPharmacy;
             }
         } catch (SQLException | NoSuchAlgorithmException e) {
@@ -129,6 +131,7 @@ public class PharmacyDB extends DataHandler {
         CallableStatement callStmt = null;
         List<Pharmacy> lstPharmacies = new ArrayList<>();
         try {
+            openConnection();
             callStmt = getConnection().prepareCall("{ ? = call getPharmacies() }");
 
             callStmt.registerOutParameter(1, OracleTypes.CURSOR);
@@ -153,6 +156,7 @@ public class PharmacyDB extends DataHandler {
 
                 lstPharmacies.add(oPharmacy);
             }
+            closeAll();
         } catch (SQLException | NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
@@ -164,6 +168,7 @@ public class PharmacyDB extends DataHandler {
     public Pharmacy getClosestPharmacyWithStock(Order oOrder, Product oProduct, Integer intQuantity) {
         CallableStatement callStmt = null;
         try {
+            openConnection();
             callStmt = getConnection().prepareCall("{ ? = call getClosestPharmacyWithStock(?, ?, ?) }");
 
             callStmt.registerOutParameter(1, OracleTypes.CURSOR);
@@ -190,6 +195,7 @@ public class PharmacyDB extends DataHandler {
                 while (rSet.next()){
                     oPharmacy = pharmacyProductManager(rSetProducts, 1, oPharmacy);
                 }
+                closeAll();
                 return oPharmacy;
             }
         } catch (SQLException | NoSuchAlgorithmException e) {
@@ -202,6 +208,7 @@ public class PharmacyDB extends DataHandler {
 
         CallableStatement callStmt = null;
         try {
+            openConnection();
             callStmt = getConnection().prepareCall("{ ? = call getPharmacyByManagerEmail(?) }");
 
             callStmt.registerOutParameter(1, OracleTypes.CURSOR);
@@ -225,6 +232,7 @@ public class PharmacyDB extends DataHandler {
                 while (rSet.next()){
                     oPharmacy = pharmacyProductManager(rSetProducts, 1, oPharmacy);
                 }
+                closeAll();
                 return oPharmacy;
             }
         } catch (SQLException | NoSuchAlgorithmException e) {
