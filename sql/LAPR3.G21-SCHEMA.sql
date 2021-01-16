@@ -49,7 +49,7 @@ CREATE TABLE "Order" (id number(10) GENERATED AS IDENTITY, clientId number(10) N
 CREATE TABLE OrderProduct (productId number(10) NOT NULL, orderId number(10) NOT NULL, quantity number(5) NOT NULL, PRIMARY KEY (productId, orderId));
 CREATE TABLE OrderStatus (designation varchar2(20) DEFAULT 'ordered' NOT NULL, PRIMARY KEY (designation));
 CREATE TABLE Park (id number(10) GENERATED AS IDENTITY, maxSlotsNumber number(3) NOT NULL, pharmacyId number(10) NOT NULL, vehicleType varchar2(20) NOT NULL, PRIMARY KEY (id));
-CREATE TABLE ParkingSlot (id number(10) GENERATED AS IDENTITY, parkId number(10) NOT NULL, vehicleId number(10), PRIMARY KEY (id));
+CREATE TABLE ParkingSlot (id number(10) GENERATED AS IDENTITY, parkId number(10) NOT NULL, vehicleId number(10) UNIQUE, PRIMARY KEY (id));
 CREATE TABLE Path (addressIdA number(10) NOT NULL, addressIdB number(10) NOT NULL, name nvarchar2(255) NOT NULL, PRIMARY KEY (addressIdA, addressIdB));
 CREATE TABLE Payment (creditCardNr number(16) NOT NULL, invoiceId number(10) NOT NULL, value float(10) NOT NULL, PRIMARY KEY (creditCardNr, invoiceId));
 CREATE TABLE Pharmacy (id number(10) GENERATED AS IDENTITY, name varchar2(70) NOT NULL, email varchar2(320) NOT NULL, addressId number(10) NOT NULL, PRIMARY KEY (id));
