@@ -62,9 +62,10 @@ public class ClientDB extends DataHandler {
 
             callStmt.execute();
 
-            closeAll();
         } catch (SQLException e) {
             flag = false;
+        } finally {
+            closeAll();
         }
         return flag;
     }
@@ -83,20 +84,13 @@ public class ClientDB extends DataHandler {
             ResultSet rSet = (ResultSet) callStmt.getObject(1);
 
             if (rSet.next()) {
-
-                int intId = rSet.getInt(1);
-                // String strEmail = rSet.getString(2);
-                String strPassword = rSet.getString(3);
-                Integer strNif = rSet.getInt(4);
-                String strName = rSet.getString(5);
-                Integer intCredits = rSet.getInt(6);
-                Address oClientAddress = addressManager(rSet, 7);
-                CreditCard oCreditCard = creditCardManager(rSet, 15);
-                closeAll();
-                return new Client(intId, strName, strNif, strEmail, strPassword, intCredits, oClientAddress, oCreditCard);
+                return clientManager(rSet, 1);
             }
+
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            closeAll();
         }
         throw new IllegalArgumentException("No Client with the following email:" + strEmail);
     }
@@ -107,20 +101,19 @@ public class ClientDB extends DataHandler {
             openConnection();
             CallableStatement callStmt = getConnection().prepareCall("{ ? = call getCreditCardsByClient(?) }");
 
-            callStmt.registerOutParameter(1, oracle.jdbc.OracleTypes.CURSOR);
+            callStmt.registerOutParameter(1, OracleTypes.CURSOR);
             callStmt.setString(2, strEmail);
             callStmt.execute();
             ResultSet rSet = (ResultSet) callStmt.getObject(1);
 
             while (rSet.next()) {
-                CreditCard oCreditCard = creditCardManager(rSet, 1);
-
-                lstCreditCards.add(oCreditCard);
+                lstCreditCards.add(creditCardManager(rSet, 1));
             }
-            closeAll();
             return lstCreditCards;
         } catch (SQLException e) {
             throw new IllegalArgumentException("No Credit Cards Avaliable.");
+        } finally {
+            closeAll();
         }
     }
 }

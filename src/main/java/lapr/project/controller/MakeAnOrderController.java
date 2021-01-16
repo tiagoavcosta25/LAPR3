@@ -123,9 +123,9 @@ public class MakeAnOrderController {
     /**
      * The method returns the list of the user's credit cards.
      */
-    public List<CreditCard> getCreditCardsByClient(String strEmail) {
+    public List<CreditCard> getCreditCardsByClient() {
         try {
-            return this.m_oClientService.getCreditCardsByClient(strEmail);
+            return this.m_oClientService.getCreditCardsByClient(this.m_oClient.getEmail());
         } catch (Exception ex) {
             return null;
         }
@@ -191,6 +191,13 @@ public class MakeAnOrderController {
      */
     public void setOrder(Order oOrder) {
         this.m_oOrder = oOrder;
+    }
+
+    /**
+     * The method sets the client.
+     */
+    public void setClient(Client oClient) {
+        this.m_oClient = oClient;
     }
 
 }

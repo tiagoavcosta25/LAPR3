@@ -330,7 +330,6 @@ public class DataHandler {
         int intStock = rSet.getInt(firstColumn);
         firstColumn++;
         Product oProduct = productManager(rSet, firstColumn);
-        firstColumn+= COLUMNS_ADDED_ORDER;
 
         oPharmacy.getStock().put(oProduct, intStock);
 
@@ -342,7 +341,6 @@ public class DataHandler {
         int intQuantity = rSet.getInt(firstColumn);
         firstColumn++;
         Product oProduct = productManager(rSet, firstColumn);
-        firstColumn+= COLUMNS_ADDED_ORDER;
 
         oOrder.getProducts().put(oProduct, intQuantity);
 

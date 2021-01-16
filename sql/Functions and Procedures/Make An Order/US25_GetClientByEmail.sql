@@ -13,6 +13,7 @@ begin
                  inner join CREDITCARD CC on C2.CREDITCARDNR = CC.CREDITCARDNR
         where "User".EMAIL = p_email;
 
+
     if v_cursor is null then
         raise client_not_found;
     end if;

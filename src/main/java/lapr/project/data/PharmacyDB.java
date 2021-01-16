@@ -50,11 +50,12 @@ public class PharmacyDB extends DataHandler {
                 while (rSet.next()){
                     oPharmacy = pharmacyProductManager(rSetProducts, 1, oPharmacy);
                 }
-                closeAll();
                 return oPharmacy;
             }
         } catch (SQLException | NoSuchAlgorithmException e) {
             e.printStackTrace();
+        } finally {
+            closeAll();
         }
         throw new IllegalArgumentException("No Pharmacy with ID:" + id);
     }
@@ -73,14 +74,14 @@ public class PharmacyDB extends DataHandler {
             callStmt.setString(7, oAddress.getPostalCode());
             callStmt.setString(8, oAddress.getLocality());
             callStmt.setString(9, oAddress.getCountry());
-
             callStmt.execute();
 
-            closeAll();
             return true;
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
+        } finally {
+            closeAll();
         }
     }
 
@@ -95,11 +96,12 @@ public class PharmacyDB extends DataHandler {
 
             callStmt.execute();
 
-            closeAll();
             return true;
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
+        } finally {
+            closeAll();
         }
 
     }
@@ -119,11 +121,12 @@ public class PharmacyDB extends DataHandler {
 
             callStmt.execute();
 
-            closeAll();
             return true;
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
+        } finally {
+            closeAll();
         }
     }
 
@@ -144,21 +147,23 @@ public class PharmacyDB extends DataHandler {
 
                 callStmt = getConnection().prepareCall("{ ? = call getStockByPharmacy(?) }");
                 callStmt.registerOutParameter(1, OracleTypes.CURSOR);
-                callStmt.setInt(oPharmacy.getId(), 1);
+                callStmt.setInt(2, oPharmacy.getId());
 
                 callStmt.execute();
 
                 ResultSet rSetProducts = (ResultSet) callStmt.getObject(1);
 
-                while (rSet.next()){
+                while (rSetProducts.next()){
                     oPharmacy = pharmacyProductManager(rSetProducts, 1, oPharmacy);
                 }
 
                 lstPharmacies.add(oPharmacy);
             }
-            closeAll();
+            return lstPharmacies;
         } catch (SQLException | NoSuchAlgorithmException e) {
             e.printStackTrace();
+        } finally {
+            closeAll();
         }
         throw new IllegalArgumentException("No Pharmacies Avaliable.");
     }
@@ -195,11 +200,12 @@ public class PharmacyDB extends DataHandler {
                 while (rSet.next()){
                     oPharmacy = pharmacyProductManager(rSetProducts, 1, oPharmacy);
                 }
-                closeAll();
                 return oPharmacy;
             }
         } catch (SQLException | NoSuchAlgorithmException e) {
             e.printStackTrace();
+        } finally {
+            closeAll();
         }
         throw new IllegalArgumentException("No Pharmacy with enough stock.");
     }
@@ -232,11 +238,12 @@ public class PharmacyDB extends DataHandler {
                 while (rSet.next()){
                     oPharmacy = pharmacyProductManager(rSetProducts, 1, oPharmacy);
                 }
-                closeAll();
                 return oPharmacy;
             }
         } catch (SQLException | NoSuchAlgorithmException e) {
             e.printStackTrace();
+        } finally {
+            closeAll();
         }
         throw new IllegalArgumentException("No Pharmacy with Manager Email: " + email);
     }
@@ -266,12 +273,12 @@ public class PharmacyDB extends DataHandler {
                 oResult = new Courier(id,name,email,pw,nif,iban,pharmacy);
             }
 
-            closeAll();
-
             return oResult;
         } catch (SQLException | NoSuchAlgorithmException e) {
             e.printStackTrace();
             return null;
+        } finally {
+            closeAll();
         }
     }
 }

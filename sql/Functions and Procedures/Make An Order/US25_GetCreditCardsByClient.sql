@@ -1,11 +1,11 @@
-create or replace function getAvailableProducts(p_clientEmail "User".EMAIL%type)
+create or replace function getCreditCardsByClient(p_clientEmail "User".EMAIL%type)
     return sys_refcursor is
     v_cursor sys_refcursor;
     cc_not_found exception;
 begin
 
     open v_cursor for
-        select *
+        select CC.*
         from CREDITCARD CC
         inner join CREDITCARDCLIENT CCC on CCC.CREDITCARDNR = CC.CREDITCARDNR
         inner join CLIENT C on C.USERID = CCC.CLIENTID
