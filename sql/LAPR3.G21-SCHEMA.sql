@@ -33,7 +33,7 @@ DROP TABLE VehicleType CASCADE CONSTRAINTS;
 CREATE TABLE Address (id number(10) GENERATED AS IDENTITY, latitude double precision NOT NULL, longitude double precision NOT NULL, doorNumber varchar2(40) NOT NULL, streetName varchar2(100) NOT NULL, postalCode varchar2(8) NOT NULL, locality varchar2(70) NOT NULL, country varchar2(50) NOT NULL, PRIMARY KEY (id));
 CREATE TABLE Administrator (userId number(10) NOT NULL, PRIMARY KEY (userId));
 CREATE TABLE Battery (id number(10) GENERATED AS IDENTITY, batteryPerc float(5) NOT NULL, batteryCapacity number(10) NOT NULL, batteryVoltage float(10) NOT NULL, PRIMARY KEY (id));
-CREATE TABLE ChargingSlot (parkingSlotId number(10) NOT NULL, outputCurrent float(10) NOT NULL, PRIMARY KEY (parkingSlotId));
+CREATE TABLE ChargingSlot (parkingSlotId number(10) NOT NULL, PRIMARY KEY (parkingSlotId));
 CREATE TABLE ChargingStatus (designation varchar2(20) NOT NULL, PRIMARY KEY (designation));
 CREATE TABLE Client (userId number(10) NOT NULL, credits number(6) DEFAULT 0 NOT NULL, addressId number(10) NOT NULL, PRIMARY KEY (userId));
 CREATE TABLE Courier (userId number(10) NOT NULL, iban varchar2(34) NOT NULL, pharmacyId number(10) NOT NULL, PRIMARY KEY (userId));
@@ -98,5 +98,5 @@ ALTER TABLE "Order" ADD CONSTRAINT FKOrder724574 FOREIGN KEY (deliveryRunId) REF
 ALTER TABLE Vehicle ADD CONSTRAINT FKVehicle650965 FOREIGN KEY (pharmacyId) REFERENCES Pharmacy (id);
 ALTER TABLE Vehicle ADD CONSTRAINT FKVehicle813452 FOREIGN KEY (batteryId) REFERENCES Battery (id);
 ALTER TABLE Park ADD CONSTRAINT FKPark9109 FOREIGN KEY (vehicleType) REFERENCES VehicleType (designation);
-ALTER TABLE ChargingSlot ADD CONSTRAINT FKChargingSl406134 FOREIGN KEY (parkingSlotId) REFERENCES ParkingSlot (id);
 ALTER TABLE NonChargingSlot ADD CONSTRAINT FKNonChargin337152 FOREIGN KEY (parkingSlotId) REFERENCES ParkingSlot (id);
+ALTER TABLE ChargingSlot ADD CONSTRAINT FKChargingSl406134 FOREIGN KEY (parkingSlotId) REFERENCES ParkingSlot (id);
