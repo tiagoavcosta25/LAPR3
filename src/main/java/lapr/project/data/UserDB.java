@@ -47,10 +47,11 @@ public class UserDB extends DataHandler {
                 new UserSession(email,role);
             }else flag = false;
 
-            closeAll();
         } catch (SQLException e) {
             flag = false;
             e.printStackTrace();
+        } finally {
+            closeAll();
         }
         return flag;
     }
