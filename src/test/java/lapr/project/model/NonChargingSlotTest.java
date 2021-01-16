@@ -8,7 +8,8 @@ class NonChargingSlotTest {
 
     @Test
     void getId() {
-        NonChargingSlot oNonChargingSlot = new NonChargingSlot();
+        Scooter sc1 = new Scooter();
+        NonChargingSlot oNonChargingSlot = new NonChargingSlot(sc1);
         Integer expected = -1;
         Integer real = oNonChargingSlot.getId();
         assertEquals(expected, real);
