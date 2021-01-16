@@ -98,6 +98,7 @@ public class ClientDB extends DataHandler {
             if (rSet.next()) {
                 Client oClient = clientManager(rSet, 1);
                 oClient.setLstCreditCard(getCreditCardsByClient(oClient.getEmail()));
+                return oClient;
             }
 
         } catch (SQLException e) {

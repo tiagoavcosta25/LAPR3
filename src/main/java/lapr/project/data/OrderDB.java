@@ -48,11 +48,12 @@ public class OrderDB extends DataHandler {
                 while (rSet.next()){
                     oOrder = orderProductManager(rSetProducts, 1, oOrder);
                 }
-                closeAll();
                 return oOrder;
             }
         } catch (SQLException | NoSuchAlgorithmException e) {
             e.printStackTrace();
+        } finally {
+            closeAll();
         }
         return null;
     }
@@ -93,11 +94,12 @@ public class OrderDB extends DataHandler {
                 }
             }
 
-            closeAll();
             return true;
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
+        } finally {
+            closeAll();
         }
     }
 
@@ -112,12 +114,12 @@ public class OrderDB extends DataHandler {
 
             callStmt.execute();
 
-            closeAll();
-
             return true;
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
+        } finally {
+            closeAll();
         }
     }
 
@@ -154,11 +156,12 @@ public class OrderDB extends DataHandler {
                 while (rSet.next()){
                     oOrder = orderProductManager(rSetProducts, 1, oOrder);
                 }
-                closeAll();
                 return oOrder;
             }
         } catch (SQLException | NoSuchAlgorithmException e) {
             e.printStackTrace();
+        } finally {
+            closeAll();
         }
         throw new IllegalArgumentException("No Order with the following client:" + oClient.getName());
     }
@@ -181,10 +184,11 @@ public class OrderDB extends DataHandler {
                 closeAll();
                 return orderManager(rSet, 1);
             }
-            closeAll();
         } catch (SQLException | NoSuchAlgorithmException e) {
             e.printStackTrace();
             return null;
+        } finally {
+            closeAll();
         }
         throw new IllegalArgumentException("No Order with the following courier email:" + strEmail);
     }
@@ -207,11 +211,11 @@ public class OrderDB extends DataHandler {
             callStmt.setInt(1, id);
 
             callStmt.execute();
-
-            closeAll();
         } catch (SQLException e) {
             flag = false;
             e.printStackTrace();
+        } finally {
+            closeAll();
         }
         return flag;
     }

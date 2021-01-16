@@ -14,7 +14,7 @@ public class PharmacyTransferDB extends DataHandler {
         CallableStatement callStmt = null;
         try {
             openConnection();
-            callStmt = getConnection().prepareCall("{ ? = call getPharmacy(?) }");
+            callStmt = getConnection().prepareCall("{ ? = call getPharmacyTransfer(?) }");
 
             callStmt.registerOutParameter(1, OracleTypes.CURSOR);
             callStmt.setInt(id, 2);
@@ -28,13 +28,12 @@ public class PharmacyTransferDB extends DataHandler {
                 // IMPLEMENTAR
                 return new PharmacyTransfer();
             }
-            closeAll();
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
             closeAll();
         }
-        throw new IllegalArgumentException("No Pharmacy with ID:" + id);
+        throw new IllegalArgumentException("No Pharmacy Transfer with ID:" + id);
     }
 
     private boolean addPharmacyTransfer(Order oOrder, Product oProduct, Integer intQuantity, Pharmacy oPharmacy) {
@@ -69,7 +68,6 @@ public class PharmacyTransferDB extends DataHandler {
 
             callStmt.execute();
 
-            closeAll();
             return true;
         } catch (SQLException e) {
             e.printStackTrace();

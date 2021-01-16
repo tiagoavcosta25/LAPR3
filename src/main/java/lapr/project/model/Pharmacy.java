@@ -1,8 +1,6 @@
 package lapr.project.model;
 
-import java.util.Map;
-import java.util.Objects;
-import java.util.TreeMap;
+import java.util.*;
 
 public class Pharmacy {
 
@@ -10,12 +8,14 @@ public class Pharmacy {
     private String m_strName;
     private String m_strEmail;
     private Address m_oAddress;
+    private List<Park> m_lstParks;
     private Map<Product, Integer> m_mapStock;
 
     private static int DEFAULT_ID = -1;
     private static String DEFAULT_NAME = "No name.";
     private static String DEFAULT_EMAIL = "No email.";
     private static Address DEFAULT_ADDRESS = new Address();
+    private static List<Park> DEFAULT_PARKS = new ArrayList<>();
     private static Map<Product, Integer> DEFAULT_STOCK = new TreeMap<>();
 
     public Pharmacy(int intId, String strName, String strEmail, Address oAddress, Map<Product, Integer> mapStock) {
@@ -23,6 +23,7 @@ public class Pharmacy {
         this.m_strName= strName;
         this.m_strEmail= strEmail;
         this.m_oAddress= oAddress;
+        this.m_lstParks= DEFAULT_PARKS;
         this.m_mapStock = mapStock;
     }
 
@@ -31,6 +32,7 @@ public class Pharmacy {
         this.m_strName= strName;
         this.m_strEmail= strEmail;
         this.m_oAddress= oAddress;
+        this.m_lstParks= DEFAULT_PARKS;
         this.m_mapStock = mapStock;
     }
 
@@ -39,6 +41,7 @@ public class Pharmacy {
         this.m_strName= strName;
         this.m_strEmail= strEmail;
         this.m_oAddress= oAddress;
+        this.m_lstParks = DEFAULT_PARKS;
         this.m_mapStock = DEFAULT_STOCK;
     }
 
@@ -47,6 +50,7 @@ public class Pharmacy {
         this.m_strName= strName;
         this.m_strEmail= strEmail;
         this.m_oAddress= oAddress;
+        this.m_lstParks = DEFAULT_PARKS;
         this.m_mapStock = DEFAULT_STOCK;
     }
 
@@ -55,6 +59,7 @@ public class Pharmacy {
         this.m_strName= DEFAULT_NAME;
         this.m_strEmail= DEFAULT_EMAIL;
         this.m_oAddress = DEFAULT_ADDRESS;
+        this.m_lstParks = DEFAULT_PARKS;
         this.m_mapStock = DEFAULT_STOCK;
     }
 
@@ -92,6 +97,14 @@ public class Pharmacy {
         this.m_oAddress = oAddress;
     }
 
+    public List<Park> getParks() {
+        return m_lstParks;
+    }
+
+    public void setParks(List<Park> lstParks) {
+        this.m_lstParks = lstParks;
+    }
+
     public Map<Product, Integer> getStock() {
         return m_mapStock;
     }
@@ -121,6 +134,7 @@ public class Pharmacy {
                 ", m_strName='" + m_strName + '\'' +
                 ", m_strEmail='" + m_strEmail + '\'' +
                 ", m_oAddress=" + m_oAddress +
+                ", m_lstParks=" + m_lstParks +
                 ", m_mapStock=" + m_mapStock +
                 '}';
     }

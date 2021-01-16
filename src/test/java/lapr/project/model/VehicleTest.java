@@ -169,7 +169,7 @@ class VehicleTest {
                 " Battery=Battery{Id=0, BatteryPerc=32.0, BatteryCapacity=100, BatteryVoltage=32.0}, Pharmacy=Pharmacy{m_intId=-1," +
                 " m_strName='No name.', m_strEmail='No email.', m_oAddress=Address{m_id=-1, m_latitude=-22.0, m_longitude=-22.0," +
                 " m_streetName='No Street Name', m_doorNumber='No Door Number', m_postalCode='No Postal Code', m_locality='No Locality'," +
-                " m_country='No Country'}, m_mapStock={}}}";
+                " m_country='No Country'}, m_lstParks=[], m_mapStock={}}}";
         String real = scooterTest1.toString();
         assertEquals(expected, real);
     }
