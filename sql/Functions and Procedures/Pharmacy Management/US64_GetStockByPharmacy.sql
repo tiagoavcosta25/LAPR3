@@ -1,4 +1,4 @@
-create or replace function getStockByPharmacy(p_pharmacyId PHARMACY.ID%type)
+create or replace function getStockByPharmacy(p_pharmacyId IN PHARMACY.ID%type)
     return sys_refcursor is
     v_cursor sys_refcursor;
     product_not_found exception;

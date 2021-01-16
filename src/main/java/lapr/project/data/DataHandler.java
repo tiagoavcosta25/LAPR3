@@ -6,6 +6,7 @@ import lapr.project.model.*;
 import java.io.*;
 import java.security.NoSuchAlgorithmException;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.Properties;
 import java.util.TreeMap;
 
@@ -265,7 +266,7 @@ public class DataHandler {
         firstColumn+= COLUMNS_ADDED_ADDRESS;
         CreditCard oCreditCard = creditCardManager(rSet, firstColumn);
 
-        return new Client(intId, strName, strNif, strEmail, strPassword, intCredits, oClientAddress, oCreditCard);
+        return new Client(intId, strName, strNif, strEmail, strPassword, intCredits, oClientAddress, new ArrayList<>());
     }
 
     protected Order orderManager(ResultSet rSet, int firstColumn) throws SQLException, NoSuchAlgorithmException { // column number +37
@@ -330,7 +331,6 @@ public class DataHandler {
         int intStock = rSet.getInt(firstColumn);
         firstColumn++;
         Product oProduct = productManager(rSet, firstColumn);
-        firstColumn+= COLUMNS_ADDED_ORDER;
 
         oPharmacy.getStock().put(oProduct, intStock);
 
@@ -342,7 +342,6 @@ public class DataHandler {
         int intQuantity = rSet.getInt(firstColumn);
         firstColumn++;
         Product oProduct = productManager(rSet, firstColumn);
-        firstColumn+= COLUMNS_ADDED_ORDER;
 
         oOrder.getProducts().put(oProduct, intQuantity);
 

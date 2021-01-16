@@ -5,6 +5,8 @@ import org.junit.jupiter.api.Test;
 import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -15,18 +17,18 @@ class ClientTest {
     private Client c4;
 
     ClientTest() throws ParseException, NoSuchAlgorithmException {
+        List<CreditCard> lst = new ArrayList<>();
+        lst.add(new CreditCard(192193L,new SimpleDateFormat("MM/yy").
+                parse("10/20"),123));
         c1 = new Client("name", 123456789, "email@", "pw1234", 102030.23, 103121.01,
                 "Rua 1", "2esq", "4444-111",
-                "Mafamude", "Portugal", 1234123412341234L, new SimpleDateFormat("MM/yy").
-                parse("10/20"), 123);
+                "Mafamude", "Portugal", lst);
         c2 = new Client(2, "name", 123456789, "email@", "pw1234", 2, 102030.23, 103121.01,
                 "Rua 1", "2esq", "4444-111",
-                "Mafamude", "Portugal", 1234123412341234L, new SimpleDateFormat("MM/yy").
-                parse("10/20"), 123);
+                "Mafamude", "Portugal",lst);
         c3 = new Client(2, "name", 123456789, "email@", "pw1234", 2, new Address(102030.23, 103121.01,
                 "Rua 1", "2esq", "4444-111",
-                "Mafamude", "Portugal"), new CreditCard(1234123412341234L, new SimpleDateFormat("MM/yy").
-                parse("10/20"), 123));
+                "Mafamude", "Portugal"), lst);
         c4 = new Client();
     }
 
@@ -47,10 +49,9 @@ class ClientTest {
     }
 
     @Test
-    void getM_creditCard() {
-        CreditCard expected = new CreditCard(c2.getCreditCard().getCreditCardNr(), c2.getCreditCard().getValidityDate(),
-                c2.getCreditCard().getCCV());
-        CreditCard real = c2.getCreditCard();
+    void getLstCreditCard() {
+        List<CreditCard> expected = new ArrayList<>();
+        List<CreditCard> real = c4.getLstCreditCard();
         assertEquals(expected, real);
     }
 
@@ -73,12 +74,10 @@ class ClientTest {
     }
 
     @Test
-    void setCreditCard() {
-        CreditCard expected = new CreditCard(c1.getCreditCard().getCreditCardNr(), c1.getCreditCard().getValidityDate(),
-                c1.getCreditCard().getCCV());
-        c1.setCreditCard(new CreditCard(c1.getCreditCard().getCreditCardNr(), c1.getCreditCard().getValidityDate(),
-                c1.getCreditCard().getCCV()));
-        CreditCard real = c1.getCreditCard();
+    void setLstCreditCard() {
+        List<CreditCard> expected = new ArrayList<>();
+        c1.setLstCreditCard(new ArrayList<>());
+        List<CreditCard> real = c1.getLstCreditCard();
         assertEquals(expected, real);
     }
 
@@ -102,7 +101,7 @@ class ClientTest {
         String expected = "Client{" +
                 "m_credits=" + oClient.getCredits() +
                 ", m_address=" + oClient.getAddress() +
-                ", m_creditCard=" + oClient.getCreditCard() +
+                ", m_creditCard=" + oClient.getLstCreditCard() +
                 '}';
         String real = oClient.toString().substring(125);
         assertEquals(expected, real);

@@ -26,12 +26,13 @@ public class PharmacyTransferDB extends DataHandler {
             if (rSet.next()) {
 
                 // IMPLEMENTAR
-                closeAll();
                 return new PharmacyTransfer();
             }
             closeAll();
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            closeAll();
         }
         throw new IllegalArgumentException("No Pharmacy with ID:" + id);
     }
@@ -48,11 +49,12 @@ public class PharmacyTransferDB extends DataHandler {
 
             callStmt.execute();
 
-            closeAll();
             return true;
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
+        } finally {
+            closeAll();
         }
     }
 
@@ -72,6 +74,8 @@ public class PharmacyTransferDB extends DataHandler {
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
+        } finally {
+            closeAll();
         }
 
     }
@@ -90,11 +94,12 @@ public class PharmacyTransferDB extends DataHandler {
 
             callStmt.execute();
 
-            closeAll();
             return true;
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
+        } finally {
+            closeAll();
         }
     }
 }

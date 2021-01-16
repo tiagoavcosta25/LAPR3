@@ -190,11 +190,17 @@ class MakeAnOrderControllerTest {
         ApplicationPOT.getInstance().setCurrentSession(new UserSession("email3@gmail.com"));
         when(mockClientService.getCreditCardsByClient("email3@gmail.com")).thenReturn(expectedListCreditCards);
 
-        List<CreditCard>  result = makeAnOrderController.getCreditCardsByClient("email3@gmail.com");
+        Client oClient = new Client();
+        oClient.setEmail("email3@gmail.com");
+        makeAnOrderController.setClient(oClient);
+        List<CreditCard>  result = makeAnOrderController.getCreditCardsByClient();
         assertEquals(expectedListCreditCards, result);
 
+
+        oClient.setEmail(null);
+        makeAnOrderController.setClient(oClient);
         when(mockClientService.getCreditCardsByClient(null)).thenThrow(new IllegalArgumentException());
-        result = makeAnOrderController.getCreditCardsByClient(null);
+        result = makeAnOrderController.getCreditCardsByClient();
         expectedListCreditCards = null;
         assertEquals(expectedListCreditCards, result);
     }

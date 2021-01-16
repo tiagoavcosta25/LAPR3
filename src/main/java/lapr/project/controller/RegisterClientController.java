@@ -1,10 +1,12 @@
 package lapr.project.controller;
 
 import lapr.project.model.Client;
+import lapr.project.model.CreditCard;
 import lapr.project.model.service.ClientService;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 public class RegisterClientController {
 
@@ -27,24 +29,19 @@ public class RegisterClientController {
      * @param postalCode   Client's postal code
      * @param locality     Client's locality
      * @param country      Client's country
-     * @param creditCardNr Client's credit card number
+     * @param lstCreditCardNr Client's credit card list
      * @param validityDate Client's credit card's validity date
      * @param CCV          Client's credit card's CCV
      * @return True if Client was registered, false if otherwise
      */
     public boolean registerNewClient(String name, Integer nif, String email, String password, Double latitude, Double longitude, String streetName,
-                                     String doorNumber, String postalCode, String locality, String country, long creditCardNr,
-                                     String validityDate, Integer CCV) throws Exception {
+                                     String doorNumber, String postalCode, String locality, String country, List<CreditCard> lstCreditCardNr) throws Exception {
 
         try {
-            Date vDate = new SimpleDateFormat("MM/yy").parse(validityDate);
-            if (Integer.parseInt(validityDate.split("/")[0]) < 1 ||  Integer.parseInt(validityDate.split("/")[0]) > 12)
-                return false;
-
             if (m_oClientService.validateInput(name, nif, email, password, latitude, longitude, streetName, doorNumber, postalCode, locality, country,
-                    creditCardNr, vDate, CCV)) {
+                    lstCreditCardNr)) {
                 Client c = m_oClientService.newClient(name, nif, email, password, latitude, longitude, streetName, doorNumber, postalCode, locality, country,
-                        creditCardNr, vDate, CCV);
+                        lstCreditCardNr);
                 return m_oClientService.registerNewClient(c);
             }
         } catch (Exception e) {

@@ -5,7 +5,7 @@ create or replace function getPharmacies
 begin
 
     open v_cursor for
-        select P.ID, P.NAME, A.*
+        select P.ID, P.NAME, P.EMAIL, A.*
         from PHARMACY P
             inner join ADDRESS A on P.ADDRESSID = A.ID;
 

@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -15,8 +16,7 @@ class UserTest {
     public UserTest() throws ParseException, NoSuchAlgorithmException {
         u = new Client(5,"name",123456789,"email@","pw1234",0,102030.23, 103121.01,
                 "Rua 1", "2esq", "4444-111",
-                "Mafamude", "Portugal",1234123412341234L,new SimpleDateFormat("MM/yy").
-                parse("10/20"),123);
+                "Mafamude", "Portugal",new ArrayList<>());
 
     }
 
@@ -99,8 +99,7 @@ class UserTest {
     void testEquals() throws ParseException {
         Client oUser = new Client(5,"name",123456789,"email@","pw1234",0,102030.23, 103121.01,
                 "Rua 1", "2esq", "4444-111",
-                "Mafamude", "Portugal",1234123412341234L,new SimpleDateFormat("MM/yy").
-                parse("10/20"),123);
+                "Mafamude", "Portugal",new ArrayList<>());
         boolean real = u.equals(oUser);
         assertTrue(real);
 
@@ -108,8 +107,7 @@ class UserTest {
 
         Client oUser1 = new Client(2,"name",123456789,"em","pw1234",0,102030.23, 103121.01,
                 "Rua 1", "2esq", "4444-111",
-                "Mafamude", "Portugal",1234123412341234L,new SimpleDateFormat("MM/yy").
-                parse("10/20"),123);
+                "Mafamude", "Portugal",new ArrayList<>());
 
         assertNotEquals(oUser1, u);
 

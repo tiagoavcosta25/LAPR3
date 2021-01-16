@@ -28,43 +28,55 @@ public class ClientDB extends DataHandler {
      */
 
     public boolean addClientToDB(Client c) {
-        return addClientToDB(c.getName(), c.getNif(), c.getCredits(), c.getAddress(), c.getCreditCard(),
+        return addClientToDB(c.getName(), c.getNif(), c.getCredits(), c.getAddress(), c.getLstCreditCard(),
                 c.getEmail(), c.getPw());
     }
 
 
-    private boolean addClientToDB(String name, Integer nif, Integer credits, Address address, CreditCard creditCard,
+    private boolean addClientToDB(String name, Integer nif, Integer credits, Address address, List<CreditCard> lstCreditCard,
                                   String email, String password) {
 
         boolean flag = true;
         try {
             openConnection();
 
-            CallableStatement callStmt = getConnection().prepareCall("{ call addClient(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) }");
+            CallableStatement callStmt = getConnection().prepareCall("{ ? = call addClient(?,?,?,?,?,?,?,?,?,?,?,?) }");
 
-            callStmt.setString(1, name);
-            callStmt.setInt(2, nif);
-            callStmt.setInt(3, credits);
-            callStmt.setDouble(4, address.getLatitude());
-            callStmt.setDouble(5, address.getLongitude());
-            callStmt.setString(6, address.getStreetName());
-            callStmt.setString(7, address.getDoorNumber());
-            callStmt.setString(8, address.getPostalCode());
-            callStmt.setString(9, address.getLocality());
-            callStmt.setString(10, address.getCountry());
-            callStmt.setDouble(11, creditCard.getCreditCardNr());
-            java.util.Date utilStartDate = creditCard.getValidityDate();
-            java.sql.Date sqlStartDate = new java.sql.Date(utilStartDate.getTime());
-            callStmt.setDate(12, sqlStartDate);
-            callStmt.setInt(13, creditCard.getCCV());
-            callStmt.setString(14, email);
-            callStmt.setString(15, password);
+            callStmt.setString(2, name);
+            callStmt.setInt(3, nif);
+            callStmt.setInt(4, credits);
+            callStmt.setDouble(5, address.getLatitude());
+            callStmt.setDouble(6, address.getLongitude());
+            callStmt.setString(7, address.getStreetName());
+            callStmt.setString(8, address.getDoorNumber());
+            callStmt.setString(9, address.getPostalCode());
+            callStmt.setString(10, address.getLocality());
+            callStmt.setString(11, address.getCountry());
+            callStmt.setString(12, email);
+            callStmt.setString(13, password);
+            callStmt.registerOutParameter(1, OracleTypes.INTEGER);
+
+            int userId = callStmt.getInt(1);
+
+            if (userId == -1) return false;
+
+            for (CreditCard cc : lstCreditCard) {
+                CallableStatement callStmt2 = getConnection().prepareCall("{ call addCreditCardToClient(?,?,?,?) }");
+
+                callStmt2.setInt(1,userId);
+                callStmt2.setDouble(2, cc.getCreditCardNr());
+                java.util.Date utilStartDate = cc.getValidityDate();
+                java.sql.Date sqlStartDate = new java.sql.Date(utilStartDate.getTime());
+                callStmt2.setDate(3, sqlStartDate);
+                callStmt2.setInt(4, cc.getCCV());
+            }
 
             callStmt.execute();
 
-            closeAll();
         } catch (SQLException e) {
             flag = false;
+        } finally {
+            closeAll();
         }
         return flag;
     }
@@ -82,21 +94,16 @@ public class ClientDB extends DataHandler {
 
             ResultSet rSet = (ResultSet) callStmt.getObject(1);
 
-            if (rSet.next()) {
 
-                int intId = rSet.getInt(1);
-                // String strEmail = rSet.getString(2);
-                String strPassword = rSet.getString(3);
-                Integer strNif = rSet.getInt(4);
-                String strName = rSet.getString(5);
-                Integer intCredits = rSet.getInt(6);
-                Address oClientAddress = addressManager(rSet, 7);
-                CreditCard oCreditCard = creditCardManager(rSet, 15);
-                closeAll();
-                return new Client(intId, strName, strNif, strEmail, strPassword, intCredits, oClientAddress, oCreditCard);
+            if (rSet.next()) {
+                Client oClient = clientManager(rSet, 1);
+                oClient.setLstCreditCard(getCreditCardsByClient(oClient.getEmail()));
             }
+
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            closeAll();
         }
         throw new IllegalArgumentException("No Client with the following email:" + strEmail);
     }
@@ -107,20 +114,19 @@ public class ClientDB extends DataHandler {
             openConnection();
             CallableStatement callStmt = getConnection().prepareCall("{ ? = call getCreditCardsByClient(?) }");
 
-            callStmt.registerOutParameter(1, oracle.jdbc.OracleTypes.CURSOR);
+            callStmt.registerOutParameter(1, OracleTypes.CURSOR);
             callStmt.setString(2, strEmail);
             callStmt.execute();
             ResultSet rSet = (ResultSet) callStmt.getObject(1);
 
             while (rSet.next()) {
-                CreditCard oCreditCard = creditCardManager(rSet, 1);
-
-                lstCreditCards.add(oCreditCard);
+                lstCreditCards.add(creditCardManager(rSet, 1));
             }
-            closeAll();
             return lstCreditCards;
         } catch (SQLException e) {
             throw new IllegalArgumentException("No Credit Cards Avaliable.");
+        } finally {
+            closeAll();
         }
     }
 }

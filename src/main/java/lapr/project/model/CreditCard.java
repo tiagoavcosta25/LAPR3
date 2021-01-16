@@ -29,6 +29,8 @@ public class CreditCard implements Comparable{
         this.m_lCreditCardNr = m_creditCardNr;
     }
 
+    public boolean hasNumber(Long intNum) {return this.m_lCreditCardNr == intNum;}
+
     public Date getValidityDate() {
         return (Date) m_dtValidityDate.clone();
     }
