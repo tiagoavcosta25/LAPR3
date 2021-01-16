@@ -7,10 +7,10 @@ begin
     open v_cursor for
         select CC.*
         from CREDITCARD CC
-        inner join CREDITCARDCLIENT CCC on CCC.CREDITCARDNR = CC.CREDITCARDNR
-        inner join CLIENT C on C.USERID = CCC.CLIENTID
-        inner join "User" U on C.USERID = U.ID
-    where U.EMAIL = p_clientEmail;
+                 inner join CREDITCARDCLIENT CCC on CCC.CREDITCARDNR = CC.CREDITCARDNR
+                 inner join CLIENT C on C.USERID = CCC.CLIENTID
+                 inner join "User" U on C.USERID = U.ID
+        where U.EMAIL = p_clientEmail;
 
     if v_cursor is null then
         raise cc_not_found;

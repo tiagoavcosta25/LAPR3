@@ -41,6 +41,8 @@ public class InvoiceDB extends DataHandler {
             closeAll();
         } catch (SQLException | NoSuchAlgorithmException e) {
             e.printStackTrace();
+        } finally {
+            closeAll();
         }
         throw new IllegalArgumentException("No Invoice with ID:" + id);
     }
@@ -94,6 +96,8 @@ public class InvoiceDB extends DataHandler {
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
+        } finally {
+            closeAll();
         }
     }
 
@@ -114,6 +118,8 @@ public class InvoiceDB extends DataHandler {
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
+        } finally {
+            closeAll();
         }
 
     }

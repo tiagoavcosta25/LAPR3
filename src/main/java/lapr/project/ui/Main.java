@@ -1,6 +1,8 @@
 package lapr.project.ui;
 
 import lapr.project.controller.*;
+import lapr.project.model.UserSession;
+import lapr.project.ui.console.MakeAnOrderUI;
 import lapr.project.utils.DirectoryVerification;
 
 /**
@@ -23,6 +25,10 @@ class Main {
      */
     public static void main(String[] args) {
         System.out.println("Hello");
-        System.out.println(DirectoryVerification.verifyFileCreation("src-C/estimate_files", ".flag", 45000));
+        //System.out.println(DirectoryVerification.verifyFileCreation("src-C/estimate_files", ".flag", 45000));
+
+        ApplicationPOT.getInstance().setCurrentSession(new UserSession("user3@gmail.com"));
+        MakeAnOrderUI UI = new MakeAnOrderUI();
+        UI.run();
     }
 }

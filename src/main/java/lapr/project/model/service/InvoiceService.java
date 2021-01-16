@@ -24,7 +24,7 @@ public class InvoiceService {
     }
 
     public boolean registerInvoice(Invoice oInvoice) {
-        return this.m_oInvoiceDB .registerInvoice(oInvoice);
+        return this.m_oInvoiceDB.registerInvoice(oInvoice);
     }
 
     public Invoice newInvoice(Order oOrder, Map<CreditCard, Float> mapPayments) {

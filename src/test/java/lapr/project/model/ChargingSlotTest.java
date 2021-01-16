@@ -175,7 +175,7 @@ class ChargingSlotTest {
 
     @Test
     void testToString() {
-        String expResult = "ChargingSlot{m_intId=1, m_oScooter=Vehicle{Id=-1, PharmacyId=-1, Potency=-1.0, Weight=-1.0, MaxPayload=-1.0, CharginStatus='Not Charging', Battery=Battery{Id=0, BatteryPerc=-1.0, BatteryCapacity=-1, BatteryVoltage=-1.0}, Pharmacy=Pharmacy{m_intId=-1, m_strName='No name.', m_strEmail='No email.', m_oAddress=Address{m_id=-1, m_latitude=-22.0, m_longitude=-22.0, m_streetName='No Street Name', m_doorNumber='No Door Number', m_postalCode='No Postal Code', m_locality='No Locality', m_country='No Country'}, m_mapStock={}}}, m_fltOutputPower=2.0}";
+        String expResult = "ChargingSlot{m_intId=1, m_oScooter=Vehicle{Id=-1, PharmacyId=-1, Potency=-1.0, Weight=-1.0, MaxPayload=-1.0, CharginStatus='Not Charging', Battery=Battery{Id=0, BatteryPerc=-1.0, BatteryCapacity=-1, BatteryVoltage=-1.0}, Pharmacy=Pharmacy{m_intId=-1, m_strName='No name.', m_strEmail='No email.', m_oAddress=Address{m_id=-1, m_latitude=-22.0, m_longitude=-22.0, m_streetName='No Street Name', m_doorNumber='No Door Number', m_postalCode='No Postal Code', m_locality='No Locality', m_country='No Country'}, m_lstParks=[], m_mapStock={}}}, m_fltOutputPower=2.0}";
         String result = c1.toString();
         assertEquals(expResult, result);
     }
