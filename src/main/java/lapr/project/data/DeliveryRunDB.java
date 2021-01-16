@@ -36,10 +36,11 @@ public class DeliveryRunDB extends DataHandler {
                 String strName = rSet.getString(3);
                 lstPaths.add(new Path(intIdAddress1, intIdAddress2, strName));
             }
-            closeAll();
             return lstPaths;
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            closeAll();
         }
         throw new IllegalArgumentException("No Paths Avaliable.");
     }
@@ -59,10 +60,11 @@ public class DeliveryRunDB extends DataHandler {
             while (rSet.next()) {
                 lstAddress.add(addressManager(rSet, 1));
             }
-            closeAll();
             return lstAddress;
         } catch (SQLException e) {
             e.printStackTrace();
+        }finally {
+            closeAll();
         }
         throw new IllegalArgumentException("No Addresses Avaliable.");
     }
@@ -94,12 +96,11 @@ public class DeliveryRunDB extends DataHandler {
                 callStmt2.execute();
             }
 
-
-            closeAll();
-
             return true;
         } catch (SQLException e) {
             return false;
+        } finally {
+            closeAll();
         }
     }
     public List<Address> getAddressesByDeliveryRunId(String email) {
@@ -131,11 +132,12 @@ public class DeliveryRunDB extends DataHandler {
                 Address a = addressManager(rSet, 1);
                 list.add(a);
             }
-            closeAll();
             return list;
 
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            closeAll();
         }
         throw new IllegalArgumentException("No Addresses in the delivery run associated with the courier with the following email:" + email);
 

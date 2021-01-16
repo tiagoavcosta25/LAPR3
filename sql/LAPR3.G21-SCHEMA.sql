@@ -48,7 +48,7 @@ CREATE TABLE NonChargingSlot (parkingSlotId number(10) NOT NULL, PRIMARY KEY (pa
 CREATE TABLE "Order" (id number(10) GENERATED AS IDENTITY, clientId number(10) NOT NULL, description varchar2(255), orderStatus varchar2(20) NOT NULL, orderDate date NOT NULL, pharmacyId number(10) NOT NULL, deliveryRunId number(10) NOT NULL, totalWeight float(10) NOT NULL, amount float(10) NOT NULL, additionalFee float(10) DEFAULT 0 NOT NULL, PRIMARY KEY (id));
 CREATE TABLE OrderProduct (productId number(10) NOT NULL, orderId number(10) NOT NULL, quantity number(5) NOT NULL, PRIMARY KEY (productId, orderId));
 CREATE TABLE OrderStatus (designation varchar2(20) DEFAULT 'ordered' NOT NULL, PRIMARY KEY (designation));
-CREATE TABLE Park (id number(10) GENERATED AS IDENTITY, maxSlotsNumber number(3) NOT NULL, pharmacyId number(10) NOT NULL, vehicleType varchar2(20) NOT NULL, PRIMARY KEY (id));
+CREATE TABLE Park (id number(10) GENERATED AS IDENTITY, pharmacyId number(10) NOT NULL, vehicleType varchar2(20) NOT NULL, maxSlotsNumber number(3) NOT NULL, totalOutputCurrent float(10) NOT NULL, PRIMARY KEY (id));
 CREATE TABLE ParkingSlot (id number(10) GENERATED AS IDENTITY, parkId number(10) NOT NULL, vehicleId number(10) UNIQUE, PRIMARY KEY (id));
 CREATE TABLE Path (addressIdA number(10) NOT NULL, addressIdB number(10) NOT NULL, name nvarchar2(255) NOT NULL, PRIMARY KEY (addressIdA, addressIdB));
 CREATE TABLE Payment (creditCardNr number(16) NOT NULL, invoiceId number(10) NOT NULL, value float(10) NOT NULL, PRIMARY KEY (creditCardNr, invoiceId));
