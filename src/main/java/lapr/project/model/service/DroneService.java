@@ -45,11 +45,6 @@ public class DroneService {
         return m_oDroneDB.removeDroneFromDB(intId);
     }
 
-    private void teste() {
-
-    }
-
-
     public boolean checkEnergy(double distance, DeliveryRun oDeliveryRun) {
         Vehicle oVehicle = oDeliveryRun.getVehicle();
         float totalWeight = 0f;
