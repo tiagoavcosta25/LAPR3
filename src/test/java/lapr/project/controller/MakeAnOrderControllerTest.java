@@ -149,10 +149,10 @@ class MakeAnOrderControllerTest {
 
         makeAnOrderController.setOrder(new Order());
         boolean  result = makeAnOrderController.addPayment(new CreditCard(), -1f);
-        assertTrue(result);
+        assertFalse(result);
 
         result = makeAnOrderController.addPayment(new CreditCard(), 2f);
-        assertFalse(result);
+        assertTrue(result);
 
         result = makeAnOrderController.addPayment(null, null);
         assertFalse(result);
