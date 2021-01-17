@@ -16,17 +16,14 @@ begin
     end if;
 
     open v_cursor for
-        select O.ID, O.DESCRIPTION, O.ORDERSTATUS, O.ORDERDATE, O.TOTALWEIGHT, O.AMOUNT, O.ADDITIONALFEE, U.*, C.CREDITS, A1.*, CC.*, P.ID, P.NAME, U2.*, A3.*
+        select O.ID, O.DESCRIPTION, O.ORDERSTATUS, O.ORDERDATE, O.TOTALWEIGHT, O.AMOUNT, O.ADDITIONALFEE, O.ISHOMEDELIVERY, U.*,
+               C.CREDITS, A1.*, P.ID, P.NAME, P.EMAIL, A3.*
         from "Order" O
                  inner join CLIENT C on O.CLIENTID = C.USERID
                  inner join "User" U on C.USERID = U.ID
                  inner join ADDRESS A1 on A1.ID = C.ADDRESSID
-                 inner join CREDITCARDCLIENT CCC on C.USERID = CCC.CLIENTID
-                 inner join CREDITCARD CC on CC.CREDITCARDNR = CCC.CREDITCARDNR
                  inner join PHARMACY P on O.PHARMACYID = P.ID
                  inner join ADDRESS A3 on P.ADDRESSID = A3.ID
-                 inner join PHARMACYMANAGER PM on P.MANAGERID = PM.USERID
-                 inner join "User" U2 on PM.USERID = U2.ID
         where O.ID = v_orderId;
 
     if v_cursor is null then

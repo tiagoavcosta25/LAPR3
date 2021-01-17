@@ -150,9 +150,10 @@ public class MakeAnOrderController {
         try{
             if((this.m_fltCurrentPayment + fltValue) <= this.m_oOrder.getAmount()){
                 m_mapPayments.put(oCreditCard, fltValue);
-                return true;
-            } else{
+                this.m_fltCurrentPayment += fltValue;
                 return false;
+            } else{
+                return true;
             }
         } catch(Exception e){
             return false;
