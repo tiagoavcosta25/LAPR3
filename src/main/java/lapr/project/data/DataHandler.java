@@ -62,7 +62,7 @@ public class DataHandler {
     /**
      * Additional Number of columns added when executing the clientManager method.
      */
-    private static int COLUMNS_ADDED_CLIENT = 17;
+    private static int COLUMNS_ADDED_CLIENT = 14;
 
     /**
      * Additional Number of columns added when executing the orderManager method.
@@ -248,7 +248,7 @@ public class DataHandler {
         return new Pharmacy(pharmacyID, pharmacyName, strEmail, oAddress);
     }
 
-    protected Client clientManager(ResultSet rSet, int firstColumn) throws SQLException { // column number +17
+    protected Client clientManager(ResultSet rSet, int firstColumn) throws SQLException { // column number +14
 
         int intId = rSet.getInt(firstColumn);
         firstColumn++;
@@ -263,8 +263,6 @@ public class DataHandler {
         Integer intCredits = rSet.getInt(firstColumn);
         firstColumn++;
         Address oClientAddress = addressManager(rSet, firstColumn);
-        firstColumn+= COLUMNS_ADDED_ADDRESS;
-        CreditCard oCreditCard = creditCardManager(rSet, firstColumn);
 
         return new Client(intId, strName, strNif, strEmail, strPassword, intCredits, oClientAddress, new ArrayList<>());
     }

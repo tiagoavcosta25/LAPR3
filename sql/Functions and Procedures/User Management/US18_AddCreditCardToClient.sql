@@ -6,10 +6,6 @@ create or replace procedure addCreditCardToClient(p_userId IN "User".id%type,
     creditCardId      CreditCard.creditCardNr%type;
 begin
 
-    Insert into CreditCard(CREDITCARDNR, VALIDITYDATE, CCV)
-    Values (p_creditCardNr, p_validityDate, p_ccv)
-    returning CREDITCARDNR into creditCardId;
-
     -- Creates a new Credit Card
 -- VERIFICAR SE CREDIT CARD JA EXISTE, SE SIM SALTAR ESTA PARTE À FRENTE
 

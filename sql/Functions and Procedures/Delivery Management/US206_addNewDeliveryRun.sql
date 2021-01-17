@@ -6,7 +6,7 @@ create or replace function addNewDeliveryRun(p_courierId Courier.USERID%type,
 begin
 
     insert into DELIVERYRUN (COURIERID,DELIVERYSTATUS,VEHICLEID)
-        Values(p_courierId,p_deliveryStatus,null)
+        Values(p_courierId,p_deliveryStatus,NULL)
         returning id into v_deliveryRunId;
 
     if v_deliveryRunId is null then

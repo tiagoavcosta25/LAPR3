@@ -56,6 +56,8 @@ public class ClientDB extends DataHandler {
             callStmt.setString(13, password);
             callStmt.registerOutParameter(1, OracleTypes.INTEGER);
 
+            callStmt.execute();
+
             int userId = callStmt.getInt(1);
 
             if (userId == -1) return false;
@@ -69,9 +71,9 @@ public class ClientDB extends DataHandler {
                 java.sql.Date sqlStartDate = new java.sql.Date(utilStartDate.getTime());
                 callStmt2.setDate(3, sqlStartDate);
                 callStmt2.setInt(4, cc.getCCV());
-            }
 
-            callStmt.execute();
+                callStmt2.execute();
+            }
 
         } catch (SQLException e) {
             flag = false;
