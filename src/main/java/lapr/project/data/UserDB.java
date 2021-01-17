@@ -2,19 +2,11 @@ package lapr.project.data;
 
 
 import lapr.project.model.UserSession;
-import lapr.project.data.DataHandler;
-import lapr.project.utils.EncryptPassword;
 import oracle.jdbc.internal.OracleTypes;
-
-import java.security.NoSuchAlgorithmException;
 import java.sql.CallableStatement;
 import java.sql.SQLException;
 
 public class UserDB extends DataHandler {
-
-    public UserDB() {
-        super();
-    }
 
     /**
      * Checks if the User that has the 'email' given by parameter

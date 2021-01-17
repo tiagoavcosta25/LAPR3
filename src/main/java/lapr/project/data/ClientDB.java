@@ -13,25 +13,10 @@ import java.util.List;
 
 public class ClientDB extends DataHandler {
 
-
-    public ClientDB(String jdbcUrl, String username, String password) {
-        super(jdbcUrl, username, password);
-    }
-
-    public ClientDB() {
-        super();
-    }
-
-
-    /**
-     * DATABASE
-     */
-
     public boolean addClientToDB(Client c) {
         return addClientToDB(c.getName(), c.getNif(), c.getCredits(), c.getAddress(), c.getLstCreditCard(),
                 c.getEmail(), c.getPw());
     }
-
 
     private boolean addClientToDB(String name, Integer nif, Integer credits, Address address, List<CreditCard> lstCreditCard,
                                   String email, String password) {

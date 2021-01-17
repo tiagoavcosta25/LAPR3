@@ -11,14 +11,6 @@ import java.util.List;
 
 public class ProductDB extends DataHandler {
 
-    public ProductDB(String jdbcUrl, String username, String password) {
-        super(jdbcUrl, username, password);
-    }
-
-    public ProductDB() {
-        super();
-    }
-
     public Product getProductFromBD(int intId) {
 
         CallableStatement callStmt = null;

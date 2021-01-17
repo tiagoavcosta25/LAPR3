@@ -31,9 +31,9 @@ public class NotifyAndRemoveController {
     /**
      * An empty constructor of RegisterCourierController that initiates the platform variable by getting it from the ApplicationPOT.
      */
-    public NotifyAndRemoveController(String jdbcUrl, String username, String password) {
-        this.oOrderDB = new OrderDB(jdbcUrl, username, password);
-        this.oClientDB = new ClientDB(jdbcUrl, username, password);
+    public NotifyAndRemoveController() {
+        this.oOrderDB = new OrderDB();
+        this.oClientDB = new ClientDB();
     }
 
     public boolean notifyAndRemove(){

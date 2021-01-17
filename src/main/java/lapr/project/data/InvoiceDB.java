@@ -12,14 +12,6 @@ import java.util.Map;
 
 public class InvoiceDB extends DataHandler {
 
-    public InvoiceDB(String jdbcUrl, String username, String password) {
-        super(jdbcUrl, username, password);
-    }
-
-    public InvoiceDB() {
-        super();
-    }
-
     public Invoice getInvoice(int id) {
 
         CallableStatement callStmt = null;

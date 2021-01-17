@@ -35,9 +35,9 @@ public class AddPharmacyProductController {
     private Integer m_intStock;
 
 
-    public AddPharmacyProductController(String jdbcUrl, String username, String password) {
-        this.m_oProductDB = new ProductDB(jdbcUrl, username, password);
-        this.m_oPharmacyDB = new PharmacyDB(jdbcUrl, username, password);
+    public AddPharmacyProductController() {
+        this.m_oProductDB = new ProductDB();
+        this.m_oPharmacyDB = new PharmacyDB();
     }
 
     public boolean addPharmacyProduct(Product oProduct, Integer intStock) {

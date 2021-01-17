@@ -12,14 +12,6 @@ public class DeliveryDB extends DataHandler {
 
     private Graph<Address, String> m_graph;
 
-    public DeliveryDB(String jdbcUrl, String username, String password) {
-        super(jdbcUrl, username, password);
-        m_graph = new Graph<>(true);
-    }
-    public DeliveryDB(){
-        super();
-    }
-
     public Graph<Address, String> getM_graph() {
         return m_graph;
     }

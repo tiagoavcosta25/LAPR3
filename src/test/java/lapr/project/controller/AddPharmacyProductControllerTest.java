@@ -33,7 +33,7 @@ class AddPharmacyProductControllerTest {
     @BeforeEach
     void setUp() {
         this.expectedValue = true;
-        this.addPharmacyProductController = new AddPharmacyProductController("","","");
+        this.addPharmacyProductController = new AddPharmacyProductController();
         this.mockPharmacyDB = Mockito.mock(PharmacyDB.class);
         this.mockProductDB = Mockito.mock(ProductDB.class);
         initMocks(this);

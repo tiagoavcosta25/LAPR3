@@ -1,6 +1,5 @@
 package lapr.project.data;
 
-import lapr.project.data.DataHandler;
 import lapr.project.model.*;
 import oracle.jdbc.OracleTypes;
 
@@ -12,14 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PharmacyDB extends DataHandler {
-
-    public PharmacyDB(String jdbcUrl, String username, String password) {
-        super(jdbcUrl, username, password);
-    }
-
-    public PharmacyDB() {
-        super();
-    }
 
     public Pharmacy getPharmacy(int id) {
 

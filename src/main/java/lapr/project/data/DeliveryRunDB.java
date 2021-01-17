@@ -11,14 +11,6 @@ import java.util.List;
 
 public class DeliveryRunDB extends DataHandler {
 
-    public DeliveryRunDB(String jdbcUrl, String username, String password) {
-        super(jdbcUrl, username, password);
-    }
-
-    public DeliveryRunDB() {
-        super();
-    }
-
     public List<Path> getAllPaths() {
         CallableStatement callStmt = null;
         List<Path> lstPaths = new ArrayList<>();

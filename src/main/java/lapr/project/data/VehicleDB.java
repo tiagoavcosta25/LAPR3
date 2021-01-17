@@ -8,14 +8,8 @@ import java.security.NoSuchAlgorithmException;
 import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class VehicleDB extends DataHandler {
-
-    public VehicleDB() {
-        super();
-    }
 
     public Vehicle getSuitableVehicle(Double distanceScooter, Double distanceDrone, String email) {
         /* Objeto "callStmt" para invocar a função "getSailor" armazenada na BD.

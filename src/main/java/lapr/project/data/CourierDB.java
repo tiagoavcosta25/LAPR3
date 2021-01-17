@@ -10,14 +10,6 @@ import java.sql.SQLException;
 
 public class CourierDB extends DataHandler {
 
-    public CourierDB() {
-        super();
-    }
-
-    public CourierDB(String jdbcUrl, String username, String password) {
-        super(jdbcUrl, username, password);
-    }
-
     /*public Courier getCourier(int id) {
         CallableStatement callStmt = null;
         try {

@@ -1,10 +1,8 @@
 package lapr.project.data;
 
-
 import lapr.project.model.Battery;
 import lapr.project.model.Drone;
 import lapr.project.model.Pharmacy;
-import lapr.project.model.Scooter;
 import oracle.jdbc.internal.OracleTypes;
 
 import java.security.NoSuchAlgorithmException;
@@ -15,10 +13,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DroneDB extends DataHandler {
-
-    public DroneDB() {
-
-    }
 
     public boolean updateDrone(Float percentage, Integer pharmacyId, Float potency, Float weight, Double batteryCapacity,
                                Float maxPayload, Float batteryVoltage, String chargingStatus, Integer droneId) {

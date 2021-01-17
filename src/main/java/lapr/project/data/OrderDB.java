@@ -11,15 +11,6 @@ import java.util.Map;
 
 public class OrderDB extends DataHandler {
 
-    public OrderDB(String jdbcUrl, String username, String password) {
-        super(jdbcUrl, username, password);
-    }
-
-    public OrderDB() {
-        super();
-    }
-
-
     public Order getOrder(int id) {
 
         CallableStatement callStmt = null;

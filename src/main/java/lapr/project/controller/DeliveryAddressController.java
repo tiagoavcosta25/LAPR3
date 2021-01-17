@@ -23,8 +23,8 @@ public class DeliveryAddressController {
     /**
      * An empty constructor of RegisterCourierController that initiates the platform variable by getting it from the ApplicationPOT.
      */
-    public DeliveryAddressController(String jdbcUrl, String username, String password) {
-        this.m_oCourierDB = new CourierDB(jdbcUrl, username, password);
+    public DeliveryAddressController() {
+        this.m_oCourierDB = new CourierDB();
     }
 
     public Address getDeliveryAddress(){
