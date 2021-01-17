@@ -5,7 +5,7 @@ create or replace function getPharmacy(p_pharmacyId IN PHARMACY.id%type)
 begin
 
     open v_cursor for
-        select p.ID, p.NAME, a.*
+        select p.ID, p.NAME, p.EMAIL, a.*
         from PHARMACY p
         inner join ADDRESS a on a.ID = p.ADDRESSID
         where p.ID = p_pharmacyId;
