@@ -240,7 +240,8 @@ class DroneServiceTest {
     @Test
     void startDelivery() {
         System.out.println("startDelivery");
-        boolean result = m_oDroneService.startDelivery();
+        DeliveryRun dr = new DeliveryRun(new Courier(), new ArrayList<>());
+        boolean result = m_oDroneService.startDelivery(dr);
         assertTrue(result);
     }
 

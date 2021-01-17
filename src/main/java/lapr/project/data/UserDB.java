@@ -41,7 +41,7 @@ public class UserDB extends DataHandler {
 
             callStmt.execute();
 
-            Integer role = callStmt.getInt(1);
+            int role = callStmt.getInt(1);
 
             if (role != -1) {
                 new UserSession(email,role);
@@ -49,7 +49,6 @@ public class UserDB extends DataHandler {
 
         } catch (SQLException e) {
             flag = false;
-            e.printStackTrace();
         } finally {
             closeAll();
         }

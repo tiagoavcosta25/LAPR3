@@ -38,7 +38,6 @@ public class InvoiceDB extends DataHandler {
 
                 return invoiceManager(rSet, 1);
             }
-            closeAll();
         } catch (SQLException | NoSuchAlgorithmException e) {
             e.printStackTrace();
         } finally {
@@ -90,8 +89,6 @@ public class InvoiceDB extends DataHandler {
                     callStmt.execute();
                 }
             }
-
-            closeAll();
             return true;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -111,8 +108,6 @@ public class InvoiceDB extends DataHandler {
             callStmt.setInt(1, intId);
 
             callStmt.execute();
-
-            closeAll();
 
             return true;
         } catch (SQLException e) {

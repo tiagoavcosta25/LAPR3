@@ -4,6 +4,7 @@ create or replace function addClient(p_name IN "User".name%type, p_nif IN "User"
                                       p_postalCode IN Address.postalCode%type, p_locality IN Address.locality%type,
                                       p_country IN Address.country%type,
                                       p_email IN "User".email%type, p_password IN "User".password%type)
+                                      return int
     is
     userIdentifier    "User".id%type;
     addressIdentifier Address.id%type;
@@ -29,13 +30,14 @@ begin
     Insert into Client(userId, CREDITS, ADDRESSID)
     Values (userIdentifier, p_credits, addressIdentifier);
 
-    if userIdentifier is null or userIdentifier%notfound then
+    if userIdentifier is null then
         raise client_not_created_exception;
     end if;
 
     return userIdentifier;
 
-    EXCEPTION when client_not_created_exception then
+    EXCEPTION
+    when client_not_created_exception then
     return -1;
 
 

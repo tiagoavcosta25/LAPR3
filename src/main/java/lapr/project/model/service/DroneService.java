@@ -74,8 +74,8 @@ public class DroneService {
 
     }
 
-    public boolean startDelivery() {
-        return true;
+    public boolean startDelivery(DeliveryRun oDeliveryRun) {
+        return oDeliveryRun.getStatus().getDesignation().equalsIgnoreCase("Idle");
     }
 
     public float getDronePayload(int droneId) {

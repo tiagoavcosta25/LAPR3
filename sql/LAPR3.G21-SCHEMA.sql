@@ -39,13 +39,13 @@ CREATE TABLE Client (userId number(10) NOT NULL, credits number(6) DEFAULT 0 NOT
 CREATE TABLE Courier (userId number(10) NOT NULL, iban varchar2(34) NOT NULL, pharmacyId number(10) NOT NULL, PRIMARY KEY (userId));
 CREATE TABLE CreditCard (creditCardNr number(16), validityDate date NOT NULL, ccv number(3) NOT NULL, PRIMARY KEY (creditCardNr));
 CREATE TABLE CreditCardClient (creditCardNr number(16) NOT NULL, clientId number(10) NOT NULL, PRIMARY KEY (creditCardNr, clientId));
-CREATE TABLE DeliveryRun (id number(10) GENERATED AS IDENTITY, courierId number(10) NOT NULL, deliveryStatus varchar2(20) NOT NULL, vehicleid number(10) NOT NULL, PRIMARY KEY (id));
+CREATE TABLE DeliveryRun (id number(10) GENERATED AS IDENTITY, courierId number(10) NOT NULL, deliveryStatus varchar2(20) NOT NULL, vehicleid number(10), PRIMARY KEY (id));
 CREATE TABLE DeliveryStatus (designation varchar2(20) NOT NULL, PRIMARY KEY (designation));
 CREATE TABLE Drone (vehicleId number(10) NOT NULL, PRIMARY KEY (vehicleId));
 CREATE TABLE Invoice (id number(10) GENERATED AS IDENTITY, orderId number(10) NOT NULL UNIQUE, invoiceDate date NOT NULL, totalPrice float(10) NOT NULL, PRIMARY KEY (id));
 CREATE TABLE InvoiceLine (invoiceId number(10) NOT NULL, id number(10) NOT NULL, orderId number(10) NOT NULL, productId number(10) NOT NULL, value float(10) NOT NULL, PRIMARY KEY (invoiceId, id));
 CREATE TABLE NonChargingSlot (parkingSlotId number(10) NOT NULL, PRIMARY KEY (parkingSlotId));
-CREATE TABLE "Order" (id number(10) GENERATED AS IDENTITY, clientId number(10) NOT NULL, description varchar2(255), orderStatus varchar2(20) NOT NULL, orderDate date NOT NULL, pharmacyId number(10) NOT NULL, deliveryRunId number(10) NOT NULL, totalWeight float(10) NOT NULL, amount float(10) NOT NULL, additionalFee float(10) DEFAULT 0 NOT NULL, PRIMARY KEY (id));
+CREATE TABLE "Order" (id number(10) GENERATED AS IDENTITY, description varchar2(255), orderDate date NOT NULL, totalWeight float(10) NOT NULL, amount float(10) NOT NULL, additionalFee float(10) DEFAULT 0 NOT NULL, isHomeDelivery number(1) NOT NULL, clientId number(10) NOT NULL, orderStatus varchar2(20) NOT NULL, pharmacyId number(10) NOT NULL, deliveryRunId number(10) NOT NULL, PRIMARY KEY (id));
 CREATE TABLE OrderProduct (productId number(10) NOT NULL, orderId number(10) NOT NULL, quantity number(5) NOT NULL, PRIMARY KEY (productId, orderId));
 CREATE TABLE OrderStatus (designation varchar2(20) DEFAULT 'ordered' NOT NULL, PRIMARY KEY (designation));
 CREATE TABLE Park (id number(10) GENERATED AS IDENTITY, pharmacyId number(10) NOT NULL, vehicleType varchar2(20) NOT NULL, maxSlotsNumber number(3) NOT NULL, totalOutputCurrent float(10) NOT NULL, PRIMARY KEY (id));
