@@ -73,7 +73,7 @@ public class ClientService {
                 strBody += cc.getCreditCardNr() + ", ";
             }
             strBody = strBody.substring(0,strBody.length()-2);
-            EmailSender.emailSender("1191014@isep.ipp.pt","Account Creation",
+            EmailSender.emailSender(c.getEmail(),"Account Creation",
                     String.format("Your brand new account has been registered to the System!\n___________________________________________________________________\n" +
                             "Account Information:\n\nName: %s\nNIF: %s\nAddress: %s, %s, %s, %s\nCredit Card: %s\n\n___________________________________________________________________\n\n" +
                             "Thank you for choosing us.\nKing regards,\nPharmacy Service G21.",c.getName(),c.getNif(),c.getAddress().getStreetName(),
