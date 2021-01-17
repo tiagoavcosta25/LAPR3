@@ -42,10 +42,11 @@ public class DeliveryDB extends DataHandler {
 
             callStmt.execute();
 
-            closeAll();
         } catch (SQLException e) {
             flag = false;
             e.printStackTrace();
+        } finally {
+            closeAll();
         }
         return flag;
     }
@@ -67,10 +68,11 @@ public class DeliveryDB extends DataHandler {
                 String strName = rSet.getString(3);
                 lstPaths.add(new Path(intIdAddress1, intIdAddress2, strName));
             }
-            closeAll();
             return lstPaths;
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            closeAll();
         }
         throw new IllegalArgumentException("No Paths Avaliable.");
     }
@@ -90,10 +92,11 @@ public class DeliveryDB extends DataHandler {
             while (rSet.next()) {
                 lstAddress.add(addressManager(rSet, 1));
             }
-            closeAll();
             return lstAddress;
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            closeAll();
         }
         throw new IllegalArgumentException("No Addresses Avaliable.");
     }
@@ -116,11 +119,12 @@ public class DeliveryDB extends DataHandler {
             if (rSet.next()) {
                 maxPayload= rSet.getFloat(1);
             }
-            closeAll();
             return maxPayload;
 
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            closeAll();
         }
         throw new IllegalArgumentException("No payload found for the DR with the courier with the following email:" + email);
 
@@ -147,10 +151,11 @@ public class DeliveryDB extends DataHandler {
                 lstClients.put(clientEmail,info);
                 rSet.next();
             }
-            closeAll();
             return lstClients;
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            closeAll();
         }
         throw new IllegalArgumentException("No Scooters Avaliable.");
     }

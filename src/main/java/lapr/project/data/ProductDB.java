@@ -36,10 +36,11 @@ public class ProductDB extends DataHandler {
 
             // Guarda o cursor retornado num objeto "ResultSet".
             ResultSet rSet = (ResultSet) callStmt.getObject(1);
-            closeAll();
             return productManager(rSet, 1);
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            closeAll();
         }
         System.out.println(("No Product with id:" + intId));
         return new Product(-1, "", "", 0, 0);
@@ -63,9 +64,10 @@ public class ProductDB extends DataHandler {
 
             callStmt.execute();
 
-            closeAll();
         } catch (SQLException e) {
             flag = false;
+        } finally {
+            closeAll();
         }
         return flag;
     }
@@ -81,9 +83,10 @@ public class ProductDB extends DataHandler {
 
             callStmt.execute();
 
-            closeAll();
         } catch (SQLException e) {
             flag = false;
+        } finally {
+            closeAll();
         }
         return flag;
     }
@@ -104,10 +107,11 @@ public class ProductDB extends DataHandler {
             callStmt.setFloat(5, fltUnitaryWeight);
             //Executa a invocação da função "updateProduct".
             callStmt.execute();
-            closeAll();
 
         } catch (SQLException e) {
             return false;
+        } finally {
+            closeAll();
         }
         return true;
     }
@@ -131,10 +135,11 @@ public class ProductDB extends DataHandler {
 
                 lstProducts.add(new Product(intId, strName, strDescription, fltUnitaryPrice, fltUnitaryWeight));
             }
-            closeAll();
             return lstProducts;
         } catch (SQLException e) {
             throw new IllegalArgumentException("No Products Avaliable.");
+        } finally {
+            closeAll();
         }
     }
 
@@ -155,10 +160,11 @@ public class ProductDB extends DataHandler {
 
                 lstProducts.add(oProduct);
             }
-            closeAll();
             return lstProducts;
         } catch (SQLException e) {
             throw new IllegalArgumentException("No Products Avaliable.");
+        } finally {
+            closeAll();
         }
     }
 }

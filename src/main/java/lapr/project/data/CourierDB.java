@@ -81,10 +81,11 @@ public class CourierDB extends DataHandler {
 
             callStmt.execute();
 
-            closeAll();
         } catch (SQLException e) {
             flag = false;
             e.printStackTrace();
+        } finally {
+            closeAll();
         }
         return flag;
     }
@@ -113,10 +114,12 @@ public class CourierDB extends DataHandler {
 
             callStmt.execute();
 
-            closeAll();
         } catch (SQLException e) {
             flag = false;
             e.printStackTrace();
+        }
+        finally {
+            closeAll();
         }
         return flag;
 
@@ -152,12 +155,12 @@ public class CourierDB extends DataHandler {
                 String postalCode = rSet.getString(5);
                 String locality = rSet.getString(6);
                 String country = rSet.getString(7);
-                closeAll();
                 return new Address(latitude, longitude, streetName, doorNumber, postalCode, locality, country);
             }
-            closeAll();
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            closeAll();
         }
         throw new IllegalArgumentException("No Address for Courier:" + email);
     }
@@ -188,13 +191,14 @@ public class CourierDB extends DataHandler {
             if (rSet.next()) {
                 int chargingSlotID = rSet.getInt(1);
                 float outputPower = rSet.getFloat(2);
-                closeAll();
                 return new ChargingSlot(chargingSlotID, null, outputPower);
             }
-            closeAll();
         } catch (SQLException e) {
             e.printStackTrace();
             return null;
+        }
+        finally {
+            closeAll();
         }
         throw new IllegalArgumentException("No Charging Slot for Courier: " + email);
     }
@@ -221,10 +225,11 @@ public class CourierDB extends DataHandler {
 
             callStmt.execute();
 
-            closeAll();
         } catch (SQLException e) {
             flag = false;
             e.printStackTrace();
+        } finally {
+            closeAll();
         }
         return flag;
     }
@@ -260,13 +265,13 @@ public class CourierDB extends DataHandler {
                 Integer strNIF = rSet.getInt(5);
                 String strIban = rSet.getString(6);
                 Pharmacy oPharmacy = pharmacyManager(rSet, 7);
-                closeAll();
                 return new Courier(courierID, courierName, courierEmail, password, strNIF, strIban, oPharmacy);
             }
-            closeAll();
         } catch (SQLException | NoSuchAlgorithmException e) {
             e.printStackTrace();
             return null;
+        } finally {
+            closeAll();
         }
         throw new IllegalArgumentException("No Courier: " + id);
     }

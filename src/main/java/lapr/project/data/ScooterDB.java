@@ -46,13 +46,13 @@ public class ScooterDB extends DataHandler {
                 int intBatteryCapacity = rSet.getInt(6);
                 float fltBatteryVoltage = rSet.getFloat(7);
                 Pharmacy oPharmacy = pharmacyManager(rSet,8);
-                closeAll();
                 return new Scooter(fltPotency, fltWeight, fltMaxPayload, strCharginStatus, fltBatteryPerc,
                         intBatteryCapacity, fltBatteryVoltage, oPharmacy);
             }
-            closeAll();
         } catch (SQLException | NoSuchAlgorithmException e) {
             e.printStackTrace();
+        } finally {
+            closeAll();
         }
         throw new IllegalArgumentException("No Scooter with ID:" + id);
     }
@@ -87,10 +87,11 @@ public class ScooterDB extends DataHandler {
 
             callStmt.execute();
 
-            closeAll();
         } catch (SQLException e) {
             flag = false;
             e.printStackTrace();
+        } finally {
+            closeAll();
         }
         return flag;
     }
@@ -113,10 +114,11 @@ public class ScooterDB extends DataHandler {
             callStmt.setInt(9, intPharmacyId);
 
             callStmt.execute();
-            closeAll();
 
         } catch (SQLException e) {
             return false;
+        } finally {
+            closeAll();
         }
         return true;
     }
@@ -150,9 +152,10 @@ public class ScooterDB extends DataHandler {
 
                 rSet.next();
             }
-            closeAll();
         } catch (SQLException | NoSuchAlgorithmException e) {
             e.printStackTrace();
+        } finally {
+            closeAll();
         }
         throw new IllegalArgumentException("No Scooters Avaliable.");
     }
@@ -167,10 +170,11 @@ public class ScooterDB extends DataHandler {
 
             callStmt.execute();
 
-            closeAll();
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
+        } finally {
+            closeAll();
         }
         return true;
     }

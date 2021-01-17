@@ -69,5 +69,11 @@ class ProductTest {
         String expResultString = "Product{m_intId=1, m_strName='Produto 1', m_strDescription='Descrição 1', m_fltUnitaryPrice=2.0, m_fltUnitaryWeight=0.0}";
         String resultString = product.toString();
         assertEquals(expResultString, resultString);
+
+        boolean resultbool = product.hasId(1);
+        assertTrue(resultbool);
+
+        resultbool = product.hasId(2);
+        assertFalse(resultbool);
     }
 }

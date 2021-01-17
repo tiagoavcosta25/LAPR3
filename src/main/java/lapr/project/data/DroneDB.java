@@ -37,11 +37,12 @@ public class DroneDB extends DataHandler {
             callStmt.setInt(9, droneId);
 
             callStmt.execute();
-            closeAll();
 
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
+        } finally {
+            closeAll();
         }
         return true;
     }
@@ -71,10 +72,11 @@ public class DroneDB extends DataHandler {
 
             callStmt.execute();
 
-            closeAll();
         } catch (SQLException e) {
             flag = false;
             e.printStackTrace();
+        } finally {
+            closeAll();
         }
         return flag;
     }
@@ -108,10 +110,11 @@ public class DroneDB extends DataHandler {
                         fltBatteryPerc, intBatteryCapacity, fltBatteryVoltage, oPharmacy));
 
                 rSet.next();
-                closeAll();
             }
         } catch (SQLException | NoSuchAlgorithmException e) {
             e.printStackTrace();
+        } finally {
+            closeAll();
         }
         throw new IllegalArgumentException("No Drones Avaliable.");
     }
@@ -126,10 +129,11 @@ public class DroneDB extends DataHandler {
 
             callStmt.execute();
 
-            closeAll();
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
+        } finally {
+            closeAll();
         }
         return true;
 
@@ -150,10 +154,11 @@ public class DroneDB extends DataHandler {
             if (rSet.next()) {
                 payload = rSet.getFloat(1);
             }
-            closeAll();
             return payload;
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            closeAll();
         }
         throw new IllegalArgumentException("No Drone with the ID.");
     }

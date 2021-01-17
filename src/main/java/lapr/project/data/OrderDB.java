@@ -181,7 +181,6 @@ public class OrderDB extends DataHandler {
             ResultSet rSet = (ResultSet) callStmt.getObject(1);
 
             if (rSet.next()) {
-                closeAll();
                 return orderManager(rSet, 1);
             }
         } catch (SQLException | NoSuchAlgorithmException e) {
