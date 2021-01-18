@@ -39,9 +39,9 @@ class UserSessionTest {
 
         assertNotEquals(userSession1.getRole(), UserSession.Role.ADMIN);
 
-        assertEquals(UserSession.Role.CLIENT,userSession1.getRole().getRole());
+        assertEquals(UserSession.Role.CLIENT,userSession1.getRole());
 
-        assertNotEquals(UserSession.Role.ADMIN,userSession1.getRole().getRole());
+        assertNotEquals(UserSession.Role.ADMIN,userSession1.getRole());
     }
 
     @Test
