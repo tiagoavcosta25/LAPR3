@@ -1,5 +1,6 @@
 package lapr.project.model.service;
 
+import lapr.project.data.ParkDB;
 import lapr.project.data.PharmacyDB;
 import lapr.project.model.*;
 import java.util.List;
@@ -7,9 +8,11 @@ import java.util.List;
 public class PharmacyService {
 
     private PharmacyDB m_oPharmacyDB;
+    private ParkDB m_oParkDB;
 
     public PharmacyService() {
         this.m_oPharmacyDB = new PharmacyDB();
+        this.m_oParkDB = new ParkDB();
     }
 
     public Pharmacy getPharmacy(int strId) {
@@ -48,5 +51,9 @@ public class PharmacyService {
 
     public Courier getSuitableCourier() {
         return m_oPharmacyDB.getSuitableCourier();
+    }
+
+    public boolean addPark(int intPharmacyId, Park p, int intNonChargingSlots, int intChargingSlots) {
+        return this.m_oParkDB.addParkToDB(intPharmacyId, p, intNonChargingSlots, intChargingSlots);
     }
 }

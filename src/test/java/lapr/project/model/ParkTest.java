@@ -11,7 +11,7 @@ class ParkTest {
 
     @Test
     void getId() {
-        Park oPark = new Park(-1, 1);
+        Park oPark = new Park(-1, 1, 2, VehicleType.SCOOTER);
         Integer expected = -1;
         Integer real = oPark.getId();
         assertEquals(expected, real);
@@ -19,7 +19,7 @@ class ParkTest {
 
     @Test
     void setId() {
-        Park oPark = new Park(2);
+        Park oPark = new Park(-1, 1, 2, VehicleType.SCOOTER);
         Integer expected = -2;
         oPark.setId(expected);
         Integer real = oPark.getId();
@@ -81,22 +81,6 @@ class ParkTest {
         oPark.setParkingSlots(expected);
         List<NonChargingSlot> real = oPark.getParkingSlots();
         assertEquals(expected, real);
-    }
-
-    @Test
-    void addParkingSlot() {
-        Park oPark = new Park();
-        oPark.setMaxSlotsNumber(3);
-        boolean real = oPark.addParkingSlot(new NonChargingSlot());
-        assertTrue(real);
-    }
-
-    @Test
-    void addChargingSlot() {
-        Park oPark = new Park();
-        oPark.setMaxSlotsNumber(3);
-        boolean real = oPark.addChargingSlot(new ChargingSlot());
-        assertTrue(real);
     }
 
     @Test

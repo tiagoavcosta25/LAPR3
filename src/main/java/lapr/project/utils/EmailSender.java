@@ -1,11 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package lapr.project.utils;
 
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.PasswordAuthentication;
@@ -16,10 +13,12 @@ import javax.mail.internet.MimeMessage;
 
 public class EmailSender {
 
+    private static final Logger LOGGER = Logger.getLogger(EmailSender.class.getName());
+
     private EmailSender() {
     }
 
-    public static boolean emailSender(String emailToFoward, String subject, String body) {
+    public static boolean sendEmail(String emailToFoward, String subject, String body) {
         Properties props = new Properties();
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.starttls.enable", "true");
@@ -43,16 +42,15 @@ public class EmailSender {
             message.setFrom(new InternetAddress("FarmacyService"));
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(emailToFoward));
             message.setSubject(subject);
-            message.setContent(strHtmlBody, "text/html; charset=utf-8");
+            message.setContent(strHtmlBody, Constants.EMAIL_BODY_TYPE);
             Transport.send(message);
-            System.out.println("Email Sent!");
+            LOGGER.log(Level.INFO, "Email Sent!");
             return true;
         } catch (MessagingException e) {
-            System.out.println("Error sending the email.");
+            LOGGER.log(Level.WARNING, "Error sending the email.");
         }
         return false;
     }
-
 
     private static String htmlBody(String body) {
         if(body.equals(""))

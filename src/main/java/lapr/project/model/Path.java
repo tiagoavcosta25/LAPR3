@@ -3,6 +3,7 @@ package lapr.project.model;
 import java.util.Objects;
 
 public class Path {
+
     private int m_intIdAddressA;
     private int m_intIdAddressB;
     private String m_strName;

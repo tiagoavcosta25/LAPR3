@@ -4,7 +4,6 @@ import lapr.project.data.InvoiceDB;
 import lapr.project.model.*;
 import lapr.project.utils.EmailSender;
 
-import java.sql.Date;
 import java.util.Map;
 
 public class InvoiceService {
@@ -108,7 +107,7 @@ public class InvoiceService {
             strBody += String.format("\n\t\t\t\tTHANK YOU!");
             strBody += String.format("\n_______________________________________");
 
-            EmailSender.emailSender(strEmail, "Invoice Number: " + oInvoice.getId(), strBody);
+            EmailSender.sendEmail(strEmail, "Invoice Number: " + oInvoice.getId(), strBody);
             return true;
         } catch (Exception e){
             return false;

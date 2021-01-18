@@ -3,18 +3,6 @@ package lapr.project.model;
 import lapr.project.controller.ApplicationPOT;
 import lapr.project.model.User;
 
-/**
- * The Class that represents the Current Session that is logged on the app
- * <p>
- * Group: Team Lisa [G-037]
- * ______________________________________________________
- *
- * @author Ernesto Rodrigues <1190560@isep.ipp.pt>
- * @author Jessica Alves <1190682@isep.ipp.pt>
- * @author Pedro Santos <1190967@isep.ipp.pt>
- * @author Rodrigo Costa <1191014@isep.ipp.pt>
- *
- */
 public class UserSession {
 
     /**
@@ -31,8 +19,7 @@ public class UserSession {
     public enum Role {
         ADMIN("Administrator"),
         COURIER("Courier"),
-        CLIENT("Client"),
-        P_MANAGER("Pharmacy Manager");
+        CLIENT("Client");
 
         private final String label;
 
@@ -86,9 +73,6 @@ public class UserSession {
                 break;
             case 3:
                 this.m_role = Role.COURIER;
-                break;
-            case 4:
-                this.m_role = Role.P_MANAGER;
                 break;
             default:
                 this.m_role = null;

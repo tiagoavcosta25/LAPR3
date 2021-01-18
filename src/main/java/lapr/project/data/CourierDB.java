@@ -157,44 +157,6 @@ public class CourierDB extends DataHandler {
         throw new IllegalArgumentException("No Address for Courier:" + email);
     }
 
-    public ChargingSlot getAvailableChargingSlot(String email, String vehicleType) {
-        /* Objeto "callStmt" para invocar a função "getSailor" armazenada na BD.
-         *
-         * FUNCTION getSailor(id NUMBER) RETURN pkgSailors.ref_cursor
-         * PACKAGE pkgSailors AS TYPE ref_cursor IS REF CURSOR; END pkgSailors;
-         */
-        CallableStatement callStmt = null;
-        try {
-            openConnection();
-            callStmt = getConnection().prepareCall("{ ? = call getAvailableChargingSlot(?,?) }");
-
-            // Regista o tipo de dados SQL para interpretar o resultado obtido.
-            callStmt.registerOutParameter(1, OracleTypes.CURSOR);
-            // Especifica o parâmetro de entrada da função "getSailor".
-            callStmt.setString(2, email);
-            callStmt.setString(3, vehicleType);
-
-            // Executa a invocação da função "getSailor".
-            callStmt.execute();
-
-            // Guarda o cursor retornado num objeto "ResultSet"
-            ResultSet rSet = (ResultSet) callStmt.getObject(1);
-
-            if (rSet.next()) {
-                int chargingSlotID = rSet.getInt(1);
-                float outputPower = rSet.getFloat(2);
-                return new ChargingSlot(chargingSlotID, null, outputPower);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return null;
-        }
-        finally {
-            closeAll();
-        }
-        throw new IllegalArgumentException("No Charging Slot for Courier: " + email);
-    }
-
     public boolean updateCourierDB(Courier oCourier) {
         boolean flag = true;
         try {
@@ -266,5 +228,24 @@ public class CourierDB extends DataHandler {
             closeAll();
         }
         throw new IllegalArgumentException("No Courier: " + id);
+    }
+
+    public boolean parkScooter(int intId) {
+        try {
+            openConnection();
+
+            CallableStatement callStmt = getConnection().prepareCall("{ call parkScooter(?) }");
+
+            callStmt.setInt(1, intId);
+
+            callStmt.execute();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            closeAll();
+        }
+        return true;
     }
 }

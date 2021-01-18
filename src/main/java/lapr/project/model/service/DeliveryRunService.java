@@ -50,7 +50,7 @@ public class DeliveryRunService {
             Iterator it = lstClients.entrySet().iterator();
             while (it.hasNext()) {
                 Map.Entry pair = (Map.Entry) it.next();
-                EmailSender.emailSender(pair.getKey().toString(), "Order Status",
+                EmailSender.sendEmail(pair.getKey().toString(), "Order Status",
                         "Your order has been dispatched!\n" + pair.getValue().toString());
             }
         } catch (Exception e) {

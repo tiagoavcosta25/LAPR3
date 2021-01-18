@@ -6,8 +6,6 @@ import lapr.project.model.CreditCard;
 import lapr.project.utils.EmailSender;
 
 import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class ClientService {
@@ -73,7 +71,7 @@ public class ClientService {
                 strBody += cc.getCreditCardNr() + ", ";
             }
             strBody = strBody.substring(0,strBody.length()-2);
-            EmailSender.emailSender(c.getEmail(),"Account Creation",
+            EmailSender.sendEmail(c.getEmail(),"Account Creation",
                     String.format("Your brand new account has been registered to the System!\n___________________________________________________________________\n" +
                             "Account Information:\n\nName: %s\nNIF: %s\nAddress: %s, %s, %s, %s\nCredit Card: %s\n\n___________________________________________________________________\n\n" +
                             "Thank you for choosing us.\nKing regards,\nPharmacy Service G21.",c.getName(),c.getNif(),c.getAddress().getStreetName(),

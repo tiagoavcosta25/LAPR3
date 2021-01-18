@@ -12,10 +12,6 @@ import java.sql.SQLException;
 
 public class UserDB extends DataHandler {
 
-    public UserDB() {
-        super();
-    }
-
     /**
      * Checks if the User that has the 'email' given by parameter
      * is registered in the DataBase, and if so, logs him in

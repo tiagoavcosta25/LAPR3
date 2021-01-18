@@ -34,8 +34,7 @@ public class ProductDB extends DataHandler {
         } finally {
             closeAll();
         }
-        System.out.println(("No Product with id:" + intId));
-        return new Product(-1, "", "", 0, 0);
+        return null;
     }
 
     public boolean addProductToDB(Product p) {

@@ -4,8 +4,6 @@ import lapr.project.data.PharmacyTransferDB;
 import lapr.project.model.*;
 import lapr.project.utils.EmailSender;
 
-import java.util.Map;
-
 public class PharmacyTransferService {
 
     private PharmacyTransferDB m_oPharmacyTransferDB;
@@ -35,8 +33,8 @@ public class PharmacyTransferService {
             String strEmail = oPharmacyTransfer.getOrder().getPharmacy().getEmail();
             String strBody = getBody(oPharmacyTransfer, "Product Sent!");
 
-            EmailSender.emailSender(strEmail, "Transfer Number: " + oPharmacyTransfer.getId(), strBody);
-            EmailSender.emailSender(oPharmacyTransfer.getNearbyPharmacy().getEmail(), "Transfer Number: " + oPharmacyTransfer.getId(), "Transfer Note Sent With Success!");
+            EmailSender.sendEmail(strEmail, "Transfer Number: " + oPharmacyTransfer.getId(), strBody);
+            EmailSender.sendEmail(oPharmacyTransfer.getNearbyPharmacy().getEmail(), "Transfer Number: " + oPharmacyTransfer.getId(), "Transfer Note Sent With Success!");
             return true;
         } catch (Exception e){
             return false;
@@ -52,8 +50,8 @@ public class PharmacyTransferService {
             String strEmail = oPharmacyTransfer.getNearbyPharmacy().getEmail();
             String strBody = getBody(oPharmacyTransfer, "Product Delivered!");
 
-            EmailSender.emailSender(strEmail, "Transfer Number: " + oPharmacyTransfer.getId(), strBody);
-            EmailSender.emailSender(oPharmacyTransfer.getOrder().getPharmacy().getEmail(), "Transfer Number: " + oPharmacyTransfer.getId(), "Delivery Note Sent With Success!");
+            EmailSender.sendEmail(strEmail, "Transfer Number: " + oPharmacyTransfer.getId(), strBody);
+            EmailSender.sendEmail(oPharmacyTransfer.getOrder().getPharmacy().getEmail(), "Transfer Number: " + oPharmacyTransfer.getId(), "Delivery Note Sent With Success!");
             return true;
         } catch (Exception e){
             return false;

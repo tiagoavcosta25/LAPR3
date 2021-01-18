@@ -15,13 +15,13 @@ class ChargingSlotTest {
     private ChargingSlot cDif2;
 
     public ChargingSlotTest(){
-        c1 = new ChargingSlot(1,new Scooter(),2.0f);
-        c2 = new ChargingSlot(2.0f);
-        c3 = new ChargingSlot(1,2.0f);
+        c1 = new ChargingSlot(1,new Scooter());
+        c2 = new ChargingSlot();
+        c3 = new ChargingSlot(1);
         c4 = new ChargingSlot();
         cCopy = c1;
-        cDif = new ChargingSlot(2,new Scooter(),3.0f);
-        cDif2 = new ChargingSlot(2,new Scooter(),2.0f);
+        cDif = new ChargingSlot(2,new Scooter());
+        cDif2 = new ChargingSlot(2,new Scooter());
     }
 
 
@@ -54,22 +54,6 @@ class ChargingSlotTest {
         assertEquals(expected2, real2);
         Vehicle expected = new Scooter();
         Vehicle real = c1.getVehicle();
-        assertEquals(expected, real);
-    }
-
-    @Test
-    void getOutputPower() {
-        float expected4 = -1;
-        float real4 = c4.getOutputPower();
-        assertEquals(expected4, real4);
-        float expected3 = 2.0f;
-        float real3 = c3.getOutputPower();
-        assertEquals(expected3, real3);
-        float expected2 = 2.0f;
-        float real2 = c2.getOutputPower();
-        assertEquals(expected2, real2);
-        float expected = 2.0f;
-        float real = c1.getOutputPower();
         assertEquals(expected, real);
     }
 
@@ -110,26 +94,6 @@ class ChargingSlotTest {
         assertEquals(expected2, real2);
         Integer expected = 1;
         Integer real = c1.getId();
-        assertEquals(expected, real);
-    }
-
-    @Test
-    void setOutputPower() {
-        c1.setOutputPower(5.0f);
-        c2.setOutputPower(5.0f);
-        c3.setOutputPower(5.0f);
-        c4.setOutputPower(5.0f);
-        float expected4 = 5.0f;
-        float real4 = c4.getOutputPower();
-        assertEquals(expected4, real4);
-        float expected3 = 5.0f;
-        float real3 = c3.getOutputPower();
-        assertEquals(expected3, real3);
-        float expected2 = 5.0f;
-        float real2 = c2.getOutputPower();
-        assertEquals(expected2, real2);
-        float expected = 5.0f;
-        float real = c1.getOutputPower();
         assertEquals(expected, real);
     }
 
@@ -175,7 +139,7 @@ class ChargingSlotTest {
 
     @Test
     void testToString() {
-        String expResult = "ChargingSlot{m_intId=1, m_oScooter=Vehicle{Id=-1, PharmacyId=-1, Potency=-1.0, Weight=-1.0, MaxPayload=-1.0, CharginStatus='Not Charging', Battery=Battery{Id=0, BatteryPerc=-1.0, BatteryCapacity=-1, BatteryVoltage=-1.0}, Pharmacy=Pharmacy{m_intId=-1, m_strName='No name.', m_strEmail='No email.', m_oAddress=Address{m_id=-1, m_latitude=-22.0, m_longitude=-22.0, m_streetName='No Street Name', m_doorNumber='No Door Number', m_postalCode='No Postal Code', m_locality='No Locality', m_country='No Country'}, m_lstParks=[], m_mapStock={}}}, m_fltOutputPower=2.0}";
+        String expResult = "ParkingSlot{m_intId=1, m_oVehicle=Vehicle{Id=-1, PharmacyId=-1, Potency=-1.0, Weight=-1.0, MaxPayload=-1.0, CharginStatus='Not Charging', Battery=Battery{Id=0, BatteryPerc=-1.0, BatteryCapacity=-1, BatteryVoltage=-1.0}, Pharmacy=Pharmacy{m_intId=-1, m_strName='No name.', m_strEmail='No email.', m_oAddress=Address{m_id=-1, m_latitude=-22.0, m_longitude=-22.0, m_streetName='No Street Name', m_doorNumber='No Door Number', m_postalCode='No Postal Code', m_locality='No Locality', m_country='No Country'}, m_lstParks=[], m_mapStock={}}}}";
         String result = c1.toString();
         assertEquals(expResult, result);
     }

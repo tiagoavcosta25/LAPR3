@@ -114,11 +114,4 @@ class CourierServiceTest {
         result = courierService.removeCourier(1);
         assertFalse(result);
     }
-
-    @Test
-    void getAvailableChargingSlot() {
-        when(mockCourierDB.getAvailableChargingSlot("email@gmail.com","drone")).thenReturn(new ChargingSlot());
-        ChargingSlot result = courierService.getAvailableChargingSlot("email@gmail.com","drone");
-        assertEquals(new ChargingSlot(),result);
-    }
 }

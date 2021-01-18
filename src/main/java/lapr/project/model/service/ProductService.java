@@ -41,7 +41,7 @@ public class ProductService {
         return null;
     }
 
-        public boolean validateInputWithId(int intId, String strName, String strDescription,
+    public boolean validateInputWithId(int intId, String strName, String strDescription,
                                        float fltUnitaryPrice, float fltUnitaryWeight) {
         return validateInput(strName, strDescription, fltUnitaryPrice, fltUnitaryWeight) && validateId(intId);
     }

@@ -8,17 +8,31 @@ public class Park {
 
     private int m_intId;
     private int m_intMaxSlotsNumber;
+    private float m_fltTotalOutputCurrent;
+    private VehicleType m_enumVehicleType;
     private List<ChargingSlot> m_lstChargingSlots;
     private List<NonChargingSlot> m_lstNonChargingSlots;
 
     private static int DEFAULT_ID = -1;
     private static int DEFAULT_MAX_SLOTS = -1;
+    private static float DEFAULT_TOTAL_OUTPUT_CURRENT = -1f;
+    private static VehicleType DEFAULT_VEHICLE_TYPE = VehicleType.NOTDEFINED;
     private static List<ChargingSlot> DEFAULT_CHARGING_SLOTS = new ArrayList<>();
     private static List<NonChargingSlot> DEFAULT_PARKING_SLOTS = new ArrayList<>();
 
-    public Park(int intId, int intMaxSlotsNumber) {
+    public Park(int intId, int intMaxSlotsNumber, float fltTotalOutputCurrent, VehicleType enumVehicleType) {
         this.m_intId = intId;
         this.m_intMaxSlotsNumber = intMaxSlotsNumber;
+        this.m_fltTotalOutputCurrent = fltTotalOutputCurrent;
+        this.m_enumVehicleType = enumVehicleType;
+        this.m_lstChargingSlots = DEFAULT_CHARGING_SLOTS;
+        this.m_lstNonChargingSlots = DEFAULT_PARKING_SLOTS;
+    }
+
+    public Park(int intMaxSlotsNumber, float fltTotalOutputCurrent, VehicleType enumVehicleType) {
+        this.m_intMaxSlotsNumber = intMaxSlotsNumber;
+        this.m_fltTotalOutputCurrent = fltTotalOutputCurrent;
+        this.m_enumVehicleType = enumVehicleType;
         this.m_lstChargingSlots = DEFAULT_CHARGING_SLOTS;
         this.m_lstNonChargingSlots = DEFAULT_PARKING_SLOTS;
     }
@@ -26,12 +40,10 @@ public class Park {
     public Park() {
         this.m_intId = DEFAULT_ID;
         this.m_intMaxSlotsNumber = DEFAULT_MAX_SLOTS;
+        this.m_fltTotalOutputCurrent = DEFAULT_TOTAL_OUTPUT_CURRENT;
+        this.m_enumVehicleType = DEFAULT_VEHICLE_TYPE;
         this.m_lstChargingSlots = DEFAULT_CHARGING_SLOTS;
         this.m_lstNonChargingSlots = DEFAULT_PARKING_SLOTS;
-    }
-
-    public Park(int intMaxSlotsNumber) {
-        this.setMaxSlotsNumber(intMaxSlotsNumber);
     }
 
     public int getId() {
@@ -50,6 +62,14 @@ public class Park {
         this.m_intMaxSlotsNumber = m_intMaxSlotsNumber;
     }
 
+    public VehicleType getVehicleType() {
+        return m_enumVehicleType;
+    }
+
+    public void setVehicleType(VehicleType m_enumVehicleType) {
+        this.m_enumVehicleType = m_enumVehicleType;
+    }
+
     public List<ChargingSlot> getChargingSlots() {
         return new ArrayList<>(m_lstChargingSlots);
     }
@@ -66,20 +86,12 @@ public class Park {
         this.m_lstNonChargingSlots = new ArrayList<>(m_lstNonChargingSlots);
     }
 
-    public boolean addParkingSlot(NonChargingSlot oNonChargingSlot) {
-        if ((this.m_lstNonChargingSlots.size() + this.m_lstChargingSlots.size() + 1) <= this.m_intMaxSlotsNumber){
-            this.m_lstNonChargingSlots.add(oNonChargingSlot);
-            return true;
-        }
-        return false;
+    public float getTotalOutputCurrent() {
+        return m_fltTotalOutputCurrent;
     }
 
-    public boolean addChargingSlot(ChargingSlot oChargingSlot) {
-        if ((this.m_lstNonChargingSlots.size() + this.m_lstChargingSlots.size() + 1) <= this.m_intMaxSlotsNumber){
-            this.m_lstChargingSlots.add(oChargingSlot);
-            return true;
-        }
-        return false;
+    public void getTotalOutputCurrent(float m_fltTotalOutputCurrent) {
+        this.m_fltTotalOutputCurrent = m_fltTotalOutputCurrent;
     }
 
     @Override
