@@ -95,21 +95,25 @@ public class CourierService {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss dd-MM-yyyy");
         String formattedDateTime = lt.format(formatter); //
 
-        EmailSender.sendEmail(ApplicationPOT.getInstance().getCurrentSession().getCurrentUserEmail(),
-                "Scooter Parked", String.format("The scooter number %d was parked successfully!\n__________" +
-                        "_________________________________________________________\n\n" + "Estimated charging " +
-                        "time: %d hours, %d minutes %d seconds.\nEstimated time for full charge: %s.\n__________" +
-                        "_________________________________________________________\n\n" + "Thank you for " +
-                        "choosing us.\nKing regards,\nPharmacy Service G21.", intIdScooter, time.get(0), time.get(1),
-                        time.get(2), formattedDateTime));
+        boolean flag = oCourierDB.parkScooter(intIdScooter);
 
-        File file = new File(Constants.ESTIMATE_FILE_PATH + "/" + estimateFileName);
-        if (file.delete()) {
-            file = new File(Constants.ESTIMATE_FILE_PATH + "/" + estimateFileName + Constants.ESTIMATE_FILE_FILTER);
-            if(file.delete())
-                LOGGER.log(Level.INFO, "File handled successfully!");
+        if(flag) {
+            EmailSender.sendEmail(ApplicationPOT.getInstance().getCurrentSession().getCurrentUserEmail(),
+                    "Scooter Parked", String.format("The scooter number %d was parked successfully!\n__________" +
+                                    "_________________________________________________________\n\n" + "Estimated charging " +
+                                    "time: %d hours, %d minutes %d seconds.\nEstimated time for full charge: %s.\n__________" +
+                                    "_________________________________________________________\n\n" + "Thank you for " +
+                                    "choosing us.\nKing regards,\nPharmacy Service G21.", intIdScooter, time.get(0), time.get(1),
+                            time.get(2), formattedDateTime));
+
+            File file = new File(Constants.ESTIMATE_FILE_PATH + "/" + estimateFileName);
+            if (file.delete()) {
+                file = new File(Constants.ESTIMATE_FILE_PATH + "/" + estimateFileName + Constants.ESTIMATE_FILE_FILTER);
+                if (file.delete())
+                    LOGGER.log(Level.INFO, "File handled successfully!");
+            }
         }
-        return true;
+        return flag;
     }
 
 }
