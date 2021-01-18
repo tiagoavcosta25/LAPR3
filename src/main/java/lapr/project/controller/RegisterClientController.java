@@ -7,10 +7,14 @@ import lapr.project.model.service.ClientService;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class RegisterClientController {
 
+    private static final Logger LOGGER = Logger.getLogger(RegisterClientController.class.getName());
     private ClientService m_oClientService;
+
 
     public RegisterClientController() {
         m_oClientService = new ClientService();
@@ -35,7 +39,7 @@ public class RegisterClientController {
      * @return True if Client was registered, false if otherwise
      */
     public boolean registerNewClient(String name, Integer nif, String email, String password, Double latitude, Double longitude, String streetName,
-                                     String doorNumber, String postalCode, String locality, String country, List<CreditCard> lstCreditCardNr) throws Exception {
+                                     String doorNumber, String postalCode, String locality, String country, List<CreditCard> lstCreditCardNr) {
 
         try {
             if (m_oClientService.validateInput(name, nif, email, password, latitude, longitude, streetName, doorNumber, postalCode, locality, country,
@@ -45,6 +49,7 @@ public class RegisterClientController {
                 return m_oClientService.registerNewClient(c);
             }
         } catch (Exception e) {
+            LOGGER.log(Level.WARNING, "Client was not successfully registered!");
             return false;
         }
         return false;

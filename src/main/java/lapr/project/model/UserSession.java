@@ -27,8 +27,8 @@ public class UserSession {
             this.label = label;
         }
 
-        public Role getRole() {
-            return this;
+        public String getRole() {
+            return this.label;
         }
 
     }
