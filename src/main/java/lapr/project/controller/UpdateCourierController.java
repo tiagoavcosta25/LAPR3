@@ -52,12 +52,12 @@ public class UpdateCourierController {
      * The method returns the validation of that instance of Courier. True if the data is correct and false if
      * it doesn't.
      *
-     * @param intID Courier's email.
+     * @param email Courier's email.
      */
-    public Courier getCourierByID(Integer intID) {
+    public Courier getCourierByEmail(String email) {
         try {
-            if (validateInput(intID)) {
-                this.oCourier = oCourierService.getCourierByID(intID);
+            if (validateInput(email)) {
+                this.oCourier = oCourierService.getCourierByEmail(email);
                 return oCourier;
             }
         } catch (Exception ex) {
@@ -72,6 +72,7 @@ public class UpdateCourierController {
     public Courier updateCourier(Courier courier, String strName, String strEmail, Integer intNif, String strIban,Integer pharmacyID) {
         try{
             oPharmacy = this.oPharmacyService.getPharmacy(pharmacyID);
+            validateInput(strName,strEmail,intNif,strIban);
             oCourier = this.oCourierService.updateCourier(courier,strName,strEmail,intNif,strIban,oPharmacy);
             return this.oCourier;
         } catch (Exception ex) {
@@ -80,8 +81,15 @@ public class UpdateCourierController {
         return null;
     }
 
-    public boolean updateCourierDB(Courier oCourier){
+    public boolean updateCourierDB(){
         return oCourierService.updateCourierDB(oCourier);
+    }
+
+    /**
+     * The method sets the courier.
+     */
+    public void setCourier(Courier oCourier) {
+        this.oCourier = oCourier;
     }
 
 
@@ -111,12 +119,12 @@ public class UpdateCourierController {
      * Validates the input information regarding
      * a Courier
      *
-     * @param intID Courier's email.
+     * @param email Courier's email.
      * @return True if input is valid, false if otherwise
      */
-    public boolean validateInput(Integer intID) {
+    public boolean validateInput(String email) {
 
-        if (intID == null || intID <= 0) return false;
+        if (email == null || email.isEmpty() || !email.contains("@")) return false;
 
         return true;
     }

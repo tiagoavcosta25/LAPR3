@@ -40,15 +40,15 @@ class UpdateCourierControllerTest {
 
     @Test
     void getCourierByID() {
-        when(mockCourierService.getCourierByID(1)).thenReturn(new Courier());
-        Courier courier = updateCourierController.getCourierByID(1);
+        when(mockCourierService.getCourierByEmail("ernesto@gmail.com")).thenReturn(new Courier());
+        Courier courier = updateCourierController.getCourierByEmail("ernesto@gmail.com");
         assertEquals(new Courier(),courier);
 
-        when(mockCourierService.getCourierByID(1)).thenThrow(new NullPointerException());
-        courier = updateCourierController.getCourierByID(1);
+        when(mockCourierService.getCourierByEmail("ernesto@gmail.com")).thenThrow(new NullPointerException());
+        courier = updateCourierController.getCourierByEmail(null);
         assertNull(courier);
 
-        courier = updateCourierController.getCourierByID(0);
+        courier = updateCourierController.getCourierByEmail("");
         assertNull(courier);
     }
 
@@ -72,12 +72,14 @@ class UpdateCourierControllerTest {
     @Test
     void updateCourierDB() {
         when(mockCourierService.updateCourierDB(new Courier())).thenReturn(assertTrue);
-        boolean result = updateCourierController.updateCourierDB(new Courier());
+        updateCourierController.setCourier(new Courier());
+        boolean result = updateCourierController.updateCourierDB();
 
         assertEquals(assertTrue,result);
 
         when(mockCourierService.updateCourierDB(new Courier())).thenReturn(false);
-        result = updateCourierController.updateCourierDB(new Courier());
+        updateCourierController.setCourier(new Courier());
+        result = updateCourierController.updateCourierDB();
 
         assertEquals(false,result);
     }
@@ -122,13 +124,10 @@ class UpdateCourierControllerTest {
     @Test
     void testValidateInput() {
 
-        boolean real = updateCourierController.validateInput(1);
+        boolean real = updateCourierController.validateInput("ernesto@gmail.com");
         assertEquals(assertTrue, real);
 
-        real = updateCourierController.validateInput(-1);
-        assertFalse(real);
-
-        real = updateCourierController.validateInput(0);
+        real = updateCourierController.validateInput("");
         assertFalse(real);
 
         real = updateCourierController.validateInput(null);
