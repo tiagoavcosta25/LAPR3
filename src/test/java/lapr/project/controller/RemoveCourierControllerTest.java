@@ -31,37 +31,40 @@ class RemoveCourierControllerTest {
 
     @Test
     void validateCourier() {
-        boolean result = this.removeCourierController.validateCourier(1);
+        boolean result = this.removeCourierController.validateCourier("ernesto@gmail.com");
         assertTrue(result);
 
-        result = this.removeCourierController.validateCourier(-1);
+        result = this.removeCourierController.validateCourier("ernestogmail.com");
         assertFalse(result);
 
-        result = this.removeCourierController.validateCourier(0);
+        result = this.removeCourierController.validateCourier("");
         assertFalse(result);
 
     }
 
     @Test
     void removeCourier() {
-        when(mockCServ.removeCourier(1)).thenReturn(assertTrue);
-        boolean result = this.removeCourierController.removeCourier(1);
+        when(mockCServ.removeCourier("ernesto@gmail.com")).thenReturn(assertTrue);
+        boolean result = this.removeCourierController.removeCourier("ernesto@gmail.com");
         assertTrue(result);
 
-        when(mockCServ.removeCourier(-1)).thenReturn(false);
-        result = removeCourierController.removeCourier(-1);
+        when(mockCServ.removeCourier("ernesto@gmail.com")).thenReturn(false);
+        result = removeCourierController.removeCourier("ernesto@gmail.com");
         assertFalse(result);
     }
 
     @Test
     void validateInput() {
-        boolean result = this.removeCourierController.validateInput(1);
+        boolean result = this.removeCourierController.validateInput("ernesto@gmail.com");
         assertTrue(result);
 
-        result = this.removeCourierController.validateInput(-1);
+        result = this.removeCourierController.validateInput("ernestogmail.com");
         assertFalse(result);
 
-        result = this.removeCourierController.validateInput(0);
+        result = this.removeCourierController.validateInput("");
+        assertFalse(result);
+
+        result = this.removeCourierController.validateInput(null);
         assertFalse(result);
 
     }

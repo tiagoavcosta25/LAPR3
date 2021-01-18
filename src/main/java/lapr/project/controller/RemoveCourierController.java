@@ -1,9 +1,6 @@
 package lapr.project.controller;
 
-import lapr.project.model.Courier;
-import lapr.project.model.Pharmacy;
 import lapr.project.model.service.CourierService;
-import lapr.project.model.service.PharmacyService;
 
 
 /**
@@ -37,15 +34,15 @@ public class RemoveCourierController {
      * The method returns the validation of that instance of Courier. True if the data is correct and false if
      * it doesn't.
      */
-    public boolean validateCourier(Integer intID) {
-        return validateInput(intID);
+    public boolean validateCourier(String email) {
+        return validateInput(email);
     }
 
     /**
      * The method adds a Freelancer to the Organization of the current user.
      */
-    public boolean removeCourier(Integer intID) {
-        return this.oCourierService.removeCourier(intID);
+    public boolean removeCourier(String email) {
+        return this.oCourierService.removeCourier(email);
     }
 
 
@@ -53,10 +50,14 @@ public class RemoveCourierController {
      * Validates the input information regarding
      * a Courier
      *
+     * @param email Courier's email.
      * @return True if input is valid, false if otherwise
      */
-    public boolean validateInput(Integer intID) {
-        return (!(intID <= 0));
+    public boolean validateInput(String email) {
+
+        if (email == null || email.isEmpty() || !email.contains("@")) return false;
+
+        return true;
     }
 }
 

@@ -23,6 +23,7 @@ public class CourierService {
 
     private CourierDB oCourierDB;
 
+
     public CourierService() {
         oCourierDB = new CourierDB();
     }
@@ -38,15 +39,15 @@ public class CourierService {
         return oCourierDB.addCourierToDB(oCourier.getName(), oCourier.getEmail(), oCourier.getPw(), oCourier.getNif(), oCourier.getM_iban(), oCourier.getM_Pharmacy().getId());
     }
 
-    public Courier getCourierByID(Integer intID) {
-        return oCourierDB.getCourierByID(intID);
+    public Courier getCourierByEmail(String email) {
+        return oCourierDB.getCourierByEmail(email);
     }
 
     public Courier updateCourier(Courier courier, String strName, String strEmail, Integer intNif, String strIban, Pharmacy oPharmacy) {
-        if (!strName.isEmpty()) courier.setName(strName);
-        if (!strEmail.isEmpty()) courier.setEmail(strEmail);
-        if (!(intNif == 0)) courier.setNif(intNif);
-        if (!strIban.isEmpty()) courier.setM_iban(strIban);
+        if (strName != null) courier.setName(strName);
+        if (strEmail != null) courier.setEmail(strEmail);
+        if (intNif != null) courier.setNif(intNif);
+        if (strIban != null) courier.setM_iban(strIban);
         if (oPharmacy != null) courier.setM_Pharmacy(oPharmacy);
         return courier;
     }
@@ -55,9 +56,9 @@ public class CourierService {
         return oCourierDB.updateCourierDB(oCourier);
     }
 
-    public boolean removeCourier(Integer id) {
+    public boolean removeCourier(String email) {
         try {
-            return oCourierDB.removeCourier(id);
+            return oCourierDB.removeCourier(email);
         } catch (Exception e) {
             return false;
         }

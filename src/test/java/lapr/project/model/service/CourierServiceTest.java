@@ -58,9 +58,9 @@ class CourierServiceTest {
     }
 
     @Test
-    void getCourierByID() {
-        when(mockCourierDB.getCourierByID(-1)).thenReturn(new Courier());
-        Courier c = courierService.getCourierByID(-1);
+    void getCourierByEmail() {
+        when(mockCourierDB.getCourierByEmail("ernesto@gmail.com")).thenReturn(new Courier());
+        Courier c = courierService.getCourierByEmail("ernesto@gmail.com");
         assertEquals(new Courier(),c);
     }
 
@@ -102,16 +102,16 @@ class CourierServiceTest {
 
     @Test
     void  removeCourier() {
-        when(mockCourierDB.removeCourier(1)).thenReturn(assertTrue);
-        boolean result = courierService.removeCourier(1);
+        when(mockCourierDB.removeCourier("ernesto@gmail.com")).thenReturn(assertTrue);
+        boolean result = courierService.removeCourier("ernesto@gmail.com");
         assertEquals(assertTrue,result);
 
-        when(mockCourierDB.removeCourier(-1)).thenReturn(false);
-        result = courierService.removeCourier(-1);
+        when(mockCourierDB.removeCourier("ernesto@gmail.com")).thenReturn(false);
+        result = courierService.removeCourier("ernesto@gmail.com");
         assertFalse(result);
 
-        when(mockCourierDB.removeCourier(1)).thenThrow(new RuntimeException());
-        result = courierService.removeCourier(1);
+        when(mockCourierDB.removeCourier("ernesto@gmail.com")).thenThrow(new RuntimeException());
+        result = courierService.removeCourier("ernesto@gmail.com");
         assertFalse(result);
     }
 }

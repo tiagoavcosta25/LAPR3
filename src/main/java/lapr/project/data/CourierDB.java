@@ -87,9 +87,9 @@ public class CourierDB extends DataHandler {
      * <p>
      * Remove o marinheiro especificado da tabela "Sailors".
      *
-     * @param intId o identificador do marinheiro a remover.
+     * @param email o identificador do marinheiro a remover.
      */
-    public boolean removeCourier(int intId) {
+    public boolean removeCourier(String email) {
         boolean flag = true;
         try {
             openConnection();
@@ -102,7 +102,7 @@ public class CourierDB extends DataHandler {
              */
             CallableStatement callStmt = getConnection().prepareCall("{ call removeCourier(?) }");
 
-            callStmt.setInt(1, intId);
+            callStmt.setString(1,email);
 
             callStmt.execute();
 
@@ -188,7 +188,7 @@ public class CourierDB extends DataHandler {
         return flag;
     }
 
-    public Courier getCourierByID(Integer id) {
+    public Courier getCourierByEmail(String email) {
 
         /* Objeto "callStmt" para invocar a função "getSailor" armazenada na BD.
          *
@@ -198,12 +198,12 @@ public class CourierDB extends DataHandler {
         CallableStatement callStmt = null;
         try {
             openConnection();
-            callStmt = getConnection().prepareCall("{ ? = call getCourierByID(?) }");
+            callStmt = getConnection().prepareCall("{ ? = call getCourierByEmail(?) }");
 
             // Regista o tipo de dados SQL para interpretar o resultado obtido.
             callStmt.registerOutParameter(1, OracleTypes.CURSOR);
             // Especifica o parâmetro de entrada da função "getSailor".
-            callStmt.setInt(2, id);
+            callStmt.setString(2, email);
 
             // Executa a invocação da função "getSailor".
             callStmt.execute();
@@ -227,7 +227,7 @@ public class CourierDB extends DataHandler {
         } finally {
             closeAll();
         }
-        throw new IllegalArgumentException("No Courier: " + id);
+        throw new IllegalArgumentException("No Courier: " + email);
     }
 
     public boolean parkScooter(int intId) {
