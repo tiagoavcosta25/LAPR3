@@ -1,0 +1,53 @@
+@startuml
+skinparam classAttributeIconSize 0
+hide methods
+left to right direction
+
+database database {
+}
+
+class Pharmacy{
+-int id
+-String name
+-Address address
+}
+
+class Park{
+-int id
+-int maxSlotsNumber
+}
+
+class ChargingSlot{
+-int id;
+-float outputPower;
+}
+
+class Courier {
+      -String iban
+}
+
+abstract User{
+  -Integer id
+  -String email
+  -String password
+  -int nif
+  -string name
+}
+
+class Scooter {
+-int Id;
+-int BatteryPerc;
+-int CharginStatus;
+-int Potency;
+-int Weight;
+-int intBatteryCapacity
+}
+
+database "1" -- "*" Courier : has registered >
+Courier "1" -- "1" User : acts as >
+Courier "1" -- "*" Pharmacy : is associated to >
+Pharmacy "1" -- "1" Park : has >
+Pharmacy "1" -- "*" Scooter : has >
+Park "1" -- "1" ChargingSlot : has >
+Scooter "1" -- "1" ChargingSlot : belongs to >
+@enduml

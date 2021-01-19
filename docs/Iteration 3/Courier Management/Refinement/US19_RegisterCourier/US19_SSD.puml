@@ -1,0 +1,23 @@
+@startuml
+autonumber
+actor "Administrator" as ADM
+
+activate ADM
+ADM -> ":System" : initializes the register of a new Courier
+activate ":System"
+":System" --> ADM : asks for the data that features the courier (i.e., name, \ne-mail, NIF, bank account (IBAN) and pharmacyID)
+deactivate ":System"
+
+
+ADM -> ":System" : inserts the required data
+activate ":System"
+":System" --> ADM : presents the data and asks for a confirmation
+deactivate ":System"
+
+ADM -> ":System" : confirms
+activate ":System"
+":System" --> ADM : operation succeeded
+deactivate ":System"
+
+deactivate ADM
+@enduml

@@ -1,0 +1,60 @@
+@startuml
+autonumber
+hide footbox
+
+actor "Admin" as U
+
+participant ":UpdateDroneUI" as SYST
+participant "UpdateDroneController" as CTRL
+participant "droneService\n:DroneService" as DS
+participant "droneDB\n:DroneDB" as DB
+activate U
+
+
+U -> SYST : Engages the "update drone information" feature/button
+activate SYST
+SYST --> U : Asks for all the information required \nfor the update (i.e. battery percentage, pharmacyId,potency,\nweight, batteryCapacity, maxPayload, batteryVoltage, \nchargingStatus)
+deactivate SYST
+
+U -> SYST : Fills all the information required
+activate SYST
+SYST -> CTRL : validate(batteryPercentage, pharmacyId,potency,\nweight, batteryCapacity, maxPayload, batteryVoltage, \nchargingStatus,droneId)
+activate CTRL
+CTRL -> DS** : create()
+activate DS
+DS -> DB** : create()
+deactivate DS
+CTRL -> DS : validate(batteryPercentage, pharmacyId,potency,\nweight, batteryCapacity, maxPayload, batteryVoltage, \nchargingStatus, droneId)
+activate DS
+deactivate DS
+deactivate CTRL
+alt if all the data is valid
+SYST --> U : Validates, presents the data and informs\nabout the success of the operation
+SYST -> CTRL : updateDrone(batteryPercentage, pharmacyId,potency,\nweight, batteryCapacity, maxPayload, batteryVoltage, \nchargingStatus,droneId)
+activate CTRL
+CTRL -> DS : updateDrone(batteryPercentage, pharmacyId,potency,\nweight, batteryCapacity, maxPayload, batteryVoltage, \nchargingStatus, droneId)
+activate DS
+DS -> DB : updateDrone(batteryPercentage, pharmacyId,potency,\nweight, batteryCapacity, maxPayload, batteryVoltage, \nchargingStatus, droneId)
+activate DB
+ref over DB
+SD_CONNECTIONS
+end ref
+deactivate SYST
+
+
+
+deactivate DB
+deactivate DS
+deactivate CTRL
+
+deactivate SYST
+else if the data is not valid
+
+SYST --> U : Informs about the unsucess of the operation
+activate SYST
+deactivate SYST
+end
+
+deactivate U
+
+@enduml

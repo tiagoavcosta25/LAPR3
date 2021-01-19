@@ -67,6 +67,11 @@ public class MakeAnOrderController {
     private float m_fltCurrentPayment;
 
     /**
+     * Payments
+     */
+    private float m_fltExpectedPayment;
+
+    /**
      * An empty constructor of MakeAnOrderController that initiates the platform variable by getting it from the ApplicationPOT.
      */
     public MakeAnOrderController() {
@@ -78,6 +83,7 @@ public class MakeAnOrderController {
         this.m_mapPayments = new TreeMap<>();
         this.m_oGenerateInvoiceController = new GenerateInvoiceController();
         this.m_fltCurrentPayment = 0f;
+        this.m_fltExpectedPayment = 0f;
     }
 
     /**
@@ -136,7 +142,8 @@ public class MakeAnOrderController {
      */
     public boolean addProductToOrder(Product oProduct, Integer intQuantity) {
         try{
-            m_mapProducts.put(oProduct, intQuantity);
+            this.m_mapProducts.put(oProduct, intQuantity);
+            m_fltExpectedPayment += oProduct.getUnitaryPrice() * (float) intQuantity;
             return true;
         } catch(Exception e){
             return false;
@@ -148,12 +155,12 @@ public class MakeAnOrderController {
      */
     public boolean addPayment(CreditCard oCreditCard, Float fltValue) {
         try{
-            if((this.m_fltCurrentPayment + fltValue) <= this.m_oOrder.getAmount()){
-                m_mapPayments.put(oCreditCard, fltValue);
+            if((this.m_fltCurrentPayment + fltValue) <= this.m_fltExpectedPayment){
+                this.m_mapPayments.put(oCreditCard, fltValue);
                 this.m_fltCurrentPayment += fltValue;
-                return false;
-            } else{
                 return true;
+            } else{
+                throw new Exception();
             }
         } catch(Exception e){
             return false;

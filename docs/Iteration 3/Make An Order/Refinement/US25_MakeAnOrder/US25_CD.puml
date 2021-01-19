@@ -1,0 +1,212 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+package "UI" #DDDDDD {
+class MakeAnOrderUI{
+}
+}
+
+
+package "Controller" #DDDDDD {
+class MakeAnOrderController{
++newOrder(description)
++registerOrder()
++getAvailableProducts(pharmacyId)
++getPharmacies()
++addProductToOrder(product, quantity)
++setHomeDelivery(homeDelivery)
++lstCreditCards = getCreditCardsByClient(email)
++addPayment(creditCard, amount)
++generateInvoice()
+}
+
+class GenerateInvoiceController{
++GenerateInvoiceController()
++generateInvoice(order, mapPayments)
+}
+
+class ApplicationPOT
+{
+  +static getInstance()
+  +getPlatform()
+}
+
+class UserSession
+{
+  +getCurrentSession()
+}
+}
+
+database Database{
+}
+
+
+package "Model" #DDDDDD {
+package "Service" #DDDDDD {
+
+  class OrderService{
+       +OrderService()
+       +addOrder(description, mapProducts, client, pharmacy, isHomeDelivery)
+       +registerOrder(order)
+  }
+
+  class PharmacyService{
+          +PharmacyService()
+          +getPharmacies()
+  }
+
+  class ProductService{
+          +ProductService()
+          +getAvailableProducts(pharmacyId)
+  }
+  class ClientService{
+        +ClientService()
+        +getUserByEmail(email)
+        +getCreditCardsByClient(email)
+  }
+ }
+}
+
+package "Model" #DDDDDD {
+abstract class User{
+-   String name
+-   String email
+-   String password
+-   Integer nif
+}
+
+class Client{
+-   int IBAN
+-   long creditCardNumber
+-   int validityDate
+-   int CCV
++addCredits(addtionalCredits)
+}
+
+class Address{
+-   int id
+-   String streetName
+-   String doorNumber
+-   String postalCode
+-   String locality
+-   String country
+-   float longitude
+-   float latitude
+}
+
+class Order{
+-   int id
+-   float amount
+-   float totalWeight
+-   float additionalFee
+-   Date orderDate
+-   String description
+-   String status
+-   boolean isHomeDelivery
+-   Map<Product, Integer> mapProducts
++Order(description, mapProducts, \nclient, pharmacy, isHomeDelivery)
++calculateAmount()
++calculateTotalWeight()
+}
+
+class Product{
+-   int id
+-   String name
+-   String description
+-   float unitaryPrice
+-   float unitaryWeight
+}
+
+class Pharmacy{
+-   int id
+-   String name
+-   String email
+}
+
+class CreditCard{
+-   int id
+-   Long creditCardNr
+-   String validityDate
+-   Integer CCV
+}
+
+class Invoice{
+-   int id
+-   Date orderDate
+-   float totalAmount
+-   Map<CreditCard, Float> mapPayments
+}
+
+}
+
+
+package "Data" #DDDDDD {
+class DataHandler{
+    +openConnection()
+    +closeAll()
+}
+
+class PharmacyDB{
+          +PharmacyDB()
+          +getPharmacies()
+      }
+
+class OrderDB{
+       +OrderDB()
+       +registerOrder(order)
+  }
+
+class ProductDB{
+          +ProductDB()
+          +getAvailableProducts(pharmacyId)
+  }
+
+class ClientDB{
+        +ClientDB()
+        +getUserByEmail(email)
+                +getCreditCardsByClient(email)
+  }
+}
+
+class PharmacyDB extends DataHandler
+class ProductDB extends DataHandler
+class ClientDB extends DataHandler
+class OrderDB extends DataHandler
+class Client extends User
+
+MakeAnOrderUI ..> MakeAnOrderController
+MakeAnOrderUI ..> GenerateInvoiceController
+MakeAnOrderController ..> ApplicationPOT
+MakeAnOrderController ..> UserSession
+MakeAnOrderController ..> ClientService
+MakeAnOrderController ..> ProductService
+MakeAnOrderController ..> OrderService
+MakeAnOrderController ..> PharmacyService
+Database "1" -- "*" Client : has registered >
+Database "1" -- "*" Order : has registered >
+Database "1" -- "*" Product : has registered >
+Database "1" -- "*" Address : has registered >
+Database "1" -- "*" CreditCard : has registered >
+PharmacyDB -- Database : manages >
+ClientDB -- Database : manages >
+OrderDB -- Database : manages >
+ProductDB -- Database : manages >
+PharmacyService "1" --> "*" Pharmacy : manages services of
+PharmacyService "1" --> "1" PharmacyDB : uses
+OrderService "1" --> "*" Order : manages services of
+OrderService "1" --> "1" OrderDB : uses
+ClientService "1" --> "*" Client : manages services of
+ClientService "1" --> "1" ClientDB : uses
+ProductService "1" --> "*" Product : manages services of
+ProductService "1" --> "1" ProductDB : uses
+
+Order "1" -- "*" Product : has >
+Order "1" -- "1" Pharmacy : has >
+Client "1" -- "1" Order : makes >
+Client "1" -- "1" Address : has >
+Client "*" -- "*" CreditCard : has >
+Invoice "1" -- "*" Product : has >
+Invoice "1" -- "1" Order : has >
+Invoice "1" -- "1" Client : has >
+
+@enduml

@@ -1,0 +1,131 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+database Database {
+}
+
+package "UI" #DDDDDD {
+class ScooterInformationUI{
+}
+}
+
+package "Controller" #DDDDDD {
+class ScooterInformationController{
++showPharmacies()
++showScootersList(pharmacyId)
++getScooterInformation(scooterId)
+}
+}
+
+
+package "Model" #DDDDDD {
+ package "Service" #DDDDDD {
+  class PharmacyService{
+      +PharmacyService()
+      +getPharmacies()
+  }
+
+  class ScooterService{
+      +ScooterService()
+      +getScootersList()
+      +getScooterInformation(scooterId)
+   }
+}
+
+package "Model" #DDDDDD {
+class ScooterPark{
+-   int maxSlotsNumber
+}
+
+class ScooterChargingSlot{
+-   int id
+-   float outputPower
+}
+
+class ScooterParkingSlot{
+-   int id
+}
+
+class Scooter{
++Scooter(batteryPerc, charginStatus, potency,\n weight, batteryCapacity, maxPayload, batteryVoltage, pharmacyId)
+
+}
+
+class Vehicle{
+  -int id
+  -String vehicleType
+  -float potency
+  -float weight
+  -float maxPayload
+  -String charngingStatus
+}
+
+class Battery{
+  -int id
+  -float batteryPerc
+  -int batteryCapacity
+  -float batteryVoltage
+}
+
+class Address{
+  -double longitude
+  -double latitude
+  -String doorNumber
+  -String streetName
+  -String postalCode
+  -String locality
+  -String country
+}
+
+class Pharmacy {
+  -int id
+  -String name
+-   String email
+  +getScootersList(pharmacyId)
+}
+}
+
+
+package "Data" #DDDDDD {
+class DataHandler{
+    +openConnection()
+    +closeAll()
+}
+class PharmacyDB{
+     +PharmacyDB()
+     +getPharmacies()
+ }
+
+ class ScooterDB{
+     +ScooterDB()
+     +getScootersList()
+     +getScooterInformationFromDB(scooterId)
+  }
+}
+
+class PharmacyDB extends DataHandler
+class ScooterDB extends DataHandler
+
+ScooterInformationUI ..> ScooterInformationController
+ScooterInformationController ..> PharmacyService
+ScooterInformationController ..> ScooterService
+Database "1" --> "1" PharmacyDB : manages
+Database "1" --> "1" ScooterDB : manages
+ScooterService "1" --> "*" PharmacyDB : uses
+PharmacyService "1" --> "*" ScooterDB : uses
+PharmacyService "1" --> "*" Pharmacy : manage services of
+ScooterService "1" --> "*" Scooter : manage services of
+
+Database "1" -- "*" Pharmacy : has registered >
+Database "1" -- "*" Scooter : has registered >
+
+Vehicle "1" -- "1" Battery : has >
+Vehicle "*" -- "1" Pharmacy : belongs to a >
+Scooter "*" -- "1" Vehicle : is a type of >
+Pharmacy "1" -- "1" Address : has >
+Pharmacy "1" -- "1" ScooterPark : has >
+ScooterPark "1" -- "1" ScooterChargingSlot : has >
+ScooterPark "1" -- "1" ScooterParkingSlot : has >
+
+
+@enduml

@@ -1,0 +1,26 @@
+@startuml
+autonumber
+hide footbox
+
+actor "Admin" as ADMIN
+
+participant ":System" as SYST
+
+activate ADMIN
+
+
+ADMIN -> SYST : Engages the "update drone information" feature/button
+activate SYST
+SYST --> ADMIN : Asks for all the information required \nfor the update (i.e. battery percentage, pharmacy,potency,\nweight, batteryCapacity, maxPayload, batteryVoltage, \nchargingStatus)
+deactivate SYST
+
+ADMIN -> SYST : Fills all the information required
+activate SYST
+
+SYST --> ADMIN : Validates, presents the data and asks for a confirmation
+deactivate SYST
+
+
+deactivate U
+
+@enduml

@@ -1,0 +1,16 @@
+@startuml
+autonumber
+actor "Client" as CR
+
+activate CR
+CR -> ":System" : makes an order
+alt if order cannot be entirely fulfilled
+activate ":System"
+
+":System" -> ":System" : removes the product\n from  pharmacy stock
+":System" --> CR : notifies the Client of the unsuccessful operation
+end
+deactivate ":System"
+
+deactivate CR
+@enduml

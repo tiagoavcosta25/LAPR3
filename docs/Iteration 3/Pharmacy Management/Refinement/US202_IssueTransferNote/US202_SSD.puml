@@ -1,0 +1,12 @@
+@startuml
+autonumber
+hide footbox
+
+participant ":System" as SYST
+
+
+SYST -> SYST : initiates the process of issue a transfer note
+activate SYST
+deactivate SYST
+
+@enduml

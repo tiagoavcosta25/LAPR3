@@ -1,0 +1,51 @@
+@startuml
+skinparam classAttributeIconSize 0
+hide methods
+left to right direction
+
+
+
+class Client{
+-String credits
+}
+
+abstract class User{
+-Integer id
+-String email
+-String password
+-Integer nif
+-String name
+}
+
+class Address{
+-Integer id
+-Double latitude
+-Double longitude
+-String streetName
+-String doorNumber
+-String postalCode
+-String locality
+-String country
+}
+
+class CreditCard{
+-Long creditCardNr;
+-String validityDate;
+-Integer CCV;
++CreditCard(creditCardNr,validityDate,CCV)
+}
+
+database Database {
+
+}
+
+
+class Client extends User
+
+Database "1" -- "*" Client : has registered
+Database "1" -- "*" Address : has registered
+Database "1" -- "*" CreditCard : has registered
+Client "1" -- "1" Address : has
+Client "*" -- "*" CreditCard : has
+
+@enduml

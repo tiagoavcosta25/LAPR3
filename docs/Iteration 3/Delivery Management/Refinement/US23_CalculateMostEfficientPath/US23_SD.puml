@@ -1,0 +1,40 @@
+@startuml
+autonumber
+hide footbox
+
+
+
+participant "CalculateMostEfficientPathController" as CTRL
+participant "ApplicationPOT" as _APP
+participant "app\n:ApplicationPOT" as APP
+participant "session\n:UserSession" as SESSION
+participant "worldMap\n:WorldMap" as DRS
+participant "deliveryPoints\nList<Address>" as LIST
+
+
+
+[o-> CTRL : getShortestPath(startAddress, endAddress, deliveryPoints)
+activate CTRL
+
+
+
+
+
+
+
+
+CTRL -> _APP : app = getInstance()
+activate _APP
+deactivate _APP
+CTRL -> APP : worldMap = getWorldMap()
+activate APP
+deactivate APP
+
+CTRL -> DRS : calculateMostEfficientPath(startAddress, endAddress, deliveryPoints)
+activate DRS
+
+deactivate DRS
+
+deactivate CTRL
+
+@enduml

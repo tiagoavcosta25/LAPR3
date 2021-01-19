@@ -1,0 +1,12 @@
+@startuml
+autonumber
+actor "Courier" as CR
+
+activate CR
+CR -> ":System" : wants to know if there is an available charging station
+activate ":System"
+":System" --> CR : presents the information about the charging station
+deactivate ":System"
+
+deactivate CR
+@enduml

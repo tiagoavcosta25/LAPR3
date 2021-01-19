@@ -1,0 +1,125 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+
+package "Controller" #DDDDDD {
+class ApplicationPOT
+{
+  +static getInstance()
+  +getCurrentSession(session)
+}
+}
+
+package "Data" #DDDDDD {
+
+class DeliveryRunDB {
++DeliveryRunDB()
++addNewDeliveryRun(deliveryRun)
+}
+
+class PharmacyDB {
++PharmacyDB()
++getSuitableCourier()
+}
+
+class OrderDB {
++OrderDB()
++getOrder(orderId)
+}
+
+class DataHandler{
++openConnection()
++closeAll()
+}
+
+}
+
+package "UI" #DDDDDD {
+class RegisterDeliveryRunUI{
+
+}
+
+
+
+}
+
+
+package "Controller" #DDDDDD {
+class RegisterDeliveryRunController{
++registerDeliveryRun(lstOrderId)
+}
+}
+
+
+package "Model" #DDDDDD {
+
+
+class Courier{
++Courier(id,name,email,pw,nif,iban,pharmacy)
+}
+
+class DeliveryRun{
+-Integer m_intId
+-Courier m_oCourier
+-Vehicle m_oVehicle
+-List<Order> m_lstOrder
+-DeliveryStatus m_oStatus
++DeliveryRun(courier,lstPath)
+}
+
+}
+
+package "Model" #DDDDDD {
+class UserSession{
+-String email
++getRole()
+}
+
+package "Service" #DDDDDD {
+
+
+class DeliveryRunService {
++DeliveryRunService()
++newDeliveryRun(courier,lstOrder)
++addNewDeliveryRun(deliveryRun)
+}
+
+class PharmacyService {
++PharmacyService()
++getSuitableCourier()
+}
+
+class OrderService {
++OrderService()
++getOrderList(lstOrderId)
+}
+
+}
+
+enum DeliveryStatus{
++DeliveryStatus()
+}
+}
+
+
+
+
+
+
+RegisterDeliveryRunUI ..> RegisterDeliveryRunController
+RegisterDeliveryRunController ..> DeliveryRunService
+RegisterDeliveryRunController ..> ApplicationPOT
+RegisterDeliveryRunController ..> PharmacyService
+RegisterDeliveryRunController ..> OrderService
+OrderService "1" --> "1" OrderDB : has >
+PharmacyService "1" --> "1" PharmacyDB : has >
+DeliveryRunService "1" --> "1" DeliveryRunDB : has >
+DeliveryRun "1" --> "1" Courier : has >
+DeliveryRun "1" --> "1" DeliveryStatus : has
+
+DeliveryRunService "1" --> "*" DeliveryRun : creates
+
+class DeliveryRunDB extends DataHandler
+ApplicationPOT "1" -> "1" UserSession : has
+
+@enduml

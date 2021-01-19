@@ -1,0 +1,117 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+package "UI" #DDDDDD {
+class AddPharmacyProductUI{
+
+}
+}
+
+
+package "Controller" #DDDDDD {
+class AddPharmacyProductController{
+    +getProducts()
+    +addPharmacyProduct(product, stock)
+    +registersPharmacyProduct()
+}
+}
+
+database Database{
+}
+
+package "Model" #DDDDDD {
+package "Service" #DDDDDD {
+
+   class PharmacyService{
+            +PharmacyService()
+            +getPharmacy(pharmacyId)
+          +registersPharmacyProduct(pharmacyId, product, stock)
+      }
+   class ProductService{
+            +ProductService()
+             +getProducts(pharamacyId)
+         }
+ }
+}
+
+package "Model" #DDDDDD {
+
+class Pharmacy{
+-   int id
+-   String name
+-   String email
+}
+
+class Park{
+-   int maxSlotsNumber
+}
+
+class ChargingSlot{
+-   int id
+-   float outputPower
+}
+
+class ParkingSlot{
+-   int id
+}
+
+class Product{
+-   int id
+-   String name
+-   String description
+-   float unitaryPrice
+-   float unitaryWeight
+}
+
+class Address{
+-   String streetName
+-   String doorNumber
+-   String postalCode
+-   String locality
+-   String country
+-   float longitude
+-   float latitude
+}
+
+}
+
+
+package "Data" #DDDDDD {
+class DataHandler{
+    +openConnection()
+    +closeAll()
+}
+
+class PharmacyDB{
+          +PharmacyDB()
+          +registersPharmacyProduct(pharmacyId, product, stock)
+      }
+
+      class ProductDB{
+                +ProductDB()
+             +getProducts(pharamacyId)
+            }
+}
+
+class PharmacyDB extends DataHandler
+class ProductDB extends DataHandler
+
+AddPharmacyProductUI ..> AddPharmacyProductController
+AddPharmacyProductController ..> PharmacyService
+AddPharmacyProductController ..> ProductService
+Database "1" -- "*" Pharmacy : has registered >
+Database "1" -- "*" Address : has registered >
+Database "1" -- "*" Park : has registered >
+Database "1" -- "*" ChargingSlot : has registered >
+Database "1" -- "*" ParkingSlot : has registered >
+PharmacyDB -- Database : manages >
+PharmacyService "1" --> "*" Pharmacy : manages services of
+ProductDB -- Database : manages >
+ProductService "1" --> "*" Product : manages services of
+Pharmacy "1" -- "1" Park : has >
+Pharmacy "1" -- "*" Product : has >
+Pharmacy "1" -- "*" Address : has >
+Park "1" -- "1" ChargingSlot : has >
+Park "1" -- "1" ParkingSlot : has >
+
+@enduml

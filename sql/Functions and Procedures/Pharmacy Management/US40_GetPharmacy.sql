@@ -1,4 +1,4 @@
-create or replace function getPharmacy(p_pharmacyId IN PHARMACY.id%type)
+create or replace function getPharmacy(p_email IN PHARMACY.EMAIL%type)
     return sys_refcursor is
     v_cursor sys_refcursor;
     pharmacy_not_found exception;
@@ -8,7 +8,7 @@ begin
         select p.ID, p.NAME, p.EMAIL, a.*
         from PHARMACY p
         inner join ADDRESS a on a.ID = p.ADDRESSID
-        where p.ID = p_pharmacyId;
+        where p.EMAIL = p_email;
 
 
     if v_cursor is null then

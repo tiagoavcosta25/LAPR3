@@ -1,0 +1,32 @@
+@startuml
+autonumber
+hide footbox
+
+actor "Admin" as ADM
+participant ":System" as SYST
+
+activate ADM
+
+ADM -> SYST : initiates the process adding a product to a pharmacy
+activate SYST
+SYST --> ADM : shows the pharmacy's product list
+deactivate SYST
+
+ADM -> SYST : selects the product
+activate SYST
+SYST --> ADM : asks for the stock for said product
+deactivate SYST
+
+ADM -> SYST : introduces the stock
+activate SYST
+SYST --> ADM : validates, presents the information and asks for confirmation
+deactivate SYST
+
+ADM -> SYST : confirms
+activate SYST
+SYST --> ADM : informs of the success of the operation
+deactivate SYST
+
+deactivate ADM
+
+@enduml

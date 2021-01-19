@@ -1,0 +1,95 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+
+package "Controller" #DDDDDD {
+class ApplicationPOT
+{
+  +static getInstance()
+  +setCurrentSession(session)
+}
+}
+
+
+package "UI" #DDDDDD {
+class LoginUI{
+
+}
+}
+
+
+package "Controller" #DDDDDD {
+class LoginController{
++login(email,password)
+}
+}
+
+
+
+
+
+
+package "Model" #DDDDDD {
+abstract class User{
+-Integer id
+-String email
+-String password
+-Integer nif
+-String name
++User(email,password,nif,name)
+}
+
+package "Service" #DDDDDD {
+
+class UserService {
++UserService()
++login(email,password)
+}
+
+}
+
+class UserSession{
+-String email
++UserSession(email,role)
+}
+
+
+
+
+}
+
+
+package "Data" #DDDDDD {
+class DataHandler{
++openConnection()
++closeAll()
+}
+
+ class UserDB{
+ +UserDB()
+ +login(email,encryptedPassword)
+ }
+
+}
+
+package "Utils" #DDDDDD {
+class EncryptPassword {
++encryptPasswordMD5(password)
+}
+
+}
+
+
+
+
+LoginUI ..> LoginController
+LoginController ..> ApplicationPOT
+LoginController ..> UserService
+UserService "1" --> "1" UserDB : has
+UserDB "1" --> "*" UserSession : creates
+class UserDB extends DataHandler
+ApplicationPOT "1" --> "1" UserSession : has
+UserSession "1" --> "1" User : allocates
+User ..> EncryptPassword : encrypts using
+
+@enduml

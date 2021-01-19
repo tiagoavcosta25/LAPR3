@@ -1,0 +1,34 @@
+@startuml
+autonumber
+hide footbox
+
+actor "Admin" as ADMIN
+
+participant ":System" as SYST
+
+activate ADMIN
+
+ADMIN -> SYST : Sends a request regarding the register of an drone
+activate SYST
+
+SYST --> ADMIN : Shows the list of pharmacies and asks to choose one
+deactivate SYST
+ADMIN -> SYST : Chooses the pharmacy
+activate SYST
+
+SYST --> ADMIN : Asks for the data that features the drone (i.e., battery, \nbattery capacity, maximum Weight, status, potency, battery voltage,)
+deactivate SYST
+
+ADMIN -> SYST : Inserts the required data
+activate SYST
+SYST -> ADMIN : Shows the information about the drone, requesting verification
+deactivate SYST
+
+ADMIN -> SYST : Confirms the information
+activate SYST
+SYST -> ADMIN : Informs the success of the operation.
+deactivate SYST
+
+deactivate ADMIN
+
+@enduml

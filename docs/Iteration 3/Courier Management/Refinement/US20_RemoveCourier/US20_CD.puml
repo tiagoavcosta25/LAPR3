@@ -1,0 +1,89 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+package "UI" #DDDDDD{
+class RemoveCourierUI {
+
+}
+}
+package "Controller" #DDDDDD {
+class RemoveCourierController{
++validateCourier(email)
++removeCourier(email)
+}
+
+class ApplicationPOT
+{
+  +static getInstance()
+}
+}
+
+
+package "Model" #DDDDDD {
+package "Service" #DDDDDD {
+   class CourierService{
+          +validateCourier(email)
+          +removeCourier(email)
+
+      }
+
+
+ }
+}
+
+package "Model" #DDDDDD {
+abstract class User{
+-Integer Id
+-String email
+-String password
+-String name
+-Integer nif
+}
+
+class Courier {
+      -Integer id
+      -String iban
+}
+
+class Administrator {
+}
+
+
+class Pharmacy{
+-   int id
+-   String name
+}
+
+
+}
+
+package "Data" #DDDDDD {
+class DataHandler{
+    +openConnection()
+    +closeAll()
+}
+
+class CourierDB{
+ +removeCourier(email)
+  }
+
+}
+database database{
+
+}
+class CourierDB extends DataHandler
+
+RemoveCourierController ..> ApplicationPOT
+RemoveCourierUI ..> RemoveCourierController
+RemoveCourierController ..> CourierService : has
+CourierService ..> CourierDB : has
+CourierDB --> database : manages
+
+database "1" -- "1" Administrator : has registered >
+database "1" -- "1" Pharmacy : has registered >
+Administrator "1" -- "1..*" Courier : removes >
+Courier "1" -- "1" User: acts as  >
+Courier "1" -- "1" Pharmacy: belongs to a  >
+Administrator "1" -- "1" User: acts as  >
+
+@enduml

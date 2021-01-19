@@ -1,0 +1,69 @@
+@startuml
+skinparam classAttributeIconSize 0
+hide methods
+left to right direction
+
+database Database {
+}
+
+class Pharmacy {
+  -int id
+  -String name
+-   String email
+}
+
+class ScooterPark{
+-   int maxSlotsNumber
+}
+
+class ScooterChargingSlot{
+-   int id
+-   float outputPower
+}
+
+class ScooterParkingSlot{
+-   int id
+}
+
+class Scooter{
+}
+
+class Vehicle{
+  -int id
+  -String vehicleType
+  -float potency
+  -float weight
+  -float maxPayload
+  -String charngingStatus
+}
+
+class Battery{
+  -int id
+  -float batteryPerc
+  -int batteryCapacity
+  -float batteryVoltage
+}
+
+class Address{
+  -double longitude
+  -double latitude
+  -String doorNumber
+  -String streetName
+  -String postalCode
+  -String locality
+  -String country
+}
+
+
+
+Database "1" -- "*" Pharmacy : has >
+Database "1" -- "*" Scooter : has >
+Scooter "*" -- "1" Vehicle : is a type of >
+Vehicle "1" -- "1" Battery : has >
+Vehicle "*" -- "1" Pharmacy : belongs to a >
+Pharmacy "1" -- "1" Address : has >
+Pharmacy "1" -- "1" ScooterPark : has >
+ScooterPark "1" -- "1" ScooterChargingSlot : has >
+ScooterPark "1" -- "1" ScooterParkingSlot : has >
+@enduml
+

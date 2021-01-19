@@ -1,0 +1,19 @@
+@startuml
+skinparam classAttributeIconSize 0
+hide methods
+left to right direction
+
+database Database {
+}
+
+class Product{
+    -String productId
+    -String name
+    -String description
+    -Double unitaryPrice
+    -Double unitaryWeight
+}
+
+Database -- "*" Product : has registered >
+
+@enduml

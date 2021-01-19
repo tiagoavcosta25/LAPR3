@@ -1,0 +1,58 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+package "Controller" #DDDDDD {
+class ApplicationPOT
+{
+  +static getInstance()
+  +getPlatform()
+  +getCurrentSession()
+}
+
+class UserSession
+{
+  +getCurrentUserEmail()
+}
+class KnowDeliveryController{
++getOrderByCour()
+}
+}
+package "UI" #DDDDDD {
+class KnowDeliveryUI{
+
+}
+}
+package "Model" #DDDDDD {
+package Service #DDDDDD {
+
+class DeliveryService{
++DeliveryService()
++getMaxPayload(email)
+}
+}
+
+}
+package "Data" #DDDDDD {
+class DataHandler{
++openConnection()
++closeAll()
+}
+
+ class DeliveryDB{
+ +DeliveryDB()
+ +getAddressesByDeliveryRunId(email)
+ +calculateMostEfficientPath(addressA, addressB, list)
+ }
+ database database{
+ }
+ }
+KnowDeliveryUI ..> KnowDeliveryController
+KnowDeliveryController ..> ApplicationPOT
+KnowDeliveryController ..> UserSession
+
+KnowDeliveryController ..> DeliveryService
+DeliveryService  ->  DeliveryDB : has
+DeliveryDB -> database : manages
+class DeliveryDB extends DataHandler
+
+@enduml

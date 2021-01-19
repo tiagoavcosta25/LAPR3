@@ -50,37 +50,34 @@ public class OrderDB extends DataHandler {
     }
 
     private boolean addOrder(float fltAmount, float fltTotalWeight, float fltAdditionalFee, Date dtOrderDate,
-                          String strDescription, String strStatus, Client oClient, int intPharmacyId, Map<Product, Integer> mapProducts) {
+                          String strDescription, String strStatus, boolean blnIsHomeDelivery, Client oClient, int intPharmacyId, Map<Product, Integer> mapProducts) {
         try {
             openConnection();
-            CallableStatement callStmt = getConnection().prepareCall("{ call addOrder(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) }");
+            CallableStatement callStmt = getConnection().prepareCall("{ ? = call addOrder(?,?,?,?,?,?,?,?,?,?) }");
 
-            callStmt.setFloat(1, fltAmount);
-            callStmt.setFloat(2, fltTotalWeight);
-            callStmt.setFloat(3, fltAdditionalFee);
-            callStmt.setString(4, strDescription);
-            callStmt.setDate(5, dtOrderDate);
-            callStmt.setString(6, strStatus);
-            callStmt.setInt(7, oClient.getId());
-            callStmt.setInt(8, oClient.getCredits());
-            callStmt.setInt(7, intPharmacyId);
+            callStmt.registerOutParameter(1, OracleTypes.INTEGER);
+            callStmt.setFloat(2, fltAmount);
+            callStmt.setFloat(3, fltTotalWeight);
+            callStmt.setFloat(4, fltAdditionalFee);
+            callStmt.setString(5, strDescription);
+            callStmt.setDate(6, dtOrderDate);
+            callStmt.setString(7, strStatus);
+            callStmt.setBoolean(8, blnIsHomeDelivery);
+            callStmt.setInt(9, oClient.getId());
+            callStmt.setInt(10, oClient.getCredits());
+            callStmt.setInt(11, intPharmacyId);
 
             callStmt.execute();
 
-            ResultSet rSet = (ResultSet) callStmt.getObject(1);
-            Integer intId = rSet.getInt(1);
+            Integer intId = (Integer) callStmt.getObject(1);
 
             if (intId != null) {
                 for (Product oProduct : mapProducts.keySet()) {
-                    callStmt = getConnection().prepareCall("{ call addProductToOrder(?,?,?,?,?,?) }");
+                    callStmt = getConnection().prepareCall("{ call addProductToOrder(?,?,?) }");
 
                     callStmt.setInt(1, intId);
                     callStmt.setInt(2, oProduct.getId());
-                    callStmt.setString(3, oProduct.getName());
-                    callStmt.setString(4, oProduct.getDescription());
-                    callStmt.setFloat(5, oProduct.getUnitaryPrice());
-                    callStmt.setFloat(6, oProduct.getUnitaryWeight());
-                    callStmt.setInt(6, mapProducts.get(oProduct));
+                    callStmt.setInt(3, mapProducts.get(oProduct));
                     callStmt.execute();
                 }
             }
@@ -116,7 +113,7 @@ public class OrderDB extends DataHandler {
 
     public boolean registerOrder(Order oOrder) {
          return addOrder(oOrder.getAmount(), oOrder.getTotalWeight(), oOrder.getAdditionalFee(), oOrder.getOrderDate(),
-                oOrder.getDescription(), oOrder.getStatus(), oOrder.getClient(), oOrder.getPharmacy().getId(), oOrder.getProducts());
+                oOrder.getDescription(), oOrder.getStatus(), oOrder.isHomeDelivery(), oOrder.getClient(), oOrder.getPharmacy().getId(), oOrder.getProducts());
     }
 
     public Order getLatestOrder(Client oClient) {

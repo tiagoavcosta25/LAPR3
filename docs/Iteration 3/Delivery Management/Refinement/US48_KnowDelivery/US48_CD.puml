@@ -1,0 +1,54 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+package "Controller" #DDDDDD {
+class ApplicationPOT
+{
+  +static getInstance()
+  +getCurrentSession()
+}
+
+class UserSession
+{
+  +getCurrentUserEmail()
+}
+class KnowDeliveryController{
++getOrderByCour()
+}
+}
+package "UI" #DDDDDD {
+class KnowDeliveryUI{
+
+}
+}
+package "Model" #DDDDDD {
+package Service #DDDDDD {
+
+class OrderService{
++OrderService()
++getOrderByCourier(email)
+}
+}
+}
+package "Data" #DDDDDD {
+class DataHandler{
++openConnection()
++closeAll()
+}
+
+ class OrderDB{
+ +OrderDB()
+ +getOrderByCourier(email)
+ }
+ database database{
+ }
+ }
+KnowDeliveryUI ..> KnowDeliveryController
+KnowDeliveryController ..> ApplicationPOT
+KnowDeliveryController ..> UserSession
+KnowDeliveryController ..> OrderService
+OrderService  ->  OrderDB : has
+OrderDB -> database : manages
+class OrderDB extends DataHandler
+
+@enduml

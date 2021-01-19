@@ -1,0 +1,140 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+package "Controller" #DDDDDD {
+class MakeAPharmacyTransferController{
++newPharmacy(managerName,email,password, nif, name,latitude,longitude,\nstreetName,doorNumber,postalCode,locality,country)
++registerPhamacy()
+}
+
+class ApplicationPOT
+{
+  +static getInstance()
+}
+}
+
+package "Model" #DDDDDD {
+
+package "Service" #DDDDDD {
+   class PharmacyService{
+          +PharmacyService()
+          +getClosestPharmacyWithStock(pharmacy, product, quantity)
+      }
+
+      class PharmacyTransferService{
+                +PharmacyTransferService()
+                +addPharmacyTransfer(order, product, quantity, nearbyPharamcy)
+                +registersPharmacyTransfer(pharmacyTransfer)
+            }
+ }
+
+abstract class User{
+-String email
+-String password
+-String name
+-Integer nif
+}
+
+class Client{
+-   int IBAN
+-   long creditCardNumber
+-   int validityDate
+-   int CCV
+}
+
+class Address{
+-   String streetName
+-   String doorNumber
+-   String postalCode
+-   String locality
+-   String country
+-   float longitude
+-   float latitude
+}
+
+class Pharmacy{
+-   int id
+-   String name
+-   String email
+-   Address address
+-   Map<Product, Integer> mapStock
+}
+
+class Order{
+-   int id
+-   float amount
+-   float totalWeight
+-   float additionalFee
+-   Date orderDate
+-   String description
+-   String status
+-   Map<Product, Integer> mapProducts
+}
+
+class Product{
+-   int id
+-   String name
+-   String description
+-   float unitaryPrice
+-   float unitaryWeight
+}
+
+class PharmacyTransfer{
+-   int id
+-   Date transferDate
+-   int quantity
+-   Product product
+-   Order orderDate
+-   Pharmacy pharmacy
++PharmacyTransfer(order, product, quantity, nearbyPharamacy)
+}
+
+}
+
+
+package "Data" #DDDDDD {
+class DataHandler{
+    +openConnection()
+    +closeAll()
+}
+
+class PharmacyDB{
+          +PharmacyDB()
+          +getClosestPharmacyWithStock(pharmacy, product, quantity)
+      }
+
+      class PharmacyTransferDB{
+                +PharmacyTransferDB()
+                +registersPharmacyTransfer(pharmacyTransfer)
+            }
+}
+
+database Database {
+}
+
+class PharmacyDB extends DataHandler
+class PharmacyTransferDB extends DataHandler
+class Client extends User
+
+MakeAPharmacyTransferController ..> ApplicationPOT
+MakeAPharmacyTransferController ..> PharmacyService
+Database "1" -- "*" Order : has registered >
+Database "1" -- "*" Product : has registered >
+Database "1" -- "*" Client : has registered >
+PharmacyDB -- Database : manages >
+PharmacyTransferDB -- Database : manages >
+PharmacyService "1" --> "*" Pharmacy : manages services of
+PharmacyService "1" --> "1" PharmacyDB : uses
+PharmacyTransferService "1" --> "*" PharmacyTransfer : manages services of
+PharmacyTransferService "1" --> "1" PharmacyTransferDB : uses
+Pharmacy "1" -- "1" Address : has >
+Order "1" -- "*" Product : has >
+Order "1" -- "*" Pharmacy : has >
+Client "1" -- "1" Order : makes >
+Client "1" -- "1" Address : has >
+Order "1" -- "1" Address : has >
+PharmacyTransfer "1" -- "2" Pharmacy : has >
+PharmacyTransfer "1" -- "1" Product : has >
+PharmacyTransfer "1" -- "1" Order : has >
+
+@enduml

@@ -1,0 +1,39 @@
+@startuml
+autonumber
+hide footbox
+
+actor "Admin" as ADMIN
+
+participant ":DronePayloadUI" as UI
+participant ":DronePayloadController" as CTRL
+participant "droneService\n:DroneService" as DS
+participant "droneDB\n:DroneDB" as DDB
+
+activate ADMIN
+ADMIN -> UI : Requests the drone payload
+activate UI
+UI-> ADMIN : Asks for the drone ID
+deactivate UI
+ADMIN -> UI : Fills the information
+activate UI
+UI -> CTRL : getDronePayload(droneId)
+activate CTRL
+CTRL -> DS* : create()
+activate DS
+DS -> DDB* : create()
+deactivate DS
+CTRL -> DS : payload = getDronePayload(droneId)
+activate DS
+DS -> DDB : payload = getDronePayload(droneId)
+activate DDB
+ref over DDB : SD_CONNECTIONS
+deactivate DDB
+deactivate DS
+deactivate CTRL
+opt payload !=null
+UI -> ADMIN : Validates and presents the drone payload.
+end opt
+UI -> ADMIN : Informs the admin that the drone id\ninserted is null.
+deactivate UI
+
+@enduml

@@ -12,7 +12,7 @@ import java.util.List;
 
 public class PharmacyDB extends DataHandler {
 
-    public Pharmacy getPharmacy(int id) {
+    public Pharmacy getPharmacy(int strEmail) {
 
         CallableStatement callStmt = null;
         try {
@@ -20,7 +20,7 @@ public class PharmacyDB extends DataHandler {
             callStmt = getConnection().prepareCall("{ ? = call getPharmacy(?) }");
 
             callStmt.registerOutParameter(1, OracleTypes.CURSOR);
-            callStmt.setInt(2,id);
+            callStmt.setInt(2,strEmail);
 
             callStmt.execute();
 
@@ -48,7 +48,7 @@ public class PharmacyDB extends DataHandler {
         } finally {
             closeAll();
         }
-        throw new IllegalArgumentException("No Pharmacy with ID:" + id);
+        throw new IllegalArgumentException("No Pharmacy with Email:" + strEmail);
     }
 
     private boolean addPharmacy(String strName, String strEmail, Address oAddress) {

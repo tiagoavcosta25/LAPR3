@@ -1,0 +1,141 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+database Database{
+}
+
+
+package "Controller" #DDDDDD {
+class GenerateInvoiceController{
++generateInvoice(order, mapPayments)
+}
+}
+
+
+package "Model" #DDDDDD {
+package "Service" #DDDDDD {
+
+   class InvoiceService{
+          +InvoiceService()
+          +addInvoice(order, mapPayments)
+          +registerInvoice()
+      }
+ }
+}
+
+package "Model" #DDDDDD {
+abstract class User{
+-String email
+-String password
+-String name
+}
+
+class Client{
+-   int IBAN
+-   long creditCardNumber
+-   int validityDate
+-   int CCV
+}
+
+class Address{
+-   int id
+-   String streetName
+-   String doorNumber
+-   String postalCode
+-   String locality
+-   String country
+-   float longitude
+-   float latitude
+}
+
+class Order{
+-   int id
+-   float amount
+-   float totalWeight
+-   float additionalFee
+-   Date orderDate
+-   String description
+-   String status
+-   boolean isHomeDelivery
+-   Map<Product, Integer> mapProducts
+}
+
+class Product{
+-   int id
+-   String name
+-   String description
+-   float unitaryPrice
+-   float unitaryWeight
+}
+
+class Pharmacy{
+-   int id
+-   String name
+-   String email
+}
+
+class CreditCard{
+-   int id
+-   Long creditCardNr
+-   String validityDate
+-   Integer CCV
+}
+
+class Invoice{
+-   int id
+-   Date orderDate
+-   float totalAmount
+-   Map<CreditCard, Float> mapPayments
++Invoice(order, mapPayments)
+}
+
+}
+
+
+package "Data" #DDDDDD {
+class DataHandler{
+    +openConnection()
+    +closeAll()
+}
+class InvoiceDB{
+          +InvoiceDB()
+          +registerInvoice()
+  }
+
+}
+
+package "Utils" #DDDDDD {
+class EmailSender{
+    +sendEmail(email, subject, body)
+}
+
+}
+
+class InvoiceDB extends DataHandler
+
+class Client extends User
+
+GenerateInvoiceController ..> InvoiceService
+InvoiceService "1" --> "*" Invoice : manages services of
+InvoiceService "1" --> "1" InvoiceDB : uses
+InvoiceService "1" --> "1" EmailSender : uses
+
+InvoiceDB -- Database : manages >
+
+Database "1" -- "*" Client : has registered >
+Database "1" -- "*" Order : has registered >
+Database "1" -- "*" Product : has registered >
+Database "1" -- "*" Address : has registered >
+Database "1" -- "*" CreditCard : has registered >
+Database "1" -- "*" Invoice : has registered >
+Order "1" -- "*" Product : has >
+Order "1" -- "*" Pharmacy : has >
+Client "1" -- "1" Order : makes >
+Client "1" -- "1" Address : has >
+Pharmacy "1" -- "1" Address : has >
+Client "*" -- "*" CreditCard : has >
+Invoice "1" -- "*" Product : has >
+Invoice "1" -- "1" Order : has >
+Invoice "1" -- "1" Client : has >
+
+@enduml

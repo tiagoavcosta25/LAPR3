@@ -1,0 +1,76 @@
+@startuml
+skinparam classAttributeIconSize 0
+hide methods
+left to right direction
+
+database Database {
+}
+
+class Pharmacy{
+-   int id
+-   String name
+-   String email
+}
+
+class Client{
+-   int IBAN
+-   long creditCardNumber
+-   int validityDate
+-   int CCV
+}
+
+class User{
+-   String name
+-   String email
+-   String password
+-   Integer nif
+}
+
+class Order{
+-   int id
+-   float amount
+-   float totalWeight
+-   float additionalFee
+-   Date orderDate
+-   String description
+-   String status
+}
+
+class Address{
+-   String streetName
+-   String doorNumber
+-   String postalCode
+-   String locality
+-   String country
+-   float longitude
+-   float latitude
+}
+
+class Product{
+-   int id
+-   String name
+-   String description
+-   float unitaryPrice
+-   float unitaryWeight
+}
+
+class PharmacyTransfer{
+-   int id
+-   Date transferDate
+-   int quantity
+}
+
+Database "1" -- "*" Order : has registered >
+Database "1" -- "*" Product : has registered >
+Database "1" -- "*" Client : has registered >
+Pharmacy "1" -- "1" Address : has >
+Order "1" -- "*" Product : has >
+Order "1" -- "*" Pharmacy : has >
+Client "0..1" -- "1" User: acts as >
+Client "1" -- "1" Order : makes >
+Client "1" -- "1" Address : has >
+Order "1" -- "1" Address : has >
+PharmacyTransfer "1" -- "2" Pharmacy : has >
+PharmacyTransfer "1" -- "1" Product : has >
+PharmacyTransfer "1" -- "1" Order : has >
+@enduml

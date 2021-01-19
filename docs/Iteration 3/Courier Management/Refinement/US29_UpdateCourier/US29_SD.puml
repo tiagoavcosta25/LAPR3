@@ -1,0 +1,89 @@
+@startuml
+autonumber
+actor "Administrator" as ADMIN
+
+participant ":UpdateCourierUI" as UI
+participant ":UpdateCourierController" as CTRL
+participant "PotApplication" as PA
+participant "app \n:PotApplication" as APA
+participant "session \n:UserSession" as US
+participant "courReg \n:PharmacyService" as PR
+participant "courServ \n:CourierService" as RF
+participant "pass \n:PassGenerator" as PS
+participant "courier: Courier" as CR
+participant ":PharmacyDB" as PDB
+participant ":CourierDB" as CDB
+
+activate ADMIN
+
+ADMIN -> UI : initializes the update of a Courier
+activate UI
+UI -> ADMIN : asks for courier's email
+deactivate UI
+
+ADMIN -> UI : inserts the required data
+activate UI
+UI -> CTRL : courier = getCourierByEmail(email)
+activate CTRL
+CTRL -> PR : create()
+activate PR
+PR -> PDB** : create()
+deactivate PR
+CTRL -> RF : create()
+activate RF
+RF -> CDB** : create()
+deactivate RF
+
+CTRL -> CTRL : validateInput(email)(email)
+CTRL -> PA : app = getInstance()
+activate PA
+deactivate PA
+CTRL -> RF : courier = getCourierByEmail(email)
+activate RF
+RF -> CDB : courier = getCourierByEmail(email)
+activate CDB
+deactivate RF
+deactivate CDB
+deactivate CTRL
+
+
+UI -> ADMIN : presents the courier info and asks for the data\n that features the courier's update (i.e., name, \ne-mail, NIF, bank account (IBAN) and pharmacyID)
+deactivate UI
+
+ADMIN -> UI : inserts the required data
+activate UI
+UI -> CTRL : courier = updateCourier(courier,name,email,nif,iban,pharmacyID)
+activate CTRL
+deactivate US
+CTRL -> CTRL : validateInput(name,email,nif,iban,pharmacyID)
+CTRL -> PR : pharmacy = getPharmacyByID(pharmacyID)
+activate PR
+PR -> PDB : pharmacy = getPharmacyByID(pharmacyID)
+activate PDB
+
+deactivate PR
+deactivate PDB
+deactivate RF
+CTRL -> RF : updateCourier(courier,name,email,nif,iban,pharmacy)
+activate RF
+UI -> ADMIN : asks for confirmation
+deactivate RF
+deactivate CTRL
+deactivate UI
+ADMIN -> UI : confirms
+activate UI
+UI -> CTRL : updateCourierDB(courier)
+activate CTRL
+CTRL -> RF : updateCourierDB(courier)
+activate RF
+RF -> CDB : updateCourierDB(courier)
+activate CDB
+deactivate CDB
+deactivate RF
+deactivate CTRL
+UI -> ADMIN : informs of the success of the operation
+deactivate UI
+
+deactivate ADMIN
+
+@enduml

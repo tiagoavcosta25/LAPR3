@@ -1,0 +1,63 @@
+@startuml
+autonumber
+actor "Admin" as ADMIN
+
+participant ":IssueDeliveryNoteUI" as UI
+participant ":IssueDeliveryNoteController" as CTRL
+participant "pharmTransferServ \n:PharmacyTransferService" as PTS
+participant "pharmTransferDB\n:PharmacyTransferDB" as PTDB
+participant "EmailSender" as E
+
+activate ADMIN
+
+ADMIN -> UI :initiates the process of issue a delivery note  \n by introducing the transfer's id
+activate UI
+UI -> CTRL : issueDeliveryNote(pharmacyTransferId)
+activate CTRL
+CTRL -> PTS** : create()
+activate PTS
+PTS -> PTDB** : create()
+deactivate PTS
+CTRL -> PTS : pharmacyTransfer = getPharmacyTransfer(pharmacyTransferId)
+activate PTS
+PTS -> PTDB : pharmacyTransfer = getPharmacyTransfer(pharmacyTransferId)
+activate PTDB
+ref over PTDB
+SD_CONNECTIONS
+end
+deactivate PTDB
+deactivate PTS
+CTRL -> PTS : updateStockFromTransfer(pharmacyTransferId)
+activate PTS
+PTS -> PTDB : updateStockFromTransfer(pharmacyTransferId)
+activate PTDB
+ref over PTDB
+SD_CONNECTIONS
+end
+deactivate PTDB
+deactivate PTS
+CTRL -> PTS : sendEmailWithDeliveryNote(pharmacyTransfer)
+activate PTS
+PTS -> E : emailSender(email,subject,body)
+activate E
+ref over E
+SD_EMAILSENDER
+end
+deactivate E
+deactivate PTS
+CTRL -> PTS : sendEmailWithDeliveryNote(pharmacyTransfer)
+activate PTS
+PTS -> E : emailSender(email,subject,body)
+activate E
+ref over E
+SD_EMAILSENDER
+end
+deactivate E
+deactivate PTS
+deactivate CTRL
+UI -> ADMIN : Informs the success of the operation
+deactivate UI
+
+deactivate ADMIN
+
+@enduml

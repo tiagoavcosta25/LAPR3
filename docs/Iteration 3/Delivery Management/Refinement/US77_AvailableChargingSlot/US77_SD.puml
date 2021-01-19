@@ -1,0 +1,49 @@
+@startuml
+autonumber
+actor "Courier" as COURIER
+
+participant ":AvailableChargingSlotUI" as UI
+participant ":AvailableChargingSlotController" as CTRL
+participant "PotApplication" as PA
+participant "app \n:PotApplication" as APA
+participant "session \n:UserSession" as US
+participant "courierServ \n:CourierService" as CSS
+participant "courierDB \n:CourierDB" as CDB
+participant "chargingSlot \n:ChargingSlot" as CS
+
+
+
+activate COURIER
+
+COURIER -> UI :  wants to know if there is an available charging station
+activate UI
+UI -> CTRL : chargingSlot = getAvailableChargingSlot()
+activate CTRL
+CTRL -> CSS : create()
+activate CSS
+CSS -> CDB** : create()
+deactivate CSS
+CTRL -> PA : app = getInstance()
+activate PA
+deactivate PA
+CTRL -> APA : session = getCurrentSession()
+activate APA
+deactivate APA
+CTRL -> US : email = getCurrentUserEmail()
+activate US
+deactivate US
+CTRL -> CSS : chargingSlot = getAvailableChargingSlot(email)
+activate CSS
+CSS -> CDB : chargingSlot = getAvailableChargingSlot(email)
+activate CDB
+deactivate CSS
+deactivate CDB
+deactivate CTRL
+
+
+UI -> COURIER : presents the information about the charging station
+deactivate UI
+
+deactivate COURIER
+
+@enduml

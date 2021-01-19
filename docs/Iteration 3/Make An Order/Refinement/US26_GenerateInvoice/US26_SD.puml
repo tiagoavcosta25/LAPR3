@@ -1,0 +1,45 @@
+@startuml
+autonumber
+hide footbox
+
+participant "GenerateInvoiceController" as CTRL
+participant "invoiceServ\n:InvoiceService" as IS
+participant "invoiceDB\n:InvoiceDB" as IDB
+participant "invoice\n:Invoice" as I
+participant "EmailSender" as E
+
+[o-> CTRL : generateInvoice(order, mapPayments)
+activate CTRL
+
+CTRL -> IS** : create()
+activate IS
+IS -> IDB** : create()
+deactivate IS
+
+CTRL -> IS : invoice = addInvoice(order, mapPayments)
+activate IS
+IS -> I** : create(order, mapPayments)
+deactivate IS
+
+CTRL -> IS : registerInvoice(invoice)
+activate IS
+IS -> IDB : registerInvoice(invoice)
+activate IDB
+ref over IDB
+SD_CONNECTIONS
+end ref
+deactivate IDB
+deactivate IS
+
+CTRL -> IS : sendInvoiceByEmail(invoice)
+activate IS
+IS -> E : sendEmail(email, subject, body)
+activate E
+ref over E
+SD_EMAILSENDER
+end ref
+deactivate E
+deactivate IS
+deactivate CTRL
+
+@enduml

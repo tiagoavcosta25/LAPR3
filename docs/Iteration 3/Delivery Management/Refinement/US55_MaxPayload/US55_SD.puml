@@ -1,0 +1,48 @@
+@startuml
+autonumber
+hide footbox
+actor "Courier" as COUR
+
+participant "MaxPayloadUI" as UI
+participant "MaxPayloadController" as CTRL
+participant "ApplicationPOT" as _APP
+participant "app\n:ApplicationPOT" as APP
+participant "session\n:UserSession" as SESSION
+participant "deliveryService\n:DeliveryService" as DS
+participant "deliveryDB\n:DeliveryDB" as DDB
+activate COUR
+
+COUR -> UI : Sends a request regarding what is the maximum \npayload of the scooter
+
+activate UI
+UI -> CTRL : getMaxPayload()
+activate CTRL
+CTRL -> _APP: app = getInstance()
+activate _APP
+deactivate _APP
+
+CTRL -> APP: session = getCurrentSession()
+activate APP
+deactivate APP
+
+CTRL -> SESSION : email = getCurrentUserEmail()
+activate SESSION
+deactivate SESSION
+CTRL -> DS* : create()
+activate DS
+DS -> DDB* : create()
+deactivate DS
+CTRL -> DS : getMaxPayload(email)
+activate DS
+DS -> DDB : getMaxPayload(email)
+ref over DDB : SD_CONNECTIONS
+activate DDB
+deactivate DDB
+deactivate DS
+deactivate CTRL
+UI -> COUR : Shows the payload of the scooter, informing \nof the success of the operation.
+deactivate UI
+deactivate COUR
+
+
+@enduml

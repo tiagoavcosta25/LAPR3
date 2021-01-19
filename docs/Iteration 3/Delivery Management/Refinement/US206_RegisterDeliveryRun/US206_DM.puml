@@ -1,0 +1,40 @@
+@startuml
+skinparam classAttributeIconSize 0
+hide methods
+left to right direction
+
+class Admin{
+
+}
+
+abstract class User{
+-Integer id
+-String email
+-String password
+-Integer nif
+-String name
+}
+
+class DeliveryRun{
+-Integer id
+-Courier courier
+-Scooter scooter
+-Drone drone
+}
+
+class DeliveryStatus{
+-String designation
+}
+
+database Database{
+
+}
+
+
+Database "1" -- "*" User : has registered
+Database "1" -- "*" DeliveryRun : has registered
+Admin "1" -- "1" User : is a >
+DeliveryRun"1" -- "1" DeliveryStatus : has >
+Admin "1" -- "*" DeliveryRun : registers >
+
+@enduml

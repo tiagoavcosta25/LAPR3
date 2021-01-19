@@ -15,8 +15,8 @@ public class PharmacyService {
         this.m_oParkDB = new ParkDB();
     }
 
-    public Pharmacy getPharmacy(int strId) {
-        return this.m_oPharmacyDB.getPharmacy(strId);
+    public Pharmacy getPharmacy(int strEmail) {
+        return this.m_oPharmacyDB.getPharmacy(strEmail);
     }
 
     public boolean removePharmacy(int intId) {

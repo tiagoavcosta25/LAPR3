@@ -1,7 +1,7 @@
 create or replace function addOrder(p_amount "Order".AMOUNT%type, p_totalWeight "Order".TOTALWEIGHT%type, p_additionalFee "Order".ADDITIONALFEE%type,
-                                     p_description "Order".DESCRIPTION%type, p_date "Order".ORDERDATE%type,
-                                     p_clientId Client.USERID%type, p_credits Client.CREDITS%type, p_pharmacyId PHARMACY.ID%type)
-    return number is
+                                     p_description "Order".DESCRIPTION%type, p_date "Order".ORDERDATE%type, p_status "Order".ORDERSTATUS%type,
+                                    p_isHomeDelivery "Order".ISHOMEDELIVERY%type, p_clientId Client.USERID%type, p_credits Client.CREDITS%type, p_pharmacyId PHARMACY.ID%type)
+    return "Order".id%type is
     v_checkClientId            CLIENT.USERID%type;
     v_checkPharmacyId            PHARMACY.ID%type;
     v_orderId "Order".id%type;
@@ -32,8 +32,8 @@ begin
     end if;
 
 -- Creates a new Order
-    Insert into "Order"(AMOUNT, TOTALWEIGHT, ADDITIONALFEE, DESCRIPTION, ORDERDATE, CLIENTID, PHARMACYID)
-    Values (p_amount, p_totalWeight, p_additionalFee, p_description, p_date, p_clientId, p_pharmacyId);
+    Insert into "Order"(AMOUNT, TOTALWEIGHT, ADDITIONALFEE, DESCRIPTION, ORDERDATE, CLIENTID, PHARMACYID, ORDERSTATUS, ISHOMEDELIVERY, DELIVERYRUNID)
+    Values (p_amount, p_totalWeight, p_additionalFee, p_description, p_date, p_clientId, p_pharmacyId, p_status, p_isHomeDelivery, 2);
 
     select id
     into v_orderId
@@ -44,7 +44,9 @@ begin
       and DESCRIPTION = p_description
       and ORDERDATE = p_date
       and CLIENTID = p_clientId
-      and PHARMACYID = p_pharmacyId;
+      and PHARMACYID = p_pharmacyId
+    and ORDERSTATUS = p_status
+    and ISHOMEDELIVERY = p_isHomeDelivery;
 
     return v_orderId;
 

@@ -1,0 +1,31 @@
+@startuml
+autonumber
+hide footbox
+
+actor "PharmacyManager" as U
+
+participant ":System" as SYST
+
+activate U
+
+U -> SYST : Initiates the registration of a delivery run
+activate SYST
+
+SYST --> U: Asks for a list of order ids
+
+deactivate SYST
+
+
+
+U -> SYST : Gives an order id list
+activate SYST
+
+
+SYST --> U : Registers the delivery run and informs\nabout the success of the operation
+deactivate SYST
+
+
+
+deactivate U
+
+@enduml

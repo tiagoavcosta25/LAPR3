@@ -1,0 +1,186 @@
+@startuml
+autonumber
+hide footbox
+
+actor "Client" as CL
+
+participant "MakeAnOrderUI" as UI
+participant "MakeAnOrderController" as CTRL
+participant "PotApplication" as _APP
+participant "app\n:PotApplication" as APP
+participant "session\n:UserSession" as SESSION
+participant "clientServ\n:ClientService" as CS
+participant "clientDB\n:ClientDB" as CDB
+participant "pharmacyServ\n:PharmacyService" as PHS
+participant "pharmacyDB\n:PharmacyDB" as PHDB
+participant "productServ\n:ProductService" as PS
+participant "productDB\n:ProductDB" as PDB
+participant "orderServ\n:OrderService" as OS
+participant "orderDB\n:OrderDB" as ODB
+participant "order\n:Order" as O
+participant "client\n:Client" as C
+participant "GenerateInvoiceController" as INVCTRL
+
+activate CL
+
+CL -> UI : sends a request to make an order
+activate UI
+UI -> CTRL : lstPharmacies = getPharmacies()
+activate CTRL
+CTRL -> _APP: app = getInstance()
+activate _APP
+deactivate _APP
+
+CTRL -> APP: session = getCurrentSession()
+activate APP
+deactivate APP
+
+CTRL -> SESSION: email = getUserEmail()
+activate SESSION
+deactivate SESSION
+CTRL -> CS** : create()
+activate CS
+CS -> CDB** : create()
+deactivate CS
+CTRL -> CS : client = getUserByEmail(email)
+activate CS
+CS -> CDB : client = getUserByEmail(email)
+activate CDB
+ref over CDB
+SD_CONNECTIONS
+end ref
+deactivate CDB
+deactivate CS
+CTRL -> PHS** : create()
+activate PHS
+PHS -> PHDB** : create()
+deactivate PHS
+CTRL -> PHS : lstPharmacies = getPharmacies()
+activate PHS
+PHS -> PHDB : lstPharmacies = getPharmacies()
+activate PHDB
+ref over PHDB
+SD_CONNECTIONS
+end ref
+deactivate PHDB
+deactivate PHS
+deactivate CTRL
+
+UI -> CL : shows the list of the pharmacies
+deactivate UI
+
+CL -> UI : chooses which products and which quantities to order
+activate UI
+UI -> CTRL : lstProducts = getAvailableProducts(pharmacy)
+activate CTRL
+CTRL -> PS** : create()
+activate PS
+PS -> PDB** : create()
+deactivate PS
+CTRL -> PS : lstProducts = getAvailableProducts()
+activate PS
+PS -> PDB : lstProducts = getAvailableProducts()
+activate PDB
+ref over PDB
+SD_CONNECTIONS
+end ref
+deactivate PDB
+deactivate PS
+deactivate CTRL
+loop until there is no more products to add
+UI -> CL : shows the list of the available products
+deactivate UI
+
+CL -> UI : chooses which product and which quantity to order
+activate UI
+UI -> CTRL : addProductToOrder(product, quantity)
+activate CTRL
+deactivate CTRL
+UI -> CL : asks if the user is done adding more products
+deactivate UI
+end
+
+CL -> UI : confirms that there is not more products
+activate UI
+deactivate CTRL
+
+UI -> CL : asks if it is a home delivery or a store pick up
+deactivate UI
+
+CL -> UI : chooses the delivery type
+activate UI
+UI -> CTRL : newOrder(description, isHomeDelivery)
+activate CTRL
+
+CTRL -> OS** : create()
+activate OS
+OS -> ODB** : create()
+deactivate OS
+CTRL -> OS : order = addOrder(description, mapProducts, client, pharmacy, isHomeDelivery)
+activate OS
+OS -> O** : create(description, mapProducts, \nclient, pharmacy, isHomeDelivery)
+activate O
+O -> O : calculateAmount()
+O -> O : calculateTotalWeight()
+O -> C : addCredits(addtionalCredits)
+activate C
+deactivate C
+deactivate O
+deactivate OS
+deactivate CTRL
+
+UI -> CL : validates, presents the information with the \ntotal price of the order and asks for confirmation
+deactivate UI
+
+CL -> UI : confirms
+activate UI
+UI -> CTRL : lstCreditCards = getCreditCardsByClient(email)
+activate CTRL
+CTRL -> CS : lstCreditCards = getCreditCardsByClient(email)
+activate CS
+CS -> CDB : lstCreditCards = getCreditCardsByClient(email)
+activate CDB
+ref over CDB
+SD_CONNECTIONS
+end ref
+deactivate CDB
+deactivate CS
+deactivate CTRL
+deactivate CTRL
+loop until the full amount is payed
+UI -> CL : shows the list of his registered credit cards
+deactivate UI
+
+CL -> UI : chooses which credit card to use in order \npay the order and the amount for said card
+activate UI
+UI -> CTRL : addPayment(creditCard, amount)
+activate CTRL
+deactivate CTRL
+end
+UI -> CTRL : registerOrder()
+activate CTRL
+CTRL -> OS : registerOrder(order)
+activate OS
+OS -> ODB : registerOrder(order)
+activate ODB
+ref over ODB
+SD_CONNECTIONS
+end ref
+deactivate ODB
+deactivate OS
+deactivate CTRL
+UI -> CTRL : generateInvoice()
+activate CTRL
+CTRL -> INVCTRL** : create()
+CTRL -> INVCTRL : generateInvoice(order, mapPayments)
+activate INVCTRL
+ref over INVCTRL
+US26_SD
+end ref
+deactivate INVCTRL
+UI -> CL : registers the order, generates the invoice\n and informs of the success of the operation
+deactivate CTRL
+deactivate UI
+deactivate CL
+
+@enduml

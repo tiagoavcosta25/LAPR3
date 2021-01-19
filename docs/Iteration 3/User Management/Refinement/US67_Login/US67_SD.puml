@@ -1,0 +1,94 @@
+@startuml
+autonumber
+hide footbox
+
+actor "User" as U
+
+participant "LoginUI" as UI
+participant "LoginController" as CTRL
+
+
+participant "userService\n:UserService" as US
+participant "userDB\n:UserDB" as UREG
+
+participant "session\n:UserSession" as SES
+participant "app\n:ApplicationPOT" as _APP
+participant "EncryptPassword" as EP
+participant "user\n:User" as USER
+
+
+
+participant "DataHandler" as DH
+
+activate U
+
+U -> UI : Engages the login feature/button
+activate UI
+UI --> U : Asks for the email and password\nrequired for the login
+deactivate UI
+
+U -> UI : Fills all the information required and confirms
+activate UI
+
+UI -> US : create()
+activate US
+US -> UREG : create()
+activate UREG
+deactivate UREG
+deactivate US
+UI -> CTRL : login(email,password)
+activate CTRL
+
+
+
+CTRL -> US : login(email,password)
+activate US
+US -> EP : encryptedPassword = encryptPasswordMD5(password)
+activate EP
+deactivate EP
+US -> UREG : login(email,encryptedPassword)
+
+activate UREG
+alt if the user exists in the DataBase and password corresponds
+
+UREG -> SES** : create(email,role)
+
+activate SES
+SES -> _APP : setCurrentSession(session)
+activate _APP
+deactivate SES
+deactivate US
+deactivate UREG
+ref over UREG
+SD_CONNECTIONS
+end ref
+
+
+
+
+
+
+deactivate _APP
+
+deactivate UREG
+
+
+deactivate CTRL
+
+UI --> U : Validates and allocates a session\n for the user
+deactivate UI
+
+else if the user does not exist in the DataBase or password doesn't correspond
+
+
+
+
+
+UI --> U : Informs the User that the operation\nwas not successful
+activate UI
+deactivate UI
+
+end
+
+deactivate U
+@enduml
