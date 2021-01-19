@@ -36,8 +36,8 @@ class PharmacyServiceTest {
     @Test
     void getPharmacy() {
         System.out.println("getPharmacy");
-        when(mockPharmacyDB.getPharmacy(1)).thenReturn(new Pharmacy());
-        Pharmacy result = pharmacyService.getPharmacy(1);
+        when(mockPharmacyDB.getPharmacy("test@email.com")).thenReturn(new Pharmacy());
+        Pharmacy result = pharmacyService.getPharmacy("test@email.com");
         assertEquals(expectedPharmacy, result);
     }
 

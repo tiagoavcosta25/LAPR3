@@ -57,10 +57,10 @@ public class RegisterCourierController {
      * @param intNIF   Courier's nif.
      * @param strIBAN  Courier's iban.
      */
-    public boolean newCourier(String strName, String strEmail, Integer intNIF, String strIBAN, Integer intPharmacyID) {
+    public boolean newCourier(String strName, String strEmail, Integer intNIF, String strIBAN, String strPharmacyEmail) {
         try {
-            this.oPharmacy = oPharmacyService.getPharmacy(intPharmacyID);
-            if (validateInput(strName, strEmail, intNIF, strIBAN,intPharmacyID)) {
+            this.oPharmacy = oPharmacyService.getPharmacy(strPharmacyEmail);
+            if (validateInput(strName, strEmail, intNIF, strIBAN,strPharmacyEmail)) {
                 this.oCourier = oCourierService.newCourier(strName, strEmail, intNIF, strIBAN, this.oPharmacy);
                 return true;
             }
@@ -95,11 +95,11 @@ public class RegisterCourierController {
      * @param strIBAN  Courier's iban.
      * @return True if input is valid, false if otherwise
      */
-    public boolean validateInput(String strName, String strEmail, Integer intNIF, String strIBAN, Integer intPharmacyID) {
+    public boolean validateInput(String strName, String strEmail, Integer intNIF, String strIBAN, String strPharmacyEmail) {
 
-        if (strName.isEmpty() || intNIF <= 0 || strEmail.isEmpty() || strIBAN.isEmpty() || intPharmacyID <= 0) return false;
+        if (strName.isEmpty() || intNIF <= 0 || strEmail.isEmpty() || strIBAN.isEmpty() || strPharmacyEmail.isEmpty()) return false;
 
-        if (!strEmail.contains("@")) return false;
+        if (!strEmail.contains("@") || !strPharmacyEmail.contains("@")) return false;
 
         if ((strIBAN.trim().length() != 25)
                 || (int) (Math.log10(intNIF) + 1) != 9) return false;

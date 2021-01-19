@@ -69,10 +69,10 @@ public class UpdateCourierController {
     /**
      * The method adds a Freelancer to the Organization of the current user.
      */
-    public Courier updateCourier(Courier courier, String strName, String strEmail, Integer intNif, String strIban,Integer pharmacyID) {
+    public Courier updateCourier(Courier courier, String strName, String strEmail, Integer intNif, String strIban,String pharmacyEmail) {
         try{
             validateInput(strName,strEmail,intNif,strIban);
-            oPharmacy = this.oPharmacyService.getPharmacy(pharmacyID);
+            oPharmacy = this.oPharmacyService.getPharmacy(pharmacyEmail);
             oCourier = this.oCourierService.updateCourier(courier,strName,strEmail,intNif,strIban,oPharmacy);
             return this.oCourier;
         } catch (Exception ex) {
