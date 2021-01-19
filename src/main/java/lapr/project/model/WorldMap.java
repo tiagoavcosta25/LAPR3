@@ -30,7 +30,6 @@ public class WorldMap {
         createGraph(m_deliveryRunDB.getAllAddresses(), m_deliveryRunDB.getAllPaths());
     }
 
-    //TODO: ARRANJAR
     private void createGraph(List<Address> addresses, List<Path> paths) {
         double dist = 0;
         Pair<Address, Address> pathAdd;
@@ -48,7 +47,6 @@ public class WorldMap {
         }
     }
 
-    //TODO: ARRANJAR
     private Pair<Address, Address> getAddresses(double dblLatitudeA, double dblLongitudeA,
                                                 double dblLatitudeB, double dblLongitudeB) {
         Address origem = null;

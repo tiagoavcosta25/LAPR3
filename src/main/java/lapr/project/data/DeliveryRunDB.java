@@ -11,7 +11,6 @@ import java.util.List;
 
 public class DeliveryRunDB extends DataHandler {
 
-    //TODO: ARRANJAR
     public boolean addPathToDB(Path p) {
         return addPathToDB(p.getLatitudeA(), p.getLongitudeA(), p.getLatitudeB(), p.getLongitudeB(),
                 p.getName(), p.getWindSpeed(), p.getWindAngle(), p.getKineticFrictionCoefficient());

@@ -13,16 +13,16 @@ public class Path {
     private double m_dblWindAngle;
     private double m_dblKineticFrictionCoefficient;
 
-    public Path(double m_dblLatitudeA, double m_dblLongitudeA, double m_dblLatitudeB, double m_dblLongitudeB,
-                String m_strName, double m_dblWindSpeed, double m_dblWindAngle, double m_dblKineticFrictionCoefficient) {
-        this.m_dblLatitudeA = m_dblLatitudeA;
-        this.m_dblLongitudeA = m_dblLongitudeA;
-        this.m_dblLatitudeB = m_dblLatitudeB;
-        this.m_dblLongitudeB = m_dblLongitudeB;
-        this.m_strName = m_strName;
-        this.m_dblWindSpeed = m_dblWindSpeed;
-        this.m_dblWindAngle = m_dblWindAngle;
-        this.m_dblKineticFrictionCoefficient = m_dblKineticFrictionCoefficient;
+    public Path(double dblLatitudeA, double dblLongitudeA, double dblLatitudeB, double dblLongitudeB,
+                String strName, double dblWindSpeed, double dblWindAngle, double dblKineticFrictionCoefficient) {
+        this.m_dblLatitudeA = dblLatitudeA;
+        this.m_dblLongitudeA = dblLongitudeA;
+        this.m_dblLatitudeB = dblLatitudeB;
+        this.m_dblLongitudeB = dblLongitudeB;
+        this.m_strName = strName;
+        this.m_dblWindSpeed = dblWindSpeed;
+        this.m_dblWindAngle = dblWindAngle;
+        this.m_dblKineticFrictionCoefficient = dblKineticFrictionCoefficient;
     }
 
     public double getLatitudeA() {

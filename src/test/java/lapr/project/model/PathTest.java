@@ -221,6 +221,7 @@ class PathTest {
         assertNotEquals(path, null);
 
         assertEquals(path, pathEqual);
+        assertNotEquals(path, new Product());
 
         pathEqual.setLatitudeA(1);
         assertNotEquals(path, pathEqual);
@@ -237,6 +238,16 @@ class PathTest {
         pathEqual.setLatitudeB(2);
         pathEqual.setLongitudeB(1);
         assertNotEquals(path, pathEqual);
+    }
+
+    @Test
+    void testHashCode() {
+        int expResult = 0;
+        int result = path.hashCode();
+        assertNotEquals(expResult, result);
+
+        expResult = 923521;
+        assertEquals(expResult, result);
     }
 
     @Test
