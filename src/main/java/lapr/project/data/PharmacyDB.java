@@ -12,7 +12,7 @@ import java.util.List;
 
 public class PharmacyDB extends DataHandler {
 
-    public Pharmacy getPharmacy(int strEmail) {
+    public Pharmacy getPharmacy(String strEmail) {
 
         CallableStatement callStmt = null;
         try {
@@ -20,7 +20,7 @@ public class PharmacyDB extends DataHandler {
             callStmt = getConnection().prepareCall("{ ? = call getPharmacy(?) }");
 
             callStmt.registerOutParameter(1, OracleTypes.CURSOR);
-            callStmt.setInt(2,strEmail);
+            callStmt.setString(2,strEmail);
 
             callStmt.execute();
 
@@ -260,7 +260,7 @@ public class PharmacyDB extends DataHandler {
                 String pw = rSet.getString(4);
                 Integer nif = rSet.getInt(5);
                 String iban = rSet.getString(6);
-                Pharmacy pharmacy = getPharmacy(rSet.getInt(7));
+                Pharmacy pharmacy = getPharmacy(rSet.getString(7));
                 oResult = new Courier(id,name,email,pw,nif,iban,pharmacy);
             }
 

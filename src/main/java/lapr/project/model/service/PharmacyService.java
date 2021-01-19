@@ -15,7 +15,7 @@ public class PharmacyService {
         this.m_oParkDB = new ParkDB();
     }
 
-    public Pharmacy getPharmacy(int strEmail) {
+    public Pharmacy getPharmacy(String strEmail) {
         return this.m_oPharmacyDB.getPharmacy(strEmail);
     }
 
