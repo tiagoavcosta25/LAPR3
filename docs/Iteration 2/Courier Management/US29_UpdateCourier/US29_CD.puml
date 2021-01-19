@@ -8,10 +8,10 @@ class UpdateCourierUI {
 }
 package "Controller" #DDDDDD {
 class UpdateCourierController{
-+getCourierByID(id)
++getCourierByEmail(email)
 +updateCourier(courier,name,email,nif,iban,pharmacyID)
 +updateCourierDB(courier)
-+validateInput(id)
++validateInput(email)
 }
 
 class ApplicationPOT
@@ -24,7 +24,7 @@ class ApplicationPOT
 package "Model" #DDDDDD {
 package "Service" #DDDDDD {
    class CourierService{
-          +getCourierByID(id)
+          +getCourierByEmail(email)
           +updateCourier(courier,name,email,nif,iban,pharmacy)
           +updateCourierDB(courier)
       }
@@ -68,7 +68,7 @@ class DataHandler{
 }
 
 class CourierDB{
- +getCourierByID(id)
+ +getCourierByEmail(email)
  +updateCourierDB(courier)
   }
 

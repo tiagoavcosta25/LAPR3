@@ -23,7 +23,7 @@ deactivate UI
 
 ADMIN -> UI : inserts the required data
 activate UI
-UI -> CTRL : courier = getCourierByID(id)
+UI -> CTRL : courier = getCourierByEmail(email)
 activate CTRL
 CTRL -> PR : create()
 activate PR
@@ -34,13 +34,13 @@ activate RF
 RF -> CDB** : create()
 deactivate RF
 
-CTRL -> CTRL : validateInput(id)
+CTRL -> CTRL : validateInput(email)(email)
 CTRL -> PA : app = getInstance()
 activate PA
 deactivate PA
-CTRL -> RF : courier = getCourierByID(id)
+CTRL -> RF : courier = getCourierByEmail(email)
 activate RF
-RF -> CDB : courier = getCourierByID(id)
+RF -> CDB : courier = getCourierByEmail(email)
 activate CDB
 deactivate RF
 deactivate CDB
