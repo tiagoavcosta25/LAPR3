@@ -19,7 +19,7 @@ class RegisterClientUI{
 
 package "Controller" #DDDDDD {
 class RegisterClientController{
-+registerNewClient(name,nif,email,password,latitude,longitude,streetName,\ndoorNumber,postalCode,locality,country,creditCardNr,validityDate,CCV)
++registerNewClient(name,nif,email,password,latitude,longitude,altitude,streetName,\ndoorNumber,postalCode,locality,country,creditCardNr,validityDate,CCV)
 }
 }
 
@@ -45,8 +45,8 @@ package Service #DDDDDD {
 
 class ClientService{
 +ClientService()
-+validateInput(name,nif,email,password,latitude,longitude,streetName,\ndoorNumber,postalCode,locality,country,creditCardNr,validityDate,CCV)
-+newClient(name,nif,email,password,latitude,longitude,streetName,\ndoorNumber,postalCode,locality,country,creditCardNr,validityDate,CCV)
++validateInput(name,nif,email,password,latitude,longitude,altitude,streetName,\ndoorNumber,postalCode,locality,country,creditCardNr,validityDate,CCV)
++newClient(name,nif,email,password,latitude,longitude,altitude,streetName,\ndoorNumber,postalCode,locality,country,creditCardNr,validityDate,CCV)
 +registerNewClient(client)
 }
 
@@ -58,7 +58,7 @@ class Client{
 -String credits
 -Address address
 -CreditCard creditCard
-+Client(name,nif,email,password,latitude,longitude,streetName,doorNumber,postalCode,locality,country,
++Client(name,nif,email,password,latitude,longitude,altitude,streetName,doorNumber,postalCode,locality,country,
                         creditCardNr,validityDate,CCV)
 }
 
@@ -66,12 +66,13 @@ class Address{
 -Integer id
 -Double latitude
 -Double longitude
+-Double altitude
 -String streetName
 -String doorNumber
 -String postalCode
 -String locality
 -String country
-+Address(latitude,longitude,streetName,doorNumber,postalCode,locality,country)
++Address(latitude,longitude,altitude,streetName,doorNumber,postalCode,locality,country)
 }
 
 class CreditCard{

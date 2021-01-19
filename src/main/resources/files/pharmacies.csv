@@ -1,0 +1,9 @@
+#lines starting with # should be ignored
+#Column description
+#NAME regarding the Pharmacy
+#EMAIL regarding the Pharmacy
+#ADDRESS regarding the Pharmacy
+#LIST_OF_PARKS regarding the Pharmacy
+#MAP_OF_PRODUCTS
+#
+#PHARMACIES     #ids [1-2]

@@ -147,6 +147,7 @@ public class CourierDB extends DataHandler {
                 String postalCode = rSet.getString(5);
                 String locality = rSet.getString(6);
                 String country = rSet.getString(7);
+                //TODO: UPDATE CONSTRUTOR - ESTÁ DESATUALIZADO
                 return new Address(latitude, longitude, streetName, doorNumber, postalCode, locality, country);
             }
         } catch (SQLException e) {

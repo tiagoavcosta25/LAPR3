@@ -29,6 +29,7 @@ public class PharmacyService {
 
     public Pharmacy newPharmacy(String strName, String strEmail, Double dblLatitude,Double dblLongitude,
                                 String strStreetName, String strDoorNumber, String strPostalCode, String strLocality, String strCountry) {
+        //TODO: UPDATE CONSTRUTOR - ESTÁ DESATUALIZADO
         return new Pharmacy(strName, strEmail, new Address(dblLatitude, dblLongitude, strStreetName, strDoorNumber, strPostalCode,
                 strLocality, strCountry));
     }

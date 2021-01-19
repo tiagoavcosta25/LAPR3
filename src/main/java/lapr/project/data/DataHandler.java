@@ -222,6 +222,7 @@ public class DataHandler {
         String locality = rSet.getString(firstColumn);
         firstColumn++;
         String country = rSet.getString(firstColumn);
+        //TODO: UPDATE CONSTRUTOR - ESTÁ DESATUALIZADO
         return new Address(id, latitude, longitude, streetName, doorNumber, postalCode, locality, country);
     }
 

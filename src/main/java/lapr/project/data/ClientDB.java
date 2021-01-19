@@ -25,20 +25,21 @@ public class ClientDB extends DataHandler {
         try {
             openConnection();
 
-            CallableStatement callStmt = getConnection().prepareCall("{ ? = call addClient(?,?,?,?,?,?,?,?,?,?,?,?) }");
+            CallableStatement callStmt = getConnection().prepareCall("{ ? = call addClient(?,?,?,?,?,?,?,?,?,?,?,?,?) }");
 
             callStmt.setString(2, name);
             callStmt.setInt(3, nif);
             callStmt.setInt(4, credits);
             callStmt.setDouble(5, address.getLatitude());
             callStmt.setDouble(6, address.getLongitude());
-            callStmt.setString(7, address.getStreetName());
-            callStmt.setString(8, address.getDoorNumber());
-            callStmt.setString(9, address.getPostalCode());
-            callStmt.setString(10, address.getLocality());
-            callStmt.setString(11, address.getCountry());
-            callStmt.setString(12, email);
-            callStmt.setString(13, password);
+            callStmt.setDouble(7,address.getAltitude());
+            callStmt.setString(8, address.getStreetName());
+            callStmt.setString(9, address.getDoorNumber());
+            callStmt.setString(10, address.getPostalCode());
+            callStmt.setString(11, address.getLocality());
+            callStmt.setString(12, address.getCountry());
+            callStmt.setString(13, email);
+            callStmt.setString(14, password);
             callStmt.registerOutParameter(1, OracleTypes.INTEGER);
 
             callStmt.execute();

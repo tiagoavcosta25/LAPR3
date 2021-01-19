@@ -38,13 +38,13 @@ public class RegisterClientController {
      * @param CCV          Client's credit card's CCV
      * @return True if Client was registered, false if otherwise
      */
-    public boolean registerNewClient(String name, Integer nif, String email, String password, Double latitude, Double longitude, String streetName,
+    public boolean registerNewClient(String name, Integer nif, String email, String password, Double latitude, Double longitude, Double altitude, String streetName,
                                      String doorNumber, String postalCode, String locality, String country, List<CreditCard> lstCreditCardNr) {
 
         try {
-            if (m_oClientService.validateInput(name, nif, email, password, latitude, longitude, streetName, doorNumber, postalCode, locality, country,
+            if (m_oClientService.validateInput(name, nif, email, password, latitude, longitude, altitude, streetName, doorNumber, postalCode, locality, country,
                     lstCreditCardNr)) {
-                Client c = m_oClientService.newClient(name, nif, email, password, latitude, longitude, streetName, doorNumber, postalCode, locality, country,
+                Client c = m_oClientService.newClient(name, nif, email, password, latitude, longitude, altitude, streetName, doorNumber, postalCode, locality, country,
                         lstCreditCardNr);
                 return m_oClientService.registerNewClient(c);
             }

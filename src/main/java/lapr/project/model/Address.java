@@ -7,6 +7,7 @@ public class Address {
     private Integer m_intId;
     private Double m_dblLatitude;
     private Double m_dblLongitude;
+    private Double m_dblAltitude;
     private String m_strStreetName;
     private String m_strDoorNumber;
     private String m_strPostalCode;
@@ -24,6 +25,7 @@ public class Address {
         this.m_strCountry = "No Country";
     }
 
+    //TODO: REMOVER - ESTÁ DESATUALIZADO
     public Address(Double latitude, Double longitude, String streetName, String doorNumber,
                    String postalCode, String locality, String country) {
         this.m_dblLatitude = latitude;
@@ -35,7 +37,7 @@ public class Address {
         this.m_strCountry = country;
     }
 
-
+    //TODO: REMOVER - ESTÁ DESATUALIZADO
     public Address(Integer id, Double latitude, Double longitude, String streetName, String doorNumber,
                    String postalCode, String locality, String country) {
         this.m_intId = id;
@@ -48,6 +50,33 @@ public class Address {
         this.m_strCountry = country;
     }
 
+    public Address(Double latitude, Double longitude, Double altitude, String streetName, String doorNumber,
+                   String postalCode, String locality, String country) {
+        this.m_dblLatitude = latitude;
+        this.m_dblLongitude = longitude;
+        this.m_dblAltitude = altitude;
+        this.m_strStreetName = streetName;
+        this.m_strDoorNumber = doorNumber;
+        this.m_strPostalCode = postalCode;
+        this.m_strLocality = locality;
+        this.m_strCountry = country;
+    }
+
+    public Address(Integer id, Double latitude, Double longitude, Double altitude, String streetName, String doorNumber,
+                   String postalCode, String locality, String country) {
+        this.m_intId = id;
+        this.m_dblLatitude = latitude;
+        this.m_dblLongitude = longitude;
+        this.m_dblAltitude = altitude;
+        this.m_strStreetName = streetName;
+        this.m_strDoorNumber = doorNumber;
+        this.m_strPostalCode = postalCode;
+        this.m_strLocality = locality;
+        this.m_strCountry = country;
+    }
+
+
+
     public Integer getId() {
         return m_intId;
     }
@@ -58,6 +87,14 @@ public class Address {
 
     public Double getLongitude() {
         return m_dblLongitude;
+    }
+
+    public Double getAltitude() {
+        return m_dblAltitude;
+    }
+
+    public void setAltitude(Double dblAltitude) {
+        this.m_dblAltitude = dblAltitude;
     }
 
     public String getStreetName() {

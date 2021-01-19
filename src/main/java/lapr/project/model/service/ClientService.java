@@ -37,11 +37,12 @@ public class ClientService {
      * @param lstCreditCard Client's credit card list
      * @return True if input is valid, false if otherwise
      */
-    public boolean validateInput(String name, Integer nif, String email, String password, Double latitude, Double longitude, String streetName,
-                                 String doorNumber, String postalCode, String locality, String country, List<CreditCard> lstCreditCard) {
+    public boolean validateInput(String name, Integer nif, String email, String password, Double latitude, Double longitude,
+                                 Double altitude, String streetName, String doorNumber, String postalCode, String locality,
+                                 String country, List<CreditCard> lstCreditCard) {
 
         if (name.isEmpty() || nif <= 0 || email.isEmpty() || password.isEmpty() || streetName.isEmpty() || postalCode.isEmpty()
-                || locality.isEmpty() || country.isEmpty() || doorNumber.isEmpty() || latitude <= 0 || longitude <= 0
+                || locality.isEmpty() || country.isEmpty() || doorNumber.isEmpty() || latitude == 0 || longitude == 0 || altitude <= 0
                 || lstCreditCard.isEmpty()) return false;
 
 
@@ -61,9 +62,10 @@ public class ClientService {
 
 
 
-    public Client newClient(String name, Integer nif, String email, String password, Double latitude, Double longitude, String streetName,
-                             String doorNumber, String postalCode, String locality, String country, List<CreditCard> lstCreditCard) throws NoSuchAlgorithmException {
-        return new Client(name, nif, email, password, latitude, longitude, streetName, doorNumber, postalCode, locality, country,
+    public Client newClient(String name, Integer nif, String email, String password, Double latitude, Double longitude, Double altitude,
+                            String streetName, String doorNumber, String postalCode, String locality, String country,
+                            List<CreditCard> lstCreditCard) throws NoSuchAlgorithmException {
+        return new Client(name, nif, email, password, latitude, longitude,altitude, streetName, doorNumber, postalCode, locality, country,
                 lstCreditCard);
     }
 

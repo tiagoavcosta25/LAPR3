@@ -12,9 +12,9 @@ class AddressTest {
 
     public AddressTest() {
         a1 = new Address();
-        a2 = new Address(102030.23, 103121.01, "Rua 1", "2esq", "4444-111",
+        a2 = new Address(102030.23, 103121.01,10d, "Rua 1", "2esq", "4444-111",
                 "Mafamude", "Portugal");
-        a3 = new Address(10, 423232.77, 523236.53, "Rua 2", "5dir", "4222-131",
+        a3 = new Address(10, 423232.77, 523236.53, 20d,"Rua 2", "5dir", "4222-131",
                 "Ermesinde", "Portugal");
     }
 
@@ -154,14 +154,14 @@ class AddressTest {
 
     @Test
     void testEquals() {
-        Address oAddress = new Address(10,123112.0, 103121.01, "Rua 1", "2esq", "4444-111",
+        Address oAddress = new Address(10,123112.0, 103121.01,50d, "Rua 1", "2esq", "4444-111",
                 "Mafamude", "Portugal");
         boolean real = a3.equals(oAddress);
         assertTrue(real);
 
         assertTrue(a3.equals(a3));
 
-        Address oAddress1 = new Address(2,1232132.0,2131451.0,"","","","","");
+        Address oAddress1 = new Address(2,1232132.0,2131451.0,50d,"","","","","");
 
         boolean real1 = a3.equals(oAddress1);
         assertFalse(real1);
@@ -196,5 +196,20 @@ class AddressTest {
                 '}';
         String real = oAddress.toString();
         assertEquals(expected, real);
+    }
+
+    @Test
+    void getAltitude() {
+        Double expected = 10d;
+        Double real = a2.getAltitude();
+        assertEquals(expected,real);
+    }
+
+    @Test
+    void setAltitude() {
+        Double expected = 100d;
+        a2.setAltitude(100d);
+        Double real = a2.getAltitude();
+        assertEquals(expected,real);
     }
 }

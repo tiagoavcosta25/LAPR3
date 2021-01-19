@@ -1,0 +1,14 @@
+#lines starting with # should be ignored
+#Column description
+#IBAN regarding the Courier
+#Pharmacy regarding the Courier
+#NIF regarding the user - e.g. 123456789
+#USERNAME for the app - e.g. "john"
+#
+#CLIENTS  # ids [2-6]   5
+#
+#COURIERS   # ids [9-12]    4
+armando@gmail.com;cpassword;887634695;armando
+armenio@gmail.com;cpassword;591370713;armenio
+arlindo@gmail.com;cpassword;523066967;arlindo
+antonio@gmail.com;cpassword;925949634;antonio
