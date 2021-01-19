@@ -8,7 +8,8 @@ create or replace function addClient(p_name IN "User".name%type, p_nif IN "User"
                                       return int
     is
     userIdentifier    "User".id%type;
-    addressIdentifier Address.id%type;
+    latitudeIdentifier Address.LATITUDE%type;
+    longitudeIdentifier Address.LONGITUDE%type;
     client_not_created_exception EXCEPTION;
 begin
 
@@ -17,19 +18,20 @@ begin
     Values (p_email, p_password, p_nif, p_name)
     returning id into userIdentifier;
 
-    addressIdentifier := CHECKIFADDRESSEXISTS(p_latitude,p_longitude, p_altitude,p_streetName,
-        p_doorNumber,p_postalCode,p_locality,p_country);
+    CHECKIFADDRESSEXISTS(p_latitude,p_longitude, p_altitude,p_streetName,
+        p_doorNumber,p_postalCode,p_locality,p_country,latitudeIdentifier,
+        longitudeIdentifier);
 
-    if addressIdentifier = -1 then
+    if latitudeIdentifier = -1 and longitudeIdentifier = -1 then
         Insert into Address(LATITUDE, LONGITUDE, ALTITUDE, DOORNUMBER, STREETNAME, POSTALCODE, LOCALITY, COUNTRY)
         Values (p_latitude, p_longitude, p_altitude, p_doorNumber, p_streetName, p_postalCode, p_locality, p_country)
-        returning id into addressIdentifier;
+        returning LATITUDE,LONGITUDE into latitudeIdentifier,longitudeIdentifier;
     end if;
 
 
 -- Creates a new Client
-    Insert into Client(userId, CREDITS, ADDRESSID)
-    Values (userIdentifier, p_credits, addressIdentifier);
+    Insert into Client(userId, CREDITS, ADDRESSLATITUDE, ADDRESSLONGITUDE)
+    Values (userIdentifier, p_credits, latitudeIdentifier,longitudeIdentifier);
 
     if userIdentifier is null then
         raise client_not_created_exception;
