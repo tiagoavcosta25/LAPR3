@@ -8,8 +8,8 @@ class RemoveCourierUI {
 }
 package "Controller" #DDDDDD {
 class RemoveCourierController{
-+validateCourier(id)
-+removeCourier(id)
++validateCourier(email)
++removeCourier(email)
 }
 
 class ApplicationPOT
@@ -22,8 +22,8 @@ class ApplicationPOT
 package "Model" #DDDDDD {
 package "Service" #DDDDDD {
    class CourierService{
-          +validateCourier(id)
-          +removeCourier(id)
+          +validateCourier(email)
+          +removeCourier(email)
 
       }
 
@@ -64,7 +64,7 @@ class DataHandler{
 }
 
 class CourierDB{
- +removeCourier(id)
+ +removeCourier(email)
   }
 
 }

@@ -71,8 +71,8 @@ public class UpdateCourierController {
      */
     public Courier updateCourier(Courier courier, String strName, String strEmail, Integer intNif, String strIban,Integer pharmacyID) {
         try{
-            oPharmacy = this.oPharmacyService.getPharmacy(pharmacyID);
             validateInput(strName,strEmail,intNif,strIban);
+            oPharmacy = this.oPharmacyService.getPharmacy(pharmacyID);
             oCourier = this.oCourierService.updateCourier(courier,strName,strEmail,intNif,strIban,oPharmacy);
             return this.oCourier;
         } catch (Exception ex) {
