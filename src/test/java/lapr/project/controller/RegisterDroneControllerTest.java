@@ -45,8 +45,6 @@ class RegisterDroneControllerTest {
     void newDrone() {
         System.out.println("newDrone");
 
-        when(mockPharmacyService.getPharmacy(1)).thenReturn(new Pharmacy());
-
         when(mockDroneService.newDrone(35.5f, "No Charging",
                 250f, 30f,100, 20f, 30f, new Pharmacy())).thenReturn(expectedTrue);
 
