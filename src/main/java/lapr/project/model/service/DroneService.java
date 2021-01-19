@@ -55,21 +55,21 @@ public class DroneService {
         double totalEnergy =0f;
         //calcular energia
         if (oVehicle instanceof Drone) {
-            double velocity = (double) Math.sqrt((2 * (oVehicle.getWeight() + totalWeight) * (Constants.GRAVITIC_ACCELERATION)) / (Constants.AIR_DENSITY * Constants.DEFAULT_ROTOR_AREA * Constants.DRAG_COEFFICIENT));
+            double velocity = Math.sqrt((2 * (oVehicle.getWeight() + totalWeight) * (Constants.GRAVITIC_ACCELERATION)) / (Constants.AIR_DENSITY * Constants.DEFAULT_ROTOR_AREA * Constants.DRAG_COEFFICIENT));
             //rever
             double liftEnergy = (oVehicle.getWeight() + totalWeight) * velocity * velocity / (Constants.DEFAULT_HEIGHT - 10);
 
             double potentialEnergy = (oVehicle.getWeight() + totalWeight) * Constants.GRAVITIC_ACCELERATION * Constants.DEFAULT_HEIGHT;
-            double workKineticEnergy = (oVehicle.getPotency() / velocity) * (double) distance;
+            double workKineticEnergy = (oVehicle.getPotency() / velocity) *distance;
             totalEnergy = potentialEnergy + workKineticEnergy + (2 * liftEnergy);
 
             //conversão de unidades
              } else {
-            double force = (double) (((totalWeight + oVehicle.getWeight() + Constants.DEFAULT_COURIER_WEIGHT)*Constants.GRAVITIC_ACCELERATION *
+            double force = (((totalWeight + oVehicle.getWeight() + Constants.DEFAULT_COURIER_WEIGHT)*Constants.GRAVITIC_ACCELERATION *
                     Constants.KINETIC_FRICTION_COEFFICIENT) + (0.5 * Constants.AIR_DENSITY * Constants.DRAG_COEFFICIENT * Constants.DEFAULT_SCOOTER_AREA *
                     Constants.DEFAULT_VELOCITY*Constants.DEFAULT_VELOCITY));
             //adicionar angulo se possível
-            totalEnergy = force*(double)distance;
+            totalEnergy = force*distance;
         }
         return (((oVehicle.getBattery().getBatteryCapacity() * oVehicle.getBattery().getBatteryVoltage() * (oVehicle.getBattery().getBatteryPerc() / 100)) / 1000) >= totalEnergy * Constants.KILOWATTHOUR);
 
