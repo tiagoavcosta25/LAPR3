@@ -11,6 +11,41 @@ import java.util.List;
 
 public class DeliveryRunDB extends DataHandler {
 
+    //TODO: ARRANJAR
+    public boolean addPathToDB(Path p) {
+        return addPathToDB(p.getLatitudeA(), p.getLongitudeA(), p.getLatitudeB(), p.getLongitudeB(),
+                p.getName(), p.getWindSpeed(), p.getWindAngle(), p.getKineticFrictionCoefficient());
+    }
+
+    private boolean addPathToDB(double dblLatitudeA, double dblLongitudeA, double dblLatitudeB, double dblLongitudeB,
+                                String strName, double dblWindSpeed, double dblWindAngle,
+                                double dblKineticFrictionCoefficient) {
+        boolean flag = true;
+        try {
+            openConnection();
+
+            CallableStatement callStmt = getConnection().prepareCall("{ call addPath(?,?,?,?,?,?,?,?) }");
+
+            callStmt.setDouble(1, dblLatitudeA);
+            callStmt.setDouble(2, dblLongitudeA);
+            callStmt.setDouble(3, dblLatitudeB);
+            callStmt.setDouble(4, dblLongitudeB);
+            callStmt.setString(5, strName);
+            callStmt.setDouble(6, dblWindSpeed);
+            callStmt.setDouble(7, dblWindAngle);
+            callStmt.setDouble(8, dblKineticFrictionCoefficient);
+
+            callStmt.execute();
+
+        } catch (SQLException e) {
+            flag = false;
+            e.printStackTrace();
+        } finally {
+            closeAll();
+        }
+        return flag;
+    }
+
     public List<Path> getAllPaths() {
         CallableStatement callStmt = null;
         List<Path> lstPaths = new ArrayList<>();
@@ -23,10 +58,18 @@ public class DeliveryRunDB extends DataHandler {
             ResultSet rSet = (ResultSet) callStmt.getObject(1);
 
             while (rSet.next()) {
-                int intIdAddress1 = rSet.getInt(1);
-                int intIdAddress2 = rSet.getInt(2);
-                String strName = rSet.getString(3);
-                lstPaths.add(new Path(intIdAddress1, intIdAddress2, strName));
+
+                double m_dblLatitudeA = rSet.getDouble(1);
+                double m_dblLongitudeA = rSet.getDouble(2);
+                double m_dblLatitudeB = rSet.getDouble(3);
+                double m_dblLongitudeB = rSet.getDouble(4);
+                String m_strName = rSet.getString(5);
+                double m_dblWindSpeed = rSet.getDouble(6);
+                double m_dblWindAngle = rSet.getDouble(7);
+                double m_dblKineticFrictionCoefficient = rSet.getDouble(8);
+
+                lstPaths.add(new Path(m_dblLatitudeA, m_dblLongitudeA, m_dblLatitudeB, m_dblLongitudeB,
+                        m_strName, m_dblWindSpeed, m_dblWindAngle, m_dblKineticFrictionCoefficient));
             }
             return lstPaths;
         } catch (SQLException e) {
@@ -37,7 +80,7 @@ public class DeliveryRunDB extends DataHandler {
         throw new IllegalArgumentException("No Paths Avaliable.");
     }
 
-
+    //TODO: ARRANJAR
     public List<Address> getAllAddresses() {
         CallableStatement callStmt = null;
         List<Address> lstAddress = new ArrayList<>();
@@ -55,7 +98,7 @@ public class DeliveryRunDB extends DataHandler {
             return lstAddress;
         } catch (SQLException e) {
             e.printStackTrace();
-        }finally {
+        } finally {
             closeAll();
         }
         throw new IllegalArgumentException("No Addresses Avaliable.");

@@ -4,44 +4,89 @@ import java.util.Objects;
 
 public class Path {
 
-    private int m_intIdAddressA;
-    private int m_intIdAddressB;
+    private double m_dblLatitudeA;
+    private double m_dblLongitudeA;
+    private double m_dblLatitudeB;
+    private double m_dblLongitudeB;
     private String m_strName;
+    private double m_dblWindSpeed;
+    private double m_dblWindAngle;
+    private double m_dblKineticFrictionCoefficient;
 
-    public Path() {
-        this.m_intIdAddressA = -1;
-        this.m_intIdAddressB = -1;
-        this.m_strName = "No Path Name";
-    }
-
-    public Path(int m_intIdAddressA, int m_intIdAddressB, String m_strName) {
-        this.m_intIdAddressA = m_intIdAddressA;
-        this.m_intIdAddressB = m_intIdAddressB;
+    public Path(double m_dblLatitudeA, double m_dblLongitudeA, double m_dblLatitudeB, double m_dblLongitudeB,
+                String m_strName, double m_dblWindSpeed, double m_dblWindAngle, double m_dblKineticFrictionCoefficient) {
+        this.m_dblLatitudeA = m_dblLatitudeA;
+        this.m_dblLongitudeA = m_dblLongitudeA;
+        this.m_dblLatitudeB = m_dblLatitudeB;
+        this.m_dblLongitudeB = m_dblLongitudeB;
         this.m_strName = m_strName;
+        this.m_dblWindSpeed = m_dblWindSpeed;
+        this.m_dblWindAngle = m_dblWindAngle;
+        this.m_dblKineticFrictionCoefficient = m_dblKineticFrictionCoefficient;
     }
 
-    public int getIdAddressA() {
-        return m_intIdAddressA;
+    public double getLatitudeA() {
+        return m_dblLatitudeA;
     }
 
-    public int getIdAddressB() {
-        return m_intIdAddressB;
+    public void setLatitudeA(double m_dblLatitudeA) {
+        this.m_dblLatitudeA = m_dblLatitudeA;
+    }
+
+    public double getLongitudeA() {
+        return m_dblLongitudeA;
+    }
+
+    public void setLongitudeA(double m_dblLongitudeA) {
+        this.m_dblLongitudeA = m_dblLongitudeA;
+    }
+
+    public double getLatitudeB() {
+        return m_dblLatitudeB;
+    }
+
+    public void setLatitudeB(double m_dblLatitudeB) {
+        this.m_dblLatitudeB = m_dblLatitudeB;
+    }
+
+    public double getLongitudeB() {
+        return m_dblLongitudeB;
+    }
+
+    public void setLongitudeB(double m_dblLongitudeB) {
+        this.m_dblLongitudeB = m_dblLongitudeB;
     }
 
     public String getName() {
         return m_strName;
     }
 
-    public void setIdAddressA(int idAdressA) {
-        this.m_intIdAddressA = idAdressA;
+    public void setName(String m_strName) {
+        this.m_strName = m_strName;
     }
 
-    public void setIdAddressB(int idAddressB) {
-        this.m_intIdAddressB = idAddressB;
+    public double getWindSpeed() {
+        return m_dblWindSpeed;
     }
 
-    public void setName(String name) {
-        this.m_strName = name;
+    public void setWindSpeed(double m_dblWindSpeed) {
+        this.m_dblWindSpeed = m_dblWindSpeed;
+    }
+
+    public double getWindAngle() {
+        return m_dblWindAngle;
+    }
+
+    public void setWindAngle(double m_dblWindAngle) {
+        this.m_dblWindAngle = m_dblWindAngle;
+    }
+
+    public double getKineticFrictionCoefficient() {
+        return m_dblKineticFrictionCoefficient;
+    }
+
+    public void setKineticFrictionCoefficient(double m_dblKineticFrictionCoefficient) {
+        this.m_dblKineticFrictionCoefficient = m_dblKineticFrictionCoefficient;
     }
 
     @Override
@@ -49,22 +94,28 @@ public class Path {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Path path = (Path) o;
-        return m_intIdAddressA == path.m_intIdAddressA &&
-                m_intIdAddressB == path.m_intIdAddressB &&
-                Objects.equals(m_strName, path.m_strName);
+        return Objects.equals(m_dblLatitudeA, path.m_dblLatitudeA) &&
+                Objects.equals(m_dblLongitudeA, path.m_dblLongitudeA) &&
+                Objects.equals(m_dblLatitudeB, path.m_dblLatitudeB) &&
+                Objects.equals(m_dblLongitudeB, path.m_dblLongitudeB);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(m_intIdAddressA);
+        return Objects.hash(m_dblLatitudeA, m_dblLongitudeA, m_dblLatitudeB, m_dblLongitudeB);
     }
 
     @Override
     public String toString() {
         return "Path{" +
-                "m_intIdAddressA=" + m_intIdAddressA +
-                ", m_intIdAddressB=" + m_intIdAddressB +
+                "m_dblLatitudeA=" + m_dblLatitudeA +
+                ", m_dblLongitudeA=" + m_dblLongitudeA +
+                ", m_dblLatitudeB=" + m_dblLatitudeB +
+                ", m_dblLongitudeB=" + m_dblLongitudeB +
                 ", m_strName='" + m_strName + '\'' +
+                ", m_dblWindSpeed=" + m_dblWindSpeed +
+                ", m_dblWindAngle=" + m_dblWindAngle +
+                ", m_dblKineticFrictionCoefficient=" + m_dblKineticFrictionCoefficient +
                 '}';
     }
 }

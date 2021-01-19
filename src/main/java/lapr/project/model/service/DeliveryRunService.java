@@ -31,7 +31,9 @@ public class DeliveryRunService {
         return m_oDeliveryRunDB.getAddressesByDeliveryRunId(email);
     }
 
-
+    public Pair<LinkedList<Address>, Double> calculateMostEfficientPath(Address a, Address b, List<Address> list) {
+        return ApplicationPOT.getInstance().getWorldMap().calculateMostEfficientPath(a, b, list);
+    }
 
     public float getMaxPayload(String email) {
         return m_oDeliveryDB.getMaxPayload(email);

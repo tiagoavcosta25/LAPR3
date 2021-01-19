@@ -45,30 +45,31 @@ public class DroneService {
         return m_oDroneDB.removeDroneFromDB(intId);
     }
 
+    //TODO: Alterado para double, verificar se está correto
     public boolean checkEnergy(double distance, DeliveryRun oDeliveryRun) {
         Vehicle oVehicle = oDeliveryRun.getVehicle();
-        float totalWeight = 0f;
+        double totalWeight = 0;
         for (Order o : oDeliveryRun.getOrderList()) {
             totalWeight = totalWeight + o.getTotalWeight();
         }
-        float totalEnergy =0f;
+        double totalEnergy =0f;
         //calcular energia
         if (oVehicle instanceof Drone) {
-            float velocity = (float) Math.sqrt((2 * (oVehicle.getWeight() + totalWeight) * (Constants.GRAVITIC_ACCELERATION)) / (Constants.AIR_DENSITY * Constants.DEFAULT_ROTOR_AREA * Constants.DRAG_COEFFICIENT));
+            double velocity = (double) Math.sqrt((2 * (oVehicle.getWeight() + totalWeight) * (Constants.GRAVITIC_ACCELERATION)) / (Constants.AIR_DENSITY * Constants.DEFAULT_ROTOR_AREA * Constants.DRAG_COEFFICIENT));
             //rever
-            float liftEnergy = (oVehicle.getWeight() + totalWeight) * velocity * velocity / (Constants.DEFAULT_HEIGHT - 10);
+            double liftEnergy = (oVehicle.getWeight() + totalWeight) * velocity * velocity / (Constants.DEFAULT_HEIGHT - 10);
 
-            float potentialEnergy = (oVehicle.getWeight() + totalWeight) * Constants.GRAVITIC_ACCELERATION * Constants.DEFAULT_HEIGHT;
-            float workKineticEnergy = (oVehicle.getPotency() / velocity) * (float) distance;
+            double potentialEnergy = (oVehicle.getWeight() + totalWeight) * Constants.GRAVITIC_ACCELERATION * Constants.DEFAULT_HEIGHT;
+            double workKineticEnergy = (oVehicle.getPotency() / velocity) * (double) distance;
             totalEnergy = potentialEnergy + workKineticEnergy + (2 * liftEnergy);
 
             //conversão de unidades
              } else {
-            float force = (float) (((totalWeight + oVehicle.getWeight() + Constants.DEFAULT_COURIER_WEIGHT)*Constants.GRAVITIC_ACCELERATION *
+            double force = (double) (((totalWeight + oVehicle.getWeight() + Constants.DEFAULT_COURIER_WEIGHT)*Constants.GRAVITIC_ACCELERATION *
                     Constants.KINETIC_FRICTION_COEFFICIENT) + (0.5 * Constants.AIR_DENSITY * Constants.DRAG_COEFFICIENT * Constants.DEFAULT_SCOOTER_AREA *
                     Constants.DEFAULT_VELOCITY*Constants.DEFAULT_VELOCITY));
             //adicionar angulo se possível
-            totalEnergy = force*(float)distance;
+            totalEnergy = force*(double)distance;
         }
         return (((oVehicle.getBattery().getBatteryCapacity() * oVehicle.getBattery().getBatteryVoltage() * (oVehicle.getBattery().getBatteryPerc() / 100)) / 1000) >= totalEnergy * Constants.KILOWATTHOUR);
 
