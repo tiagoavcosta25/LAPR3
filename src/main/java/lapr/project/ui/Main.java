@@ -31,15 +31,6 @@ class Main {
     public static void main(String[] args) {
         System.out.println("Hello world\n");
 
-        LoginController lCtrl = new LoginController();
-        lCtrl.login("esomaiorbro@gmail.com", "password");
-
-        System.out.println(ApplicationPOT.getInstance().getCurrentSession().getCurrentUserEmail());
-        System.out.println(ApplicationPOT.getInstance().getCurrentSession().getRole().getRole());
-
-        ParkScooterController pCtrl = new ParkScooterController();
-        pCtrl.parkScooter(1);
-
         System.out.println("\nGoodbye world");
     }
 }
