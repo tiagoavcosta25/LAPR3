@@ -47,8 +47,8 @@ class AddPharmacyProductControllerTest {
         boolean real = addPharmacyProductController.addPharmacyProduct(new Product(), 1);
         assertEquals(expected, real);
 
-        expected = false;
-        real = addPharmacyProductController.addPharmacyProduct(null, 0);
+        expected = true;
+        real = addPharmacyProductController.addPharmacyProduct(new Product(), 0);
         assertEquals(expected, real);
 
         expected = false;
@@ -57,6 +57,10 @@ class AddPharmacyProductControllerTest {
 
         expected = false;
         real = addPharmacyProductController.addPharmacyProduct(null, -1);
+        assertEquals(expected, real);
+
+        expected = false;
+        real = addPharmacyProductController.addPharmacyProduct(null, 0);
         assertEquals(expected, real);
     }
     @Test
