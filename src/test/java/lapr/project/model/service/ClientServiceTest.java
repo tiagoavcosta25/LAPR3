@@ -307,5 +307,21 @@ class ClientServiceTest {
         when(m_ClientDB.getCreditCardsByClient("")).thenReturn(new ArrayList<>());
         List<CreditCard> real = m_service.getCreditCardsByClient("");
         assertEquals(expected,real);
+
+        expected = new ArrayList<>();
+        expected.add(new CreditCard());
+        when(m_ClientDB.getCreditCardsByClient("")).thenReturn(expected);
+
+        real = m_service.getCreditCardsByClient("");
+        assertEquals(expected,real);
+
+
+        when(m_ClientDB.getCreditCardsByClient("")).thenReturn(null);
+        expected = null;
+        real = m_service.getCreditCardsByClient("");
+        assertEquals(expected,real);
+
+
+
     }
 }

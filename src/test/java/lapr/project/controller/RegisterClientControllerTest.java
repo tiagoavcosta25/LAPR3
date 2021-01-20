@@ -91,6 +91,18 @@ class RegisterClientControllerTest {
         real = m_ctrl.registerNewClient("as",123456789,"ass@","1234567",123d,12355d,10d,"asd"
                 ,"as","4433-112","loc","country",new ArrayList<>());
         assertFalse(real);
+
+
+        when (m_mockClientService.newClient("as",123456777,"a@","1234567",123d,12355d,10d,"asd"
+                ,"as","4433-112","loc","country",new ArrayList<>())).thenReturn(new Client("as",123456777,"a@","1234567",123d,12355d,10d,"asd"
+                ,"as","4433-112","loc","country",new ArrayList<>()));
+        when (m_mockClientService.validateInput("as",123456777,"a@","1234567",123d,12355d,10d,"asd"
+                ,"as","4433-112","loc","country",new ArrayList<>())).thenReturn(true);
+        when (m_mockClientService.registerNewClient(new Client("as",123456777,"a@","1234567",123d,12355d,10d,"asd"
+                ,"as","4433-112","loc","country",new ArrayList<>()))).thenReturn(false);
+        real = m_ctrl.registerNewClient("as",123456777,"a@","1234567",123d,12355d,10d,"asd"
+                ,"as","4433-112","loc","country",new ArrayList<>());
+        assertFalse(real);
     }
 
 }

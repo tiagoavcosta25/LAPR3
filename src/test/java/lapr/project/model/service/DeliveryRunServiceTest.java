@@ -2,10 +2,7 @@ package lapr.project.model.service;
 
 import lapr.project.data.DeliveryDB;
 import lapr.project.data.DeliveryRunDB;
-import lapr.project.model.Address;
-import lapr.project.model.Courier;
-import lapr.project.model.DeliveryRun;
-import lapr.project.model.Drone;
+import lapr.project.model.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -83,5 +80,22 @@ class DeliveryRunServiceTest {
         Map<String,String> lst = new TreeMap<>();
         boolean result = m_oDeliveryRunService.sendsEmail(lst);
         assertTrue(result);
+    }
+
+    @Test
+    void registerPath() {
+
+    }
+
+    @Test
+    void calculateMostEfficientPath() {
+    }
+
+    @Test
+    void testSendsEmail() {
+        Map<String,Order> lstClients = new HashMap<String,Order>();
+        lstClients.put("email@gmail.com",new Order());
+        boolean real = m_oDeliveryRunService.sendsEmail(lstClients);
+        assertTrue(real);
     }
 }
