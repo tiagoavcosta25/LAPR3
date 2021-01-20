@@ -2,6 +2,7 @@ package lapr.project.ui;
 
 import lapr.project.controller.*;
 
+
 /**
  * @author Nuno Bettencourt <nmb@isep.ipp.pt> on 24/05/16.
  */
@@ -23,7 +24,8 @@ class Main {
     public static void main(String[] args) {
         System.out.println("Hello world\n");
 
-        
+        ApplicationPOT.getInstance().getWorldMap().createGraph();
+        System.out.println(ApplicationPOT.getInstance().getWorldMap().getGraph().toString());
 
 
         System.out.println("\nGoodbye world");

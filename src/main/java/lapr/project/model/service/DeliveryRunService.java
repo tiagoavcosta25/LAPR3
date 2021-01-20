@@ -19,6 +19,13 @@ public class DeliveryRunService {
         m_oDeliveryDB = new DeliveryDB();
     }
 
+    public boolean registerPath(double dblLatitudeA, double dblLongitudeA, double dblLatitudeB, double dblLongitudeB,
+                                String strName, double dblWindSpeed, double dblWindAngle,
+                                double dblKineticFrictionCoefficient) {
+        return m_oDeliveryRunDB.addPathToDB(new Path(dblLatitudeA, dblLongitudeA, dblLatitudeB, dblLongitudeB,
+                strName, dblWindSpeed, dblWindAngle, dblKineticFrictionCoefficient));
+    }
+
     public DeliveryRun newDeliveryRun(Courier oCourier, List<Order> oLstOrder) {
         return new DeliveryRun(oCourier, oLstOrder);
     }
@@ -31,6 +38,9 @@ public class DeliveryRunService {
         return m_oDeliveryRunDB.getAddressesByDeliveryRunId(email);
     }
 
+    public Pair<LinkedList<Address>, Double> calculateMostEfficientPath(Address a, Address b, List<Address> list) {
+        return ApplicationPOT.getInstance().getWorldMap().calculateMostEfficientPath(a, b, list);
+    }
 
     public float getMaxPayload(String email) {
         return m_oDeliveryDB.getMaxPayload(email);
