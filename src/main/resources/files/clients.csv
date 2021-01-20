@@ -8,8 +8,13 @@
 #CREDITCARDS regarding the user
 #
 #CLIENTS
+#EMAIL | PW | NIF | NAME |
 fernando@gmail.com;clpassword;140803565;fernando;41.14582;-8.61398;87.0;Clerigos;2esq;4444-111;Porto;Portugal;9412348029177724;10-23;123;5913620127165361;01-23;929
 manuel@gmail.com;clpassword;232134936;manuel;41.14723;-8.60657;91.0;Majestic;3esq;4333-222;Porto;Portugal;6997327669161303;09-24;135;7734437051662226;02-23;293
 jorge@gmail.com;clpassword;680946657;jorge;41.14871;-8.60746;87.0;Bolhao;4dir;4222-333;Porto;Portugal;2438143586615496;02-23;182;5518150788146910;11-28;235
 alexandre@gmail.com;clpassword;934378172;alexandre;41.14331;-8.60914;82.0;Sé;1esq;4111-444;Porto;Portugal;5861817093218144;02-24;932;7071760071907421;10-30;819
 joana@gmail.com;clpassword;105117973;joana;41.14063;-8.61118;25.0;Cais da Ribeira;3esq;4000-555;Porto;Portugal;5323943797733841;12-26;875;8292933502275238;06-22;845
+#
+# TO DELETE
+testeph1@gmail.com;pw1234;123456785;teste2ph;41.15227;-8.60929;104.0;Trindade;2esq;4321-123;Porto;Portugal;1482680575058018;10-29;555
+testeph2@gmail.com;pw1234;123456784;teste2ph;41.16875;-8.68995;4.0;Castelo Do Queijo;3esq;4888-332;Porto;Portugal;9239662092121993;11-34;444
