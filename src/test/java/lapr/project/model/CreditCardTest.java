@@ -108,4 +108,13 @@ class CreditCardTest {
         String real = oCreditCard.toString();
         assertEquals(expected, real);
     }
+
+    @Test
+    void hasNumber() {
+        CreditCard oCreditCard = new CreditCard();
+        oCreditCard.setCreditCardNr(1L);
+        assertTrue(oCreditCard.hasNumber(1L));
+        assertFalse(oCreditCard.hasNumber(2L));
+    }
+
 }

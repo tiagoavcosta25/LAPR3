@@ -16,6 +16,7 @@ import java.util.Date;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
 
@@ -78,6 +79,12 @@ class RegisterClientControllerTest {
         real = m_ctrl.registerNewClient("as",123456789,"a@","1234567",1231d,124d,10d,"asda",
                 "asd","434-243","loca","country",new ArrayList<>());
 
+        assertFalse(real);
+
+        when(m_mockClientService.registerNewClient(new Client("as",123456789,"aas@","1234567",123d,12355d,10d,"asd"
+                ,"as","4433-112","loc","country",lst))).thenThrow(new NullPointerException());
+        real = m_ctrl.registerNewClient("as",123456789,"aas@","1234567",123d,12355d,10d,"asd"
+                ,"as","4433-112","loc","country",lst);
         assertFalse(real);
     }
 

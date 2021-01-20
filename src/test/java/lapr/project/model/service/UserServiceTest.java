@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.internal.matchers.Null;
 
 import java.security.NoSuchAlgorithmException;
 import static org.mockito.Mockito.when;
@@ -36,6 +37,10 @@ class UserServiceTest {
 
         when (m_oUserDB.login("as@",EncryptPassword.encryptPasswordMD5("asdaas"))).thenReturn(false);
         real = m_service.login("as@","asdaas");
+        assertFalse(real);
+
+        when (m_oUserDB.login("a","a")).thenThrow(new IllegalArgumentException());
+        real = m_service.login("a","a");
         assertFalse(real);
     }
 

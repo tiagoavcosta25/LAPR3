@@ -52,8 +52,14 @@ class RegisterDeliveryRunControllerTest {
         boolean real = m_ctrl.registerDeliveryRun(new ArrayList<>());
         assertTrue(real);
 
+        when(m_mockDeliveryRunService.addNewDeliveryRun(new DeliveryRun())).thenReturn(false);
+        real = m_ctrl.registerDeliveryRun(new ArrayList<>());
+        assertFalse(real);
+
         ApplicationPOT.getInstance().setCurrentSession(new UserSession("",1));
         real = m_ctrl.registerDeliveryRun(new ArrayList<>());
         assertFalse(real);
+
+
     }
 }

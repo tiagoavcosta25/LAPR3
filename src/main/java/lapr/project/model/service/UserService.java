@@ -26,8 +26,8 @@ public class UserService {
             }else return false;
         }catch (NoSuchAlgorithmException e) {
             LOGGER.log(Level.WARNING,"Encryptation Algorithm failed!");
+            return false;
         }
-        return false;
     }
 
     public boolean newUserSession() {

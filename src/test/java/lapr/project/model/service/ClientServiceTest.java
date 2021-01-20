@@ -253,6 +253,12 @@ class ClientServiceTest {
                 1032323d,1999392d,0d,"Test street","2esq","5432-234","Gaia",
                 "Portugal",lst);
         assertFalse(result36);
+
+        lst.add(new CreditCard(102301L,new SimpleDateFormat("MM-yy").parse("11-24"),1234));
+        boolean result37 = m_service.validateInput("TestName",123456788,"test@gmail.com","testpassword",
+                1032323d,1999392d,10d,"Test street","2ºesq","4444-111","Gaia",
+                "Portugal",lst);
+        assertFalse(result37);
     }
 
     @Test

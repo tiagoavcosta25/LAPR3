@@ -46,7 +46,6 @@ public class RegisterClientController {
                     lstCreditCardNr)) {
                 Client c = m_oClientService.newClient(name, nif, email, password, latitude, longitude, altitude, streetName, doorNumber, postalCode, locality, country,
                         lstCreditCardNr);
-                System.out.println(c);
                 return m_oClientService.registerNewClient(c);
             }
         } catch (Exception e) {

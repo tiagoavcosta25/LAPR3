@@ -156,6 +156,14 @@ class AddressTest {
 
         Address oAddress2 = null;
         assertNotEquals(a3, oAddress2);
+
+        Address oAddress3 = new Address(1123112.0,1.0,50d, "Rua 1", "2esq", "4444-111",
+                "Mafamude", "Portugal");
+        assertNotEquals(oAddress,oAddress3);
+
+        Address oAddress4 = new Address(1.0,103121.01,50d, "Rua 1", "2esq", "4444-111",
+                "Mafamude", "Portugal");
+        assertNotEquals(oAddress,oAddress4);
     }
 
     @Test
