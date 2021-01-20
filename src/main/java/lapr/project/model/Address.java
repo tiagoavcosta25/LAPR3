@@ -171,12 +171,13 @@ public class Address {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Address address = (Address) o;
-        return Objects.equals(m_intId, address.m_intId);
+        return Objects.equals(m_dblLatitude, address.m_dblLatitude) &&
+                Objects.equals(m_dblLongitude, address.m_dblLongitude);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(m_intId);
+        return Objects.hash(m_dblLatitude, m_dblLongitude);
     }
 
     @Override
