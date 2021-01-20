@@ -3,6 +3,7 @@ package lapr.project.model.service;
 import lapr.project.data.DroneDB;
 import lapr.project.model.*;
 import lapr.project.utils.Constants;
+import lapr.project.utils.EnergyCalculator;
 
 import java.util.List;
 
@@ -51,7 +52,7 @@ public class DroneService {
         for (Order o : oDeliveryRun.getOrderList()) {
             totalWeight = totalWeight + o.getTotalWeight();
         }
-        double totalEnergy =0f;
+        double totalEnergy;
         //calcular energia
         if (oVehicle instanceof Drone) {
             double velocity = Math.sqrt((2 * (oVehicleModel.getWeight() + totalWeight) * (Constants.GRAVITIC_ACCELERATION)) / (Constants.AIR_DENSITY * Constants.DEFAULT_ROTOR_AREA * Constants.DRAG_COEFFICIENT));
@@ -62,13 +63,14 @@ public class DroneService {
             double workKineticEnergy = (oVehicleModel.getPotency() / velocity) *distance;
             totalEnergy = potentialEnergy + workKineticEnergy + (2 * liftEnergy);
 
-            //conversão de unidades
              } else {
+            totalEnergy = (EnergyCalculator.calculoEnergia(distance,0,1,10,totalWeight + oVehicleModel.getWeight() + Constants.DEFAULT_COURIER_WEIGHT,Constants.KINETIC_FRICTION_COEFFICIENT))/Constants.KILOWATTHOUR;
+            /*
             double force = (((totalWeight + oVehicleModel.getWeight() + Constants.DEFAULT_COURIER_WEIGHT)*Constants.GRAVITIC_ACCELERATION *
                     Constants.KINETIC_FRICTION_COEFFICIENT) + (0.5 * Constants.AIR_DENSITY * Constants.DRAG_COEFFICIENT * Constants.DEFAULT_SCOOTER_AREA *
                     Constants.DEFAULT_VELOCITY*Constants.DEFAULT_VELOCITY));
             //adicionar angulo se possível
-            totalEnergy = force*distance;
+            totalEnergy = force*distance;*/
         }
         return (((oVehicleModel.getBattery().getBatteryCapacity() * oVehicleModel.getBattery().getBatteryVoltage() * (oVehicle.getBatteryPerc() / 100)) / 1000) >= totalEnergy * Constants.KILOWATTHOUR);
 

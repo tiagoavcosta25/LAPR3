@@ -195,15 +195,15 @@ class DroneServiceTest {
 
     @Test
     void checkEnergy() {
-        /*System.out.println("checkEnergy");
+        System.out.println("checkEnergy");
         List<Order> list = new ArrayList<>();
         list.add(new Order(1f, 0.25f,0, new Date(System.currentTimeMillis()), null, null, false, new Client(), new Pharmacy(), new TreeMap<>()));
         list.add(new Order(1f, 1f,0, new Date(System.currentTimeMillis()), null, null, false, new Client(), new Pharmacy(),new TreeMap<>()));
         DeliveryRun dr = new DeliveryRun(new Courier(),list);
-        dr.setVehicle(new Drone(100, 2, 1.5f, "charged", 90, 10, 4, new Pharmacy()));
+        dr.setVehicle(new Drone(new VehicleModel("Modelo1", 250,10, 10, new Battery(10,4,80), VehicleType.DRONE), new Pharmacy()));
         dr.setStatus(DeliveryStatus.IDLE);
         boolean result = m_oDroneService.checkEnergy(10000, dr);
-        assertTrue(result);*/
+        assertTrue(result);
     }
 
     @Test
@@ -216,15 +216,15 @@ class DroneServiceTest {
     }
      @Test
      void checkEnergy3(){
-        /* System.out.println("checkEnergy3");
+         System.out.println("checkEnergy3");
          List<Order> list = new ArrayList<>();
          list.add(new Order(1f, 0.25f,0, new Date(System.currentTimeMillis()), null, null, false, new Client(), new Pharmacy(), new TreeMap<>()));
          list.add(new Order(1f, 1f,0, new Date(System.currentTimeMillis()), null, null, false, new Client(), new Pharmacy(),new TreeMap<>()));
          DeliveryRun dr = new DeliveryRun(new Courier(),list);
-         dr.setVehicle(new Scooter(300, 15, 10, "charged", 100, 22, 12, new Pharmacy()));
+         dr.setVehicle(new Scooter(new VehicleModel("Modelo2", 350,15, 10, new Battery(200,40,80), VehicleType.SCOOTER), new Pharmacy()));
          dr.setStatus(DeliveryStatus.IDLE);
-         boolean result = m_oDroneService.checkEnergy(1000, dr);
-         assertTrue(result);*/
+         boolean result = m_oDroneService.checkEnergy(25000, dr);
+         assertTrue(result);
      }
      @Test
      void checkEnergy4(){
