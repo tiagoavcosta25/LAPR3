@@ -28,7 +28,7 @@ public class MoveDroneControllerTest {
         list.add(new Order(1f, 0.25f, 0, new Date(System.currentTimeMillis()), null, null, false, new Client(), new Pharmacy(), new TreeMap<>()));
         list.add(new Order(1f, 1f, 0, new Date(System.currentTimeMillis()), null, null, false, new Client(), new Pharmacy(), new TreeMap<>()));
         DeliveryRun dr = new DeliveryRun(new Courier(), list);
-        dr.setVehicle(new Drone(new VehicleModel("Modelo1", 250,10, 10, new Battery(10,4,80), VehicleType.DRONE), new Pharmacy()));
+        dr.setVehicle(new Drone(new VehicleModel("Modelo1", 250,10, 10, new Battery(5,4,80), VehicleType.DRONE), new Pharmacy()));
         dr.setStatus(DeliveryStatus.IDLE);
         boolean result = this.oMoveDroneController.moveDrone(pathInfo, dr);
         assertTrue(result);
