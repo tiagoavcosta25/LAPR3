@@ -24,7 +24,7 @@ public class UserService {
                 LOGGER.log(Level.INFO,"Logged In!");
                 return true;
             }else return false;
-        }catch (NoSuchAlgorithmException e) {
+        }catch (Exception e) {
             LOGGER.log(Level.WARNING,"Encryptation Algorithm failed!");
             return false;
         }
