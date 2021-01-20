@@ -109,7 +109,7 @@ class PharmacyTest {
     @Test
     void setAddress() {
         Pharmacy oPharmacy = new Pharmacy();
-        Address expected = new Address(1d, 1d, "test", "test", "test", "test", "test");
+        Address expected = new Address(1d, 1d,1d, "test", "test", "test", "test", "test");
         oPharmacy.setAddress(expected);
         Address real = oPharmacy.getAddress();
         assertEquals(expected, real);
@@ -160,7 +160,9 @@ class PharmacyTest {
     @Test
     void testToString() {
         Pharmacy oPharmacy = new Pharmacy();
-        String expected = "Pharmacy{m_intId=-1, m_strName='No name.', m_strEmail='No email.', m_oAddress=Address{m_id=-1, m_latitude=-22.0, m_longitude=-22.0, m_streetName='No Street Name', m_doorNumber='No Door Number', m_postalCode='No Postal Code', m_locality='No Locality', m_country='No Country'}, m_lstParks=[], m_mapStock={}}";
+        String expected = "Pharmacy{m_intId=-1, m_strName='No name.', m_strEmail='No email.', m_oAddress=Address{m_dblLatitude=-22.0," +
+                " m_dblLongitude=-22.0, m_dblAltitude=-1.7976931348623157E308, m_strStreetName='No Street Name', m_strDoorNumber='No Door Number'," +
+                " m_strPostalCode='No Postal Code', m_strLocality='No Locality', m_strCountry='No Country'}, m_lstParks=[], m_mapStock={}}";
         String real = oPharmacy.toString();
         assertEquals(expected, real);
     }

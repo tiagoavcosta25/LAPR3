@@ -45,7 +45,7 @@ class RegisterClientControllerTest {
         List<CreditCard> lst = new ArrayList<>();
         lst.add(new CreditCard());
         when (m_mockClientService.newClient("as",123456789,"aas@","1234567",123d,12355d,10d,"asd"
-                ,"as","4433-112","loc","country",new ArrayList<>())).thenReturn(new Client("as",123456789,"aas@","1234567",123d,12355d,"asd"
+                ,"as","4433-112","loc","country",new ArrayList<>())).thenReturn(new Client("as",123456789,"aas@","1234567",123d,12355d,10d,"asd"
                 ,"as","4433-112","loc","country",lst));
         when (m_mockClientService.validateInput("as",123456789,"aas@","1234567",123d,12355d,10d,"asd"
                 ,"as","4433-112","loc","country",new ArrayList<>())).thenReturn(true);

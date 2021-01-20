@@ -20,21 +20,21 @@ class ClientTest {
         List<CreditCard> lst = new ArrayList<>();
         lst.add(new CreditCard(192193L,new SimpleDateFormat("MM/yy").
                 parse("10/20"),123));
-        c1 = new Client("name", 123456789, "email@", "pw1234", 102030.23, 103121.01,
+        c1 = new Client("name", 123456789, "email@", "pw1234", 102030.23, 103121.01,10d,
                 "Rua 1", "2esq", "4444-111",
                 "Mafamude", "Portugal", lst);
-        c2 = new Client(2, "name", 123456789, "email@", "pw1234", 2, 102030.23, 103121.01,
+        c2 = new Client(2, "name", 123456789, "email@", "pw1234", 2, 102030.23, 103121.01,10d,
                 "Rua 1", "2esq", "4444-111",
                 "Mafamude", "Portugal",lst);
-        c3 = new Client(2, "name", 123456789, "email@", "pw1234", 2, new Address(102030.23, 103121.01,
+        c3 = new Client(2, "name", 123456789, "email@", "pw1234", 2, new Address(102030.23, 103121.01,10d,
                 "Rua 1", "2esq", "4444-111",
                 "Mafamude", "Portugal"), lst);
         c4 = new Client();
     }
 
     @Test
-    void getM_address() {
-        Address expected = new Address(c3.getAddress().getLatitude(), c3.getAddress().getLongitude(),
+    void getAddress() {
+        Address expected = new Address(c3.getAddress().getLatitude(), c3.getAddress().getLongitude(),c3.getAddress().getAltitude(),
                 c3.getAddress().getStreetName(), c3.getAddress().getDoorNumber(), c3.getAddress().getPostalCode(),
                 c3.getAddress().getLocality(), c3.getAddress().getCountry());
         Address real = c3.getAddress();
@@ -42,7 +42,7 @@ class ClientTest {
     }
 
     @Test
-    void getM_credits() {
+    void getCredits() {
         Integer expected = 0;
         Integer real = c4.getCredits();
         assertEquals(expected, real);
@@ -65,9 +65,9 @@ class ClientTest {
 
     @Test
     void setAddress() {
-        Address expected = new Address(10, 423232.77, 523236.53, "Rua 2", "5dir", "4222-131",
+        Address expected = new Address(423232.77, 523236.53,20d, "Rua 2", "5dir", "4222-131",
                 "Ermesinde", "Portugal");
-        c1.setAddress(new Address(10, 423232.77, 523236.53, "Rua 2", "5dir", "4222-131",
+        c1.setAddress(new Address(423232.77, 523236.53,20d, "Rua 2", "5dir", "4222-131",
                 "Ermesinde", "Portugal"));
         Address real = c1.getAddress();
         assertEquals(expected, real);

@@ -14,7 +14,7 @@ class UserTest {
     private Client u;
 
     public UserTest() throws ParseException, NoSuchAlgorithmException {
-        u = new Client(5,"name",123456789,"email@","pw1234",0,102030.23, 103121.01,
+        u = new Client(5,"name",123456789,"email@","pw1234",0,102030.23, 103121.01,10d,
                 "Rua 1", "2esq", "4444-111",
                 "Mafamude", "Portugal",new ArrayList<>());
 
@@ -97,7 +97,7 @@ class UserTest {
 
     @Test
     void testEquals() throws ParseException {
-        Client oUser = new Client(5,"name",123456789,"email@","pw1234",0,102030.23, 103121.01,
+        Client oUser = new Client(5,"name",123456789,"email@","pw1234",0,102030.23, 103121.01,10d,
                 "Rua 1", "2esq", "4444-111",
                 "Mafamude", "Portugal",new ArrayList<>());
         boolean real = u.equals(oUser);
@@ -105,7 +105,7 @@ class UserTest {
 
         assertEquals(u,u);
 
-        Client oUser1 = new Client(2,"name",123456789,"em","pw1234",0,102030.23, 103121.01,
+        Client oUser1 = new Client(2,"name",123456789,"em","pw1234",0,102030.23, 103121.01,10d,
                 "Rua 1", "2esq", "4444-111",
                 "Mafamude", "Portugal",new ArrayList<>());
 

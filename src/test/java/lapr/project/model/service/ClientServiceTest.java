@@ -269,18 +269,18 @@ class ClientServiceTest {
         List<CreditCard> lst = new ArrayList<>();
         lst.add(new CreditCard(102301L,new SimpleDateFormat("MM-yy").parse("11-24"),123));
         Client c = new Client("TestName",123456788,"test@gmail.com","testpassword",
-                1032323d,1999392d,"Test street","2ºesq","4444-111","Gaia",
+                1032323d,1999392d,10d,"Test street","2ºesq","4444-111","Gaia",
                 "Portugal",lst);
 
         when(m_ClientDB.addClientToDB(c)).thenReturn(true);
         boolean result = m_service.registerNewClient(new Client("TestName",123456788,"test@gmail.com","testpassword",
-                1032323d,1999392d,"Test street","2ºesq","4444-111","Gaia",
+                1032323d,1999392d,10d,"Test street","2ºesq","4444-111","Gaia",
                 "Portugal",lst));
         assertTrue(result);
 
         when(m_ClientDB.addClientToDB(c)).thenReturn(false);
         result = m_service.registerNewClient(new Client("TestName",123456788,"test@gmail.com","testpassword",
-                1032323d,1999392d,"Test street","2ºesq","4444-111","Gaia",
+                1032323d,1999392d,10d,"Test street","2ºesq","4444-111","Gaia",
                 "Portugal",new ArrayList<>()));
         assertFalse(result);
 

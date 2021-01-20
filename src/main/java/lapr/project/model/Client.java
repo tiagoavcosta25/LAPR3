@@ -17,15 +17,6 @@ public class Client extends User {
         this.m_lstCreditCard = new ArrayList<>();
     }
 
-    //TODO : REMOVER - DESATUALIZADO
-    public Client(String name, Integer nif, String email, String password, Double latitude, Double longitude, String streetName,
-                  String doorNumber, String postalCode, String locality, String country, List<CreditCard> lstCreditCardNr) throws NoSuchAlgorithmException {
-        super(email, password, nif, name);
-        this.m_intCredits = 0;
-        this.m_oAddress = new Address(latitude, longitude, streetName, doorNumber, postalCode, locality, country);
-        this.m_lstCreditCard = lstCreditCardNr;
-    }
-
     public Client(String name, Integer nif, String email, String password, Double latitude, Double longitude, Double altitude, String streetName,
                   String doorNumber, String postalCode, String locality, String country, List<CreditCard> lstCreditCardNr) throws NoSuchAlgorithmException {
         super(email, password, nif, name);
@@ -34,16 +25,16 @@ public class Client extends User {
         this.m_lstCreditCard = lstCreditCardNr;
     }
 
-    //TODO : UPDATE, COLOCAR COM ALTITUDE - DESATUALIZADO
-    public Client(Integer id, String name, Integer nif, String email, String password, Integer credits, Double latitude, Double longitude, String streetName,
-                  String doorNumber, String postalCode, String locality, String country, List<CreditCard> lstCreditCardNr) {
+    public Client(Integer id, String name, Integer nif, String email, String password, Integer credits, Double latitude, Double longitude,
+                  Double altitude, String streetName, String doorNumber, String postalCode, String locality, String country,
+                  List<CreditCard> lstCreditCardNr) {
         super(id, email, password, nif, name);
         this.m_intCredits = credits;
-        this.m_oAddress = new Address(latitude, longitude, streetName, doorNumber, postalCode, locality, country);
+        this.m_oAddress = new Address(latitude, longitude, altitude, streetName, doorNumber, postalCode, locality, country);
         this.m_lstCreditCard = lstCreditCardNr;
     }
 
-    //TODO : UPDATE, COLOCAR COM ALTITUDE - DESATUALIZADO
+
     public Client(Integer id, String name, Integer nif, String email, String password, Integer credits, Address address, List<CreditCard> lstCreditCardNr) {
         super(id, email, password, nif, name);
         this.m_intCredits = credits;

@@ -78,13 +78,13 @@ class CalculateMostEfficientPathControllerTest {
 
     private void addAddress() {
         this.expectedList = new ArrayList<>();
-        expectedList.add(new Address(41.1111112, -8.6114856, "1", "789", "4747-857", "loc1", "Portugal"));
-        expectedList.add(new Address(41.1414512, -8.5672412, "1", "123", "4747-857", "loc1", "Portugal"));
-        expectedList.add(new Address(41.1516599, -8.5217484, "1", "456", "4747-857", "loc1", "Portugal"));
-        expectedList.add(new Address(41.1116911, -8.5874815, "1", "858", "4747-857", "loc1", "Portugal"));
-        expectedList.add(new Address(41.1825991, -8.6154487, "1", "128", "4747-857", "loc1", "Portugal"));
-        expectedList.add(new Address(41.1155582, -8.6187858, "1", "169", "4747-857", "loc1", "Portugal"));
-        expectedList.add(new Address(41.1784687, -8.6111664, "431", "R. Dr. António Bernardino de Almeida", "4200-072", "Porto", "Portugal"));
+        expectedList.add(new Address(41.1111112, -8.6114856,10d, "1", "789", "4747-857", "loc1", "Portugal"));
+        expectedList.add(new Address(41.1414512, -8.5672412, 10d,"1", "123", "4747-857", "loc1", "Portugal"));
+        expectedList.add(new Address(41.1516599, -8.5217484,10d, "1", "456", "4747-857", "loc1", "Portugal"));
+        expectedList.add(new Address(41.1116911, -8.5874815,10d, "1", "858", "4747-857", "loc1", "Portugal"));
+        expectedList.add(new Address(41.1825991, -8.6154487, 10d,"1", "128", "4747-857", "loc1", "Portugal"));
+        expectedList.add(new Address(41.1155582, -8.6187858, 10d,"1", "169", "4747-857", "loc1", "Portugal"));
+        expectedList.add(new Address(41.1784687, -8.6111664, 10d,"431", "R. Dr. António Bernardino de Almeida", "4200-072", "Porto", "Portugal"));
 
     }
 }
