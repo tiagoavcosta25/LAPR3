@@ -2,6 +2,8 @@ package lapr.project.controller;
 
 import lapr.project.model.Pharmacy;
 import lapr.project.model.Scooter;
+import lapr.project.model.Vehicle;
+import lapr.project.model.VehicleModel;
 import lapr.project.model.service.PharmacyService;
 import lapr.project.model.service.ScooterService;
 
@@ -37,19 +39,12 @@ public class RegisterScooterController {
      * Initiates the Pharmacy instance and the Scooter instance with the provided data.
      * The method returns the validation of that instance of Scooter. True if the data is correct and false if
      * it doesn't.
-     * @param fltBatteryPerc Scooter's battery percentage
-     * @param strCharginStatus Scooter's charging status
-     * @param fltPotency Scooter's potency
-     * @param fltWeight Scooter's weight
-     * @param intBatteryCapacity Scooter's battery capacity
+     * @param oVehicleModel Scooter's Vehicle Model
      * @param oPharmacy Pharmacy's instance
      */
-    public boolean newScooter( Float fltBatteryPerc, String strCharginStatus, Float fltPotency,
-                              Float fltWeight, int intBatteryCapacity, Float fltBatteryVoltage,
-                               Float fltMaxPayload, Pharmacy oPharmacy) {
+    public boolean newScooter(VehicleModel oVehicleModel, Pharmacy oPharmacy) {
         try {
-            this.m_oScooter = m_oScooterService.newScooter(fltBatteryPerc,strCharginStatus, fltPotency, fltWeight,
-                    intBatteryCapacity, fltBatteryVoltage, fltMaxPayload, oPharmacy);
+            this.m_oScooter = m_oScooterService.newScooter(oVehicleModel, oPharmacy);
             return true;
         }
         catch(Exception ex) {

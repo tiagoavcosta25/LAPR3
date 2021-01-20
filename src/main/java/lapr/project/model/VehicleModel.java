@@ -12,6 +12,24 @@ public class VehicleModel {
     private Battery m_oBattery;
     private VehicleType m_enumVehicleType;
 
+    private static int DEFAULT_ID = -1;
+    private static String DEFAULT_DESIGANTION = "No designation";
+    private static double DEFAULT_POTENCY = -1;
+    private static double DEFAULT_WEIGHT = -1;
+    private static double DEFAULT_MAX_PAYLOAD = -1;
+    private static Battery DEFAULT_BATTERY = new Battery();
+    private static VehicleType DEFAULT_VEHICLE_TYPE = VehicleType.NOTDEFINED;
+
+    public VehicleModel() {
+        this.m_intId = DEFAULT_ID;
+        this.m_strDesignation = DEFAULT_DESIGANTION;
+        this.m_dblPotency = DEFAULT_POTENCY;
+        this.m_dblWeight = DEFAULT_WEIGHT;
+        this.m_dblMaxPayload = DEFAULT_MAX_PAYLOAD;
+        this.m_oBattery = DEFAULT_BATTERY;
+        this.m_enumVehicleType = DEFAULT_VEHICLE_TYPE;
+    }
+
     public VehicleModel(int m_intId, String m_strDesignation, double m_dblPotency, double m_dblWeight,
                         double m_dblMaxPayload, Battery m_oBattery, VehicleType m_enumVehicleType) {
         this.m_intId = m_intId;

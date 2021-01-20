@@ -3,6 +3,7 @@ package lapr.project.model.service;
 import lapr.project.data.ScooterDB;
 import lapr.project.model.Pharmacy;
 import lapr.project.model.Scooter;
+import lapr.project.model.VehicleModel;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -30,8 +31,7 @@ class ScooterServiceTest {
 
     @BeforeEach
     void setUp() {
-        this.expectedScooter = new Scooter( 35.5f, 20.0f, 250f,
-                "No Charging",100, 20, 1,new Pharmacy());
+        this.expectedScooter = new Scooter(new VehicleModel(), new Pharmacy());
         this.scooterService = new ScooterService();
         this.mockScooterDB = Mockito.mock(ScooterDB.class);
         initMocks(this);
@@ -92,8 +92,7 @@ class ScooterServiceTest {
     @Test
     void newScooter() {
         System.out.println("newScooter");
-        Scooter result = scooterService.newScooter(100f, "No Charging",
-                250f, 30f,20, 20, 1, new Pharmacy());
+        Scooter result = scooterService.newScooter(new VehicleModel(), new Pharmacy());
         assertEquals(expectedScooter, result);
     }
 

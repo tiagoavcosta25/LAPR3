@@ -54,17 +54,18 @@ public class PharmacyDB extends DataHandler {
     private boolean addPharmacy(String strName, String strEmail, Address oAddress) {
         try {
             openConnection();
-            CallableStatement callStmt = getConnection().prepareCall("{ call addPharmacy(?,?,?,?,?,?,?,?,?) }");
+            CallableStatement callStmt = getConnection().prepareCall("{ call addPharmacy(?,?,?,?,?,?,?,?,?,?) }");
 
             callStmt.setString(1, strName);
             callStmt.setString(2, strEmail);
             callStmt.setDouble(3, oAddress.getLatitude());
             callStmt.setDouble(4, oAddress.getLongitude());
-            callStmt.setString(5, oAddress.getStreetName());
-            callStmt.setString(6, oAddress.getDoorNumber());
-            callStmt.setString(7, oAddress.getPostalCode());
-            callStmt.setString(8, oAddress.getLocality());
-            callStmt.setString(9, oAddress.getCountry());
+            callStmt.setDouble(5, oAddress.getAltitude());
+            callStmt.setString(6, oAddress.getStreetName());
+            callStmt.setString(7, oAddress.getDoorNumber());
+            callStmt.setString(8, oAddress.getPostalCode());
+            callStmt.setString(9, oAddress.getLocality());
+            callStmt.setString(10, oAddress.getCountry());
             callStmt.execute();
 
             return true;
@@ -76,14 +77,14 @@ public class PharmacyDB extends DataHandler {
         }
     }
 
-    public boolean removePharmacy(int intId) {
+    public boolean removePharmacy(String strEmail) {
 
         try {
             openConnection();
 
             CallableStatement callStmt = getConnection().prepareCall("{ call removePharmacy(?) }");
 
-            callStmt.setInt(1, intId);
+            callStmt.setString(1, strEmail);
 
             callStmt.execute();
 
@@ -106,7 +107,7 @@ public class PharmacyDB extends DataHandler {
             openConnection();
             CallableStatement callStmt = getConnection().prepareCall("{ call addPharmacyProduct(?,?,?) }");
 
-            callStmt.setInt(1, m_oPharmacy.getId());
+            callStmt.setString(1, m_oPharmacy.getEmail());
             callStmt.setInt(2, m_oProduct.getId());
             callStmt.setInt(3, m_intStock);
 

@@ -207,11 +207,11 @@ public class DataHandler {
     }
 
     protected Address addressManager(ResultSet rSet, int firstColumn) throws SQLException { // column number +8
-        Integer id = rSet.getInt(firstColumn);
-        firstColumn++;
         Double latitude = rSet.getDouble(firstColumn);
         firstColumn++;
         Double longitude = rSet.getDouble(firstColumn);
+        firstColumn++;
+        Double altitude = rSet.getDouble(firstColumn);
         firstColumn++;
         String doorNumber = rSet.getString(firstColumn);
         firstColumn++;
@@ -222,8 +222,7 @@ public class DataHandler {
         String locality = rSet.getString(firstColumn);
         firstColumn++;
         String country = rSet.getString(firstColumn);
-        //TODO: UPDATE CONSTRUTOR - ESTÁ DESATUALIZADO
-        return new Address(id, latitude, longitude, streetName, doorNumber, postalCode, locality, country);
+        return new Address(latitude, longitude, altitude, streetName, doorNumber, postalCode, locality, country);
     }
 
     protected CreditCard creditCardManager(ResultSet rSet, int firstColumn) throws SQLException { // column number +3

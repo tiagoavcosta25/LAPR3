@@ -71,12 +71,13 @@ public class VehicleDB extends DataHandler {
                     String charginStatusDrone = rSet.getString(7);
                     float fltMaxPayloadDrone = rSet.getFloat(8);
                     float fltBatteryVoltageDrone = rSet.getFloat(9);
+
+                    //TODO: Construir vehicleModel
+
                     if(finalBatteryEnergyScooter > finalBatteryEnergyDrone){
-                        return new Scooter(scooterID, potencyScooter, weightScooter, fltMaxPayloadScooter, charginStatusScooter, batteryPercScooter,
-                                batteryCapacityScooter, fltBatteryVoltageScooter, oPharmacyScooter);
+                        return new Scooter(scooterID, new VehicleModel(), oPharmacyScooter);
                     }else{
-                        return new Drone(droneID, potencyDrone, weightDrone, fltMaxPayloadDrone, charginStatusDrone, batteryPercDrone,
-                                batteryCapacityDrone, fltBatteryVoltageDrone, oPharmacyScooter);
+                        return new Drone(droneID, new VehicleModel(), oPharmacyScooter);
                     }
             }
         } catch (SQLException | NoSuchAlgorithmException e) {

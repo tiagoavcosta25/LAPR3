@@ -231,7 +231,7 @@ class VehicleModelTest {
         String result = model.toString();
         assertNotEquals(expResult, result);
 
-        expResult = "VehicleModel{m_intId=2, m_strDesignation='Designacao', m_dblPotency=2.0, m_dblWeight=2.0, m_dblMaxPayload=2.0, m_oBattery=Battery{Id=0, BatteryPerc=-1.0, BatteryCapacity=-1, BatteryVoltage=-1.0}, m_enumVehicleType=DeliveryStatus{m_strDesignation='Scooter'}}";
+        expResult = "VehicleModel{m_intId=2, m_strDesignation='Designacao', m_dblPotency=2.0, m_dblWeight=2.0, m_dblMaxPayload=2.0, m_oBattery=Battery{Id=-1, Efficiency=-1.0, Battery Capacity=-1, Battery Voltage=-1.0}, m_enumVehicleType=DeliveryStatus{m_strDesignation='Scooter'}}";
         assertEquals(expResult, result);
     }
 }

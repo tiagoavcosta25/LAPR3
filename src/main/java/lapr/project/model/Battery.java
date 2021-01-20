@@ -5,31 +5,34 @@ import java.util.Objects;
 public class Battery {
 
     private int m_intId;
-    private float m_fltBatteryPerc;
+    private double m_dblEfficiency;
     private int m_intBatteryCapacity;
-    private float m_fltBatteryVoltage;
+    private double m_dlbBatteryVoltage;
 
-    private static float DEFAULT_BATTERY_PERC = -1;
+    private static int DEFAULT_ID = -1;
+    private static double DEFAULT_EFFICICIENY = -1;
     private static int DEFAULT_BATTERY_CAPACITY = -1;
-    private static float DEFAULT_BATTERY_Voltage = -1;
+    private static double DEFAULT_BATTERY_VOLTAGE = -1;
 
     public Battery() {
-        this.m_fltBatteryPerc= DEFAULT_BATTERY_PERC;
+        this.m_intId = DEFAULT_ID;
         this.m_intBatteryCapacity = DEFAULT_BATTERY_CAPACITY;
-        this.m_fltBatteryVoltage = DEFAULT_BATTERY_Voltage;
+        this.m_dlbBatteryVoltage = DEFAULT_BATTERY_VOLTAGE;
+        this.m_dblEfficiency= DEFAULT_EFFICICIENY;
     }
 
-    public Battery(float fltBatteryPerc, int intBatteryCapacity, float intBatteryVoltage) {
-        this.m_fltBatteryPerc= fltBatteryPerc;
+    public Battery(int intBatteryCapacity, double dblBatteryVoltage,  double dblEfficiency) {
+        this.m_intId = DEFAULT_ID;
         this.m_intBatteryCapacity = intBatteryCapacity;
-        this.m_fltBatteryVoltage = intBatteryVoltage;
+        this.m_dlbBatteryVoltage = dblBatteryVoltage;
+        this.m_dblEfficiency = dblEfficiency;
     }
 
-    public Battery(int intId, float fltBatteryPerc, int intBatteryCapacity, float intBatteryVoltage) {
-        this.m_fltBatteryPerc= fltBatteryPerc;
-        this.m_intBatteryCapacity = intBatteryCapacity;
-        this.m_fltBatteryVoltage = intBatteryVoltage;
+    public Battery(int intId, int intBatteryCapacity, double dblBatteryVoltage,  double dblEfficiency) {
         this.m_intId = intId;
+        this.m_intBatteryCapacity = intBatteryCapacity;
+        this.m_dlbBatteryVoltage = dblBatteryVoltage;
+        this.m_dblEfficiency = dblEfficiency;
     }
 
     public int getId() {
@@ -40,12 +43,12 @@ public class Battery {
         this.m_intId = intId;
     }
 
-    public float getBatteryPerc() {
-        return m_fltBatteryPerc;
+    public double getEfficiency() {
+        return m_dblEfficiency;
     }
 
-    public void setBatteryPerc(float fltBatteryPerc) {
-        this.m_fltBatteryPerc = fltBatteryPerc;
+    public void setEfficiency(double dblEfficiency) {
+        this.m_dblEfficiency = dblEfficiency;
     }
 
     public int getBatteryCapacity() {
@@ -56,22 +59,12 @@ public class Battery {
         this.m_intBatteryCapacity = intBatteryCapacity;
     }
 
-    public float getBatteryVoltage() {
-        return m_fltBatteryVoltage;
+    public double getBatteryVoltage() {
+        return m_dlbBatteryVoltage;
     }
 
-    public void setBatteryVoltage(float fltBatteryVoltage) {
-        this.m_fltBatteryVoltage = fltBatteryVoltage;
-    }
-
-    @Override
-    public String toString() {
-        return "Battery{" +
-                "Id=" + m_intId +
-                ", BatteryPerc=" + m_fltBatteryPerc +
-                ", BatteryCapacity=" + m_intBatteryCapacity +
-                ", BatteryVoltage=" + m_fltBatteryVoltage +
-                '}';
+    public void setBatteryVoltage(double dlbBatteryVoltage) {
+        this.m_dlbBatteryVoltage = dlbBatteryVoltage;
     }
 
     @Override
@@ -85,5 +78,15 @@ public class Battery {
     @Override
     public int hashCode() {
         return Objects.hash(m_intId);
+    }
+
+    @Override
+    public String toString() {
+        return "Battery{" +
+                "Id=" + m_intId +
+                ", Efficiency=" + m_dblEfficiency +
+                ", Battery Capacity=" + m_intBatteryCapacity +
+                ", Battery Voltage=" + m_dlbBatteryVoltage +
+                '}';
     }
 }

@@ -65,7 +65,7 @@ public class ClientService {
     public Client newClient(String name, Integer nif, String email, String password, Double latitude, Double longitude, Double altitude,
                             String streetName, String doorNumber, String postalCode, String locality, String country,
                             List<CreditCard> lstCreditCard) throws NoSuchAlgorithmException {
-        return new Client(name, nif, email, password, latitude, longitude,altitude, streetName, doorNumber, postalCode, locality, country,
+        return new Client(name, nif, email, password, latitude, longitude, altitude, streetName, doorNumber, postalCode, locality, country,
                 lstCreditCard);
     }
 

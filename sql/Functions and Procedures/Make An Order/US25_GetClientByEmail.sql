@@ -8,7 +8,7 @@ begin
         select "User".*, CLIENT.CREDITS, ADDRESS.*
         from CLIENT
                  inner join "User" on CLIENT.USERID = "User".ID
-                 inner join ADDRESS on CLIENT.ADDRESSID = ADDRESS.ID
+                 inner join ADDRESS on CLIENT.ADDRESSLONGITUDE = ADDRESS.LONGITUDE and CLIENT.ADDRESSLATITUDE = ADDRESS.LATITUDE
         where "User".EMAIL = p_email;
 
 

@@ -19,13 +19,6 @@ class AddressTest {
     }
 
     @Test
-    void getM_id() {
-        Integer expected = 10;
-        Integer real = a3.getId();
-        assertEquals(expected, real);
-    }
-
-    @Test
     void getM_latitude() {
         Double expected = 102030.23;
         Double real = a2.getLatitude();
@@ -71,14 +64,6 @@ class AddressTest {
     void getM_country() {
         String expected = "Portugal";
         String real = a3.getCountry();
-        assertEquals(expected,real);
-    }
-
-    @Test
-    void setM_id() {
-        a1.setId(2);
-        Integer expected = 2;
-        Integer real = a1.getId();
         assertEquals(expected,real);
     }
 
@@ -141,12 +126,12 @@ class AddressTest {
 
     @Test
     void distanceTo() {
-        Double expected = 5765561.672247104;
-        Double real = a1.distanceTo(a2);
+        Double expected = 9188338.145568239;
+        Double real = a2.distanceTo(a3);
         assertEquals(expected,real);
 
         Double expected2 = 0d;
-        Double real2 = a1.distanceTo(a1);
+        Double real2 = a2.distanceTo(a2);
         assertEquals(expected2,real2);
 
     }

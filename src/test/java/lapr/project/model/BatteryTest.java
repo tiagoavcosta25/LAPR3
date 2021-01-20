@@ -12,8 +12,8 @@ class BatteryTest {
 
     public BatteryTest(){
         batteryTest1 = new Battery();
-        batteryTest2 = new Battery(12f, 12, 12);
-        batteryTest3 = new Battery(12,12f, 12, 12);
+        batteryTest2 = new Battery(12, 12, 12);
+        batteryTest3 = new Battery(12,12, 12, 12);
     }
 
     @Test
@@ -28,21 +28,6 @@ class BatteryTest {
         int expected = -2;
         batteryTest1.setId(expected);
         int real = batteryTest1.getId();
-        assertEquals(expected, real);
-    }
-
-    @Test
-    void getBatteryPerc() {
-        float expected = -1;
-        float real = batteryTest1.getBatteryPerc();
-        assertEquals(expected, real);
-    }
-
-    @Test
-    void setBatteryPerc() {
-        float expected = -2;
-        batteryTest1.setBatteryPerc(expected);
-        float real = batteryTest1.getBatteryPerc();
         assertEquals(expected, real);
     }
 
@@ -63,22 +48,22 @@ class BatteryTest {
 
     @Test
     void getBatteryVoltage() {
-        float expected = 12;
-        float real = batteryTest2.getBatteryVoltage();
+        double expected = 12;
+        double real = batteryTest2.getBatteryVoltage();
         assertEquals(expected, real);
     }
 
     @Test
     void setBatteryVoltage() {
-        float expected = -2;
+        double expected = -2;
         batteryTest2.setBatteryVoltage(expected);
-        float real = batteryTest2.getBatteryVoltage();
+        double real = batteryTest2.getBatteryVoltage();
         assertEquals(expected, real);
     }
 
     @Test
     void testToString() {
-        String expected = "Battery{Id=12, BatteryPerc=12.0, BatteryCapacity=12, BatteryVoltage=12.0}";
+        String expected = "Battery{Id=12, Efficiency=12.0, Battery Capacity=12, Battery Voltage=12.0}";
         String real = batteryTest3.toString();
         assertEquals(expected, real);
     }
@@ -102,7 +87,7 @@ class BatteryTest {
     @Test
     void testHashCode() {
         Battery oBattery = new Battery();
-        int expected = 31;
+        int expected = 30;
         int real = oBattery.hashCode();
         assertEquals(expected, real);
     }

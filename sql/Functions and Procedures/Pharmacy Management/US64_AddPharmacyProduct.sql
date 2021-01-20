@@ -1,4 +1,4 @@
-create or replace procedure addPharmacyProduct(p_pharmacyId PHARMACY.ID%type, p_productId PRODUCT.ID%type, p_stock PHARMACYPRODUCT.STOCK%type)
+create or replace procedure addPharmacyProduct(p_pharmacyEmail PHARMACY.EMAIL%type, p_productId PRODUCT.ID%type, p_stock PHARMACYPRODUCT.STOCK%type)
     is
     v_checkPharmacyId PHARMACY.ID%type;
     v_checkProductId PRODUCT.ID%type;
@@ -10,7 +10,7 @@ begin
     select ID
     into v_checkPharmacyId
     from PHARMACY
-    where ID = p_pharmacyId;
+    where EMAIL = p_pharmacyEmail;
 
     if v_checkPharmacyId is null then
         raise pharmacy_not_found;
@@ -29,17 +29,17 @@ begin
     select STOCK
     into v_existingStock
     from PHARMACYPRODUCT
-    where PHARMACYID = p_pharmacyId
+    where PHARMACYID = v_checkPharmacyId
       and PRODUCTID = p_productId;
 
     if v_existingStock is null then
         Insert into PHARMACYPRODUCT(PHARMACYID, PRODUCTID, STOCK)
-        Values (p_pharmacyId, p_productId, p_stock);
+        Values (v_checkPharmacyId, p_productId, p_stock);
     else
         v_existingStock := v_existingStock + p_stock;
         update PHARMACYPRODUCT
         set STOCK = v_existingStock
-        where PHARMACYID = p_pharmacyId
+        where PHARMACYID = v_checkPharmacyId
           and PRODUCTID = p_productId;
     end if;
 

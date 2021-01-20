@@ -2,6 +2,7 @@ package lapr.project.controller;
 
 import lapr.project.model.Drone;
 import lapr.project.model.Pharmacy;
+import lapr.project.model.VehicleModel;
 import lapr.project.model.service.DroneService;
 import lapr.project.model.service.PharmacyService;
 import org.junit.jupiter.api.BeforeEach;
@@ -29,12 +30,11 @@ class RegisterDroneControllerTest {
     @Mock
     private PharmacyService mockPharmacyService;
 
-    private Drone expectedTrue;
+    private Drone expectedDrone;
 
     @BeforeEach
     void setUp() {
-        this.expectedTrue = new Drone(35.5f, 30f, 30f, "No Charging",
-                250f, 100, 20, new Pharmacy());
+        this.expectedDrone = new Drone(new VehicleModel(), new Pharmacy());
         this.registerDroneController = new RegisterDroneController();
         this.mockDroneService = Mockito.mock(DroneService.class);
         this.mockPharmacyService = Mockito.mock(PharmacyService.class);
@@ -45,28 +45,21 @@ class RegisterDroneControllerTest {
     void newDrone() {
         System.out.println("newDrone");
 
-        when(mockDroneService.newDrone(35.5f, "No Charging",
-                250f, 30f,100, 20f, 30f, new Pharmacy())).thenReturn(expectedTrue);
+        when(mockDroneService.newDrone(new VehicleModel(), new Pharmacy())).thenReturn(expectedDrone);
 
-        boolean result = registerDroneController.newDrone(35.5f, "No Charging",
-                250f, 30f,100, 20f, 30f,new Pharmacy());
+        boolean result = registerDroneController.newDrone(new VehicleModel(), new Pharmacy());
         assertTrue(result);
 
 
-        when(mockDroneService.newDrone(35.5f, "No Charging",
-                250f, 30f,100, 20f, 30f,
-                new Pharmacy())).thenThrow(new IllegalArgumentException());
-        result = registerDroneController.newDrone(35.5f, "No Charging",
-                250f, 30f,100, 20f, 30f,
-                new Pharmacy());
+        when(mockDroneService.newDrone(new VehicleModel(), new Pharmacy())).thenThrow(new IllegalArgumentException());
+        result = registerDroneController.newDrone(new VehicleModel(), new Pharmacy());
         assertFalse(result);
     }
 
     @Test
     void registersDrone() {
         System.out.println("registerDrone");
-        Drone d = new Drone(35.5f, 30f, 30f, "No Charging",
-                250f, 100, 20, new Pharmacy());
+        Drone d = new Drone(-2, new VehicleModel(), new Pharmacy());
 
         registerDroneController.setDrone(d);
         when(mockDroneService.registerDrone(d)).thenReturn(true);

@@ -29,16 +29,22 @@ public class ScooterDB extends DataHandler {
 
             if (rSet.next()) {
 
-                float fltPotency = rSet.getFloat(1);
-                float fltWeight = rSet.getFloat(2);
-                float fltMaxPayload = rSet.getFloat(3);
-                String strCharginStatus = rSet.getString(4);
-                float fltBatteryPerc = rSet.getInt(5);
-                int intBatteryCapacity = rSet.getInt(6);
-                float fltBatteryVoltage = rSet.getFloat(7);
-                Pharmacy oPharmacy = pharmacyManager(rSet,8);
-                return new Scooter(fltPotency, fltWeight, fltMaxPayload, strCharginStatus, fltBatteryPerc,
-                        intBatteryCapacity, fltBatteryVoltage, oPharmacy);
+                double dblBatteryPerc = rSet.getDouble(1);
+                int intModelId = rSet.getInt(2);
+                String strDesignation = rSet.getString(3);
+                double dblPotency = rSet.getDouble(4);
+                double dblWeight = rSet.getDouble(5);
+                double dblMaxPayload = rSet.getDouble(6);
+                int intBatteryId = rSet.getInt(7);
+                int intBatteryCapacity = rSet.getInt(8);
+                double dblBatteryVoltage = rSet.getDouble(9);
+                double dblEfficiency = rSet.getDouble(10);
+                Pharmacy oPharmacy = pharmacyManager(rSet,11);
+
+                VehicleModel oVehicleModel = new VehicleModel(intModelId, strDesignation, dblPotency, dblWeight,
+                        dblMaxPayload, new Battery(intBatteryId, intBatteryCapacity, dblBatteryVoltage, dblEfficiency),
+                        VehicleType.SCOOTER);
+                return new Scooter(id, dblBatteryPerc, oVehicleModel, oPharmacy);
             }
         } catch (SQLException | NoSuchAlgorithmException e) {
             e.printStackTrace();
@@ -52,29 +58,17 @@ public class ScooterDB extends DataHandler {
      * DATABASE
      */
 
-
-    public boolean addScooter(Scooter s) {
-        return addScooter(s.getPotency(), s.getWeight(), s.getMaxPayload(), s.getCharginStatus(),
-                s.getBattery(), s.getPharmacy());
-    }
-
-    private boolean addScooter(float fltPotency, float fltWeight, float fltMaxPayload, String strCharginStatus,
-                               Battery oBattery, Pharmacy oPharmacy) {
+    private boolean addScooter(double dblBatteryPerc, VehicleModel oVehicleModel, Pharmacy oPharmacy) {
         boolean flag = true;
         try {
             openConnection();
 
-            CallableStatement callStmt = getConnection().prepareCall("{ call addScooter(?,?,?,?,?,?,?,?) }");
+            CallableStatement callStmt = getConnection().prepareCall("{ call addScooter(?,?,?) }");
 
 
-            callStmt.setFloat(1, fltPotency);
-            callStmt.setFloat(2, fltWeight);
-            callStmt.setFloat(3, fltMaxPayload);
-            callStmt.setString(4, strCharginStatus);
-            callStmt.setFloat(5, oBattery.getBatteryPerc());
-            callStmt.setFloat(6, oBattery.getBatteryCapacity());
-            callStmt.setFloat(7, oBattery.getBatteryVoltage());
-            callStmt.setInt(8, oPharmacy.getId());
+            callStmt.setDouble(1, dblBatteryPerc);
+            callStmt.setInt(2, oVehicleModel.getId());
+            callStmt.setInt(3, oPharmacy.getId());
 
             callStmt.execute();
 
@@ -138,8 +132,8 @@ public class ScooterDB extends DataHandler {
                 float fltBatteryVoltage = rSet.getFloat(9);
                 Pharmacy oPharmacy = pharmacyManager(rSet,10);
 
-                lstScooter.add(new Scooter(intId, fltPotency, fltWeight, fltMaxPayload, strCharginStatus,
-                        intBatteryId, fltBatteryPerc, intBatteryCapacity, fltBatteryVoltage, oPharmacy));
+                //TODO: Criar scooterManager no DataHandler
+                lstScooter.add(new Scooter(intId, fltBatteryPerc, new VehicleModel(), oPharmacy));
 
                 rSet.next();
             }
@@ -171,8 +165,7 @@ public class ScooterDB extends DataHandler {
     }
 
     public boolean registerScooter(Scooter s) {
-        return addScooter(s.getPotency(), s.getWeight(), s.getMaxPayload(), s.getCharginStatus(),
-                s.getBattery(), s.getPharmacy());
+        return addScooter(s.getBatteryPerc(), s.getModel(), s.getPharmacy());
     }
 
 }
