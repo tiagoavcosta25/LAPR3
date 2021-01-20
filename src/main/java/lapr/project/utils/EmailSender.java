@@ -42,7 +42,7 @@ public class EmailSender {
             message.setFrom(new InternetAddress("FarmacyService"));
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(emailToFoward));
             message.setSubject(subject);
-            message.setContent(strHtmlBody, Constants.EMAILBODYTYPE);
+            message.setContent(strHtmlBody, Constants.EMAIL_BODY_TYPE);
             Transport.send(message);
             LOGGER.log(Level.INFO, "Email Sent!");
             return true;

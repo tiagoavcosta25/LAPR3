@@ -104,7 +104,7 @@ public class WorldMap {
                                                                List<Order> orderList) {
 
         double energyCost = 0;
-        double totalMass = Constants.SCOOTERTOTALWEIGHT + Constants.DEFAULTCOURIERWEIGHT;
+        double totalMass = Constants.SCOOTER_TOTAL_WEIGHT + Constants.DEFAULT_COURIER_WEIGHT;
 
         Map<Address, Float> orderWeightMap = new HashMap<>();
         for(Order order : orderList) {

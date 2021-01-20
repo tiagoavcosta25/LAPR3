@@ -65,15 +65,15 @@ public class CourierService {
     }
 
     public boolean parkScooter(int intIdScooter) {
-        String estimateFileName = DirectoryVerification.verifyFileCreation(Constants.ESTIMATEFILEPATH,
-                Constants.ESTIMATEFILEFILTER, 50);
+        String estimateFileName = DirectoryVerification.verifyFileCreation(Constants.ESTIMATE_FILE_PATH,
+                Constants.ESTIMATE_FILE_FILTER, 50);
 
         if(estimateFileName.equals(""))
             return false;
 
         double estimate = 0;
 
-        try (BufferedReader br = new BufferedReader(new FileReader(Constants.ESTIMATEFILEPATH + "/" + estimateFileName))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(Constants.ESTIMATE_FILE_PATH + "/" + estimateFileName))) {
             String strCurrentLine;
             if ((strCurrentLine = br.readLine()) != null) {
                 estimate = Double.parseDouble(strCurrentLine);
@@ -107,9 +107,9 @@ public class CourierService {
                                     "choosing us.\nKing regards,\nPharmacy Service G21.", intIdScooter, time.get(0), time.get(1),
                             time.get(2), formattedDateTime));
 
-            File file = new File(Constants.ESTIMATEFILEPATH + "/" + estimateFileName);
+            File file = new File(Constants.ESTIMATE_FILE_PATH + "/" + estimateFileName);
             if (file.delete()) {
-                file = new File(Constants.ESTIMATEFILEPATH + "/" + estimateFileName + Constants.ESTIMATEFILEFILTER);
+                file = new File(Constants.ESTIMATE_FILE_PATH + "/" + estimateFileName + Constants.ESTIMATE_FILE_FILTER);
                 if (file.delete())
                     LOGGER.log(Level.INFO, "File handled successfully!");
             }
