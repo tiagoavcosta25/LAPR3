@@ -91,7 +91,7 @@ public class VehicleDB extends DataHandler {
     }
 
     public ArrayList<VehicleModel> getPharmacyModel(String strPharmacyEmail) {
-        /*
+
         CallableStatement callStmt = null;
         List<VehicleModel> lstModels = new ArrayList<>();
         try {
@@ -116,17 +116,15 @@ public class VehicleDB extends DataHandler {
                 String vehicleType = rSet.getString(10);
 
                 lstModels.add(new VehicleModel(intId,strDesignation,dblPotency,dblWeight,dblMaxPayload,
-                        new Battery(intBatteryId,intBatteryCapacity,dblBatteryVoltage,dblEfficiency),vehicleType));
+                        new Battery(intBatteryId,intBatteryCapacity,dblBatteryVoltage,dblEfficiency),VehicleType.valueOf(vehicleType)));
 
                 rSet.next();
             }
-        } catch (SQLException | NoSuchAlgorithmException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         } finally {
             closeAll();
         }
         throw new IllegalArgumentException("No Models Avaliable.");
-        */
-        return new ArrayList<>();
     }
 }

@@ -1,6 +1,6 @@
 create PROCEDURE updateCourier(intId IN COURIER.USERID%TYPE, strName IN "User".NAME%TYPE,
  strEmail IN "User".EMAIL%TYPE, intNIF IN "User".NIF%TYPE,
-  strIban IN COURIER.IBAN%TYPE, pharmacyID IN Pharmacy.ID%TYPE) IS
+  strIban IN COURIER.IBAN%TYPE, pharmacyIDs IN Pharmacy.ID%TYPE) IS
 BEGIN
 
         UPDATE "User"
@@ -20,7 +20,7 @@ BEGIN
         WHERE USERID = intId;
 
         UPDATE COURIER
-        SET PHARMACYID = pharmacyID
+        SET PHARMACYID = pharmacyIDs
         WHERE USERID = intId;
 
 end;

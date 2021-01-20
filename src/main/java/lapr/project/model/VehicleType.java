@@ -5,7 +5,7 @@ public enum VehicleType {
     SCOOTER("Scooter"),DRONE("Drone"),NOTDEFINED("Not defined") ;
     private String m_strDesignation;
 
-    VehicleType(String designation) {
+     VehicleType(String designation) {
         this.m_strDesignation = designation;
     }
 
