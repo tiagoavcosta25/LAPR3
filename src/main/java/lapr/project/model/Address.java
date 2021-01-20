@@ -18,6 +18,7 @@ public class Address {
         this.m_intId = -1;
         this.m_dblLatitude = -22d;
         this.m_dblLongitude = -22d;
+        this.m_dblAltitude = -Double.MAX_VALUE;
         this.m_strStreetName = "No Street Name";
         this.m_strDoorNumber = "No Door Number";
         this.m_strPostalCode = "No Postal Code";
@@ -155,12 +156,13 @@ public class Address {
         double latitude2 = oAddress.getLatitude() * Math.PI / 180;
         double differenceOfLatitude = (this.m_dblLatitude - oAddress.getLatitude()) * Math.PI / 180;
         double differenceOfLongitude = (this.m_dblLongitude - oAddress.getLongitude()) * Math.PI / 180;
+        double differenceOfAltitude = (this.m_dblAltitude - oAddress.getAltitude());
 
         double a = Math.sin(differenceOfLatitude / 2) * Math.sin(differenceOfLatitude / 2) +
                 Math.cos(latitude1) * Math.cos(latitude2) * Math.sin(differenceOfLongitude / 2) *
                         Math.sin(differenceOfLongitude / 2);
         double aux = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-        return EARTH_RADIUS * aux;
+        return Math.sqrt((Math.pow(differenceOfAltitude, 2) + Math.pow((EARTH_RADIUS * aux), 2)));
         //in meters
     }
 

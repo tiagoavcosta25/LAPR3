@@ -19,18 +19,17 @@ public class PharmacyService {
         return this.m_oPharmacyDB.getPharmacy(strEmail);
     }
 
-    public boolean removePharmacy(int intId) {
-        return this.m_oPharmacyDB.removePharmacy(intId);
+    public boolean removePharmacy(String strEmail) {
+        return this.m_oPharmacyDB.removePharmacy(strEmail);
     }
 
     public boolean registerPharmacy(Pharmacy oPharmacy) {
         return this.m_oPharmacyDB .registerPharmacy(oPharmacy);
     }
 
-    public Pharmacy newPharmacy(String strName, String strEmail, Double dblLatitude,Double dblLongitude,
+    public Pharmacy newPharmacy(String strName, String strEmail, Double dblLatitude,Double dblLongitude, Double dblAltitude,
                                 String strStreetName, String strDoorNumber, String strPostalCode, String strLocality, String strCountry) {
-        //TODO: UPDATE CONSTRUTOR - ESTÁ DESATUALIZADO
-        return new Pharmacy(strName, strEmail, new Address(dblLatitude, dblLongitude, strStreetName, strDoorNumber, strPostalCode,
+        return new Pharmacy(strName, strEmail, new Address(dblLatitude, dblLongitude, dblAltitude, strStreetName, strDoorNumber, strPostalCode,
                 strLocality, strCountry));
     }
 

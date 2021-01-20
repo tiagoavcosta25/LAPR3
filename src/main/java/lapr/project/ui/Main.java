@@ -1,18 +1,7 @@
 package lapr.project.ui;
 
 import lapr.project.controller.*;
-import lapr.project.data.ParkDB;
-import lapr.project.model.*;
-import lapr.project.ui.console.MakeAnOrderUI;
-import lapr.project.utils.DirectoryVerification;
-import lapr.project.utils.EnergyCalculator;
-import lapr.project.utils.FileReader;
 
-import java.security.NoSuchAlgorithmException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author Nuno Bettencourt <nmb@isep.ipp.pt> on 24/05/16.
@@ -35,8 +24,8 @@ class Main {
     public static void main(String[] args) {
         System.out.println("Hello world\n");
 
-
-        FileReader.readFiles();
+        ApplicationPOT.getInstance().getWorldMap().createGraph();
+        System.out.println(ApplicationPOT.getInstance().getWorldMap().getGraph().toString());
 
 
         System.out.println("\nGoodbye world");

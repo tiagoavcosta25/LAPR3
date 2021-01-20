@@ -44,12 +44,12 @@ class PharmacyServiceTest {
     @Test
     void removePharmacy() {
         System.out.println("removePharmacy");
-        when(mockPharmacyDB.removePharmacy(1)).thenReturn(true);
-        boolean result = pharmacyService.removePharmacy(1);
+        when(mockPharmacyDB.removePharmacy("test@email.com")).thenReturn(true);
+        boolean result = pharmacyService.removePharmacy("test@email.com");
         assertTrue(result);
 
-        when(mockPharmacyDB.removePharmacy(-1)).thenReturn(false);
-        result = pharmacyService.removePharmacy(2);
+        when(mockPharmacyDB.removePharmacy("test@email.com")).thenReturn(false);
+        result = pharmacyService.removePharmacy("test@email.com");
         assertFalse(result);
     }
 
@@ -68,7 +68,7 @@ class PharmacyServiceTest {
     @Test
     void newPharmacy() {
         System.out.println("newPharmacy");
-        Pharmacy result = pharmacyService.newPharmacy("Test", "Test", -22d, -22d, "No Street Name",
+        Pharmacy result = pharmacyService.newPharmacy("Test", "Test", -22d, -22d, -Double.MAX_VALUE, "No Street Name",
                 "No Door Number", "No Postal Code", "No Locality", "No Country");
         assertEquals(expectedPharmacy, result);
     }

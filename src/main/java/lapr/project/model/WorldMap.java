@@ -3,6 +3,7 @@ package lapr.project.model;
 import javafx.util.Pair;
 import lapr.project.data.DeliveryDB;
 import lapr.project.data.DeliveryRunDB;
+import lapr.project.graph.map.Edge;
 import lapr.project.graph.map.Graph;
 import lapr.project.graph.map.GraphAlgorithms;
 import java.util.ArrayList;
@@ -67,7 +68,15 @@ public class WorldMap {
      * CALCULATE MOST EFFICIENT PATH/SHORTEST PATH
      */
      public Pair<LinkedList<Address>, Double> calculateMostEfficientPath(Address startAddress, Address endAddress, List<Address> deliveryPoints) {
-        List<LinkedList<Address>> permutations = calculatePermutations(deliveryPoints);
+         //Pass the weight of each edge of the graph to the enery cost
+         //Graph<Address,String> clone = this.map.clone();
+         /*
+         for(Edge<Address, String> e : this.m_graph.edges()) {
+                energia = fisica.calcularenergia(parametros)
+                e.setWeight(energia);
+          }*/
+
+         List<LinkedList<Address>> permutations = calculatePermutations(deliveryPoints);
         List<Pair<LinkedList<Address>, Double>> lst = calculatePermutationPaths(startAddress, endAddress, permutations);
 
         Double minimumWeight = Double.MAX_VALUE;
@@ -92,6 +101,7 @@ public class WorldMap {
             double totalCost = 0.0;
             for (int i = 0; i < list.size() - 1; i++) {                                                                  //O(k*V^2)
                 LinkedList<Address> tempPath = new LinkedList<>();
+                //calcular energia
                 totalCost += GraphAlgorithms.shortestPath(m_graph, list.get(i), list.get(i + 1), tempPath);   //O(V^2)
                 if (tempPath.size() == 0)
                     return new LinkedList<>();
