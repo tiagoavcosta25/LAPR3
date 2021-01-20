@@ -14,7 +14,7 @@ class AddressTest {
         a1 = new Address();
         a2 = new Address(102030.23, 103121.01,10d, "Rua 1", "2esq", "4444-111",
                 "Mafamude", "Portugal");
-        a3 = new Address(10, 423232.77, 523236.53, 20d,"Rua 2", "5dir", "4222-131",
+        a3 = new Address(10, 123112.0, 103121.01, 20d,"Rua 2", "5dir", "4222-131",
                 "Ermesinde", "Portugal");
     }
 
@@ -126,7 +126,7 @@ class AddressTest {
 
     @Test
     void distanceTo() {
-        Double expected = 9188338.145568239;
+        Double expected = 1.7594373242971223E7;
         Double real = a2.distanceTo(a3);
         assertEquals(expected,real);
 
@@ -144,7 +144,7 @@ class AddressTest {
         boolean real = a3.equals(oAddress);
         assertTrue(real);
 
-        assertTrue(a3.equals(a3));
+        assertEquals(a3, a3);
 
         Address oAddress1 = new Address(2,1232132.0,2131451.0,50d,"","","","","");
 
@@ -152,16 +152,16 @@ class AddressTest {
         assertFalse(real1);
 
         String c = "";
-        assertFalse(a3.equals(c));
+        assertNotEquals(a3, c);
 
         Address oAddress2 = null;
-        assertFalse(a3.equals(oAddress2));
+        assertNotEquals(a3, oAddress2);
     }
 
     @Test
     void testHashCode() {
         Address oAddress = new Address();
-        int expected = 30;
+        int expected = 113247169;
         int real = oAddress.hashCode();
         assertEquals(expected, real);
     }
