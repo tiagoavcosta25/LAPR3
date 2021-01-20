@@ -23,6 +23,9 @@ class MakeAPharmacyTransferControllerTest {
     private PharmacyTransferService mockPharmacyTransferService;
 
     @Mock
+    private IssueTransferNoteController mockIssueTransferNoteController;
+
+    @Mock
     private PharmacyService mockPharmacyService;
 
     private Order m_oOrder;
@@ -37,6 +40,7 @@ class MakeAPharmacyTransferControllerTest {
         this.makeAPharmacyTransferController = new MakeAPharmacyTransferController();
         this.mockPharmacyTransferService = Mockito.mock(PharmacyTransferService.class);
         this.mockPharmacyService = Mockito.mock(PharmacyService.class);
+        this.mockIssueTransferNoteController = Mockito.mock(IssueTransferNoteController.class);
         initMocks(this);
     }
 
@@ -46,6 +50,7 @@ class MakeAPharmacyTransferControllerTest {
         when(mockPharmacyService.getClosestPharmacyWithStock(m_oOrder, new Product(), 1)).thenReturn(m_oPharmacy);
         when(mockPharmacyTransferService.newPharmacyTransfer(m_oOrder, new Product(), 1, m_oPharmacy)).thenReturn(m_oPharmacyTransfer);
         when(mockPharmacyTransferService.registerPharmacyTransfer(m_oPharmacyTransfer)).thenReturn(true);
+        when(mockIssueTransferNoteController.issueTransferNote(m_oPharmacyTransfer)).thenReturn(true);
         boolean result = makeAPharmacyTransferController.getStockFromAnotherPharamacy(m_oOrder, new Product(), 1);
         assertTrue(result);
 

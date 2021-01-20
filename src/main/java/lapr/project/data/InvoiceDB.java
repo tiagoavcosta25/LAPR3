@@ -38,14 +38,14 @@ public class InvoiceDB extends DataHandler {
         throw new IllegalArgumentException("No Invoice with ID:" + id);
     }
 
-    private boolean addInvoice(Date dtInvoiceDate, float fltTotalPrice, Order oOrder, Map<CreditCard, Float> mapPayments) {
+    private boolean addInvoice(Date dtInvoiceDate, Double fltTotalPrice, Order oOrder, Map<CreditCard, Double> mapPayments) {
         try {
             openConnection();
             CallableStatement callStmt = getConnection().prepareCall("{ call addInvoice(?,?,?) }");
 
             callStmt.setDate(1, dtInvoiceDate);
-            callStmt.setFloat(2, fltTotalPrice);
-            callStmt.setFloat(3, oOrder.getId());
+            callStmt.setDouble(2, fltTotalPrice);
+            callStmt.setDouble(3, oOrder.getId());
 
             callStmt.execute();
 
@@ -64,9 +64,9 @@ public class InvoiceDB extends DataHandler {
                     callStmt.setInt(4, oProduct.getId());
                     callStmt.setString(5, oProduct.getName());
                     callStmt.setString(6, oProduct.getDescription());
-                    callStmt.setFloat(7, oProduct.getUnitaryPrice());
-                    callStmt.setFloat(8, oProduct.getUnitaryWeight());
-                    callStmt.setFloat(9, oOrder.getProducts().get(oProduct) * oProduct.getUnitaryPrice());
+                    callStmt.setDouble(7, oProduct.getUnitaryPrice());
+                    callStmt.setDouble(8, oProduct.getUnitaryWeight());
+                    callStmt.setDouble(9, oOrder.getProducts().get(oProduct) * oProduct.getUnitaryPrice());
                     callStmt.execute();
 
                     c++;
@@ -77,7 +77,7 @@ public class InvoiceDB extends DataHandler {
 
                     callStmt.setInt(1, intInvoiceId);
                     callStmt.setLong(2, oCreditCard.getCreditCardNr());
-                    callStmt.setFloat(3, mapPayments.get(oCreditCard));
+                    callStmt.setDouble(3, mapPayments.get(oCreditCard));
                     callStmt.execute();
                 }
             }

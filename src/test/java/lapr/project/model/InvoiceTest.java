@@ -14,7 +14,7 @@ class InvoiceTest {
 
     @Test
     void getId() {
-        Invoice oInvoice = new Invoice(-1, new Date(Calendar.getInstance().getTimeInMillis()), 100f,new Order());
+        Invoice oInvoice = new Invoice(-1, new Date(Calendar.getInstance().getTimeInMillis()), 100d,new Order());
         Integer expected = -1;
         Integer real = oInvoice.getId();
         assertEquals(expected, real);
@@ -51,17 +51,17 @@ class InvoiceTest {
     @Test
     void getTotalPrice() {
         Invoice oInvoice = new Invoice();
-        float expected = -1;
-        float real = oInvoice.getTotalPrice();
+        double expected = -1;
+        double real = oInvoice.getTotalPrice();
         assertEquals(expected, real);
     }
 
     @Test
     void setTotalPrice() {
         Invoice oInvoice = new Invoice();
-        float expected = -2f;
+        double expected = -2f;
         oInvoice.setTotalPrice(expected);
-        float real = oInvoice.getTotalPrice();
+        double real = oInvoice.getTotalPrice();
         assertEquals(expected, real);
     }
 
@@ -85,20 +85,20 @@ class InvoiceTest {
     @Test
     void getPayments() {
         Invoice oInvoice = new Invoice();
-        Map<CreditCard, Float> expected = new TreeMap<>();
-        expected.put(new CreditCard(), 1f);
+        Map<CreditCard, Double> expected = new TreeMap<>();
+        expected.put(new CreditCard(), 1d);
         oInvoice.setPayments(expected);
-        Map<CreditCard, Float> real = oInvoice.getPayments();
+        Map<CreditCard, Double> real = oInvoice.getPayments();
         assertEquals(expected, real);
     }
 
     @Test
     void setPayments() {
         Invoice oInvoice = new Invoice();
-        Map<CreditCard, Float> expected = new TreeMap<>();
-        expected.put(new CreditCard(), 1f);
+        Map<CreditCard, Double> expected = new TreeMap<>();
+        expected.put(new CreditCard(), 1d);
         oInvoice.setPayments(expected);
-        Map<CreditCard, Float> real = oInvoice.getPayments();
+        Map<CreditCard, Double> real = oInvoice.getPayments();
         assertEquals(expected, real);
     }
 

@@ -48,6 +48,8 @@ public class Product implements Comparable {
         return mstrName;
     }
 
+    public boolean hasName(String strName) {return this.mstrName.equalsIgnoreCase(strName);}
+
     public String getDescription() {
         return mstrDescription;
     }

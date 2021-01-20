@@ -1,10 +1,11 @@
 package lapr.project.utils;
 
-import lapr.project.controller.RegisterClientController;
-import lapr.project.controller.RegisterPathController;
-import lapr.project.controller.RegisterPharmacyController;
-import lapr.project.controller.RegisterScooterController;
+import lapr.project.controller.*;
 import lapr.project.model.CreditCard;
+import lapr.project.model.Pharmacy;
+import lapr.project.model.Product;
+import lapr.project.model.UserSession;
+import lapr.project.ui.console.MakeAnOrderUI;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -20,6 +21,8 @@ public class FileReader {
     public static final String FILEPATHS = "src/main/resources/files/paths.csv";
     public static final String FILESCOOTERS = "src/main/resources/files/escooters.csv";
     public static final String FILEPHARMACIES = "src/main/resources/files/pharmacies.csv";
+    public static final String FILEPHARMACYPRODUCTS = "src/main/resources/files/pharmacyProducts.csv";
+    public static final String FILEORDERS = "src/main/resources/files/orders.csv";
     private static final Logger LOGGER = Logger.getLogger(FileReader.class.getName());
 
     public static void readFiles() {
@@ -46,6 +49,12 @@ public class FileReader {
                             break;
                         case FILEPHARMACIES:
                             readPharmacyFile(columns);
+                            break;
+                        case FILEPHARMACYPRODUCTS:
+                            readPharmacyProductFile(columns);
+                            break;
+                        case FILEORDERS:
+                            readOrderFile(columns);
                             break;
                         case FILEPATHS:
                             readPathFile(columns);
@@ -98,8 +107,91 @@ public class FileReader {
     }
 
     public static void readPharmacyFile(String[] columns) {
-        RegisterPharmacyController ctrl = new RegisterPharmacyController();
-        //TODO: Registar pharmacy com base no ficheiro csv
+        RegisterPharmacyController oCtrl = new RegisterPharmacyController();
+        oCtrl.newPharmacy(columns[0], columns[1], Double.parseDouble(columns[2]), Double.parseDouble(columns[3]),
+                Double.parseDouble(columns[4]), columns[5], columns[6], columns[7], columns[8], columns[9]);
+
+        if (oCtrl.registerPharmacy()) {
+            LOGGER.log(Level.INFO,"Pharmacy was registered with success!");
+        }else LOGGER.log(Level.WARNING,"There was a problem registering a Pharmacy.");
+    }
+
+    public static void readPharmacyProductFile(String[] columns) {
+        AddPharmacyProductController oCtrl = new AddPharmacyProductController();
+
+        List<Product> lstProducts = oCtrl.getProducts();
+        Product oProduct = null;
+
+        for(Product p : lstProducts){
+            if(p.hasName(columns[1])){
+                oProduct = p;
+                break;
+            }
+        }
+
+        if(oProduct != null){
+            oCtrl.addPharmacyProduct(columns[0], oProduct, Integer.parseInt(columns[2]));
+
+            if (oCtrl.registerPharmacyProduct()) {
+                LOGGER.log(Level.INFO,"Pharmacy was registered with success!");
+            }else LOGGER.log(Level.WARNING,"There was a problem registering a Pharmacy.");
+        }else LOGGER.log(Level.WARNING,"There was a problem registering a Pharmacy.");
+    }
+
+    public static void readOrderFile(String[] columns) {
+        MakeAnOrderController oCtrl = new MakeAnOrderController();
+
+        ApplicationPOT.getInstance().setCurrentSession(new UserSession(columns[0]));
+
+        List<Pharmacy> lstPharmacies = oCtrl.getPharmacies();
+        Pharmacy oPharmacy = null;
+
+        for(Pharmacy p : lstPharmacies){
+            if(p.hasEmail(columns[3])){
+                oPharmacy = p;
+                break;
+            }
+        }
+
+        List<Product> lstProducts = oCtrl.getAvailableProducts(oPharmacy);
+
+        int startingCCIndex = -1;
+        Product oProduct;
+        for(int i = 4; i < columns.length; i += 2){
+            oProduct = null;
+            for(Product p : lstProducts){
+                if(p.hasName(columns[i])){
+                    oProduct = p;
+                    break;
+                }
+            }
+            if(oProduct == null){
+                startingCCIndex = i;
+            }
+            oCtrl.addProductToOrder(oProduct, Integer.parseInt(columns[i + 1]));
+        }
+
+        List<CreditCard> lstCCs = oCtrl.getCreditCardsByClient();
+
+        if(startingCCIndex != -1){
+            CreditCard oCreditCard;
+            for(int i = startingCCIndex; i < columns.length; i += 2){
+                oCreditCard = null;
+                for(CreditCard c : lstCCs){
+                    if(c.hasNumber(Long.parseLong(columns[i]))){
+                        oCreditCard = c;
+                        break;
+                    }
+                }
+                oCtrl.addPayment(oCreditCard, Double.parseDouble(columns[i + 1]));
+            }
+
+            oCtrl.newOrder(columns[1], Boolean.valueOf(columns[2]));
+
+            if (oCtrl.registerOrder()) {
+                LOGGER.log(Level.INFO,"Pharmacy was registered with success!");
+            }else LOGGER.log(Level.WARNING,"There was a problem registering a Pharmacy.");
+        }
     }
 
 

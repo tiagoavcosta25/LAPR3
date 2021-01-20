@@ -89,6 +89,8 @@ public class Pharmacy {
         this.mstrEmail = strEmail;
     }
 
+    public boolean hasEmail(String strEmail) {return this.mstrEmail.equalsIgnoreCase(strEmail);}
+
     public Address getAddress() {
         return moAddress;
     }

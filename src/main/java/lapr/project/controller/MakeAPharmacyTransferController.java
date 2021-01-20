@@ -16,6 +16,11 @@ public class MakeAPharmacyTransferController {
     private PharmacyTransferService moPharmacyTransferService;
 
     /**
+     * Controller to Issue a Transfer Note.
+     */
+    private IssueTransferNoteController moIssueTransferNoteController;
+
+    /**
      * Pharmacy
      */
     private Pharmacy moPharmacy;
@@ -31,6 +36,7 @@ public class MakeAPharmacyTransferController {
     public MakeAPharmacyTransferController() {
         this.moPharmacyService = new PharmacyService();
         this.moPharmacyTransferService = new PharmacyTransferService();
+        this.moIssueTransferNoteController = new IssueTransferNoteController();
     }
 
     /**
@@ -40,7 +46,8 @@ public class MakeAPharmacyTransferController {
         try {
             this.moPharmacy = moPharmacyService.getClosestPharmacyWithStock(oOrder, oProduct, intQuantity);
             this.moPharmacyTransfer = moPharmacyTransferService.newPharmacyTransfer(oOrder, oProduct, intQuantity, this.moPharmacy);
-            return this.moPharmacyTransferService.registerPharmacyTransfer(this.moPharmacyTransfer);
+            this.moPharmacyTransferService.registerPharmacyTransfer(this.moPharmacyTransfer);
+            return this.moIssueTransferNoteController.issueTransferNote(this.moPharmacyTransfer);
         } catch (Exception ex) {
             return false;
         }

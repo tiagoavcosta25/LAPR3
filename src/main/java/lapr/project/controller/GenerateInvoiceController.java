@@ -24,7 +24,7 @@ public class GenerateInvoiceController {
         this.moInvoiceService = new InvoiceService();
     }
 
-    public boolean generateInvoice(Order oOrder, Map<CreditCard, Float> mapPayments) {
+    public boolean generateInvoice(Order oOrder, Map<CreditCard, Double> mapPayments) {
         try {
             this.moInvoice = moInvoiceService.newInvoice(oOrder, mapPayments);
             this.moInvoiceService.registerInvoice(this.moInvoice);

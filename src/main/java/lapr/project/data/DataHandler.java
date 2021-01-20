@@ -277,11 +277,11 @@ public class DataHandler {
         firstColumn++;
         Date dtOrderDate = rSet.getDate(firstColumn);
         firstColumn++;
-        float fltTotalWeight = rSet.getFloat(firstColumn);
+        double dblTotalWeight = rSet.getDouble(firstColumn);
         firstColumn++;
-        float fltAmount = rSet.getFloat(firstColumn);
+        double dblAmount = rSet.getDouble(firstColumn);
         firstColumn++;
-        float fltAdditionalFee = rSet.getFloat(firstColumn);
+        double dblAdditionalFee = rSet.getDouble(firstColumn);
         firstColumn++;
         boolean blIsHomeDelivery = rSet.getBoolean(firstColumn);
         firstColumn++;
@@ -290,7 +290,7 @@ public class DataHandler {
         Pharmacy oPharmacy = pharmacyManager(rSet, firstColumn);
 
 
-        return new Order(intId, fltAmount, fltTotalWeight, fltAdditionalFee, dtOrderDate, strDescription,
+        return new Order(intId, dblAmount, dblTotalWeight, dblAdditionalFee, dtOrderDate, strDescription,
                 strStatus, blIsHomeDelivery, oClient, oPharmacy, new TreeMap<>());
     }
 
@@ -302,10 +302,10 @@ public class DataHandler {
         firstColumn++;
         Date dtInvoiceDate = rSet.getDate(firstColumn);
         firstColumn++;
-        Float fltTotalPrice = rSet.getFloat(firstColumn);
+        double dblTotalPrice = rSet.getDouble(firstColumn);
 
 
-        return new Invoice(intInvoiceId, dtInvoiceDate, fltTotalPrice, oOrder);
+        return new Invoice(intInvoiceId, dtInvoiceDate, dblTotalPrice, oOrder);
     }
 
     protected Product productManager(ResultSet rSet, int firstColumn) throws SQLException { // column number +5
@@ -316,12 +316,12 @@ public class DataHandler {
         firstColumn++;
         String strDescription = rSet.getString(firstColumn);
         firstColumn++;
-        float fltUnitaryPrice = rSet.getFloat(firstColumn);
+        float dblUnitaryPrice = rSet.getFloat(firstColumn);
         firstColumn++;
-        float fltUnitaryWeight = rSet.getFloat(firstColumn);
+        float dblUnitaryWeight = rSet.getFloat(firstColumn);
 
 
-        return new Product(intID, strName, strDescription, fltUnitaryPrice, fltUnitaryWeight);
+        return new Product(intID, strName, strDescription, dblUnitaryPrice, dblUnitaryWeight);
     }
 
     protected Pharmacy pharmacyProductManager(ResultSet rSet, int firstColumn, Pharmacy oPharmacy) throws SQLException { // column number +6
@@ -348,7 +348,7 @@ public class DataHandler {
 
     protected Invoice invoiceProductManager(ResultSet rSet, int firstColumn, Invoice oInvoice) throws SQLException { // column number +6
 
-        float intValue = rSet.getFloat(firstColumn);
+        double intValue = rSet.getDouble(firstColumn);
         firstColumn++;
         CreditCard oCreditCard = creditCardManager(rSet, firstColumn);
         firstColumn+= COLUMNSADDEDORDER;

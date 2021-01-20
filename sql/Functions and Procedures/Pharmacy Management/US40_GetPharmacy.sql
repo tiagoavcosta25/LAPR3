@@ -7,7 +7,7 @@ begin
     open v_cursor for
         select p.ID, p.NAME, p.EMAIL, a.*
         from PHARMACY p
-        inner join ADDRESS a on a.ID = p.ADDRESSID
+        inner join ADDRESS a on p.ADDRESSLATITUDE = a.LATITUDE and p.ADDRESSLONGITUDE = a.LONGITUDE
         where p.EMAIL = p_email;
 
 

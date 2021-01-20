@@ -101,7 +101,7 @@ public class MakeAnOrderUI{
                     System.out.println();
 
                     CreditCard oCreditCard = new CreditCard();
-                    float intAmount;
+                    double intAmount;
                     for(CreditCard c : lstCC){
                         if (c.hasNumber(intCCNum)){
                             oCreditCard = c;
@@ -133,6 +133,7 @@ public class MakeAnOrderUI{
                 if(strCheck.equalsIgnoreCase("Y")){
                     if(oCtrl.registerOrder()){
                         System.out.println("Operation was successful. Order Registered.");
+                        oCtrl.generateInvoice();
                         flag = true;
                     } else {
                         System.out.println("Something went wrong, try again. Order not Registered. If you need any help, please contact us using help@teamlisa.com.");
