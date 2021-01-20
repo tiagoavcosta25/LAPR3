@@ -1,12 +1,12 @@
 package lapr.project.controller;
 
-import lapr.project.model.Drone;
-import lapr.project.model.Scooter;
+import lapr.project.model.*;
 import lapr.project.data.DeliveryDB;
 import lapr.project.data.ScooterDB;
-import lapr.project.model.Vehicle;
 import lapr.project.model.service.ScooterService;
 import lapr.project.model.service.VehicleService;
+
+import java.util.ArrayList;
 
 /**
  * Register Courier Controller.
@@ -34,6 +34,10 @@ public class SeeSuitableVehicleController {
 
     public Vehicle getSuitableVehicle(Double distanceScooter, Double distanceDrone) {
         return oVehicleService.getSuitableVehicle(distanceScooter, distanceDrone, ApplicationPOT.getInstance().getCurrentSession().getCurrentUserEmail());
+    }
+
+    public ArrayList<VehicleModel> getPharmacyModel(String strPharmacyEmail){
+        return oVehicleService.getPharamcyModel(strPharmacyEmail);
     }
 
 }

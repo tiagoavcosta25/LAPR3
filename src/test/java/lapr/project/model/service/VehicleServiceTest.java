@@ -13,6 +13,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
@@ -42,5 +43,12 @@ class VehicleServiceTest {
         when (m_oVehicleDB.getSuitableVehicle(-1d,-1d,"email3@gmail.com")).thenReturn(new Drone());
         real = m_service.getSuitableVehicle(-1d,-1d,"email3@gmail.com");
         assertEquals(new Drone(),real);
+    }
+
+    @Test
+    void getPharmacyModel() {
+        when (m_oVehicleDB.getPharmacyModel("email3@gmail.com")).thenReturn(new ArrayList<>());
+        ArrayList real = m_service.getPharamcyModel("email3@gmail.com");
+        assertEquals(new ArrayList(),real);
     }
 }

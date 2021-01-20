@@ -8,6 +8,8 @@ import java.security.NoSuchAlgorithmException;
 import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class VehicleDB extends DataHandler {
 
@@ -85,5 +87,45 @@ public class VehicleDB extends DataHandler {
         }
         throw new IllegalArgumentException("No Courier with email: " + email);
 
+    }
+
+    public ArrayList<VehicleModel> getPharmacyModel(String strPharmacyEmail) {
+        /*
+        CallableStatement callStmt = null;
+        List<VehicleModel> lstModels = new ArrayList<>();
+        try {
+            openConnection();
+            callStmt = getConnection().prepareCall("{ ? = call getPharmacyModel(?) }");
+
+            callStmt.registerOutParameter(1, oracle.jdbc.internal.OracleTypes.CURSOR);
+            callStmt.setString(2, strPharmacyEmail);
+            callStmt.execute();
+            ResultSet rSet = (ResultSet) callStmt.getObject(1);
+
+            while(rSet.next()){
+                int intId = rSet.getInt(1);
+                String strDesignation = rSet.getString(2);
+                double dblPotency = rSet.getDouble(3);
+                double dblWeight = rSet.getDouble(4);
+                double dblMaxPayload = rSet.getDouble(5);
+                int intBatteryId = rSet.getInt(6);
+                int intBatteryCapacity = rSet.getInt(7);
+                double dblBatteryVoltage = rSet.getDouble(8);
+                double dblEfficiency = rSet.getDouble(9);
+                String vehicleType = rSet.getString(10);
+
+                lstModels.add(new VehicleModel(intId,strDesignation,dblPotency,dblWeight,dblMaxPayload,
+                        new Battery(intBatteryId,intBatteryCapacity,dblBatteryVoltage,dblEfficiency),vehicleType));
+
+                rSet.next();
+            }
+        } catch (SQLException | NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        } finally {
+            closeAll();
+        }
+        throw new IllegalArgumentException("No Models Avaliable.");
+        */
+        return new ArrayList<>();
     }
 }

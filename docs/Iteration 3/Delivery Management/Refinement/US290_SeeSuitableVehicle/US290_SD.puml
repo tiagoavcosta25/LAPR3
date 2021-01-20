@@ -1,0 +1,44 @@
+@startuml
+autonumber
+actor "Administrator" as COURIER
+
+participant ":SeeSuitableVehicleUI" as UI
+participant ":SeeSuitableVehicleController" as CTRL
+participant "droneService \n:VehicleService" as RF
+participant "vehicleDB \n:VehicleDB" as SDB
+
+activate COURIER
+
+COURIER -> UI :  wants to see the the best type of vehicle for an order
+activate UI
+UI -> CTRL : lstModels = getPharmacyModels(pharmacyEmail)
+activate CTRL
+CTRL -> RF : create()
+activate RF
+RF -> SDB : create()
+activate SDB
+deactivate SDB
+deactivate RF
+
+CTRL -> RF : lstModels = getPharmacyModels(pharmacyEmail)
+activate RF
+RF -> SDB : lstModels = getPharmacyModels(pharmacyEmail)
+activate SDB
+deactivate SDB
+deactivate RF
+deactivate CTRL
+UI -> CTRL : XXX METHOD
+activate CTRL
+deactivate CTRL
+
+UI -> CTRL : XXX METHOD
+activate CTRL
+deactivate CTRL
+
+
+UI -> COURIER : shows the best vehicle type for an order
+deactivate UI
+
+deactivate COURIER
+
+@enduml
