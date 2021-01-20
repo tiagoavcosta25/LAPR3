@@ -44,11 +44,4 @@ public class OrderService {
         return this.m_oOrderDB .notifyAndRemove(oOrder);
     }
 
-    public List<Order> getOrderList(List<Integer> lstOrderId) {
-        List<Order> lstOrder = new ArrayList<>();
-        for (Integer orderId : lstOrderId) {
-            lstOrder.add(getOrder(orderId));
-        }
-        return lstOrder;
-    }
 }

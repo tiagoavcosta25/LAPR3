@@ -46,7 +46,6 @@ class RegisterDeliveryRunControllerTest {
     @Test
     void registerDeliveryRun() {
         ApplicationPOT.getInstance().setCurrentSession(new UserSession("", 2));
-        when(m_mockOrderService.getOrderList(new ArrayList<>())).thenReturn(new ArrayList<>());
         when(m_mockPharmacyService.getSuitableCourier()).thenReturn(new Courier());
         when(m_mockDeliveryRunService.newDeliveryRun(new Courier(),new ArrayList<>())).thenReturn(new DeliveryRun());
         when(m_mockDeliveryRunService.addNewDeliveryRun(new DeliveryRun())).thenReturn(true);

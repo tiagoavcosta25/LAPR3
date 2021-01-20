@@ -21,9 +21,8 @@ public class RegisterDeliveryRunController {
         m_oOrderService = new OrderService();
     }
 
-    public boolean registerDeliveryRun(List<Integer> lstOrderId){
+    public boolean registerDeliveryRun(List<Order> lstOrder){
         if (ApplicationPOT.getInstance().getCurrentSession().getRole().equals(UserSession.Role.ADMIN)) {
-            List<Order> lstOrder = m_oOrderService.getOrderList(lstOrderId);
             Courier courier = m_oPharmacyService.getSuitableCourier();
             DeliveryRun deliveryRun = m_oDeliveryRunService.newDeliveryRun(courier,lstOrder);
             return m_oDeliveryRunService.addNewDeliveryRun(deliveryRun);
@@ -32,6 +31,4 @@ public class RegisterDeliveryRunController {
             return false;
         }
     }
-
-
 }
