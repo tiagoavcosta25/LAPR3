@@ -242,6 +242,14 @@ class DroneServiceTest {
         boolean result = m_oDroneService.startDelivery(dr);
         assertTrue(result);
     }
+    @Test
+    void startDelivery2(){
+        System.out.println("startDelivery2");
+        DeliveryRun dr = new DeliveryRun(new Courier(), new ArrayList<>());
+        dr.setStatus(DeliveryStatus.INPROGRESS);
+        boolean result = m_oDroneService.startDelivery(dr);
+        assertFalse(result);
+    }
 
     @Test
     void getDronePayload() {
