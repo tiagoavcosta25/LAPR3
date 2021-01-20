@@ -4,7 +4,7 @@ import java.security.NoSuchAlgorithmException;
 
 public class Admin extends User {
 
-    private Integer id;
+    private Integer mId;
 
     public Admin() {
         super();
@@ -22,12 +22,12 @@ public class Admin extends User {
 
     @Override
     public Integer getId() {
-        return id;
+        return mId;
     }
 
     @Override
-    public void setId(Integer id) {
-        this.id = id;
+    public void setId(Integer intId) {
+        this.mId = intId;
     }
 }
 

@@ -21,29 +21,29 @@ public class RegisterCourierController {
     /**
      * Courier class instance
      */
-    private Courier oCourier;
+    private Courier moCourier;
 
     /**
      * Courier Management class
      */
-    private CourierService oCourierService;
+    private CourierService moCourierService;
 
     /**
      * Pharmacy Management class
      */
-    private PharmacyService oPharmacyService;
+    private PharmacyService moPharmacyService;
 
     /**
      * Pharmacy
      */
-    private Pharmacy oPharmacy;
+    private Pharmacy moPharmacy;
 
     /**
      * A constructor of RegisterCourierController that initiates the platform variable by getting it from the ApplicationPOT.
      */
     public RegisterCourierController() {
-        this.oCourierService = new CourierService();
-        this.oPharmacyService = new PharmacyService();
+        this.moCourierService = new CourierService();
+        this.moPharmacyService = new PharmacyService();
     }
 
     /**
@@ -59,13 +59,13 @@ public class RegisterCourierController {
      */
     public boolean newCourier(String strName, String strEmail, Integer intNIF, String strIBAN, String strPharmacyEmail) {
         try {
-            this.oPharmacy = oPharmacyService.getPharmacy(strPharmacyEmail);
+            this.moPharmacy = moPharmacyService.getPharmacy(strPharmacyEmail);
             if (validateInput(strName, strEmail, intNIF, strIBAN,strPharmacyEmail)) {
-                this.oCourier = oCourierService.newCourier(strName, strEmail, intNIF, strIBAN, this.oPharmacy);
+                this.moCourier = moCourierService.newCourier(strName, strEmail, intNIF, strIBAN, this.moPharmacy);
                 return true;
             }
         } catch (Exception ex) {
-            this.oCourier = null;
+            this.moCourier = null;
         }
         return false;
     }
@@ -74,14 +74,14 @@ public class RegisterCourierController {
      * The method adds a Freelancer to the Organization of the current user.
      */
     public boolean registersCourier() {
-        return this.oCourierService.registersCourier(this.oCourier);
+        return this.moCourierService.registersCourier(this.moCourier);
     }
 
     /**
      * The method sets the courier.
      */
     public void setCourier(Courier oCourier) {
-        this.oCourier = oCourier;
+        this.moCourier = oCourier;
     }
 
 

@@ -14,76 +14,76 @@ public class MakeAnOrderController {
     /**
      * Order class instance
      */
-    private Order m_oOrder;
+    private Order moOrder;
 
     /**
      * Order Management class
      */
-    private OrderService m_oOrderService;
+    private OrderService moOrderService;
 
     /**
      * Client Management class
      */
-    private ClientService m_oClientService;
+    private ClientService moClientService;
 
     /**
      * Order's Client
      */
-    private Client m_oClient;
+    private Client moClient;
 
     /**
      * Pharmacy Management class
      */
-    private ProductService m_oProductService;
+    private ProductService moProductService;
 
     /**
      * Pharmacy Management class
      */
-    private PharmacyService m_oPharmacyService;
+    private PharmacyService moPharmacyService;
 
     /**
      * Order's Pharmacy
      */
-    private Pharmacy m_oPharmacy;
+    private Pharmacy moPharmacy;
 
     /**
      * Order's Product Map
      */
-    private Map<Product, Integer> m_mapProducts;
+    private Map<Product, Integer> mMapProducts;
 
     /**
      * Payments
      */
-    private Map<CreditCard, Float> m_mapPayments;
+    private Map<CreditCard, Float> mMapPayments;
 
     /**
      * Payments
      */
-    private GenerateInvoiceController m_oGenerateInvoiceController;
+    private GenerateInvoiceController moGenerateInvoiceController;
 
     /**
      * Payments
      */
-    private float m_fltCurrentPayment;
+    private float mfltCurrentPayment;
 
     /**
      * Payments
      */
-    private float m_fltExpectedPayment;
+    private float mfltExpectedPayment;
 
     /**
      * An empty constructor of MakeAnOrderController that initiates the platform variable by getting it from the ApplicationPOT.
      */
     public MakeAnOrderController() {
-        this.m_oPharmacyService = new PharmacyService();
-        this.m_oProductService = new ProductService();
-        this.m_oOrderService = new OrderService();
-        this.m_oClientService = new ClientService();
-        this.m_mapProducts = new TreeMap<>();
-        this.m_mapPayments = new TreeMap<>();
-        this.m_oGenerateInvoiceController = new GenerateInvoiceController();
-        this.m_fltCurrentPayment = 0f;
-        this.m_fltExpectedPayment = 0f;
+        this.moPharmacyService = new PharmacyService();
+        this.moProductService = new ProductService();
+        this.moOrderService = new OrderService();
+        this.moClientService = new ClientService();
+        this.mMapProducts = new TreeMap<>();
+        this.mMapPayments = new TreeMap<>();
+        this.moGenerateInvoiceController = new GenerateInvoiceController();
+        this.mfltCurrentPayment = 0f;
+        this.mfltExpectedPayment = 0f;
     }
 
     /**
@@ -91,10 +91,10 @@ public class MakeAnOrderController {
      */
     public Order newOrder(String strDescription, Boolean blIsHomeDelivery) {
         try {
-            this.m_oOrder = m_oOrderService.newOrder(strDescription, blIsHomeDelivery, m_oClient, m_oPharmacy, this.m_mapProducts);
-            return this.m_oOrder;
+            this.moOrder = moOrderService.newOrder(strDescription, blIsHomeDelivery, moClient, moPharmacy, this.mMapProducts);
+            return this.moOrder;
         } catch (Exception ex) {
-            this.m_oOrder = null;
+            this.moOrder = null;
             return null;
         }
     }
@@ -103,15 +103,15 @@ public class MakeAnOrderController {
      * The method registers an order to the database.
      */
     public boolean registerOrder() {
-        return this.m_oOrderService.registerOrder(m_oOrder);
+        return this.moOrderService.registerOrder(moOrder);
     }
 
     /**
      * The method returns the list of available products for a pharmacy.
      */
     public List<Pharmacy> getPharmacies() {
-        this.m_oClient = this.m_oClientService.getClientByEmail(ApplicationPOT.getInstance().getCurrentSession().getCurrentUserEmail());
-        return this.m_oPharmacyService.getPharmacies();
+        this.moClient = this.moClientService.getClientByEmail(ApplicationPOT.getInstance().getCurrentSession().getCurrentUserEmail());
+        return this.moPharmacyService.getPharmacies();
     }
 
     /**
@@ -119,8 +119,8 @@ public class MakeAnOrderController {
      */
     public List<Product> getAvailableProducts(Pharmacy oPharmacy) {
         try {
-            this.m_oPharmacy = oPharmacy;
-            return this.m_oProductService.getAvailableProducts(oPharmacy.getId());
+            this.moPharmacy = oPharmacy;
+            return this.moProductService.getAvailableProducts(oPharmacy.getId());
         } catch (Exception ex) {
             return null;
         }
@@ -131,7 +131,7 @@ public class MakeAnOrderController {
      */
     public List<CreditCard> getCreditCardsByClient() {
         try {
-            return this.m_oClientService.getCreditCardsByClient(this.m_oClient.getEmail());
+            return this.moClientService.getCreditCardsByClient(this.moClient.getEmail());
         } catch (Exception ex) {
             return null;
         }
@@ -142,8 +142,8 @@ public class MakeAnOrderController {
      */
     public boolean addProductToOrder(Product oProduct, Integer intQuantity) {
         try{
-            this.m_mapProducts.put(oProduct, intQuantity);
-            m_fltExpectedPayment += oProduct.getUnitaryPrice() * (float) intQuantity;
+            this.mMapProducts.put(oProduct, intQuantity);
+            mfltExpectedPayment += oProduct.getUnitaryPrice() * (float) intQuantity;
             return true;
         } catch(Exception e){
             return false;
@@ -155,9 +155,9 @@ public class MakeAnOrderController {
      */
     public boolean addPayment(CreditCard oCreditCard, Float fltValue) {
         try{
-            if((this.m_fltCurrentPayment + fltValue) <= this.m_fltExpectedPayment){
-                this.m_mapPayments.put(oCreditCard, fltValue);
-                this.m_fltCurrentPayment += fltValue;
+            if((this.mfltCurrentPayment + fltValue) <= this.mfltExpectedPayment){
+                this.mMapPayments.put(oCreditCard, fltValue);
+                this.mfltCurrentPayment += fltValue;
                 return true;
             } else{
                 throw new Exception();
@@ -188,7 +188,7 @@ public class MakeAnOrderController {
      */
     public boolean generateInvoice() {
         try{
-            return m_oGenerateInvoiceController.generateInvoice(this.m_oOrder, this.m_mapPayments);
+            return moGenerateInvoiceController.generateInvoice(this.moOrder, this.mMapPayments);
         } catch(Exception e){
             return false;
         }
@@ -198,14 +198,14 @@ public class MakeAnOrderController {
      * The method sets the order.
      */
     public void setOrder(Order oOrder) {
-        this.m_oOrder = oOrder;
+        this.moOrder = oOrder;
     }
 
     /**
      * The method sets the client.
      */
     public void setClient(Client oClient) {
-        this.m_oClient = oClient;
+        this.moClient = oClient;
     }
 
 }

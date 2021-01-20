@@ -10,16 +10,16 @@ public class UpdateProductController {
 
     private static final Logger LOGGER = Logger.getLogger(UpdateProductController.class.getName());
 
-    private ProductService pServ;
+    private ProductService moServ;
 
     public UpdateProductController() {
-        this.pServ = new ProductService();
+        this.moServ = new ProductService();
     }
 
     public boolean updateProduct(int intId, String strName, String strDescription, float fltUnitaryPrice, float fltUnitaryWeight) {
         try {
             if(ApplicationPOT.getInstance().getCurrentSession().getRole().equals(UserSession.Role.ADMIN))
-                return pServ.updateProduct(intId, strName, strDescription, fltUnitaryPrice, fltUnitaryWeight);
+                return moServ.updateProduct(intId, strName, strDescription, fltUnitaryPrice, fltUnitaryWeight);
         } catch (Exception e) {
             LOGGER.log(Level.WARNING, "User not logged in!");
         }

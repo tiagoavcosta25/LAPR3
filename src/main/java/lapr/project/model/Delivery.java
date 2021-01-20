@@ -5,46 +5,46 @@ import java.util.Objects;
 
 public class Delivery {
 
-    private Order m_oOrder;
+    private Order moOrder;
 
-    private Date m_dtDeliveryDate;
+    private Date mdtDeliveryDate;
 
-    private String m_strNotes;
+    private String mstrNotes;
 
     public Delivery() {
-        m_oOrder = null;
-        m_dtDeliveryDate = new Date();
-        m_strNotes = "";
+        moOrder = null;
+        mdtDeliveryDate = new Date();
+        mstrNotes = "";
     }
 
     public Delivery(Order m_oOrder) {
-        this.m_oOrder = m_oOrder;
-        this.m_dtDeliveryDate = new Date();
-        this.m_strNotes = "";
+        this.moOrder = m_oOrder;
+        this.mdtDeliveryDate = new Date();
+        this.mstrNotes = "";
     }
 
     public Order getOrder() {
-        return m_oOrder;
+        return moOrder;
     }
 
     public void setOrder(Order oOrder) {
-        this.m_oOrder = oOrder;
+        this.moOrder = oOrder;
     }
 
     public Date getDeliveryDate() {
-        return (Date) m_dtDeliveryDate.clone();
+        return (Date) mdtDeliveryDate.clone();
     }
 
     public void setDeliveryDate(Date dtDeliveryDate) {
-        this.m_dtDeliveryDate = (Date) dtDeliveryDate.clone();
+        this.mdtDeliveryDate = (Date) dtDeliveryDate.clone();
     }
 
     public String getNotes() {
-        return m_strNotes;
+        return mstrNotes;
     }
 
     public void setNotes(String strNotes) {
-        this.m_strNotes = strNotes;
+        this.mstrNotes = strNotes;
     }
 
     @Override
@@ -52,15 +52,15 @@ public class Delivery {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Delivery delivery = (Delivery) o;
-        return Objects.equals(m_oOrder, delivery.m_oOrder);
+        return Objects.equals(moOrder, delivery.moOrder);
     }
 
     @Override
     public String toString() {
         return "Delivery{" +
-                "m_oOrder=" + m_oOrder +
-                ", m_dtDeliveryDate=" + m_dtDeliveryDate +
-                ", m_strNotes='" + m_strNotes + '\'' +
+                "m_oOrder=" + moOrder +
+                ", m_dtDeliveryDate=" + mdtDeliveryDate +
+                ", m_strNotes='" + mstrNotes + '\'' +
                 '}';
     }
 }

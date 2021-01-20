@@ -5,16 +5,16 @@ public class NonChargingSlot extends ParkingSlot implements Comparable{
     public NonChargingSlot() {
     }
 
-    public NonChargingSlot(int m_intId) {
-        super(m_intId);
+    public NonChargingSlot(int intId) {
+        super(intId);
     }
 
-    public NonChargingSlot(Vehicle m_oVehicle) {
-        super(m_oVehicle);
+    public NonChargingSlot(Vehicle oVehicle) {
+        super(oVehicle);
     }
 
-    public NonChargingSlot(int m_intId, Vehicle m_oVehicle) {
-        super(m_intId, m_oVehicle);
+    public NonChargingSlot(int intId, Vehicle oVehicle) {
+        super(intId, oVehicle);
     }
 
     @Override

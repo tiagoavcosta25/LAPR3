@@ -3,81 +3,81 @@ package lapr.project.model;
 import java.util.Objects;
 
 public class Product implements Comparable {
-    private int m_intId;
-    private String m_strName;
-    private String m_strDescription;
-    private float m_fltUnitaryPrice;
-    private float m_fltUnitaryWeight;
+    private int mintId;
+    private String mstrName;
+    private String mstrDescription;
+    private float mfltUnitaryPrice;
+    private float mfltUnitaryWeight;
 
-    private static int DEFAULT_ID = -1;
-    private static String DEFAULT_NAME = "No name.";
-    private static String DEFAULT_DESCRIPTION = "No description.";
-    private static float DEFAULT_UNITARY_PRICE = 0;
-    private static float DEFAULT_UNITARY_WEIGHT = 0;
+    private static int DEFAULTID = -1;
+    private static String DEFAULTNAME = "No name.";
+    private static String DEFAULTDESCRIPTION = "No description.";
+    private static float DEFAULTUNITARYPRICE = 0;
+    private static float DEFAULTUNITARYWEIGHT = 0;
 
-    public Product(int m_intId, String m_strName, String m_strDescription, float m_fltUnitaryPrice, float m_fltUnitaryWeight) {
-        this.m_intId = m_intId;
-        this.m_strName = m_strName;
-        this.m_strDescription = m_strDescription;
-        this.m_fltUnitaryPrice = m_fltUnitaryPrice;
-        this.m_fltUnitaryWeight = m_fltUnitaryWeight;
+    public Product(int intId, String strName, String strDescription, float fltUnitaryPrice, float fltUnitaryWeight) {
+        this.mintId = intId;
+        this.mstrName = strName;
+        this.mstrDescription = strDescription;
+        this.mfltUnitaryPrice = fltUnitaryPrice;
+        this.mfltUnitaryWeight = fltUnitaryWeight;
     }
 
-    public Product(String m_strName, String m_strDescription, float m_fltUnitaryPrice, float m_fltUnitaryWeight) {
-        this.m_strName = m_strName;
-        this.m_strDescription = m_strDescription;
-        this.m_fltUnitaryPrice = m_fltUnitaryPrice;
-        this.m_fltUnitaryWeight = m_fltUnitaryWeight;
+    public Product(String strName, String strDescription, float fltUnitaryPrice, float fltUnitaryWeight) {
+        this.mstrName = strName;
+        this.mstrDescription = strDescription;
+        this.mfltUnitaryPrice = fltUnitaryPrice;
+        this.mfltUnitaryWeight = fltUnitaryWeight;
     }
 
     public Product() {
-        this.m_intId = DEFAULT_ID;
-        this.m_strName = DEFAULT_NAME;
-        this.m_strDescription = DEFAULT_DESCRIPTION;
-        this.m_fltUnitaryPrice = DEFAULT_UNITARY_PRICE;
-        this.m_fltUnitaryWeight = DEFAULT_UNITARY_WEIGHT;
+        this.mintId = DEFAULTID;
+        this.mstrName = DEFAULTNAME;
+        this.mstrDescription = DEFAULTDESCRIPTION;
+        this.mfltUnitaryPrice = DEFAULTUNITARYPRICE;
+        this.mfltUnitaryWeight = DEFAULTUNITARYWEIGHT;
     }
 
     public int getId() {
-        return m_intId;
+        return mintId;
     }
 
     public boolean hasId(Integer intId) {return this.getId() == intId;}
 
     public String getName() {
-        return m_strName;
+        return mstrName;
     }
 
     public String getDescription() {
-        return m_strDescription;
+        return mstrDescription;
     }
 
     public float getUnitaryPrice() {
-        return m_fltUnitaryPrice;
+        return mfltUnitaryPrice;
     }
 
     public float getUnitaryWeight() {
-        return m_fltUnitaryWeight;
+        return mfltUnitaryWeight;
     }
 
-    public void setId(int m_intId) {
-        this.m_intId = m_intId;
+    public void setId(int intId) {
+        this.mintId = intId;
     }
 
-    public void setName(String m_strName) {
-        this.m_strName = m_strName;
+    public void setName(String strName) {
+        this.mstrName = strName;
     }
 
-    public void setDescription(String m_strDescription) {
-        this.m_strDescription = m_strDescription;
+    public void setDescription(String strDescription) {
+        this.mstrDescription = strDescription;
     }
 
-    public void setUnitaryPrice(float m_fltUnitaryPrice) {
-        this.m_fltUnitaryPrice = m_fltUnitaryPrice;
+    public void setUnitaryPrice(float fltUnitaryPrice) {
+        this.mfltUnitaryPrice = fltUnitaryPrice;
     }
 
-    public void setUnitaryWeight(float m_fltUnitaryWeight) {
-        this.m_fltUnitaryWeight = m_fltUnitaryWeight;
+    public void setUnitaryWeight(float fltUnitaryWeight) {
+        this.mfltUnitaryWeight = fltUnitaryWeight;
     }
 
     @Override
@@ -91,25 +91,25 @@ public class Product implements Comparable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Product product = (Product) o;
-        return Float.compare(product.m_fltUnitaryPrice, m_fltUnitaryPrice) == 0 &&
-                Float.compare(product.m_fltUnitaryWeight, m_fltUnitaryWeight) == 0 &&
-                m_strName.equals(product.m_strName) &&
-                m_strDescription.equals(product.m_strDescription);
+        return Float.compare(product.mfltUnitaryPrice, mfltUnitaryPrice) == 0 &&
+                Float.compare(product.mfltUnitaryWeight, mfltUnitaryWeight) == 0 &&
+                mstrName.equals(product.mstrName) &&
+                mstrDescription.equals(product.mstrDescription);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(m_strName, m_strDescription, m_fltUnitaryPrice, m_fltUnitaryWeight);
+        return Objects.hash(mstrName, mstrDescription, mfltUnitaryPrice, mfltUnitaryWeight);
     }
 
     @Override
     public String toString() {
         return "Product{" +
-                "m_intId=" + m_intId +
-                ", m_strName='" + m_strName + '\'' +
-                ", m_strDescription='" + m_strDescription + '\'' +
-                ", m_fltUnitaryPrice=" + m_fltUnitaryPrice +
-                ", m_fltUnitaryWeight=" + m_fltUnitaryWeight +
+                "m_intId=" + mintId +
+                ", m_strName='" + mstrName + '\'' +
+                ", m_strDescription='" + mstrDescription + '\'' +
+                ", m_fltUnitaryPrice=" + mfltUnitaryPrice +
+                ", m_fltUnitaryWeight=" + mfltUnitaryWeight +
                 '}';
     }
 }

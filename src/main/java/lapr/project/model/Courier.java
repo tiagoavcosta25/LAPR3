@@ -5,8 +5,8 @@ import java.security.NoSuchAlgorithmException;
 
 public class Courier extends User {
 
-    private String m_iban;
-    private Pharmacy m_Pharmacy;
+    private String mIban;
+    private Pharmacy mPharmacy;
 
     public Courier() {
         super();
@@ -27,19 +27,19 @@ public class Courier extends User {
     }
 
     public String getM_iban() {
-        return m_iban;
+        return mIban;
     }
 
     public void setM_iban(String m_iban) {
-        this.m_iban = m_iban;
+        this.mIban = m_iban;
     }
 
     public Pharmacy getM_Pharmacy() {
-        return m_Pharmacy;
+        return mPharmacy;
     }
 
     public void setM_Pharmacy(Pharmacy m_Pharmacy) {
-        this.m_Pharmacy = m_Pharmacy;
+        this.mPharmacy = m_Pharmacy;
     }
 }
 

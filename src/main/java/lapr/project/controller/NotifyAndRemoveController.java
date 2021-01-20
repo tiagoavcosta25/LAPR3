@@ -21,25 +21,25 @@ public class NotifyAndRemoveController {
     /**
      * Courier Management class
      */
-    private OrderDB oOrderDB;
+    private OrderDB moOrderDB;
 
     /**
      * Courier Management class
      */
-    private ClientDB oClientDB;
+    private ClientDB moClientDB;
 
     /**
      * An empty constructor of RegisterCourierController that initiates the platform variable by getting it from the ApplicationPOT.
      */
     public NotifyAndRemoveController() {
-        this.oOrderDB = new OrderDB();
-        this.oClientDB = new ClientDB();
+        this.moOrderDB = new OrderDB();
+        this.moClientDB = new ClientDB();
     }
 
     public boolean notifyAndRemove(){
-        Client client = oClientDB.getClientByEmail(ApplicationPOT.getInstance().getCurrentSession().getCurrentUserEmail());
-        Order order = oOrderDB.getLatestOrder(client);
-        return oOrderDB.notifyAndRemove(order);
+        Client client = moClientDB.getClientByEmail(ApplicationPOT.getInstance().getCurrentSession().getCurrentUserEmail());
+        Order order = moOrderDB.getLatestOrder(client);
+        return moOrderDB.notifyAndRemove(order);
     }
 
 }

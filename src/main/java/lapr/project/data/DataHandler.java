@@ -47,47 +47,47 @@ public class DataHandler {
     /**
      * Additional Number of columns added when executing the addressManager method.
      */
-    private static int COLUMNS_ADDED_ADDRESS = 8;
+    private static int COLUMNSADDEDADDRESS = 8;
 
     /**
      * Additional Number of columns added when executing the creditCardManager method.
      */
-    private static int COLUMNS_ADDED_CC = 3;
+    private static int COLUMNSADDEDCC = 3;
 
     /**
      * Additional Number of columns added when executing the pharmacyManager method.
      */
-    private static int COLUMNS_ADDED_PHARMACY = 11;
+    private static int COLUMNSADDEDPHARMACY = 11;
 
     /**
      * Additional Number of columns added when executing the clientManager method.
      */
-    private static int COLUMNS_ADDED_CLIENT = 14;
+    private static int COLUMNSADDEDCLIENT = 14;
 
     /**
      * Additional Number of columns added when executing the orderManager method.
      */
-    private static int COLUMNS_ADDED_ORDER = 37;
+    private static int COLUMNSADDEDORDER = 37;
 
     /**
      * Additional Number of columns added when executing the invoiceManager method.
      */
-    private static int COLUMNS_ADDED_INVOICE = 47;
+    private static int COLUMNSADDEDINVOICE = 47;
 
     /**
      * Additional Number of columns added when executing the productManager method.
      */
-    private static int COLUMNS_ADDED_PRODUCT = 5;
+    private static int COLUMNSADDEDPRODUCT = 5;
 
     /**
      * Additional Number of columns added when executing the pharmacyProductManager method.
      */
-    private static int COLUMNS_ADDED_PHARMACY_PRODUCT = 6;
+    private static int COLUMNSADDEDPHARMACYPRODUCT = 6;
 
     /**
      * Additional Number of columns added when executing the orderProductManager method.
      */
-    private static int COLUMNS_ADDED_ORDER_PRODUCT = 6;
+    private static int COLUMNSADDEDORDERPRODUCT = 6;
 
     /**
      * Use connection properties set on file application.properties
@@ -286,7 +286,7 @@ public class DataHandler {
         boolean blIsHomeDelivery = rSet.getBoolean(firstColumn);
         firstColumn++;
         Client oClient = clientManager(rSet, firstColumn);
-        firstColumn+= COLUMNS_ADDED_CLIENT;
+        firstColumn+= COLUMNSADDEDCLIENT;
         Pharmacy oPharmacy = pharmacyManager(rSet, firstColumn);
 
 
@@ -297,7 +297,7 @@ public class DataHandler {
     protected Invoice invoiceManager(ResultSet rSet, int firstColumn) throws SQLException, NoSuchAlgorithmException { // column number +47
 
         Order oOrder = orderManager(rSet, firstColumn);
-        firstColumn+= COLUMNS_ADDED_ORDER;
+        firstColumn+= COLUMNSADDEDORDER;
         int intInvoiceId = rSet.getInt(firstColumn);
         firstColumn++;
         Date dtInvoiceDate = rSet.getDate(firstColumn);
@@ -351,7 +351,7 @@ public class DataHandler {
         float intValue = rSet.getFloat(firstColumn);
         firstColumn++;
         CreditCard oCreditCard = creditCardManager(rSet, firstColumn);
-        firstColumn+= COLUMNS_ADDED_ORDER;
+        firstColumn+= COLUMNSADDEDORDER;
 
         oInvoice.getPayments().put(oCreditCard, intValue);
 

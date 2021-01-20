@@ -4,113 +4,113 @@ import java.util.*;
 
 public class Pharmacy {
 
-    private int m_intId;
-    private String m_strName;
-    private String m_strEmail;
-    private Address m_oAddress;
-    private List<Park> m_lstParks;
-    private Map<Product, Integer> m_mapStock;
+    private int mintId;
+    private String mstrName;
+    private String mstrEmail;
+    private Address moAddress;
+    private List<Park> mlstParks;
+    private Map<Product, Integer> mMapStock;
 
-    private static int DEFAULT_ID = -1;
-    private static String DEFAULT_NAME = "No name.";
-    private static String DEFAULT_EMAIL = "No email.";
-    private static Address DEFAULT_ADDRESS = new Address();
-    private static List<Park> DEFAULT_PARKS = new ArrayList<>();
-    private static Map<Product, Integer> DEFAULT_STOCK = new TreeMap<>();
+    private static int DEFAULTID = -1;
+    private static String DEFAULTNAME = "No name.";
+    private static String DEFAULTEMAIL = "No email.";
+    private static Address DEFAULTADDRESS = new Address();
+    private static List<Park> DEFAULTPARKS = new ArrayList<>();
+    private static Map<Product, Integer> DEFAULTSTOCK = new TreeMap<>();
 
     public Pharmacy(int intId, String strName, String strEmail, Address oAddress, Map<Product, Integer> mapStock) {
-        this.m_intId = intId;
-        this.m_strName= strName;
-        this.m_strEmail= strEmail;
-        this.m_oAddress= oAddress;
-        this.m_lstParks= DEFAULT_PARKS;
-        this.m_mapStock = mapStock;
+        this.mintId = intId;
+        this.mstrName = strName;
+        this.mstrEmail = strEmail;
+        this.moAddress = oAddress;
+        this.mlstParks = DEFAULTPARKS;
+        this.mMapStock = mapStock;
     }
 
     public Pharmacy(String strName, String strEmail, Address oAddress, Map<Product, Integer> mapStock) {
-        this.m_intId = DEFAULT_ID;
-        this.m_strName= strName;
-        this.m_strEmail= strEmail;
-        this.m_oAddress= oAddress;
-        this.m_lstParks= DEFAULT_PARKS;
-        this.m_mapStock = mapStock;
+        this.mintId = DEFAULTID;
+        this.mstrName = strName;
+        this.mstrEmail = strEmail;
+        this.moAddress = oAddress;
+        this.mlstParks = DEFAULTPARKS;
+        this.mMapStock = mapStock;
     }
 
     public Pharmacy(int intId, String strName, String strEmail, Address oAddress) {
-        this.m_intId = intId;
-        this.m_strName= strName;
-        this.m_strEmail= strEmail;
-        this.m_oAddress= oAddress;
-        this.m_lstParks = DEFAULT_PARKS;
-        this.m_mapStock = DEFAULT_STOCK;
+        this.mintId = intId;
+        this.mstrName = strName;
+        this.mstrEmail = strEmail;
+        this.moAddress = oAddress;
+        this.mlstParks = DEFAULTPARKS;
+        this.mMapStock = DEFAULTSTOCK;
     }
 
     public Pharmacy(String strName, String strEmail, Address oAddress) {
-        this.m_intId = DEFAULT_ID;
-        this.m_strName= strName;
-        this.m_strEmail= strEmail;
-        this.m_oAddress= oAddress;
-        this.m_lstParks = DEFAULT_PARKS;
-        this.m_mapStock = DEFAULT_STOCK;
+        this.mintId = DEFAULTID;
+        this.mstrName = strName;
+        this.mstrEmail = strEmail;
+        this.moAddress = oAddress;
+        this.mlstParks = DEFAULTPARKS;
+        this.mMapStock = DEFAULTSTOCK;
     }
 
     public Pharmacy() {
-        this.m_intId = DEFAULT_ID;
-        this.m_strName= DEFAULT_NAME;
-        this.m_strEmail= DEFAULT_EMAIL;
-        this.m_oAddress = DEFAULT_ADDRESS;
-        this.m_lstParks = DEFAULT_PARKS;
-        this.m_mapStock = DEFAULT_STOCK;
+        this.mintId = DEFAULTID;
+        this.mstrName = DEFAULTNAME;
+        this.mstrEmail = DEFAULTEMAIL;
+        this.moAddress = DEFAULTADDRESS;
+        this.mlstParks = DEFAULTPARKS;
+        this.mMapStock = DEFAULTSTOCK;
     }
 
     public int getId() {
-        return m_intId;
+        return mintId;
     }
 
     public void setId(int intId) {
-        this.m_intId = intId;
+        this.mintId = intId;
     }
 
     public boolean hasId(Integer intId) {return this.getId() == intId;}
 
     public String getName() {
-        return m_strName;
+        return mstrName;
     }
 
     public void setName(String strName) {
-        this.m_strName = strName;
+        this.mstrName = strName;
     }
 
     public String getEmail() {
-        return m_strEmail;
+        return mstrEmail;
     }
 
     public void setEmail(String strEmail) {
-        this.m_strEmail = strEmail;
+        this.mstrEmail = strEmail;
     }
 
     public Address getAddress() {
-        return m_oAddress;
+        return moAddress;
     }
 
     public void setAddress(Address oAddress) {
-        this.m_oAddress = oAddress;
+        this.moAddress = oAddress;
     }
 
     public List<Park> getParks() {
-        return m_lstParks;
+        return mlstParks;
     }
 
     public void setParks(List<Park> lstParks) {
-        this.m_lstParks = lstParks;
+        this.mlstParks = lstParks;
     }
 
     public Map<Product, Integer> getStock() {
-        return m_mapStock;
+        return mMapStock;
     }
 
     public void setStock(Map<Product, Integer> mapStock) {
-        this.m_mapStock = mapStock;
+        this.mMapStock = mapStock;
     }
 
     @Override
@@ -118,24 +118,24 @@ public class Pharmacy {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Pharmacy pharmacy = (Pharmacy) o;
-        return m_intId == pharmacy.m_intId;
+        return mintId == pharmacy.mintId;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(m_intId);
+        return Objects.hash(mintId);
     }
 
 
     @Override
     public String toString() {
         return "Pharmacy{" +
-                "m_intId=" + m_intId +
-                ", m_strName='" + m_strName + '\'' +
-                ", m_strEmail='" + m_strEmail + '\'' +
-                ", m_oAddress=" + m_oAddress +
-                ", m_lstParks=" + m_lstParks +
-                ", m_mapStock=" + m_mapStock +
+                "m_intId=" + mintId +
+                ", m_strName='" + mstrName + '\'' +
+                ", m_strEmail='" + mstrEmail + '\'' +
+                ", m_oAddress=" + moAddress +
+                ", m_lstParks=" + mlstParks +
+                ", m_mapStock=" + mMapStock +
                 '}';
     }
 }

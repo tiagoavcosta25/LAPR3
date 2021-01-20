@@ -8,18 +8,18 @@ public class IssueDeliveryNoteController {
     /**
      * Pharmacy Transfer Management class
      */
-    private PharmacyTransferService m_oPharmacyTransferService;
+    private PharmacyTransferService moPharmacyTransferService;
 
     /**
      * Pharmacy Transfer instance
      */
-    private PharmacyTransfer m_oPharmacyTransfer;
+    private PharmacyTransfer moPharmacyTransfer;
 
     /**
      * An empty constructor of IssueTransferNoteController.
      */
     public IssueDeliveryNoteController() {
-        this.m_oPharmacyTransferService = new PharmacyTransferService();
+        this.moPharmacyTransferService = new PharmacyTransferService();
     }
 
 
@@ -28,9 +28,9 @@ public class IssueDeliveryNoteController {
      */
     public boolean issueDeliveryNote(int intPharmacyTransferId) {
         try {
-            this.m_oPharmacyTransfer = this.m_oPharmacyTransferService.getPharmacyTransfer(intPharmacyTransferId);
-            this.m_oPharmacyTransferService.updateStockFromTransfer(intPharmacyTransferId);
-            return this.m_oPharmacyTransferService.sendEmailWithDeliveryNote(this.m_oPharmacyTransfer);
+            this.moPharmacyTransfer = this.moPharmacyTransferService.getPharmacyTransfer(intPharmacyTransferId);
+            this.moPharmacyTransferService.updateStockFromTransfer(intPharmacyTransferId);
+            return this.moPharmacyTransferService.sendEmailWithDeliveryNote(this.moPharmacyTransfer);
         } catch (Exception ex) {
             return false;
         }

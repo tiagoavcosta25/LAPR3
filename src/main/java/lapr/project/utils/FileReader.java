@@ -16,15 +16,15 @@ import java.util.logging.Logger;
 
 public class FileReader {
 
-    public static final String FILE_CLIENTS = "src/main/resources/files/clients.csv";
-    public static final String FILE_PATHS = "src/main/resources/files/paths.csv";
-    public static final String FILE_SCOOTERS = "src/main/resources/files/escooters.csv";
-    public static final String FILE_PHARMACIES = "src/main/resources/files/pharmacies.csv";
+    public static final String FILECLIENTS = "src/main/resources/files/clients.csv";
+    public static final String FILEPATHS = "src/main/resources/files/paths.csv";
+    public static final String FILESCOOTERS = "src/main/resources/files/escooters.csv";
+    public static final String FILEPHARMACIES = "src/main/resources/files/pharmacies.csv";
     private static final Logger LOGGER = Logger.getLogger(FileReader.class.getName());
 
     public static void readFiles() {
-        readGenericFile(FILE_CLIENTS);
-        readGenericFile(FILE_PATHS);
+        readGenericFile(FILECLIENTS);
+        readGenericFile(FILEPATHS);
     }
 
     public static void readGenericFile(String path) {
@@ -38,16 +38,16 @@ public class FileReader {
                 if (line.charAt(0) != '#') {
                     String[] columns = line.split(";");
                     switch (path) {
-                        case FILE_CLIENTS:
+                        case FILECLIENTS:
                             readClientFile(columns);
                             break;
-                        case FILE_SCOOTERS:
+                        case FILESCOOTERS:
                             readScooterFile(columns);
                             break;
-                        case FILE_PHARMACIES:
+                        case FILEPHARMACIES:
                             readPharmacyFile(columns);
                             break;
-                        case FILE_PATHS:
+                        case FILEPATHS:
                             readPathFile(columns);
                             break;
                     }

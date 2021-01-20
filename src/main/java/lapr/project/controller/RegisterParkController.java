@@ -12,17 +12,17 @@ public class RegisterParkController {
 
     private static final Logger LOGGER = Logger.getLogger(RegisterParkController.class.getName());
 
-    private PharmacyService pServ;
+    private PharmacyService moServ;
 
     public RegisterParkController() {
-        this.pServ = new PharmacyService();
+        this.moServ = new PharmacyService();
     }
 
     public boolean addPark(int intPharmacyId, int intMaxSlots, float fltOutputCurrent, VehicleType enumVehicleType, int intNonChargingSlots, int intChargingSlots) {
         Park p = new Park(intMaxSlots, fltOutputCurrent, enumVehicleType);
         try {
             if(ApplicationPOT.getInstance().getCurrentSession().getRole().equals(UserSession.Role.ADMIN))
-                return pServ.addPark(intPharmacyId, p, intNonChargingSlots, intChargingSlots);
+                return moServ.addPark(intPharmacyId, p, intNonChargingSlots, intChargingSlots);
         } catch (Exception e) {
             LOGGER.log(Level.WARNING, "User not logged in!");
         }

@@ -1,8 +1,6 @@
 package lapr.project.controller;
 
 import lapr.project.model.Order;
-import lapr.project.data.OrderDB;
-import lapr.project.model.UserSession;
 import lapr.project.model.service.OrderService;
 
 public class KnowDeliveryController {
@@ -10,26 +8,26 @@ public class KnowDeliveryController {
     /**
      * Order Registration class
      */
-    private OrderService oOrderService;
+    private OrderService moOrderService;
 
     /**
      * Courier class instance
      */
-    private String oCourierEmail;
+    private String moCourierEmail;
 
     /**
      * Order class instance
      */
-    private Order oOrder;
+    private Order moOrder;
 
     public KnowDeliveryController() {
-        this.oOrderService = new OrderService();
+        this.moOrderService = new OrderService();
     }
 
     public Order getOrderByCour() {
-        this.oCourierEmail = ApplicationPOT.getInstance().getCurrentSession().getCurrentUserEmail();
-        this.oOrder = this.oOrderService.getOrderByCourier(oCourierEmail);
-        return oOrder;
+        this.moCourierEmail = ApplicationPOT.getInstance().getCurrentSession().getCurrentUserEmail();
+        this.moOrder = this.moOrderService.getOrderByCourier(moCourierEmail);
+        return moOrder;
     }
 
 

@@ -3,20 +3,20 @@ package lapr.project.model;
 public enum VehicleType {
 
     SCOOTER("Scooter"),DRONE("Drone"),NOTDEFINED("Not defined") ;
-    private String m_strDesignation;
+    private String mstrDesignation;
 
-     VehicleType(String designation) {
-        this.m_strDesignation = designation;
+     VehicleType(String strDesignation) {
+        this.mstrDesignation = strDesignation;
     }
 
     public String getDesignation() {
-        return m_strDesignation;
+        return mstrDesignation;
     }
 
     @Override
     public String toString() {
         return "DeliveryStatus{" +
-                "m_strDesignation='" + m_strDesignation + '\'' +
+                "m_strDesignation='" + mstrDesignation + '\'' +
                 '}';
     }
 }

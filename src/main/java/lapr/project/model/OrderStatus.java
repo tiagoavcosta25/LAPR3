@@ -6,21 +6,21 @@ public enum OrderStatus {
     DELIVERING("Delivering"),
     DELIVERED("Delivered");
 
-    private String m_strDesignation;
+    private String mstrDesignation;
 
     OrderStatus(String designation) {
-        this.m_strDesignation = designation;
+        this.mstrDesignation = designation;
     }
 
     public String getDesignation() {
-        return m_strDesignation;
+        return mstrDesignation;
     }
 
 
     @Override
     public String toString() {
         return "OrderStatus{" +
-                "m_strDesignation='" + m_strDesignation + '\'' +
+                "m_strDesignation='" + mstrDesignation + '\'' +
                 '}';
     }
 }

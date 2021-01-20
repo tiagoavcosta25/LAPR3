@@ -6,92 +6,92 @@ import java.util.Objects;
 
 public class Park {
 
-    private int m_intId;
-    private int m_intMaxSlotsNumber;
-    private float m_fltTotalOutputCurrent;
-    private VehicleType m_enumVehicleType;
-    private List<ChargingSlot> m_lstChargingSlots;
-    private List<NonChargingSlot> m_lstNonChargingSlots;
+    private int mintId;
+    private int mintMaxSlotsNumber;
+    private float mfltTotalOutputCurrent;
+    private VehicleType menumVehicleType;
+    private List<ChargingSlot> mLstChargingSlots;
+    private List<NonChargingSlot> mLstNonChargingSlots;
 
-    private static int DEFAULT_ID = -1;
-    private static int DEFAULT_MAX_SLOTS = -1;
-    private static float DEFAULT_TOTAL_OUTPUT_CURRENT = -1f;
-    private static VehicleType DEFAULT_VEHICLE_TYPE = VehicleType.NOTDEFINED;
-    private static List<ChargingSlot> DEFAULT_CHARGING_SLOTS = new ArrayList<>();
-    private static List<NonChargingSlot> DEFAULT_PARKING_SLOTS = new ArrayList<>();
+    private static int DEFAULTID = -1;
+    private static int DEFAULTMAXSLOTS = -1;
+    private static float DEFAULTTOTALOUTPUTCURRENT = -1f;
+    private static VehicleType DEFAULTVEHICLETYPE = VehicleType.NOTDEFINED;
+    private static List<ChargingSlot> DEFAULTCHARGINGSLOTS = new ArrayList<>();
+    private static List<NonChargingSlot> DEFAULTPARKINGSLOTS = new ArrayList<>();
 
     public Park(int intId, int intMaxSlotsNumber, float fltTotalOutputCurrent, VehicleType enumVehicleType) {
-        this.m_intId = intId;
-        this.m_intMaxSlotsNumber = intMaxSlotsNumber;
-        this.m_fltTotalOutputCurrent = fltTotalOutputCurrent;
-        this.m_enumVehicleType = enumVehicleType;
-        this.m_lstChargingSlots = DEFAULT_CHARGING_SLOTS;
-        this.m_lstNonChargingSlots = DEFAULT_PARKING_SLOTS;
+        this.mintId = intId;
+        this.mintMaxSlotsNumber = intMaxSlotsNumber;
+        this.mfltTotalOutputCurrent = fltTotalOutputCurrent;
+        this.menumVehicleType = enumVehicleType;
+        this.mLstChargingSlots = DEFAULTCHARGINGSLOTS;
+        this.mLstNonChargingSlots = DEFAULTPARKINGSLOTS;
     }
 
     public Park(int intMaxSlotsNumber, float fltTotalOutputCurrent, VehicleType enumVehicleType) {
-        this.m_intMaxSlotsNumber = intMaxSlotsNumber;
-        this.m_fltTotalOutputCurrent = fltTotalOutputCurrent;
-        this.m_enumVehicleType = enumVehicleType;
-        this.m_lstChargingSlots = DEFAULT_CHARGING_SLOTS;
-        this.m_lstNonChargingSlots = DEFAULT_PARKING_SLOTS;
+        this.mintMaxSlotsNumber = intMaxSlotsNumber;
+        this.mfltTotalOutputCurrent = fltTotalOutputCurrent;
+        this.menumVehicleType = enumVehicleType;
+        this.mLstChargingSlots = DEFAULTCHARGINGSLOTS;
+        this.mLstNonChargingSlots = DEFAULTPARKINGSLOTS;
     }
 
     public Park() {
-        this.m_intId = DEFAULT_ID;
-        this.m_intMaxSlotsNumber = DEFAULT_MAX_SLOTS;
-        this.m_fltTotalOutputCurrent = DEFAULT_TOTAL_OUTPUT_CURRENT;
-        this.m_enumVehicleType = DEFAULT_VEHICLE_TYPE;
-        this.m_lstChargingSlots = DEFAULT_CHARGING_SLOTS;
-        this.m_lstNonChargingSlots = DEFAULT_PARKING_SLOTS;
+        this.mintId = DEFAULTID;
+        this.mintMaxSlotsNumber = DEFAULTMAXSLOTS;
+        this.mfltTotalOutputCurrent = DEFAULTTOTALOUTPUTCURRENT;
+        this.menumVehicleType = DEFAULTVEHICLETYPE;
+        this.mLstChargingSlots = DEFAULTCHARGINGSLOTS;
+        this.mLstNonChargingSlots = DEFAULTPARKINGSLOTS;
     }
 
     public int getId() {
-        return m_intId;
+        return mintId;
     }
 
     public void setId(int m_intId) {
-        this.m_intId = m_intId;
+        this.mintId = m_intId;
     }
 
     public int getMaxSlotsNumber() {
-        return m_intMaxSlotsNumber;
+        return mintMaxSlotsNumber;
     }
 
     public void setMaxSlotsNumber(int m_intMaxSlotsNumber) {
-        this.m_intMaxSlotsNumber = m_intMaxSlotsNumber;
+        this.mintMaxSlotsNumber = m_intMaxSlotsNumber;
     }
 
     public VehicleType getVehicleType() {
-        return m_enumVehicleType;
+        return menumVehicleType;
     }
 
     public void setVehicleType(VehicleType m_enumVehicleType) {
-        this.m_enumVehicleType = m_enumVehicleType;
+        this.menumVehicleType = m_enumVehicleType;
     }
 
     public List<ChargingSlot> getChargingSlots() {
-        return new ArrayList<>(m_lstChargingSlots);
+        return new ArrayList<>(mLstChargingSlots);
     }
 
     public void setChargingSlots(List<ChargingSlot> m_lstChargingSlots) {
-        this.m_lstChargingSlots = new ArrayList<>(m_lstChargingSlots);
+        this.mLstChargingSlots = new ArrayList<>(m_lstChargingSlots);
     }
 
     public List<NonChargingSlot> getParkingSlots() {
-        return new ArrayList<>(m_lstNonChargingSlots);
+        return new ArrayList<>(mLstNonChargingSlots);
     }
 
     public void setParkingSlots(List<NonChargingSlot> m_lstNonChargingSlots) {
-        this.m_lstNonChargingSlots = new ArrayList<>(m_lstNonChargingSlots);
+        this.mLstNonChargingSlots = new ArrayList<>(m_lstNonChargingSlots);
     }
 
     public float getTotalOutputCurrent() {
-        return m_fltTotalOutputCurrent;
+        return mfltTotalOutputCurrent;
     }
 
     public void getTotalOutputCurrent(float m_fltTotalOutputCurrent) {
-        this.m_fltTotalOutputCurrent = m_fltTotalOutputCurrent;
+        this.mfltTotalOutputCurrent = m_fltTotalOutputCurrent;
     }
 
     @Override
@@ -99,19 +99,19 @@ public class Park {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Park park = (Park) o;
-        return m_intId == park.m_intId;
+        return mintId == park.mintId;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(m_intId);
+        return Objects.hash(mintId);
     }
 
     @Override
     public String toString() {
         return "Park{" +
-                "m_intId=" + m_intId +
-                ", m_intMaxSlotsNumber=" + m_intMaxSlotsNumber +
+                "m_intId=" + mintId +
+                ", m_intMaxSlotsNumber=" + mintMaxSlotsNumber +
                 '}';
     }
 }

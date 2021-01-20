@@ -9,17 +9,17 @@ import java.util.ArrayList;
 
 public class VehicleService {
 
-    private VehicleDB m_oVehicleDB;
+    private VehicleDB moVehicleDB;
 
     public VehicleService() {
-        this.m_oVehicleDB = new VehicleDB();
+        this.moVehicleDB = new VehicleDB();
     }
 
     public Vehicle getSuitableVehicle(Double distanceScooter, Double distanceDrone, String currentUserEmail) {
-        return m_oVehicleDB.getSuitableVehicle(distanceScooter,distanceDrone, currentUserEmail);
+        return moVehicleDB.getSuitableVehicle(distanceScooter,distanceDrone, currentUserEmail);
     }
 
     public ArrayList<VehicleModel> getPharamcyModel(String strPharmacyEmail) {
-        return m_oVehicleDB.getPharmacyModel(strPharmacyEmail);
+        return moVehicleDB.getPharmacyModel(strPharmacyEmail);
     }
 }

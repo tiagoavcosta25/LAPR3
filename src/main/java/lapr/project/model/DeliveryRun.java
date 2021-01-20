@@ -1,84 +1,83 @@
 package lapr.project.model;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
 public class DeliveryRun {
 
-    private Integer m_intId;
+    private Integer mintId;
 
-    private Courier m_oCourier;
+    private Courier moCourier;
 
-    private Vehicle m_oVehicle;
+    private Vehicle moVehicle;
 
-    private List<Order> m_lstOrder;
+    private List<Order> mlstOrder;
 
-    private DeliveryStatus m_oStatus;
+    private DeliveryStatus moStatus;
 
     public DeliveryRun() {
-        this.m_intId = -1;
-        this.m_oCourier = new Courier();
-        this.m_oVehicle = null;
-        this.m_lstOrder = new ArrayList<>();
-        this.m_oStatus = DeliveryStatus.IDLE;
+        this.mintId = -1;
+        this.moCourier = new Courier();
+        this.moVehicle = null;
+        this.mlstOrder = new ArrayList<>();
+        this.moStatus = DeliveryStatus.IDLE;
     }
 
     public DeliveryRun(Courier m_oCourier) {
-        this.m_intId = -1;
-        this.m_oCourier = m_oCourier;
-        this.m_oVehicle = null;
-        this.m_lstOrder = new ArrayList<>();
-        this.m_oStatus = DeliveryStatus.IDLE;
+        this.mintId = -1;
+        this.moCourier = m_oCourier;
+        this.moVehicle = null;
+        this.mlstOrder = new ArrayList<>();
+        this.moStatus = DeliveryStatus.IDLE;
     }
 
     public DeliveryRun(Courier m_oCourier, List<Order> m_lstDelivery) {
-        this.m_intId = -1;
-        this.m_oCourier = m_oCourier;
-        this.m_lstOrder = new ArrayList<>(m_lstDelivery);
-        this.m_oVehicle = null;
-        this.m_oStatus = DeliveryStatus.IDLE;
+        this.mintId = -1;
+        this.moCourier = m_oCourier;
+        this.mlstOrder = new ArrayList<>(m_lstDelivery);
+        this.moVehicle = null;
+        this.moStatus = DeliveryStatus.IDLE;
     }
 
     public Integer getId() {
-        return m_intId;
+        return mintId;
     }
 
     public void setId(Integer intId) {
-        this.m_intId = intId;
+        this.mintId = intId;
     }
 
     public Courier getCourier() {
-        return m_oCourier;
+        return moCourier;
     }
 
     public void setCourier(Courier oCourier) {
-        this.m_oCourier = oCourier;
+        this.moCourier = oCourier;
     }
 
     public Vehicle getVehicle() {
-        return m_oVehicle;
+        return moVehicle;
     }
 
     public void setVehicle(Vehicle oVehicle) {
-        this.m_oVehicle = oVehicle;
+        this.moVehicle = oVehicle;
     }
 
     public List<Order> getOrderList() {
-        return new ArrayList<>(m_lstOrder);
+        return new ArrayList<>(mlstOrder);
     }
 
     public void setDeliveryList(List<Order> m_lstDelivery) {
-        this.m_lstOrder = new ArrayList<>(m_lstDelivery);
+        this.mlstOrder = new ArrayList<>(m_lstDelivery);
     }
 
     public DeliveryStatus getStatus() {
-        return m_oStatus;
+        return moStatus;
     }
 
     public void setStatus(DeliveryStatus oStatus) {
-        this.m_oStatus = oStatus;
+        this.moStatus = oStatus;
     }
 
     @Override
@@ -86,22 +85,22 @@ public class DeliveryRun {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         DeliveryRun that = (DeliveryRun) o;
-        return Objects.equals(m_intId, that.m_intId);
+        return Objects.equals(mintId, that.mintId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(m_intId);
+        return Objects.hash(mintId);
     }
 
     @Override
     public String toString() {
         return "DeliveryRun{" +
-                "m_intId=" + m_intId +
-                ", m_oCourier=" + m_oCourier +
-                ", m_oVehicle=" + m_oVehicle +
-                ", m_lstOrder=" + m_lstOrder +
-                ", m_oStatus=" + m_oStatus +
+                "m_intId=" + mintId +
+                ", m_oCourier=" + moCourier +
+                ", m_oVehicle=" + moVehicle +
+                ", m_lstOrder=" + mlstOrder +
+                ", m_oStatus=" + moStatus +
                 '}';
     }
 }

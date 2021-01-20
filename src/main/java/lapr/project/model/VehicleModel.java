@@ -4,107 +4,107 @@ import java.util.Objects;
 
 public class VehicleModel {
 
-    private int m_intId;
-    private String m_strDesignation;
-    private double m_dblPotency;
-    private double m_dblWeight;
-    private double m_dblMaxPayload;
-    private Battery m_oBattery;
-    private VehicleType m_enumVehicleType;
+    private int mintId;
+    private String mstrDesignation;
+    private double mdblPotency;
+    private double mdblWeight;
+    private double mdblMaxPayload;
+    private Battery moBattery;
+    private VehicleType menumVehicleType;
 
-    private static int DEFAULT_ID = -1;
-    private static String DEFAULT_DESIGANTION = "No designation";
-    private static double DEFAULT_POTENCY = -1;
-    private static double DEFAULT_WEIGHT = -1;
-    private static double DEFAULT_MAX_PAYLOAD = -1;
-    private static Battery DEFAULT_BATTERY = new Battery();
-    private static VehicleType DEFAULT_VEHICLE_TYPE = VehicleType.NOTDEFINED;
+    private static int DEFAULTID = -1;
+    private static String DEFAULTDESIGANTION = "No designation";
+    private static double DEFAULTPOTENCY = -1;
+    private static double DEFAULTWEIGHT = -1;
+    private static double DEFAULTMAXPAYLOAD = -1;
+    private static Battery DEFAULTBATTERY = new Battery();
+    private static VehicleType DEFAULTVEHICLETYPE = VehicleType.NOTDEFINED;
 
     public VehicleModel() {
-        this.m_intId = DEFAULT_ID;
-        this.m_strDesignation = DEFAULT_DESIGANTION;
-        this.m_dblPotency = DEFAULT_POTENCY;
-        this.m_dblWeight = DEFAULT_WEIGHT;
-        this.m_dblMaxPayload = DEFAULT_MAX_PAYLOAD;
-        this.m_oBattery = DEFAULT_BATTERY;
-        this.m_enumVehicleType = DEFAULT_VEHICLE_TYPE;
+        this.mintId = DEFAULTID;
+        this.mstrDesignation = DEFAULTDESIGANTION;
+        this.mdblPotency = DEFAULTPOTENCY;
+        this.mdblWeight = DEFAULTWEIGHT;
+        this.mdblMaxPayload = DEFAULTMAXPAYLOAD;
+        this.moBattery = DEFAULTBATTERY;
+        this.menumVehicleType = DEFAULTVEHICLETYPE;
     }
 
-    public VehicleModel(int m_intId, String m_strDesignation, double m_dblPotency, double m_dblWeight,
-                        double m_dblMaxPayload, Battery m_oBattery, VehicleType m_enumVehicleType) {
-        this.m_intId = m_intId;
-        this.m_strDesignation = m_strDesignation;
-        this.m_dblPotency = m_dblPotency;
-        this.m_dblWeight = m_dblWeight;
-        this.m_dblMaxPayload = m_dblMaxPayload;
-        this.m_oBattery = m_oBattery;
-        this.m_enumVehicleType = m_enumVehicleType;
+    public VehicleModel(int intId, String strDesignation, double dblPotency, double dblWeight,
+                        double dblMaxPayload, Battery oBattery, VehicleType enumVehicleType) {
+        this.mintId = intId;
+        this.mstrDesignation = strDesignation;
+        this.mdblPotency = dblPotency;
+        this.mdblWeight = dblWeight;
+        this.mdblMaxPayload = dblMaxPayload;
+        this.moBattery = oBattery;
+        this.menumVehicleType = enumVehicleType;
     }
 
-    public VehicleModel(String m_strDesignation, double m_dblPotency, double m_dblWeight, double m_dblMaxPayload,
-                        Battery m_oBattery, VehicleType m_enumVehicleType) {
-        this.m_strDesignation = m_strDesignation;
-        this.m_dblPotency = m_dblPotency;
-        this.m_dblWeight = m_dblWeight;
-        this.m_dblMaxPayload = m_dblMaxPayload;
-        this.m_oBattery = m_oBattery;
-        this.m_enumVehicleType = m_enumVehicleType;
+    public VehicleModel(String strDesignation, double dblPotency, double dblWeight, double dblMaxPayload,
+                        Battery oBattery, VehicleType enumVehicleType) {
+        this.mstrDesignation = strDesignation;
+        this.mdblPotency = dblPotency;
+        this.mdblWeight = dblWeight;
+        this.mdblMaxPayload = dblMaxPayload;
+        this.moBattery = oBattery;
+        this.menumVehicleType = enumVehicleType;
     }
 
     public int getId() {
-        return m_intId;
+        return mintId;
     }
 
-    public void setId(int m_intId) {
-        this.m_intId = m_intId;
+    public void setId(int intId) {
+        this.mintId = intId;
     }
 
     public String getDesignation() {
-        return m_strDesignation;
+        return mstrDesignation;
     }
 
-    public void setDesignation(String m_strDesignation) {
-        this.m_strDesignation = m_strDesignation;
+    public void setDesignation(String strDesignation) {
+        this.mstrDesignation = strDesignation;
     }
 
     public double getPotency() {
-        return m_dblPotency;
+        return mdblPotency;
     }
 
-    public void setPotency(double m_dblPotency) {
-        this.m_dblPotency = m_dblPotency;
+    public void setPotency(double dblPotency) {
+        this.mdblPotency = dblPotency;
     }
 
     public double getWeight() {
-        return m_dblWeight;
+        return mdblWeight;
     }
 
-    public void setWeight(double m_dblWeight) {
-        this.m_dblWeight = m_dblWeight;
+    public void setWeight(double dblWeight) {
+        this.mdblWeight = dblWeight;
     }
 
     public double getMaxPayload() {
-        return m_dblMaxPayload;
+        return mdblMaxPayload;
     }
 
-    public void setMaxPayload(double m_dblMaxPayload) {
-        this.m_dblMaxPayload = m_dblMaxPayload;
+    public void setMaxPayload(double dblMaxPayload) {
+        this.mdblMaxPayload = dblMaxPayload;
     }
 
     public Battery getBattery() {
-        return m_oBattery;
+        return moBattery;
     }
 
-    public void setBattery(Battery m_oBattery) {
-        this.m_oBattery = m_oBattery;
+    public void setBattery(Battery oBattery) {
+        this.moBattery = oBattery;
     }
 
     public VehicleType getVehicleType() {
-        return m_enumVehicleType;
+        return menumVehicleType;
     }
 
-    public void setVehicleType(VehicleType m_enumVehicleType) {
-        this.m_enumVehicleType = m_enumVehicleType;
+    public void setVehicleType(VehicleType enumVehicleType) {
+        this.menumVehicleType = enumVehicleType;
     }
 
     @Override
@@ -112,24 +112,24 @@ public class VehicleModel {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         VehicleModel that = (VehicleModel) o;
-        return Objects.equals(m_strDesignation, that.m_strDesignation);
+        return Objects.equals(mstrDesignation, that.mstrDesignation);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(m_strDesignation);
+        return Objects.hash(mstrDesignation);
     }
 
     @Override
     public String toString() {
         return "VehicleModel{" +
-                "m_intId=" + m_intId +
-                ", m_strDesignation='" + m_strDesignation + '\'' +
-                ", m_dblPotency=" + m_dblPotency +
-                ", m_dblWeight=" + m_dblWeight +
-                ", m_dblMaxPayload=" + m_dblMaxPayload +
-                ", m_oBattery=" + m_oBattery +
-                ", m_enumVehicleType=" + m_enumVehicleType +
+                "m_intId=" + mintId +
+                ", m_strDesignation='" + mstrDesignation + '\'' +
+                ", m_dblPotency=" + mdblPotency +
+                ", m_dblWeight=" + mdblWeight +
+                ", m_dblMaxPayload=" + mdblMaxPayload +
+                ", m_oBattery=" + moBattery +
+                ", m_enumVehicleType=" + menumVehicleType +
                 '}';
     }
 }

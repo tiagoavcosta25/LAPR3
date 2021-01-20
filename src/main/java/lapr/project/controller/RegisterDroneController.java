@@ -13,24 +13,24 @@ public class RegisterDroneController {
     /**
      * Drone class instance
      */
-    private Drone m_oDrone;
+    private Drone moDrone;
 
     /**
      * Pharmacy Management class
      */
-    private PharmacyService m_oPharmacyService;
+    private PharmacyService moPharmacyService;
 
     /**
      * Drone Management class
      */
-    private DroneService m_oDroneService;
+    private DroneService moDroneService;
 
     /**
      * An empty constructor of RegisterDroneController.
      */
     public RegisterDroneController() {
-        this.m_oPharmacyService = new PharmacyService();
-        this.m_oDroneService = new DroneService();
+        this.moPharmacyService = new PharmacyService();
+        this.moDroneService = new DroneService();
     }
 
     /**
@@ -43,11 +43,11 @@ public class RegisterDroneController {
      */
     public boolean newDrone(VehicleModel oVehicleModel, Pharmacy oPharmacy) {
         try {
-            this.m_oDrone = m_oDroneService.newDrone(oVehicleModel, oPharmacy);
+            this.moDrone = moDroneService.newDrone(oVehicleModel, oPharmacy);
             return true;
         }
         catch(Exception ex) {
-            this.m_oDrone = null;
+            this.moDrone = null;
         }
         return false;
     }
@@ -56,20 +56,20 @@ public class RegisterDroneController {
      * The method registers an order to the database.
      */
     public boolean registersDrone() {
-        return this.m_oDroneService.registerDrone(m_oDrone);
+        return this.moDroneService.registerDrone(moDrone);
     }
 
     /**
      * The method returns the list of pharmacies.
      */
     public List<Pharmacy> showPharmacies() {
-        return this.m_oPharmacyService.getPharmacies();
+        return this.moPharmacyService.getPharmacies();
     }
 
     /**
      * The method sets the scooter.
      */
     public void setDrone(Drone oDrone) {
-        this.m_oDrone = oDrone;
+        this.moDrone = oDrone;
     }
 }

@@ -4,13 +4,13 @@ import lapr.project.model.service.DroneService;
 
 public class DronePayloadController {
 
-    private DroneService oDroneServ;
+    private DroneService moDroneServ;
 
     public DronePayloadController() {
-        this.oDroneServ = new DroneService();
+        this.moDroneServ = new DroneService();
     }
 
     public float getDronePayload(int droneId) {
-        return this.oDroneServ.getDronePayload(droneId);
+        return this.moDroneServ.getDronePayload(droneId);
     }
 }

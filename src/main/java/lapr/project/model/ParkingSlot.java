@@ -4,55 +4,55 @@ import java.util.Objects;
 
 public abstract class ParkingSlot {
 
-    private int m_intId;
-    private Vehicle m_oVehicle;
+    private int mintId;
+    private Vehicle moVehicle;
 
     public ParkingSlot() {
-        this.m_intId = -1;
-        this.m_oVehicle = null;
+        this.mintId = -1;
+        this.moVehicle = null;
     }
 
-    public ParkingSlot(int m_intId) {
-        this.m_intId = m_intId;
-        this.m_oVehicle = null;
+    public ParkingSlot(int intId) {
+        this.mintId = intId;
+        this.moVehicle = null;
     }
 
-    public ParkingSlot(Vehicle m_oVehicle) {
-        this.m_intId = -1;
-        this.m_oVehicle = m_oVehicle;
+    public ParkingSlot(Vehicle oVehicle) {
+        this.mintId = -1;
+        this.moVehicle = oVehicle;
     }
 
-    public ParkingSlot(int m_intId, Vehicle m_oVehicle) {
-        this.m_intId = m_intId;
-        this.m_oVehicle = m_oVehicle;
+    public ParkingSlot(int intId, Vehicle oVehicle) {
+        this.mintId = intId;
+        this.moVehicle = oVehicle;
     }
 
     public int getId() {
-        return m_intId;
+        return mintId;
     }
 
-    public void setId(int m_intId) {
-        this.m_intId = m_intId;
+    public void setId(int intId) {
+        this.mintId = intId;
     }
 
     public Vehicle getVehicle() {
-        return m_oVehicle;
+        return moVehicle;
     }
 
-    public void setVehicle(Vehicle m_oVehicle) {
-        this.m_oVehicle = m_oVehicle;
+    public void setVehicle(Vehicle oVehicle) {
+        this.moVehicle = oVehicle;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(m_intId);
+        return Objects.hash(mintId);
     }
 
     @Override
     public String toString() {
         return "ParkingSlot{" +
-                "m_intId=" + m_intId +
-                ", m_oVehicle=" + m_oVehicle +
+                "m_intId=" + mintId +
+                ", m_oVehicle=" + moVehicle +
                 '}';
     }
 }

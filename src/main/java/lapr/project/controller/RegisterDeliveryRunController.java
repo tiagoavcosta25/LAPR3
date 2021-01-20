@@ -11,21 +11,19 @@ import java.util.logging.Logger;
 public class RegisterDeliveryRunController {
 
     private static final Logger LOGGER = Logger.getLogger(RegisterDeliveryRunController.class.getName());
-    private DeliveryRunService m_oDeliveryRunService;
-    private PharmacyService m_oPharmacyService;
-    private OrderService m_oOrderService;
+    private DeliveryRunService moDeliveryRunService;
+    private PharmacyService moPharmacyService;
 
     public RegisterDeliveryRunController() {
-        m_oDeliveryRunService = new DeliveryRunService();
-        m_oPharmacyService = new PharmacyService();
-        m_oOrderService = new OrderService();
+        moDeliveryRunService = new DeliveryRunService();
+        moPharmacyService = new PharmacyService();
     }
 
     public boolean registerDeliveryRun(List<Order> lstOrder){
         if (ApplicationPOT.getInstance().getCurrentSession().getRole().equals(UserSession.Role.ADMIN)) {
-            Courier courier = m_oPharmacyService.getSuitableCourier();
-            DeliveryRun deliveryRun = m_oDeliveryRunService.newDeliveryRun(courier,lstOrder);
-            return m_oDeliveryRunService.addNewDeliveryRun(deliveryRun);
+            Courier courier = moPharmacyService.getSuitableCourier();
+            DeliveryRun deliveryRun = moDeliveryRunService.newDeliveryRun(courier,lstOrder);
+            return moDeliveryRunService.addNewDeliveryRun(deliveryRun);
         }else{
             LOGGER.log(Level.WARNING,"User NOT Authorized!");
             return false;

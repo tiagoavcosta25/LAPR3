@@ -12,42 +12,42 @@ public class AddPharmacyProductController {
     /**
      * Pharmacy class instance
      */
-    private Pharmacy m_oPharmacy;
+    private Pharmacy moPharmacy;
 
     /**
      * Pharmacy's Manager Management class
      */
-    private ProductDB m_oProductDB;
+    private ProductDB moProductDB;
 
     /**
      * Pharmacy Management class
      */
-    private PharmacyDB m_oPharmacyDB;
+    private PharmacyDB moPharmacyDB;
 
     /**
      * Product
      */
-    private Product m_oProduct;
+    private Product moProduct;
 
     /**
      * Product
      */
-    private Integer m_intStock;
+    private Integer mintStock;
 
 
     public AddPharmacyProductController() {
-        this.m_oProductDB = new ProductDB();
-        this.m_oPharmacyDB = new PharmacyDB();
+        this.moProductDB = new ProductDB();
+        this.moPharmacyDB = new PharmacyDB();
     }
 
     public boolean addPharmacyProduct(Product oProduct, Integer intStock) {
         try {
             if (oProduct == null || intStock < 0) throw new Exception();
-            this.m_oProduct = oProduct;
-            this.m_intStock = intStock;
+            this.moProduct = oProduct;
+            this.mintStock = intStock;
             return true;
         } catch (Exception e) {
-            this.m_oPharmacy = null;
+            this.moPharmacy = null;
             return false;
         }
     }
@@ -56,28 +56,28 @@ public class AddPharmacyProductController {
      * The method that adds stock to a pharmacy.
      */
     public boolean registerPharmacyProduct() {
-        this.m_oPharmacy = m_oPharmacyDB.getPharmacyByManagerEmail(ApplicationPOT.getInstance().getCurrentSession().getCurrentUserEmail());
-        return this.m_oPharmacyDB.registerPharmacyProduct(m_oPharmacy, m_oProduct, m_intStock);
+        this.moPharmacy = moPharmacyDB.getPharmacyByManagerEmail(ApplicationPOT.getInstance().getCurrentSession().getCurrentUserEmail());
+        return this.moPharmacyDB.registerPharmacyProduct(moPharmacy, moProduct, mintStock);
     }
 
     /**
      * The method that returns every product in the database.
      */
     public List<Product> getProducts() {
-        return this.m_oProductDB.getProducts();
+        return this.moProductDB.getProducts();
     }
 
     /**
      * The method that sets the product.
      */
     public void setProduct(Product oProduct) {
-        this.m_oProduct = oProduct;
+        this.moProduct = oProduct;
     }
 
     /**
      * The method that sets the stock.
      */
     public void setStock(Integer intStock) {
-        this.m_intStock = intStock;
+        this.mintStock = intStock;
     }
 }

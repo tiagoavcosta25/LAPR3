@@ -3,7 +3,6 @@ package lapr.project.controller;
 import lapr.project.model.*;
 import lapr.project.model.service.DeliveryRunService;
 
-import java.util.ArrayList;
 import java.util.Map;
 
 public class StartDeliveryRunController {
@@ -11,14 +10,14 @@ public class StartDeliveryRunController {
     /**
      * Courier Management class
      */
-    private DeliveryRunService oDeliveryRunService;
+    private DeliveryRunService moDeliveryRunService;
 
 
     /**
      * A constructor of RegisterCourierController that initiates the platform variable by getting it from the ApplicationPOT.
      */
     public StartDeliveryRunController() {
-        this.oDeliveryRunService = new DeliveryRunService();
+        this.moDeliveryRunService = new DeliveryRunService();
     }
 
     /**
@@ -30,8 +29,8 @@ public class StartDeliveryRunController {
      */
     public boolean startDeliveryRun(Vehicle vehicle) {
         try {
-            Map<String,String> clientList = oDeliveryRunService.startDeliveryRun(vehicle,ApplicationPOT.getInstance().getCurrentSession().getCurrentUserEmail());
-             return oDeliveryRunService.sendsEmail(clientList);
+            Map<String,String> clientList = moDeliveryRunService.startDeliveryRun(vehicle,ApplicationPOT.getInstance().getCurrentSession().getCurrentUserEmail());
+             return moDeliveryRunService.sendsEmail(clientList);
         }catch (Exception e){
             return false;
         }

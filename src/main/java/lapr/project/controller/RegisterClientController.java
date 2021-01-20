@@ -4,8 +4,6 @@ import lapr.project.model.Client;
 import lapr.project.model.CreditCard;
 import lapr.project.model.service.ClientService;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -13,11 +11,11 @@ import java.util.logging.Logger;
 public class RegisterClientController {
 
     private static final Logger LOGGER = Logger.getLogger(RegisterClientController.class.getName());
-    private ClientService m_oClientService;
+    private ClientService moClientService;
 
 
     public RegisterClientController() {
-        m_oClientService = new ClientService();
+        moClientService = new ClientService();
     }
 
     /**
@@ -42,11 +40,11 @@ public class RegisterClientController {
                                      String doorNumber, String postalCode, String locality, String country, List<CreditCard> lstCreditCardNr) {
 
         try {
-            if (m_oClientService.validateInput(name, nif, email, password, latitude, longitude, altitude, streetName, doorNumber, postalCode, locality, country,
+            if (moClientService.validateInput(name, nif, email, password, latitude, longitude, altitude, streetName, doorNumber, postalCode, locality, country,
                     lstCreditCardNr)) {
-                Client c = m_oClientService.newClient(name, nif, email, password, latitude, longitude, altitude, streetName, doorNumber, postalCode, locality, country,
+                Client c = moClientService.newClient(name, nif, email, password, latitude, longitude, altitude, streetName, doorNumber, postalCode, locality, country,
                         lstCreditCardNr);
-                return m_oClientService.registerNewClient(c);
+                return moClientService.registerNewClient(c);
             }
         } catch (Exception e) {
             LOGGER.log(Level.WARNING, "Client was not successfully registered!");

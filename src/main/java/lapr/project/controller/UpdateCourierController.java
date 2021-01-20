@@ -21,29 +21,29 @@ public class UpdateCourierController {
     /**
      * Courier class instance
      */
-    private Courier oCourier;
+    private Courier moCourier;
 
     /**
      * Courier Management class
      */
-    private CourierService oCourierService;
+    private CourierService moCourierService;
 
     /**
      * Pharmacy Management class
      */
-    private PharmacyService oPharmacyService;
+    private PharmacyService moPharmacyService;
 
     /**
      * Pharmacy
      */
-    private Pharmacy oPharmacy;
+    private Pharmacy moPharmacy;
 
     /**
      * A constructor of RegisterCourierController that initiates the platform variable by getting it from the ApplicationPOT.
      */
     public UpdateCourierController() {
-        this.oCourierService = new CourierService();
-        this.oPharmacyService = new PharmacyService();
+        this.moCourierService = new CourierService();
+        this.moPharmacyService = new PharmacyService();
     }
 
     /**
@@ -57,11 +57,11 @@ public class UpdateCourierController {
     public Courier getCourierByEmail(String email) {
         try {
             if (validateInput(email)) {
-                this.oCourier = oCourierService.getCourierByEmail(email);
-                return oCourier;
+                this.moCourier = moCourierService.getCourierByEmail(email);
+                return moCourier;
             }
         } catch (Exception ex) {
-            this.oCourier = null;
+            this.moCourier = null;
         }
         return null;
     }
@@ -72,24 +72,24 @@ public class UpdateCourierController {
     public Courier updateCourier(Courier courier, String strName, String strEmail, Integer intNif, String strIban,String pharmacyEmail) {
         try{
             validateInput(strName,strEmail,intNif,strIban);
-            oPharmacy = this.oPharmacyService.getPharmacy(pharmacyEmail);
-            oCourier = this.oCourierService.updateCourier(courier,strName,strEmail,intNif,strIban,oPharmacy);
-            return this.oCourier;
+            moPharmacy = this.moPharmacyService.getPharmacy(pharmacyEmail);
+            moCourier = this.moCourierService.updateCourier(courier,strName,strEmail,intNif,strIban, moPharmacy);
+            return this.moCourier;
         } catch (Exception ex) {
-            this.oCourier = null;
+            this.moCourier = null;
         }
         return null;
     }
 
     public boolean updateCourierDB(){
-        return oCourierService.updateCourierDB(oCourier);
+        return moCourierService.updateCourierDB(moCourier);
     }
 
     /**
      * The method sets the courier.
      */
     public void setCourier(Courier oCourier) {
-        this.oCourier = oCourier;
+        this.moCourier = oCourier;
     }
 
 

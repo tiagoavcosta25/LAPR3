@@ -9,14 +9,14 @@ import java.util.LinkedList;
 
 public class MoveDroneController {
 
-    private final DroneService oDroneService;
+    private final DroneService moDroneService;
 
     public MoveDroneController() {
-        this.oDroneService = new DroneService();
+        this.moDroneService = new DroneService();
     }
     public boolean moveDrone(Pair<LinkedList<Address>, Double> pathInfo, DeliveryRun oDeliveryRun) {
-        if (this.oDroneService.checkEnergy(pathInfo.getValue(), oDeliveryRun)) {
-           return this.oDroneService.startDelivery(oDeliveryRun);
+        if (this.moDroneService.checkEnergy(pathInfo.getValue(), oDeliveryRun)) {
+           return this.moDroneService.startDelivery(oDeliveryRun);
         }
         return false;
     }

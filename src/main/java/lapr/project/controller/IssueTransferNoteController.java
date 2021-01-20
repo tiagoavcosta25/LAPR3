@@ -8,13 +8,13 @@ public class IssueTransferNoteController {
     /**
      * Pharmacy Management class
      */
-    private PharmacyTransferService m_oPharmacyTransferService;
+    private PharmacyTransferService moPharmacyTransferService;
 
     /**
      * An empty constructor of MakeAnOrderController that initiates the platform variable by getting it from the ApplicationPOT.
      */
     public IssueTransferNoteController() {
-        this.m_oPharmacyTransferService = new PharmacyTransferService();
+        this.moPharmacyTransferService = new PharmacyTransferService();
     }
 
     /**
@@ -22,7 +22,7 @@ public class IssueTransferNoteController {
      */
     public boolean issueTransferNote(PharmacyTransfer oPharmacyTransfer) {
         try {
-            return this.m_oPharmacyTransferService.sendEmailWithTransferNote(oPharmacyTransfer);
+            return this.moPharmacyTransferService.sendEmailWithTransferNote(oPharmacyTransfer);
         } catch (Exception ex) {
             return false;
         }

@@ -4,100 +4,100 @@ import java.util.Objects;
 
 public class Path {
 
-    private double m_dblLatitudeA;
-    private double m_dblLongitudeA;
-    private double m_dblLatitudeB;
-    private double m_dblLongitudeB;
-    private String m_strName;
-    private double m_dblWindSpeed;
-    private double m_dblWindAngle;
-    private double m_dblKineticFrictionCoefficient;
+    private double mdblLatitudeA;
+    private double mdblLongitudeA;
+    private double mdblLatitudeB;
+    private double mdblLongitudeB;
+    private String mstrName;
+    private double mdblWindSpeed;
+    private double mdblWindAngle;
+    private double mdblKineticFrictionCoefficient;
 
     public Path() {
-        this.m_dblLatitudeA = 0;
-        this.m_dblLongitudeA = 0;
-        this.m_dblLatitudeB = 0;
-        this.m_dblLongitudeB = 0;
-        this.m_strName = "No name";
-        this.m_dblWindSpeed = -1;
-        this.m_dblWindAngle = -1;
-        this.m_dblKineticFrictionCoefficient = -1;
+        this.mdblLatitudeA = 0;
+        this.mdblLongitudeA = 0;
+        this.mdblLatitudeB = 0;
+        this.mdblLongitudeB = 0;
+        this.mstrName = "No name";
+        this.mdblWindSpeed = -1;
+        this.mdblWindAngle = -1;
+        this.mdblKineticFrictionCoefficient = -1;
     }
 
     public Path(double dblLatitudeA, double dblLongitudeA, double dblLatitudeB, double dblLongitudeB,
                 String strName, double dblWindSpeed, double dblWindAngle, double dblKineticFrictionCoefficient) {
-        this.m_dblLatitudeA = dblLatitudeA;
-        this.m_dblLongitudeA = dblLongitudeA;
-        this.m_dblLatitudeB = dblLatitudeB;
-        this.m_dblLongitudeB = dblLongitudeB;
-        this.m_strName = strName;
-        this.m_dblWindSpeed = dblWindSpeed;
-        this.m_dblWindAngle = dblWindAngle;
-        this.m_dblKineticFrictionCoefficient = dblKineticFrictionCoefficient;
+        this.mdblLatitudeA = dblLatitudeA;
+        this.mdblLongitudeA = dblLongitudeA;
+        this.mdblLatitudeB = dblLatitudeB;
+        this.mdblLongitudeB = dblLongitudeB;
+        this.mstrName = strName;
+        this.mdblWindSpeed = dblWindSpeed;
+        this.mdblWindAngle = dblWindAngle;
+        this.mdblKineticFrictionCoefficient = dblKineticFrictionCoefficient;
     }
 
     public double getLatitudeA() {
-        return m_dblLatitudeA;
+        return mdblLatitudeA;
     }
 
-    public void setLatitudeA(double m_dblLatitudeA) {
-        this.m_dblLatitudeA = m_dblLatitudeA;
+    public void setLatitudeA(double dblLatitudeA) {
+        this.mdblLatitudeA = dblLatitudeA;
     }
 
     public double getLongitudeA() {
-        return m_dblLongitudeA;
+        return mdblLongitudeA;
     }
 
-    public void setLongitudeA(double m_dblLongitudeA) {
-        this.m_dblLongitudeA = m_dblLongitudeA;
+    public void setLongitudeA(double dblLongitudeA) {
+        this.mdblLongitudeA = dblLongitudeA;
     }
 
     public double getLatitudeB() {
-        return m_dblLatitudeB;
+        return mdblLatitudeB;
     }
 
-    public void setLatitudeB(double m_dblLatitudeB) {
-        this.m_dblLatitudeB = m_dblLatitudeB;
+    public void setLatitudeB(double dblLatitudeB) {
+        this.mdblLatitudeB = dblLatitudeB;
     }
 
     public double getLongitudeB() {
-        return m_dblLongitudeB;
+        return mdblLongitudeB;
     }
 
-    public void setLongitudeB(double m_dblLongitudeB) {
-        this.m_dblLongitudeB = m_dblLongitudeB;
+    public void setLongitudeB(double dblLongitudeB) {
+        this.mdblLongitudeB = dblLongitudeB;
     }
 
     public String getName() {
-        return m_strName;
+        return mstrName;
     }
 
-    public void setName(String m_strName) {
-        this.m_strName = m_strName;
+    public void setName(String strName) {
+        this.mstrName = strName;
     }
 
     public double getWindSpeed() {
-        return m_dblWindSpeed;
+        return mdblWindSpeed;
     }
 
-    public void setWindSpeed(double m_dblWindSpeed) {
-        this.m_dblWindSpeed = m_dblWindSpeed;
+    public void setWindSpeed(double dblWindSpeed) {
+        this.mdblWindSpeed = dblWindSpeed;
     }
 
     public double getWindAngle() {
-        return m_dblWindAngle;
+        return mdblWindAngle;
     }
 
-    public void setWindAngle(double m_dblWindAngle) {
-        this.m_dblWindAngle = m_dblWindAngle;
+    public void setWindAngle(double dblWindAngle) {
+        this.mdblWindAngle = dblWindAngle;
     }
 
     public double getKineticFrictionCoefficient() {
-        return m_dblKineticFrictionCoefficient;
+        return mdblKineticFrictionCoefficient;
     }
 
-    public void setKineticFrictionCoefficient(double m_dblKineticFrictionCoefficient) {
-        this.m_dblKineticFrictionCoefficient = m_dblKineticFrictionCoefficient;
+    public void setKineticFrictionCoefficient(double dblKineticFrictionCoefficient) {
+        this.mdblKineticFrictionCoefficient = dblKineticFrictionCoefficient;
     }
 
     @Override
@@ -105,28 +105,28 @@ public class Path {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Path path = (Path) o;
-        return Objects.equals(m_dblLatitudeA, path.m_dblLatitudeA) &&
-                Objects.equals(m_dblLongitudeA, path.m_dblLongitudeA) &&
-                Objects.equals(m_dblLatitudeB, path.m_dblLatitudeB) &&
-                Objects.equals(m_dblLongitudeB, path.m_dblLongitudeB);
+        return Objects.equals(mdblLatitudeA, path.mdblLatitudeA) &&
+                Objects.equals(mdblLongitudeA, path.mdblLongitudeA) &&
+                Objects.equals(mdblLatitudeB, path.mdblLatitudeB) &&
+                Objects.equals(mdblLongitudeB, path.mdblLongitudeB);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(m_dblLatitudeA, m_dblLongitudeA, m_dblLatitudeB, m_dblLongitudeB);
+        return Objects.hash(mdblLatitudeA, mdblLongitudeA, mdblLatitudeB, mdblLongitudeB);
     }
 
     @Override
     public String toString() {
         return "Path{" +
-                "m_dblLatitudeA=" + m_dblLatitudeA +
-                ", m_dblLongitudeA=" + m_dblLongitudeA +
-                ", m_dblLatitudeB=" + m_dblLatitudeB +
-                ", m_dblLongitudeB=" + m_dblLongitudeB +
-                ", m_strName='" + m_strName + '\'' +
-                ", m_dblWindSpeed=" + m_dblWindSpeed +
-                ", m_dblWindAngle=" + m_dblWindAngle +
-                ", m_dblKineticFrictionCoefficient=" + m_dblKineticFrictionCoefficient +
+                "m_dblLatitudeA=" + mdblLatitudeA +
+                ", m_dblLongitudeA=" + mdblLongitudeA +
+                ", m_dblLatitudeB=" + mdblLatitudeB +
+                ", m_dblLongitudeB=" + mdblLongitudeB +
+                ", m_strName='" + mstrName + '\'' +
+                ", m_dblWindSpeed=" + mdblWindSpeed +
+                ", m_dblWindAngle=" + mdblWindAngle +
+                ", m_dblKineticFrictionCoefficient=" + mdblKineticFrictionCoefficient +
                 '}';
     }
 }

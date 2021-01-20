@@ -13,10 +13,10 @@ import java.util.logging.Logger;
 public class ClientService {
 
     private static final Logger LOGGER = Logger.getLogger(ClientService.class.getName());
-    private ClientDB m_oClientDB;
+    private ClientDB moClientDB;
 
     public ClientService() {
-        m_oClientDB = new ClientDB();
+        moClientDB = new ClientDB();
     }
 
 
@@ -70,7 +70,7 @@ public class ClientService {
     }
 
     public boolean registerNewClient(Client c) {
-        if (m_oClientDB.addClientToDB(c)) {
+        if (moClientDB.addClientToDB(c)) {
             LOGGER.log(Level.INFO,"Successfully registered!");
             String strBody = "";
             for (CreditCard cc : c.getLstCreditCard()) {
@@ -87,10 +87,10 @@ public class ClientService {
     }
 
     public Client getClientByEmail(String strEmail) {
-        return m_oClientDB.getClientByEmail(strEmail);
+        return moClientDB.getClientByEmail(strEmail);
     }
 
     public List<CreditCard> getCreditCardsByClient(String strEmail) {
-        return this.m_oClientDB.getCreditCardsByClient(strEmail);
+        return this.moClientDB.getCreditCardsByClient(strEmail);
     }
 }

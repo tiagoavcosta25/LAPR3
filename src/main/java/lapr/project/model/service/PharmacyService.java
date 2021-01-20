@@ -7,24 +7,24 @@ import java.util.List;
 
 public class PharmacyService {
 
-    private PharmacyDB m_oPharmacyDB;
-    private ParkDB m_oParkDB;
+    private PharmacyDB moPharmacyDB;
+    private ParkDB moParkDB;
 
     public PharmacyService() {
-        this.m_oPharmacyDB = new PharmacyDB();
-        this.m_oParkDB = new ParkDB();
+        this.moPharmacyDB = new PharmacyDB();
+        this.moParkDB = new ParkDB();
     }
 
     public Pharmacy getPharmacy(String strEmail) {
-        return this.m_oPharmacyDB.getPharmacy(strEmail);
+        return this.moPharmacyDB.getPharmacy(strEmail);
     }
 
     public boolean removePharmacy(String strEmail) {
-        return this.m_oPharmacyDB.removePharmacy(strEmail);
+        return this.moPharmacyDB.removePharmacy(strEmail);
     }
 
     public boolean registerPharmacy(Pharmacy oPharmacy) {
-        return this.m_oPharmacyDB .registerPharmacy(oPharmacy);
+        return this.moPharmacyDB.registerPharmacy(oPharmacy);
     }
 
     public Pharmacy newPharmacy(String strName, String strEmail, Double dblLatitude,Double dblLongitude, Double dblAltitude,
@@ -34,26 +34,26 @@ public class PharmacyService {
     }
 
     public boolean registerPharmacyProduct(Pharmacy oPharmacy, Product oProduct, Integer m_intStock) {
-        return this.m_oPharmacyDB.registerPharmacyProduct(oPharmacy, oProduct, m_intStock);
+        return this.moPharmacyDB.registerPharmacyProduct(oPharmacy, oProduct, m_intStock);
     }
 
     public List<Pharmacy> getPharmacies() {
-        return this.m_oPharmacyDB.getPharmacies();
+        return this.moPharmacyDB.getPharmacies();
     }
 
     public Pharmacy getPharmacyByManagerEmail(String email) {
-        return this.m_oPharmacyDB.getPharmacyByManagerEmail(email);
+        return this.moPharmacyDB.getPharmacyByManagerEmail(email);
     }
 
     public Pharmacy getClosestPharmacyWithStock(Order oOrder, Product oProduct, Integer intQuantity) {
-        return m_oPharmacyDB.getClosestPharmacyWithStock(oOrder, oProduct, intQuantity);
+        return moPharmacyDB.getClosestPharmacyWithStock(oOrder, oProduct, intQuantity);
     }
 
     public Courier getSuitableCourier() {
-        return m_oPharmacyDB.getSuitableCourier();
+        return moPharmacyDB.getSuitableCourier();
     }
 
     public boolean addPark(int intPharmacyId, Park p, int intNonChargingSlots, int intChargingSlots) {
-        return this.m_oParkDB.addParkToDB(intPharmacyId, p, intNonChargingSlots, intChargingSlots);
+        return this.moParkDB.addParkToDB(intPharmacyId, p, intNonChargingSlots, intChargingSlots);
     }
 }

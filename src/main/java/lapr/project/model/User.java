@@ -21,34 +21,34 @@ public abstract class User {
     /**
      * The User's unique id
      */
-    private Integer m_intId;
+    private Integer mintId;
     /**
      * The User's email
      */
-    private String m_strEmail;
+    private String mstrEmail;
     /**
      * The User's password
      */
-    private String m_strPassword;
+    private String mstrPassword;
 
     /**
      * The User's NIF
      */
-    private Integer m_intNif;
+    private Integer mintNif;
 
     /**
      * The User's name
      */
-    private String m_strName;
+    private String mstrName;
 
     /**
      * An empty constructor of User that initiates all the variables by omission
      */
     public User() {
-        this.m_strEmail = "No Email Registered";
-        this.m_strPassword = "No Password Registered";
-        this.m_intNif = 0;
-        this.m_strName = "No Name";
+        this.mstrEmail = "No Email Registered";
+        this.mstrPassword = "No Password Registered";
+        this.mintNif = 0;
+        this.mstrName = "No Name";
     }
 
     /**
@@ -59,10 +59,10 @@ public abstract class User {
      * @param strPassword the User's password
      */
     public User(String strEmail, String strPassword, Integer intNif, String strName) throws NoSuchAlgorithmException {
-        this.m_strEmail = strEmail;
-        this.m_strPassword = EncryptPassword.encryptPasswordMD5(strPassword);
-        this.m_intNif = intNif;
-        this.m_strName = strName;
+        this.mstrEmail = strEmail;
+        this.mstrPassword = EncryptPassword.encryptPasswordMD5(strPassword);
+        this.mintNif = intNif;
+        this.mstrName = strName;
     }
 
     /**
@@ -74,11 +74,11 @@ public abstract class User {
      * @param strPassword the User's password
      */
     public User(Integer id, String strEmail, String strPassword, Integer intNif, String strName) {
-        this.m_intId = id;
-        this.m_strEmail = strEmail;
-        this.m_strPassword = strPassword;
-        this.m_intNif = intNif;
-        this.m_strName = strName;
+        this.mintId = id;
+        this.mstrEmail = strEmail;
+        this.mstrPassword = strPassword;
+        this.mintNif = intNif;
+        this.mstrName = strName;
     }
 
     /**
@@ -87,7 +87,7 @@ public abstract class User {
      * @return User's email
      */
     public String getEmail() {
-        return this.m_strEmail;
+        return this.mstrEmail;
     }
 
     /**
@@ -96,7 +96,7 @@ public abstract class User {
      * @param strEmail the User's email
      */
     public void setEmail(String strEmail) {
-        this.m_strEmail = strEmail;
+        this.mstrEmail = strEmail;
     }
 
     /**
@@ -105,7 +105,7 @@ public abstract class User {
      * @return User's password
      */
     public String getPw() {
-        return this.m_strPassword;
+        return this.mstrPassword;
     }
 
     /**
@@ -114,31 +114,31 @@ public abstract class User {
      * @param strPw the User's password
      */
     public void setPw(String strPw) {
-        this.m_strPassword = strPw;
+        this.mstrPassword = strPw;
     }
 
     public Integer getId() {
-        return m_intId;
+        return mintId;
     }
 
-    public void setId(Integer m_id) {
-        this.m_intId = m_id;
+    public void setId(Integer intId) {
+        this.mintId = intId;
     }
 
     public Integer getNif() {
-        return m_intNif;
+        return mintNif;
     }
 
-    public void setNif(Integer m_nif) {
-        this.m_intNif = m_nif;
+    public void setNif(Integer intNif) {
+        this.mintNif = intNif;
     }
 
     public String getName() {
-        return m_strName;
+        return mstrName;
     }
 
-    public void setName(String m_name) {
-        this.m_strName = m_name;
+    public void setName(String strName) {
+        this.mstrName = strName;
     }
 
     /**
@@ -159,17 +159,17 @@ public abstract class User {
         }
 
         User user = (User) o;
-        return this.m_strEmail.equals(user.m_strEmail);
+        return this.mstrEmail.equals(user.mstrEmail);
     }
 
     @Override
     public String toString() {
         return "User{" +
-                "m_intId=" + m_intId +
-                ", m_strEmail='" + m_strEmail + '\'' +
-                ", m_strPassword='" + m_strPassword + '\'' +
-                ", m_intNif=" + m_intNif +
-                ", m_strName='" + m_strName + '\'' +
+                "m_intId=" + mintId +
+                ", m_strEmail='" + mstrEmail + '\'' +
+                ", m_strPassword='" + mstrPassword + '\'' +
+                ", m_intNif=" + mintNif +
+                ", m_strName='" + mstrName + '\'' +
                 '}';
     }
 }

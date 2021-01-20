@@ -9,7 +9,7 @@ public class EncryptPassword{
     /**
      * Represents the type of the algorithm
      */
-    private static String algorithmType = "MD5";
+    private static String mstrAlgorithmType = "MD5";
 
     /**
      * Code generated based on this web search
@@ -22,7 +22,7 @@ public class EncryptPassword{
      * @throws java.security.NoSuchAlgorithmException
      */
     public static String encryptPasswordMD5(String pass) throws NoSuchAlgorithmException {
-        MessageDigest m = MessageDigest.getInstance(algorithmType.trim());
+        MessageDigest m = MessageDigest.getInstance(mstrAlgorithmType.trim());
         m.update(pass.getBytes());
         byte[] digest = m.digest();
         BigInteger bigInt = new BigInteger(1, digest);
@@ -36,7 +36,7 @@ public class EncryptPassword{
      * @param algorithmType The new algorith Type
      */
     public static void setAlgorithmType(String algorithmType) {
-        EncryptPassword.algorithmType = algorithmType;
+        EncryptPassword.mstrAlgorithmType = algorithmType;
     }
 
 

@@ -3,28 +3,26 @@ package lapr.project.model.service;
 import lapr.project.data.OrderDB;
 import lapr.project.model.*;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 public class OrderService {
 
-    private OrderDB m_oOrderDB;
+    private OrderDB moOrderDB;
 
     public OrderService() {
-        this.m_oOrderDB = new OrderDB();
+        this.moOrderDB = new OrderDB();
     }
 
     public Order getOrder(int strId) {
-        return this.m_oOrderDB.getOrder(strId);
+        return this.moOrderDB.getOrder(strId);
     }
 
     public boolean removeOrder(int intId) {
-        return this.m_oOrderDB.removeOrder(intId);
+        return this.moOrderDB.removeOrder(intId);
     }
 
     public boolean registerOrder(Order oOrder) {
-        return this.m_oOrderDB .registerOrder(oOrder);
+        return this.moOrderDB.registerOrder(oOrder);
     }
 
     public Order newOrder(String strDescription, boolean blIsHomeDelivery, Client oClient, Pharmacy oPharmacy, Map<Product, Integer> mapProducts) {
@@ -32,16 +30,16 @@ public class OrderService {
     }
 
     public Order getLatestOrder(Client oClient) {
-        return this.m_oOrderDB .getLatestOrder(oClient);
+        return this.moOrderDB.getLatestOrder(oClient);
     }
 
     public Order getOrderByCourier(String strEmail) {
-        return this.m_oOrderDB .getOrderByCourier(strEmail);
+        return this.moOrderDB.getOrderByCourier(strEmail);
     }
 
 
     public boolean notifyAndRemove(Order oOrder) {
-        return this.m_oOrderDB .notifyAndRemove(oOrder);
+        return this.moOrderDB.notifyAndRemove(oOrder);
     }
 
 }

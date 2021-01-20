@@ -11,16 +11,16 @@ import java.util.logging.Logger;
 public class UserService {
 
     private static final Logger LOGGER = Logger.getLogger(UserService.class.getName());
-    private UserDB m_oUserDB;
+    private UserDB moUserDB;
 
     public UserService() {
-        m_oUserDB = new UserDB();
+        moUserDB = new UserDB();
     }
 
     public boolean login(String email, String password){
         try {
             String encryptedPassword = EncryptPassword.encryptPasswordMD5(password);
-            if (m_oUserDB.login(email,encryptedPassword)) {
+            if (moUserDB.login(email,encryptedPassword)) {
                 LOGGER.log(Level.INFO,"Logged In!");
                 return true;
             }else return false;

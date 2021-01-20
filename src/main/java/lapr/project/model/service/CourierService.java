@@ -21,11 +21,11 @@ public class CourierService {
 
     private static final java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(CourierService.class.getName());
 
-    private CourierDB oCourierDB;
+    private CourierDB moCourierDB;
 
 
     public CourierService() {
-        oCourierDB = new CourierDB();
+        moCourierDB = new CourierDB();
     }
 
     public Courier newCourier(String strName, String strEmail, Integer strNIF, String strIBAN, Pharmacy oPharmacy) throws NoSuchAlgorithmException {
@@ -36,11 +36,11 @@ public class CourierService {
     }
 
     public boolean registersCourier(Courier oCourier) {
-        return oCourierDB.addCourierToDB(oCourier.getName(), oCourier.getEmail(), oCourier.getPw(), oCourier.getNif(), oCourier.getM_iban(), oCourier.getM_Pharmacy().getId());
+        return moCourierDB.addCourierToDB(oCourier.getName(), oCourier.getEmail(), oCourier.getPw(), oCourier.getNif(), oCourier.getM_iban(), oCourier.getM_Pharmacy().getId());
     }
 
     public Courier getCourierByEmail(String email) {
-        return oCourierDB.getCourierByEmail(email);
+        return moCourierDB.getCourierByEmail(email);
     }
 
     public Courier updateCourier(Courier courier, String strName, String strEmail, Integer intNif, String strIban, Pharmacy oPharmacy) {
@@ -53,27 +53,27 @@ public class CourierService {
     }
 
     public boolean updateCourierDB(Courier oCourier) {
-        return oCourierDB.updateCourierDB(oCourier);
+        return moCourierDB.updateCourierDB(oCourier);
     }
 
     public boolean removeCourier(String email) {
         try {
-            return oCourierDB.removeCourier(email);
+            return moCourierDB.removeCourier(email);
         } catch (Exception e) {
             return false;
         }
     }
 
     public boolean parkScooter(int intIdScooter) {
-        String estimateFileName = DirectoryVerification.verifyFileCreation(Constants.ESTIMATE_FILE_PATH,
-                Constants.ESTIMATE_FILE_FILTER, 50);
+        String estimateFileName = DirectoryVerification.verifyFileCreation(Constants.ESTIMATEFILEPATH,
+                Constants.ESTIMATEFILEFILTER, 50);
 
         if(estimateFileName.equals(""))
             return false;
 
         double estimate = 0;
 
-        try (BufferedReader br = new BufferedReader(new FileReader(Constants.ESTIMATE_FILE_PATH + "/" + estimateFileName))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(Constants.ESTIMATEFILEPATH + "/" + estimateFileName))) {
             String strCurrentLine;
             if ((strCurrentLine = br.readLine()) != null) {
                 estimate = Double.parseDouble(strCurrentLine);
@@ -96,7 +96,7 @@ public class CourierService {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss dd-MM-yyyy");
         String formattedDateTime = lt.format(formatter); //
 
-        boolean flag = oCourierDB.parkScooter(intIdScooter);
+        boolean flag = moCourierDB.parkScooter(intIdScooter);
 
         if(flag) {
             EmailSender.sendEmail(ApplicationPOT.getInstance().getCurrentSession().getCurrentUserEmail(),
@@ -107,9 +107,9 @@ public class CourierService {
                                     "choosing us.\nKing regards,\nPharmacy Service G21.", intIdScooter, time.get(0), time.get(1),
                             time.get(2), formattedDateTime));
 
-            File file = new File(Constants.ESTIMATE_FILE_PATH + "/" + estimateFileName);
+            File file = new File(Constants.ESTIMATEFILEPATH + "/" + estimateFileName);
             if (file.delete()) {
-                file = new File(Constants.ESTIMATE_FILE_PATH + "/" + estimateFileName + Constants.ESTIMATE_FILE_FILTER);
+                file = new File(Constants.ESTIMATEFILEPATH + "/" + estimateFileName + Constants.ESTIMATEFILEFILTER);
                 if (file.delete())
                     LOGGER.log(Level.INFO, "File handled successfully!");
             }

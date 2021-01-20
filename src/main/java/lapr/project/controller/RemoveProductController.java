@@ -10,16 +10,16 @@ public class RemoveProductController {
 
     private static final Logger LOGGER = Logger.getLogger(RemoveProductController.class.getName());
 
-    private ProductService pServ;
+    private ProductService moServ;
 
     public RemoveProductController() {
-        this.pServ = new ProductService();
+        this.moServ = new ProductService();
     }
 
     public boolean removeProductFromDB(int intId) {
         try {
             if(ApplicationPOT.getInstance().getCurrentSession().getRole().equals(UserSession.Role.ADMIN))
-                return pServ.removeProduct(intId);
+                return moServ.removeProduct(intId);
         } catch (Exception e) {
             LOGGER.log(Level.WARNING, "User not logged in!");
         }

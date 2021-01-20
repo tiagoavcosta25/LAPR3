@@ -7,29 +7,29 @@ public class RegisterPharmacyController {
     /**
      * Pharmacy class instance
      */
-    private Pharmacy m_oPharmacy;
+    private Pharmacy moPharmacy;
 
     /**
      * Pharmacy Management class
      */
-    private PharmacyService m_oPharmacyService;
+    private PharmacyService moPharmacyService;
 
 
     /**
      * An empty constructor of MakeAnOrderController that initiates the platform variable by getting it from the ApplicationPOT.
      */
     public RegisterPharmacyController() {
-        this.m_oPharmacyService = new PharmacyService();
+        this.moPharmacyService = new PharmacyService();
     }
 
     public Pharmacy newPharmacy(String strName, String strEmail, Double dblLatitude, Double dblLongitude, Double dblAltitude, String strStreetName,
                                 String strDoorNumber, String strPostalCode, String strLocality, String strCountry) {
         try {
-            this.m_oPharmacy = m_oPharmacyService.newPharmacy(strName, strEmail, dblLatitude, dblLongitude, dblAltitude, strStreetName, strDoorNumber,
+            this.moPharmacy = moPharmacyService.newPharmacy(strName, strEmail, dblLatitude, dblLongitude, dblAltitude, strStreetName, strDoorNumber,
                     strPostalCode, strLocality, strCountry);
-            return this.m_oPharmacy;
+            return this.moPharmacy;
         } catch (Exception ex) {
-            this.m_oPharmacy = null;
+            this.moPharmacy = null;
             return null;
         }
     }
@@ -38,12 +38,12 @@ public class RegisterPharmacyController {
      * The method registers an order to the database.
      */
     public boolean registerPharmacy() {
-        return this.m_oPharmacyService.registerPharmacy(m_oPharmacy);
+        return this.moPharmacyService.registerPharmacy(moPharmacy);
     }
     public void setPharmacy(Pharmacy p){
-        this.m_oPharmacy = p;
+        this.moPharmacy = p;
     }
     public void setPharmacyService(PharmacyService p){
-        this.m_oPharmacyService = p;
+        this.moPharmacyService = p;
     }
 }

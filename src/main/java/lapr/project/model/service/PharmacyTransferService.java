@@ -6,22 +6,22 @@ import lapr.project.utils.EmailSender;
 
 public class PharmacyTransferService {
 
-    private PharmacyTransferDB m_oPharmacyTransferDB;
+    private PharmacyTransferDB moPharmacyTransferDB;
 
     public PharmacyTransferService() {
-        this.m_oPharmacyTransferDB = new PharmacyTransferDB();
+        this.moPharmacyTransferDB = new PharmacyTransferDB();
     }
 
     public PharmacyTransfer getPharmacyTransfer(int strId) {
-        return this.m_oPharmacyTransferDB.getPharmacyTransfer(strId);
+        return this.moPharmacyTransferDB.getPharmacyTransfer(strId);
     }
 
     public boolean removePharmacyTransfer(int intId) {
-        return this.m_oPharmacyTransferDB.removePharmacyTransfer(intId);
+        return this.moPharmacyTransferDB.removePharmacyTransfer(intId);
     }
 
     public boolean registerPharmacyTransfer(PharmacyTransfer oPharmacyTransfer) {
-        return this.m_oPharmacyTransferDB .registerPharmacyTransfer(oPharmacyTransfer);
+        return this.moPharmacyTransferDB.registerPharmacyTransfer(oPharmacyTransfer);
     }
 
     public PharmacyTransfer newPharmacyTransfer(Order oOrder, Product oProduct, Integer intQuantity, Pharmacy oPharmacy) {
@@ -42,7 +42,7 @@ public class PharmacyTransferService {
     }
 
     public boolean updateStockFromTransfer(int intPharmacyTransferId) {
-        return this.m_oPharmacyTransferDB.updateStockFromTransfer(intPharmacyTransferId);
+        return this.moPharmacyTransferDB.updateStockFromTransfer(intPharmacyTransferId);
     }
 
     public boolean sendEmailWithDeliveryNote(PharmacyTransfer oPharmacyTransfer) {

@@ -5,103 +5,103 @@ import java.util.Calendar;
 import java.util.Objects;
 
 public class PharmacyTransfer {
-    private Integer m_intId;
-    private Date m_dtTransferDate;
-    private Order m_oOrder;
-    private Product m_oProduct;
-    private Integer m_intQuantity;
-    private Pharmacy m_oNearbyPharmacy;
+    private Integer mintId;
+    private Date mdtTransferDate;
+    private Order moOrder;
+    private Product moProduct;
+    private Integer mintQuantity;
+    private Pharmacy moNearbyPharmacy;
 
-    private static Integer DEFAULT_ID = -1;
-    private static Date CURRENT_DATE = new Date(Calendar.getInstance().getTimeInMillis());
-    private static Order DEFAULT_ORDER = new Order();
-    private static Product DEFAULT_ADDRESS = new Product();
-    private static Integer DEFAULT_QUANTITY = -1;
-    private static Pharmacy DEFAULT_PHARMACY = new Pharmacy();
+    private static Integer DEFAULTID = -1;
+    private static Date CURRENTDATE = new Date(Calendar.getInstance().getTimeInMillis());
+    private static Order DEFAULTORDER = new Order();
+    private static Product DEFAULTADDRESS = new Product();
+    private static Integer DEFAULTQUANTITY = -1;
+    private static Pharmacy DEFAULTPHARMACY = new Pharmacy();
 
     public PharmacyTransfer(Integer intId, Date dtDate, Order oOrder, Product oProduct, Integer intQuantity, Pharmacy oNearbyPharmacy) {
-        this.m_intId = intId;
-        this.m_dtTransferDate = (Date) dtDate.clone();
-        this.m_oOrder = oOrder;
-        this.m_oProduct = oProduct;
-        this.m_intQuantity = intQuantity;
-        this.m_oNearbyPharmacy = oNearbyPharmacy;
+        this.mintId = intId;
+        this.mdtTransferDate = (Date) dtDate.clone();
+        this.moOrder = oOrder;
+        this.moProduct = oProduct;
+        this.mintQuantity = intQuantity;
+        this.moNearbyPharmacy = oNearbyPharmacy;
     }
 
     public PharmacyTransfer(Date dtDate, Order oOrder, Product oProduct, Integer intQuantity, Pharmacy oNearbyPharmacy) {
-        this.m_intId = DEFAULT_ID;
-        this.m_dtTransferDate = (Date) dtDate.clone();
-        this.m_oOrder = oOrder;
-        this.m_oProduct = oProduct;
-        this.m_intQuantity = intQuantity;
-        this.m_oNearbyPharmacy = oNearbyPharmacy;
+        this.mintId = DEFAULTID;
+        this.mdtTransferDate = (Date) dtDate.clone();
+        this.moOrder = oOrder;
+        this.moProduct = oProduct;
+        this.mintQuantity = intQuantity;
+        this.moNearbyPharmacy = oNearbyPharmacy;
     }
 
     public PharmacyTransfer(Order oOrder, Product oProduct, Integer intQuantity, Pharmacy oNearbyPharmacy) {
-        this.m_intId = DEFAULT_ID;
-        this.m_dtTransferDate = CURRENT_DATE;
-        this.m_oOrder = oOrder;
-        this.m_oProduct = oProduct;
-        this.m_intQuantity = intQuantity;
-        this.m_oNearbyPharmacy = oNearbyPharmacy;
+        this.mintId = DEFAULTID;
+        this.mdtTransferDate = CURRENTDATE;
+        this.moOrder = oOrder;
+        this.moProduct = oProduct;
+        this.mintQuantity = intQuantity;
+        this.moNearbyPharmacy = oNearbyPharmacy;
     }
 
     public PharmacyTransfer() {
-        this.m_intId = DEFAULT_ID;
-        this.m_dtTransferDate = CURRENT_DATE;
-        this.m_oOrder = DEFAULT_ORDER;
-        this.m_oProduct = DEFAULT_ADDRESS;
-        this.m_intQuantity = DEFAULT_QUANTITY;
-        this.m_oNearbyPharmacy = DEFAULT_PHARMACY;
+        this.mintId = DEFAULTID;
+        this.mdtTransferDate = CURRENTDATE;
+        this.moOrder = DEFAULTORDER;
+        this.moProduct = DEFAULTADDRESS;
+        this.mintQuantity = DEFAULTQUANTITY;
+        this.moNearbyPharmacy = DEFAULTPHARMACY;
     }
 
 
     public Integer getId() {
-        return m_intId;
+        return mintId;
     }
 
     public void setId(Integer intId) {
-        this.m_intId = intId;
+        this.mintId = intId;
     }
 
     public Date getTransferDate() {
-        return m_dtTransferDate;
+        return mdtTransferDate;
     }
 
     public void setTransferDate(Date m_dtTransferDate) {
-        this.m_dtTransferDate = m_dtTransferDate;
+        this.mdtTransferDate = m_dtTransferDate;
     }
 
     public Order getOrder() {
-        return m_oOrder;
+        return moOrder;
     }
 
     public void setOrder(Order oOrder) {
-        this.m_oOrder = oOrder;
+        this.moOrder = oOrder;
     }
 
     public Product getProduct() {
-        return m_oProduct;
+        return moProduct;
     }
 
     public void setProduct(Product oProduct) {
-        this.m_oProduct = oProduct;
+        this.moProduct = oProduct;
     }
 
     public Integer getQuantity() {
-        return m_intQuantity;
+        return mintQuantity;
     }
 
     public void setQuantity(Integer intQuantity) {
-        this.m_intQuantity = intQuantity;
+        this.mintQuantity = intQuantity;
     }
 
     public Pharmacy getNearbyPharmacy() {
-        return m_oNearbyPharmacy;
+        return moNearbyPharmacy;
     }
 
     public void setNearbyPharmacy(Pharmacy NearbyPharmacy) {
-        this.m_oNearbyPharmacy = NearbyPharmacy;
+        this.moNearbyPharmacy = NearbyPharmacy;
     }
 
     @Override
@@ -109,24 +109,24 @@ public class PharmacyTransfer {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         PharmacyTransfer that = (PharmacyTransfer) o;
-        return m_intId.equals(that.m_intId);
+        return mintId.equals(that.mintId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(m_intId);
+        return Objects.hash(mintId);
     }
 
 
     @Override
     public String toString() {
         return "PharmacyTransfer{" +
-                "m_intId=" + m_intId +
-                ", m_dtTransferDate=" + m_dtTransferDate +
-                ", m_oOrder=" + m_oOrder +
-                ", m_oProduct=" + m_oProduct +
-                ", m_intQuantity=" + m_intQuantity +
-                ", m_oNearbyPharmacy=" + m_oNearbyPharmacy +
+                "m_intId=" + mintId +
+                ", m_dtTransferDate=" + mdtTransferDate +
+                ", m_oOrder=" + moOrder +
+                ", m_oProduct=" + moProduct +
+                ", m_intQuantity=" + mintQuantity +
+                ", m_oNearbyPharmacy=" + moNearbyPharmacy +
                 '}';
     }
 }

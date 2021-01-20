@@ -12,27 +12,27 @@ public class RemoveScooterController {
     /**
      * Pharmacy Management class
      */
-    private PharmacyService m_oPharmacyService;
+    private PharmacyService moPharmacyService;
 
     /**
      * Scooter Management class
      */
-    private ScooterService m_oScooterService;
+    private ScooterService moScooterService;
 
 
     /**
      * An empty constructor of RegisterScooterController that initiates the platform variable by getting it from the ApplicationPOT.
      */
     public RemoveScooterController() {
-        this.m_oPharmacyService = new PharmacyService();
-        this.m_oScooterService = new ScooterService();
+        this.moPharmacyService = new PharmacyService();
+        this.moScooterService = new ScooterService();
     }
 
     /**
      * The method returns the list of pharmacies.
      */
     public List<Pharmacy> showPharmacies() {
-        return this.m_oPharmacyService.getPharmacies();
+        return this.moPharmacyService.getPharmacies();
     }
 
     /**
@@ -40,7 +40,7 @@ public class RemoveScooterController {
      */
     public List<Scooter> showScootersList(int intPharmacyId) {
         try {
-            return m_oScooterService.getScootersList(intPharmacyId);
+            return moScooterService.getScootersList(intPharmacyId);
         } catch (Exception ex) {
             return null;
         }
@@ -50,7 +50,7 @@ public class RemoveScooterController {
      * The method removes a scooter from the database.
      */
     public boolean removeScooter(int intScooterId){
-        return m_oScooterService.removeScooterFromDB(intScooterId);
+        return moScooterService.removeScooterFromDB(intScooterId);
     }
 
 }

@@ -8,22 +8,22 @@ import java.util.Map;
 
 public class InvoiceService {
 
-    private InvoiceDB m_oInvoiceDB;
+    private InvoiceDB moInvoiceDB;
 
     public InvoiceService() {
-        this.m_oInvoiceDB = new InvoiceDB();
+        this.moInvoiceDB = new InvoiceDB();
     }
 
     public Invoice getInvoice(int strId) {
-        return this.m_oInvoiceDB.getInvoice(strId);
+        return this.moInvoiceDB.getInvoice(strId);
     }
 
     public boolean removeInvoice(int intId) {
-        return this.m_oInvoiceDB.removeInvoice(intId);
+        return this.moInvoiceDB.removeInvoice(intId);
     }
 
     public boolean registerInvoice(Invoice oInvoice) {
-        return this.m_oInvoiceDB.registerInvoice(oInvoice);
+        return this.moInvoiceDB.registerInvoice(oInvoice);
     }
 
     public Invoice newInvoice(Order oOrder, Map<CreditCard, Float> mapPayments) {

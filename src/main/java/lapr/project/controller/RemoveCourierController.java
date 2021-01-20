@@ -19,13 +19,13 @@ public class RemoveCourierController {
     /**
      * Courier Management class
      */
-    private CourierService oCourierService;
+    private CourierService moCourierService;
 
     /**
      * A constructor of RegisterCourierController that initiates the platform variable by getting it from the ApplicationPOT.
      */
     public RemoveCourierController() {
-        this.oCourierService = new CourierService();
+        this.moCourierService = new CourierService();
     }
 
     /**
@@ -42,7 +42,7 @@ public class RemoveCourierController {
      * The method adds a Freelancer to the Organization of the current user.
      */
     public boolean removeCourier(String email) {
-        return this.oCourierService.removeCourier(email);
+        return this.moCourierService.removeCourier(email);
     }
 
 

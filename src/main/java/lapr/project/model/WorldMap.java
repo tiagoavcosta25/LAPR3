@@ -12,30 +12,30 @@ import java.util.*;
 
 public class WorldMap {
 
-    private Graph<Address, Path> m_graph;
-    private DeliveryRunDB m_deliveryRunDB;
+    private Graph<Address, Path> moGraph;
+    private DeliveryRunDB moDeliveryRunDB;
 
     public WorldMap() {
-        m_graph = new Graph<>(true);
-        m_deliveryRunDB = new DeliveryRunDB();
+        moGraph = new Graph<>(true);
+        moDeliveryRunDB = new DeliveryRunDB();
     }
 
     public Graph<Address, Path> getGraph() {
-        return m_graph;
+        return moGraph;
     }
 
     /**
      * CREATE GRAPH
      */
     public void createGraph() {
-        createGraph(m_deliveryRunDB.getAllAddresses(), m_deliveryRunDB.getAllPaths());
+        createGraph(moDeliveryRunDB.getAllAddresses(), moDeliveryRunDB.getAllPaths());
     }
 
     private void createGraph(List<Address> addresses, List<Path> paths) {
         double dist = 0;
         Pair<Address, Address> pathAdd;
         for (Address a : addresses) {
-            m_graph.insertVertex(a);
+            moGraph.insertVertex(a);
         }
         for (Path p : paths) {
 
@@ -43,7 +43,7 @@ public class WorldMap {
 
             if (pathAdd != null) {
                 dist = pathAdd.getKey().distanceTo(pathAdd.getValue());
-                m_graph.insertEdge(pathAdd.getKey(), pathAdd.getValue(), p, dist);
+                moGraph.insertEdge(pathAdd.getKey(), pathAdd.getValue(), p, dist);
             }
         }
     }
@@ -52,7 +52,7 @@ public class WorldMap {
                                                 double dblLatitudeB, double dblLongitudeB) {
         Address origem = null;
         Address destino = null;
-        for (Address a : m_graph.vertices()) {
+        for (Address a : moGraph.vertices()) {
             if (a.getLatitude() == dblLatitudeA && a.getLongitude() == dblLongitudeA) {
                 origem = a;
             } else if (a.getLatitude() == dblLatitudeB && a.getLongitude() == dblLongitudeB) {
@@ -66,7 +66,7 @@ public class WorldMap {
 
     public LinkedList<Path> getListOfPaths() {
         LinkedList<Path> paths = new LinkedList<>();
-        for(Edge<Address, Path> edge : this.m_graph.edges())
+        for(Edge<Address, Path> edge : this.moGraph.edges())
             paths.add(edge.getElement());
         return paths;
     }
@@ -104,7 +104,7 @@ public class WorldMap {
                                                                List<Order> orderList) {
 
         double energyCost = 0;
-        double totalMass = Constants.SCOOTER_TOTAL_WEIGHT + Constants.DEFAULT_COURIER_WEIGHT;
+        double totalMass = Constants.SCOOTERTOTALWEIGHT + Constants.DEFAULTCOURIERWEIGHT;
 
         Map<Address, Float> orderWeightMap = new HashMap<>();
         for(Order order : orderList) {
@@ -136,7 +136,7 @@ public class WorldMap {
      */
      public LinkedList<Address> calculateMostEfficientPath(Address startAddress, Address endAddress, List<Address> deliveryPoints) {
          //Pass the weight of each edge of the graph to the enery cost
-         for(Edge<Address, Path> e : this.m_graph.edges()) {
+         for(Edge<Address, Path> e : this.moGraph.edges()) {
              double distanceUsingCoordinates = e.getVOrig().distanceTo(e.getVDest());
              double localHeightDifference = e.getVOrig().getAltitude() - e.getVDest().getAltitude();
              double totalMass = 1;
@@ -173,7 +173,7 @@ public class WorldMap {
             for (int i = 0; i < list.size() - 1; i++) {                                                                  //O(k*V^2)
                 LinkedList<Address> tempPath = new LinkedList<>();
                 //calcular energia
-                totalCost += GraphAlgorithms.shortestPath(m_graph, list.get(i), list.get(i + 1), tempPath);   //O(V^2)
+                totalCost += GraphAlgorithms.shortestPath(moGraph, list.get(i), list.get(i + 1), tempPath);   //O(V^2)
                 if (tempPath.size() == 0)
                     return new LinkedList<>();
                 tempPath.removeLast();

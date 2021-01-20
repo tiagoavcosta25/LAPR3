@@ -3,20 +3,20 @@ package lapr.project.model;
 public enum DeliveryStatus {
 
     IDLE("Idle"),INPROGRESS("In Progress");
-    private String m_strDesignation;
+    private String mstrDesignation;
 
     DeliveryStatus(String designation) {
-        this.m_strDesignation = designation;
+        this.mstrDesignation = designation;
     }
 
     public String getDesignation() {
-        return m_strDesignation;
+        return mstrDesignation;
     }
 
     @Override
     public String toString() {
         return "DeliveryStatus{" +
-                "m_strDesignation='" + m_strDesignation + '\'' +
+                "m_strDesignation='" + mstrDesignation + '\'' +
                 '}';
     }
 }

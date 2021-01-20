@@ -4,110 +4,110 @@ import java.util.Objects;
 
 public class Address {
 
-    private Double m_dblLatitude;
-    private Double m_dblLongitude;
-    private Double m_dblAltitude;
-    private String m_strStreetName;
-    private String m_strDoorNumber;
-    private String m_strPostalCode;
-    private String m_strLocality;
-    private String m_strCountry;
+    private Double mdblLatitude;
+    private Double mdblLongitude;
+    private Double mdblAltitude;
+    private String mstrStreetName;
+    private String mstrDoorNumber;
+    private String mstrPostalCode;
+    private String mstrLocality;
+    private String mstrCountry;
 
     public Address() {
-        this.m_dblLatitude = -22d;
-        this.m_dblLongitude = -22d;
-        this.m_dblAltitude = -Double.MAX_VALUE;
-        this.m_strStreetName = "No Street Name";
-        this.m_strDoorNumber = "No Door Number";
-        this.m_strPostalCode = "No Postal Code";
-        this.m_strLocality = "No Locality";
-        this.m_strCountry = "No Country";
+        this.mdblLatitude = -22d;
+        this.mdblLongitude = -22d;
+        this.mdblAltitude = -Double.MAX_VALUE;
+        this.mstrStreetName = "No Street Name";
+        this.mstrDoorNumber = "No Door Number";
+        this.mstrPostalCode = "No Postal Code";
+        this.mstrLocality = "No Locality";
+        this.mstrCountry = "No Country";
     }
 
     public Address(Double latitude, Double longitude, Double altitude, String streetName, String doorNumber,
                    String postalCode, String locality, String country) {
-        this.m_dblLatitude = latitude;
-        this.m_dblLongitude = longitude;
-        this.m_dblAltitude = altitude;
-        this.m_strStreetName = streetName;
-        this.m_strDoorNumber = doorNumber;
-        this.m_strPostalCode = postalCode;
-        this.m_strLocality = locality;
-        this.m_strCountry = country;
+        this.mdblLatitude = latitude;
+        this.mdblLongitude = longitude;
+        this.mdblAltitude = altitude;
+        this.mstrStreetName = streetName;
+        this.mstrDoorNumber = doorNumber;
+        this.mstrPostalCode = postalCode;
+        this.mstrLocality = locality;
+        this.mstrCountry = country;
     }
 
 
     public Double getLatitude() {
-        return m_dblLatitude;
+        return mdblLatitude;
     }
 
     public Double getLongitude() {
-        return m_dblLongitude;
+        return mdblLongitude;
     }
 
     public Double getAltitude() {
-        return m_dblAltitude;
+        return mdblAltitude;
     }
 
     public void setAltitude(Double dblAltitude) {
-        this.m_dblAltitude = dblAltitude;
+        this.mdblAltitude = dblAltitude;
     }
 
     public String getStreetName() {
-        return m_strStreetName;
+        return mstrStreetName;
     }
 
     public String getDoorNumber() {
-        return m_strDoorNumber;
+        return mstrDoorNumber;
     }
 
     public String getPostalCode() {
-        return m_strPostalCode;
+        return mstrPostalCode;
     }
 
     public String getLocality() {
-        return m_strLocality;
+        return mstrLocality;
     }
 
     public String getCountry() {
-        return m_strCountry;
+        return mstrCountry;
     }
 
     public void setLatitude(Double m_latitude) {
-        this.m_dblLatitude = m_latitude;
+        this.mdblLatitude = m_latitude;
     }
 
     public void setLongitude(Double m_longitude) {
-        this.m_dblLongitude = m_longitude;
+        this.mdblLongitude = m_longitude;
     }
 
     public void setStreetName(String m_streetName) {
-        this.m_strStreetName = m_streetName;
+        this.mstrStreetName = m_streetName;
     }
 
     public void setDoorNumber(String m_doorNumber) {
-        this.m_strDoorNumber = m_doorNumber;
+        this.mstrDoorNumber = m_doorNumber;
     }
 
     public void setPostalCode(String m_postalCode) {
-        this.m_strPostalCode = m_postalCode;
+        this.mstrPostalCode = m_postalCode;
     }
 
     public void setLocality(String m_locality) {
-        this.m_strLocality = m_locality;
+        this.mstrLocality = m_locality;
     }
 
     public void setCountry(String m_country) {
-        this.m_strCountry = m_country;
+        this.mstrCountry = m_country;
     }
 
     public double distanceTo(Address oAddress) {
         final double EARTH_RADIUS = 6371e3;
         double latitude1 = this.getLatitude() * Math.PI / 180;
         double latitude2 = oAddress.getLatitude() * Math.PI / 180;
-        double differenceOfLatitude = (this.m_dblLatitude - oAddress.getLatitude()) * Math.PI / 180;
-        double differenceOfLongitude = (this.m_dblLongitude - oAddress.getLongitude()) * Math.PI / 180;
-        double differenceOfAltitude = (this.m_dblAltitude - oAddress.getAltitude());
+        double differenceOfLatitude = (this.mdblLatitude - oAddress.getLatitude()) * Math.PI / 180;
+        double differenceOfLongitude = (this.mdblLongitude - oAddress.getLongitude()) * Math.PI / 180;
+        double differenceOfAltitude = (this.mdblAltitude - oAddress.getAltitude());
 
         double a = Math.sin(differenceOfLatitude / 2) * Math.sin(differenceOfLatitude / 2) +
                 Math.cos(latitude1) * Math.cos(latitude2) * Math.sin(differenceOfLongitude / 2) *
@@ -122,26 +122,26 @@ public class Address {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Address address = (Address) o;
-        return Objects.equals(m_dblLatitude, address.m_dblLatitude) &&
-                Objects.equals(m_dblLongitude, address.m_dblLongitude);
+        return Objects.equals(mdblLatitude, address.mdblLatitude) &&
+                Objects.equals(mdblLongitude, address.mdblLongitude);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(m_dblLatitude, m_dblLongitude);
+        return Objects.hash(mdblLatitude, mdblLongitude);
     }
 
     @Override
     public String toString() {
         return "Address{" +
-                "m_dblLatitude=" + m_dblLatitude +
-                ", m_dblLongitude=" + m_dblLongitude +
-                ", m_dblAltitude=" + m_dblAltitude +
-                ", m_strStreetName='" + m_strStreetName + '\'' +
-                ", m_strDoorNumber='" + m_strDoorNumber + '\'' +
-                ", m_strPostalCode='" + m_strPostalCode + '\'' +
-                ", m_strLocality='" + m_strLocality + '\'' +
-                ", m_strCountry='" + m_strCountry + '\'' +
+                "m_dblLatitude=" + mdblLatitude +
+                ", m_dblLongitude=" + mdblLongitude +
+                ", m_dblAltitude=" + mdblAltitude +
+                ", m_strStreetName='" + mstrStreetName + '\'' +
+                ", m_strDoorNumber='" + mstrDoorNumber + '\'' +
+                ", m_strPostalCode='" + mstrPostalCode + '\'' +
+                ", m_strLocality='" + mstrLocality + '\'' +
+                ", m_strCountry='" + mstrCountry + '\'' +
                 '}';
     }
 }

@@ -10,16 +10,16 @@ public class ParkScooterController {
 
     private static final Logger LOGGER = Logger.getLogger(ParkScooterController.class.getName());
 
-    private CourierService cServ;
+    private CourierService moServ;
 
     public ParkScooterController() {
-        this.cServ = new CourierService();
+        this.moServ = new CourierService();
     }
 
     public boolean parkScooter(int intIdScooter) {
         try {
             if (ApplicationPOT.getInstance().getCurrentSession().getRole().equals(UserSession.Role.COURIER)) {
-                return cServ.parkScooter(intIdScooter);
+                return moServ.parkScooter(intIdScooter);
             }
         } catch (Exception e) {
             LOGGER.log(Level.WARNING, "There was an error parking the scooter!");

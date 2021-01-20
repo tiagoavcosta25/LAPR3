@@ -3,41 +3,37 @@ package lapr.project.model.service;
 import lapr.project.data.ProductDB;
 import lapr.project.model.Product;
 
-import java.sql.CallableStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class ProductService {
 
-    private ProductDB pDB;
+    private ProductDB moProductDB;
 
     public ProductService() {
-        this.pDB = new ProductDB();
+        this.moProductDB = new ProductDB();
     }
 
     public boolean registerProduct(String strName, String strDescription, float fltUnitaryPrice, float fltUnitaryWeight) {
         if(validateInput(strName, strDescription, fltUnitaryPrice, fltUnitaryWeight))
-            return pDB.addProductToDB(new Product(strName, strDescription, fltUnitaryPrice, fltUnitaryWeight));
+            return moProductDB.addProductToDB(new Product(strName, strDescription, fltUnitaryPrice, fltUnitaryWeight));
         return false;
     }
 
     public boolean updateProduct(int intId, String strName, String strDescription, float fltUnitaryPrice, float fltUnitaryWeight) {
         if(validateInputWithId(intId, strName, strDescription, fltUnitaryPrice, fltUnitaryWeight))
-            return pDB.updateProductFromDB(intId, strName, strDescription, fltUnitaryPrice, fltUnitaryWeight);
+            return moProductDB.updateProductFromDB(intId, strName, strDescription, fltUnitaryPrice, fltUnitaryWeight);
         return false;
     }
 
     public boolean removeProduct(int intId) {
         if(validateId(intId))
-            return pDB.removeProductFromDB(intId);
+            return moProductDB.removeProductFromDB(intId);
         return false;
     }
 
     public Product getProduct(int intId) {
         if(validateId(intId))
-            return pDB.getProductFromBD(intId);
+            return moProductDB.getProductFromBD(intId);
         return null;
     }
 
@@ -55,10 +51,10 @@ public class ProductService {
     }
 
     public List<Product> getProducts() {
-        return this.pDB.getProducts();
+        return this.moProductDB.getProducts();
     }
 
     public List<Product> getAvailableProducts(int intPharmacyId) {
-        return this.pDB.getAvailableProducts(intPharmacyId);
+        return this.moProductDB.getAvailableProducts(intPharmacyId);
     }
 }

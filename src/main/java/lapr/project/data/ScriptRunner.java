@@ -40,7 +40,7 @@ public class ScriptRunner {
      * ignores spaces, allows delimiter in comment, allows an equals-sign
      */
     public static final Pattern delimP = Pattern.compile("^\\s*(--)?\\s*delimiter\\s*=?\\s*([^\\s]+)+\\s*.*$", Pattern.CASE_INSENSITIVE);
-    private static final String DEFAULT_DELIMITER = ";";
+    private static final String DEFAULTDELIMITER = ";";
     private final Connection connection;
 
     private final boolean stopOnError;
@@ -51,7 +51,7 @@ public class ScriptRunner {
     @SuppressWarnings("UseOfSystemOutOrSystemErr")
     private PrintWriter errorLogWriter = null;
 
-    private String delimiter = DEFAULT_DELIMITER;
+    private String delimiter = DEFAULTDELIMITER;
     private boolean fullLineDelimiter = false;
 
     /**

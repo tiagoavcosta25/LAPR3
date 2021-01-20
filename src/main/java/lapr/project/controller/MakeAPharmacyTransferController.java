@@ -8,29 +8,29 @@ public class MakeAPharmacyTransferController {
     /**
      * Pharmacy Management class
      */
-    private PharmacyService m_oPharmacyService;
+    private PharmacyService moPharmacyService;
 
     /**
      * Pharmacy Management class
      */
-    private PharmacyTransferService m_oPharmacyTransferService;
+    private PharmacyTransferService moPharmacyTransferService;
 
     /**
      * Pharmacy
      */
-    private Pharmacy m_oPharmacy;
+    private Pharmacy moPharmacy;
 
     /**
      * Order
      */
-    private PharmacyTransfer m_oPharmacyTransfer;
+    private PharmacyTransfer moPharmacyTransfer;
 
     /**
      * An empty constructor of MakeAnOrderController that initiates the platform variable by getting it from the ApplicationPOT.
      */
     public MakeAPharmacyTransferController() {
-        this.m_oPharmacyService = new PharmacyService();
-        this.m_oPharmacyTransferService = new PharmacyTransferService();
+        this.moPharmacyService = new PharmacyService();
+        this.moPharmacyTransferService = new PharmacyTransferService();
     }
 
     /**
@@ -38,9 +38,9 @@ public class MakeAPharmacyTransferController {
      */
     public boolean getStockFromAnotherPharamacy(Order oOrder, Product oProduct, Integer intQuantity) {
         try {
-            this.m_oPharmacy = m_oPharmacyService.getClosestPharmacyWithStock(oOrder, oProduct, intQuantity);
-            this.m_oPharmacyTransfer = m_oPharmacyTransferService.newPharmacyTransfer(oOrder, oProduct, intQuantity, this.m_oPharmacy);
-            return this.m_oPharmacyTransferService.registerPharmacyTransfer(this.m_oPharmacyTransfer);
+            this.moPharmacy = moPharmacyService.getClosestPharmacyWithStock(oOrder, oProduct, intQuantity);
+            this.moPharmacyTransfer = moPharmacyTransferService.newPharmacyTransfer(oOrder, oProduct, intQuantity, this.moPharmacy);
+            return this.moPharmacyTransferService.registerPharmacyTransfer(this.moPharmacyTransfer);
         } catch (Exception ex) {
             return false;
         }

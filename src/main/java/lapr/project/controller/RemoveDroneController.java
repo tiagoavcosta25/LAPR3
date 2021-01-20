@@ -11,27 +11,27 @@ public class RemoveDroneController {
     /**
      * Pharmacy Management class
      */
-    private PharmacyService m_oPharmacyService;
+    private PharmacyService moPharmacyService;
 
     /**
      * Scooter Management class
      */
-    private DroneService m_oDroneService;
+    private DroneService moDroneService;
 
 
     /**
      * An empty constructor of RegisterDroneController.
      */
     public RemoveDroneController() {
-        this.m_oPharmacyService = new PharmacyService();
-        this.m_oDroneService = new DroneService();
+        this.moPharmacyService = new PharmacyService();
+        this.moDroneService = new DroneService();
     }
 
     /**
      * The method returns the list of pharmacies.
      */
     public List<Pharmacy> showPharmacies() {
-        return this.m_oPharmacyService.getPharmacies();
+        return this.moPharmacyService.getPharmacies();
     }
 
     /**
@@ -39,7 +39,7 @@ public class RemoveDroneController {
      */
     public List<Drone> showDronesList(int intPharmacyId) {
         try {
-            return m_oDroneService.getDronesList(intPharmacyId);
+            return moDroneService.getDronesList(intPharmacyId);
         } catch (Exception ex) {
             return null;
         }
@@ -49,7 +49,7 @@ public class RemoveDroneController {
      * The method removes a scooter from the database.
      */
     public boolean removeDrone(int intDroneId){
-        return m_oDroneService.removeDroneFromDB(intDroneId);
+        return moDroneService.removeDroneFromDB(intDroneId);
     }
 
 }

@@ -2,7 +2,6 @@ package lapr.project.controller;
 
 import lapr.project.model.Pharmacy;
 import lapr.project.model.Scooter;
-import lapr.project.model.Vehicle;
 import lapr.project.model.VehicleModel;
 import lapr.project.model.service.PharmacyService;
 import lapr.project.model.service.ScooterService;
@@ -14,24 +13,24 @@ public class RegisterScooterController {
     /**
      * Scooter class instance
      */
-    private Scooter m_oScooter;
+    private Scooter moScooter;
 
     /**
      * Pharmacy Management class
      */
-    private PharmacyService m_oPharmacyService;
+    private PharmacyService moPharmacyService;
 
     /**
      * Scooter Management class
      */
-    private ScooterService m_oScooterService;
+    private ScooterService moScooterService;
 
     /**
      * An empty constructor of RegisterScooterController that initiates the platform variable by getting it from the ApplicationPOT.
      */
     public RegisterScooterController() {
-        this.m_oPharmacyService = new PharmacyService();
-        this.m_oScooterService = new ScooterService();
+        this.moPharmacyService = new PharmacyService();
+        this.moScooterService = new ScooterService();
     }
 
     /**
@@ -44,11 +43,11 @@ public class RegisterScooterController {
      */
     public boolean newScooter(VehicleModel oVehicleModel, Pharmacy oPharmacy) {
         try {
-            this.m_oScooter = m_oScooterService.newScooter(oVehicleModel, oPharmacy);
+            this.moScooter = moScooterService.newScooter(oVehicleModel, oPharmacy);
             return true;
         }
         catch(Exception ex) {
-            this.m_oScooter = null;
+            this.moScooter = null;
         }
         return false;
     }
@@ -57,20 +56,20 @@ public class RegisterScooterController {
      * The method registers an order to the database.
      */
     public boolean registersScooter() {
-       return this.m_oScooterService.registerScooter(m_oScooter);
+       return this.moScooterService.registerScooter(moScooter);
     }
 
     /**
      * The method returns the list of pharmacies.
      */
     public List<Pharmacy> showPharmacies() {
-        return this.m_oPharmacyService.getPharmacies();
+        return this.moPharmacyService.getPharmacies();
     }
 
     /**
      * The method sets the scooter.
      */
     public void setScooter(Scooter oScooter) {
-         this.m_oScooter = oScooter;
+         this.moScooter = oScooter;
     }
 }

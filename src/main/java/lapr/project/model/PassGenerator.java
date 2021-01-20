@@ -2,8 +2,6 @@ package lapr.project.model;
 
 import lapr.project.GeneratePassword;
 
-import java.io.Serializable;
-
 /**
  * Password Generator Method.
  *
@@ -20,7 +18,7 @@ public class PassGenerator implements GeneratePassword {
     /**
      * Password Length.
      */
-    private static final int PASSWORD_LENGTH = 7;
+    private static final int PASSWORDLENGTH = 7;
 
     /**
      * An empty constructor of PassGenerator that initiates/creates the Password.
@@ -38,9 +36,9 @@ public class PassGenerator implements GeneratePassword {
                 + "0123456789"
                 + "abcdefghijklmnopqrstuvxyz";
 
-        StringBuilder sb = new StringBuilder(PASSWORD_LENGTH);
+        StringBuilder sb = new StringBuilder(PASSWORDLENGTH);
 
-        for (int i = 0; i < PASSWORD_LENGTH; i++) {
+        for (int i = 0; i < PASSWORDLENGTH; i++) {
 
             int c = (int)(str.length() * Math.random());
 

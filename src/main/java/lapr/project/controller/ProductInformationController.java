@@ -11,16 +11,16 @@ public class ProductInformationController {
 
     private static final Logger LOGGER = Logger.getLogger(ProductInformationController.class.getName());
 
-    private ProductService pServ;
+    private ProductService moServ;
 
     public ProductInformationController() {
-        this.pServ = new ProductService();
+        this.moServ = new ProductService();
     }
 
     public Product getProduct(int intId) {
         try {
             if(ApplicationPOT.getInstance().getCurrentSession().getRole().equals(UserSession.Role.ADMIN))
-                return pServ.getProduct(intId);
+                return moServ.getProduct(intId);
         } catch (Exception e) {
             LOGGER.log(Level.WARNING, "User not logged in!");
         }

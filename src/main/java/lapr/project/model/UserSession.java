@@ -1,19 +1,18 @@
 package lapr.project.model;
 
 import lapr.project.controller.ApplicationPOT;
-import lapr.project.model.User;
 
 public class UserSession {
 
     /**
      * The Current User's email
      */
-    private String m_currentUserEmail;
+    private String mstrCurrentUserEmail;
 
     /**
      * The Current User's role
      */
-    private Role m_role;
+    private Role moRole;
 
 
     public enum Role {
@@ -21,14 +20,14 @@ public class UserSession {
         COURIER("Courier"),
         CLIENT("Client");
 
-        private final String label;
+        private final String mstrLabel;
 
         private Role(String label) {
-            this.label = label;
+            this.mstrLabel = label;
         }
 
         public String getRole() {
-            return this.label;
+            return this.mstrLabel;
         }
 
     }
@@ -38,8 +37,8 @@ public class UserSession {
      * which initializes a null session
      */
     public UserSession() {
-        this.m_currentUserEmail = null;
-        this.m_role = null;
+        this.mstrCurrentUserEmail = null;
+        this.moRole = null;
         ApplicationPOT.getInstance().clearCurrentSession();
     }
 
@@ -50,8 +49,8 @@ public class UserSession {
      * @param email the User's email that is currently logged in
      */
     public UserSession(String email) {
-        this.m_currentUserEmail = email;
-        this.m_role = null;
+        this.mstrCurrentUserEmail = email;
+        this.moRole = null;
         ApplicationPOT.getInstance().setCurrentSession(this);
     }
 
@@ -63,19 +62,19 @@ public class UserSession {
      * @param role  the User's role that is currently logged in
      */
     public UserSession(String email, Integer role) {
-        this.m_currentUserEmail = email;
+        this.mstrCurrentUserEmail = email;
         switch (role) {
             case 1:
-                this.m_role = Role.CLIENT;
+                this.moRole = Role.CLIENT;
                 break;
             case 2:
-                this.m_role = Role.ADMIN;
+                this.moRole = Role.ADMIN;
                 break;
             case 3:
-                this.m_role = Role.COURIER;
+                this.moRole = Role.COURIER;
                 break;
             default:
-                this.m_role = null;
+                this.moRole = null;
         }
         ApplicationPOT.getInstance().setCurrentSession(this);
     }
@@ -86,15 +85,15 @@ public class UserSession {
      * @return User's email.
      */
     public String getCurrentUserEmail() {
-        return m_currentUserEmail;
+        return mstrCurrentUserEmail;
     }
 
     public Role getRole() {
-        return m_role;
+        return moRole;
     }
 
     public void setRole(Role m_role) {
-        this.m_role = m_role;
+        this.moRole = m_role;
     }
 
 }

@@ -1,9 +1,6 @@
 package lapr.project.controller;
 
 import lapr.project.model.*;
-import lapr.project.data.DeliveryDB;
-import lapr.project.data.ScooterDB;
-import lapr.project.model.service.ScooterService;
 import lapr.project.model.service.VehicleService;
 
 import java.util.ArrayList;
@@ -23,21 +20,21 @@ public class SeeSuitableVehicleController {
     /**
      * Courier Management class
      */
-    private VehicleService oVehicleService;
+    private VehicleService moVehicleService;
 
     /**
      * An empty constructor of RegisterCourierController that initiates the platform variable by getting it from the ApplicationPOT.
      */
     public SeeSuitableVehicleController() {
-        oVehicleService = new VehicleService();
+        moVehicleService = new VehicleService();
     }
 
     public Vehicle getSuitableVehicle(Double distanceScooter, Double distanceDrone) {
-        return oVehicleService.getSuitableVehicle(distanceScooter, distanceDrone, ApplicationPOT.getInstance().getCurrentSession().getCurrentUserEmail());
+        return moVehicleService.getSuitableVehicle(distanceScooter, distanceDrone, ApplicationPOT.getInstance().getCurrentSession().getCurrentUserEmail());
     }
 
     public ArrayList<VehicleModel> getPharmacyModel(String strPharmacyEmail){
-        return oVehicleService.getPharamcyModel(strPharmacyEmail);
+        return moVehicleService.getPharamcyModel(strPharmacyEmail);
     }
 
 }
