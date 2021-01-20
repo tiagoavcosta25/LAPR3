@@ -1,6 +1,6 @@
 package lapr.project.model;
 
-import javafx.util.Pair;
+/*import javafx.util.Pair;
 import lapr.project.data.DeliveryRunDB;
 import lapr.project.graph.map.Edge;
 import lapr.project.graph.map.Graph;
@@ -24,9 +24,7 @@ public class WorldMap {
         return moGraph;
     }
 
-    /**
-     * CREATE GRAPH
-     */
+
     public void createGraph() {
         createGraph(moDeliveryRunDB.getAllAddresses(), moDeliveryRunDB.getAllPaths());
     }
@@ -81,9 +79,7 @@ public class WorldMap {
         return null;
     }
 
-    /**
-     * CALCULATE PATH COST
-     */
+
 
 
     public void checkIfPathIsPossible(Pair<LinkedList<Address>, Double> pathAndCost) {
@@ -135,9 +131,7 @@ public class WorldMap {
 
 
 
-    /**
-     * CALCULATE MOST EFFICIENT PATH/SHORTEST PATH
-     */
+
      public LinkedList<Address> calculateMostEfficientPath(Address startAddress, Address endAddress, List<Address> deliveryPoints) {
          //Pass the weight of each edge of the graph to the enery cost
          for(Edge<Address, Path> e : this.moGraph.edges()) {
@@ -209,4 +203,4 @@ public class WorldMap {
     }
 
 
-}
+}*/
