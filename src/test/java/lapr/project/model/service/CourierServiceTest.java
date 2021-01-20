@@ -65,10 +65,15 @@ class CourierServiceTest {
     }
 
     @Test
-    void updateCourier() {
+    void updateCourier() throws NoSuchAlgorithmException {
         Courier c = courierService.updateCourier(new Courier(),"123","email@gmail.com",123456789,
                 "PT98003506514853185258910",new Pharmacy());
         assertNotEquals(c,new Courier());
+
+        Courier c1 = new Courier("123","email@gmail.com","123",123456789,"PT98003506514853185258910",new Pharmacy());
+        c = courierService.updateCourier(new Courier(),"123","email@gmail.com",123456789,
+                "PT98003506514853185258910",new Pharmacy());
+        assertEquals(c1,c);
 
     }
 
