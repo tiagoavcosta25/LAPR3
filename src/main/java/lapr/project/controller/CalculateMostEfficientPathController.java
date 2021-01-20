@@ -18,6 +18,8 @@ public class CalculateMostEfficientPathController {
         this.oDeliveryRunService = new DeliveryRunService();
     }
 
+    //TODO: Verificar mais tarde
+    /*
     public double getShortestPath() {
         this.m_oUserSession = ApplicationPOT.getInstance().getCurrentSession();
         String email = this.m_oUserSession.getCurrentUserEmail();
@@ -33,6 +35,7 @@ public class CalculateMostEfficientPathController {
         }
         return -1;
     }
+     */
 
 
 }

@@ -1,18 +1,18 @@
 package lapr.project.model;
 
 import javafx.util.Pair;
-import lapr.project.data.DeliveryDB;
 import lapr.project.data.DeliveryRunDB;
 import lapr.project.graph.map.Edge;
 import lapr.project.graph.map.Graph;
 import lapr.project.graph.map.GraphAlgorithms;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
+import lapr.project.utils.Constants;
+import lapr.project.utils.EnergyCalculator;
+
+import java.util.*;
 
 public class WorldMap {
 
-    private Graph<Address, String> m_graph;
+    private Graph<Address, Path> m_graph;
     private DeliveryRunDB m_deliveryRunDB;
 
     public WorldMap() {
@@ -20,7 +20,7 @@ public class WorldMap {
         m_deliveryRunDB = new DeliveryRunDB();
     }
 
-    public Graph<Address, String> getGraph() {
+    public Graph<Address, Path> getGraph() {
         return m_graph;
     }
 
@@ -43,7 +43,7 @@ public class WorldMap {
 
             if (pathAdd != null) {
                 dist = pathAdd.getKey().distanceTo(pathAdd.getValue());
-                m_graph.insertEdge(pathAdd.getKey(), pathAdd.getValue(), "Distance", dist);
+                m_graph.insertEdge(pathAdd.getKey(), pathAdd.getValue(), p, dist);
             }
         }
     }
@@ -64,28 +64,99 @@ public class WorldMap {
         return null;
     }
 
+    public LinkedList<Path> getListOfPaths() {
+        LinkedList<Path> paths = new LinkedList<>();
+        for(Edge<Address, Path> edge : this.m_graph.edges())
+            paths.add(edge.getElement());
+        return paths;
+    }
+
+    public Path getPathFromAddresses(Address addA, Address addB) {
+        LinkedList<Path> paths = getListOfPaths();
+        for(Path path : paths) {
+            if(path.getLatitudeA() == addA.getLatitude() && path.getLongitudeA() == addA.getLongitude() &&
+                    path.getLatitudeB() == addB.getLatitude() && path.getLongitudeB() == addB.getLongitude())
+                return path;
+        }
+        return null;
+    }
+
+    /**
+     * CALCULATE PATH COST
+     */
+
+
+    public void checkIfPathIsPossible(Pair<LinkedList<Address>, Double> pathAndCost) {
+        //Calcular gasto energético para todos os modelos
+        //Ordenar do melhor para o pior
+        //Verificar se é possivel com 100% bateria máximo
+        //Por ordem, se algum for, escolher esse
+        //Se para todos for mais de 100%, continuar
+        //Por modelo, retirar das permutações, uma lista de caminhos que passasse por farmácias a meio
+        //Verificar pela lista de cada modelo, qual era o melhor caminho possível (Sempre que chegar a uma farmacia, recarregar até 100% bateria)
+        //Comparar resultados entre modelos
+        //Escolher modelo vencedor e enviar veículo com mais bateria
+    }
+
+
+
+    public Pair<LinkedList<Address>, Double> calculatePathCost(LinkedList<Address> allAddresses, List<Address> deliveryPoints,
+                                                               List<Order> orderList) {
+
+        double energyCost = 0;
+        double totalMass = Constants.SCOOTER_TOTAL_WEIGHT + Constants.DEFAULT_COURIER_WEIGHT;
+
+        Map<Address, Float> orderWeightMap = new HashMap<>();
+        for(Order order : orderList) {
+            orderWeightMap.put(order.getClient().getAddress(), order.getTotalWeight());
+            totalMass += order.getTotalWeight();
+        }
+
+        for(int i = 0; i < allAddresses.size() - 1; i++) {
+            Path path = getPathFromAddresses(allAddresses.get(i), allAddresses.get(i + 1));
+            double distanceUsingCoordinates = allAddresses.get(i).distanceTo(allAddresses.get(i + 1));
+            double localHeightDifference = allAddresses.get(i).getAltitude() - allAddresses.get(i + 1).getAltitude();
+            double winDegree = path.getWindAngle();
+            double winSpeed = path.getWindSpeed();
+            double kineticFrictionCoefficient = path.getKineticFrictionCoefficient();
+            if(orderWeightMap.containsKey(allAddresses.get(i))) {
+                totalMass -= orderWeightMap.get(allAddresses.get(i));
+            }
+
+            energyCost += EnergyCalculator.calculoEnergia(distanceUsingCoordinates, winDegree, winSpeed, localHeightDifference,
+                    totalMass, kineticFrictionCoefficient);
+        }
+        return new Pair<>(allAddresses, energyCost);
+    }
+
+
+
     /**
      * CALCULATE MOST EFFICIENT PATH/SHORTEST PATH
      */
-     public Pair<LinkedList<Address>, Double> calculateMostEfficientPath(Address startAddress, Address endAddress, List<Address> deliveryPoints) {
+     public LinkedList<Address> calculateMostEfficientPath(Address startAddress, Address endAddress, List<Address> deliveryPoints) {
          //Pass the weight of each edge of the graph to the enery cost
-         //Graph<Address,String> clone = this.map.clone();
-         /*
-         for(Edge<Address, String> e : this.m_graph.edges()) {
-                energia = fisica.calcularenergia(parametros)
+         for(Edge<Address, Path> e : this.m_graph.edges()) {
+             double distanceUsingCoordinates = e.getVOrig().distanceTo(e.getVDest());
+             double localHeightDifference = e.getVOrig().getAltitude() - e.getVDest().getAltitude();
+             double totalMass = 1;
+
+             double energia = EnergyCalculator.calculoEnergia(distanceUsingCoordinates, e.getElement().getWindAngle(),
+                     e.getElement().getWindSpeed(), localHeightDifference, totalMass,
+                     e.getElement().getKineticFrictionCoefficient());
                 e.setWeight(energia);
-          }*/
+         }
 
          List<LinkedList<Address>> permutations = calculatePermutations(deliveryPoints);
-        List<Pair<LinkedList<Address>, Double>> lst = calculatePermutationPaths(startAddress, endAddress, permutations);
+         List<Pair<LinkedList<Address>, Double>> lst = calculatePermutationPaths(startAddress, endAddress, permutations);
 
-        Double minimumWeight = Double.MAX_VALUE;
-        Pair<LinkedList<Address>, Double> result = new Pair<LinkedList<Address>, Double>(null, 0d);
+         Double minimumWeight = Double.MAX_VALUE;
+         LinkedList<Address> result = new LinkedList<>();
 
         for (Pair<LinkedList<Address>, Double> pair : lst) {
             if (pair.getValue() < minimumWeight) {
                 minimumWeight = pair.getValue();
-                result = pair;
+                result = pair.getKey();
             }
         }
         return result;

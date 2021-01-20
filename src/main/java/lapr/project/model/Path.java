@@ -13,6 +13,17 @@ public class Path {
     private double m_dblWindAngle;
     private double m_dblKineticFrictionCoefficient;
 
+    public Path() {
+        this.m_dblLatitudeA = 0;
+        this.m_dblLongitudeA = 0;
+        this.m_dblLatitudeB = 0;
+        this.m_dblLongitudeB = 0;
+        this.m_strName = "No name";
+        this.m_dblWindSpeed = -1;
+        this.m_dblWindAngle = -1;
+        this.m_dblKineticFrictionCoefficient = -1;
+    }
+
     public Path(double dblLatitudeA, double dblLongitudeA, double dblLatitudeB, double dblLongitudeB,
                 String strName, double dblWindSpeed, double dblWindAngle, double dblKineticFrictionCoefficient) {
         this.m_dblLatitudeA = dblLatitudeA;

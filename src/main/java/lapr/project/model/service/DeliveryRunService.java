@@ -38,7 +38,8 @@ public class DeliveryRunService {
         return m_oDeliveryRunDB.getAddressesByDeliveryRunId(email);
     }
 
-    public Pair<LinkedList<Address>, Double> calculateMostEfficientPath(Address a, Address b, List<Address> list) {
+    //TODO: Verificar mais tarde
+    public LinkedList<Address> calculateMostEfficientPath(Address a, Address b, List<Address> list) {
         return ApplicationPOT.getInstance().getWorldMap().calculateMostEfficientPath(a, b, list);
     }
 
