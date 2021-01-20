@@ -1,5 +1,5 @@
 package lapr.project.utils;
-
+/*
 import lapr.project.controller.RegisterClientController;
 import lapr.project.controller.RegisterPathController;
 import lapr.project.controller.RegisterPharmacyController;
@@ -103,4 +103,4 @@ public class FileReader {
     }
 
 
-}
+}*/
