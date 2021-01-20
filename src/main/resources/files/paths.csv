@@ -1,0 +1,20 @@
+#lines starting with # should be ignored
+#Column description
+#LATITUDE regarding the first address
+#LONGITUDE regarding the first address
+#LATITUDE regarding the second address
+#LONGITUDE regarding the second address
+#NAME regarding the path
+#WINDSPEED
+#WINDANGLE
+#KINETIC_FRICTION_COEFFICIENT
+#latitudeA;longitudeA;latitudeB;longitudeB;name;windSpeed;windAngle;kineticFrictionCoefficient
+#
+41.15227;-8.60929;41.14582;-8.61398;Trindade - Clerigos;1;0;1
+41.14582;-8.61398;41.15227;-8.60929;Clerigos - Trindade;1;0;1
+41.14582;-8.61398;41.14871;-8.60746;Clerigos - Bolhao;1;0;1
+41.14871;-8.60746;41.14582;-8.61398;Bolhao - Clerigos;1;0;1
+41.14582;-8.61398;41.14723;-8.60657;Clerigos - Majestic;1;0;1
+41.14871;-8.60746;41.14063;-8.61118;Bolhao - Cais da Ribeira;1;0;1
+41.14063;-8.61118;41.14871;-8.60746;Cais da Ribeira - Bolhao;1;0;1
+41.14063;-8.61118;41.14723;-8.60657;Cais da Ribeira - Majestic;1;0;1

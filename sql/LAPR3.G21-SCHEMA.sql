@@ -30,11 +30,11 @@ DROP TABLE VehicleType CASCADE CONSTRAINTS;
 DROP TABLE VehicleModel CASCADE CONSTRAINTS;
 
 
-CREATE TABLE Address (id number(10) GENERATED AS IDENTITY, latitude double precision NOT NULL, longitude double precision NOT NULL, altitude double precision NOT NULL, doorNumber varchar2(40) NOT NULL, streetName varchar2(100) NOT NULL, postalCode varchar2(8) NOT NULL, locality varchar2(70) NOT NULL, country varchar2(50) NOT NULL, PRIMARY KEY (id));
+CREATE TABLE Address (latitude double precision NOT NULL, longitude double precision NOT NULL, altitude double precision NOT NULL, doorNumber varchar2(40) NOT NULL, streetName varchar2(100) NOT NULL, postalCode varchar2(8) NOT NULL, locality varchar2(70) NOT NULL, country varchar2(50) NOT NULL, PRIMARY KEY (latitude, longitude));
 CREATE TABLE Administrator (userId number(10) NOT NULL, PRIMARY KEY (userId));
 CREATE TABLE Battery (id number(10) GENERATED AS IDENTITY, batteryCapacity number(10) NOT NULL, batteryVoltage double precision NOT NULL, efficiency double precision NOT NULL, PRIMARY KEY (id));
 CREATE TABLE ChargingSlot (parkingSlotId number(10) NOT NULL, PRIMARY KEY (parkingSlotId));
-CREATE TABLE Client (userId number(10) NOT NULL, credits number(6) DEFAULT 0 NOT NULL, addressId number(10) NOT NULL, PRIMARY KEY (userId));
+CREATE TABLE Client (userId number(10) NOT NULL, credits number(6) DEFAULT 0 NOT NULL, addressLatitude double precision NOT NULL, addressLongitude double precision NOT NULL, PRIMARY KEY (userId));
 CREATE TABLE Courier (userId number(10) NOT NULL, iban varchar2(34) NOT NULL UNIQUE, pharmacyId number(10) NOT NULL, PRIMARY KEY (userId));
 CREATE TABLE CreditCard (creditCardNr number(16), validityDate date NOT NULL, ccv number(3) NOT NULL, PRIMARY KEY (creditCardNr));
 CREATE TABLE CreditCardClient (creditCardNr number(16) NOT NULL, clientId number(10) NOT NULL, PRIMARY KEY (creditCardNr, clientId));
@@ -49,9 +49,9 @@ CREATE TABLE OrderProduct (productId number(10) NOT NULL, orderId number(10) NOT
 CREATE TABLE OrderStatus (designation varchar2(20) DEFAULT 'ordered' NOT NULL, PRIMARY KEY (designation));
 CREATE TABLE Park (id number(10) GENERATED AS IDENTITY, pharmacyId number(10) NOT NULL, vehicleType varchar2(20) NOT NULL, maxSlotsNumber number(3) NOT NULL, totalOutputCurrent double precision NOT NULL, PRIMARY KEY (id));
 CREATE TABLE ParkingSlot (id number(10) GENERATED AS IDENTITY, parkId number(10) NOT NULL, vehicleId number(10) UNIQUE, PRIMARY KEY (id));
-CREATE TABLE Path (addressIdA number(10) NOT NULL, addressIdB number(10) NOT NULL, name varchar2(255) NOT NULL, windSpeed double precision NOT NULL, windAngle double precision NOT NULL, kineticFrictionCoefficient double precision NOT NULL, PRIMARY KEY (addressIdA, addressIdB));
+CREATE TABLE Path (latitudeA double precision NOT NULL, longitudeA double precision NOT NULL, latitudeB double precision NOT NULL, longitudeB double precision NOT NULL, name varchar2(255) NOT NULL, windSpeed double precision NOT NULL, windAngle double precision NOT NULL, kineticFrictionCoefficient double precision NOT NULL, PRIMARY KEY (latitudeA, longitudeA, latitudeB, longitudeB));
 CREATE TABLE Payment (creditCardNr number(16) NOT NULL, invoiceId number(10) NOT NULL, value double precision NOT NULL, PRIMARY KEY (creditCardNr, invoiceId));
-CREATE TABLE Pharmacy (id number(10) GENERATED AS IDENTITY, name varchar2(70) NOT NULL, email varchar2(320) NOT NULL UNIQUE, addressId number(10) NOT NULL, PRIMARY KEY (id));
+CREATE TABLE Pharmacy (id number(10) GENERATED AS IDENTITY, name varchar2(70) NOT NULL, email varchar2(320) NOT NULL UNIQUE, addressLatitude double precision NOT NULL, addressLongitude double precision NOT NULL, PRIMARY KEY (id));
 CREATE TABLE PharmacyProduct (pharmacyId number(10) NOT NULL, productId number(10) NOT NULL, stock number(10) DEFAULT 0 NOT NULL, PRIMARY KEY (pharmacyId, productId));
 CREATE TABLE PharmacyTransfer (id number(10) GENERATED AS IDENTITY, transferDate date NOT NULL, quantity number(5) NOT NULL, nearbyPharmacyId number(10) NOT NULL, productId number(10) NOT NULL, orderId number(10) NOT NULL, PRIMARY KEY (id));
 CREATE TABLE Product (id number(10) GENERATED AS IDENTITY, name varchar2(70) NOT NULL UNIQUE, description varchar2(255), unitaryPrice double precision NOT NULL, unitaryWeight double precision NOT NULL, PRIMARY KEY (id));
@@ -62,11 +62,11 @@ CREATE TABLE VehicleModel (id number(10) GENERATED AS IDENTITY, designation varc
 CREATE TABLE VehicleType (designation varchar2(20) NOT NULL, PRIMARY KEY (designation));
 ALTER TABLE Courier ADD CONSTRAINT FKCourier212758 FOREIGN KEY (userId) REFERENCES "User" (id);
 ALTER TABLE Client ADD CONSTRAINT FKClient741658 FOREIGN KEY (userId) REFERENCES "User" (id);
-ALTER TABLE Client ADD CONSTRAINT FKClient338409 FOREIGN KEY (addressId) REFERENCES Address (id);
+ALTER TABLE Client ADD CONSTRAINT FKClient292617 FOREIGN KEY (addressLatitude, addressLongitude) REFERENCES Address (latitude, longitude);
 ALTER TABLE "Order" ADD CONSTRAINT FKOrder16232 FOREIGN KEY (clientId) REFERENCES Client (userId);
 ALTER TABLE Administrator ADD CONSTRAINT FKAdministra650549 FOREIGN KEY (userId) REFERENCES "User" (id);
 ALTER TABLE InvoiceLine ADD CONSTRAINT FKInvoiceLin942482 FOREIGN KEY (invoiceId) REFERENCES Invoice (id);
-ALTER TABLE Pharmacy ADD CONSTRAINT FKPharmacy831467 FOREIGN KEY (addressId) REFERENCES Address (id);
+ALTER TABLE Pharmacy ADD CONSTRAINT FKPharmacy799558 FOREIGN KEY (addressLatitude, addressLongitude) REFERENCES Address (latitude, longitude);
 ALTER TABLE PharmacyProduct ADD CONSTRAINT FKPharmacyPr239106 FOREIGN KEY (pharmacyId) REFERENCES Pharmacy (id);
 ALTER TABLE PharmacyProduct ADD CONSTRAINT FKPharmacyPr488377 FOREIGN KEY (productId) REFERENCES Product (id);
 ALTER TABLE ParkingSlot ADD CONSTRAINT FKParkingSlo816981 FOREIGN KEY (parkId) REFERENCES Park (id);
@@ -83,8 +83,8 @@ ALTER TABLE DeliveryRun ADD CONSTRAINT FKDeliveryRu899164 FOREIGN KEY (deliveryS
 ALTER TABLE "Order" ADD CONSTRAINT FKOrder414266 FOREIGN KEY (orderStatus) REFERENCES OrderStatus (designation);
 ALTER TABLE "Order" ADD CONSTRAINT FKOrder50057 FOREIGN KEY (pharmacyId) REFERENCES Pharmacy (id);
 ALTER TABLE Courier ADD CONSTRAINT FKCourier219859 FOREIGN KEY (pharmacyId) REFERENCES Pharmacy (id);
-ALTER TABLE Path ADD CONSTRAINT FKPath480618 FOREIGN KEY (addressIdA) REFERENCES Address (id);
-ALTER TABLE Path ADD CONSTRAINT FKPath480619 FOREIGN KEY (addressIdB) REFERENCES Address (id);
+ALTER TABLE Path ADD CONSTRAINT FKPath517812 FOREIGN KEY (latitudeA, longitudeA) REFERENCES Address (latitude, longitude);
+ALTER TABLE Path ADD CONSTRAINT FKPath517814 FOREIGN KEY (latitudeB, longitudeB) REFERENCES Address (latitude, longitude);
 ALTER TABLE PharmacyTransfer ADD CONSTRAINT FKPharmacyTr532715 FOREIGN KEY (productId) REFERENCES Product (id);
 ALTER TABLE PharmacyTransfer ADD CONSTRAINT FKPharmacyTr526031 FOREIGN KEY (orderId) REFERENCES "Order" (id);
 ALTER TABLE PharmacyTransfer ADD CONSTRAINT FKPharmacyTr333233 FOREIGN KEY (nearbyPharmacyId) REFERENCES Pharmacy (id);
