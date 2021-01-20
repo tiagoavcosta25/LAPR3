@@ -98,6 +98,10 @@ public class WorldMap {
         //Escolher modelo vencedor e enviar veículo com mais bateria
     }
 
+    public void test(Pair<LinkedList<Address>, Double> lstPath) {
+
+    }
+
 
 
     public Pair<LinkedList<Address>, Double> calculatePathCost(LinkedList<Address> allAddresses, List<Address> deliveryPoints,

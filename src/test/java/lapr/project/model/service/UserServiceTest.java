@@ -47,6 +47,5 @@ class UserServiceTest {
     @Test
     void newUserSession() {
         assertTrue(m_service.newUserSession());
-
     }
 }
