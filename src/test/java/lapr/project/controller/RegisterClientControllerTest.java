@@ -16,7 +16,6 @@ import java.util.Date;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
 
@@ -53,7 +52,7 @@ class RegisterClientControllerTest {
         when (m_mockClientService.registerNewClient(new Client("as",123456789,"aas@","1234567",123d,12355d,10d,"asd"
                 ,"as","4433-112","loc","country",new ArrayList<>()))).thenReturn(true);
         boolean real = m_ctrl.registerNewClient("as",123456789,"aas@","1234567",123d,12355d,10d,"asd"
-        ,"as","4433-112","loc","country",new ArrayList<>());
+                ,"as","4433-112","loc","country",new ArrayList<>());
         assertTrue(real);
 
         real = m_ctrl.registerNewClient("as",123456789,"aas@","1234567",123d,12355d,10d,"asd"
@@ -81,10 +80,16 @@ class RegisterClientControllerTest {
 
         assertFalse(real);
 
-        when(m_mockClientService.registerNewClient(new Client("as",123456789,"aas@","1234567",123d,12355d,10d,"asd"
-                ,"as","4433-112","loc","country",lst))).thenThrow(new NullPointerException());
-        real = m_ctrl.registerNewClient("as",123456789,"aas@","1234567",123d,12355d,10d,"asd"
-                ,"as","4433-112","loc","country",lst);
+        when (m_mockClientService.newClient("as",123456789,"ass@","1234567",123d,12355d,10d,"asd"
+                ,"as","4433-112","loc","country",new ArrayList<>())).thenReturn(new Client("as",123456789,"ass@","1234567",123d,12355d,10d,"asd"
+                ,"as","4433-112","loc","country",new ArrayList<>()));
+        when (m_mockClientService.validateInput("as",123456789,"ass@","1234567",123d,12355d,10d,"asd"
+                ,"as","4433-112","loc","country",new ArrayList<>())).thenThrow(new NullPointerException());
+        when (m_mockClientService.registerNewClient(new Client("as",123456789,"ass@","1234567",123d,12355d,10d,"asd"
+                ,"as","4433-112","loc","country",new ArrayList<>()))).thenReturn(true);
+
+        real = m_ctrl.registerNewClient("as",123456789,"ass@","1234567",123d,12355d,10d,"asd"
+                ,"as","4433-112","loc","country",new ArrayList<>());
         assertFalse(real);
     }
 
