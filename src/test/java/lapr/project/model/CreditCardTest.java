@@ -117,4 +117,16 @@ class CreditCardTest {
         assertFalse(oCreditCard.hasNumber(2L));
     }
 
+    @Test
+    void compareTo() {
+        CreditCard c1 = new CreditCard(9999999999999L,new Date(),123);
+        CreditCard c2 = new CreditCard(111111111111L,new Date(),123);
+
+        assertEquals(1,c1.compareTo(c2));
+
+        assertEquals(-1,c2.compareTo(c1));
+
+        assertEquals(0,c1.compareTo(c1));
+
+    }
 }
