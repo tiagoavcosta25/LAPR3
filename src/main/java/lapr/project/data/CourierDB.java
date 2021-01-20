@@ -117,47 +117,6 @@ public class CourierDB extends DataHandler {
 
     }
 
-    public Address getDeliveryAddress(String email) {
-        /* Objeto "callStmt" para invocar a função "getSailor" armazenada na BD.
-         *
-         * FUNCTION getSailor(id NUMBER) RETURN pkgSailors.ref_cursor
-         * PACKAGE pkgSailors AS TYPE ref_cursor IS REF CURSOR; END pkgSailors;
-         */
-        CallableStatement callStmt = null;
-        try {
-            openConnection();
-            callStmt = getConnection().prepareCall("{ ? = call getDeliveryAddress(?) }");
-
-            // Regista o tipo de dados SQL para interpretar o resultado obtido.
-            callStmt.registerOutParameter(1, OracleTypes.CURSOR);
-            // Especifica o parâmetro de entrada da função "getSailor".
-            callStmt.setString(1, email);
-
-            // Executa a invocação da função "getSailor".
-            callStmt.execute();
-
-            // Guarda o cursor retornado num objeto "ResultSet".
-            ResultSet rSet = (ResultSet) callStmt.getObject(1);
-
-            if (rSet.next()) {
-                Double latitude = rSet.getDouble(1);
-                Double longitude = rSet.getDouble(2);
-                String streetName = rSet.getString(3);
-                String doorNumber = rSet.getString(4);
-                String postalCode = rSet.getString(5);
-                String locality = rSet.getString(6);
-                String country = rSet.getString(7);
-                //TODO: UPDATE CONSTRUTOR - ESTÁ DESATUALIZADO
-                return new Address(latitude, longitude, streetName, doorNumber, postalCode, locality, country);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            closeAll();
-        }
-        throw new IllegalArgumentException("No Address for Courier:" + email);
-    }
-
     public boolean updateCourierDB(Courier oCourier) {
         boolean flag = true;
         try {
