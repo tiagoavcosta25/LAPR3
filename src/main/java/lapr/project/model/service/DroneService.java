@@ -44,7 +44,6 @@ public class DroneService {
         return moDroneDB.removeDroneFromDB(intId);
     }
 
-    //TODO: Alterado para double, verificar se está correto
     public boolean checkEnergy(double distance, DeliveryRun oDeliveryRun) {
         Vehicle oVehicle = oDeliveryRun.getVehicle();
         VehicleModel oVehicleModel = oVehicle.getModel();
@@ -53,24 +52,14 @@ public class DroneService {
             totalWeight = totalWeight + o.getTotalWeight();
         }
         double totalEnergy;
-        //calcular energia
         if (oVehicle instanceof Drone) {
-            double velocity = Math.sqrt((2 * (oVehicleModel.getWeight() + totalWeight) * (Constants.GRAVITIC_ACCELERATION)) / (Constants.AIR_DENSITY * Constants.DEFAULT_ROTOR_AREA * Constants.DRAG_COEFFICIENT));
-            //rever
-            double liftEnergy = (oVehicleModel.getWeight() + totalWeight) * velocity * velocity / (Constants.DEFAULT_HEIGHT - 10);
-
-            double potentialEnergy = (oVehicleModel.getWeight() + totalWeight) * Constants.GRAVITIC_ACCELERATION * Constants.DEFAULT_HEIGHT;
-            double workKineticEnergy = (oVehicleModel.getPotency() / velocity) *distance;
-            totalEnergy = potentialEnergy + workKineticEnergy + (2 * liftEnergy);
-
-             } else {
-            totalEnergy = (EnergyCalculator.calculoEnergia(distance,0,1,10,totalWeight + oVehicleModel.getWeight() + Constants.DEFAULT_COURIER_WEIGHT,Constants.KINETIC_FRICTION_COEFFICIENT))/Constants.KILOWATTHOUR;
-            /*
-            double force = (((totalWeight + oVehicleModel.getWeight() + Constants.DEFAULT_COURIER_WEIGHT)*Constants.GRAVITIC_ACCELERATION *
-                    Constants.KINETIC_FRICTION_COEFFICIENT) + (0.5 * Constants.AIR_DENSITY * Constants.DRAG_COEFFICIENT * Constants.DEFAULT_SCOOTER_AREA *
-                    Constants.DEFAULT_VELOCITY*Constants.DEFAULT_VELOCITY));
-            //adicionar angulo se possível
-            totalEnergy = force*distance;*/
+            //velocidade otimizada para o lift/drag ratio
+            double velocity = Math.pow((2 * Math.pow(totalWeight, 2)) / (Constants.DRAG_COEFFICIENT * Constants.DEFAULT_DRONE_AREA * Math.pow(Constants.DRONE_WIDTH, 2) * Math.pow(Constants.AIR_DENSITY, 2)), 0.25);
+            double force = (0.5*Constants.DRAG_COEFFICIENT*Constants.DEFAULT_DRONE_AREA*Constants.AIR_DENSITY*Math.pow(velocity,2))+((Math.pow(totalWeight,2))/(Constants.AIR_DENSITY*Math.pow(Constants.DRONE_WIDTH,2)*Math.pow(velocity,2)));
+            double liftEnergy = (Math.pow((totalWeight*Constants.GRAVITIC_ACCELERATION),1.5)/(Math.sqrt(2*Constants.AIR_DENSITY*Constants.DEFAULT_DRONE_AREA)))*(Constants.DEFAULT_HEIGHT/velocity);
+            totalEnergy = force*distance+liftEnergy;
+        } else {
+            totalEnergy = (EnergyCalculator.calculoEnergia(distance, 0, 1, 10, totalWeight + oVehicleModel.getWeight() + Constants.DEFAULT_COURIER_WEIGHT, Constants.KINETIC_FRICTION_COEFFICIENT)) * Constants.KILOWATTHOUR;
         }
         return (((oVehicleModel.getBattery().getBatteryCapacity() * oVehicleModel.getBattery().getBatteryVoltage() * (oVehicle.getBatteryPerc() / 100)) / 1000) >= totalEnergy * Constants.KILOWATTHOUR);
 

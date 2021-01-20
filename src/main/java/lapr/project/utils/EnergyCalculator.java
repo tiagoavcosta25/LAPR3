@@ -43,6 +43,6 @@ public class EnergyCalculator {
             return 0;
         }
 
-        return totalForca * distanceUsingCoordinates / 3600000;     //kWh ou J
+        return totalForca * distanceUsingCoordinates / KILOWATTHOUR;     //kWh ou J
     }
 }
