@@ -29,19 +29,28 @@ package "Model" #DDDDDD {
       +DroneService()
       +registerDrone(drone)
    }
+
+  class VehicleService{
+      +VehicleService()
+      +generateQRCode()
+   }
 }
 
 package "Model" #DDDDDD {
-class DronePark{
+class Park{
 -   int maxSlotsNumber
+-   double totalOutputCorrent
 }
 
-class DroneChargingSlot{
+class ChargingSlot{
 -   int id
--   float outputPower
 }
 
-class DroneParkingSlot{
+class NonChargingSlot{
+-   int id
+}
+
+class ParkingSlot{
 -   int id
 }
 
@@ -49,13 +58,21 @@ class Drone{
   +Drone(batteryPerc, charginStatus, potency,\n weight, batteryCapacity, maxPayload, batteryVoltage, pharmacy)
 }
 
+class VehicleModel{
+  -int id
+  -String desigantion
+  -double potency
+  -double weight
+  -double maxPayload
+}
+
+class VehicleType{
+  -String desigantion
+}
+
 class Vehicle{
   -int id
-  -String vehicleType
-  -float potency
-  -float weight
-  -float maxPayload
-  -String charngingStatus
+  -double batteryPerc
 }
 
 class Battery{
@@ -97,18 +114,26 @@ class PharmacyDB{
      +DroneDB()
      +registerDrone(drone)
   }
+
+ class VehicleDB{
+     +VehicleDB()
+  }
 }
 
 class PharmacyDB extends DataHandler
 class DroneDB extends DataHandler
+class VehicleDB extends DataHandler
 
 RegisterDroneUI ..> RegisterDroneController
 RegisterDroneController ..> PharmacyService
 RegisterDroneController ..> DroneService
+RegisterDroneController ..> VehicleService
 Database "1" --> "1" PharmacyDB : manages
 Database "1" --> "1" DroneDB : manages
 DroneService "1" --> "*" PharmacyDB : uses
 DroneService "1" --> "*" DroneDB : uses
+VehicleService "1" --> "*" VehicleDB : uses
+VehicleService "1" --> "*" Vehicle : manage services of
 PharmacyService "1" --> "*" Pharmacy : manage services of
 DroneService "1" --> "*" Drone : manage services of
 
@@ -116,11 +141,15 @@ Database "1" -- "*" Pharmacy : has registered >
 Database "1" -- "*" Drone : has registered >
 
 Vehicle "1" -- "1" Battery : has >
+Vehicle "*" -- "1" Pharmacy : belongs to a >
 Drone "*" -- "1" Vehicle : is a type of >
-Vehicle "*" -- "1" Pharmacy : belongs to >
+Vehicle "*" -- "1" VehicleModel : has >
 Pharmacy "1" -- "1" Address : has >
-Pharmacy "1" -- "1" DronePark : has >
-DronePark "1" -- "1" DroneChargingSlot : has >
-DronePark "1" -- "1" DroneParkingSlot : has >
+Park "*" -- "1" VehicleType : has >
+Park "1" -- "*" ParkingSlot : has >
+ParkingSlot "1" -- "1" ChargingSlot : is >
+ParkingSlot "1" -- "1" NonChargingSlot : is >
+VehicleModel "1" -- "1" Battery : has >
+VehicleModel "*" -- "1" VehicleType : has >
 
 @enduml

@@ -8,7 +8,7 @@ participant ":System" as SYST
 
 activate ADMIN
 
-ADMIN -> SYST : Sends a request regarding the register of an electric drone
+ADMIN -> SYST : Sends a request regarding the register of an electric scooter
 activate SYST
 
 SYST --> ADMIN : Shows the list of pharmacies and asks to choose one
@@ -16,7 +16,7 @@ deactivate SYST
 ADMIN -> SYST : Chooses the pharmacy
 activate SYST
 
-SYST --> ADMIN : Presents the list of drone models and asks to choose one or\ncreate a new model
+SYST --> ADMIN : Presents the list of scooter models and asks to choose one or\ncreate a new model
 deactivate SYST
 alt if the admin chooses an existing model
 ADMIN -> SYST : Chooses the model
@@ -32,7 +32,7 @@ ADMIN -> SYST : Inserts the required data
 activate SYST
 end alt
 
-SYST --> ADMIN : Shows the information about the drone and its QR Code, requesting verification
+SYST --> ADMIN : Shows the information about the scooter and its QR Code, requesting verification
 deactivate SYST
 
 ADMIN -> SYST : Confirms the information

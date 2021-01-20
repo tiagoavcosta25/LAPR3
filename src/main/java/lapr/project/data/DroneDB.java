@@ -1,8 +1,6 @@
 package lapr.project.data;
 
-import lapr.project.model.Battery;
-import lapr.project.model.Drone;
-import lapr.project.model.Pharmacy;
+import lapr.project.model.*;
 import oracle.jdbc.internal.OracleTypes;
 
 import java.security.NoSuchAlgorithmException;
@@ -42,27 +40,20 @@ public class DroneDB extends DataHandler {
     }
 
     public boolean registerDrone(Drone d) {
-        return addDrone(d.getPotency(), d.getWeight(), d.getMaxPayload(), d.getCharginStatus(),
-                d.getBattery(), d.getPharmacy());
+        return addDrone(d.getBatteryPerc(), d.getModel(), d.getPharmacy());
     }
 
-    public boolean addDrone(float fltPotency, float fltWeight, float fltMaxPayload, String strCharginStatus,
-                            Battery oBattery, Pharmacy oPharmacy) {
+    public boolean addDrone(double dblBatteryPerc, VehicleModel oVehicleModel, Pharmacy oPharmacy) {
         boolean flag = true;
         try {
             openConnection();
 
-            CallableStatement callStmt = getConnection().prepareCall("{ call addScooter(?,?,?,?,?,?,?,?) }");
+            CallableStatement callStmt = getConnection().prepareCall("{ call addDrone(?,?,?) }");
 
 
-            callStmt.setFloat(1, fltPotency);
-            callStmt.setFloat(2, fltWeight);
-            callStmt.setFloat(3, fltMaxPayload);
-            callStmt.setString(4, strCharginStatus);
-            callStmt.setFloat(5, oBattery.getBatteryPerc());
-            callStmt.setFloat(6, oBattery.getBatteryCapacity());
-            callStmt.setFloat(7, oBattery.getBatteryVoltage());
-            callStmt.setInt(8, oPharmacy.getId());
+            callStmt.setDouble(1, dblBatteryPerc);
+            callStmt.setInt(2, oVehicleModel.getId());
+            callStmt.setInt(3, oPharmacy.getId());
 
             callStmt.execute();
 
@@ -100,9 +91,8 @@ public class DroneDB extends DataHandler {
                 float fltBatteryVoltage = rSet.getFloat(9);
                 Pharmacy oPharmacy = pharmacyManager(rSet, 10);
 
-                lstDrone.add(new Drone(intId, fltPotency, fltWeight, fltMaxPayload, strCharginStatus, intBatteryId,
-                        fltBatteryPerc, intBatteryCapacity, fltBatteryVoltage, oPharmacy));
-
+                //TODO: Criar droneManager no DataHandler
+                lstDrone.add(new Drone(intId, fltBatteryPerc, new VehicleModel(), oPharmacy));
                 rSet.next();
             }
         } catch (SQLException | NoSuchAlgorithmException e) {

@@ -2,6 +2,7 @@ package lapr.project.controller;
 
 import lapr.project.model.Pharmacy;
 import lapr.project.model.Scooter;
+import lapr.project.model.VehicleModel;
 import lapr.project.model.service.PharmacyService;
 import lapr.project.model.service.ScooterService;
 import org.junit.jupiter.api.BeforeEach;
@@ -33,8 +34,7 @@ class RegisterScooterControllerTest {
 
     @BeforeEach
     void setUp() {
-        this.expectedTrue = new Scooter(35.5f, 30f, 30f, "No Charging",
-                250f, 100, 20, new Pharmacy());
+        this.expectedTrue = new Scooter(new VehicleModel(), new Pharmacy());
         this.registerScooterController = new RegisterScooterController();
         this.mockScooterService = Mockito.mock(ScooterService.class);
         this.mockPharmacyService = Mockito.mock(PharmacyService.class);
@@ -45,27 +45,22 @@ class RegisterScooterControllerTest {
     void newScooter() {
         System.out.println("newScooter");
 
-        when(mockScooterService.newScooter(35.5f, "No Charging",
-                250f, 30f,100, 20, 30f, new Pharmacy())).thenReturn(expectedTrue);
+        when(mockScooterService.newScooter(new VehicleModel(), new Pharmacy())).thenReturn(expectedTrue);
 
-        boolean result = registerScooterController.newScooter(35.5f, "No Charging",
-                250f, 30f,100, 20f, 30f,new Pharmacy());
+        boolean result = registerScooterController.newScooter(new VehicleModel(), new Pharmacy());
         assertTrue(result);
 
 
-        when(mockScooterService.newScooter(0, null, 0, 250f,
-                0, 100, 20, new Pharmacy())).thenReturn(null);
+        when(mockScooterService.newScooter(null, null)).thenThrow(new IllegalArgumentException());
 
-        result = registerScooterController.newScooter(null, null, null, null,
-                0, null, null, new Pharmacy());
+        result = registerScooterController.newScooter(null, null);
         assertFalse(result);
     }
 
     @Test
     void registersScooter() {
         System.out.println("registerScooter");
-        Scooter s = new Scooter(35.5f, 30f, 30f, "No Charging",
-                250f, 100, 20, new Pharmacy());
+        Scooter s = new Scooter(-1, 98, new VehicleModel(), new Pharmacy());
 
         registerScooterController.setScooter(s);
         when(mockScooterService.registerScooter(s)).thenReturn(true);

@@ -2,21 +2,21 @@
 autonumber
 actor "Admin" as ADMIN
 
-participant ":RegisterDroneUI" as UI
-participant ":RegisterDroneController" as CTRL
-participant "pharmServ \n:PharmacyService" as PHS
-participant "pharmDB \n:PharmacyDB" as PHDB
-participant "vehicleServ \n:VehicleService" as VS
-participant "vehicleDB \n:VehicleDB" as VDB
-participant "vehicleModel \n:VehicleModel" as VM
-participant "batt \n:Battery" as B
-participant "droneServ \n:DroneService" as DS
-participant "droneDB \n:DroneDB" as DDB
-participant "drone \n:Drone" as D
+participant ":RegisterScooterUI" as UI
+participant ":RegisterScooterController" as CTRL
+participant "pharmServ\n:PharmacyService" as PHS
+participant "pharmDB\n:PharmacyDB" as PHDB
+participant "vehicleServ\n:VehicleService" as VS
+participant "vehicleDB\n:VehicleDB" as VDB
+participant "vehicleModel\n:VehicleModel" as VM
+participant "battery\n:Battery" as B
+participant "scootServ\n:ScooterService" as SS
+participant "scootDB\n:ScooterDB" as SDB
+participant "scoot\n:Scooter" as SC
 
 activate ADMIN
 
-ADMIN -> UI : initializes the register of a new drone
+ADMIN -> UI : initializes the register of a new scooter
 activate UI
 UI -> CTRL : showPharmacies()
 activate CTRL
@@ -40,7 +40,7 @@ deactivate UI
 ADMIN -> UI : Chooses the pharmacy
 activate UI
 
-UI --> ADMIN : Presents the list of drone models and asks to choose one or\ncreate a new model
+UI --> ADMIN : Presents the list of scooter models and asks to choose one or\ncreate a new model
 deactivate UI
 alt if the admin chooses an existing model
 ADMIN -> UI : Chooses the model
@@ -73,41 +73,41 @@ VM -> B ** : create(batteryCapacity, batteryVoltage, efficiency)
 deactivate VM
 deactivate VS
 
-CTRL -> DS : create()
-activate DS
-DS -> DDB ** : create()
-deactivate DS
+CTRL -> SS : create()
+activate SS
+SS -> SDB ** : create()
+deactivate SS
 
-CTRL -> DS : newDrone(model, pharmacy)
-activate DS
-DS -> D ** : create(model, pharmacy)
-deactivate DS
+CTRL -> SS : scooter = newScooter(model, pharmacy)
+activate SS
+SS -> SC ** : create(model, pharmacy)
+deactivate SS
 
-CTRL -> VS : generateQRCode()
+CTRL -> VS : generateQRCode(scooter)
 activate VS
 deactivate VS
 deactivate CTRL
 
 end alt
 
-UI -> ADMIN : Shows the information about the drone and its QR Code, requesting verification
+UI -> ADMIN : Shows the information about the scooter and its QR Code, requesting verification
 deactivate UI
 
 ADMIN -> UI : Confirms the information
 activate UI
-UI -> CTRL : registersDrone()
+UI -> CTRL : registersScooter()
 activate CTRL
-CTRL -> DS : registersDrone(drone)
-activate DS
-DS -> DDB : registersDrone(drone)
-activate DDB
-ref over DDB
-SD_Connections
+CTRL -> SS : registersScooter(scooter)
+activate SS
+SS -> SDB : registersScooter(scooter)
+activate SDB
+ref over SDB
+SD_CONNECTIONS
 end ref
-deactivate DDB
-deactivate DS
+deactivate SDB
+deactivate SS
 deactivate CTRL
-UI -> ADMIN : Informs the success of the operation
+UI -> ADMIN : Informs the success of the operation.
 deactivate UI
 
 deactivate ADMIN

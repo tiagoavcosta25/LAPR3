@@ -12,7 +12,9 @@ class RegisterScooterUI{
 package "Controller" #DDDDDD {
 class RegisterScooterController{
 +getPharmacies()
-+newScooter(batteryPerc, chargingStatus, potency, weight, batteryCapacity, maxPayload, pharmacy)
++chooseVehicleModer(model)
++newVehicleModel(designation, potency, weight, maxPayload,\nbatteryCapacity, batteryVoltage, efficiency)
++newScooter(batteryPerc, potency, weight, batteryCapacity, maxPayload, pharmacy)
 +registerScooter(scoot)
 }
 }
@@ -29,19 +31,28 @@ package "Model" #DDDDDD {
       +ScooterService()
       +registerScooter(scoot)
    }
+
+  class VehicleService{
+      +VehicleService()
+      +generateQRCode()
+   }
 }
 
 package "Model" #DDDDDD {
-class ScooterPark{
+class Park{
 -   int maxSlotsNumber
+-   double totalOutputCorrent
 }
 
-class ScooterChargingSlot{
+class ChargingSlot{
 -   int id
--   float outputPower
 }
 
-class ScooterParkingSlot{
+class NonChargingSlot{
+-   int id
+}
+
+class ParkingSlot{
 -   int id
 }
 
@@ -50,22 +61,29 @@ class Scooter{
 
 }
 
+class VehicleModel{
+  -int id
+  -String desigantion
+  -double potency
+  -double weight
+  -double maxPayload
+}
+
+class VehicleType{
+  -String desigantion
+}
+
 class Vehicle{
   -int id
-  -String vehicleType
-  -float potency
-  -float weight
-  -float maxPayload
-  -String charngingStatus
+  -double batteryPerc
 }
 
 class Battery{
   -int id
-  -float batteryPerc
   -int batteryCapacity
-  -float batteryVoltage
+  -double batteryVoltage
+  -double efficiency
 }
-
 
 class Address{
   -double longitude
@@ -80,7 +98,7 @@ class Address{
 class Pharmacy {
   -int id
   -String name
--   String email
+  -String email
 }
 }
 
@@ -99,18 +117,27 @@ class PharmacyDB{
      +ScooterDB()
      +registerScooter(scoot)
   }
+
+ class VehicleDB{
+     +VehicleDB()
+  }
 }
 
 class PharmacyDB extends DataHandler
 class ScooterDB extends DataHandler
+class VehicleDB extends DataHandler
 
 RegisterScooterUI ..> RegisterScooterController
 RegisterScooterController ..> PharmacyService
 RegisterScooterController ..> ScooterService
+RegisterScooterController ..> VehicleService
+
 Database "1" --> "1" PharmacyDB : manages
 Database "1" --> "1" ScooterDB : manages
 ScooterService "1" --> "*" PharmacyDB : uses
 PharmacyService "1" --> "*" ScooterDB : uses
+VehicleService "1" --> "*" VehicleDB : uses
+VehicleService "1" --> "*" Vehicle : manage services of
 PharmacyService "1" --> "*" Pharmacy : manage services of
 ScooterService "1" --> "*" Scooter : manage services of
 
@@ -120,9 +147,13 @@ Database "1" -- "*" Scooter : has registered >
 Vehicle "1" -- "1" Battery : has >
 Vehicle "*" -- "1" Pharmacy : belongs to a >
 Scooter "*" -- "1" Vehicle : is a type of >
+Vehicle "*" -- "1" VehicleModel : has >
 Pharmacy "1" -- "1" Address : has >
-Pharmacy "1" -- "1" ScooterPark : has >
-ScooterPark "1" -- "1" ScooterChargingSlot : has >
-ScooterPark "1" -- "1" ScooterParkingSlot : has >
+Park "*" -- "1" VehicleType : has >
+Park "1" -- "*" ParkingSlot : has >
+ParkingSlot "1" -- "1" ChargingSlot : is >
+ParkingSlot "1" -- "1" NonChargingSlot : is >
+VehicleModel "1" -- "1" Battery : has >
+VehicleModel "*" -- "1" VehicleType : has >
 
 @enduml

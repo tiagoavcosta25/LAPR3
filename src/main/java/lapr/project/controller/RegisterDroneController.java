@@ -2,6 +2,7 @@ package lapr.project.controller;
 
 import lapr.project.model.Drone;
 import lapr.project.model.Pharmacy;
+import lapr.project.model.VehicleModel;
 import lapr.project.model.service.DroneService;
 import lapr.project.model.service.PharmacyService;
 
@@ -37,19 +38,12 @@ public class RegisterDroneController {
      * Initiates the Pharmacy instance and the Scooter instance with the provided data.
      * The method returns the validation of that instance of Drone. True if the data is correct and false if
      * it doesn't.
-     * @param fltBatteryPerc Scooter's battery percentage
-     * @param strCharginStatus Scooter's charging status
-     * @param fltPotency Scooter's potency
-     * @param fltWeight Scooter's weight
-     * @param intBatteryCapacity Scooter's battery capacity
+     * @param oVehicleModel Drone's Vehicle Model
      * @param oPharmacy Pharmacy's instance
      */
-    public boolean newDrone( Float fltBatteryPerc, String strCharginStatus, Float fltPotency,
-                               Float fltWeight, int intBatteryCapacity, Float fltBatteryVoltage,
-                               Float fltMaxPayload, Pharmacy oPharmacy) {
+    public boolean newDrone(VehicleModel oVehicleModel, Pharmacy oPharmacy) {
         try {
-            this.m_oDrone = m_oDroneService.newDrone(fltBatteryPerc,strCharginStatus, fltPotency, fltWeight,
-                    intBatteryCapacity, fltBatteryVoltage, fltMaxPayload, oPharmacy);
+            this.m_oDrone = m_oDroneService.newDrone(oVehicleModel, oPharmacy);
             return true;
         }
         catch(Exception ex) {

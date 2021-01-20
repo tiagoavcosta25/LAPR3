@@ -3,6 +3,7 @@ package lapr.project.model.service;
 import lapr.project.data.ScooterDB;
 import lapr.project.model.Pharmacy;
 import lapr.project.model.Scooter;
+import lapr.project.model.VehicleModel;
 
 import java.util.List;
 
@@ -29,10 +30,8 @@ public class ScooterService {
 
     public boolean removeScooterFromDB(int intId) { return m_oScooterDB.removeScooterFromDB(intId);}
 
-    public Scooter newScooter(float fltBatteryPerc, String strCharginStatus, float fltPotency, float fltWeight,
-                              int intBatteryCapacity, float fltBatteryVoltage, float fltMaxPayload, Pharmacy oPharmacy) {
-        return new Scooter(fltPotency, fltWeight, fltMaxPayload, strCharginStatus, fltBatteryPerc,
-                intBatteryCapacity, fltBatteryVoltage, oPharmacy);
+    public Scooter newScooter(VehicleModel oVehicleModel, Pharmacy oPharmacy) {
+        return new Scooter(oVehicleModel, oPharmacy);
     }
 
     public boolean registerScooter(Scooter oScooter) {
