@@ -82,9 +82,9 @@ class InvoiceServiceTest {
     @Test
     void sendInvoiceByEmail() {
         System.out.println("sendInvoiceByEmail");
-        Map<CreditCard, Float> mapPayments = new TreeMap<>();
-        mapPayments.put(new CreditCard(123456789, new Date(), 123), 19.19f);
-        mapPayments.put(new CreditCard(987654321, new Date(), 119), 11.17f);
+        Map<CreditCard, Double> mapPayments = new TreeMap<>();
+        mapPayments.put(new CreditCard(123456789, new Date(), 123), 19.19d);
+        mapPayments.put(new CreditCard(987654321, new Date(), 119), 11.17d);
         Map<Product, Integer> mapProducts = new TreeMap<>();
         mapProducts.put(new Product(1,"SARS-CoV-2 Vaccine", "Description.", 7.5f, 1f), 2);
         mapProducts.put(new Product(2,"Benuron", "Description.", 5.12f, 2f), 3);

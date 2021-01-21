@@ -88,16 +88,26 @@ class MakeAnOrderControllerTest {
     void registerOrder() {
         System.out.println("registerOrder");
         when(mockOrderService.registerOrder(this.expectedOrder)).thenReturn(expectedValue);
+        when(mockGenerateInvoiceController.generateInvoice(expectedOrder, new TreeMap<>())).thenReturn(true);
 
         makeAnOrderController.setOrder(this.expectedOrder);
         boolean result = makeAnOrderController.registerOrder();
-        assertEquals(expectedValue, result);
+        assertTrue(result);
 
         expectedValue = false;
         when(mockOrderService.registerOrder(this.expectedOrder)).thenReturn(expectedValue);
 
         result = makeAnOrderController.registerOrder();
-        assertEquals(expectedValue, result);
+        assertFalse(result);
+
+        when(mockOrderService.registerOrder(this.expectedOrder)).thenReturn(!expectedValue);
+        when(mockGenerateInvoiceController.generateInvoice(expectedOrder, new TreeMap<>())).thenReturn(false);
+        result = makeAnOrderController.registerOrder();
+        assertFalse(result);
+
+        when(mockOrderService.registerOrder(this.expectedOrder)).thenThrow(new IllegalArgumentException());
+        result = makeAnOrderController.registerOrder();
+        assertFalse(result);
     }
 
     @Test
@@ -148,10 +158,10 @@ class MakeAnOrderControllerTest {
         System.out.println("addPayment");
 
         makeAnOrderController.setOrder(new Order());
-        boolean  result = makeAnOrderController.addPayment(new CreditCard(), -1f);
+        boolean  result = makeAnOrderController.addPayment(new CreditCard(), -1d);
         assertTrue(result);
 
-        result = makeAnOrderController.addPayment(new CreditCard(), 2f);
+        result = makeAnOrderController.addPayment(new CreditCard(), 2d);
         assertFalse(result);
 
         result = makeAnOrderController.addPayment(null, null);

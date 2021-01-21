@@ -98,6 +98,10 @@ public class WorldMap {
         //Escolher modelo vencedor e enviar veículo com mais bateria
     }
 
+    public void test(Pair<LinkedList<Address>, Double> lstPath) {
+
+    }
+
 
 
     public Pair<LinkedList<Address>, Double> calculatePathCost(LinkedList<Address> allAddresses, List<Address> deliveryPoints,
@@ -105,8 +109,8 @@ public class WorldMap {
 
         double energyCost = 0;
         double totalMass = Constants.SCOOTER_TOTAL_WEIGHT + Constants.DEFAULT_COURIER_WEIGHT;
-
-        Map<Address, Float> orderWeightMap = new HashMap<>();
+        
+        Map<Address, Double> orderWeightMap = new HashMap<>();
         for(Order order : orderList) {
             orderWeightMap.put(order.getClient().getAddress(), order.getTotalWeight());
             totalMass += order.getTotalWeight();
@@ -134,24 +138,24 @@ public class WorldMap {
     /**
      * CALCULATE MOST EFFICIENT PATH/SHORTEST PATH
      */
-     public LinkedList<Address> calculateMostEfficientPath(Address startAddress, Address endAddress, List<Address> deliveryPoints) {
-         //Pass the weight of each edge of the graph to the enery cost
-         for(Edge<Address, Path> e : this.moGraph.edges()) {
-             double distanceUsingCoordinates = e.getVOrig().distanceTo(e.getVDest());
-             double localHeightDifference = e.getVOrig().getAltitude() - e.getVDest().getAltitude();
-             double totalMass = 1;
+    public LinkedList<Address> calculateMostEfficientPath(Address startAddress, Address endAddress, List<Address> deliveryPoints) {
+        //Pass the weight of each edge of the graph to the enery cost
+        for(Edge<Address, Path> e : this.moGraph.edges()) {
+            double distanceUsingCoordinates = e.getVOrig().distanceTo(e.getVDest());
+            double localHeightDifference = e.getVOrig().getAltitude() - e.getVDest().getAltitude();
+            double totalMass = 1;
 
-             double energia = EnergyCalculator.calculoEnergia(distanceUsingCoordinates, e.getElement().getWindAngle(),
-                     e.getElement().getWindSpeed(), localHeightDifference, totalMass,
-                     e.getElement().getKineticFrictionCoefficient());
-                e.setWeight(energia);
-         }
+            double energia = EnergyCalculator.calculoEnergia(distanceUsingCoordinates, e.getElement().getWindAngle(),
+                    e.getElement().getWindSpeed(), localHeightDifference, totalMass,
+                    e.getElement().getKineticFrictionCoefficient());
+            e.setWeight(energia);
+        }
 
-         List<LinkedList<Address>> permutations = calculatePermutations(deliveryPoints);
-         List<Pair<LinkedList<Address>, Double>> lst = calculatePermutationPaths(startAddress, endAddress, permutations);
+        List<LinkedList<Address>> permutations = calculatePermutations(deliveryPoints);
+        List<Pair<LinkedList<Address>, Double>> lst = calculatePermutationPaths(startAddress, endAddress, permutations);
 
-         Double minimumWeight = Double.MAX_VALUE;
-         LinkedList<Address> result = new LinkedList<>();
+        Double minimumWeight = Double.MAX_VALUE;
+        LinkedList<Address> result = new LinkedList<>();
 
         for (Pair<LinkedList<Address>, Double> pair : lst) {
             if (pair.getValue() < minimumWeight) {

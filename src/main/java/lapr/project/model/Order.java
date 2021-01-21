@@ -8,9 +8,9 @@ import java.util.TreeMap;
 
 public class Order {
     private int mintId;
-    private float mfltAmount;
-    private float mfltTotalWeight;
-    private float mfltAdditionalFee;
+    private double mdblAmount;
+    private double mdblTotalWeight;
+    private double mdblAdditionalFee;
     private Date mdtOrderDate;
     private String mstrDescription;
     private String mstrStatus;
@@ -20,11 +20,11 @@ public class Order {
     private Map<Product, Integer> mMapProducts;
 
     private static int DEFAULTID = -1;
-    private static float DEFAULTAMOUNT = -1;
-    private static float DEFAULTTOTALWEIGHT = -1;
-    private static float DEFAULTADDITIONALFEE = -1;
-    private static float HOMEDELIVERYFEE = 5f;
-    private static float STOREPICKUPFEE = 0f;
+    private static double DEFAULTAMOUNT = -1d;
+    private static double DEFAULTTOTALWEIGHT = -1d;
+    private static double DEFAULTADDITIONALFEE = -1d;
+    private static double HOMEDELIVERYFEE = 5d;
+    private static double STOREPICKUPFEE = 0d;
     private static int MINOFCREDITSFORFREEDELIVERY = 10;
     private static Date CURRENTDATE = new Date(Calendar.getInstance().getTimeInMillis());
     private static String DEFAULTDESCRIPTION = "No Description.";
@@ -34,12 +34,12 @@ public class Order {
     private static Pharmacy DEFAULTPHARMACY = new Pharmacy();
     private static Map<Product, Integer> DEFAULTPRODUCTMAP = new TreeMap<>();
 
-    public Order(int intId, float fltAmount, float fltTotalWeight, float fltAdditionalFee, Date dtOrderDate,
+    public Order(int intId, double dblAmount, double dblTotalWeight, double dblAdditionalFee, Date dtOrderDate,
                  String strDescription, String strStatus, boolean blIsHomeDelivery, Client oClient, Pharmacy oPharmacy, Map<Product, Integer> mapProducts) {
         this.mintId = intId;
-        this.mfltAmount = fltAmount;
-        this.mfltTotalWeight = fltTotalWeight;
-        this.mfltAdditionalFee = fltAdditionalFee;
+        this.mdblAmount = dblAmount;
+        this.mdblTotalWeight = dblTotalWeight;
+        this.mdblAdditionalFee = dblAdditionalFee;
         this.mdtOrderDate = (Date) dtOrderDate.clone();
         this.mstrDescription = strDescription;
         this.mstrStatus = strStatus;
@@ -49,12 +49,12 @@ public class Order {
         this.mMapProducts = mapProducts;
     }
 
-    public Order(float fltAmount, float fltTotalWeight, float fltAdditionalFee, Date dtOrderDate, String strDescription,
+    public Order(double dblAmount, double dblTotalWeight, double dblAdditionalFee, Date dtOrderDate, String strDescription,
                  String strStatus, boolean blIsHomeDelivery, Client oClient, Pharmacy oPharmacy, Map<Product, Integer> mapProducts) {
         this.mintId = DEFAULTID;
-        this.mfltAmount = fltAmount;
-        this.mfltTotalWeight = fltTotalWeight;
-        this.mfltAdditionalFee = fltAdditionalFee;
+        this.mdblAmount = dblAmount;
+        this.mdblTotalWeight = dblTotalWeight;
+        this.mdblAdditionalFee = dblAdditionalFee;
         this.mdtOrderDate = (Date) dtOrderDate.clone();
         this.mstrDescription = strDescription;
         this.mstrStatus = strStatus;
@@ -78,13 +78,13 @@ public class Order {
         calculateAdditonalFee(this.moClient.getCredits());
         calculateAmount();
         calculateTotalWeight();
-        this.moClient.addCredits((int)(this.mfltAmount + this.mfltAdditionalFee) / 5);
+        this.moClient.addCredits((int)(this.mdblAmount + this.mdblAdditionalFee) / 5);
     }
 
     public Order(String strDescription, boolean blIsHomeDelivery, Client oClient,
                  Pharmacy oPharmacy, Map<Product, Integer> mapProducts) {
         this.mintId = DEFAULTID;
-        this.mfltAdditionalFee = HOMEDELIVERYFEE;
+        this.mdblAdditionalFee = HOMEDELIVERYFEE;
         this.mdtOrderDate = CURRENTDATE;
         this.mstrDescription = strDescription;
         this.mstrStatus = DEFAULTSTATUS;
@@ -96,14 +96,14 @@ public class Order {
         calculateAdditonalFee(this.moClient.getCredits());
         calculateAmount();
         calculateTotalWeight();
-        this.moClient.addCredits((int)(this.mfltAmount + this.mfltAdditionalFee) / 5);
+        this.moClient.addCredits((int)(this.mdblAmount + this.mdblAdditionalFee) / 5);
     }
 
     public Order() {
         this.mintId = DEFAULTID;
-        this.mfltAmount = DEFAULTAMOUNT;
-        this.mfltTotalWeight = DEFAULTTOTALWEIGHT;
-        this.mfltAdditionalFee = DEFAULTADDITIONALFEE;
+        this.mdblAmount = DEFAULTAMOUNT;
+        this.mdblTotalWeight = DEFAULTTOTALWEIGHT;
+        this.mdblAdditionalFee = DEFAULTADDITIONALFEE;
         this.mdtOrderDate = CURRENTDATE;
         this.mstrDescription = DEFAULTDESCRIPTION;
         this.mstrStatus = DEFAULTSTATUS;
@@ -121,28 +121,28 @@ public class Order {
         this.mintId = intId;
     }
 
-    public float getAmount() {
-        return mfltAmount;
+    public double getAmount() {
+        return mdblAmount;
     }
 
-    public void setAmount(float fltAmount) {
-        this.mfltAmount = fltAmount;
+    public void setAmount(double dblAmount) {
+        this.mdblAmount = dblAmount;
     }
 
-    public float getTotalWeight() {
-        return mfltTotalWeight;
+    public double getTotalWeight() {
+        return mdblTotalWeight;
     }
 
-    public void setTotalWeight(float fltTotalWeight) {
-        this.mfltTotalWeight = fltTotalWeight;
+    public void setTotalWeight(double dblTotalWeight) {
+        this.mdblTotalWeight = dblTotalWeight;
     }
 
-    public float getAdditionalFee() {
-        return mfltAdditionalFee;
+    public double getAdditionalFee() {
+        return mdblAdditionalFee;
     }
 
-    public void setAdditionalFee(float fltAdditionalFee) {
-        this.mfltAdditionalFee = fltAdditionalFee;
+    public void setAdditionalFee(double dblAdditionalFee) {
+        this.mdblAdditionalFee = dblAdditionalFee;
     }
 
     public Date getOrderDate() {
@@ -205,26 +205,26 @@ public class Order {
 
     private void calculateAdditonalFee(int intCredits) {
         if(!this.mblIsHomeDelivery || intCredits >= MINOFCREDITSFORFREEDELIVERY){
-            this.mfltAdditionalFee = STOREPICKUPFEE;
+            this.mdblAdditionalFee = STOREPICKUPFEE;
         } else{
-            this.mfltAdditionalFee = HOMEDELIVERYFEE;
+            this.mdblAdditionalFee = HOMEDELIVERYFEE;
         }
     }
 
     private void calculateAmount() {
-        float fltAmount = 0f;
+        double dblAmount = 0d;
         for(Product p : this.mMapProducts.keySet()){
-            fltAmount += p.getUnitaryPrice() * (float) this.mMapProducts.get(p);
+            dblAmount += p.getUnitaryPrice() * (double) this.mMapProducts.get(p);
         }
-        this.mfltAmount = fltAmount;
+        this.mdblAmount = dblAmount;
     }
 
     private void calculateTotalWeight() {
-        float fltTotalWeight = 0f;
+        double dblTotalWeight = 0f;
         for(Product p : this.mMapProducts.keySet()){
-            fltTotalWeight += p.getUnitaryWeight() * (float) this.mMapProducts.get(p);
+            dblTotalWeight += p.getUnitaryWeight() * (double) this.mMapProducts.get(p);
         }
-        this.mfltTotalWeight = fltTotalWeight;
+        this.mdblTotalWeight = dblTotalWeight;
     }
 
 
@@ -246,9 +246,9 @@ public class Order {
     public String toString() {
         return "Order{" +
                 "m_intId=" + mintId +
-                ", m_fltAmount=" + mfltAmount +
-                ", m_fltTotalWeight=" + mfltTotalWeight +
-                ", m_fltAdditionalFee=" + mfltAdditionalFee +
+                ", m_dblAmount=" + mdblAmount +
+                ", m_dblTotalWeight=" + mdblTotalWeight +
+                ", m_dblAdditionalFee=" + mdblAdditionalFee +
                 ", m_dtOrderDate=" + mdtOrderDate +
                 ", m_strDescription='" + mstrDescription + '\'' +
                 ", m_strStatus='" + mstrStatus + '\'' +

@@ -26,7 +26,7 @@ public class InvoiceService {
         return this.moInvoiceDB.registerInvoice(oInvoice);
     }
 
-    public Invoice newInvoice(Order oOrder, Map<CreditCard, Float> mapPayments) {
+    public Invoice newInvoice(Order oOrder, Map<CreditCard, Double> mapPayments) {
         return new Invoice(oOrder, mapPayments);
     }
 
@@ -68,8 +68,8 @@ public class InvoiceService {
             int c = 1;
             for(Map.Entry<Product, Integer> e : oInvoice.getOrder().getProducts().entrySet()){
                 String strProductInfo = String.format("%dx %s", e.getValue(), e.getKey().getName());
-                float fltAmount = e.getKey().getUnitaryPrice() * (float)e.getValue();
-                strBody += String.format("\n\n| %d | %-20.20s | %.2f€ |", c, strProductInfo, fltAmount);
+                double dblAmount = e.getKey().getUnitaryPrice() * (double)e.getValue();
+                strBody += String.format("\n\n| %d | %-20.20s | %.2f€ |", c, strProductInfo, dblAmount);
                 while(strProductInfo.length()>20){
                     strProductInfo = strProductInfo.substring(20);
                     System.out.printf("\n|   | %-20.20s |         |", strProductInfo);
@@ -82,7 +82,7 @@ public class InvoiceService {
             strBody += String.format("\n\n---------------------------------------");
 
             c = 1;
-            for(Map.Entry<CreditCard, Float> e : oInvoice.getPayments().entrySet()){
+            for(Map.Entry<CreditCard, Double> e : oInvoice.getPayments().entrySet()){
                 String strCCNum = Long.toString(e.getKey().getCreditCardNr());
                 strBody += String.format("\n\n| %d | %-20.20s | %.2f€ |", c, strCCNum, e.getValue());
                 strBody += String.format("\n\n---------------------------------------");
@@ -90,16 +90,16 @@ public class InvoiceService {
             }
             strBody += String.format("\n\n_______________________________________");
 
-            float fltFee;
+            double dblFee;
             if(isHomeDelivery){
-                fltFee = oInvoice.getOrder().getAdditionalFee();
+                dblFee = oInvoice.getOrder().getAdditionalFee();
             } else{
-                fltFee = 0f;
+                dblFee = 0d;
             }
-            strBody += String.format("\n|\t   Sub Total\t\t      %.2f€ |", oInvoice.getTotalPrice() - fltFee);
+            strBody += String.format("\n|\t   Sub Total\t\t      %.2f€ |", oInvoice.getTotalPrice() - dblFee);
             strBody += String.format("\n---------------------------------------");
             if(isHomeDelivery) {
-                strBody += String.format("\n|\t   Home Delivery Fee\t\t\t\t  %.2f€ |", fltFee);
+                strBody += String.format("\n|\t   Home Delivery Fee\t\t\t\t  %.2f€ |", dblFee);
                 strBody += String.format("\n---------------------------------------");
             }
             strBody += String.format("\n|\t   Total\t\t\t\t   %.2f€ |", oInvoice.getTotalPrice());

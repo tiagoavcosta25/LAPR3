@@ -49,16 +49,16 @@ public class OrderDB extends DataHandler {
         return null;
     }
 
-    private boolean addOrder(float fltAmount, float fltTotalWeight, float fltAdditionalFee, Date dtOrderDate,
+    private boolean addOrder(Double dblAmount, Double dblTotalWeight, Double dblAdditionalFee, Date dtOrderDate,
                           String strDescription, String strStatus, boolean blnIsHomeDelivery, Client oClient, int intPharmacyId, Map<Product, Integer> mapProducts) {
         try {
             openConnection();
             CallableStatement callStmt = getConnection().prepareCall("{ ? = call addOrder(?,?,?,?,?,?,?,?,?,?) }");
 
             callStmt.registerOutParameter(1, OracleTypes.INTEGER);
-            callStmt.setFloat(2, fltAmount);
-            callStmt.setFloat(3, fltTotalWeight);
-            callStmt.setFloat(4, fltAdditionalFee);
+            callStmt.setDouble(2, dblAmount);
+            callStmt.setDouble(3, dblTotalWeight);
+            callStmt.setDouble(4, dblAdditionalFee);
             callStmt.setString(5, strDescription);
             callStmt.setDate(6, dtOrderDate);
             callStmt.setString(7, strStatus);

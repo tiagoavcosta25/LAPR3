@@ -1,6 +1,5 @@
 package lapr.project.model;
 
-import oracle.ons.Cli;
 import org.junit.jupiter.api.Test;
 import java.sql.Date;
 import java.util.Calendar;
@@ -18,13 +17,14 @@ class OrderTest {
     private Order o5;
 
     public OrderTest(){
-        Map<Product, Integer> d1 = new TreeMap<>();
+        Map<Product, Integer> map = new TreeMap<>();
+        map.put(new Product("", "",19f, 11f), 3);
         o1 = new Order(1, 2.0f, 3.0f, 2.0f, new Date(12 - 12 - 13),
-                "testDesc", "testStatus", true, new Client(), new Pharmacy(), d1);
+                "testDesc", "testStatus", true, new Client(), new Pharmacy(), map);
         o2 = new Order(2.0f, 3.0f, 2.0f, new Date(12 - 12 - 13),
-                "testDesc", "testStatus", true, new Client(), new Pharmacy(), d1);
-        o3 = new Order(1, "", false, new Client(), new Pharmacy(), new TreeMap<>());
-        o4 = new Order("", true, new Client(), new Pharmacy(), new TreeMap<>());
+                "testDesc", "testStatus", true, new Client(), new Pharmacy(), map);
+        o3 = new Order(1, "", false, new Client(), new Pharmacy(), map);
+        o4 = new Order("", true, new Client(), new Pharmacy(), map);
         o5 = new Order();
     }
 
@@ -40,29 +40,28 @@ class OrderTest {
         Integer expected5 = -1;
         Integer real5 = o5.getId();
         assertEquals(expected5, real5);
-        Integer expected7 = -1;
 
     }
 
     @Test
     void getAmount() {
-        float expected = 2.0f;
-        float real = o2.getAmount();
+        double expected = 57.0f;
+        double real = o4.getAmount();
         assertEquals(expected, real);
     }
 
     @Test
     void getTotalWeight() {
-        float expected = 3.0f;
-        float real = o1.getTotalWeight();
+        double expected = 33.0f;
+        double real = o4.getTotalWeight();
         assertEquals(expected, real);
     }
 
 
     @Test
     void getAdditionalFee() {
-        float expected = 2.0f;
-        float real = o1.getAdditionalFee();
+        double expected = 5.0f;
+        double real = o4.getAdditionalFee();
         assertEquals(expected, real);
     }
 
@@ -77,8 +76,8 @@ class OrderTest {
 
     @Test
     void getDescription() {
-        String expected = "";
-        String real = o4.getDescription();
+        String expected = "testDesc";
+        String real = o2.getDescription();
         assertEquals(expected, real);
     }
 
@@ -166,27 +165,27 @@ class OrderTest {
     @Test
     void setTotalWeight() {
         Order oOrder = new Order();
-        Float expected = -2f;
+        double expected = -2f;
         oOrder.setTotalWeight(expected);
-        Float real = oOrder.getTotalWeight();
+        double real = oOrder.getTotalWeight();
         assertEquals(expected, real);
     }
 
     @Test
     void setAdditionalFee() {
         Order oOrder = new Order();
-        Float expected = -2f;
+        double expected = -2f;
         oOrder.setAdditionalFee(expected);
-        Float real = oOrder.getAdditionalFee();
+        double real = oOrder.getAdditionalFee();
         assertEquals(expected, real);
     }
 
     @Test
     void setAmount() {
         Order oOrder = new Order();
-        Float expected = -2f;
+        double expected = -2f;
         oOrder.setAmount(expected);
-        Float real = oOrder.getAmount();
+        double real = oOrder.getAmount();
         assertEquals(expected, real);
     }
 
@@ -255,7 +254,7 @@ class OrderTest {
     @Test
     void testToString() {
         Order oOrder = new Order();
-        String expected = "Order{m_intId=-1, m_fltAmount=-1.0, m_fltTotalWeight=-1.0, m_fltAdditionalFee=-1.0, m_dtOrderDate=";
+        String expected = "Order{m_intId=-1, m_dblAmount=-1.0, m_dblTotalWeight=-1.0, m_dblAdditionalFee=-1.0, m_dtOrderDate=";
         String real = oOrder.toString().substring(0, 98);
         assertEquals(expected, real);
     }

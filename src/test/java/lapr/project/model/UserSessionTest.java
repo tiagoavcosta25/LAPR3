@@ -51,4 +51,11 @@ class UserSessionTest {
         UserSession.Role real = userSession1.getRole();
         assertEquals(expected,real);
     }
+
+    @Test
+    void testGetRole() {
+        String expected = "Administrator";
+        String real = UserSession.Role.ADMIN.getRole();
+        assertEquals(expected,real);
+    }
 }

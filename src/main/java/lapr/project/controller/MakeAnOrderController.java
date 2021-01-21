@@ -54,7 +54,7 @@ public class MakeAnOrderController {
     /**
      * Payments
      */
-    private Map<CreditCard, Float> mMapPayments;
+    private Map<CreditCard, Double> mMapPayments;
 
     /**
      * Payments
@@ -103,7 +103,14 @@ public class MakeAnOrderController {
      * The method registers an order to the database.
      */
     public boolean registerOrder() {
-        return this.moOrderService.registerOrder(moOrder);
+        try{
+            if(this.moOrderService.registerOrder(moOrder)){
+                return this.generateInvoice();
+            }
+            return false;
+        } catch (Exception ex) {
+            return false;
+        }
     }
 
     /**
@@ -153,11 +160,11 @@ public class MakeAnOrderController {
     /**
      * The method adds a payment method to the map and its value.
      */
-    public boolean addPayment(CreditCard oCreditCard, Float fltValue) {
+    public boolean addPayment(CreditCard oCreditCard, Double dblValue) {
         try{
-            if((this.mfltCurrentPayment + fltValue) <= this.mfltExpectedPayment){
-                this.mMapPayments.put(oCreditCard, fltValue);
-                this.mfltCurrentPayment += fltValue;
+            if((this.mfltCurrentPayment + dblValue) <= this.mfltExpectedPayment){
+                this.mMapPayments.put(oCreditCard, dblValue);
+                this.mfltCurrentPayment += dblValue;
                 return true;
             } else{
                 throw new Exception();

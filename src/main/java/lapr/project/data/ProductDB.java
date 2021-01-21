@@ -114,17 +114,12 @@ public class ProductDB extends DataHandler {
             openConnection();
             callStmt = getConnection().prepareCall("{ ? = call getProducts() }");
 
+            callStmt.registerOutParameter(1, OracleTypes.CURSOR);
             callStmt.execute();
             ResultSet rSet = (ResultSet) callStmt.getObject(1);
 
             while(rSet.next()){
-                int intId = rSet.getInt(1);
-                String strName = rSet.getString(2);
-                String strDescription = rSet.getString(3);
-                float fltUnitaryPrice = rSet.getFloat(4);
-                float fltUnitaryWeight = rSet.getFloat(5);
-
-                lstProducts.add(new Product(intId, strName, strDescription, fltUnitaryPrice, fltUnitaryWeight));
+                lstProducts.add(productManager(rSet, 1));
             }
             return lstProducts;
         } catch (SQLException e) {
