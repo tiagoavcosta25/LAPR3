@@ -1,4 +1,5 @@
-create or replace procedure addPayment(p_invoiceId INVOICE.id%type, p_ccNum CREDITCARD.CREDITCARDNR%type, p_value PAYMENT.VALUE%type)
+create or replace procedure addPayment(p_invoiceId INVOICE.id%type, p_ccNum CREDITCARD.CREDITCARDNR%type,
+                                        p_value PAYMENT.VALUE%type)
     is
     v_checkInvoice INVOICE.ID%type;
     v_checkCC CREDITCARD.CREDITCARDNR%type;
@@ -18,7 +19,7 @@ begin
     select CREDITCARDNR
     into v_checkCC
     from CREDITCARD
-    where CREDITCARDNR = CREDITCARDNR;
+    where CREDITCARDNR = p_ccNum;
 
     if v_checkCC is null then
         raise cc_not_found;

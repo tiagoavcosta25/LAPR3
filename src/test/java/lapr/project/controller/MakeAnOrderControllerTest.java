@@ -87,7 +87,7 @@ class MakeAnOrderControllerTest {
     @Test
     void registerOrder() {
         System.out.println("registerOrder");
-        when(mockOrderService.registerOrder(this.expectedOrder)).thenReturn(expectedValue);
+        when(mockOrderService.registerOrder(this.expectedOrder)).thenReturn(-1);
         when(mockGenerateInvoiceController.generateInvoice(expectedOrder, new TreeMap<>())).thenReturn(true);
 
         makeAnOrderController.setOrder(this.expectedOrder);
@@ -95,12 +95,7 @@ class MakeAnOrderControllerTest {
         assertTrue(result);
 
         expectedValue = false;
-        when(mockOrderService.registerOrder(this.expectedOrder)).thenReturn(expectedValue);
-
-        result = makeAnOrderController.registerOrder();
-        assertFalse(result);
-
-        when(mockOrderService.registerOrder(this.expectedOrder)).thenReturn(!expectedValue);
+        when(mockOrderService.registerOrder(this.expectedOrder)).thenReturn(-1);
         when(mockGenerateInvoiceController.generateInvoice(expectedOrder, new TreeMap<>())).thenReturn(false);
         result = makeAnOrderController.registerOrder();
         assertFalse(result);
@@ -213,5 +208,18 @@ class MakeAnOrderControllerTest {
         result = makeAnOrderController.getCreditCardsByClient();
         expectedListCreditCards = null;
         assertEquals(expectedListCreditCards, result);
+    }
+
+    @Test
+    void setPharmacy() {
+        System.out.println("setPharmacy");
+
+        when(mockPharmacyService.getPharmacy("Test")).thenReturn(new Pharmacy());
+        boolean real = makeAnOrderController.setPharmacy("Test");
+        assertTrue(real);
+
+        when(mockPharmacyService.getPharmacy("Test")).thenThrow(new IllegalArgumentException());
+        real = makeAnOrderController.setPharmacy("Test");
+        assertFalse(real);
     }
 }

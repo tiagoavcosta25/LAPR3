@@ -41,32 +41,29 @@ public class InvoiceDB extends DataHandler {
     private boolean addInvoice(Date dtInvoiceDate, Double fltTotalPrice, Order oOrder, Map<CreditCard, Double> mapPayments) {
         try {
             openConnection();
-            CallableStatement callStmt = getConnection().prepareCall("{ call addInvoice(?,?,?) }");
+            CallableStatement callStmt = getConnection().prepareCall("{ ? = call addInvoice(?,?,?) }");
 
-            callStmt.setDate(1, dtInvoiceDate);
-            callStmt.setDouble(2, fltTotalPrice);
-            callStmt.setDouble(3, oOrder.getId());
+
+            callStmt.registerOutParameter(1, OracleTypes.INTEGER);
+            callStmt.setDate(2, dtInvoiceDate);
+            callStmt.setDouble(3, fltTotalPrice);
+            callStmt.setDouble(4, oOrder.getId());
 
             callStmt.execute();
 
-            ResultSet rSet = (ResultSet) callStmt.getObject(1);
-            Integer intInvoiceId = rSet.getInt(1);
+            Integer intInvoiceId = (Integer) callStmt.getObject(1);
 
             int c = 1;
 
             if (intInvoiceId != null) {
                 for (Product oProduct : oOrder.getProducts().keySet()) {
-                    callStmt = getConnection().prepareCall("{ call addInvoiceLine(?,?,?,?,?,?) }");
+                    callStmt = getConnection().prepareCall("{ call addInvoiceLine(?,?,?,?,?) }");
 
                     callStmt.setInt(1, c);
                     callStmt.setInt(2, intInvoiceId);
                     callStmt.setInt(3, oOrder.getId());
                     callStmt.setInt(4, oProduct.getId());
-                    callStmt.setString(5, oProduct.getName());
-                    callStmt.setString(6, oProduct.getDescription());
-                    callStmt.setDouble(7, oProduct.getUnitaryPrice());
-                    callStmt.setDouble(8, oProduct.getUnitaryWeight());
-                    callStmt.setDouble(9, oOrder.getProducts().get(oProduct) * oProduct.getUnitaryPrice());
+                    callStmt.setDouble(5, oOrder.getProducts().get(oProduct) * oProduct.getUnitaryPrice());
                     callStmt.execute();
 
                     c++;

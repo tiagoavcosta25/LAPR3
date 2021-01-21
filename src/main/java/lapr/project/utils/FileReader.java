@@ -33,6 +33,9 @@ public class FileReader {
         readGenericFile(FILEPATHS);
         readGenericFile(FILESCOOTERS);
         readGenericFile(FILEDRONES);
+        readGenericFile(FILEORDERS);
+        readGenericFile(FILEPHARMACIES);
+        readGenericFile(FILEPHARMACYPRODUCTS);
     }
 
     public static void readGenericFile(String path) {
@@ -190,9 +193,9 @@ public class FileReader {
             oCtrl.addPharmacyProduct(columns[0], oProduct, Integer.parseInt(columns[2]));
 
             if (oCtrl.registerPharmacyProduct()) {
-                LOGGER.log(Level.INFO,"Pharmacy was registered with success!");
-            }else LOGGER.log(Level.WARNING,"There was a problem registering a Pharmacy.");
-        }else LOGGER.log(Level.WARNING,"There was a problem registering a Pharmacy.");
+                LOGGER.log(Level.INFO,"Product added to the Pharmacy with success!");
+            }else LOGGER.log(Level.WARNING,"There was a problem adding the Product to the Pharmacy.");
+        }else LOGGER.log(Level.WARNING,"There was a problem adding the Product to the Pharmacy.");
     }
 
     private static void readOrderFile(String[] columns) {
@@ -224,6 +227,7 @@ public class FileReader {
             }
             if(oProduct == null){
                 startingCCIndex = i;
+                break;
             }
             oCtrl.addProductToOrder(oProduct, Integer.parseInt(columns[i + 1]));
         }
@@ -246,8 +250,8 @@ public class FileReader {
             oCtrl.newOrder(columns[1], Boolean.valueOf(columns[2]));
 
             if (oCtrl.registerOrder()) {
-                LOGGER.log(Level.INFO,"Pharmacy was registered with success!");
-            }else LOGGER.log(Level.WARNING,"There was a problem registering a Pharmacy.");
+                LOGGER.log(Level.INFO,"Order was registered with success!");
+            }else LOGGER.log(Level.WARNING,"There was a problem registering an Order.");
         }
     }
 }*/

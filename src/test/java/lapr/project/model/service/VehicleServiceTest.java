@@ -1,5 +1,6 @@
 package lapr.project.model.service;
 
+import com.google.zxing.WriterException;
 import lapr.project.data.UserDB;
 import lapr.project.data.VehicleDB;
 import lapr.project.model.*;
@@ -10,6 +11,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 
+import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 
@@ -64,7 +66,7 @@ class VehicleServiceTest {
     }
 
     @Test
-    void generateQRCode() {
+    void generateQRCode() throws IOException, WriterException {
         System.out.println("generateQRCode");
         boolean real = m_service.generateQRCode(new Scooter());
         assertTrue(real);

@@ -104,10 +104,9 @@ public class MakeAnOrderController {
      */
     public boolean registerOrder() {
         try{
-            if(this.moOrderService.registerOrder(moOrder)){
-                return this.generateInvoice();
-            }
-            return false;
+            int intId = this.moOrderService.registerOrder(moOrder);
+            this.moOrder.setId(intId);
+            return this.generateInvoice();
         } catch (Exception ex) {
             return false;
         }
@@ -213,6 +212,15 @@ public class MakeAnOrderController {
      */
     public void setClient(Client oClient) {
         this.moClient = oClient;
+    }
+
+    public boolean setPharmacy(String strPharmacyEmail){
+        try {
+            this.moPharmacy = this.moPharmacyService.getPharmacy(strPharmacyEmail);
+            return true;
+        } catch (Exception ex){
+            return false;
+        }
     }
 
 }

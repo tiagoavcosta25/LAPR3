@@ -59,13 +59,10 @@ class OrderServiceTest {
     @Test
     void registerOrder() {
         System.out.println("registerOrder");
-        when(mockOrderDB.registerOrder(expectedOrder)).thenReturn(true);
-        boolean result = orderService.registerOrder(expectedOrder);
-        assertTrue(result);
-
-        when(mockOrderDB.registerOrder(null)).thenReturn(false);
-        result = orderService.registerOrder(null);
-        assertFalse(result);
+        when(mockOrderDB.registerOrder(expectedOrder)).thenReturn(1);
+        int result = orderService.registerOrder(expectedOrder);
+        int expected = 1;
+        assertEquals(expected, result);
     }
 
     @Test

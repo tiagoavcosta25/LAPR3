@@ -7,3 +7,7 @@
 #MAP_OF_PRODUCTS
 #
 #PHARMACIES     #ids [1-2]
+#pharmacy_name;pharmacy_email;latitude;longitude;altitude;street_name;door_number;postal_code;locality;country
+Pharmacy Sa da Bandeira;info@sabandeira.com;40.741895;-73.989308;10;Rua de Sá da Bandeira;236 54;4000-428;Porto;Portugal
+Pharmacy Trindade;info@trindade.com;41.15227;-8.60929;104;Rua da Trindade;123;4000-123;Porto;Portugal
+Pharmacy Castelo do Queijo;info@queijo.com;41.16875;-8.68995;4;Rua do Castelo do Queijo;1;4000-119;Porto;Portugal

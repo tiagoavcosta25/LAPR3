@@ -1,8 +1,11 @@
 package lapr.project.model.service;
 
+import com.google.zxing.WriterException;
 import lapr.project.data.VehicleDB;
 import lapr.project.model.*;
+import lapr.project.utils.QRCode;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,8 +32,9 @@ public class VehicleService {
                     dblBatteryVoltage, dblEfficiency), oVehicleType);
     }
 
-    public boolean generateQRCode(Vehicle oVehicle) {
-        return true;
+    public boolean generateQRCode(Vehicle oVehicle) throws IOException, WriterException {
+        return QRCode.generateQRCode(oVehicle.getModel().getVehicleType().getDesignation() + "#" + oVehicle.getId()
+                        + "_" + oVehicle.getPharmacy().getEmail(), oVehicle.getModel().getVehicleType().getDesignation() + "_" + oVehicle.getId());
     }
 
     public VehicleModel getVehicleModel(String strDesignation) {
