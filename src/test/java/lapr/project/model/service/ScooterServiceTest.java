@@ -50,22 +50,26 @@ class ScooterServiceTest {
     @Test
     void updateScooterFromDB() {
         System.out.println("updateScooterFromDB");
-        when(mockScooterDB.updateScooterFromDB(1, 100, "Charging",
-                2.0f, 2.0f, 30, 200f, 20f, 1)).thenReturn(true);
+        when(mockScooterDB.updateScooterFromDB(1, 100d, "Test",
+                2.0d, 2.0d, 30d, 100, 20d,
+                10d)).thenReturn(true);
 
-        boolean result = scooterService.updateScooterFromDB(1, 100,
-                "Charging", 2.0f, 2.0f, 30,
-                200f, 20f, 1);
+        boolean result = scooterService.updateScooterFromDB(1, 100d, "Test",
+                2.0d, 2.0d, 30d, 100, 20d,
+                10d);
         assertTrue(result);
 
-        result = scooterService.updateScooterFromDB(-1, 100, "Charging",
-                2.0f, 2.0f, 30, 200f, 20f, 1);
+        result = scooterService.updateScooterFromDB(-1, 100d, "Test",
+                2.0d, 2.0d, 30d, 100, 20d,
+                10d);
         assertFalse(result);
 
-        when(mockScooterDB.updateScooterFromDB(1, 100, "Charging",
-                2.0f, 2.0f, 30, 200f, 20f, 1)).thenReturn(false);
-        result = scooterService.updateScooterFromDB(1, 100, "Charging",
-                2.0f, 2.0f, 30, 200f, 20f, 1);
+        when(mockScooterDB.updateScooterFromDB(12, 100d, "Test",
+                2.0d, 2.0d, 30d, 100, 20d,
+                10d)).thenReturn(false);
+        result = scooterService.updateScooterFromDB(12, 100d, "Test",
+                2.0d, 2.0d, 30d, 100, 20d,
+                10d);
         assertFalse(result);
     }
 
@@ -73,8 +77,8 @@ class ScooterServiceTest {
     void getScootersList() {
         System.out.println("getScootersList");
         List<Scooter> expectedListScooters = new ArrayList<>(Arrays.asList(new Scooter()));
-        when(scooterService.getScootersList(-1)).thenReturn(expectedListScooters);
-        List<Scooter>  result = scooterService.getScootersList(-1);
+        when(scooterService.getScootersList("pharmacy@gmail.com")).thenReturn(expectedListScooters);
+        List<Scooter>  result = scooterService.getScootersList("pharmacy@gmail.com");
         assertEquals(expectedListScooters, result);
     }
 

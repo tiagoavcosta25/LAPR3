@@ -38,9 +38,9 @@ public class RemoveScooterController {
     /**
      * The method returns the list of scooters.
      */
-    public List<Scooter> showScootersList(int intPharmacyId) {
+    public List<Scooter> showScootersList(String strPharmacyEmail) {
         try {
-            return moScooterService.getScootersList(intPharmacyId);
+            return moScooterService.getScootersList(strPharmacyEmail);
         } catch (Exception ex) {
             return null;
         }

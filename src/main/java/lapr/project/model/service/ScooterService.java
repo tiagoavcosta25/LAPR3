@@ -19,14 +19,13 @@ public class ScooterService {
         return moScooterDB.getScooter(intId);
     }
 
-    public boolean updateScooterFromDB(int intId, double dblBatteryPerc, String strCharginStatus, double dblPotency,
-                                       double dblWeight, int intBatteryCapacity, double dblBatteryVoltage,
-                                       double dblMaxPayload, int intPharmacyId){
-        return moScooterDB.updateScooterFromDB(intId, dblBatteryPerc, strCharginStatus, dblPotency, dblWeight,
-                intBatteryCapacity, dblBatteryVoltage, dblMaxPayload, intPharmacyId);
+    public boolean updateScooterFromDB(int intId, double dblBatteryPerc, String strDesignation, double dblPotency, double dblWeight, double dblMaxPayload,
+                                       int intBatteryCapacity, double dblBatteryVoltage, double dblEfficiency){
+        return moScooterDB.updateScooterFromDB(intId, dblBatteryPerc, strDesignation, dblPotency, dblWeight, dblMaxPayload,
+                intBatteryCapacity, dblBatteryVoltage, dblEfficiency);
     }
 
-    public List<Scooter> getScootersList(int intPharmacyId) { return moScooterDB.getScootersList(intPharmacyId);}
+    public List<Scooter> getScootersList(String strPharmacyEmail) { return moScooterDB.getScootersList(strPharmacyEmail);}
 
     public boolean removeScooterFromDB(int intId) { return moScooterDB.removeScooterFromDB(intId);}
 

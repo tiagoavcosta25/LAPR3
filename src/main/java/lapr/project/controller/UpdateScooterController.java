@@ -37,9 +37,9 @@ public class UpdateScooterController {
     /**
      * The method returns the list of scooters.
      */
-    public List<Scooter> showScootersList (int intPharmacyId) {
+    public List<Scooter> showScootersList (String strPharmacyEmail) {
         try {
-            return moScooterService.getScootersList(intPharmacyId);
+            return moScooterService.getScootersList(strPharmacyEmail);
         } catch (Exception ex) {
             return null;
         }
@@ -48,12 +48,12 @@ public class UpdateScooterController {
     /**
      * The method updates a scooter from the database.
      */
-    public boolean updateScooter(int intId, double dblBatteryPerc, String strCharginStatus, double dblPotency,
-                                 double dblWeight, int intBatteryCapacity, double dblBatteryVoltage,
-                                 double dblMaxPayload, int intPharmacyId){
+    public boolean updateScooter(int intId, double dblBatteryPerc, String strDesignation, double dblPotency, double dblWeight,
+                                 double dblMaxPayload, int intBatteryCapacity, double dblBatteryVoltage,
+                                 double dblEfficiency){
 
-        return moScooterService.updateScooterFromDB(intId, dblBatteryPerc, strCharginStatus, dblPotency, dblWeight,
-                intBatteryCapacity, dblBatteryVoltage, dblMaxPayload, intPharmacyId);
+        return moScooterService.updateScooterFromDB(intId, dblBatteryPerc, strDesignation, dblPotency, dblWeight, dblMaxPayload,
+                intBatteryCapacity, dblBatteryVoltage, dblEfficiency);
     }
 
 }

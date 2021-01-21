@@ -56,12 +56,12 @@ class RemoveScooterControllerTest {
     @Test
     void showScootersList() {
         System.out.println("showScootersList");
-        when(m_mockScooterService.getScootersList(1)).thenReturn(new ArrayList<>());
-        List<Scooter> result = m_ctrl.showScootersList(1);
+        when(m_mockScooterService.getScootersList("pharmacy@gmail.com")).thenReturn(new ArrayList<>());
+        List<Scooter> result = m_ctrl.showScootersList("pharmacy@gmail.com");
         assertEquals(new ArrayList<>(),result);
 
-        when(m_mockScooterService.getScootersList(-2)).thenThrow(new IllegalArgumentException());
-        result = m_ctrl.showScootersList(-2);
+        when(m_mockScooterService.getScootersList("")).thenThrow(new IllegalArgumentException());
+        result = m_ctrl.showScootersList("");
         assertNull(result);
     }
 

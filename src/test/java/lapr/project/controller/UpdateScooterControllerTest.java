@@ -52,33 +52,38 @@ class UpdateScooterControllerTest {
     @Test
     void showScootersList() {
         System.out.println("showScootersList");
-        when(m_mockScooterService.getScootersList(1)).thenReturn(new ArrayList<>());
-        List<Scooter> result = m_ctrl.showScootersList(1);
+        when(m_mockScooterService.getScootersList("pharmacy@gmail.com")).thenReturn(new ArrayList<>());
+        List<Scooter> result = m_ctrl.showScootersList("pharmacy@gmail.com");
         assertEquals(new ArrayList<>(),result);
 
-        when(m_mockScooterService.getScootersList(-2)).thenThrow(new IllegalArgumentException());
-        result = m_ctrl.showScootersList(-2);
+        when(m_mockScooterService.getScootersList("")).thenThrow(new IllegalArgumentException());
+        result = m_ctrl.showScootersList("");
         assertNull(result);
     }
 
     @Test
     void updateScooter() {
         System.out.println("updateScooter");
-        when(m_mockScooterService.updateScooterFromDB(1, 100f, "Charging", 2.0f,
-                2.0f, 30, 200f, 200f, 1)).thenReturn(true);
+        when(m_mockScooterService.updateScooterFromDB(1, 100d, "Test",
+                2.0d, 2.0d, 30d, 100, 20d,
+                10d)).thenReturn(true);
 
-        boolean result = m_ctrl.updateScooter(1, 100, "Charging", 2.0f,
-                2.0f, 30, 200f, 200f, 1);
+        boolean result = m_ctrl.updateScooter(1, 100d, "Test",
+                2.0d, 2.0d, 30d, 100, 20d,
+                10d);
         assertTrue(result);
 
-        result = m_ctrl.updateScooter(-1, 100, "Charging", 2.0f,
-                2.0f, 30, 200f,200f, 1);
+        result = m_ctrl.updateScooter(-1, 100d, "Test",
+                2.0d, 2.0d, 30d, 100, 20d,
+                10d);
         assertFalse(result);
 
-        when(m_mockScooterService.updateScooterFromDB(1, 100, "Charging", 2.0f,
-                2.0f, 30, 200f,200f, 1)).thenReturn(false);
-        result = m_ctrl.updateScooter(1, 100, "Charging", 2.0f,
-                2.0f, 30, 200f,200f, 1);
+        when(m_mockScooterService.updateScooterFromDB(1, 100d, "Test",
+                2.0d, 2.0d, 30d, 100, 20d,
+                10d)).thenReturn(false);
+        result = m_ctrl.updateScooter(1, 100d, "Test",
+                2.0d, 2.0d, 30d, 100, 20d,
+                10d);
         assertFalse(result);
     }
 }

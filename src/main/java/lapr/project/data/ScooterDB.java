@@ -80,22 +80,21 @@ public class ScooterDB extends DataHandler {
         }
     }
 
-    public boolean updateScooterFromDB(int intId, double dblBatteryPerc, String strCharginStatus, double dblPotency,
-                                       double dblWeight, int intBatteryCapacity, double dblBatteryVoltage,
-                                       double dblMaxPayload, int intPharmacyId) {
+    public boolean updateScooterFromDB(int intId, double dblBatteryPerc, String strDesignation, double dblPotency, double dblWeight, double dblMaxPayload,
+                                       int intBatteryCapacity, double dblBatteryVoltage, double dblEfficiency) {
         try {
             openConnection();
-            CallableStatement callStmt = getConnection().prepareCall("{call updateScooter(?,?,?,?,?,?,?,?)}");
+            CallableStatement callStmt = getConnection().prepareCall("{call updateScooter(?,?,?,?,?,?,?,?,?)}");
 
             callStmt.setInt(1, intId);
-            callStmt.setDouble(2, dblPotency);
-            callStmt.setDouble(3, dblWeight);
-            callStmt.setDouble(4, dblMaxPayload);
-            callStmt.setString(5, strCharginStatus);
-            callStmt.setDouble(6, dblBatteryPerc);
-            callStmt.setDouble(7, intBatteryCapacity);
+            callStmt.setDouble(2, dblBatteryPerc);
+            callStmt.setString(3, strDesignation);
+            callStmt.setDouble(4, dblPotency);
+            callStmt.setDouble(5, dblWeight);
+            callStmt.setDouble(6, dblMaxPayload);
+            callStmt.setInt(7, intBatteryCapacity);
             callStmt.setDouble(8, dblBatteryVoltage);
-            callStmt.setInt(9, intPharmacyId);
+            callStmt.setDouble(9, dblEfficiency);
 
             callStmt.execute();
 
@@ -107,7 +106,7 @@ public class ScooterDB extends DataHandler {
         return true;
     }
 
-    public List<Scooter> getScootersList(int intPharmacyId) {
+    public List<Scooter> getScootersList(String strPharmacyEmail) {
         CallableStatement callStmt = null;
         List<Scooter> lstScooter = new ArrayList<>();
         try {
@@ -115,7 +114,7 @@ public class ScooterDB extends DataHandler {
             callStmt = getConnection().prepareCall("{ ? = call getScootersList(?) }");
 
             callStmt.registerOutParameter(1, oracle.jdbc.internal.OracleTypes.CURSOR);
-            callStmt.setInt(2, intPharmacyId);
+            callStmt.setString(2, strPharmacyEmail);
             callStmt.execute();
             ResultSet rSet = (ResultSet) callStmt.getObject(1);
 

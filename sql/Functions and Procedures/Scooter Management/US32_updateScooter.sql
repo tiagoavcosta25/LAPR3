@@ -1,30 +1,34 @@
-create PROCEDURE updateScooter(p_id IN VEHICLE.ID%TYPE, p_potency IN VEHICLE.POTENCY%TYPE,
-                               p_weight IN VEHICLE.WEIGHT%TYPE, p_maxPayload IN VEHICLE.MAXPAYLOAD%TYPE,
-                               p_chargingStatus IN VEHICLE.CHARGINGSTATUS%TYPE, p_pharmacyID "PHARMACY".ID%type,
-                               p_batteryPerc IN BATTERY.BATTERYPERC%TYPE, p_batteryCapacity IN BATTERY.BATTERYCAPACITY%TYPE,
-                               p_batteryVoltage IN BATTERY.BATTERYVOLTAGE%TYPE)
+create or replace PROCEDURE updateScooter(p_scooterId IN VEHICLE.ID%TYPE, p_batteryPerc IN VEHICLE.BATTERYPERC%TYPE,
+                                p_designation IN VEHICLEMODEL.DESIGNATION%type, p_potency IN VEHICLEMODEL.POTENCY%TYPE,
+                                p_weight IN VEHICLEMODEL.WEIGHT%TYPE, p_maxPayload IN VEHICLEMODEL.MAXPAYLOAD%TYPE,
+                                p_batteryCapacity IN BATTERY.BATTERYCAPACITY%TYPE, p_batteryVoltage IN BATTERY.BATTERYVOLTAGE%TYPE,
+                                p_batteryEfficiency IN BATTERY.EFFICIENCY%TYPE)
     IS
     v_batteryId BATTERY.ID%type;
 
     BEGIN
 
-    UPDATE VEHICLE
-    SET CHARGINGSTATUS = p_chargingStatus,
-        POTENCY = p_potency,
-        WEIGHT = p_weight,
-        MAXPAYLOAD = p_maxPayload,
-        PHARMACYID = p_pharmacyID
-    WHERE ID = p_id;
+        SELECT B.ID
+        INTO v_batteryId
+        FROM BATTERY B
+            INNER JOIN VEHICLEMODEL VM on B.ID = VM.BATTERYID
+            INNER JOIN VEHICLE V on VM.ID = V.MODELID
+        WHERE V.ID = p_scooterId;
 
-    SELECT BATTERYID
-    INTO v_batteryId
-    FROM VEHICLE
-    WHERE ID = p_id;
+        UPDATE BATTERY
+        SET BATTERYCAPACITY = p_batteryCapacity,
+            BATTERYVOLTAGE = p_batteryVoltage,
+            EFFICIENCY = p_batteryEfficiency
+        WHERE ID = v_batteryId;
 
-    UPDATE BATTERY
-    SET BATTERYPERC = p_batteryPerc,
-        BATTERYCAPACITY = p_batteryCapacity,
-        BATTERYVOLTAGE = p_batteryVoltage
-    WHERE ID = v_batteryId;
+        UPDATE VEHICLEMODEL
+        SET DESIGNATION = p_designation,
+            POTENCY = p_potency,
+            WEIGHT = p_weight,
+            MAXPAYLOAD = p_maxPayload
+        WHERE ID = p_scooterId;
 
+        UPDATE VEHICLE
+        SET BATTERYPERC = p_batteryPerc
+        WHERE ID = p_scooterId;
 end;
