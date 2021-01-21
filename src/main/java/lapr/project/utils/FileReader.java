@@ -6,7 +6,6 @@ import lapr.project.controller.RegisterClientController;
 import lapr.project.controller.RegisterPathController;
 import lapr.project.controller.RegisterPharmacyController;
 import lapr.project.controller.RegisterScooterController;
->>>>>>> 3d5c634bd33e9eb88da9df1c3a2649e0a618b2d0
 import lapr.project.model.CreditCard;
 import lapr.project.model.Pharmacy;
 import lapr.project.model.Product;
@@ -199,6 +198,4 @@ public class FileReader {
             }else LOGGER.log(Level.WARNING,"There was a problem registering a Pharmacy.");
         }
     }
-
-
 }*/
