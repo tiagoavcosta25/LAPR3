@@ -1,17 +1,10 @@
 package lapr.project.controller;
 
-import lapr.project.model.Client;
 import lapr.project.model.Order;
-import lapr.project.data.ClientDB;
-import lapr.project.data.OrderDB;
 import lapr.project.model.Product;
-import lapr.project.model.service.ClientService;
-import lapr.project.model.service.CourierService;
 import lapr.project.model.service.OrderService;
-import lapr.project.model.service.PharmacyService;
 import lapr.project.utils.EmailSender;
 
-import java.util.ArrayList;
 import java.util.Map;
 
 /**
@@ -31,6 +24,8 @@ public class NotifyAndRemoveController {
      * Courier Management class
      */
     private OrderService moOrderService;
+    MakeAPharmacyTransferController ctrl;
+
 
 
     /**
@@ -38,11 +33,11 @@ public class NotifyAndRemoveController {
      */
     public NotifyAndRemoveController() {
         this.moOrderService = new OrderService();
+        this.ctrl = new MakeAPharmacyTransferController();
     }
 
     public boolean notifyAndRemove(Order order) {
         Map<Product, Integer> lstProdcuts = moOrderService.notifyAndRemove(order);
-        MakeAPharmacyTransferController ctrl = new MakeAPharmacyTransferController();
         if (lstProdcuts == null) {
             EmailSender.sendEmail(order.getClient().getEmail(), "Unsuccessful Order", "Dear costumer, I'm sorry to inform you but some of the products: \n"
                     + order.getProducts().toString() + "\n are out of Stock in every Pharmacy");
