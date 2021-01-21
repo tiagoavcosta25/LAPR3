@@ -1,19 +1,19 @@
-create or replace function getScootersList(p_pharmacyId IN PHARMACY.ID%TYPE)
+create or replace function getScootersList(p_pharmacyEmail IN PHARMACY.EMAIL%TYPE)
     return sys_refcursor is
     v_scooters sys_refcursor;
     scooter_not_found exception;
 begin
 
     OPEN v_scooters FOR
-        SELECT V.ID, V.BATTERYPERC, VM.DESIGNATION, VM.POTENCY, VM.WEIGHT, VM.MAXPAYLOAD, B.ID,
-               B.BATTERYCAPACITY, B.BATTERYVOLTAGE, B.EFFICIENCY, P.ID, P.NAME, A.*
-        FROM VEHICLE V
-        INNER JOIN VEHICLEMODEL VM ON V.MODELID = VM.ID
-        INNER JOIN BATTERY B ON VM.BATTERYID = B.ID
-        INNER JOIN PHARMACY P on V.PHARMACYID = P.ID
-        INNER JOIN ADDRESS A on A.LATITUDE = P.ADDRESSLATITUDE
-        AND A.LONGITUDE = P.ADDRESSLONGITUDE
-        WHERE V.PHARMACYID = p_pharmacyId;
+        SELECT S.VEHICLEID, V.BATTERYPERC, VM.ID, VM.DESIGNATION, VM.POTENCY, VM.WEIGHT, VM.MAXPAYLOAD, VM.VEHICLETYPE, B.*, P.ID, P.NAME,
+               P.EMAIL, A.*
+        FROM SCOOTER S
+                 INNER JOIN VEHICLE V ON V.ID = S.VEHICLEID
+                 INNER JOIN VEHICLEMODEL VM ON V.MODELID = VM.ID
+                 INNER JOIN BATTERY B ON VM.BATTERYID = B.ID
+                 INNER JOIN PHARMACY P on V.PHARMACYID = P.ID
+                 INNER JOIN ADDRESS A on A.LATITUDE = P.ADDRESSLATITUDE and A.LONGITUDE = P.ADDRESSLONGITUDE
+        WHERE P.EMAIL = p_pharmacyEmail;
 
     if v_scooters is null then
         raise scooter_not_found;

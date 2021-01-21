@@ -90,6 +90,26 @@ public class DataHandler {
     private static int COLUMNSADDEDORDERPRODUCT = 6;
 
     /**
+     * Additional Number of columns added when executing the batteryManager method.
+     */
+    private static int COLUMNSADDEDBATTERY = 4;
+
+    /**
+     * Additional Number of columns added when executing the vehicleModelManager method.
+     */
+    private static int COLUMNSADDEDVEHICLEMODEL = 10;
+
+    /**
+     * Additional Number of columns added when executing the scooterManager method.
+     */
+    private static int COLUMNSADDEDSCOOTER = 23;
+
+    /**
+     * Additional Number of columns added when executing the droneManager method.
+     */
+    private static int COLUMNSADDEDDRONE = 23;
+
+    /**
      * Use connection properties set on file application.properties
      */
     public DataHandler() {
@@ -356,6 +376,64 @@ public class DataHandler {
         oInvoice.getPayments().put(oCreditCard, intValue);
 
         return oInvoice;
+    }
+
+    protected Scooter scooterManager(ResultSet rSet, int firstColumn) throws SQLException, NoSuchAlgorithmException { // column number +23
+
+        int intId = rSet.getInt(firstColumn);
+        firstColumn++;
+        double dblBatteryPerc = rSet.getDouble(firstColumn);
+        firstColumn++;
+        VehicleModel oVehicleModel = vehicleModelManager(rSet,firstColumn);
+        firstColumn+= COLUMNSADDEDVEHICLEMODEL;
+        Pharmacy oPharmacy = pharmacyManager(rSet,firstColumn);
+
+        return new Scooter(intId, dblBatteryPerc, oVehicleModel, oPharmacy);
+    }
+
+    protected Drone droneManager(ResultSet rSet, int firstColumn) throws SQLException, NoSuchAlgorithmException { // column number +23
+
+        int intId = rSet.getInt(firstColumn);
+        firstColumn++;
+        double dblBatteryPerc = rSet.getDouble(firstColumn);
+        firstColumn++;
+        VehicleModel oVehicleModel = vehicleModelManager(rSet,firstColumn);
+        firstColumn+= COLUMNSADDEDVEHICLEMODEL;
+        Pharmacy oPharmacy = pharmacyManager(rSet,firstColumn);
+
+        return new Drone(intId, dblBatteryPerc, oVehicleModel, oPharmacy);
+    }
+
+    protected VehicleModel vehicleModelManager(ResultSet rSet, int firstColumn) throws SQLException { // column number +10
+
+        int intId = rSet.getInt(firstColumn);
+        firstColumn++;
+        String strDesignation = rSet.getString(firstColumn);
+        firstColumn++;
+        double dblPotency = rSet.getDouble(firstColumn);
+        firstColumn++;
+        double dblWeight = rSet.getDouble(firstColumn);
+        firstColumn++;
+        double dblMaxPayload = rSet.getDouble(firstColumn);
+        firstColumn++;
+        VehicleType oVehicleType = VehicleType.getTypeByDesignation(rSet.getString(firstColumn));
+        firstColumn++;
+        Battery oBattery = batteryManager(rSet,firstColumn);
+
+        return new VehicleModel(strDesignation, dblPotency, dblWeight, dblMaxPayload, oBattery, oVehicleType);
+    }
+
+    protected Battery batteryManager(ResultSet rSet, int firstColumn) throws SQLException { // column number +4
+
+        int intBatteryId = rSet.getInt(firstColumn);
+        firstColumn++;
+        double dblBatteryPerc = rSet.getDouble(firstColumn);
+        firstColumn++;
+        int intBatteryCapacity = rSet.getInt(firstColumn);
+        firstColumn++;
+        double dblBatteryVoltage = rSet.getDouble(firstColumn);
+
+        return new Battery(intBatteryId, intBatteryCapacity, dblBatteryPerc, dblBatteryVoltage);
     }
 
     public void genericRemove(int intId, String strProcedureCall) {

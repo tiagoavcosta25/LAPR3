@@ -12,6 +12,31 @@ import java.util.List;
 
 public class DroneDB extends DataHandler {
 
+    public Drone getDrone(int id) {
+
+        CallableStatement callStmt = null;
+        try {
+            openConnection();
+            callStmt = getConnection().prepareCall("{ ? = call getDrone(?) }");
+
+            callStmt.registerOutParameter(1, oracle.jdbc.OracleTypes.CURSOR);
+            callStmt.setInt(2, id);
+
+            callStmt.execute();
+
+            ResultSet rSet = (ResultSet) callStmt.getObject(1);
+
+            if (rSet.next()) {
+                return droneManager(rSet,1);
+            }
+        } catch (SQLException | NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        } finally {
+            closeAll();
+        }
+        throw new IllegalArgumentException("No Scooter with ID:" + id);
+    }
+
     public boolean updateDrone(Float percentage, Integer pharmacyId, Float potency, Float weight, Double batteryCapacity,
                                Float maxPayload, Float batteryVoltage, String chargingStatus, Integer droneId) {
         try {
@@ -79,27 +104,15 @@ public class DroneDB extends DataHandler {
             ResultSet rSet = (ResultSet) callStmt.getObject(1);
 
             while (rSet.next()) {
-                int intId = rSet.getInt(1);
-                float fltPotency = rSet.getFloat(2);
-                float fltWeight = rSet.getFloat(3);
-                float fltMaxPayload = rSet.getFloat(4);
-                String strCharginStatus = rSet.getString(5);
-                int intBatteryId = rSet.getInt(6);
-                float fltBatteryPerc = rSet.getInt(7);
-                int intBatteryCapacity = rSet.getInt(8);
-                float fltBatteryVoltage = rSet.getFloat(9);
-                Pharmacy oPharmacy = pharmacyManager(rSet, 10);
-
-                //TODO: Criar droneManager no DataHandler
-                lstDrone.add(new Drone(intId, fltBatteryPerc, new VehicleModel(), oPharmacy));
-                rSet.next();
+                lstDrone.add(droneManager(rSet,1));
             }
         } catch (SQLException | NoSuchAlgorithmException e) {
             e.printStackTrace();
+            throw new IllegalArgumentException("No Drones Avaliable.");
         } finally {
             closeAll();
         }
-        throw new IllegalArgumentException("No Drones Avaliable.");
+        return lstDrone;
     }
 
     public boolean removeDroneFromDB(int intId) {
