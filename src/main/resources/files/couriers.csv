@@ -1,14 +1,15 @@
 #lines starting with # should be ignored
 #Column description
-#IBAN regarding the Courier
-#Pharmacy regarding the Courier
+#NAME regarding the user
+#EMAIL regarding the user
 #NIF regarding the user - e.g. 123456789
-#USERNAME for the app - e.g. "john"
+#IBAN regarding the user - e.g. "PT50123456789098765432123"
+#PHARMACY EMAIL regarding the pharmacy that the user will be associated to
 #
-#CLIENTS  # ids [2-6]   5
-#
-#COURIERS   # ids [9-12]    4
-armando@gmail.com;cpassword;887634695;armando
-armenio@gmail.com;cpassword;591370713;armenio
-arlindo@gmail.com;cpassword;523066967;arlindo
-antonio@gmail.com;cpassword;925949634;antonio
+#COURIES
+#NAME | EMAIL | NIF | IBAN | PHARMACY EMAIL |
+Mace Windu;macewindu@gmail.com;495338167;PT32003506515126856462589;info@pharmacy1.com
+Qui-Gon Jinn;quigonjinn@gmail.com;525352372;PT61003506519837118168559;info@pharmacy2.com
+Obi-Wan Kenobi;obiwankenobi@gmail.com;468700731;PT48003506515429382885486;info@pharmacy3.com
+Luke Skywalker;lukeskywalker@gmail.com;032976091;PT72003506512489364448411;info@pharmacy4.com
+Anakin Skywalker;anakinskywalker@gmail.com;650905392;41.PT45003506513716494517256;info@pharmacy5.com
