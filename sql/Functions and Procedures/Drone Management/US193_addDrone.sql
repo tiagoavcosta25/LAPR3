@@ -1,12 +1,11 @@
-create or replace procedure addDrone(p_potency "VEHICLE".POTENCY%type, p_weight "VEHICLE".WEIGHT%type, p_maxPayload "VEHICLE".MAXPAYLOAD%type,
-                                       p_chargingStatus "VEHICLE".CHARGINGSTATUS%type, p_batteryPerc "BATTERY".BATTERYPERC%type,
-                                       p_batteryCapacity "BATTERY".BATTERYCAPACITY%type, p_batteryVoltage "BATTERY".BATTERYVOLTAGE%type,
-                                       p_pharmacyID "PHARMACY".ID%type)
-    is
+create or replace function addDrone(p_batteryPerc VEHICLE.BATTERYPERC%type, p_modelId VEHICLE.MODELID%type,
+                                      p_pharmacyID "PHARMACY".ID%type)
+    return VEHICLE.ID%type is
     v_checkPharmacyId PHARMACY.ID%type;
-    v_batteryId BATTERY.ID%type;
+    v_checkModelId VEHICLEMODEL.ID%type;
     v_vehicleId VEHICLE.ID%type;
-    drone_not_found exception;
+    model_not_found exception;
+    pharmacy_not_found exception;
 begin
 
     select ID
@@ -15,40 +14,41 @@ begin
     where ID = p_pharmacyID;
 
     if v_checkPharmacyID is null then
-        raise drone_not_found;
+        raise pharmacy_not_found;
     end if;
 
--- Creates a new Battery
-    INSERT INTO BATTERY(BATTERYPERC, BATTERYCAPACITY, BATTERYVOLTAGE)
-    VALUES (p_batteryPerc, p_batteryCapacity, p_batteryVoltage);
+    select ID
+    into v_checkModelId
+    from VEHICLEMODEL
+    where ID = p_modelID;
 
-    SELECT max(ID)
-    INTO v_batteryId
-    FROM BATTERY
-    WHERE BATTERYPERC = p_batteryPerc
-    AND BATTERYCAPACITY = p_batteryCapacity
-    AND BATTERYVOLTAGE = p_batteryVoltage;
+    if v_checkModelId is null then
+        raise model_not_found;
+    end if;
 
 -- Creates a new Vehicle
-    Insert into VEHICLE(BATTERYID,CHARGINGSTATUS,POTENCY,WEIGHT, MAXPAYLOAD, PHARMACYID)
-    Values (v_batteryId, p_chargingStatus, p_potency, p_weight, p_maxPayload, p_pharmacyID);
+    Insert into VEHICLE(BATTERYPERC, MODELID, PHARMACYID)
+    Values (p_batteryPerc, p_modelId, p_pharmacyID);
 
     SELECT max(ID)
     INTO v_vehicleId
     FROM VEHICLE
-    WHERE BATTERYID = v_batteryId
-      AND CHARGINGSTATUS = p_chargingStatus
-      AND POTENCY = p_potency
-      AND WEIGHT = p_weight
-      AND MAXPAYLOAD = p_maxPayload
+    WHERE BATTERYPERC = p_batteryPerc
+      AND MODELID = p_modelId
       AND PHARMACYID = p_pharmacyID;
 
 -- Creates a new Drone
     INSERT INTO DRONE(VEHICLEID)
     VALUES (v_vehicleId);
 
+    return v_vehicleId;
+
 EXCEPTION
-    when drone_not_found then
-        raise_application_error(-20912, 'Drone Not Found!');
+    when pharmacy_not_found then
+        raise_application_error(-20952, 'Pharmacy Not Found!');
+        return null;
+    when model_not_found then
+        raise_application_error(-20953, 'Model Not Found!');
+        return null;
 
 end;

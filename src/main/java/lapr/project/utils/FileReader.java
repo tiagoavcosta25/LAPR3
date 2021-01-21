@@ -1,7 +1,7 @@
 package lapr.project.utils;
 
 import lapr.project.controller.*;
-/*
+
 import lapr.project.controller.RegisterClientController;
 import lapr.project.controller.RegisterPathController;
 import lapr.project.controller.RegisterPharmacyController;
@@ -25,6 +25,9 @@ public class FileReader {
     public static final String FILECLIENTS = "src/main/resources/files/clients.csv";
     public static final String FILEPATHS = "src/main/resources/files/paths.csv";
     public static final String FILESCOOTERS = "src/main/resources/files/escooters.csv";
+    public static final String FILEREMOVESCOOTERS = "src/main/resources/files/removeScooters.csv";
+    public static final String FILEDRONES = "src/main/resources/files/drones.csv";
+    public static final String FILEREMOVEDRONES = "src/main/resources/files/removeDrones.csv";
     public static final String FILEPHARMACIES = "src/main/resources/files/pharmacies.csv";
     public static final String FILEPHARMACYPRODUCTS = "src/main/resources/files/pharmacyProducts.csv";
     public static final String FILEORDERS = "src/main/resources/files/orders.csv";
@@ -33,6 +36,8 @@ public class FileReader {
     public static void readFiles() {
         readGenericFile(FILECLIENTS);
         readGenericFile(FILEPATHS);
+        readGenericFile(FILESCOOTERS);
+        readGenericFile(FILEDRONES);
     }
 
     public static void readGenericFile(String path) {
@@ -51,6 +56,15 @@ public class FileReader {
                             break;
                         case FILESCOOTERS:
                             readScooterFile(columns);
+                            break;
+                        case FILEREMOVESCOOTERS:
+                            readRemoveScooterFile(columns);
+                            break;
+                        case FILEDRONES:
+                            readDroneFile(columns);
+                            break;
+                        case FILEREMOVEDRONES:
+                            readRemoveDroneFile(columns);
                             break;
                         case FILEPHARMACIES:
                             readPharmacyFile(columns);
@@ -75,7 +89,7 @@ public class FileReader {
         }
     }
 
-    public static void readClientFile(String[] columns) {
+    private static void readClientFile(String[] columns) {
         RegisterClientController ctrl = new RegisterClientController();
         List<CreditCard> lst = new ArrayList<>();
         try {
@@ -95,7 +109,7 @@ public class FileReader {
         } else LOGGER.log(Level.WARNING, "There was a problem registering a Client");
     }
 
-    public static void readPathFile(String[] columns) {
+    private static void readPathFile(String[] columns) {
         RegisterPathController ctrl = new RegisterPathController();
 
         if (ctrl.registerPath(Double.parseDouble(columns[0]),Double.parseDouble(columns[1]),Double.parseDouble(columns[2]),
@@ -106,12 +120,55 @@ public class FileReader {
     }
 
 
-    public static void readScooterFile(String[] columns) {
-        RegisterScooterController ctrl = new RegisterScooterController();
-        //TODO: Registar scooter com base no ficheiro csv
+    private static void readScooterFile(String[] columns) {
+        RegisterScooterController oCtrl = new RegisterScooterController();
+
+        if (oCtrl.setPharmacy(columns[0])) {
+            if (!oCtrl.setVehicleModel(columns[1])) {
+                oCtrl.newVehicleModel(columns[1], Double.parseDouble(columns[2]), Double.parseDouble(columns[3]),
+                        Double.parseDouble(columns[4]), Integer.parseInt(columns[5]), Double.parseDouble(columns[6]),
+                        Double.parseDouble(columns[7]));
+            }
+            oCtrl.newScooter();
+            if (oCtrl.registersScooter()) {
+                LOGGER.log(Level.INFO, "Scooter was registered with success!");
+            } else LOGGER.log(Level.WARNING, "There was a problem registering a Scooter");
+        } else LOGGER.log(Level.WARNING, "There was a problem registering a Scooter");
     }
 
-    public static void readPharmacyFile(String[] columns) {
+    private static void readRemoveScooterFile(String[] columns) {
+        RemoveScooterController oCtrl = new RemoveScooterController();
+
+        if (oCtrl.removeScooter(Integer.parseInt(columns[0]))) {
+            LOGGER.log(Level.INFO, "Scooter was removed with success!");
+        } else LOGGER.log(Level.WARNING, "There was a problem removing a Scooter");
+    }
+
+    private static void readDroneFile(String[] columns) {
+        RegisterDroneController oCtrl = new RegisterDroneController();
+
+        if (oCtrl.setPharmacy(columns[0])) {
+            if (!oCtrl.setVehicleModel(columns[1])) {
+                oCtrl.newVehicleModel(columns[1], Double.parseDouble(columns[2]), Double.parseDouble(columns[3]),
+                        Double.parseDouble(columns[4]), Integer.parseInt(columns[5]), Double.parseDouble(columns[6]),
+                        Double.parseDouble(columns[7]));
+            }
+            oCtrl.newDrone();
+            if (oCtrl.registersDrone()) {
+                LOGGER.log(Level.INFO, "Drone was registered with success!");
+            } else LOGGER.log(Level.WARNING, "There was a problem registering a Drone");
+        } else LOGGER.log(Level.WARNING, "There was a problem registering a Drone");
+    }
+
+    private static void readRemoveDroneFile(String[] columns) {
+        RemoveDroneController oCtrl = new RemoveDroneController();
+
+        if (oCtrl.removeDrone(Integer.parseInt(columns[0]))) {
+            LOGGER.log(Level.INFO, "Drone was removed with success!");
+        } else LOGGER.log(Level.WARNING, "There was a problem removing a Drone");
+    }
+
+    private static void readPharmacyFile(String[] columns) {
         RegisterPharmacyController oCtrl = new RegisterPharmacyController();
         oCtrl.newPharmacy(columns[0], columns[1], Double.parseDouble(columns[2]), Double.parseDouble(columns[3]),
                 Double.parseDouble(columns[4]), columns[5], columns[6], columns[7], columns[8], columns[9]);
@@ -121,7 +178,7 @@ public class FileReader {
         }else LOGGER.log(Level.WARNING,"There was a problem registering a Pharmacy.");
     }
 
-    public static void readPharmacyProductFile(String[] columns) {
+    private static void readPharmacyProductFile(String[] columns) {
         AddPharmacyProductController oCtrl = new AddPharmacyProductController();
 
         List<Product> lstProducts = oCtrl.getProducts();
@@ -143,7 +200,7 @@ public class FileReader {
         }else LOGGER.log(Level.WARNING,"There was a problem registering a Pharmacy.");
     }
 
-    public static void readOrderFile(String[] columns) {
+    private static void readOrderFile(String[] columns) {
         MakeAnOrderController oCtrl = new MakeAnOrderController();
 
         ApplicationPOT.getInstance().setCurrentSession(new UserSession(columns[0]));
@@ -198,4 +255,4 @@ public class FileReader {
             }else LOGGER.log(Level.WARNING,"There was a problem registering a Pharmacy.");
         }
     }
-}*/
+}
