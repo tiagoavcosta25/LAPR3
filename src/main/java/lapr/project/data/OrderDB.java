@@ -49,7 +49,7 @@ public class OrderDB extends DataHandler {
         return null;
     }
 
-    private boolean addOrder(Double dblAmount, Double dblTotalWeight, Double dblAdditionalFee, Date dtOrderDate,
+    private int addOrder(Double dblAmount, Double dblTotalWeight, Double dblAdditionalFee, Date dtOrderDate,
                           String strDescription, String strStatus, boolean blnIsHomeDelivery, Client oClient, int intPharmacyId, Map<Product, Integer> mapProducts) {
         try {
             openConnection();
@@ -82,10 +82,10 @@ public class OrderDB extends DataHandler {
                 }
             }
 
-            return true;
+            return intId;
         } catch (SQLException e) {
             e.printStackTrace();
-            return false;
+            return -1;
         } finally {
             closeAll();
         }
@@ -111,7 +111,7 @@ public class OrderDB extends DataHandler {
         }
     }
 
-    public boolean registerOrder(Order oOrder) {
+    public int registerOrder(Order oOrder) {
          return addOrder(oOrder.getAmount(), oOrder.getTotalWeight(), oOrder.getAdditionalFee(), oOrder.getOrderDate(),
                 oOrder.getDescription(), oOrder.getStatus(), oOrder.isHomeDelivery(), oOrder.getClient(), oOrder.getPharmacy().getId(), oOrder.getProducts());
     }

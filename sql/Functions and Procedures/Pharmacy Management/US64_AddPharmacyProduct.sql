@@ -2,6 +2,7 @@ create or replace procedure addPharmacyProduct(p_pharmacyEmail PHARMACY.EMAIL%ty
     is
     v_checkPharmacyId PHARMACY.ID%type;
     v_checkProductId PRODUCT.ID%type;
+    v_checkStock number;
     v_existingStock PHARMACYPRODUCT.STOCK%type;
     pharmacy_not_found exception;
     product_not_found exception;
@@ -26,16 +27,22 @@ begin
     end if;
 
 -- Creates a Pharmacy Product or Updates its stock
-    select STOCK
-    into v_existingStock
+    select count(PHARMACYID)
+    into v_checkStock
     from PHARMACYPRODUCT
     where PHARMACYID = v_checkPharmacyId
       and PRODUCTID = p_productId;
 
-    if v_existingStock is null then
+    if v_checkStock = 0 then
         Insert into PHARMACYPRODUCT(PHARMACYID, PRODUCTID, STOCK)
         Values (v_checkPharmacyId, p_productId, p_stock);
     else
+        select STOCK
+        into v_existingStock
+        from PHARMACYPRODUCT
+        where PHARMACYID = v_checkPharmacyId
+          and PRODUCTID = p_productId;
+
         v_existingStock := v_existingStock + p_stock;
         update PHARMACYPRODUCT
         set STOCK = v_existingStock

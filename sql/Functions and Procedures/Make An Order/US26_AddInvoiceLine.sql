@@ -1,7 +1,5 @@
 create or replace procedure addInvoiceLine(p_line INVOICELINE.id%type, p_invoiceId INVOICE.id%type, p_orderId "Order".id%type,
-                                    p_productId PRODUCT.ID%type, p_name PRODUCT.name%type,
-                                    p_description PRODUCT.DESCRIPTION%type, p_unitaryPrice PRODUCT.UNITARYPRICE%type,
-                                    p_unitaryWeight PRODUCT.UNITARYWEIGHT%type, p_value INVOICELINE.VALUE%type)
+                                    p_productId PRODUCT.ID%type, p_value INVOICELINE.VALUE%type)
     is
     v_checkInvoiceId INVOICE.ID%type;
     v_checkOrderId "Order".ID%type;
@@ -32,11 +30,7 @@ begin
     select id
     into v_checkProductId
     from PRODUCT
-    where ID = p_productId
-      and NAME = p_name
-      and DESCRIPTION = p_description
-      and UNITARYPRICE = p_unitaryPrice
-      and UNITARYWEIGHT = p_unitaryWeight;
+    where ID = p_productId;
 
     if v_checkProductId is null then
         raise product_not_found;

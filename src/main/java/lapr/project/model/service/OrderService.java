@@ -21,7 +21,7 @@ public class OrderService {
         return this.moOrderDB.removeOrder(intId);
     }
 
-    public boolean registerOrder(Order oOrder) {
+    public int registerOrder(Order oOrder) {
         return this.moOrderDB.registerOrder(oOrder);
     }
 
