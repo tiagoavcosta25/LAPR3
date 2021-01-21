@@ -47,8 +47,8 @@ public class DeliveryRunService {
     }
 
 
-    public Map<String, String> startDeliveryRun(Vehicle vehicle, String currentUserEmail) {
-        return moDeliveryDB.startDeliveryRun(vehicle, currentUserEmail);
+    public Map<String, String> startDeliveryRun(String currentUserEmail) {
+        return moDeliveryDB.startDeliveryRun(currentUserEmail);
     }
 
     public boolean sendsEmail(Map lstClients) {

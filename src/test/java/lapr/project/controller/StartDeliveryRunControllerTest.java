@@ -16,6 +16,7 @@ import org.mockito.Mockito;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.concurrent.ExecutionException;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
@@ -44,9 +45,14 @@ class StartDeliveryRunControllerTest {
     void startDeliveryRun() {
         Map<String,String> lst = new TreeMap<>();
         ApplicationPOT.getInstance().setCurrentSession(new UserSession("123"));
-        when(mockSeliveryService.startDeliveryRun(new Drone(),ApplicationPOT.getInstance().getCurrentSession().getCurrentUserEmail())).thenReturn(lst);
+        when(mockSeliveryService.startDeliveryRun(ApplicationPOT.getInstance().getCurrentSession().getCurrentUserEmail())).thenReturn(lst);
         when(mockSeliveryService.sendsEmail(lst)).thenReturn(assertTrue);
-        boolean result =  startDeliveryRunController.startDeliveryRun(new Drone());
+        boolean result =  startDeliveryRunController.startDeliveryRun();
         assertEquals(assertTrue,result);
+
+        when(mockSeliveryService.startDeliveryRun(ApplicationPOT.getInstance().getCurrentSession().getCurrentUserEmail())).thenThrow(new NullPointerException());
+        when(mockSeliveryService.sendsEmail(lst)).thenReturn(assertTrue);
+        result =  startDeliveryRunController.startDeliveryRun();
+        assertEquals(false,result);
     }
 }

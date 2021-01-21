@@ -1,4 +1,4 @@
-create or replace function getClientsEmail(vehicleIDs Vehicle.ID%TYPE, courierEmail "User".EMAIL%TYPE)
+create or replace function getClientsEmail(courierEmail "User".EMAIL%TYPE)
     return sys_refcursor is
     v_emails sys_refcursor;
     deliveryRun_not_found exception;
@@ -15,7 +15,7 @@ begin
         end if;
 
         UPDATE DELIVERYRUN
-            SET VEHICLEID = vehicleIDs
+            SET DELIVERYSTATUS = 'InProgress'
         WHERE ID = deliveryRunID;
 
     OPEN v_emails FOR

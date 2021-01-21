@@ -38,16 +38,15 @@ public class DeliveryDB extends DataHandler {
 
     }
 
-    public Map<String,String> startDeliveryRun(Vehicle vehicle, String currentUserEmail) {
+    public Map<String,String> startDeliveryRun(String currentUserEmail) {
         CallableStatement callStmt = null;
         Map<String,String> lstClients = new TreeMap<>();
         try {
             openConnection();
-            callStmt = getConnection().prepareCall("{ ? = call startDeliveryRun(?,?) }");
+            callStmt = getConnection().prepareCall("{ ? = call getClientsEmail(?) }");
 
             callStmt.registerOutParameter(1, oracle.jdbc.internal.OracleTypes.CURSOR);
-            callStmt.setInt(2, vehicle.getId());
-            callStmt.setString(3, currentUserEmail);
+            callStmt.setString(2, currentUserEmail);
             callStmt.execute();
             ResultSet rSet = (ResultSet) callStmt.getObject(1);
 

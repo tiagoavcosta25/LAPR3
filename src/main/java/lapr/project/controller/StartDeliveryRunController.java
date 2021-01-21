@@ -27,9 +27,9 @@ public class StartDeliveryRunController {
      * it doesn't.
      *
      */
-    public boolean startDeliveryRun(Vehicle vehicle) {
+    public boolean startDeliveryRun() {
         try {
-            Map<String,String> clientList = moDeliveryRunService.startDeliveryRun(vehicle,ApplicationPOT.getInstance().getCurrentSession().getCurrentUserEmail());
+            Map<String,String> clientList = moDeliveryRunService.startDeliveryRun(ApplicationPOT.getInstance().getCurrentSession().getCurrentUserEmail());
              return moDeliveryRunService.sendsEmail(clientList);
         }catch (Exception e){
             return false;

@@ -86,8 +86,8 @@ class DeliveryRunServiceTest {
     @Test
     void startDeliveryRun() {
         Map<String,String> lst = new TreeMap<>();
-        when(m_oDeliveryDB.startDeliveryRun(new Drone(),"123")).thenReturn(lst);
-        Map<String,String> result = m_oDeliveryRunService.startDeliveryRun(new Drone(),"123");
+        when(m_oDeliveryDB.startDeliveryRun("123")).thenReturn(lst);
+        Map<String,String> result = m_oDeliveryRunService.startDeliveryRun("123");
         assertEquals(lst, result);
 
     }
