@@ -8,7 +8,7 @@ begin
         SELECT D.ID INTO deliveryRunID
         FROM DELIVERYRUN D INNER JOIN COURIER C3 on C3.USERID = D.COURIERID
                            INNER JOIN "User" U2 on U2.ID = C3.USERID
-        WHERE U2.EMAIL = courierEmail;
+        WHERE U2.EMAIL = courierEmail AND D.DELIVERYSTATUS = 'idle';
 
         if deliveryRunID is null then
             raise deliveryRun_not_found;
