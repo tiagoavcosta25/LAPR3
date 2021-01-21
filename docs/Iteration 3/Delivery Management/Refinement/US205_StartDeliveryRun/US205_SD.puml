@@ -13,10 +13,7 @@ activate ADMIN
 ADMIN -> UI : Starts a delivery run
 activate UI
 
-UI -> CTRLS : vehicle = seeSuitableVehicle()
-activate CTRLS
-deactivate CTRLS
-UI -> CTRL : startDeliveryRun(vehicle)
+UI -> CTRL : startDeliveryRun()
 activate CTRL
 CTRL -> PR : create()
 activate PR
@@ -32,16 +29,16 @@ deactivate APA
 CTRL -> APA : email = getCurrentUserEmail()
 activate APA
 deactivate APA
-CTRL -> PR : clients = updateDeliveryRun(vehicle,email)
+CTRL -> PR : clientsEmail = updateDeliveryRun(email)
 activate PR
-PR -> PDB : clients = updateDeliveryRun(vehicle,email)
+PR -> PDB : clientsEmail = updateDeliveryRun(email)
 activate PDB
 deactivate PDB
 deactivate PR
 
-CTRL -> PR : sendsEmail(clients)
+CTRL -> PR : sendsEmail(clientsEmail)
 activate PR
-PR -> PR : sendsEmail(clients)
+PR -> PR : sendsEmail(clientsEmail)
 deactivate PR
 deactivate CTRL
 UI -> ADMIN : informs of the success of the operation

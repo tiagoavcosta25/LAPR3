@@ -11,9 +11,6 @@ class StartDeliveryRunController{
 +startDeliveryRun()
 }
 
-class SeeSuitableVehicleController{
-+seeSuitableVehicle()
-}
 
 
 class ApplicationPOT
@@ -32,10 +29,7 @@ package "Service" #DDDDDD {
 
       }
 
-      class VehicleService{
-                +getSuitableVehicle(distance, email)
 
-            }
  }
 }
 
@@ -89,25 +83,17 @@ class DeliveryDB{
  +updateDeliveryRun(email)
   }
 
-  class VehicleDB{
-   +getSuitableVehicle(distance, email)
-    }
 }
 database database{
 
 }
 class DeliveryDB extends DataHandler
-class VehicleDB extends DataHandler
 
 StartDeliveryRunController ..> ApplicationPOT
 StartDeliveryRunUI ..> StartDeliveryRunController
-StartDeliveryRunUI ..> SeeSuitableVehicleController
 StartDeliveryRunController ..> DeliveryRunService : has
-StartDeliveryRunController ..> VehicleService : has
 DeliveryRunService ..> DeliveryDB : has
-VehicleService ..> VehicleDB : has
 DeliveryDB --> database : manages
-VehicleDB --> database : manages
 
 Courier "1" -- "1" User : acts as >
 Courier "1" -- "1" DeliveryRun : does a >
