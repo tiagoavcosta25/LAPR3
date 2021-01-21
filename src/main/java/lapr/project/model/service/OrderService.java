@@ -38,7 +38,7 @@ public class OrderService {
     }
 
 
-    public boolean notifyAndRemove(Order oOrder) {
+    public Map<Product,Integer> notifyAndRemove(Order oOrder) {
         return this.moOrderDB.notifyAndRemove(oOrder);
     }
 
