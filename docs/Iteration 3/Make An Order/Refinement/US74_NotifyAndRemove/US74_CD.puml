@@ -1,35 +1,43 @@
 @startuml
 skinparam classAttributeIconSize 0
 
-
-package "UI" #DDDDDD{
-class NotifyAndRemoveUI {
-    
+package "UI" #DDDDDD {
+class NotifyAndRemoveUI{
 }
-}
-package "controller" #DDDDDD{
-class NotifyAndRemoveController {
-    
-  +notifyAndRemoveUI()
-}
-class PotApplication
-{
-  +static getInstance()
-  +getPlatform()
-  +getCurrentSession()
 }
 
-class UserSession
-{
-  +getUserInstance()
+
+package "Controller" #DDDDDD {
+
+
+class NotifyAndRemoveController{
++notifyAndRemove(order)
 }
+
 }
-package "model" #DDDDDD{
-class Platform {
-  -String strDesignation
-  +getClientReg()
-  +getOrderReg()
+
+database Database{
 }
+
+
+package "Model" #DDDDDD {
+package "Service" #DDDDDD {
+
+  class OrderService{
+       +notifyAndRemove(order)
+  }
+ }
+}
+
+package "Model" #DDDDDD {
+class User{
+-   int id
+-   String name
+-   String email
+-   String password
+-   Integer nif
+}
+
 class Client{
 -   int IBAN
 -   long creditCardNumber
@@ -38,6 +46,7 @@ class Client{
 }
 
 class Address{
+-   int id
 -   String streetName
 -   String doorNumber
 -   String postalCode
@@ -55,60 +64,57 @@ class Order{
 -   Date orderDate
 -   String description
 -   String status
+-   boolean isHomeDelivery
+}
+
+class Product{
+-   int id
+-   String name
+-   String description
+-   float unitaryPrice
+-   float unitaryWeight
 }
 
 class Pharmacy{
 -   int id
 -   String name
+-   String email
 }
 
-class Product{
-    -String productId
-    -String name
-    -String description
-    -Double unitaryPrice
-    -Double unitaryWeight
 }
 
 
-package "registration" #DDDDDD{
-class ClientRegistration {
-
-  +getClientByEmail(email)
-
-}
-
-class OrderRegistration {
-
-  +getLatestOrder(client)
-  +notifyAndRemove(order)
-
-}
-}
+package "Data" #DDDDDD {
+class DataHandler{
+    +openConnection()
+    +closeAll()
 }
 
 
-Platform "1" -- "1" OrderRegistration: has >
-Platform "1" -- "1" ClientRegistration: has >
+class OrderDB{
+       +OrderDB()
+       +registerOrder(order)
+  }
 
+
+}
+
+class OrderDB extends DataHandler
 
 NotifyAndRemoveUI ..> NotifyAndRemoveController
+NotifyAndRemoveController ..> OrderService
+Database "1" -- "*" Client : has registered >
+Database "1" -- "*" Order : has registered >
+Database "1" -- "*" Product : has registered >
+Database "1" -- "*" Address : has registered >
+OrderDB -- Database : manages >
+OrderService "1" --> "*" Order : manages services of
+OrderService "1" --> "1" OrderDB : uses
 
-NotifyAndRemoveController ..> Platform
-NotifyAndRemoveController ..> OrderRegistration
-NotifyAndRemoveController ..> ClientRegistration
-NotifyAndRemoveController ..> PotApplication
-NotifyAndRemoveController ..> UserSession
-Platform "1" -- "*" Client : has registered >
-Order "1" -- "*" Address : has >
-Order "1" -- "*" Pharmacy : is made to a >
-Platform "1" -- "*" Order : has registered >
+Order "1" -- "*" Product : has >
+Order "1" -- "1" Pharmacy : has >
 Client "1" -- "1" Order : makes >
 Client "1" -- "1" Address : has >
-Pharmacy "1" -- "1" Address : has >
-Pharmacy "1" -- "1..*" Product : has >
-
+Client "1" -- "1" User : acts as >
 
 @enduml
-
-

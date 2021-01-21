@@ -3,9 +3,17 @@ skinparam classAttributeIconSize 0
 hide methods
 left to right direction
 
-class Platform {
--   String designation
+database Database {
 }
+
+class User{
+-   int id
+-   String name
+-   String email
+-   String password
+-   Integer nif
+}
+
 class Client{
 -   int IBAN
 -   long creditCardNumber
@@ -14,6 +22,7 @@ class Client{
 }
 
 class Address{
+-   int id
 -   String streetName
 -   String doorNumber
 -   String postalCode
@@ -31,27 +40,32 @@ class Order{
 -   Date orderDate
 -   String description
 -   String status
+-   boolean isHomeDelivery
+}
+
+class Product{
+-   int id
+-   String name
+-   String description
+-   float unitaryPrice
+-   float unitaryWeight
 }
 
 class Pharmacy{
 -   int id
 -   String name
+-   String email
 }
 
-class Product{
-    -String productId
-    -String name
-    -String description
-    -Double unitaryPrice
-    -Double unitaryWeight
-}
 
-Platform "1" -- "*" Client : has registered >
-Order "1" -- "*" Address : has >
-Order "1" -- "*" Pharmacy : is made to a >
-Platform "1" -- "*" Order : has registered >
+Database "1" -- "*" Client : has registered >
+Database "1" -- "*" Order : has registered >
+Database "1" -- "*" Product : has registered >
+Database "1" -- "*" Address : has registered >
+Order "1" -- "*" Product : has >
+Order "1" -- "*" Pharmacy : has >
+Client "0..1" -- "1" User: acts as >
 Client "1" -- "1" Order : makes >
 Client "1" -- "1" Address : has >
 Pharmacy "1" -- "1" Address : has >
-Pharmacy "1" -- "1..*" Product : has >
 @enduml

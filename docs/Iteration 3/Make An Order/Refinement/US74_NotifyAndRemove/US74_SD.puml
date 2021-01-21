@@ -4,11 +4,7 @@ actor "Client" as Client
 
 participant ":NotifyAndRemoveUI" as UI
 participant ":NotifyAndRemoveController" as CTRL
-participant "PotApplication" as PA
-participant "app \n:PotApplication" as APA
-participant "session \n:UserSession" as US
-participant "plat \n:Platform" as PLAT
-participant "cientReg \n:ClientRegistration" as CR
+participant "orderService \n:OrderService" as ORDERSV
 participant "orderReg \n:OrderRegistration" as RF
 
 
@@ -17,36 +13,17 @@ activate Client
 Client -> UI : makes an order
 alt if order cannot be entirely fulfilled
 activate UI
-UI -> CTRL : notifyAndRemove()
+UI -> CTRL : notifyAndRemove(order)
 activate CTRL
-CTRL -> PA : app = getInstance()
-activate PA
-deactivate PA
-CTRL -> APA : plat = getPlatform()
-activate APA
-deactivate APA
-
-CTRL -> APA: session = getCurrentSession()
-activate APA
-deactivate APA
-
-CTRL -> US: email = getUserEmail()
-activate US
-deactivate US
-CTRL -> PLAT : orderReg = getOrderReg()
-activate PLAT
-deactivate PLAT
-CTRL -> PLAT : clientReg = getClientReg()
-activate PLAT
-deactivate PLAT
-CTRL -> CR : client = getClientByEmail(email)
-activate CR
-deactivate CR
-CTRL -> RF : order = getLatestOrder(client)
+CTRL -> ORDERSV** :create()
+activate ORDERSV
+ORDERSV -> RF** : create()
+deactivate ORDERSV
+CTRL -> ORDERSV : notifyAndRemove(order)
+activate ORDERSV
+ORDERSV -> RF : notifyAndRemove(order)
 activate RF
-deactivate RF
-CTRL -> RF : notifyAndRemove(order)
-activate RF
+deactivate ORDERSV
 deactivate RF
 deactivate CTRL
 
