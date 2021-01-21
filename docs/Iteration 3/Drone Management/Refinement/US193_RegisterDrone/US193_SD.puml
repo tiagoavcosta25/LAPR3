@@ -13,6 +13,7 @@ participant "batt \n:Battery" as B
 participant "droneServ \n:DroneService" as DS
 participant "droneDB \n:DroneDB" as DDB
 participant "drone \n:Drone" as D
+participant "QRCode" as QR
 
 activate ADMIN
 
@@ -40,13 +41,39 @@ deactivate UI
 ADMIN -> UI : Chooses the pharmacy
 activate UI
 
+UI -> CTRL : setPharmacy(pharmacyEmail)
+activate CTRL
+CTRL -> PHS : pharmacy = getPharmacy(pharmacyEmail)
+activate PHS
+PHS -> PHDB : pharmacy = getPharmacy(pharmacyEmail)
+activate PHDB
+ref over PHDB
+SD_CONNECTIONS
+end ref
+deactivate PHDB
+deactivate PHS
+CTRL -> VS : create()
+activate VS
+VS -> VDB ** : create()
+deactivate VS
+deactivate CTRL
+
 UI --> ADMIN : Presents the list of drone models and asks to choose one or\ncreate a new model
 deactivate UI
 alt if the admin chooses an existing model
 ADMIN -> UI : Chooses the model
 activate UI
-UI -> CTRL : chooseVehicleModel(model)
+UI -> CTRL : setVehicleModel(designation)
 activate CTRL
+CTRL -> VS : model = getVehicleModel(designation)
+activate VS
+VS -> VDB : model = getVehicleModel(designation)
+activate VDB
+ref over VDB
+SD_CONNECTIONS
+end ref
+deactivate VDB
+deactivate VS
 deactivate CTRL
 deactivate UI
 else if the admin chooses to create a new model
@@ -72,7 +99,10 @@ activate VM
 VM -> B ** : create(batteryCapacity, batteryVoltage, efficiency)
 deactivate VM
 deactivate VS
-
+end alt
+deactivate CTRL
+UI -> CTRL : drone = newDrone()
+activate CTRL
 CTRL -> DS : create()
 activate DS
 DS -> DDB ** : create()
@@ -85,10 +115,11 @@ deactivate DS
 
 CTRL -> VS : generateQRCode()
 activate VS
+VS -> QR : generateQRCode(data, path)
+activate QR
+deactivate QR
 deactivate VS
 deactivate CTRL
-
-end alt
 
 UI -> ADMIN : Shows the information about the drone and its QR Code, requesting verification
 deactivate UI

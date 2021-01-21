@@ -39,31 +39,30 @@ public class DroneDB extends DataHandler {
         return true;
     }
 
-    public boolean registerDrone(Drone d) {
+    public int registerDrone(Drone d) {
         return addDrone(d.getBatteryPerc(), d.getModel(), d.getPharmacy());
     }
 
-    public boolean addDrone(double dblBatteryPerc, VehicleModel oVehicleModel, Pharmacy oPharmacy) {
-        boolean flag = true;
+    public int addDrone(double dblBatteryPerc, VehicleModel oVehicleModel, Pharmacy oPharmacy) {
         try {
             openConnection();
 
-            CallableStatement callStmt = getConnection().prepareCall("{ call addDrone(?,?,?) }");
+            CallableStatement callStmt = getConnection().prepareCall("{ ? = call addDrone(?,?,?) }");
 
-
-            callStmt.setDouble(1, dblBatteryPerc);
-            callStmt.setInt(2, oVehicleModel.getId());
-            callStmt.setInt(3, oPharmacy.getId());
+            callStmt.registerOutParameter(1, oracle.jdbc.OracleTypes.INTEGER);
+            callStmt.setDouble(2, dblBatteryPerc);
+            callStmt.setInt(3, oVehicleModel.getId());
+            callStmt.setInt(4, oPharmacy.getId());
 
             callStmt.execute();
+            return (int) callStmt.getObject(1);
 
         } catch (SQLException e) {
-            flag = false;
             e.printStackTrace();
+            return -1;
         } finally {
             closeAll();
         }
-        return flag;
     }
 
     public List<Drone> getDronesList(int intPharmacyId) {

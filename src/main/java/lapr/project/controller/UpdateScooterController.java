@@ -48,12 +48,12 @@ public class UpdateScooterController {
     /**
      * The method updates a scooter from the database.
      */
-    public boolean updateScooter(int intId, float fltBatteryPerc, String strCharginStatus, float fltPotency,
-                                 float fltWeight, int intBatteryCapacity, float fltBatteryVoltage,
-                                 float fltMaxPayload, int intPharmacyId){
+    public boolean updateScooter(int intId, double dblBatteryPerc, String strCharginStatus, double dblPotency,
+                                 double dblWeight, int intBatteryCapacity, double dblBatteryVoltage,
+                                 double dblMaxPayload, int intPharmacyId){
 
-        return moScooterService.updateScooterFromDB(intId, fltBatteryPerc, strCharginStatus, fltPotency, fltWeight,
-                intBatteryCapacity, fltBatteryVoltage, fltMaxPayload, intPharmacyId);
+        return moScooterService.updateScooterFromDB(intId, dblBatteryPerc, strCharginStatus, dblPotency, dblWeight,
+                intBatteryCapacity, dblBatteryVoltage, dblMaxPayload, intPharmacyId);
     }
 
 }

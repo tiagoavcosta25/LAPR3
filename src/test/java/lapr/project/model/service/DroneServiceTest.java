@@ -163,13 +163,13 @@ class DroneServiceTest {
     @Test
     void registerDrone() {
         System.out.println("registerDrone");
-        when(m_mockDroneDB.registerDrone(expectedDrone)).thenReturn(true);
-        boolean result = m_oDroneService.registerDrone(expectedDrone);
-        assertTrue(result);
+        when(m_mockDroneDB.registerDrone(expectedDrone)).thenReturn(1);
+        int result = m_oDroneService.registerDrone(expectedDrone);
+        assertEquals(1,result);
 
-        when(m_mockDroneDB.registerDrone(null)).thenReturn(false);
+        when(m_mockDroneDB.registerDrone(null)).thenReturn(-1);
         result = m_oDroneService.registerDrone(null);
-        assertFalse(result);
+        assertEquals(-1, result);
     }
 
     @Test

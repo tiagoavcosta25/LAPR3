@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.TreeMap;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.booleanThat;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
 
@@ -99,12 +100,18 @@ class ScooterServiceTest {
     @Test
     void registerScooter() {
         System.out.println("registerScooter");
-        when(mockScooterDB.registerScooter(expectedScooter)).thenReturn(true);
-        boolean result = scooterService.registerScooter(expectedScooter);
-        assertTrue(result);
+        when(mockScooterDB.registerScooter(expectedScooter)).thenReturn(1);
+        int result = scooterService.registerScooter(expectedScooter);
+        assertEquals(1, result);
 
-        when(mockScooterDB.registerScooter(null)).thenReturn(false);
+        when(mockScooterDB.registerScooter(null)).thenReturn(-1);
         result = scooterService.registerScooter(null);
-        assertFalse(result);
+        assertEquals(-1, result);
+    }
+
+    @Test
+    void parkScooter() {
+        boolean real = scooterService.parkScooter(12, 12);
+        assertFalse(real);
     }
 }

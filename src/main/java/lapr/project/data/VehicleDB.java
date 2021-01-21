@@ -127,4 +127,75 @@ public class VehicleDB extends DataHandler {
         }
         throw new IllegalArgumentException("No Models Avaliable.");
     }
+
+    public VehicleModel getVehicleModel(String strDesignation) {
+
+        CallableStatement callStmt = null;
+        try {
+            openConnection();
+            callStmt = getConnection().prepareCall("{ ? = call getVehicleModel(?) }");
+
+            callStmt.registerOutParameter(1, OracleTypes.CURSOR);
+            callStmt.setString(2, strDesignation);
+
+            callStmt.execute();
+
+            ResultSet rSet = (ResultSet) callStmt.getObject(1);
+
+            if (rSet.next()) {
+
+                int intModelId = rSet.getInt(1);
+                double dblPotency = rSet.getDouble(2);
+                double dblWeight = rSet.getDouble(3);
+                double dblMaxPayload = rSet.getDouble(4);
+                VehicleType oVehicleType = VehicleType.getTypeByDesignation(rSet.getString(5));
+                int intBatteryId = rSet.getInt(6);
+                int intBatteryCapacity = rSet.getInt(7);
+                double dblBatteryVoltage = rSet.getDouble(8);
+                double dblEfficiency = rSet.getDouble(9);
+
+                return new VehicleModel(intModelId, strDesignation, dblPotency, dblWeight,
+                        dblMaxPayload, new Battery(intBatteryId, intBatteryCapacity, dblBatteryVoltage, dblEfficiency),
+                        oVehicleType);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            closeAll();
+        }
+        throw new IllegalArgumentException("No Model with Designation:" + strDesignation);
+    }
+
+    public int registerVehicleModel(VehicleModel moVehicleModel) {
+        return addVehicleModel(moVehicleModel.getDesignation(), moVehicleModel.getMaxPayload(), moVehicleModel.getPotency(),
+                moVehicleModel.getVehicleType(), moVehicleModel.getWeight(), moVehicleModel.getBattery());
+    }
+
+    private int addVehicleModel(String designation, double maxPayload, double potency, VehicleType vehicleType, double weight, Battery battery) {
+        try {
+            openConnection();
+
+            CallableStatement callStmt = getConnection().prepareCall("{ ? = call addVehicleModel(?,?,?,?,?,?,?,?) }");
+
+
+            callStmt.registerOutParameter(1, OracleTypes.INTEGER);
+            callStmt.setString(2, designation);
+            callStmt.setDouble(3, maxPayload);
+            callStmt.setDouble(4, potency);
+            callStmt.setDouble(5, weight);
+            callStmt.setString(6, vehicleType.getDesignation());
+            callStmt.setInt(7, battery.getBatteryCapacity());
+            callStmt.setDouble(8, battery.getBatteryVoltage());
+            callStmt.setDouble(9, battery.getEfficiency());
+
+            callStmt.execute();
+            return (int) callStmt.getObject(1);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return -1;
+        } finally {
+            closeAll();
+        }
+    }
 }

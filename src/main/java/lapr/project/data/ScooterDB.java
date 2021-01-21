@@ -21,7 +21,7 @@ public class ScooterDB extends DataHandler {
             callStmt = getConnection().prepareCall("{ ? = call getScooter(?) }");
 
             callStmt.registerOutParameter(1, OracleTypes.CURSOR);
-            callStmt.setInt(id, 2);
+            callStmt.setInt(2, id);
 
             callStmt.execute();
 
@@ -58,44 +58,43 @@ public class ScooterDB extends DataHandler {
      * DATABASE
      */
 
-    private boolean addScooter(double dblBatteryPerc, VehicleModel oVehicleModel, Pharmacy oPharmacy) {
-        boolean flag = true;
+    private int addScooter(double dblBatteryPerc, VehicleModel oVehicleModel, Pharmacy oPharmacy) {
         try {
             openConnection();
 
-            CallableStatement callStmt = getConnection().prepareCall("{ call addScooter(?,?,?) }");
+            CallableStatement callStmt = getConnection().prepareCall("{ ? = call addScooter(?,?,?) }");
 
-
-            callStmt.setDouble(1, dblBatteryPerc);
-            callStmt.setInt(2, oVehicleModel.getId());
-            callStmt.setInt(3, oPharmacy.getId());
+            callStmt.registerOutParameter(1, OracleTypes.INTEGER);
+            callStmt.setDouble(2, dblBatteryPerc);
+            callStmt.setInt(3, oVehicleModel.getId());
+            callStmt.setInt(4, oPharmacy.getId());
 
             callStmt.execute();
+            return (int) callStmt.getObject(1);
 
         } catch (SQLException e) {
-            flag = false;
             e.printStackTrace();
+            return -1;
         } finally {
             closeAll();
         }
-        return flag;
     }
 
-    public boolean updateScooterFromDB(int intId, float fltBatteryPerc, String strCharginStatus, float fltPotency,
-                                       float fltWeight, int intBatteryCapacity, float fltBatteryVoltage,
-                                       float fltMaxPayload, int intPharmacyId) {
+    public boolean updateScooterFromDB(int intId, double dblBatteryPerc, String strCharginStatus, double dblPotency,
+                                       double dblWeight, int intBatteryCapacity, double dblBatteryVoltage,
+                                       double dblMaxPayload, int intPharmacyId) {
         try {
             openConnection();
             CallableStatement callStmt = getConnection().prepareCall("{call updateScooter(?,?,?,?,?,?,?,?)}");
 
             callStmt.setInt(1, intId);
-            callStmt.setFloat(2, fltPotency);
-            callStmt.setFloat(3, fltWeight);
-            callStmt.setFloat(4, fltMaxPayload);
+            callStmt.setDouble(2, dblPotency);
+            callStmt.setDouble(3, dblWeight);
+            callStmt.setDouble(4, dblMaxPayload);
             callStmt.setString(5, strCharginStatus);
-            callStmt.setFloat(6, fltBatteryPerc);
-            callStmt.setFloat(7, intBatteryCapacity);
-            callStmt.setFloat(8, fltBatteryVoltage);
+            callStmt.setDouble(6, dblBatteryPerc);
+            callStmt.setDouble(7, intBatteryCapacity);
+            callStmt.setDouble(8, dblBatteryVoltage);
             callStmt.setInt(9, intPharmacyId);
 
             callStmt.execute();
@@ -122,18 +121,18 @@ public class ScooterDB extends DataHandler {
 
             while(rSet.next()){
                 int intId = rSet.getInt(1);
-                float fltPotency = rSet.getFloat(2);
-                float fltWeight = rSet.getFloat(3);
-                float fltMaxPayload = rSet.getFloat(4);
+                double dblPotency = rSet.getDouble(2);
+                double dblWeight = rSet.getDouble(3);
+                double dblMaxPayload = rSet.getDouble(4);
                 String strCharginStatus = rSet.getString(5);
                 int intBatteryId = rSet.getInt(6);
-                float fltBatteryPerc = rSet.getInt(7);
+                double dblBatteryPerc = rSet.getDouble(7);
                 int intBatteryCapacity = rSet.getInt(8);
-                float fltBatteryVoltage = rSet.getFloat(9);
+                double dblBatteryVoltage = rSet.getDouble(9);
                 Pharmacy oPharmacy = pharmacyManager(rSet,10);
 
                 //TODO: Criar scooterManager no DataHandler
-                lstScooter.add(new Scooter(intId, fltBatteryPerc, new VehicleModel(), oPharmacy));
+                lstScooter.add(new Scooter(intId, dblBatteryPerc, new VehicleModel(), oPharmacy));
 
                 rSet.next();
             }
@@ -164,7 +163,7 @@ public class ScooterDB extends DataHandler {
         return true;
     }
 
-    public boolean registerScooter(Scooter s) {
+    public int registerScooter(Scooter s) {
         return addScooter(s.getBatteryPerc(), s.getModel(), s.getPharmacy());
     }
 

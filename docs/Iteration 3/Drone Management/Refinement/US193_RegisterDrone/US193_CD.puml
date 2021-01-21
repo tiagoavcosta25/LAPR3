@@ -9,6 +9,12 @@ class RegisterDroneUI{
 }
 }
 
+package "Utils" #DDDDDD {
+class QRCode{
++generateQRCode(data, path)
+}
+}
+
 package "Controller" #DDDDDD {
 class RegisterDroneController{
 +getPharmacies()
@@ -136,6 +142,7 @@ VehicleService "1" --> "*" VehicleDB : uses
 VehicleService "1" --> "*" Vehicle : manage services of
 PharmacyService "1" --> "*" Pharmacy : manage services of
 DroneService "1" --> "*" Drone : manage services of
+VehicleService --> QRCode
 
 Database "1" -- "*" Pharmacy : has registered >
 Database "1" -- "*" Drone : has registered >

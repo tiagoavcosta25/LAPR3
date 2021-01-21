@@ -50,4 +50,19 @@ class VehicleTypeTest {
         String real = m_vehicleType.toString();
         assertEquals(expected,real);
     }
+
+    @Test
+    void getTypeByDesignation() {
+        VehicleType real = VehicleType.getTypeByDesignation("Scooter");
+        VehicleType expected = VehicleType.SCOOTER;
+        assertEquals(expected, real);
+
+        real = VehicleType.getTypeByDesignation("Drone");
+        expected = VehicleType.DRONE;
+        assertEquals(expected, real);
+
+        real = VehicleType.getTypeByDesignation("Not Defined");
+        expected = VehicleType.NOTDEFINED;
+        assertEquals(expected, real);
+    }
 }

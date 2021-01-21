@@ -32,7 +32,7 @@ public class DroneService {
         return new Drone(oVehicleModel, oPharmacy);
     }
 
-    public boolean registerDrone(Drone oDrone) {
+    public int registerDrone(Drone oDrone) {
         return moDroneDB.registerDrone(oDrone);
     }
 

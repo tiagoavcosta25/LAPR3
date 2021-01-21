@@ -111,4 +111,20 @@ class VehicleTest {
         int real = oScooter.hashCode();
         assertEquals(expected, real);
     }
+
+    @Test
+    void setModel() {
+        VehicleModel expected = new VehicleModel();
+        scooterTest1.setModel(expected);
+        VehicleModel real = droneTest3.getModel();
+        assertEquals(expected, real);
+    }
+
+    @Test
+    void setBatteryPerc() {
+        double expected = -1;
+        scooterTest1.setBatteryPerc(expected);
+        double real = droneTest2.getBatteryPerc();
+        assertEquals(expected, real);
+    }
 }

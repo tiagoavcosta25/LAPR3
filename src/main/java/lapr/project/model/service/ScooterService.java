@@ -19,11 +19,11 @@ public class ScooterService {
         return moScooterDB.getScooter(intId);
     }
 
-    public boolean updateScooterFromDB(int intId, float fltBatteryPerc, String strCharginStatus, float fltPotency,
-                                       float fltWeight, int intBatteryCapacity, float fltBatteryVoltage,
-                                       float fltMaxPayload, int intPharmacyId){
-        return moScooterDB.updateScooterFromDB(intId, fltBatteryPerc, strCharginStatus, fltPotency, fltWeight,
-                intBatteryCapacity, fltBatteryVoltage, fltMaxPayload, intPharmacyId);
+    public boolean updateScooterFromDB(int intId, double dblBatteryPerc, String strCharginStatus, double dblPotency,
+                                       double dblWeight, int intBatteryCapacity, double dblBatteryVoltage,
+                                       double dblMaxPayload, int intPharmacyId){
+        return moScooterDB.updateScooterFromDB(intId, dblBatteryPerc, strCharginStatus, dblPotency, dblWeight,
+                intBatteryCapacity, dblBatteryVoltage, dblMaxPayload, intPharmacyId);
     }
 
     public List<Scooter> getScootersList(int intPharmacyId) { return moScooterDB.getScootersList(intPharmacyId);}
@@ -34,7 +34,7 @@ public class ScooterService {
         return new Scooter(oVehicleModel, oPharmacy);
     }
 
-    public boolean registerScooter(Scooter oScooter) {
+    public int registerScooter(Scooter oScooter) {
         return moScooterDB.registerScooter(oScooter);
     }
 

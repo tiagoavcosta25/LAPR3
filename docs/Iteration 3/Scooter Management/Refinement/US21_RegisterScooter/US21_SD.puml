@@ -13,6 +13,7 @@ participant "battery\n:Battery" as B
 participant "scootServ\n:ScooterService" as SS
 participant "scootDB\n:ScooterDB" as SDB
 participant "scoot\n:Scooter" as SC
+participant "QRCode" as QR
 
 activate ADMIN
 
@@ -40,13 +41,39 @@ deactivate UI
 ADMIN -> UI : Chooses the pharmacy
 activate UI
 
+UI -> CTRL : setPharmacy(pharmacyEmail)
+activate CTRL
+CTRL -> PHS : pharmacy = getPharmacy(pharmacyEmail)
+activate PHS
+PHS -> PHDB : pharmacy = getPharmacy(pharmacyEmail)
+activate PHDB
+ref over PHDB
+SD_CONNECTIONS
+end ref
+deactivate PHDB
+deactivate PHS
+CTRL -> VS : create()
+activate VS
+VS -> VDB ** : create()
+deactivate VS
+deactivate CTRL
+
 UI --> ADMIN : Presents the list of scooter models and asks to choose one or\ncreate a new model
 deactivate UI
 alt if the admin chooses an existing model
 ADMIN -> UI : Chooses the model
 activate UI
-UI -> CTRL : chooseVehicleModel(model)
+UI -> CTRL : setVehicleModel(designation)
 activate CTRL
+CTRL -> VS : model = getVehicleModel(designation)
+activate VS
+VS -> VDB : model = getVehicleModel(designation)
+activate VDB
+ref over VDB
+SD_CONNECTIONS
+end ref
+deactivate VDB
+deactivate VS
 deactivate CTRL
 deactivate UI
 else if the admin chooses to create a new model
@@ -60,11 +87,6 @@ activate UI
 UI -> CTRL : newVehicleModel(designation, potency, weight, maxPayload,\nbatteryCapacity, batteryVoltage, efficiency)
 activate CTRL
 
-CTRL -> VS : create()
-activate VS
-VS -> VDB ** : create()
-deactivate VS
-
 CTRL -> VS : model = newVehicleModel(designation, potency, weight, maxPayload,\nbatteryCapacity, batteryVoltage, efficiency)
 activate VS
 VS -> VM ** : create(designation, potency, weight, maxPayload,\nbatteryCapacity, batteryVoltage, efficiency)
@@ -72,7 +94,10 @@ activate VM
 VM -> B ** : create(batteryCapacity, batteryVoltage, efficiency)
 deactivate VM
 deactivate VS
-
+end alt
+deactivate CTRL
+UI -> CTRL : scooter = newScooter()
+activate CTRL
 CTRL -> SS : create()
 activate SS
 SS -> SDB ** : create()
@@ -85,10 +110,11 @@ deactivate SS
 
 CTRL -> VS : generateQRCode(scooter)
 activate VS
+VS -> QR : generateQRCode(data, path)
+activate QR
+deactivate QR
 deactivate VS
 deactivate CTRL
-
-end alt
 
 UI -> ADMIN : Shows the information about the scooter and its QR Code, requesting verification
 deactivate UI

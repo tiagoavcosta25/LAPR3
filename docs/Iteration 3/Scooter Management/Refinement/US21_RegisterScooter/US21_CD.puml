@@ -12,13 +12,18 @@ class RegisterScooterUI{
 package "Controller" #DDDDDD {
 class RegisterScooterController{
 +getPharmacies()
-+chooseVehicleModer(model)
++setVehicleModer(model)
 +newVehicleModel(designation, potency, weight, maxPayload,\nbatteryCapacity, batteryVoltage, efficiency)
 +newScooter(batteryPerc, potency, weight, batteryCapacity, maxPayload, pharmacy)
 +registerScooter(scoot)
 }
 }
 
+package "Utils" #DDDDDD {
+class QRCode{
++generateQRCode(data, path)
+}
+}
 
 package "Model" #DDDDDD {
  package "Service" #DDDDDD {
@@ -140,6 +145,7 @@ VehicleService "1" --> "*" VehicleDB : uses
 VehicleService "1" --> "*" Vehicle : manage services of
 PharmacyService "1" --> "*" Pharmacy : manage services of
 ScooterService "1" --> "*" Scooter : manage services of
+VehicleService --> QRCode
 
 Database "1" -- "*" Pharmacy : has registered >
 Database "1" -- "*" Scooter : has registered >

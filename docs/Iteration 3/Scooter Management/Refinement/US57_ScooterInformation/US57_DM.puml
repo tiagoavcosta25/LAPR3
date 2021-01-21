@@ -67,6 +67,8 @@ class Address{
   -String country
 }
 
+class QRCode{
+}
 
 
 Database "1" -- "*" Pharmacy : has >
@@ -74,6 +76,7 @@ Database "1" -- "*" Scooter : has >
 Scooter "*" -- "1" Vehicle : is a type of >
 Vehicle "*" -- "1" VehicleModel : has >
 Vehicle "*" -- "1" Pharmacy : belongs to a >
+Vehicle "1" -- "1" QRCode : is identified by a >
 Pharmacy "1" -- "1" Address : has >
 Pharmacy "1" -- "*" Park : has >
 Park "*" -- "1" VehicleType : has >

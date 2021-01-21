@@ -9,6 +9,15 @@ public enum VehicleType {
         this.mstrDesignation = strDesignation;
     }
 
+    public static VehicleType getTypeByDesignation(String designation) {
+         if (designation.equalsIgnoreCase(VehicleType.SCOOTER.getDesignation())){
+             return VehicleType.SCOOTER;
+         } else if(designation.equalsIgnoreCase(VehicleType.DRONE.getDesignation())){
+             return VehicleType.DRONE;
+         }
+        return VehicleType.NOTDEFINED;
+    }
+
     public String getDesignation() {
         return mstrDesignation;
     }
