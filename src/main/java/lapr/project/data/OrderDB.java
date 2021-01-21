@@ -31,13 +31,13 @@ public class OrderDB extends DataHandler {
 
                 callStmt = getConnection().prepareCall("{ ? = call getProductsByOrder(?) }");
                 callStmt.registerOutParameter(1, OracleTypes.CURSOR);
-                callStmt.setInt(2,oOrder.getId());
+                callStmt.setInt(2, id);
 
                 callStmt.execute();
 
                 ResultSet rSetProducts = (ResultSet) callStmt.getObject(1);
 
-                while (rSet.next()){
+                while (rSetProducts.next()){
                     oOrder = orderProductManager(rSetProducts, 1, oOrder);
                 }
                 return oOrder;
