@@ -1,11 +1,10 @@
 package lapr.project.utils;
-
-/*import lapr.project.controller.*;
+/*
+import lapr.project.controller.*;
 import lapr.project.model.CreditCard;
 import lapr.project.model.Pharmacy;
 import lapr.project.model.Product;
 import lapr.project.model.UserSession;
-import lapr.project.ui.console.MakeAnOrderUI;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -26,6 +25,7 @@ public class FileReader {
     public static final String FILEPHARMACIES = "src/main/resources/files/pharmacies.csv";
     public static final String FILEPHARMACYPRODUCTS = "src/main/resources/files/pharmacyProducts.csv";
     public static final String FILEORDERS = "src/main/resources/files/orders.csv";
+    public static final String FILECOURIERS = "src/main/resources/files/couriers.csv";
     private static final Logger LOGGER = Logger.getLogger(FileReader.class.getName());
 
     public static void readFiles() {
@@ -36,6 +36,7 @@ public class FileReader {
         readGenericFile(FILEORDERS);
         readGenericFile(FILEPHARMACIES);
         readGenericFile(FILEPHARMACYPRODUCTS);
+        readGenericFile(FILECOURIERS);
     }
 
     public static void readGenericFile(String path) {
@@ -75,6 +76,9 @@ public class FileReader {
                             break;
                         case FILEPATHS:
                             readPathFile(columns);
+                            break;
+                        case FILECOURIERS:
+                            readCourierFile(columns);
                             break;
                     }
                 }
@@ -253,5 +257,16 @@ public class FileReader {
                 LOGGER.log(Level.INFO,"Order was registered with success!");
             }else LOGGER.log(Level.WARNING,"There was a problem registering an Order.");
         }
+    }
+
+    public static void readCourierFile(String[] columns) {
+        RegisterCourierController ctrl = new RegisterCourierController();
+        if (ctrl.newCourier(columns[0],columns[1],Integer.parseInt(columns[2]),columns[3],columns[4])) {
+            LOGGER.log(Level.INFO,"Courier was created with success!");
+            if(ctrl.registersCourier()){
+                LOGGER.log(Level.INFO,"Courier was registered with success!");
+            }else LOGGER.log(Level.INFO,"There was a problem registering a Courier");
+        }else LOGGER.log(Level.WARNING,"There was a problem creating a Courier");
+
     }
 }*/
