@@ -8,6 +8,7 @@ import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Map;
+import java.util.TreeMap;
 
 public class OrderDB extends DataHandler {
 
@@ -181,29 +182,41 @@ public class OrderDB extends DataHandler {
     }
 
 
-    public boolean notifyAndRemove(Order order) {
-        boolean flag = true;
-        try {
-            openConnection();
-            /*
-             *  Objeto "callStmt" para invocar o procedimento "addSailor" armazenado
-             *  na BD.
-             *
-             *  PROCEDURE addSailor(sid NUMBER, sname VARCHAR, rating NUMBER, age NUMBER)
-             *  PACKAGE pkgSailors AS TYPE ref_cursor IS REF CURSOR; END pkgSailors;
-             */
-            CallableStatement callStmt = getConnection().prepareCall("{ call removeProductPharmacy(?) }");
+    public Map<Product, Integer> notifyAndRemove(Order order) {
+        CallableStatement callStmt = null;
+        Map<Product, Integer> lstProducts = new TreeMap<>();
+        for (Map.Entry<Product, Integer> entry : order.getProducts().entrySet()) {
+            try {
+                openConnection();
+                callStmt = getConnection().prepareCall("{ ? = call removeProductsPharmacy(?,?,?) }");
 
-            Integer id = order.getId();
-            callStmt.setInt(1, id);
+                callStmt.registerOutParameter(1, oracle.jdbc.internal.OracleTypes.CURSOR);
+                callStmt.setString(2, order.getPharmacy().getEmail());
+                callStmt.setInt(3, entry.getKey().getId());
+                callStmt.setInt(4, entry.getValue().intValue());
 
-            callStmt.execute();
-        } catch (SQLException e) {
-            flag = false;
-            e.printStackTrace();
-        } finally {
-            closeAll();
+                callStmt.execute();
+
+                ResultSet rSet = (ResultSet) callStmt.getObject(1);
+
+                if (rSet == null) {
+                    return null;
+                }
+                while (rSet.next()) {
+                    Product product = productManager(rSet, 1);
+                    Integer intAskQuantity = rSet.getInt(6);
+                    lstProducts.put(product, intAskQuantity);
+                    rSet.next();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            } finally {
+                closeAll();
+            }
+            throw new IllegalArgumentException("No Products Avaliable.");
         }
-        return flag;
+
+        return lstProducts;
+
     }
 }

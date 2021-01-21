@@ -10,6 +10,7 @@ import org.mockito.Mockito;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.TreeMap;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -103,12 +104,13 @@ class OrderServiceTest {
     @Test
     void notifyAndRemove() {
         System.out.println("notifyAndRemove");
-        when(mockOrderDB.notifyAndRemove(expectedOrder)).thenReturn(true);
-        boolean result = orderService.notifyAndRemove(expectedOrder);
-        assertTrue(result);
+        Map<Product,Integer> map = new TreeMap<>();
+        when(mockOrderDB.notifyAndRemove(expectedOrder)).thenReturn(null);
+        Map<Product, Integer> result = orderService.notifyAndRemove(expectedOrder);
+        assertEquals(null,result);
 
-        when(mockOrderDB.notifyAndRemove(null)).thenReturn(false);
-        result = orderService.notifyAndRemove(null);
-        assertFalse(result);
+        when(mockOrderDB.notifyAndRemove(expectedOrder)).thenReturn(map);
+        result = orderService.notifyAndRemove(expectedOrder);
+        assertEquals(map,result);
     }
 }

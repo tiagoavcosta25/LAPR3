@@ -1,11 +1,6 @@
 package lapr.project.utils;
 
-import lapr.project.controller.*;
-
-import lapr.project.controller.RegisterClientController;
-import lapr.project.controller.RegisterPathController;
-import lapr.project.controller.RegisterPharmacyController;
-import lapr.project.controller.RegisterScooterController;
+/*import lapr.project.controller.*;
 import lapr.project.model.CreditCard;
 import lapr.project.model.Pharmacy;
 import lapr.project.model.Product;
@@ -255,4 +250,4 @@ public class FileReader {
             }else LOGGER.log(Level.WARNING,"There was a problem registering a Pharmacy.");
         }
     }
-}
+}*/
