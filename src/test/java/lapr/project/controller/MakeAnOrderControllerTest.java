@@ -136,6 +136,26 @@ class MakeAnOrderControllerTest {
     }
 
     @Test
+    void testGetAvailableProducts() {
+        System.out.println("testGetAvailableProducts");
+
+        List<Product> expectedListProducts = new ArrayList<>(Arrays.asList(new Product()));
+
+        when(mockPharmacyService.getClosestPharmacyToClient(new Client())).thenReturn(new Pharmacy());
+        when(mockProductService.getAvailableProducts(-1)).thenReturn(expectedListProducts);
+
+        makeAnOrderController.setClient(new Client());
+        List<Product> result = makeAnOrderController.getAvailableProducts();
+        assertEquals(expectedListProducts, result);
+
+        when(mockPharmacyService.getClosestPharmacyToClient(new Client())).thenThrow(new IllegalArgumentException());
+        makeAnOrderController.setClient(new Client());
+        result = makeAnOrderController.getAvailableProducts();
+        expectedListProducts = null;
+        assertEquals(expectedListProducts, result);
+    }
+
+    @Test
     void addProductToOrder() {
         System.out.println("addProductToOrder");
 

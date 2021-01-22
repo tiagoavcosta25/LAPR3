@@ -10,15 +10,23 @@ class MakeAPharmacyTransferController{
 class ApplicationPOT
 {
   +static getInstance()
+  +static getWorldMap()
 }
 }
+
+package "graph" #DDDDDD {
+   class GraphAlgorithms{
+          +shortestPath(graph,\n pharmacyAddress, nearbyPharmacyAddress)
+      }
+ }
 
 package "Model" #DDDDDD {
 
 package "Service" #DDDDDD {
    class PharmacyService{
           +PharmacyService()
-          +getClosestPharmacyWithStock(pharmacy, product, quantity)
+          +getClosestPharmacyWithStock\n(pharmacy, product, quantity)
+          +getClosestPharmacy(address, lstPharmacies)
       }
 
       class PharmacyTransferService{
@@ -27,6 +35,10 @@ package "Service" #DDDDDD {
                 +registersPharmacyTransfer(pharmacyTransfer)
             }
  }
+
+class WorldMap{
++getGraph()
+}
 
 abstract class User{
 -String email
@@ -121,6 +133,8 @@ MakeAPharmacyTransferController ..> PharmacyService
 Database "1" -- "*" Order : has registered >
 Database "1" -- "*" Product : has registered >
 Database "1" -- "*" Client : has registered >
+ApplicationPOT --> WorldMap : uses >
+PharmacyTransferService --> GraphAlgorithms : uses >
 PharmacyDB -- Database : manages >
 PharmacyTransferDB -- Database : manages >
 PharmacyService "1" --> "*" Pharmacy : manages services of
@@ -133,6 +147,7 @@ Order "1" -- "*" Pharmacy : has >
 Client "1" -- "1" Order : makes >
 Client "1" -- "1" Address : has >
 Order "1" -- "1" Address : has >
+WorldMap "1" -- "*" Address : has >
 PharmacyTransfer "1" -- "2" Pharmacy : has >
 PharmacyTransfer "1" -- "1" Product : has >
 PharmacyTransfer "1" -- "1" Order : has >

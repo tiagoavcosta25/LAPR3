@@ -1,8 +1,13 @@
 package lapr.project.model.service;
 
+import lapr.project.controller.ApplicationPOT;
 import lapr.project.data.ParkDB;
 import lapr.project.data.PharmacyDB;
+import lapr.project.graph.map.Graph;
+import lapr.project.graph.map.GraphAlgorithms;
 import lapr.project.model.*;
+
+import java.util.LinkedList;
 import java.util.List;
 
 public class PharmacyService {
@@ -45,8 +50,31 @@ public class PharmacyService {
         return this.moPharmacyDB.getPharmacyByManagerEmail(email);
     }
 
+    public Pharmacy getClosestPharmacyToClient(Client oClient) {
+        return this.getClosestPharmacy(oClient.getAddress(), moPharmacyDB.getPharmacies());
+    }
+
     public Pharmacy getClosestPharmacyWithStock(Order oOrder, Product oProduct, Integer intQuantity) {
-        return moPharmacyDB.getClosestPharmacyWithStock(oOrder, oProduct, intQuantity);
+        List<Pharmacy> lstPharmacies = moPharmacyDB.getPharmaciesWithStock(oOrder, oProduct, intQuantity);
+        lstPharmacies.remove(oOrder.getPharmacy());
+        return this.getClosestPharmacy(oOrder.getPharmacy().getAddress(), lstPharmacies);
+    }
+
+    private Pharmacy getClosestPharmacy(Address oAddress, List<Pharmacy> lstPharmacies){
+        Graph<Address, Path> worldMap = ApplicationPOT.getInstance().getWorldMap().getGraph();
+        double minDistance = Double.MAX_VALUE;
+        Pharmacy oClosestPharmacy = null;
+
+        for(Pharmacy p : lstPharmacies){
+            LinkedList<Address> path = new LinkedList<>();
+            double distance = GraphAlgorithms.shortestPath(worldMap, oAddress, p.getAddress(), path);
+
+            if(distance < minDistance && distance > 0){
+                oClosestPharmacy = p;
+                minDistance = distance;
+            }
+        }
+        return oClosestPharmacy;
     }
 
     public Courier getSuitableCourier() {

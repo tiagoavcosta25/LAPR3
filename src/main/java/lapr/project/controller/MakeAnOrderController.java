@@ -113,7 +113,7 @@ public class MakeAnOrderController {
     }
 
     /**
-     * The method returns the list of available products for a pharmacy.
+     * The method returns the list of pharmacies.
      */
     public List<Pharmacy> getPharmacies() {
         this.moClient = this.moClientService.getClientByEmail(ApplicationPOT.getInstance().getCurrentSession().getCurrentUserEmail());
@@ -121,12 +121,24 @@ public class MakeAnOrderController {
     }
 
     /**
-     * The method returns the list of pharmacies.
+     * The method returns the list of available products for a pharmacy.
      */
     public List<Product> getAvailableProducts(Pharmacy oPharmacy) {
         try {
             this.moPharmacy = oPharmacy;
-            return this.moProductService.getAvailableProducts(oPharmacy.getId());
+            return this.moProductService.getAvailableProducts(this.moPharmacy.getId());
+        } catch (Exception ex) {
+            return null;
+        }
+    }
+
+    /**
+     * The method returns the list of available products for a pharmacy.
+     */
+    public List<Product> getAvailableProducts() {
+        try {
+            this.moPharmacy = this.moPharmacyService.getClosestPharmacyToClient(this.moClient);
+            return this.moProductService.getAvailableProducts(this.moPharmacy.getId());
         } catch (Exception ex) {
             return null;
         }

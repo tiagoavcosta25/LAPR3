@@ -162,38 +162,42 @@ public class PharmacyDB extends DataHandler {
 
 
 
-    public Pharmacy getClosestPharmacyWithStock(Order oOrder, Product oProduct, Integer intQuantity) {
+    public List<Pharmacy> getPharmaciesWithStock(Order oOrder, Product oProduct, Integer intQuantity) {
         CallableStatement callStmt = null;
+        List<Pharmacy> lstPharmacies = new ArrayList<>();
         try {
             openConnection();
-            callStmt = getConnection().prepareCall("{ ? = call getClosestPharmacyWithStock(?, ?, ?) }");
+            callStmt = getConnection().prepareCall("{ ? = call getPharmaciesWithStock(?,?,?) }");
 
             callStmt.registerOutParameter(1, OracleTypes.CURSOR);
-            callStmt.setInt(oOrder.getId(), 2);
-            callStmt.setInt(oProduct.getId(), 3);
-            callStmt.setInt(intQuantity, 4);
+            callStmt.setInt(2, oOrder.getId());
+            callStmt.setInt(3, oProduct.getId());
+            callStmt.setInt(4, intQuantity);
 
             callStmt.execute();
 
             ResultSet rSet = (ResultSet) callStmt.getObject(1);
 
-            if (rSet.next()) {
+            while (rSet.next()) {
 
                 Pharmacy oPharmacy = pharmacyManager(rSet, 1);
 
                 callStmt = getConnection().prepareCall("{ ? = call getStockByPharmacy(?) }");
+
                 callStmt.registerOutParameter(1, OracleTypes.CURSOR);
-                callStmt.setInt(oPharmacy.getId(), 2);
+                callStmt.setInt(2, oPharmacy.getId());
 
                 callStmt.execute();
 
                 ResultSet rSetProducts = (ResultSet) callStmt.getObject(1);
 
-                while (rSet.next()){
+                while (rSetProducts.next()){
                     oPharmacy = pharmacyProductManager(rSetProducts, 1, oPharmacy);
                 }
-                return oPharmacy;
+
+                lstPharmacies.add(oPharmacy);
             }
+            return lstPharmacies;
         } catch (SQLException | NoSuchAlgorithmException e) {
             e.printStackTrace();
         } finally {

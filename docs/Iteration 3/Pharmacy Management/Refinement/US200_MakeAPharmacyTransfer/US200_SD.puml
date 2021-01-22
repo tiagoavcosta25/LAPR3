@@ -1,26 +1,47 @@
 @startuml
 autonumber
 participant ":MakeAPharmacyTransferController" as CTRL
+participant "PotApplication" as _APP
+participant "app\n:PotApplication" as APP
+participant "worldMap\n:WorldMap" as WM
 participant "pharmServ \n:PharmacyService" as PS
 participant "pharamcyDB\n:PharmacyDB" as PDB
+participant "GraphAlgorithms" as GA
 participant "pharmTransferServ \n:PharmacyTransferService" as PTS
 participant "pharmTransferDB\n:PharmacyTransferDB" as PTDB
 participant "pharmacyTransfer\n:PharmacyTransfer" as PT
 
 [o-> CTRL : getStockFromAnotherPharamacy\n(order, product, quantity)
 activate CTRL
+CTRL -> _APP: app = getInstance()
+activate _APP
+deactivate _APP
+CTRL -> APP: worldMap = getWorldMap()
+activate APP
+deactivate APP
+
+CTRL -> WM: graph = getGraph()
+activate WM
+deactivate WM
 CTRL -> PS** : create()
 activate PS
 PS -> PDB** : create()
 deactivate PS
-CTRL -> PS : nearbyPharamcy = getClosestPharmacyWithStock\n(pharmacy, product, quantity)
+CTRL -> PS : nearbyPharamcy = getClosestPharmacyWithStock\n(graph, pharmacy, product, quantity)
 activate PS
-PS -> PDB : nearbyPharamcy = getClosestPharmacyWithStock\n(pharmacy, product, quantity)
+PS -> PDB : lstPharmacies = getPharmacies()
 activate PDB
 ref over PDB
 SD_CONNECTIONS
 end ref
 deactivate PDB
+PS -> PS : getClosestPharmacy(address, lstPharmacies)
+loop
+PS -> GA : distance = shortestPath(graph,\n pharmacyAddress, nearbyPharmacyAddress)
+activate GA
+deactivate GA
+end loop
+deactivate PHS
 deactivate PS
 
 CTRL -> PTS** : create()
@@ -32,6 +53,7 @@ CTRL -> PTS : newPharamacyTransfer\n(order, product, quantity, nearbyPharamcy)
 activate PTS
 PTS -> PT** : create(order, product, quantity, nearbyPharamcy)
 deactivate PS
+deactivate PTS
 
 CTRL -> PTS : registersPharmacyTransfer(pharmacyTransfer)
 activate PTS

@@ -28,23 +28,7 @@ public class ScooterDB extends DataHandler {
             ResultSet rSet = (ResultSet) callStmt.getObject(1);
 
             if (rSet.next()) {
-
-                double dblBatteryPerc = rSet.getDouble(1);
-                int intModelId = rSet.getInt(2);
-                String strDesignation = rSet.getString(3);
-                double dblPotency = rSet.getDouble(4);
-                double dblWeight = rSet.getDouble(5);
-                double dblMaxPayload = rSet.getDouble(6);
-                int intBatteryId = rSet.getInt(7);
-                int intBatteryCapacity = rSet.getInt(8);
-                double dblBatteryVoltage = rSet.getDouble(9);
-                double dblEfficiency = rSet.getDouble(10);
-                Pharmacy oPharmacy = pharmacyManager(rSet,11);
-
-                VehicleModel oVehicleModel = new VehicleModel(intModelId, strDesignation, dblPotency, dblWeight,
-                        dblMaxPayload, new Battery(intBatteryId, intBatteryCapacity, dblBatteryVoltage, dblEfficiency),
-                        VehicleType.SCOOTER);
-                return new Scooter(id, dblBatteryPerc, oVehicleModel, oPharmacy);
+                return scooterManager(rSet,1);
             }
         } catch (SQLException | NoSuchAlgorithmException e) {
             e.printStackTrace();
@@ -119,28 +103,15 @@ public class ScooterDB extends DataHandler {
             ResultSet rSet = (ResultSet) callStmt.getObject(1);
 
             while(rSet.next()){
-                int intId = rSet.getInt(1);
-                double dblPotency = rSet.getDouble(2);
-                double dblWeight = rSet.getDouble(3);
-                double dblMaxPayload = rSet.getDouble(4);
-                String strCharginStatus = rSet.getString(5);
-                int intBatteryId = rSet.getInt(6);
-                double dblBatteryPerc = rSet.getDouble(7);
-                int intBatteryCapacity = rSet.getInt(8);
-                double dblBatteryVoltage = rSet.getDouble(9);
-                Pharmacy oPharmacy = pharmacyManager(rSet,10);
-
-                //TODO: Criar scooterManager no DataHandler
-                lstScooter.add(new Scooter(intId, dblBatteryPerc, new VehicleModel(), oPharmacy));
-
-                rSet.next();
+                lstScooter.add(scooterManager(rSet,1));
             }
         } catch (SQLException | NoSuchAlgorithmException e) {
             e.printStackTrace();
+            throw new IllegalArgumentException("No Scooters Avaliable.");
         } finally {
             closeAll();
         }
-        throw new IllegalArgumentException("No Scooters Avaliable.");
+        return lstScooter;
     }
 
     public boolean removeScooterFromDB(int intId) {
