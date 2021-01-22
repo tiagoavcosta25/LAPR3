@@ -2,7 +2,7 @@
 autonumber
 hide footbox
 
-actor "User" as U
+actor "Courier" as U
 
 participant "ParkScooterUI" as UI
 participant "ParkScooterController" as CTRL
