@@ -58,6 +58,16 @@ class RemoveDroneControllerTest {
         List<Drone> result = m_ctrl.showDronesList(1);
         assertEquals(new ArrayList<>(),result);
 
+        when(m_mockDroneService.getDronesList(1)).thenReturn(null);
+        result = m_ctrl.showDronesList(1);
+        assertNull(result);
+
+        List<Drone> aux = new ArrayList<>();
+        aux.add(new Drone());
+        when(m_mockDroneService.getDronesList(1)).thenReturn(aux);
+        result = m_ctrl.showDronesList(1);
+        assertEquals(aux,result);
+
         when(m_mockDroneService.getDronesList(-2)).thenThrow(new IllegalArgumentException());
         result = m_ctrl.showDronesList(-2);
         assertNull(result);
