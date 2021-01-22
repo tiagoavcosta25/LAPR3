@@ -6,7 +6,6 @@ class MakeAnOrderUI{
 }
 }
 
-
 package "Controller" #DDDDDD {
 class MakeAnOrderController{
 +newOrder(description)
@@ -15,9 +14,10 @@ class MakeAnOrderController{
 +getPharmacies()
 +addProductToOrder(product, quantity)
 +setHomeDelivery(homeDelivery)
-+lstCreditCards = getCreditCardsByClient(email)
++getCreditCardsByClient(email)
 +addPayment(creditCard, amount)
 +generateInvoice()
++getClosestPharmacyToCliente(graph, client)
 }
 
 class GenerateInvoiceController{
@@ -29,6 +29,7 @@ class ApplicationPOT
 {
   +static getInstance()
   +getPlatform()
+  +getWorldMap()
 }
 
 class UserSession
@@ -53,6 +54,9 @@ package "Service" #DDDDDD {
   class PharmacyService{
           +PharmacyService()
           +getPharmacies()
+          +getClosestPharmacyToCliente(graph, client)
+          +getClosestPharmacy(address, lstPharmacies)
+          +shortestPath(graph, clientAddress, pharmacyAddress)
   }
 
   class ProductService{
@@ -68,6 +72,10 @@ package "Service" #DDDDDD {
 }
 
 package "Model" #DDDDDD {
+class WorldMap{
++ getGraph()
+}
+
 abstract class User{
 -   String name
 -   String email
@@ -140,6 +148,12 @@ class Invoice{
 }
 
 
+package "Graph" #DDDDDD {
+class GraphAlghotithms{
++shortestPath(graph, clientAddress, pharmacyAddress)
+}
+}
+
 package "Data" #DDDDDD {
 class DataHandler{
     +openConnection()
@@ -164,7 +178,7 @@ class ProductDB{
 class ClientDB{
         +ClientDB()
         +getUserByEmail(email)
-                +getCreditCardsByClient(email)
+        +getCreditCardsByClient(email)
   }
 }
 
@@ -199,7 +213,10 @@ ClientService "1" --> "*" Client : manages services of
 ClientService "1" --> "1" ClientDB : uses
 ProductService "1" --> "*" Product : manages services of
 ProductService "1" --> "1" ProductDB : uses
+PharmacyTransferService --> GraphAlgorithms : uses >
 
+ApplicationPOT --> WorldMap : uses >
+WorldMap "1" -- "*" Address : has >
 Order "1" -- "*" Product : has >
 Order "1" -- "1" Pharmacy : has >
 Client "1" -- "1" Order : makes >

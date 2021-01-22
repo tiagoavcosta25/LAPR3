@@ -1,10 +1,9 @@
-create or replace function getDronesList(p_pharmacyEmail IN PHARMACY.EMAIL%TYPE)
-    return sys_refcursor is
-    v_drones sys_refcursor;
+CREATE OR REPLACE FUNCTION getDrone(p_id VEHICLE.ID%TYPE) RETURN SYS_REFCURSOR
+    IS
+    v_cursor sys_refcursor;
     drone_not_found exception;
-begin
-
-    OPEN v_drones FOR
+BEGIN
+    open v_cursor for
         SELECT D.VEHICLEID, V.BATTERYPERC, VM.ID, VM.DESIGNATION, VM.POTENCY, VM.WEIGHT, VM.MAXPAYLOAD, VM.VEHICLETYPE, B.*, P.ID, P.NAME,
                P.EMAIL, A.*
         FROM DRONE D
@@ -13,17 +12,17 @@ begin
                  INNER JOIN BATTERY B ON VM.BATTERYID = B.ID
                  INNER JOIN PHARMACY P on V.PHARMACYID = P.ID
                  INNER JOIN ADDRESS A on A.LATITUDE = P.ADDRESSLATITUDE and A.LONGITUDE = P.ADDRESSLONGITUDE
-        WHERE P.EMAIL = p_pharmacyEmail;
+        WHERE V.ID = p_id;
 
-    if v_drones is null then
+
+    if v_cursor is null then
         raise drone_not_found;
     end if;
 
-    return v_drones;
+    return v_cursor;
 
 EXCEPTION
     when drone_not_found then
-        raise_application_error(-20812, 'Drones Not Found!');
+        raise_application_error(-20141, 'Drone Not Found!');
         return null;
-
 end;
