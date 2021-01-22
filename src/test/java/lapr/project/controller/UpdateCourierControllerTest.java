@@ -133,5 +133,8 @@ class UpdateCourierControllerTest {
         real = updateCourierController.validateInput(null);
         assertFalse(real);
 
+        real = updateCourierController.validateInput("ernestogmail.com");
+        assertFalse(real);
+
     }
 }
