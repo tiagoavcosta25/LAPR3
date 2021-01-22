@@ -11,8 +11,10 @@ participant "app\n:PotApplication" as APP
 participant "session\n:UserSession" as SESSION
 participant "clientServ\n:ClientService" as CS
 participant "clientDB\n:ClientDB" as CDB
+participant "worldMap\n:WorldMap" as WM
 participant "pharmacyServ\n:PharmacyService" as PHS
 participant "pharmacyDB\n:PharmacyDB" as PHDB
+participant "GraphAlgorithms" as GA
 participant "productServ\n:ProductService" as PS
 participant "productDB\n:ProductDB" as PDB
 participant "orderServ\n:OrderService" as OS
@@ -25,7 +27,7 @@ activate CL
 
 CL -> UI : sends a request to make an order
 activate UI
-UI -> CTRL : lstPharmacies = getPharmacies()
+UI -> CTRL : lstProducts = getAvailableProducts(pharmacy)
 activate CTRL
 CTRL -> _APP: app = getInstance()
 activate _APP
@@ -51,11 +53,20 @@ SD_CONNECTIONS
 end ref
 deactivate CDB
 deactivate CS
+
+CTRL -> APP: worldMap = getWorldMap()
+activate APP
+deactivate APP
+
+CTRL -> WM: graph = getGraph()
+activate WM
+deactivate WM
+
 CTRL -> PHS** : create()
 activate PHS
 PHS -> PHDB** : create()
 deactivate PHS
-CTRL -> PHS : lstPharmacies = getPharmacies()
+CTRL -> PHS : pharmacy = getClosestPharmacyToClient(graph, client)
 activate PHS
 PHS -> PHDB : lstPharmacies = getPharmacies()
 activate PHDB
@@ -63,23 +74,20 @@ ref over PHDB
 SD_CONNECTIONS
 end ref
 deactivate PHDB
+PHS -> PHS : getClosestPharmacy(address, lstPharmacies)
+loop
+PHS -> GA : distance = shortestPath(graph, clientAddress, pharmacyAddress)
+activate GA
+deactivate GA
+end loop
 deactivate PHS
-deactivate CTRL
-
-UI -> CL : shows the list of the pharmacies
-deactivate UI
-
-CL -> UI : chooses which products and which quantities to order
-activate UI
-UI -> CTRL : lstProducts = getAvailableProducts(pharmacy)
-activate CTRL
 CTRL -> PS** : create()
 activate PS
 PS -> PDB** : create()
 deactivate PS
-CTRL -> PS : lstProducts = getAvailableProducts()
+CTRL -> PS : lstProducts = getAvailableProducts(pharmacy)
 activate PS
-PS -> PDB : lstProducts = getAvailableProducts()
+PS -> PDB : lstProducts = getAvailableProducts(pharmacy)
 activate PDB
 ref over PDB
 SD_CONNECTIONS
