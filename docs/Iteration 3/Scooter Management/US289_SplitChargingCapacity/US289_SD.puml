@@ -1,0 +1,80 @@
+@startuml
+autonumber
+hide footbox
+
+actor "Courier" as U
+
+participant "ParkScooterUI" as UI
+participant "ParkScooterController" as CTRL
+participant "ApplicationPOT" as _APP
+participant "app\n:ApplicationPOT" as APP
+participant "session\n:UserSession" as SESSION
+
+participant "courierService\n:CourierService" as US
+participant "courierDB\n:CourierDB" as UREG
+participant "DirectoryVerification" as VER
+participant "EmailSender" as ESENDER
+
+
+
+participant "DataHandler" as DH
+
+activate U
+
+U -> UI : Parks a scooter
+activate UI
+UI -> CTRL : parkScooter(intIdScooter)
+activate CTRL
+CTRL -> US** : create()
+activate US
+US -> UREG** : create
+deactivate US
+CTRL -> _APP: app = getInstance()
+activate _APP
+deactivate _APP
+
+CTRL -> APP : getCurrentSession()
+activate APP
+deactivate APP
+
+CTRL -> SESSION : getRole()
+activate SESSION
+deactivate SESSION
+
+alt if the user is a Courier
+CTRL -> US : parkScooter(intIdScooter)
+activate US
+
+US -> VER : verifyFileCreation(estimateFilePath, estimateFileFilter, timeToTest)
+activate VER
+
+deactivate VER
+
+US -> ESENDER : sendEmail(email,subject,body)
+activate ESENDER
+deactivate ESENDER
+
+US -> UREG : parkScooter(int intId)
+activate UREG
+ref over UREG
+SD_CONNECTIONS
+end ref
+deactivate UREG
+deactivate US
+
+
+
+deactivate CTRL
+UI --> U : Verifies if the scooter is well parked and,\nif so, sends an email notifying about\nthe estimative of the recharging time
+deactivate UI
+else if the user is not a Courier
+
+UI --> U : Informs the user that he is not authorized
+activate UI
+deactivate UI
+
+end if
+
+
+
+@enduml

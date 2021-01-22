@@ -1,0 +1,96 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+
+package "Controller" #DDDDDD {
+class ApplicationPOT
+{
+  +static getInstance()
+  +getCurrentSession()
+}
+}
+
+
+package "UI" #DDDDDD {
+class ParkScooterUI{
+
+}
+}
+
+
+package "Controller" #DDDDDD {
+class ParkScooterController{
++parkScooter(intIdScooter)
+}
+}
+
+
+
+
+
+
+package "Model" #DDDDDD {
+
+
+package "Service" #DDDDDD {
+
+class CourierService {
++CourierService()
++parkScooter(intIdScooter)
+}
+
+}
+
+class UserSession{
+-String email
+-Role role
++UserSession(email,role)
++getRole()
+}
+
+
+
+
+}
+
+
+package "Data" #DDDDDD {
+class DataHandler{
++openConnection()
++closeAll()
+}
+
+ class CourierDB{
+ +CourierDB()
+ +parkScooter(int intId)
+ }
+
+}
+
+package "Utils" #DDDDDD {
+
+class DirectoryVerification {
++verifyFileCreation(estimateFilePath, estimateFileFilter, timeToTest)
+}
+
+class EmailSender {
++sendEmail(email,subject,body)
+}
+
+
+}
+
+
+
+
+ParkScooterUI ..> ParkScooterController
+ParkScooterController ..> ApplicationPOT
+ParkScooterController ..> CourierService
+CourierService "1" --> "1" CourierDB : has
+CourierService "1" --> "1" EmailSender : sends email using
+CourierService "1" --> "1" DirectoryVerification : checks file creation\nusing
+class CourierDB extends DataHandler
+ApplicationPOT "1" --> "1" UserSession : has
+
+
+@enduml

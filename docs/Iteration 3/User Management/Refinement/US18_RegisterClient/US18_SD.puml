@@ -17,6 +17,7 @@ participant "EncryptPassword" as EP
 participant Address as ADD
 participant CreditCard as CC
 
+participant "EmailSender" as ESENDER
 participant "DataHandler" as DH
 
 activate U
@@ -83,6 +84,10 @@ SD_CONNECTIONS
 end ref
 activate UREG
 deactivate UREG
+
+CS -> ESENDER : sendEmail(email,subject,body)
+activate ESENDER
+deactivate ESENDER
 
 
 
