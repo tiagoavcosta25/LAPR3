@@ -37,6 +37,10 @@ class IssueTransferNoteControllerTest {
         boolean result = issueTransferNoteController.issueTransferNote(m_oPharmacyTransfer);
         assertTrue(result);
 
+        when(mockPharmacyTransferService.sendEmailWithTransferNote(m_oPharmacyTransfer)).thenReturn(false);
+        result = issueTransferNoteController.issueTransferNote(m_oPharmacyTransfer);
+        assertFalse(result);
+
         when(mockPharmacyTransferService.sendEmailWithTransferNote(m_oPharmacyTransfer)).thenThrow(new IllegalArgumentException());
         result = issueTransferNoteController.issueTransferNote(m_oPharmacyTransfer);
         assertFalse(result);

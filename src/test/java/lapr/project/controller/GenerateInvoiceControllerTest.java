@@ -46,6 +46,12 @@ class GenerateInvoiceControllerTest {
         boolean result = this.generateInvoiceController.generateInvoice(new Order(), new TreeMap<>());
         assertTrue(result);
 
+        when(mockInvoiceService.newInvoice(new Order(), new TreeMap<>())).thenReturn(new Invoice());
+        when(mockInvoiceService.registerInvoice(new Invoice())).thenReturn(true);
+        when(mockInvoiceService.sendInvoiceByEmail(new Invoice())).thenReturn(false);
+        result = this.generateInvoiceController.generateInvoice(new Order(), new TreeMap<>());
+        assertFalse(result);
+
         when(mockInvoiceService.registerInvoice(new Invoice())).thenThrow(new IllegalArgumentException());
         result = this.generateInvoiceController.generateInvoice(new Order(), new TreeMap<>());
         assertFalse(result);

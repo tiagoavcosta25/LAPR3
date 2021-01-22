@@ -39,9 +39,21 @@ class IssueDeliveryNoteControllerTest {
         boolean result = issueDeliveryNoteController.issueDeliveryNote(-1);
         assertTrue(result);
 
+        when(mockPharmacyTransferService.sendEmailWithDeliveryNote(m_oPharmacyTransfer)).thenReturn(false);
+        when(mockPharmacyTransferService.getPharmacyTransfer(-1)).thenReturn(new PharmacyTransfer());
+        when(mockPharmacyTransferService.updateStockFromTransfer(-1)).thenReturn(true);
+        result = issueDeliveryNoteController.issueDeliveryNote(-1);
+        assertFalse(result);
+
         when(mockPharmacyTransferService.sendEmailWithDeliveryNote(m_oPharmacyTransfer)).thenThrow(new IllegalArgumentException());
         when(mockPharmacyTransferService.getPharmacyTransfer(-2)).thenThrow(new IllegalArgumentException());
         result = issueDeliveryNoteController.issueDeliveryNote(-2);
         assertFalse(result);
+
+
+
+
+
+
     }
 }
