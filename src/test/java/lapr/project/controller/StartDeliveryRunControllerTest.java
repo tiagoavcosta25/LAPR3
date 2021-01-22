@@ -29,7 +29,7 @@ class StartDeliveryRunControllerTest {
 
 
     @Mock
-    private DeliveryRunService mockSeliveryService;
+    private DeliveryRunService mockDeliveryService;
 
     private boolean assertTrue;
 
@@ -37,7 +37,7 @@ class StartDeliveryRunControllerTest {
     void setUp() {
         this.assertTrue = true;
         this.startDeliveryRunController = new StartDeliveryRunController();
-        this.mockSeliveryService = Mockito.mock(DeliveryRunService.class);
+        this.mockDeliveryService = Mockito.mock(DeliveryRunService.class);
         initMocks(this);
     }
 
@@ -45,13 +45,13 @@ class StartDeliveryRunControllerTest {
     void startDeliveryRun() {
         Map<String,String> lst = new TreeMap<>();
         ApplicationPOT.getInstance().setCurrentSession(new UserSession("123"));
-        when(mockSeliveryService.startDeliveryRun(ApplicationPOT.getInstance().getCurrentSession().getCurrentUserEmail())).thenReturn(lst);
-        when(mockSeliveryService.sendsEmail(lst)).thenReturn(assertTrue);
+        when(mockDeliveryService.startDeliveryRun(ApplicationPOT.getInstance().getCurrentSession().getCurrentUserEmail())).thenReturn(lst);
+        when(mockDeliveryService.sendsEmail(lst)).thenReturn(assertTrue);
         boolean result =  startDeliveryRunController.startDeliveryRun();
         assertEquals(assertTrue,result);
 
-        when(mockSeliveryService.startDeliveryRun(ApplicationPOT.getInstance().getCurrentSession().getCurrentUserEmail())).thenThrow(new NullPointerException());
-        when(mockSeliveryService.sendsEmail(lst)).thenReturn(assertTrue);
+        when(mockDeliveryService.startDeliveryRun(ApplicationPOT.getInstance().getCurrentSession().getCurrentUserEmail())).thenThrow(new NullPointerException());
+        when(mockDeliveryService.sendsEmail(lst)).thenReturn(assertTrue);
         result =  startDeliveryRunController.startDeliveryRun();
         assertEquals(false,result);
     }

@@ -69,11 +69,11 @@ public class UpdateCourierController {
     /**
      * The method adds a Freelancer to the Organization of the current user.
      */
-    public Courier updateCourier(Courier courier, String strName, String strEmail, Integer intNif, String strIban,String pharmacyEmail) {
-        try{
-            validateInput(strName,strEmail,intNif,strIban);
+    public Courier updateCourier(Courier courier, String strName, String strEmail, Integer intNif, String strIban, String pharmacyEmail) {
+        try {
+            validateInput(strName, strEmail, intNif, strIban);
             moPharmacy = this.moPharmacyService.getPharmacy(pharmacyEmail);
-            moCourier = this.moCourierService.updateCourier(courier,strName,strEmail,intNif,strIban, moPharmacy);
+            moCourier = this.moCourierService.updateCourier(courier, strName, strEmail, intNif, strIban, moPharmacy);
             return this.moCourier;
         } catch (Exception ex) {
             this.moCourier = null;
@@ -81,7 +81,7 @@ public class UpdateCourierController {
         return null;
     }
 
-    public boolean updateCourierDB(){
+    public boolean updateCourierDB() {
         return moCourierService.updateCourierDB(moCourier);
     }
 
@@ -105,7 +105,7 @@ public class UpdateCourierController {
      */
     public boolean validateInput(String strName, String strEmail, Integer intNIF, String strIBAN) {
 
-        if (strName.isEmpty() || intNIF <= 0 || strEmail.isEmpty() || strIBAN.isEmpty()) return false;
+        if (strName.isEmpty() || intNIF < 0 || strEmail.isEmpty() || strIBAN.isEmpty()) return false;
 
         if (!strEmail.contains("@")) return false;
 
@@ -124,9 +124,8 @@ public class UpdateCourierController {
      */
     public boolean validateInput(String email) {
 
-        if (email == null || email.isEmpty() || !email.contains("@")) return false;
+        return (!(email == null || email.isEmpty() || !email.contains("@")));
 
-        return true;
     }
 
 }
