@@ -75,6 +75,11 @@ class CourierServiceTest {
                 "PT98003506514853185258910",new Pharmacy());
         assertEquals(c1,c);
 
+        Courier c2 = new Courier("No Name","email@gmail.com","123",0,"No Iban",new Pharmacy());
+        Courier c21 = courierService.updateCourier(new Courier(),null,"email@gmail.com",null,
+                null,new Pharmacy());
+        assertEquals(c2,c21);
+
     }
 
     @Test
