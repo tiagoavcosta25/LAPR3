@@ -2,6 +2,7 @@ package lapr.project.data;
 
 import lapr.project.model.*;
 import oracle.jdbc.OracleTypes;
+
 import java.security.NoSuchAlgorithmException;
 import java.sql.CallableStatement;
 import java.sql.Date;
@@ -20,7 +21,7 @@ public class OrderDB extends DataHandler {
             callStmt = getConnection().prepareCall("{ ? = call getOrder(?) }");
 
             callStmt.registerOutParameter(1, OracleTypes.CURSOR);
-            callStmt.setInt(2,id);
+            callStmt.setInt(2, id);
 
             callStmt.execute();
 
@@ -37,7 +38,7 @@ public class OrderDB extends DataHandler {
 
                 ResultSet rSetProducts = (ResultSet) callStmt.getObject(1);
 
-                while (rSetProducts.next()){
+                while (rSetProducts.next()) {
                     oOrder = orderProductManager(rSetProducts, 1, oOrder);
                 }
                 return oOrder;
@@ -51,7 +52,7 @@ public class OrderDB extends DataHandler {
     }
 
     private int addOrder(Double dblAmount, Double dblTotalWeight, Double dblAdditionalFee, Date dtOrderDate,
-                          String strDescription, String strStatus, boolean blnIsHomeDelivery, Client oClient, int intPharmacyId, Map<Product, Integer> mapProducts) {
+                         String strDescription, String strStatus, boolean blnIsHomeDelivery, Client oClient, int intPharmacyId, Map<Product, Integer> mapProducts) {
         try {
             openConnection();
             CallableStatement callStmt = getConnection().prepareCall("{ ? = call addOrder(?,?,?,?,?,?,?,?,?,?) }");
@@ -113,7 +114,7 @@ public class OrderDB extends DataHandler {
     }
 
     public int registerOrder(Order oOrder) {
-         return addOrder(oOrder.getAmount(), oOrder.getTotalWeight(), oOrder.getAdditionalFee(), oOrder.getOrderDate(),
+        return addOrder(oOrder.getAmount(), oOrder.getTotalWeight(), oOrder.getAdditionalFee(), oOrder.getOrderDate(),
                 oOrder.getDescription(), oOrder.getStatus(), oOrder.isHomeDelivery(), oOrder.getClient(), oOrder.getPharmacy().getId(), oOrder.getProducts());
     }
 
@@ -142,7 +143,7 @@ public class OrderDB extends DataHandler {
 
                 ResultSet rSetProducts = (ResultSet) callStmt.getObject(1);
 
-                while (rSet.next()){
+                while (rSet.next()) {
                     oOrder = orderProductManager(rSetProducts, 1, oOrder);
                 }
                 return oOrder;
@@ -205,7 +206,11 @@ public class OrderDB extends DataHandler {
                 while (rSet.next()) {
                     Product product = productManager(rSet, 1);
                     Integer intAskQuantity = rSet.getInt(6);
-                    lstProducts.put(product, intAskQuantity);
+                    if (intAskQuantity.equals(-1)) {
+                        continue;
+                    } else {
+                        lstProducts.put(product, intAskQuantity);
+                    }
                     rSet.next();
                 }
             } catch (SQLException e) {
@@ -213,9 +218,7 @@ public class OrderDB extends DataHandler {
             } finally {
                 closeAll();
             }
-            throw new IllegalArgumentException("No Products Avaliable.");
         }
-
         return lstProducts;
 
     }
