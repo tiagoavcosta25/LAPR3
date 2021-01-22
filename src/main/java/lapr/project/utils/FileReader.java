@@ -1,5 +1,5 @@
 package lapr.project.utils;
-/*
+
 import lapr.project.controller.*;
 import lapr.project.model.CreditCard;
 import lapr.project.model.Pharmacy;
@@ -23,6 +23,7 @@ public class FileReader {
     public static final String FILEDRONES = "src/main/resources/files/drones.csv";
     public static final String FILEREMOVEDRONES = "src/main/resources/files/removeDrones.csv";
     public static final String FILEPHARMACIES = "src/main/resources/files/pharmacies.csv";
+    public static final String FILEPRODUCTS = "src/main/resources/files/products.csv";
     public static final String FILEPHARMACYPRODUCTS = "src/main/resources/files/pharmacyProducts.csv";
     public static final String FILEORDERS = "src/main/resources/files/orders.csv";
     public static final String FILECOURIERS = "src/main/resources/files/couriers.csv";
@@ -30,13 +31,14 @@ public class FileReader {
 
     public static void readFiles() {
         readGenericFile(FILECLIENTS);
-        readGenericFile(FILEPATHS);
-        readGenericFile(FILESCOOTERS);
-        readGenericFile(FILEDRONES);
-        readGenericFile(FILEORDERS);
         readGenericFile(FILEPHARMACIES);
+        readGenericFile(FILEPRODUCTS);
         readGenericFile(FILEPHARMACYPRODUCTS);
         readGenericFile(FILECOURIERS);
+        readGenericFile(FILESCOOTERS);
+        readGenericFile(FILEDRONES);
+        readGenericFile(FILEPATHS);
+        readGenericFile(FILEORDERS);
     }
 
     public static void readGenericFile(String path) {
@@ -67,6 +69,9 @@ public class FileReader {
                             break;
                         case FILEPHARMACIES:
                             readPharmacyFile(columns);
+                            break;
+                        case FILEPRODUCTS:
+                            readProductFile(columns);
                             break;
                         case FILEPHARMACYPRODUCTS:
                             readPharmacyProductFile(columns);
@@ -180,6 +185,17 @@ public class FileReader {
         }else LOGGER.log(Level.WARNING,"There was a problem registering a Pharmacy.");
     }
 
+    private static void readProductFile(String[] columns) {
+        RegisterProductController oCtrl = new RegisterProductController();
+        LogoutController oLogoutCtrl = new LogoutController();
+        ApplicationPOT.getInstance().setCurrentSession(new UserSession("admin@gmail.com", 2));
+
+        if (oCtrl.registerProduct(columns[0],columns[1],Float.parseFloat(columns[2]),Float.parseFloat(columns[3]))) {
+            LOGGER.log(Level.INFO, "Product was successfully registered!");
+        }else LOGGER.log(Level.WARNING,"There was a problem registering the Product");
+        oLogoutCtrl.logout();
+    }
+
     private static void readPharmacyProductFile(String[] columns) {
         AddPharmacyProductController oCtrl = new AddPharmacyProductController();
 
@@ -269,4 +285,4 @@ public class FileReader {
         }else LOGGER.log(Level.WARNING,"There was a problem creating a Courier");
 
     }
-}*/
+}
