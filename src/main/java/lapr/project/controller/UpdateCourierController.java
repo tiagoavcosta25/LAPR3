@@ -63,7 +63,7 @@ public class UpdateCourierController {
         } catch (Exception ex) {
             this.moCourier = null;
         }
-        return null;
+        return this.moCourier;
     }
 
     /**

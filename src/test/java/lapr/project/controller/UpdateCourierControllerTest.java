@@ -39,17 +39,17 @@ class UpdateCourierControllerTest {
     }
 
     @Test
-    void getCourierByID() {
+    void getCourierByEmail() {
         when(mockCourierService.getCourierByEmail("ernesto@gmail.com")).thenReturn(new Courier());
         Courier courier = updateCourierController.getCourierByEmail("ernesto@gmail.com");
         assertEquals(new Courier(),courier);
 
         when(mockCourierService.getCourierByEmail("ernesto@gmail.com")).thenThrow(new NullPointerException());
         courier = updateCourierController.getCourierByEmail(null);
-        assertNull(courier);
+        assertEquals(new Courier(),courier);
 
         courier = updateCourierController.getCourierByEmail("");
-        assertNull(courier);
+        assertEquals(new Courier(),courier);
     }
 
     @Test
