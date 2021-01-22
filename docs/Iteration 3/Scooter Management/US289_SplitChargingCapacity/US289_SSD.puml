@@ -1,0 +1,22 @@
+@startuml
+autonumber
+hide footbox
+
+actor "Courier" as U
+
+participant ":System" as SYST
+
+activate U
+
+U -> SYST : Parks a scooter
+activate SYST
+SYST --> U : Verifies if the scooter is well parked and,\nif so, sends an email notifying about\nthe estimative of the recharging time
+deactivate SYST
+
+
+
+
+
+deactivate U
+
+@enduml

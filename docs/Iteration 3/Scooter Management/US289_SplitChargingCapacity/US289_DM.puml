@@ -1,0 +1,63 @@
+@startuml
+skinparam classAttributeIconSize 0
+hide methods
+left to right direction
+
+
+
+
+
+database Database {
+
+}
+
+abstract class User{
+-Integer id
+-String email
+-String password
+-Integer nif
+-String name
+}
+
+class Courier {
+      -String iban
+}
+
+
+class VehicleModel{
+  -int id
+  -String desigantion
+  -double potency
+  -double weight
+  -double maxPayload
+}
+
+class VehicleType{
+  -String desigantion
+}
+
+class Vehicle{
+  -int id
+  -double batteryPerc
+}
+
+class Battery{
+  -int id
+  -int batteryCapacity
+  -double batteryVoltage
+  -double efficiency
+}
+
+class Courier extends User
+
+Database "1" -- "*" Courier : has registered >
+Database "1" -- "*" Scooter : has registered >
+Courier "1" -- "1" Scooter : parks >
+VehicleModel "1" -- "1" Battery : has >
+VehicleModel "*" -- "1" VehicleType : has >
+Scooter "*" -- "1" Vehicle : is a type of >
+Vehicle "*" -- "1" VehicleModel : has >
+
+
+
+@enduml

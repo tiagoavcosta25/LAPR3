@@ -103,6 +103,11 @@ class EncryptPassword {
 +encryptPasswordMD5(password)
 }
 
+class EmailSender {
++sendEmail(email,subject,body)
+}
+
+
 }
 
 
@@ -112,10 +117,11 @@ RegisterClientController ..> ApplicationPOT
 RegisterClientController ..> ClientService
 ClientService "1" --> "*" Client : creates
 ClientService "1" -> "1" ClientDB : has
+ClientService "1" --> "1" EmailSender : sends email using
 ClientDB "1" --> "*" Client : adds
 class ClientDB extends DataHandler
 Client "1" --> "1" Address : has
 Client "*" --> "*" CreditCard : has
-User ..> EncryptPassword : encrypts using
+User --> EncryptPassword : encrypts using
 
 @enduml
