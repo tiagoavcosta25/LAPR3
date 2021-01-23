@@ -45,4 +45,15 @@ public class EnergyCalculator {
 
         return totalForca * distanceUsingCoordinates / KILOWATTHOUR;     //kWh ou J
     }
+    public static double calculateDroneEnergy(double totalWeight, double windSpeed, double windDegree, double distance){
+        //velocidade otimizada para o lift/drag ratio
+        double totalEnergy=0;
+        double velocity = Math.pow((2 * Math.pow(totalWeight, 2)) / (Constants.DRAG_COEFFICIENT * Constants.DEFAULT_DRONE_AREA * Math.pow(Constants.DRONE_WIDTH, 2) * Math.pow(Constants.AIR_DENSITY, 2)), 0.25);
+        double windEffectiveSpeed = windSpeed * Math.cos(Math.toRadians(windDegree));
+        double totalVelocity  = velocity+windEffectiveSpeed;
+        double force = (0.5*Constants.DRAG_COEFFICIENT*Constants.DEFAULT_DRONE_AREA*Constants.AIR_DENSITY*Math.pow(totalVelocity,2))+((Math.pow(totalWeight,2))/(Constants.AIR_DENSITY*Math.pow(Constants.DRONE_WIDTH,2)*Math.pow(velocity,2)));
+        double liftEnergy = (Math.pow((totalWeight*Constants.GRAVITIC_ACCELERATION),1.5)/(Math.sqrt(2*Constants.AIR_DENSITY*Constants.DEFAULT_DRONE_AREA)))*(Constants.DEFAULT_HEIGHT/velocity);
+        totalEnergy = force*distance+liftEnergy;
+        return totalEnergy/KILOWATTHOUR;
+    }
 }
