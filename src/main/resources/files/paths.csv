@@ -8,17 +8,14 @@
 #WINDSPEED
 #WINDANGLE
 #KINETIC_FRICTION_COEFFICIENT
-#latitudeA;longitudeA;latitudeB;longitudeB;name;windSpeed;windAngle;kineticFrictionCoefficient
+#latitudeA;longitudeA;latitudeB;longitudeB;name;windSpeed;windAngle;kineticFrictionCoefficient;vehicleTpe
 #
-41.15227;-8.60929;41.14582;-8.61398;Trindade - Clerigos;1;0;1
-41.14582;-8.61398;41.15227;-8.60929;Clerigos - Trindade;1;0;1
-41.14582;-8.61398;41.14871;-8.60746;Clerigos - Bolhao;1;0;1
-41.14871;-8.60746;41.14582;-8.61398;Bolhao - Clerigos;1;0;1
-41.14582;-8.61398;41.14723;-8.60657;Clerigos - Majestic;1;0;1
-41.14871;-8.60746;41.14063;-8.61118;Bolhao - Cais da Ribeira;1;0;1
-41.14063;-8.61118;41.14871;-8.60746;Cais da Ribeira - Bolhao;1;0;1
-41.14063;-8.61118;41.14723;-8.60657;Cais da Ribeira - Majestic;1;0;1
-41.1784687;-8.6111664;41.15227;-8.60929;Pharmacy 1 - Trindade;1;0;1
-40.741895;-7.989308;41.16875;-8.68995;Sa da Bandeira - Castelo do Queijo;1;0;1
-41.16875;-8.68995;41.1784687;-8.6111664;Castelo do Queijo - Pharmacy 1;1;0;1
-41.15227;-8.60929;40.741895;-7.989308;Trindade - Sa da Bandeira;1;0;1
+41.15227;-8.60929;41.14582;-8.61398;Trindade - Clerigos;1;0;1;Scooter
+41.14582;-8.61398;41.16875;-8.68995;Clerigos - Castelo Do Queijo;1;0;1;Scooter
+41.16875;-8.68995;41.14063;-8.61118;Castelo Do Queijo - Cais Da Ribeira;1;0;1;Scooter
+41.14063;-8.61118;40.741895;-7.989308;Cais Da Ribeira - Sá Da Bandeira;1;0;1;Scooter
+40.741895;-7.989308;41.14871;-8.60746;Sá Da Bandeira - Bolhao;1;0;1;Scooter
+41.14871;-8.60746;41.16875;-8.68995;Bolhao - Castelo Do Queijo;1;0;1;Scooter
+41.16875;-8.68995;41.14723;-8.60657;Castelo Do Queijo - Majestic;1;0;1;Scooter
+41.14723;-8.60657;41.14331;-8.60914;Majestic - Sé;1;0;1;Scooter
+41.14331;-8.60914;41.15227;-8.60929;Sé - Trindade;1;0;1;Scooter
