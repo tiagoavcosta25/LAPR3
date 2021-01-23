@@ -109,7 +109,7 @@ class PharmacyServiceTest {
 
     @Test
     void getClosestPharmacyWithStock() {
-        /*System.out.println("getClosestPharmacyWithStock");
+        System.out.println("getClosestPharmacyWithStock");
 
         Graph<Address, Path> graph = new Graph<>(true);
         Address oAddress = new Address();
@@ -134,12 +134,12 @@ class PharmacyServiceTest {
         when(mockPharmacyDB.getPharmaciesWithStock(oOrder, new Product(), 1)).thenReturn(lstPharmacies);
         ApplicationPOT.getInstance().getWorldMap().setGraph(graph);
         Pharmacy result = pharmacyService.getClosestPharmacyWithStock(oOrder, new Product(), 1);
-        assertEquals(oPharmacy, result);*/
+        assertEquals(oPharmacy, result);
     }
 
     @Test
     void getClosestPharmacyToClient() {
-        /*System.out.println("getClosestPharmacyWithStock");
+        System.out.println("getClosestPharmacyWithStock");
 
         Graph<Address, Path> graph = new Graph<>(true);
         Address oAddress2 = new Address(9d, 9d, 9d ,"", "", "", "", "");
@@ -161,7 +161,7 @@ class PharmacyServiceTest {
         when(mockPharmacyDB.getPharmacies()).thenReturn(lstPharmacies);
         ApplicationPOT.getInstance().getWorldMap().setGraph(graph);
         Pharmacy result = pharmacyService.getClosestPharmacyToClient(new Client());
-        assertEquals(oPharmacy, result);*/
+        assertEquals(oPharmacy, result);
     }
 
     @Test

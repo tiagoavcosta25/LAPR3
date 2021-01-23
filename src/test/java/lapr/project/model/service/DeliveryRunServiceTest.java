@@ -120,6 +120,7 @@ class DeliveryRunServiceTest {
 
     @Test
     void calculateMostEfficientPath() {
+        ApplicationPOT.getInstance().getWorldMap().setGraph(new Graph<>(true));
         when (m_oWorldMap.calculateMostEfficientPath(new Address(),new Address(),new ArrayList<>())).thenReturn(new LinkedList<>());
         LinkedList<Address> real = m_oDeliveryRunService.calculateMostEfficientPath(new Address(),new Address(),new LinkedList<>());
         assertEquals(new LinkedList<>(),real);

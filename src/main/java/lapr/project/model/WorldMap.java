@@ -24,6 +24,10 @@ public class WorldMap {
         return moGraph;
     }
 
+    public void setGraph(Graph<Address, Path> oGraph) {
+        this.moGraph = oGraph;
+    }
+
     /**
      * CREATE GRAPH
      */
