@@ -12,8 +12,8 @@ class WriteFileTest {
         boolean result = WriteFile.write("output_test", "This is a test");
         assertTrue(result);
 
-        /*result = WriteFile.write("*€§!#$%..", "This is a test");
+        result = WriteFile.write("/fake_directory/fake_file", "This is a test");
 
-        assertFalse(result);*/
+        assertFalse(result);
     }
 }
