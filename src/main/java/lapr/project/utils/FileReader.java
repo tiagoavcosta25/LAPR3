@@ -1,5 +1,5 @@
 package lapr.project.utils;
-/*
+
 import lapr.project.controller.*;
 import lapr.project.model.*;
 import java.io.File;
@@ -284,4 +284,4 @@ public class FileReader {
         }else LOGGER.log(Level.WARNING,"There was a problem creating a Courier");
 
     }
-}*/
+}
