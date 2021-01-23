@@ -14,11 +14,11 @@ class PathTest {
 
     PathTest() {
         path = new Path(2,2,2, 2,
-                "Rua das Flores", 2, 2, 2);
+                "Rua das Flores", 2, 2, 2,VehicleType.SCOOTER);
         pathEqual = new Path(2,2,2, 2,
-                "Rua das Flores1", 4, 3, 1);
+                "Rua das Flores1", 4, 3, 1,VehicleType.SCOOTER);
         pathDiff = new Path(3,1,4, 5,
-                "Rua das Flores", 2, 2, 2);
+                "Rua das Flores", 2, 2, 2,VehicleType.SCOOTER);
     }
 
     @Test

@@ -13,12 +13,12 @@ public class DeliveryRunDB extends DataHandler {
 
     public boolean addPathToDB(Path p) {
         return addPathToDB(p.getLatitudeA(), p.getLongitudeA(), p.getLatitudeB(), p.getLongitudeB(),
-                p.getName(), p.getWindSpeed(), p.getWindAngle(), p.getKineticFrictionCoefficient());
+                p.getName(), p.getWindSpeed(), p.getWindAngle(), p.getKineticFrictionCoefficient(),p.getVehicleType());
     }
 
     private boolean addPathToDB(double dblLatitudeA, double dblLongitudeA, double dblLatitudeB, double dblLongitudeB,
                                 String strName, double dblWindSpeed, double dblWindAngle,
-                                double dblKineticFrictionCoefficient) {
+                                double dblKineticFrictionCoefficient,VehicleType oVehicleType) {
         boolean flag = true;
         try {
             openConnection();
@@ -33,6 +33,7 @@ public class DeliveryRunDB extends DataHandler {
             callStmt.setDouble(6, dblWindSpeed);
             callStmt.setDouble(7, dblWindAngle);
             callStmt.setDouble(8, dblKineticFrictionCoefficient);
+            callStmt.setString(9,oVehicleType.getDesignation());
 
             callStmt.execute();
 
@@ -66,9 +67,13 @@ public class DeliveryRunDB extends DataHandler {
                 double m_dblWindSpeed = rSet.getDouble(6);
                 double m_dblWindAngle = rSet.getDouble(7);
                 double m_dblKineticFrictionCoefficient = rSet.getDouble(8);
+                VehicleType oVehicleType = null;
+                if (rSet.getString(9).equals("Scooter")){
+                    oVehicleType = VehicleType.SCOOTER;
+                }else oVehicleType = VehicleType.DRONE;
 
                 lstPaths.add(new Path(m_dblLatitudeA, m_dblLongitudeA, m_dblLatitudeB, m_dblLongitudeB,
-                        m_strName, m_dblWindSpeed, m_dblWindAngle, m_dblKineticFrictionCoefficient));
+                        m_strName, m_dblWindSpeed, m_dblWindAngle, m_dblKineticFrictionCoefficient,oVehicleType));
             }
             return lstPaths;
         } catch (SQLException e) {

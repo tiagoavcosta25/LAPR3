@@ -20,9 +20,9 @@ public class DeliveryRunService {
 
     public boolean registerPath(double dblLatitudeA, double dblLongitudeA, double dblLatitudeB, double dblLongitudeB,
                                 String strName, double dblWindSpeed, double dblWindAngle,
-                                double dblKineticFrictionCoefficient) {
+                                double dblKineticFrictionCoefficient,VehicleType oVehicleType) {
         return moDeliveryRunDB.addPathToDB(new Path(dblLatitudeA, dblLongitudeA, dblLatitudeB, dblLongitudeB,
-                strName, dblWindSpeed, dblWindAngle, dblKineticFrictionCoefficient));
+                strName, dblWindSpeed, dblWindAngle, dblKineticFrictionCoefficient, oVehicleType));
     }
 
     public DeliveryRun newDeliveryRun(Courier oCourier, List<Order> oLstOrder) {

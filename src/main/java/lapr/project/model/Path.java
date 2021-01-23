@@ -12,6 +12,9 @@ public class Path {
     private double mdblWindSpeed;
     private double mdblWindAngle;
     private double mdblKineticFrictionCoefficient;
+    private VehicleType moVehicleType;
+
+
 
     public Path() {
         this.mdblLatitudeA = 0;
@@ -25,7 +28,8 @@ public class Path {
     }
 
     public Path(double dblLatitudeA, double dblLongitudeA, double dblLatitudeB, double dblLongitudeB,
-                String strName, double dblWindSpeed, double dblWindAngle, double dblKineticFrictionCoefficient) {
+                String strName, double dblWindSpeed, double dblWindAngle, double dblKineticFrictionCoefficient,
+                VehicleType oVehicleType) {
         this.mdblLatitudeA = dblLatitudeA;
         this.mdblLongitudeA = dblLongitudeA;
         this.mdblLatitudeB = dblLatitudeB;
@@ -34,6 +38,11 @@ public class Path {
         this.mdblWindSpeed = dblWindSpeed;
         this.mdblWindAngle = dblWindAngle;
         this.mdblKineticFrictionCoefficient = dblKineticFrictionCoefficient;
+        this.moVehicleType = oVehicleType;
+    }
+
+    public VehicleType getVehicleType() {
+        return moVehicleType;
     }
 
     public double getLatitudeA() {
