@@ -18,11 +18,11 @@ public class RegisterParkController {
         this.moServ = new PharmacyService();
     }
 
-    public boolean addPark(int intPharmacyId, int intMaxSlots, float fltOutputCurrent, VehicleType enumVehicleType, int intNonChargingSlots, int intChargingSlots) {
+    public boolean addPark(String strPharmacyEmail, int intMaxSlots, Double fltOutputCurrent, VehicleType enumVehicleType, int intNonChargingSlots, int intChargingSlots) {
         Park p = new Park(intMaxSlots, fltOutputCurrent, enumVehicleType);
         try {
             if(ApplicationPOT.getInstance().getCurrentSession().getRole().equals(UserSession.Role.ADMIN))
-                return moServ.addPark(intPharmacyId, p, intNonChargingSlots, intChargingSlots);
+                return moServ.addPark(strPharmacyEmail, p, intNonChargingSlots, intChargingSlots);
         } catch (Exception e) {
             LOGGER.log(Level.WARNING, "User not logged in!");
         }

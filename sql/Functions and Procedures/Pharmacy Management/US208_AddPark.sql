@@ -1,7 +1,8 @@
-CREATE OR REPLACE PROCEDURE addPark(intPharmacyId IN PARK.PHARMACYID%TYPE, strVehicleType IN PARK.VEHICLETYPE%TYPE,
+CREATE OR REPLACE PROCEDURE addPark(strPharmacyEmail IN PHARMACY.EMAIL%TYPE, strVehicleType IN PARK.VEHICLETYPE%TYPE,
 intMaxSlotsNumber IN PARK.MAXSLOTSNUMBER%TYPE, fltTotalOutputCurrent IN PARK.TOTALOUTPUTCURRENT%TYPE,
 intChargingSlotNumber IN INT, intNonChargingSlotNumber IN INT) IS
 
+    intPharmacyId PARK.PHARMACYID%TYPE;
     intIdPark PARK.ID%TYPE;
     intIdParkingSlot PARKINGSLOT.ID%TYPE;
     maxSlotsError EXCEPTION;
@@ -12,6 +13,10 @@ BEGIN
         raise maxSlotsError;
     end if;
 
+    select ID
+    into intPharmacyId
+    from PHARMACY
+    where EMAIL = strPharmacyEmail;
 
     INSERT INTO PARK(PHARMACYID, VEHICLETYPE, MAXSLOTSNUMBER, TOTALOUTPUTCURRENT)
     VALUES (intPharmacyId, strVehicleType, intMaxSlotsNumber, fltTotalOutputCurrent)
