@@ -28,7 +28,6 @@ DROP TABLE Battery CASCADE CONSTRAINTS;
 DROP TABLE Vehicle CASCADE CONSTRAINTS;
 DROP TABLE VehicleType CASCADE CONSTRAINTS;
 DROP TABLE VehicleModel CASCADE CONSTRAINTS;
-DROP TABLE PathType CASCADE CONSTRAINTS;
 
 CREATE TABLE Address (latitude double precision NOT NULL, longitude double precision NOT NULL, altitude double precision NOT NULL, doorNumber varchar2(40) NOT NULL, streetName varchar2(100) NOT NULL, postalCode varchar2(8) NOT NULL, locality varchar2(70) NOT NULL, country varchar2(50) NOT NULL, PRIMARY KEY (latitude, longitude));
 CREATE TABLE Administrator (userId number(10) NOT NULL, PRIMARY KEY (userId));
@@ -49,8 +48,7 @@ CREATE TABLE OrderProduct (productId number(10) NOT NULL, orderId number(10) NOT
 CREATE TABLE OrderStatus (designation varchar2(20) DEFAULT 'ordered' NOT NULL, PRIMARY KEY (designation));
 CREATE TABLE Park (id number(10) GENERATED AS IDENTITY, pharmacyId number(10) NOT NULL, vehicleType varchar2(20) NOT NULL, maxSlotsNumber number(3) NOT NULL, totalOutputCurrent double precision NOT NULL, PRIMARY KEY (id));
 CREATE TABLE ParkingSlot (id number(10) GENERATED AS IDENTITY, parkId number(10) NOT NULL, vehicleId number(10) UNIQUE, PRIMARY KEY (id));
-CREATE TABLE Path (latitudeA double precision NOT NULL, longitudeA double precision NOT NULL, latitudeB double precision NOT NULL, longitudeB double precision NOT NULL, name varchar2(255) NOT NULL, windSpeed double precision NOT NULL, windAngle double precision NOT NULL, kineticFrictionCoefficient double precision NOT NULL, pathType varchar2(20) NOT NULL, PRIMARY KEY (latitudeA, longitudeA, latitudeB, longitudeB));
-CREATE TABLE PathType (designation varchar2(20) NOT NULL, PRIMARY KEY (designation));
+CREATE TABLE Path (latitudeA double precision NOT NULL, longitudeA double precision NOT NULL, latitudeB double precision NOT NULL, longitudeB double precision NOT NULL, name varchar2(255) NOT NULL, windSpeed double precision NOT NULL, windAngle double precision NOT NULL, kineticFrictionCoefficient double precision NOT NULL, vehicleType varchar2(20) NOT NULL, PRIMARY KEY (latitudeA, longitudeA, latitudeB, longitudeB));
 CREATE TABLE Payment (creditCardNr number(16) NOT NULL, invoiceId number(10) NOT NULL, value double precision NOT NULL, PRIMARY KEY (creditCardNr, invoiceId));
 CREATE TABLE Pharmacy (id number(10) GENERATED AS IDENTITY, name varchar2(70) NOT NULL, email varchar2(320) NOT NULL UNIQUE, addressLatitude double precision NOT NULL, addressLongitude double precision NOT NULL, PRIMARY KEY (id));
 CREATE TABLE PharmacyProduct (pharmacyId number(10) NOT NULL, productId number(10) NOT NULL, stock number(10) DEFAULT 0 NOT NULL, PRIMARY KEY (pharmacyId, productId));
@@ -102,4 +100,4 @@ ALTER TABLE ChargingSlot ADD CONSTRAINT FKChargingSl406134 FOREIGN KEY (parkingS
 ALTER TABLE VehicleModel ADD CONSTRAINT FKVehicleMod800005 FOREIGN KEY (batteryId) REFERENCES Battery (id);
 ALTER TABLE Vehicle ADD CONSTRAINT FKVehicle451407 FOREIGN KEY (modelId) REFERENCES VehicleModel (id);
 ALTER TABLE VehicleModel ADD CONSTRAINT FKVehicleMod704852 FOREIGN KEY (vehicleType) REFERENCES VehicleType (designation);
-ALTER TABLE Path ADD CONSTRAINT FKPath40445 FOREIGN KEY (pathType) REFERENCES PathType (designation);
+ALTER TABLE Path ADD CONSTRAINT FKPath9168 FOREIGN KEY (vehicleType) REFERENCES VehicleType (designation);

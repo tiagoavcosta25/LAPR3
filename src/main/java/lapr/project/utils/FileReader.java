@@ -1,11 +1,7 @@
 package lapr.project.utils;
-
-/*import lapr.project.controller.*;
-import lapr.project.model.CreditCard;
-import lapr.project.model.Pharmacy;
-import lapr.project.model.Product;
-import lapr.project.model.UserSession;
-
+/*
+import lapr.project.controller.*;
+import lapr.project.model.*;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -118,10 +114,13 @@ public class FileReader {
 
     private static void readPathFile(String[] columns) {
         RegisterPathController ctrl = new RegisterPathController();
+        VehicleType oType = null;
+        if (columns[8].equals("Scooter")) oType = VehicleType.SCOOTER;
+        if (columns[8].equals("Drone")) oType = VehicleType.DRONE;
 
         if (ctrl.registerPath(Double.parseDouble(columns[0]),Double.parseDouble(columns[1]),Double.parseDouble(columns[2]),
                 Double.parseDouble(columns[3]),columns[4], Double.parseDouble(columns[5]),Double.parseDouble(columns[6]),
-                Double.parseDouble(columns[7]))) {
+                Double.parseDouble(columns[7]),oType)) {
             LOGGER.log(Level.INFO,"Path was registered with success!");
         }else LOGGER.log(Level.WARNING,"There was a problem registering a Path");
     }
@@ -190,7 +189,7 @@ public class FileReader {
         LogoutController oLogoutCtrl = new LogoutController();
         ApplicationPOT.getInstance().setCurrentSession(new UserSession("admin@gmail.com", 2));
 
-        if (oCtrl.registerProduct(columns[0],columns[1],Float.parseFloat(columns[2]),Float.parseFloat(columns[3]))) {
+        if (oCtrl.registerProduct(columns[0],columns[1],Double.parseDouble(columns[2]),Double.parseDouble(columns[3]))) {
             LOGGER.log(Level.INFO, "Product was successfully registered!");
         }else LOGGER.log(Level.WARNING,"There was a problem registering the Product");
         oLogoutCtrl.logout();

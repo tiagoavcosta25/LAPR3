@@ -104,15 +104,15 @@ class DeliveryRunServiceTest {
     @Test
     void registerPath() {
         when (m_oDeliveryRunDB.addPathToDB(new Path(1,2,3,4,"a"
-                ,1,2,3))).thenReturn(true);
+                ,1,2,3,VehicleType.SCOOTER))).thenReturn(true);
         boolean real = m_oDeliveryRunService.registerPath(1,2,3,4,"a"
-                ,1,2,3);
+                ,1,2,3,VehicleType.SCOOTER);
         assertTrue(real);
 
         when (m_oDeliveryRunDB.addPathToDB(new Path(1,2,3,4,"a"
-                ,1,2,3))).thenReturn(false);
+                ,1,2,3,VehicleType.SCOOTER))).thenReturn(false);
         real = m_oDeliveryRunService.registerPath(1,2,3,4,"a"
-                ,1,2,3);
+                ,1,2,3,VehicleType.SCOOTER);
         assertFalse(real);
 
 

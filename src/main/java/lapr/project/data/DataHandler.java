@@ -336,9 +336,9 @@ public class DataHandler {
         firstColumn++;
         String strDescription = rSet.getString(firstColumn);
         firstColumn++;
-        float dblUnitaryPrice = rSet.getFloat(firstColumn);
+        Double dblUnitaryPrice = rSet.getDouble(firstColumn);
         firstColumn++;
-        float dblUnitaryWeight = rSet.getFloat(firstColumn);
+        Double dblUnitaryWeight = rSet.getDouble(firstColumn);
 
 
         return new Product(intID, strName, strDescription, dblUnitaryPrice, dblUnitaryWeight);

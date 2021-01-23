@@ -1,5 +1,6 @@
 package lapr.project.controller;
 
+import lapr.project.model.VehicleType;
 import lapr.project.model.service.DeliveryRunService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -25,14 +26,14 @@ public class RegisterPathControllerTest {
 
     @Test
     void registerPath() {
-        when(mockDeliveryRunService.registerPath(41.08555,-8.53666,41.9985,-8.058,"rua1",12,45,0.8)).thenReturn(true);
-        boolean result = this.oRegisterPathController.registerPath(41.08555,-8.53666,41.9985,-8.058,"rua1",12,45,0.8);
+        when(mockDeliveryRunService.registerPath(41.08555,-8.53666,41.9985,-8.058,"rua1",12,45,0.8, VehicleType.SCOOTER)).thenReturn(true);
+        boolean result = this.oRegisterPathController.registerPath(41.08555,-8.53666,41.9985,-8.058,"rua1",12,45,0.8,VehicleType.SCOOTER);
         assertTrue(result);
     }
     @Test
     void registerPat2h() {
-        when(mockDeliveryRunService.registerPath(41.08555,-8.53666,41.9985,-8.058,"rua1",12,45,0.8)).thenReturn(false);
-        boolean result = this.oRegisterPathController.registerPath(41.08555,-8.53666,41.9985,-8.058,"rua1",12,45,0.8);
+        when(mockDeliveryRunService.registerPath(41.08555,-8.53666,41.9985,-8.058,"rua1",12,45,0.8,VehicleType.DRONE)).thenReturn(false);
+        boolean result = this.oRegisterPathController.registerPath(41.08555,-8.53666,41.9985,-8.058,"rua1",12,45,0.8,VehicleType.DRONE);
         assertFalse(result);
     }
 }

@@ -16,7 +16,7 @@ public class UpdateProductController {
         this.moServ = new ProductService();
     }
 
-    public boolean updateProduct(int intId, String strName, String strDescription, float fltUnitaryPrice, float fltUnitaryWeight) {
+    public boolean updateProduct(int intId, String strName, String strDescription, Double fltUnitaryPrice, Double fltUnitaryWeight) {
         try {
             if(ApplicationPOT.getInstance().getCurrentSession().getRole().equals(UserSession.Role.ADMIN))
                 return moServ.updateProduct(intId, strName, strDescription, fltUnitaryPrice, fltUnitaryWeight);
