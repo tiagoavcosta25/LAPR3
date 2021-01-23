@@ -8,19 +8,19 @@ public class Park {
 
     private int mintId;
     private int mintMaxSlotsNumber;
-    private float mfltTotalOutputCurrent;
+    private Double mfltTotalOutputCurrent;
     private VehicleType menumVehicleType;
     private List<ChargingSlot> mLstChargingSlots;
     private List<NonChargingSlot> mLstNonChargingSlots;
 
     private static int DEFAULTID = -1;
     private static int DEFAULTMAXSLOTS = -1;
-    private static float DEFAULTTOTALOUTPUTCURRENT = -1f;
+    private static Double DEFAULTTOTALOUTPUTCURRENT = -1d;
     private static VehicleType DEFAULTVEHICLETYPE = VehicleType.NOTDEFINED;
     private static List<ChargingSlot> DEFAULTCHARGINGSLOTS = new ArrayList<>();
     private static List<NonChargingSlot> DEFAULTPARKINGSLOTS = new ArrayList<>();
 
-    public Park(int intId, int intMaxSlotsNumber, float fltTotalOutputCurrent, VehicleType enumVehicleType) {
+    public Park(int intId, int intMaxSlotsNumber, Double fltTotalOutputCurrent, VehicleType enumVehicleType) {
         this.mintId = intId;
         this.mintMaxSlotsNumber = intMaxSlotsNumber;
         this.mfltTotalOutputCurrent = fltTotalOutputCurrent;
@@ -29,7 +29,7 @@ public class Park {
         this.mLstNonChargingSlots = DEFAULTPARKINGSLOTS;
     }
 
-    public Park(int intMaxSlotsNumber, float fltTotalOutputCurrent, VehicleType enumVehicleType) {
+    public Park(int intMaxSlotsNumber, Double fltTotalOutputCurrent, VehicleType enumVehicleType) {
         this.mintMaxSlotsNumber = intMaxSlotsNumber;
         this.mfltTotalOutputCurrent = fltTotalOutputCurrent;
         this.menumVehicleType = enumVehicleType;
@@ -86,11 +86,11 @@ public class Park {
         this.mLstNonChargingSlots = new ArrayList<>(m_lstNonChargingSlots);
     }
 
-    public float getTotalOutputCurrent() {
+    public Double getTotalOutputCurrent() {
         return mfltTotalOutputCurrent;
     }
 
-    public void getTotalOutputCurrent(float m_fltTotalOutputCurrent) {
+    public void getTotalOutputCurrent(Double m_fltTotalOutputCurrent) {
         this.mfltTotalOutputCurrent = m_fltTotalOutputCurrent;
     }
 

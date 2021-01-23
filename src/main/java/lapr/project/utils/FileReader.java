@@ -21,6 +21,7 @@ public class FileReader {
     public static final String FILEPHARMACIES = "src/main/resources/files/pharmacies.csv";
     public static final String FILEPRODUCTS = "src/main/resources/files/products.csv";
     public static final String FILEPHARMACYPRODUCTS = "src/main/resources/files/pharmacyProducts.csv";
+    public static final String FILEPARKS = "src/main/resources/files/parks.csv";
     public static final String FILEORDERS = "src/main/resources/files/orders.csv";
     public static final String FILECOURIERS = "src/main/resources/files/couriers.csv";
     private static final Logger LOGGER = Logger.getLogger(FileReader.class.getName());
@@ -30,6 +31,7 @@ public class FileReader {
         readGenericFile(FILEPHARMACIES);
         readGenericFile(FILEPRODUCTS);
         readGenericFile(FILEPHARMACYPRODUCTS);
+        readGenericFile(FILEPARKS);
         readGenericFile(FILECOURIERS);
         readGenericFile(FILESCOOTERS);
         readGenericFile(FILEDRONES);
@@ -72,6 +74,8 @@ public class FileReader {
                         case FILEPHARMACYPRODUCTS:
                             readPharmacyProductFile(columns);
                             break;
+                        case FILEPARKS:
+                            readParkFile(columns);
                         case FILEORDERS:
                             readOrderFile(columns);
                             break;
@@ -215,6 +219,21 @@ public class FileReader {
                 LOGGER.log(Level.INFO,"Product added to the Pharmacy with success!");
             }else LOGGER.log(Level.WARNING,"There was a problem adding the Product to the Pharmacy.");
         }else LOGGER.log(Level.WARNING,"There was a problem adding the Product to the Pharmacy.");
+    }
+
+    public static void readParkFile(String[] columns) {
+        RegisterParkController oCtrl = new RegisterParkController();
+
+        VehicleType oType = null;
+        if (columns[3].equals("Scooter"))
+            oType = VehicleType.SCOOTER;
+        else if (columns[3].equals("Drone")) oType = VehicleType.DRONE;
+        else LOGGER.log(Level.WARNING,"There was a problem with the Vehicle Type!");
+
+        if (oCtrl.addPark(columns[0],Integer.parseInt(columns[1]),Double.parseDouble(columns[2]),oType,
+                Integer.parseInt(columns[4]),Integer.parseInt(columns[5]))) {
+            LOGGER.log(Level.INFO,"Park added with success!");
+        }else LOGGER.log(Level.WARNING,"There was a problem adding the Park.");
     }
 
     private static void readOrderFile(String[] columns) {

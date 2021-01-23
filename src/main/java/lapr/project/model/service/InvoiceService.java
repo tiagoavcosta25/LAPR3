@@ -35,61 +35,61 @@ public class InvoiceService {
         try{
             String strEmail = oInvoice.getOrder().getClient().getEmail();
             boolean isHomeDelivery = oInvoice.getOrder().isHomeDelivery();
-            String strBody = String.format("_______________________________________\n\n\t\t\tInvoice No. %d", oInvoice.getId());
-            strBody += String.format("\n\t\t\t\t%td-%<tb-%<tY", oInvoice.getInvoiceDate());
+            String strBody = String.format("_______________________________________%n%n\t\t\tInvoice No. %d", oInvoice.getId());
+            strBody += String.format("%n\t\t\t\t%td-%<tb-%<tY", oInvoice.getInvoiceDate());
 
-            strBody += String.format("\n\n---------------------------------------");
-            strBody += String.format("\n\n\t\t\tPharmacy: %s", oInvoice.getOrder().getPharmacy().getName());
-            strBody += String.format("\n\n\t\t\t%s", oInvoice.getOrder().getPharmacy().getEmail());
-            strBody += String.format("\n\t\t\t%s", oInvoice.getOrder().getPharmacy().getAddress().getStreetName());
-            strBody += String.format("\n\t\t\t%s", oInvoice.getOrder().getPharmacy().getAddress().getDoorNumber());
-            strBody += String.format("\n\t\t\t%s", oInvoice.getOrder().getPharmacy().getAddress().getPostalCode());
-            strBody += String.format("\n\t\t\t%s", oInvoice.getOrder().getPharmacy().getAddress().getLocality());
-            strBody += String.format("\n\t\t\t%s", oInvoice.getOrder().getPharmacy().getAddress().getCountry());
-            strBody += String.format("\n\n---------------------------------------");
-            strBody += String.format("\n\n\t\t\tBill To:\n\t\t\t %s", oInvoice.getOrder().getClient().getName());
-            strBody += String.format("\n\t\t\t%s", oInvoice.getOrder().getClient().getEmail());
-            strBody += String.format("\n\t\t\t%s", oInvoice.getOrder().getClient().getAddress().getStreetName());
-            strBody += String.format("\n\t\t\t%s", oInvoice.getOrder().getClient().getAddress().getDoorNumber());
-            strBody += String.format("\n\t\t\t%s", oInvoice.getOrder().getClient().getAddress().getPostalCode());
-            strBody += String.format("\n\t\t\t%s", oInvoice.getOrder().getClient().getAddress().getLocality());
-            strBody += String.format("\n\t\t\t%s", oInvoice.getOrder().getClient().getAddress().getCountry());
-            strBody += String.format("\n\n---------------------------------------");
+            strBody += String.format("%n%n---------------------------------------");
+            strBody += String.format("%n%n\t\t\tPharmacy: %s", oInvoice.getOrder().getPharmacy().getName());
+            strBody += String.format("%n%n\t\t\t%s", oInvoice.getOrder().getPharmacy().getEmail());
+            strBody += String.format("%n\t\t\t%s", oInvoice.getOrder().getPharmacy().getAddress().getStreetName());
+            strBody += String.format("%n\t\t\t%s", oInvoice.getOrder().getPharmacy().getAddress().getDoorNumber());
+            strBody += String.format("%n\t\t\t%s", oInvoice.getOrder().getPharmacy().getAddress().getPostalCode());
+            strBody += String.format("%n\t\t\t%s", oInvoice.getOrder().getPharmacy().getAddress().getLocality());
+            strBody += String.format("%n\t\t\t%s", oInvoice.getOrder().getPharmacy().getAddress().getCountry());
+            strBody += String.format("%n%n---------------------------------------");
+            strBody += String.format("%n%n\t\t\tBill To:%n\t\t\t %s", oInvoice.getOrder().getClient().getName());
+            strBody += String.format("%n\t\t\t%s", oInvoice.getOrder().getClient().getEmail());
+            strBody += String.format("%n\t\t\t%s", oInvoice.getOrder().getClient().getAddress().getStreetName());
+            strBody += String.format("%n\t\t\t%s", oInvoice.getOrder().getClient().getAddress().getDoorNumber());
+            strBody += String.format("%n\t\t\t%s", oInvoice.getOrder().getClient().getAddress().getPostalCode());
+            strBody += String.format("%n\t\t\t%s", oInvoice.getOrder().getClient().getAddress().getLocality());
+            strBody += String.format("%n\t\t\t%s", oInvoice.getOrder().getClient().getAddress().getCountry());
+            strBody += String.format("%n%n---------------------------------------");
             if(isHomeDelivery){
-                strBody += String.format("\n\n\tDelivery Type: Home Delivery");
+                strBody += String.format("%n%n\tDelivery Type: Home Delivery");
             } else{
-                strBody += String.format("\n\n\tDelivery Type: Store Pickup");
+                strBody += String.format("%n%n\tDelivery Type: Store Pickup");
             }
-            strBody += String.format("\n\n---------------------------------------");
-            //strBody += String.format("\n| ID |\t\t\tDESC\t\t|\tAMT\t  |\n---------------------------------------");
+            strBody += String.format("%n%n---------------------------------------");
+            //strBody += String.format("%n| ID |\t\t\tDESC\t\t|\tAMT\t  |\n---------------------------------------");
 
-            strBody += String.format("\n\n\t\t\tProducts Ordered");
-            strBody += String.format("\n\n---------------------------------------");
+            strBody += String.format("%n%n\t\t\tProducts Ordered");
+            strBody += String.format("%n%n---------------------------------------");
 
             int c = 1;
             for(Map.Entry<Product, Integer> e : oInvoice.getOrder().getProducts().entrySet()){
                 String strProductInfo = String.format("%dx %s", e.getValue(), e.getKey().getName());
                 double dblAmount = e.getKey().getUnitaryPrice() * (double)e.getValue();
-                strBody += String.format("\n\n| %d | %-20.20s | %.2f€ |", c, strProductInfo, dblAmount);
+                strBody += String.format("%n%n| %d | %-20.20s | %.2f€ |", c, strProductInfo, dblAmount);
                 while(strProductInfo.length()>20){
                     strProductInfo = strProductInfo.substring(20);
-                    System.out.printf("\n|   | %-20.20s |         |", strProductInfo);
+                    System.out.printf("%n|   | %-20.20s |         |", strProductInfo);
                 }
-                strBody += String.format("\n\n---------------------------------------");
+                strBody += String.format("%n%n---------------------------------------");
                 c++;
             }
 
-            strBody += String.format("\n\n\t\t\tPayments");
-            strBody += String.format("\n\n---------------------------------------");
+            strBody += String.format("%n%n\t\t\tPayments");
+            strBody += String.format("%n%n---------------------------------------");
 
             c = 1;
             for(Map.Entry<CreditCard, Double> e : oInvoice.getPayments().entrySet()){
                 String strCCNum = Long.toString(e.getKey().getCreditCardNr());
-                strBody += String.format("\n\n| %d | %-20.20s | %.2f€ |", c, strCCNum, e.getValue());
-                strBody += String.format("\n\n---------------------------------------");
+                strBody += String.format("%n%n| %d | %-20.20s | %.2f€ |", c, strCCNum, e.getValue());
+                strBody += String.format("%n%n---------------------------------------");
                 c++;
             }
-            strBody += String.format("\n\n_______________________________________");
+            strBody += String.format("%n%n_______________________________________");
 
             double dblFee;
             if(isHomeDelivery){
@@ -97,16 +97,16 @@ public class InvoiceService {
             } else{
                 dblFee = 0d;
             }
-            strBody += String.format("\n|\t   Sub Total\t\t      %.2f€ |", oInvoice.getTotalPrice() - dblFee);
-            strBody += String.format("\n---------------------------------------");
+            strBody += String.format("%n|\t   Sub Total\t\t      %.2f€ |", oInvoice.getTotalPrice() - dblFee);
+            strBody += String.format("%n---------------------------------------");
             if(isHomeDelivery) {
-                strBody += String.format("\n|\t   Home Delivery Fee\t\t\t\t  %.2f€ |", dblFee);
-                strBody += String.format("\n---------------------------------------");
+                strBody += String.format("%n|\t   Home Delivery Fee\t\t\t\t  %.2f€ |", dblFee);
+                strBody += String.format("%n---------------------------------------");
             }
-            strBody += String.format("\n|\t   Total\t\t\t\t   %.2f€ |", oInvoice.getTotalPrice());
-            strBody += String.format("\n---------------------------------------");
-            strBody += String.format("\n\t\t\t\tTHANK YOU!");
-            strBody += String.format("\n_______________________________________");
+            strBody += String.format("%n|\t   Total\t\t\t\t   %.2f€ |", oInvoice.getTotalPrice());
+            strBody += String.format("%n---------------------------------------");
+            strBody += String.format("%n\t\t\t\tTHANK YOU!");
+            strBody += String.format("%n_______________________________________");
 
             EmailSender.sendEmail(strEmail, "Invoice Number: " + oInvoice.getId(), strBody);
             return WriteFile.write("Invoice_" + oInvoice.getId(), strBody);

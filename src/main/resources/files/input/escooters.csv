@@ -1,0 +1,13 @@
+#pharmacy_email;model_name;[potency, weight, maxPayload, batteryCapacity, batteryVoltage, efficiency]
+info@queijo.com;model1;256;55;21;32;6.95;100
+info@trindade.com;model3;156;45;11;32;9.95;98
+info@queijo.com;model4;456;35;31;52;6.12;95
+info@trindade.com;model1
+info@queijo.com;model1
+info@trindade.com;model1
+info@sabandeira.com;model1
+info@trindade.com;model3
+info@queijo.com;model4
+info@sabandeira.com;model4
+
+
