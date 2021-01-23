@@ -1,4 +1,4 @@
-#email_client;order_descr;is_home_delivery(true/false);pharmacy_email;product_name;quantity...cc_number;amount_to_pay
-user3@gmail.com;Para Presente, Enviar Embrulhado.;true;email7@gmail.com;COVID-19 Vaccine;2;Ben-u-ron;1;1234567812345678;38.5
-user3@gmail.com;Levantamento em Loja às 19h.;false;email7@gmail.com;Ben-u-ron;2;1234567812345678;5
-user3@gmail.com;Deixar na Porta de Entrada.;true;email7@gmail.com;COVID-19 Vaccine;1;1234567812345678;18
+#client_email;order_descr;is_home_delivery(true/false);pharmacy_email;product_name;quantity...cc_number;amount_to_pay
+manuel@gmail.com;Para Presente, Enviar Embrulhado.;true;info@queijo.com;COVID-19 Vaccine;2;Ben-u-ron;1;1234567812345678;38.5
+alexandre@gmail.com;Levantamento em Loja às 19h.;false;info@sabandeira.com;Ben-u-ron;2;1234567812345678;5
+joana@gmail.com;Deixar na Porta de Entrada.;true;info@trindade.com;COVID-19 Vaccine;1;1234567812345678;18

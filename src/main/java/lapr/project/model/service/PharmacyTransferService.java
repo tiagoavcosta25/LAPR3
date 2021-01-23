@@ -3,6 +3,10 @@ package lapr.project.model.service;
 import lapr.project.data.PharmacyTransferDB;
 import lapr.project.model.*;
 import lapr.project.utils.EmailSender;
+import lapr.project.utils.WriteFile;
+
+import java.io.File;
+import java.io.FileWriter;
 
 public class PharmacyTransferService {
 
@@ -35,7 +39,8 @@ public class PharmacyTransferService {
 
             EmailSender.sendEmail(strEmail, "Transfer Number: " + oPharmacyTransfer.getId(), strBody);
             EmailSender.sendEmail(oPharmacyTransfer.getNearbyPharmacy().getEmail(), "Transfer Number: " + oPharmacyTransfer.getId(), "Transfer Note Sent With Success!");
-            return true;
+
+            return WriteFile.write("TransferNote_" + oPharmacyTransfer.getId(), strBody);
         } catch (Exception e){
             return false;
         }
@@ -52,7 +57,8 @@ public class PharmacyTransferService {
 
             EmailSender.sendEmail(strEmail, "Transfer Number: " + oPharmacyTransfer.getId(), strBody);
             EmailSender.sendEmail(oPharmacyTransfer.getOrder().getPharmacy().getEmail(), "Transfer Number: " + oPharmacyTransfer.getId(), "Delivery Note Sent With Success!");
-            return true;
+
+            return WriteFile.write("DeliveryNote_" + oPharmacyTransfer.getId(), strBody);
         } catch (Exception e){
             return false;
         }

@@ -52,4 +52,8 @@ public class MakeAPharmacyTransferController {
             return false;
         }
     }
+
+    public void setPharmacy(String strPharmacyEmail){
+        this.moPharmacy = this.moPharmacyService.getPharmacy(strPharmacyEmail);
+    }
 }

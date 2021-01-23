@@ -3,6 +3,7 @@ package lapr.project.model.service;
 import lapr.project.data.InvoiceDB;
 import lapr.project.model.*;
 import lapr.project.utils.EmailSender;
+import lapr.project.utils.WriteFile;
 
 import java.util.Map;
 
@@ -108,7 +109,7 @@ public class InvoiceService {
             strBody += String.format("\n_______________________________________");
 
             EmailSender.sendEmail(strEmail, "Invoice Number: " + oInvoice.getId(), strBody);
-            return true;
+            return WriteFile.write("Invoice_" + oInvoice.getId(), strBody);
         } catch (Exception e){
             return false;
         }

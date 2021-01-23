@@ -1,0 +1,3 @@
+Dear costumer, I'm sorry to inform you but the products: 
+{Product{m_intId=-1, m_strName='No name.', m_strDescription='No description.', m_fltUnitaryPrice=0.0, m_fltUnitaryWeight=0.0}=2}
+ are out of Stock in our Pharmacy. We will send it to you as soon as possible from another one of our providers.

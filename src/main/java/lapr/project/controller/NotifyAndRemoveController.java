@@ -4,6 +4,7 @@ import lapr.project.model.Order;
 import lapr.project.model.Product;
 import lapr.project.model.service.OrderService;
 import lapr.project.utils.EmailSender;
+import lapr.project.utils.WriteFile;
 
 import java.util.Map;
 
@@ -39,8 +40,12 @@ public class NotifyAndRemoveController {
     public boolean notifyAndRemove(Order order) {
         Map<Product, Integer> lstProdcuts = moOrderService.notifyAndRemove(order);
         if (lstProdcuts == null) {
-            EmailSender.sendEmail(order.getClient().getEmail(), "Unsuccessful Order", "Dear costumer, I'm sorry to inform you but some of the products: \n"
-                    + order.getProducts().toString() + "\n are out of Stock in every Pharmacy");
+            String strBody = "Dear costumer, I'm sorry to inform you but some of the products: \n"
+                    + order.getProducts().toString() + "\n are out of Stock in every Pharmacy";
+
+            EmailSender.sendEmail(order.getClient().getEmail(), "Unsuccessful Order", strBody);
+
+            WriteFile.write("UnsuccessfulOrder_" + order.getId(), strBody);
             return false;
 
         } else {
@@ -50,8 +55,13 @@ public class NotifyAndRemoveController {
                 for (Map.Entry<Product, Integer> entry : lstProdcuts.entrySet()) {
                     ctrl.getStockFromAnotherPharamacy(order, entry.getKey(), entry.getValue());
                 }
-                EmailSender.sendEmail(order.getClient().getEmail(), "Order In Transit", "Dear costumer, I'm sorry to inform you but the products: \n"
-                        + lstProdcuts.toString() + "\n are out of Stock in our Pharmacy. We will send it to you as soon as possible from another one of our providers.");
+
+                String strBody = "Dear costumer, I'm sorry to inform you but the products: \n"
+                        + lstProdcuts.toString() + "\n are out of Stock in our Pharmacy. We will send it to you as soon as possible from another one of our providers.";
+
+                EmailSender.sendEmail(order.getClient().getEmail(), "Order In Transit", strBody);
+
+                WriteFile.write("OrderInTransit_" + order.getId(), strBody);
                 return false;
             }
 

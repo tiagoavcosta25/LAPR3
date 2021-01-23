@@ -64,6 +64,11 @@ public class MakeAnOrderController {
     /**
      * Payments
      */
+    private NotifyAndRemoveController moNotifyAndRemoveController;
+
+    /**
+     * Payments
+     */
     private float mfltCurrentPayment;
 
     /**
@@ -82,6 +87,7 @@ public class MakeAnOrderController {
         this.mMapProducts = new TreeMap<>();
         this.mMapPayments = new TreeMap<>();
         this.moGenerateInvoiceController = new GenerateInvoiceController();
+        this.moNotifyAndRemoveController = new NotifyAndRemoveController();
         this.mfltCurrentPayment = 0f;
         this.mfltExpectedPayment = 0f;
     }
@@ -104,6 +110,9 @@ public class MakeAnOrderController {
      */
     public boolean registerOrder() {
         try{
+            /*if(!this.moNotifyAndRemoveController.notifyAndRemove(this.moOrder)){
+                throw new Exception();
+            }*/
             int intId = this.moOrderService.registerOrder(moOrder);
             this.moOrder.setId(intId);
             return this.generateInvoice();

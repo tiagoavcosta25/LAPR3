@@ -70,7 +70,6 @@ public class PharmacyDB extends DataHandler {
 
             return true;
         } catch (SQLException e) {
-            e.printStackTrace();
             return false;
         } finally {
             closeAll();
@@ -90,7 +89,6 @@ public class PharmacyDB extends DataHandler {
 
             return true;
         } catch (SQLException e) {
-            e.printStackTrace();
             return false;
         } finally {
             closeAll();
@@ -115,7 +113,6 @@ public class PharmacyDB extends DataHandler {
 
             return true;
         } catch (SQLException e) {
-            e.printStackTrace();
             return false;
         } finally {
             closeAll();

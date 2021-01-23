@@ -436,6 +436,23 @@ public class DataHandler {
         return new Battery(intBatteryId, intBatteryCapacity, dblBatteryPerc, dblBatteryVoltage);
     }
 
+    protected PharmacyTransfer pharmacyTransferManager(ResultSet rSet, int firstColumn) throws SQLException, NoSuchAlgorithmException { // column number +4
+
+        int intId = rSet.getInt(firstColumn);
+        firstColumn++;
+        Date dtDate = rSet.getDate(firstColumn);
+        firstColumn++;
+        int intQuantity = rSet.getInt(firstColumn);
+        firstColumn++;
+        Product oProduct = productManager(rSet, firstColumn);
+        firstColumn += COLUMNSADDEDPRODUCT;
+        Pharmacy oNearbyPharmacy = pharmacyManager(rSet, firstColumn);
+        firstColumn += COLUMNSADDEDPRODUCT;
+        Order oOrder = orderManager(rSet, firstColumn);
+
+        return new PharmacyTransfer(intId, dtDate, oOrder, oProduct, intQuantity, oNearbyPharmacy);
+    }
+
     public void genericRemove(int intId, String strProcedureCall) {
         try {
             openConnection();
