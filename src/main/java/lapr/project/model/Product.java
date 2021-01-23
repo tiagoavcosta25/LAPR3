@@ -6,16 +6,16 @@ public class Product implements Comparable {
     private int mintId;
     private String mstrName;
     private String mstrDescription;
-    private float mfltUnitaryPrice;
-    private float mfltUnitaryWeight;
+    private Double mfltUnitaryPrice;
+    private Double mfltUnitaryWeight;
 
     private static int DEFAULTID = -1;
     private static String DEFAULTNAME = "No name.";
     private static String DEFAULTDESCRIPTION = "No description.";
-    private static float DEFAULTUNITARYPRICE = 0;
-    private static float DEFAULTUNITARYWEIGHT = 0;
+    private static Double DEFAULTUNITARYPRICE = 0d;
+    private static Double DEFAULTUNITARYWEIGHT = 0d;
 
-    public Product(int intId, String strName, String strDescription, float fltUnitaryPrice, float fltUnitaryWeight) {
+    public Product(int intId, String strName, String strDescription, Double fltUnitaryPrice, Double fltUnitaryWeight) {
         this.mintId = intId;
         this.mstrName = strName;
         this.mstrDescription = strDescription;
@@ -23,7 +23,7 @@ public class Product implements Comparable {
         this.mfltUnitaryWeight = fltUnitaryWeight;
     }
 
-    public Product(String strName, String strDescription, float fltUnitaryPrice, float fltUnitaryWeight) {
+    public Product(String strName, String strDescription, Double fltUnitaryPrice, Double fltUnitaryWeight) {
         this.mstrName = strName;
         this.mstrDescription = strDescription;
         this.mfltUnitaryPrice = fltUnitaryPrice;
@@ -54,11 +54,11 @@ public class Product implements Comparable {
         return mstrDescription;
     }
 
-    public float getUnitaryPrice() {
+    public Double getUnitaryPrice() {
         return mfltUnitaryPrice;
     }
 
-    public float getUnitaryWeight() {
+    public Double getUnitaryWeight() {
         return mfltUnitaryWeight;
     }
 
@@ -74,11 +74,11 @@ public class Product implements Comparable {
         this.mstrDescription = strDescription;
     }
 
-    public void setUnitaryPrice(float fltUnitaryPrice) {
+    public void setUnitaryPrice(Double fltUnitaryPrice) {
         this.mfltUnitaryPrice = fltUnitaryPrice;
     }
 
-    public void setUnitaryWeight(float fltUnitaryWeight) {
+    public void setUnitaryWeight(Double fltUnitaryWeight) {
         this.mfltUnitaryWeight = fltUnitaryWeight;
     }
 
@@ -93,8 +93,8 @@ public class Product implements Comparable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Product product = (Product) o;
-        return Float.compare(product.mfltUnitaryPrice, mfltUnitaryPrice) == 0 &&
-                Float.compare(product.mfltUnitaryWeight, mfltUnitaryWeight) == 0 &&
+        return Double.compare(product.mfltUnitaryPrice, mfltUnitaryPrice) == 0 &&
+                Double.compare(product.mfltUnitaryWeight, mfltUnitaryWeight) == 0 &&
                 mstrName.equals(product.mstrName) &&
                 mstrDescription.equals(product.mstrDescription);
     }

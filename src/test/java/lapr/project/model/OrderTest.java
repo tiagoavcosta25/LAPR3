@@ -18,10 +18,10 @@ class OrderTest {
 
     public OrderTest(){
         Map<Product, Integer> map = new TreeMap<>();
-        map.put(new Product("", "",19f, 11f), 3);
-        o1 = new Order(1, 2.0f, 3.0f, 2.0f, new Date(12 - 12 - 13),
+        map.put(new Product("", "",19d, 11d), 3);
+        o1 = new Order(1, 2.0d, 3.0d, 2.0d, new Date(12 - 12 - 13),
                 "testDesc", "testStatus", true, new Client(), new Pharmacy(), map);
-        o2 = new Order(2.0f, 3.0f, 2.0f, new Date(12 - 12 - 13),
+        o2 = new Order(2.0d, 3.0d, 2.0d, new Date(12 - 12 - 13),
                 "testDesc", "testStatus", true, new Client(), new Pharmacy(), map);
         o3 = new Order(1, "", false, new Client(), new Pharmacy(), map);
         o4 = new Order("", true, new Client(), new Pharmacy(), map);

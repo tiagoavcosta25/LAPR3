@@ -41,7 +41,7 @@ public class ProductDB extends DataHandler {
         return addProductToDB(p.getName(), p.getDescription(), p.getUnitaryPrice(), p.getUnitaryWeight());
     }
 
-    private boolean addProductToDB(String strName, String strDescription, float fltUnitaryPrice, float fltUnitaryWeight) {
+    private boolean addProductToDB(String strName, String strDescription, Double fltUnitaryPrice, Double fltUnitaryWeight) {
         boolean flag = true;
         try {
             openConnection();
@@ -50,8 +50,8 @@ public class ProductDB extends DataHandler {
 
             callStmt.setString(1, strName);
             callStmt.setString(2, strDescription);
-            callStmt.setFloat(3, fltUnitaryPrice);
-            callStmt.setFloat(4, fltUnitaryWeight);
+            callStmt.setDouble(3, fltUnitaryPrice);
+            callStmt.setDouble(4, fltUnitaryWeight);
 
             callStmt.execute();
 
@@ -82,7 +82,7 @@ public class ProductDB extends DataHandler {
         return flag;
     }
 
-    public boolean updateProductFromDB(int intId, String strName, String strDescription, float fltUnitaryPrice, float fltUnitaryWeight) {
+    public boolean updateProductFromDB(int intId, String strName, String strDescription, Double fltUnitaryPrice, Double fltUnitaryWeight) {
         /* Objeto "callStmt" para invocar a função "updateProduct" armazenada na BD.
          *
          */
@@ -94,8 +94,8 @@ public class ProductDB extends DataHandler {
             callStmt.setInt(1, intId);
             callStmt.setString(2, strName);
             callStmt.setString(3, strDescription);
-            callStmt.setFloat(4, fltUnitaryPrice);
-            callStmt.setFloat(5, fltUnitaryWeight);
+            callStmt.setDouble(4, fltUnitaryPrice);
+            callStmt.setDouble(5, fltUnitaryWeight);
             //Executa a invocação da função "updateProduct".
             callStmt.execute();
 

@@ -13,13 +13,13 @@ public class ProductService {
         this.moProductDB = new ProductDB();
     }
 
-    public boolean registerProduct(String strName, String strDescription, float fltUnitaryPrice, float fltUnitaryWeight) {
+    public boolean registerProduct(String strName, String strDescription, Double fltUnitaryPrice, Double fltUnitaryWeight) {
         if(validateInput(strName, strDescription, fltUnitaryPrice, fltUnitaryWeight))
             return moProductDB.addProductToDB(new Product(strName, strDescription, fltUnitaryPrice, fltUnitaryWeight));
         return false;
     }
 
-    public boolean updateProduct(int intId, String strName, String strDescription, float fltUnitaryPrice, float fltUnitaryWeight) {
+    public boolean updateProduct(int intId, String strName, String strDescription, Double fltUnitaryPrice, Double fltUnitaryWeight) {
         if(validateInputWithId(intId, strName, strDescription, fltUnitaryPrice, fltUnitaryWeight))
             return moProductDB.updateProductFromDB(intId, strName, strDescription, fltUnitaryPrice, fltUnitaryWeight);
         return false;
@@ -38,11 +38,11 @@ public class ProductService {
     }
 
     public boolean validateInputWithId(int intId, String strName, String strDescription,
-                                       float fltUnitaryPrice, float fltUnitaryWeight) {
+                                       Double fltUnitaryPrice, Double fltUnitaryWeight) {
         return validateInput(strName, strDescription, fltUnitaryPrice, fltUnitaryWeight) && validateId(intId);
     }
 
-    public boolean validateInput(String strName, String strDescription, float fltUnitaryPrice, float fltUnitaryWeight) {
+    public boolean validateInput(String strName, String strDescription, Double fltUnitaryPrice, Double fltUnitaryWeight) {
         return (!("".equals(strName) || "".equals(strDescription) || fltUnitaryPrice <= 0 || fltUnitaryWeight <= 0));
     }
 

@@ -33,34 +33,34 @@ class RegisterProductControllerTest {
     void ensureProductRegistrationWorks() {
         System.out.println("registerProduct");
         ApplicationPOT.getInstance().setCurrentSession(new UserSession("", 2));
-        when(mockPServ.registerProduct("Product 6969", "Description 1", 2.0f, 2.0f)).thenReturn(true);
+        when(mockPServ.registerProduct("Product 6969", "Description 1", 2.0d, 2.0d)).thenReturn(true);
 
-        boolean result = registerProductController.registerProduct("Product 6969", "Description 1", 2.0f, 2.0f);
+        boolean result = registerProductController.registerProduct("Product 6969", "Description 1", 2.0d, 2.0d);
         assertTrue(result);
 
-        result = registerProductController.registerProduct("", "Description 1", 2.0f, 2.0f);
+        result = registerProductController.registerProduct("", "Description 1", 2.0d, 2.0d);
         assertFalse(result);
 
-        result = registerProductController.registerProduct("Product 6868", "Description 1", -2.0f, 2.0f);
+        result = registerProductController.registerProduct("Product 6868", "Description 1", -2.0d, 2.0d);
         assertFalse(result);
 
-        when(mockPServ.registerProduct("Product 6969", "Description 1", 2.0f, 2.0f)).thenReturn(false);
-        result = registerProductController.registerProduct("Product 6969", "Description 1", 2.0f, 2.0f);
+        when(mockPServ.registerProduct("Product 6969", "Description 1", 2.0d, 2.0d)).thenReturn(false);
+        result = registerProductController.registerProduct("Product 6969", "Description 1", 2.0d, 2.0d);
         assertFalse(result);
 
         ApplicationPOT.getInstance().clearCurrentSession();
         ApplicationPOT.getInstance().setCurrentSession(new UserSession("", 1));
-        result = registerProductController.registerProduct("", "Description 1", 2.0f, 2.0f);
+        result = registerProductController.registerProduct("", "Description 1", 2.0d, 2.0d);
         assertFalse(result);
 
         ApplicationPOT.getInstance().clearCurrentSession();
         ApplicationPOT.getInstance().setCurrentSession(new UserSession("", 3));
-        result = registerProductController.registerProduct("", "Description 1", 2.0f, 2.0f);
+        result = registerProductController.registerProduct("", "Description 1", 2.0d, 2.0d);
         assertFalse(result);
 
         ApplicationPOT.getInstance().clearCurrentSession();
         ApplicationPOT.getInstance().setCurrentSession(new UserSession("", 4));
-        result = registerProductController.registerProduct("", "Description 1", 2.0f, 2.0f);
+        result = registerProductController.registerProduct("", "Description 1", 2.0d, 2.0d);
         assertFalse(result);
     }
 }

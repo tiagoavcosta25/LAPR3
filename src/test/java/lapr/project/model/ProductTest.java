@@ -19,10 +19,10 @@ class ProductTest {
     @Test
     void testClass() {
         System.out.println("equals");
-        Product product = new Product(1, "Produto 1", "Descrição 1", 2.0f, 2.0f);
-        Product product2 = new Product("Produto 1", "Descrição 1", 2.0f, 2.0f);
-        Product productCopy = new Product(1, "Produto 1", "Descrição 1", 2.0f, 2.0f);
-        Product productDif = new Product(2, "Produto 2", "Descrição 2", 3.0f, 3.0f);
+        Product product = new Product(1, "Produto 1", "Descrição 1", 2.0d, 2.0d);
+        Product product2 = new Product("Produto 1", "Descrição 1", 2.0d, 2.0d);
+        Product productCopy = new Product(1, "Produto 1", "Descrição 1", 2.0d, 2.0d);
+        Product productDif = new Product(2, "Produto 2", "Descrição 2", 3.0d, 3.0d);
         assertNotNull(product2);
         assertNotEquals(null, product);
         assertNotEquals(product, null);
@@ -35,8 +35,8 @@ class ProductTest {
         assertEquals(1, product.getId());
         assertEquals("Produto 1", product.getName());
         assertEquals("Descrição 1", product.getDescription());
-        assertEquals(2.0f, product.getUnitaryPrice());
-        assertEquals(2.0f, product.getUnitaryWeight());
+        assertEquals(2.0d, product.getUnitaryPrice());
+        assertEquals(2.0d, product.getUnitaryWeight());
 
         product.setName("");
         assertNotEquals(product, productCopy);
@@ -46,11 +46,11 @@ class ProductTest {
         assertNotEquals(product, productCopy);
 
         product.setDescription("Descrição 1");
-        product.setUnitaryPrice(0f);
+        product.setUnitaryPrice(0d);
         assertNotEquals(product, productCopy);
 
-        product.setUnitaryPrice(2.0f);
-        product.setUnitaryWeight(0f);
+        product.setUnitaryPrice(2.0d);
+        product.setUnitaryWeight(0d);
         assertNotEquals(product, productCopy);
 
 

@@ -86,8 +86,8 @@ class InvoiceServiceTest {
         mapPayments.put(new CreditCard(123456789, new Date(), 123), 19.19d);
         mapPayments.put(new CreditCard(987654321, new Date(), 119), 11.17d);
         Map<Product, Integer> mapProducts = new TreeMap<>();
-        mapProducts.put(new Product(1,"SARS-CoV-2 Vaccine", "Description.", 7.5f, 1f), 2);
-        mapProducts.put(new Product(2,"Benuron", "Description.", 5.12f, 2f), 3);
+        mapProducts.put(new Product(1,"SARS-CoV-2 Vaccine", "Description.", 7.5d, 1d), 2);
+        mapProducts.put(new Product(2,"Benuron", "Description.", 5.12d, 2d), 3);
         Invoice oInvoice = new Invoice(62176, new Order("Description", true, new Client(1, "", 12, "g21@trash-mail.com",
                 "", 1, new Address(1d, 1d,1d, "Rua Pádua Correia",
                 "nº19 1º Direito", "4400-123", "Vila Nova de Gaia", "Portugal"), new ArrayList<>()),

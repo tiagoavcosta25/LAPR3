@@ -16,7 +16,7 @@ public class RegisterProductController {
         this.moServ = new ProductService();
     }
 
-    public boolean registerProduct(String strName, String strDescription, float fltUnitaryPrice, float fltUnitaryWeight) {
+    public boolean registerProduct(String strName, String strDescription, Double fltUnitaryPrice, Double fltUnitaryWeight) {
         try {
             if(ApplicationPOT.getInstance().getCurrentSession().getRole().equals(UserSession.Role.ADMIN))
                 return moServ.registerProduct(strName, strDescription, fltUnitaryPrice, fltUnitaryWeight);

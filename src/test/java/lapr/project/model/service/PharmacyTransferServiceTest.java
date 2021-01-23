@@ -79,7 +79,7 @@ class PharmacyTransferServiceTest {
     void sendEmailWithTransferNote() {
         System.out.println("sendEmailWithTransferNote");
         PharmacyTransfer oPharmacyTransfer = new PharmacyTransfer();
-        oPharmacyTransfer.setProduct(new Product(1,"SARS-CoV-2 Vaccine", "Description.", 7.5f, 1f));
+        oPharmacyTransfer.setProduct(new Product(1,"SARS-CoV-2 Vaccine", "Description.", 7.5d, 1d));
         oPharmacyTransfer.setQuantity(2);
         oPharmacyTransfer.getNearbyPharmacy().setEmail("g21@trash-mail.com");
         oPharmacyTransfer.getOrder().getPharmacy().setEmail("g21@trash-mail.com");
@@ -109,7 +109,7 @@ class PharmacyTransferServiceTest {
     void sendEmailWithDeliveryNote() {
         System.out.println("sendEmailWithDeliveryNote");
         PharmacyTransfer oPharmacyTransfer = new PharmacyTransfer();
-        oPharmacyTransfer.setProduct(new Product(1,"SARS-CoV-2 Vaccine", "Description.", 7.5f, 1f));
+        oPharmacyTransfer.setProduct(new Product(1,"SARS-CoV-2 Vaccine", "Description.", 7.5d, 1d));
         oPharmacyTransfer.setQuantity(2);
         oPharmacyTransfer.getNearbyPharmacy().setEmail("g21@trash-mail.com");
         oPharmacyTransfer.getOrder().getPharmacy().setEmail("g21@trash-mail.com");
