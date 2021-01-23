@@ -65,34 +65,34 @@ public class PharmacyTransferService {
     }
 
     private String getBody(PharmacyTransfer oPharmacyTransfer, String strNote){
-            String strBody = String.format("_______________________________________\n\n\t\t\tTransfer No. %d", oPharmacyTransfer.getId());
-            strBody += String.format("\n\t\t\t\t%td-%<tb-%<tY", oPharmacyTransfer.getTransferDate());
-            strBody += String.format("\n_______________________________________");
+            String strBody = String.format("_______________________________________%n%n\t\t\tTransfer No. %d", oPharmacyTransfer.getId());
+            strBody += String.format("%n\t\t\t\t%td-%<tb-%<tY", oPharmacyTransfer.getTransferDate());
+            strBody += String.format("%n_______________________________________");
 
-            strBody += String.format("\n\n---------------------------------------");
-            strBody += String.format("\n\t\t\tSending Pharmacy:\n---------------------------------------\n\n\n\n\t\t\t%s", oPharmacyTransfer.getNearbyPharmacy().getName());
-            strBody += String.format("\n\n\t\t\t%s", oPharmacyTransfer.getNearbyPharmacy().getEmail());
-            strBody += String.format("\n\t\t\t%s", oPharmacyTransfer.getNearbyPharmacy().getAddress().getStreetName());
-            strBody += String.format("\n\t\t\t%s", oPharmacyTransfer.getNearbyPharmacy().getAddress().getDoorNumber());
-            strBody += String.format("\n\t\t\t%s", oPharmacyTransfer.getNearbyPharmacy().getAddress().getPostalCode());
-            strBody += String.format("\n\t\t\t%s", oPharmacyTransfer.getNearbyPharmacy().getAddress().getLocality());
-            strBody += String.format("\n\t\t\t%s", oPharmacyTransfer.getNearbyPharmacy().getAddress().getCountry());
-            strBody += String.format("\n\n\n\n---------------------------------------");
-            strBody += String.format("\n\t\t\tReceiving Pharmacy:\n---------------------------------------\n\n\n\n\t\t\t%s", oPharmacyTransfer.getOrder().getPharmacy().getName());
-            strBody += String.format("\n\n\t\t\t%s", oPharmacyTransfer.getOrder().getPharmacy().getEmail());
-            strBody += String.format("\n\t\t\t%s", oPharmacyTransfer.getOrder().getPharmacy().getAddress().getStreetName());
-            strBody += String.format("\n\t\t\t%s", oPharmacyTransfer.getOrder().getPharmacy().getAddress().getDoorNumber());
-            strBody += String.format("\n\t\t\t%s", oPharmacyTransfer.getOrder().getPharmacy().getAddress().getPostalCode());
-            strBody += String.format("\n\t\t\t%s", oPharmacyTransfer.getOrder().getPharmacy().getAddress().getLocality());
-            strBody += String.format("\n\t\t\t%s", oPharmacyTransfer.getOrder().getPharmacy().getAddress().getCountry());
-            strBody += String.format("\n\n\n\n---------------------------------------");
-            strBody += String.format("\n\t\t\tProduct Ordered");
-            strBody += String.format("\n---------------------------------------\n\n\n\n%dx %s", oPharmacyTransfer.getQuantity(), oPharmacyTransfer.getProduct().getName());
-            strBody += String.format("\n\n\n\n_______________________________________");
-            strBody += String.format("\n\t\t\t\t%s", strNote);
-            strBody += String.format("\n_______________________________________");
-            strBody += String.format("\n\t\t\t\tTHANK YOU!");
-            strBody += String.format("\n_______________________________________");
+            strBody += String.format("%n%n---------------------------------------");
+            strBody += String.format("%n\t\t\tSending Pharmacy:%n---------------------------------------%n%n%n%n\t\t\t%s", oPharmacyTransfer.getNearbyPharmacy().getName());
+            strBody += String.format("%n%n\t\t\t%s", oPharmacyTransfer.getNearbyPharmacy().getEmail());
+            strBody += String.format("%n\t\t\t%s", oPharmacyTransfer.getNearbyPharmacy().getAddress().getStreetName());
+            strBody += String.format("%n\t\t\t%s", oPharmacyTransfer.getNearbyPharmacy().getAddress().getDoorNumber());
+            strBody += String.format("%n\t\t\t%s", oPharmacyTransfer.getNearbyPharmacy().getAddress().getPostalCode());
+            strBody += String.format("%n\t\t\t%s", oPharmacyTransfer.getNearbyPharmacy().getAddress().getLocality());
+            strBody += String.format("%n\t\t\t%s", oPharmacyTransfer.getNearbyPharmacy().getAddress().getCountry());
+            strBody += String.format("%n%n%n%n---------------------------------------");
+            strBody += String.format("%n\t\t\tReceiving Pharmacy:\n---------------------------------------%n%n%n%n\t\t\t%s", oPharmacyTransfer.getOrder().getPharmacy().getName());
+            strBody += String.format("%n%n\t\t\t%s", oPharmacyTransfer.getOrder().getPharmacy().getEmail());
+            strBody += String.format("%n\t\t\t%s", oPharmacyTransfer.getOrder().getPharmacy().getAddress().getStreetName());
+            strBody += String.format("%n\t\t\t%s", oPharmacyTransfer.getOrder().getPharmacy().getAddress().getDoorNumber());
+            strBody += String.format("%n\t\t\t%s", oPharmacyTransfer.getOrder().getPharmacy().getAddress().getPostalCode());
+            strBody += String.format("%n\t\t\t%s", oPharmacyTransfer.getOrder().getPharmacy().getAddress().getLocality());
+            strBody += String.format("%n\t\t\t%s", oPharmacyTransfer.getOrder().getPharmacy().getAddress().getCountry());
+            strBody += String.format("%n%n%n%n---------------------------------------");
+            strBody += String.format("%n\t\t\tProduct Ordered");
+            strBody += String.format("%n---------------------------------------%n%n%n%n%dx %s", oPharmacyTransfer.getQuantity(), oPharmacyTransfer.getProduct().getName());
+            strBody += String.format("%n%n%n%n_______________________________________");
+            strBody += String.format("%n\t\t\t\t%s", strNote);
+            strBody += String.format("%n_______________________________________");
+            strBody += String.format("%n\t\t\t\tTHANK YOU!");
+            strBody += String.format("%n_______________________________________");
             return strBody;
     }
 }
