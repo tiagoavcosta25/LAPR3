@@ -75,7 +75,7 @@ public class WorldMap {
         return paths;
     }
 
-    public Path getPathFromAddresses(Address addA, Address addB) {
+    /*public Path getPathFromAddresses(Address addA, Address addB) {
         LinkedList<Path> paths = getListOfPaths();
         for(Path path : paths) {
             if(path.getLatitudeA() == addA.getLatitude() && path.getLongitudeA() == addA.getLongitude() &&
@@ -83,14 +83,14 @@ public class WorldMap {
                 return path;
         }
         return null;
-    }
+    }*/
 
     /**
      * CALCULATE PATH COST
      */
 
 
-    public void checkIfPathIsPossible(Pair<LinkedList<Address>, Double> pathAndCost) {
+    /*public void checkIfPathIsPossible(Pair<LinkedList<Address>, Double> pathAndCost) {
         //Calcular gasto energético para todos os modelos
         //Ordenar do melhor para o pior
         //Verificar se é possivel com 100% bateria máximo
@@ -100,15 +100,15 @@ public class WorldMap {
         //Verificar pela lista de cada modelo, qual era o melhor caminho possível (Sempre que chegar a uma farmacia, recarregar até 100% bateria)
         //Comparar resultados entre modelos
         //Escolher modelo vencedor e enviar veículo com mais bateria
-    }
+    }*/
 
-    public void test(Pair<LinkedList<Address>, Double> lstPath) {
+    /*public void test(Pair<LinkedList<Address>, Double> lstPath) {
 
-    }
+    }*/
 
 
 
-    public Pair<LinkedList<Address>, Double> calculatePathCost(LinkedList<Address> allAddresses, List<Address> deliveryPoints,
+    /*public Pair<LinkedList<Address>, Double> calculatePathCost(LinkedList<Address> allAddresses, List<Address> deliveryPoints,
                                                                List<Order> orderList) {
 
         double energyCost = 0;
@@ -135,7 +135,7 @@ public class WorldMap {
                     totalMass, kineticFrictionCoefficient);
         }
         return new Pair<>(allAddresses, energyCost);
-    }
+    }*/
 
 
 
