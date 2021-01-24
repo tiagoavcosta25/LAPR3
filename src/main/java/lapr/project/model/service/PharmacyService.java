@@ -67,7 +67,7 @@ public class PharmacyService {
 
         for(Pharmacy p : lstPharmacies){
             LinkedList<Address> path = new LinkedList<>();
-            double distance = GraphAlgorithms.shortestPath(worldMap, oAddress, p.getAddress(), path);
+            double distance = GraphAlgorithms.shortestPath(worldMap, p.getAddress(), oAddress, path);
 
             if(distance < minDistance && distance > 0){
                 oClosestPharmacy = p;
@@ -81,7 +81,7 @@ public class PharmacyService {
         return moPharmacyDB.getSuitableCourier();
     }
 
-    public boolean addPark(int intPharmacyId, Park p, int intNonChargingSlots, int intChargingSlots) {
-        return this.moParkDB.addParkToDB(intPharmacyId, p, intNonChargingSlots, intChargingSlots);
+    public boolean addPark(String strPharmacyEmail, Park p, int intNonChargingSlots, int intChargingSlots) {
+        return this.moParkDB.addParkToDB(strPharmacyEmail, p, intNonChargingSlots, intChargingSlots);
     }
 }

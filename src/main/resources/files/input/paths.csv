@@ -1,0 +1,28 @@
+#lines starting with # should be ignored
+#Column description
+#LATITUDE regarding the first address
+#LONGITUDE regarding the first address
+#LATITUDE regarding the second address
+#LONGITUDE regarding the second address
+#NAME regarding the path
+#WINDSPEED
+#WINDANGLE
+#KINETIC_FRICTION_COEFFICIENT
+#latitudeA;longitudeA;latitudeB;longitudeB;name;windSpeed;windAngle;kineticFrictionCoefficient
+#
+41.15227;-8.60929;41.14582;-8.61398;Trindade - Clerigos;1;0;1
+41.14582;-8.61398;41.14871;-8.60746;Clerigos - Bolhao;1;0;1
+41.14582;-8.61398;41.14723;-8.60657;Clerigos - Majestic;1;0;1
+41.14871;-8.60746;41.14063;-8.61118;Bolhao - Cais da Ribeira;1;0;1
+41.1484;-8.6080;41.150070;-8.612990;Sa da Bandeira - Alianca;1;0;1
+41.15227;-8.60929;41.1484;-8.6080;Trindade - Sa da Bandeira;1;0;1
+41.150070;-8.612990;41.15227;-8.60929;Alianca - Trindade;1;0;1
+41.150070;-8.612990;41.14063;-8.61118;Alianca - Cais da Ribeira;1;0;1
+41.14582;-8.61398;41.150070;-8.612990;Clerigos - Alianca;1;0;1
+41.14582;-8.61398;41.1484;-8.6080;Clerigos - Sa da Bandeira;1;0;1
+41.14063;-8.61118;41.14582;-8.61398;Cais da Ribeira - Clerigos;1;0;1
+41.14871;-8.60746;41.15227;-8.60929;Bolhao - Trindade;1;0;1
+41.14723;-8.60657;41.14871;-8.60746;Majestic - Bolhao;1;0;1
+41.1484;-8.6080;41.14331;-8.60914;Sa da Bandeira - Batalha;1;0;1
+41.14331;-8.60914;41.14723;-8.60657;Batalha - Majestic;1;0;1
+41.14331;-8.60914;41.14063;-8.61118;Batalha - Cais da Ribeira;1;0;1

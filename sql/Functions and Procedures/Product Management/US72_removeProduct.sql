@@ -1,6 +1,6 @@
-CREATE OR REPLACE PROCEDURE removeProduct(intID IN PRODUCT.ID%TYPE) IS
+CREATE OR REPLACE PROCEDURE removeProduct(v_name IN PRODUCT.NAME%TYPE) IS
 BEGIN
 
-    DELETE from Product where id = intId;
+    DELETE from Product where name = v_name;
 
 end;

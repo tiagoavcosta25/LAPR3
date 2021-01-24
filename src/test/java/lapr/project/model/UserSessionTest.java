@@ -13,6 +13,7 @@ class UserSessionTest {
     private UserSession userSession5;
     private UserSession userSession6;
     private UserSession userSession7;
+    private UserSession userSession8;
 
     UserSessionTest() {
         userSession1 = new UserSession("email",1);
@@ -22,6 +23,7 @@ class UserSessionTest {
         userSession5 = new UserSession();
         userSession6 = new UserSession("e",7);
         userSession7 = new UserSession("a");
+        userSession8 = new UserSession("b", UserSession.Role.ADMIN);
     }
 
     @Test

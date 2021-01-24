@@ -1,4 +1,4 @@
-create PROCEDURE updateProduct(intId IN PRODUCT.ID%TYPE, strName IN PRODUCT.NAME%TYPE := NULL,
+create or replace PROCEDURE updateProduct(strProductName IN PRODUCT.NAME%TYPE, strName IN PRODUCT.NAME%TYPE := NULL,
  strDescription IN PRODUCT.DESCRIPTION%TYPE := NULL, fltUnitaryPrice IN PRODUCT.UNITARYPRICE%TYPE := -1,
   fltUnitaryWeight IN PRODUCT.UNITARYWEIGHT%TYPE := -1) IS
     no_data_to_update exception ;
@@ -11,25 +11,25 @@ BEGIN
     IF(strName IS NOT NULL) THEN
         UPDATE PRODUCT
             SET NAME = strName
-        WHERE ID = intId;
+        WHERE NAME = strProductName;
     end if;
 
     IF(strDescription IS NOT NULL) THEN
         UPDATE PRODUCT
             SET DESCRIPTION = strDescription
-        WHERE ID = intId;
+        WHERE NAME = strName;
     end if;
 
     IF(fltUnitaryPrice != -1) THEN
         UPDATE PRODUCT
             SET UNITARYPRICE = fltUnitaryPrice
-        WHERE ID = fltUnitaryPrice;
+        WHERE NAME = strName;
     end if;
 
     IF(fltUnitaryWeight != -1) THEN
         UPDATE PRODUCT
             SET UNITARYWEIGHT = fltUnitaryWeight
-        WHERE ID = fltUnitaryWeight;
+        WHERE NAME = strName;
     end if;
 
     EXCEPTION

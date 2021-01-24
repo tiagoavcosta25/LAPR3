@@ -11,7 +11,7 @@ class ParkTest {
 
     @Test
     void getId() {
-        Park oPark = new Park(-1, 1, 2, VehicleType.SCOOTER);
+        Park oPark = new Park(-1, 1, 2d, VehicleType.SCOOTER);
         Integer expected = -1;
         Integer real = oPark.getId();
         assertEquals(expected, real);
@@ -19,7 +19,7 @@ class ParkTest {
 
     @Test
     void setId() {
-        Park oPark = new Park(-1, 1, 2, VehicleType.SCOOTER);
+        Park oPark = new Park(-1, 1, 2d, VehicleType.SCOOTER);
         Integer expected = -2;
         oPark.setId(expected);
         Integer real = oPark.getId();

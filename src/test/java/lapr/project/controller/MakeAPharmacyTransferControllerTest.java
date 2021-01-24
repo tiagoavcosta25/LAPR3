@@ -57,5 +57,20 @@ class MakeAPharmacyTransferControllerTest {
         when(mockPharmacyTransferService.registerPharmacyTransfer(m_oPharmacyTransfer)).thenThrow(new IllegalArgumentException());
         result = makeAPharmacyTransferController.getStockFromAnotherPharamacy(m_oOrder, new Product(), 1);
         assertFalse(result);
+
+        when(mockIssueTransferNoteController.issueTransferNote(m_oPharmacyTransfer)).thenReturn(false);
+        result = makeAPharmacyTransferController.getStockFromAnotherPharamacy(m_oOrder, new Product(), 1);
+        assertFalse(result);
+
+
+    }
+
+    @Test
+    void setPharmacy() {
+        Pharmacy expected = new Pharmacy();
+        makeAPharmacyTransferController.setPharmacy("test");
+        Pharmacy real = new Pharmacy();
+        real.setId(1202);
+        assertNotEquals(expected,real);
     }
 }

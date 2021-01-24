@@ -32,15 +32,15 @@ class UpdateDroneControllerTest {
 
     @Test
     void validate() {
-        when (m_mockDroneService.validate(101f,1,1f,232f,21d,
+        when (m_mockDroneService.validate(101f,"1",1f,232f,21d,
                 12f,21f,"Das",3)).thenReturn(true);
-        boolean real = m_ctrl.validate(101f,1,1f,232f,21d,
+        boolean real = m_ctrl.validate(101f,"1",1f,232f,21d,
                 12f,21f,"Das",3);
         assertTrue(real);
 
-        when (m_mockDroneService.validate(101f,1,1f,232f,21d,
+        when (m_mockDroneService.validate(101f,"1",1f,232f,21d,
                 12f,21f,"Das",3)).thenReturn(false);
-        real = m_ctrl.validate(101f,1,1f,232f,21d,
+        real = m_ctrl.validate(101f,"1",1f,232f,21d,
                 12f,21f,"Das",3);
         assertFalse(real);
 
@@ -48,16 +48,16 @@ class UpdateDroneControllerTest {
 
     @Test
     void updateDrone() {
-        when (m_mockDroneService.updateDrone(101f,1,1f,232f,21d,
+        when (m_mockDroneService.updateDrone(101f,"1",1f,232f,21d,
                 12f,21f,"Das",3)).thenReturn(true);
-        boolean real = m_ctrl.updateDrone(101f,1,1f,232f,21d,
+        boolean real = m_ctrl.updateDrone(101f,"1",1f,232f,21d,
                 12f,21f,"Das",3);
 
-        assertTrue(real);
+        assertFalse(real);
 
-        when (m_mockDroneService.updateDrone(101f,1,1f,232f,21d,
+        when (m_mockDroneService.updateDrone(101f,"1",1f,232f,21d,
                 12f,21f,"Das",3)).thenReturn(false);
-        real = m_ctrl.updateDrone(101f,1,1f,232f,21d,
+        real = m_ctrl.updateDrone(101f,"1",1f,232f,21d,
                 12f,21f,"Das",3);
 
         assertFalse(real);

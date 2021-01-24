@@ -8,23 +8,23 @@ import java.sql.SQLException;
 
 public class ParkDB extends  DataHandler{
 
-    public boolean addParkToDB(int intPharmacyId, Park p, int intNonChargingSlots, int intChargingSlots) {
-        return addParkToDB(intPharmacyId, p.getVehicleType(), p.getMaxSlotsNumber(), p.getTotalOutputCurrent(),
+    public boolean addParkToDB(String strPharmacyEmail, Park p, int intNonChargingSlots, int intChargingSlots) {
+        return addParkToDB(strPharmacyEmail, p.getVehicleType(), p.getMaxSlotsNumber(), p.getTotalOutputCurrent(),
                 intNonChargingSlots, intChargingSlots);
     }
 
-    private boolean addParkToDB(int intPharmacyId, VehicleType enumVehicleType, int intMaxSlotsNumber,
-                                float fltOutputCurrent, int intNonChargingSlots, int intChargingSlots) {
+    private boolean addParkToDB(String strPharmacyEmail, VehicleType enumVehicleType, int intMaxSlotsNumber,
+                                Double fltOutputCurrent, int intNonChargingSlots, int intChargingSlots) {
         boolean flag = true;
         try {
             openConnection();
 
             CallableStatement callStmt = getConnection().prepareCall("{ call addPark(?,?,?,?,?,?) }");
 
-            callStmt.setInt(1, intPharmacyId);
+            callStmt.setString(1, strPharmacyEmail);
             callStmt.setString(2, enumVehicleType.getDesignation());
             callStmt.setInt(3, intMaxSlotsNumber);
-            callStmt.setFloat(4, fltOutputCurrent);
+            callStmt.setDouble(4, fltOutputCurrent);
             callStmt.setInt(5, intNonChargingSlots);
             callStmt.setInt(6, intChargingSlots);
             callStmt.execute();

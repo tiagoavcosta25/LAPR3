@@ -104,5 +104,13 @@ class InvoiceServiceTest {
         oInvoice.getOrder().getClient().setEmail(null);
         result = invoiceService.sendInvoiceByEmail(oInvoice);
         assertFalse(result);
+
+        oInvoice = new Invoice(62176, new Order("Description", false, new Client(1, "", 12, "g21@trash-mail.com",
+                "", 1, new Address(1d, 1d,1d, "Rua Pádua Correia",
+                "nº19 1º Direito", "4400-123", "Vila Nova de Gaia", "Portugal"), new ArrayList<>()),
+                new Pharmacy("LAPR3 Pharmacy", "info@lapr3Pharmacy.com", new Address(1d, 1d,1d, "Avenida dos Aliados",
+                        "nº11 R/C", "4532-987", "Porto", "Portugal")), mapProducts), mapPayments);
+        result = invoiceService.sendInvoiceByEmail(oInvoice);
+        assertTrue(result);
     }
 }

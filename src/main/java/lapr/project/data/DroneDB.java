@@ -37,14 +37,14 @@ public class DroneDB extends DataHandler {
         throw new IllegalArgumentException("No Scooter with ID:" + id);
     }
 
-    public boolean updateDrone(Float percentage, Integer pharmacyId, Float potency, Float weight, Double batteryCapacity,
+    public boolean updateDrone(Float percentage, String pharmacyEmail, Float potency, Float weight, Double batteryCapacity,
                                Float maxPayload, Float batteryVoltage, String chargingStatus, Integer droneId) {
         try {
             openConnection();
             CallableStatement callStmt = getConnection().prepareCall("{call updateDrone(?,?,?,?,?,?,?,?,?)}");
 
             callStmt.setFloat(1, percentage);
-            callStmt.setInt(2, pharmacyId);
+            callStmt.setString(2, pharmacyEmail);
             callStmt.setFloat(3, potency);
             callStmt.setFloat(4, weight);
             callStmt.setDouble(5, batteryCapacity);

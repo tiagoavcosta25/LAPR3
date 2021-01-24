@@ -5,6 +5,7 @@ import lapr.project.data.DeliveryDB;
 import lapr.project.data.DeliveryRunDB;
 import lapr.project.model.*;
 import lapr.project.utils.EmailSender;
+import lapr.project.utils.WriteFile;
 
 import java.util.*;
 
@@ -59,6 +60,7 @@ public class DeliveryRunService {
                 Map.Entry pair = (Map.Entry) it.next();
                 EmailSender.sendEmail(pair.getKey().toString(), "Order Status",
                         "Your order has been dispatched!\n" + pair.getValue().toString());
+                WriteFile.write("OrderDispatched_" + pair.getValue().toString(), "Your order has been dispatched!\n" + pair.getValue().toString());
             }
         } catch (Exception e) {
             flag = false;

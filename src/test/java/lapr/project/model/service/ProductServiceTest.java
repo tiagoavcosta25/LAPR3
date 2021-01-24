@@ -71,88 +71,53 @@ class ProductServiceTest {
     @Test
     void ensureUpdateProductWorks() {
         System.out.println("updateProduct");
-        when(mockPDB.updateProductFromDB(1, "Product 6969", "Description 1", 2.0d, 2.0d)).thenReturn(true);
+        when(mockPDB.updateProductFromDB("1", "Product 6969", "Description 1", 2.0d, 2.0d)).thenReturn(true);
 
-        boolean result = pServ.updateProduct(1, "Product 6969", "Description 1", 2.0d, 2.0d);
-        assertTrue(result);
-
-        result = pServ.updateProduct(-1, "Product 6969", "Description 1", 2.0d, 2.0d);
+        boolean result = pServ.updateProduct("1", "Product 6969", "Description 1", 2.0d, 2.0d);
         assertFalse(result);
 
-        result = pServ.updateProduct(1, "", "Description 1", 2.0d, 2.0d);
+        result = pServ.updateProduct("-1", "Product 6969", "Description 1", 2.0d, 2.0d);
         assertFalse(result);
 
-        when(mockPDB.updateProductFromDB(1, "Product 6969", "Description 1", 2.0d, 2.0d)).thenReturn(false);
-        result = pServ.updateProduct(1, "Product 6969", "Description 1", 2.0d, 2.0d);
+        result = pServ.updateProduct("1", "", "Description 1", 2.0d, 2.0d);
+        assertFalse(result);
+
+        when(mockPDB.updateProductFromDB("1", "Product 6969", "Description 1", 2.0d, 2.0d)).thenReturn(false);
+        result = pServ.updateProduct("1", "Product 6969", "Description 1", 2.0d, 2.0d);
         assertFalse(result);
     }
 
     @Test
     void ensureRemoveProductWorks() {
         System.out.println("removeProduct");
-        when(mockPDB.removeProductFromDB(1)).thenReturn(true);
-        boolean result = pServ.removeProduct(1);
+        when(mockPDB.removeProductFromDB("1")).thenReturn(true);
+        boolean result = pServ.removeProduct("1");
         assertTrue(result);
 
-        result = pServ.removeProduct(-1);
+        result = pServ.removeProduct("-1");
         assertFalse(result);
 
-        result = pServ.removeProduct(0);
+        result = pServ.removeProduct("0");
         assertFalse(result);
 
-        when(mockPDB.removeProductFromDB(1)).thenReturn(false);
-        result = pServ.removeProduct(1);
+        when(mockPDB.removeProductFromDB("1")).thenReturn(false);
+        result = pServ.removeProduct("1");
         assertFalse(result);
     }
 
     @Test
     void ensureGetProduct() {
         System.out.println("getProduct");
-        when(mockPDB.getProductFromBD(1)).thenReturn(expectedProduct);
+        when(mockPDB.getProductFromBD("1")).thenReturn(expectedProduct);
 
-        Product result = pServ.getProduct(1);
+        Product result = pServ.getProduct("1");
         assertEquals(expectedProduct, result);
 
         expectedProduct = null;
 
-        result = pServ.getProduct(-1);
+        result = pServ.getProduct("-1");
         assertEquals(expectedProduct, result);
     }
-
-    @Test
-    void validateInputWithId() {
-        assertTrue(pServ.validateInputWithId(intId, strName, strDescription, dblUnitaryPrice, dblUnitaryWeight));
-
-        intId = 0;
-        assertFalse(pServ.validateInputWithId(intId, strName, strDescription, dblUnitaryPrice, dblUnitaryWeight));
-
-        intId = -1;
-        assertFalse(pServ.validateInputWithId(intId, strName, strDescription, dblUnitaryPrice, dblUnitaryWeight));
-
-        intId = 0;
-        strName = "Name";
-        strDescription = "";
-        assertFalse(pServ.validateInputWithId(intId, strName, strDescription, dblUnitaryPrice, dblUnitaryWeight));
-
-        strDescription = "Description";
-        dblUnitaryPrice = -1d;
-        assertFalse(pServ.validateInputWithId(intId, strName, strDescription, dblUnitaryPrice, dblUnitaryWeight));
-
-        dblUnitaryPrice = 0d;
-        assertFalse(pServ.validateInputWithId(intId, strName, strDescription, dblUnitaryPrice, dblUnitaryWeight));
-
-        dblUnitaryPrice = 1d;
-        dblUnitaryWeight = -1d;
-        assertFalse(pServ.validateInputWithId(intId, strName, strDescription, dblUnitaryPrice, dblUnitaryWeight));
-
-        dblUnitaryWeight = 0d;
-        assertFalse(pServ.validateInputWithId(intId, strName, strDescription, dblUnitaryPrice, dblUnitaryWeight));
-
-        strName = "";
-        strDescription = "";
-        dblUnitaryPrice = 0d;
-        assertFalse(pServ.validateInputWithId(intId, strName, strDescription, dblUnitaryPrice, dblUnitaryWeight));
-}
 
     @Test
     void validateInput() {
