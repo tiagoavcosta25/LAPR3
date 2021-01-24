@@ -4,6 +4,7 @@ import lapr.project.data.ClientDB;
 import lapr.project.model.Client;
 import lapr.project.model.CreditCard;
 import lapr.project.utils.EmailSender;
+import lapr.project.utils.WriteFile;
 
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
@@ -72,16 +73,18 @@ public class ClientService {
     public boolean registerNewClient(Client c) {
         if (moClientDB.addClientToDB(c)) {
             LOGGER.log(Level.INFO,"Successfully registered!");
-            String strBody = "";
+            String creditCardBody = "";
             for (CreditCard cc : c.getLstCreditCard()) {
-                strBody += cc.getCreditCardNr() + ", ";
+                creditCardBody += cc.getCreditCardNr() + ", ";
             }
-            strBody = strBody.substring(0,strBody.length()-2);
-            EmailSender.sendEmail(c.getEmail(),"Account Creation",
-                    String.format("Your brand new account has been registered to the System!\n___________________________________________________________________\n" +
+            String body = String.format("Your brand new account has been registered to the System!\n___________________________________________________________________\n" +
                             "Account Information:\n\nName: %s\nNIF: %s\nAddress: %s, %s, %s, %s\nCredit Card: %s\n\n___________________________________________________________________\n\n" +
                             "Thank you for choosing us.\nKing regards,\nPharmacy Service G21.",c.getName(),c.getNif(),c.getAddress().getStreetName(),
-                            c.getAddress().getDoorNumber(), c.getAddress().getLocality(),c.getAddress().getCountry(),strBody));
+                    c.getAddress().getDoorNumber(), c.getAddress().getLocality(),c.getAddress().getCountry(),creditCardBody);
+            creditCardBody = creditCardBody.substring(0,creditCardBody.length()-2);
+            EmailSender.sendEmail(c.getEmail(),"Account Creation",body
+                    );
+            WriteFile.write("ClientRegistration_" + c.getEmail(),body);
             return true;
         }else return false;
     }
