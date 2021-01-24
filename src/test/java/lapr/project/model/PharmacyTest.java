@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -142,6 +143,21 @@ class PharmacyTest {
         expected.put(new Product(), 1);
         oPharmacy.setStock(expected);
         Map<Product, Integer> real = oPharmacy.getStock();
+        assertEquals(expected, real);
+    }
+
+    @Test
+    void getParks() {
+        List<Park> expected = new ArrayList<>();
+        List<Park> real = p2.getParks();
+        assertEquals(expected, real);
+    }
+
+    @Test
+    void setParks() {
+        List<Park> expected = new ArrayList<>();
+        p2.setParks(expected);
+        List<Park> real = p2.getParks();
         assertEquals(expected, real);
     }
 
