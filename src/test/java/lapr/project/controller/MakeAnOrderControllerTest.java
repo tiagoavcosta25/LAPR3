@@ -40,6 +40,9 @@ class MakeAnOrderControllerTest {
     @Mock
     private GenerateInvoiceController mockGenerateInvoiceController;
 
+    @Mock
+    private NotifyAndRemoveController mockNotifyAndRemoveController;
+
     private Order expectedOrder;
     private boolean expectedValue;
     private Order expectedNull;
@@ -54,6 +57,7 @@ class MakeAnOrderControllerTest {
         this.mockClientService = Mockito.mock(ClientService.class);
         this.mockProductService = Mockito.mock(ProductService.class);
         this.mockGenerateInvoiceController = Mockito.mock(GenerateInvoiceController.class);
+        this.mockNotifyAndRemoveController = Mockito.mock(NotifyAndRemoveController.class);
         initMocks(this);
     }
 
@@ -87,9 +91,13 @@ class MakeAnOrderControllerTest {
     @Test
     void registerOrder() {
         System.out.println("registerOrder");
+
         when(mockOrderService.registerOrder(this.expectedOrder)).thenReturn(-1);
+        when(mockNotifyAndRemoveController.notifyAndRemove(this.expectedOrder)).thenReturn(true);
+        when(mockClientService.updateClientCredits("No Email Registered", 0)).thenReturn(true);
         when(mockGenerateInvoiceController.generateInvoice(expectedOrder, new TreeMap<>())).thenReturn(true);
 
+        makeAnOrderController.setClient(new Client());
         makeAnOrderController.setOrder(this.expectedOrder);
         boolean result = makeAnOrderController.registerOrder();
         assertTrue(result);
@@ -101,6 +109,10 @@ class MakeAnOrderControllerTest {
         assertFalse(result);
 
         when(mockOrderService.registerOrder(this.expectedOrder)).thenThrow(new IllegalArgumentException());
+        result = makeAnOrderController.registerOrder();
+        assertFalse(result);
+
+        when(mockNotifyAndRemoveController.notifyAndRemove(this.expectedOrder)).thenReturn(false);
         result = makeAnOrderController.registerOrder();
         assertFalse(result);
     }

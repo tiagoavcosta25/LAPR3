@@ -1,10 +1,7 @@
 ______________________________________________________________________________________
-Product Information:
-
--Name: Product 6969
--Description: Description 1
--Unitary Price: 2.00€
--Unitary Weight: 2.00kg
+Dear costumer, I'm sorry to inform you but some of the products: 
+{}
+ are out of Stock in every Pharmacy
 
 ______________________________________________________________________________________
 

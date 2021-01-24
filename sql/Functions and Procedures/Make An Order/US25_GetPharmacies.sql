@@ -7,7 +7,7 @@ begin
     open v_cursor for
         select P.ID, P.NAME, P.EMAIL, A.*
         from PHARMACY P
-            inner join ADDRESS A on P.ADDRESSID = A.ID;
+                 inner join ADDRESS A on P.ADDRESSLATITUDE = A.LATITUDE and P.ADDRESSLONGITUDE = P.ADDRESSLONGITUDE;
 
     if v_cursor is null then
         raise pharamcy_not_found;
@@ -20,3 +20,5 @@ EXCEPTION
         raise_application_error(-20121, 'Pharmacy Not Found!');
         return null;
 end;
+/
+

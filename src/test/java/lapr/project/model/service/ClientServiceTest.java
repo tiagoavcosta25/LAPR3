@@ -324,4 +324,15 @@ class ClientServiceTest {
 
 
     }
+
+    @Test
+    void updateClientCredits() {
+        when(m_ClientDB.updateClientCredits("", 1)).thenReturn(true);
+        boolean real = m_service.updateClientCredits("", 1);
+        assertTrue(real);
+
+        when(m_ClientDB.updateClientCredits("", 1)).thenReturn(false);
+        real = m_service.updateClientCredits("", 1);
+        assertFalse(real);
+    }
 }
