@@ -32,33 +32,33 @@ class RemoveProductControllerTest {
     void ensureRemoveProductWorks() {
         System.out.println("removeProduct");
         ApplicationPOT.getInstance().setCurrentSession(new UserSession("", 2));
-        when(mockPServ.removeProduct(1)).thenReturn(true);
-        Boolean result = removeProductController.removeProductFromDB(1);
+        when(mockPServ.removeProduct("1")).thenReturn(true);
+        Boolean result = removeProductController.removeProductFromDB("1");
         assertTrue(result);
 
-        result = removeProductController.removeProductFromDB(-1);
+        result = removeProductController.removeProductFromDB("-1");
         assertFalse(result);
 
-        result = removeProductController.removeProductFromDB(0);
+        result = removeProductController.removeProductFromDB("0");
         assertFalse(result);
 
-        when(mockPServ.removeProduct(1)).thenReturn(false);
-        result = removeProductController.removeProductFromDB(1);
+        when(mockPServ.removeProduct("1")).thenReturn(false);
+        result = removeProductController.removeProductFromDB("1");
         assertFalse(result);
 
         ApplicationPOT.getInstance().clearCurrentSession();
         ApplicationPOT.getInstance().setCurrentSession(new UserSession("", 1));
-        result = removeProductController.removeProductFromDB(1);
+        result = removeProductController.removeProductFromDB("1");
         assertFalse(result);
 
         ApplicationPOT.getInstance().clearCurrentSession();
         ApplicationPOT.getInstance().setCurrentSession(new UserSession("", 3));
-        result = removeProductController.removeProductFromDB(1);
+        result = removeProductController.removeProductFromDB("1");
         assertFalse(result);
 
         ApplicationPOT.getInstance().clearCurrentSession();
         ApplicationPOT.getInstance().setCurrentSession(new UserSession("", 4));
-        result = removeProductController.removeProductFromDB(1);
+        result = removeProductController.removeProductFromDB("1");
         assertFalse(result);
     }
 }

@@ -32,34 +32,34 @@ class UpdateProductControllerTest {
     void ensureUpdateProductWorks() {
         System.out.println("updateProduct");
         ApplicationPOT.getInstance().setCurrentSession(new UserSession("", 2));
-        when(mockPServ.updateProduct(1, "Product 6969", "Description 1", 2.0d, 2.0d)).thenReturn(true);
+        when(mockPServ.updateProduct("1", "Product 6969", "Description 1", 2.0d, 2.0d)).thenReturn(true);
 
-        boolean result = updateProductController.updateProduct(1, "Product 6969", "Description 1", 2.0d, 2.0d);
+        boolean result = updateProductController.updateProduct("1", "Product 6969", "Description 1", 2.0d, 2.0d);
         assertTrue(result);
 
-        result = updateProductController.updateProduct(-1, "Product 6969", "Description 1", 2.0d, 2.0d);
+        result = updateProductController.updateProduct("-1", "Product 6969", "Description 1", 2.0d, 2.0d);
         assertFalse(result);
 
-        result = updateProductController.updateProduct(1, "", "Description 1", 2.0d, 2.0d);
+        result = updateProductController.updateProduct("1", "", "Description 1", 2.0d, 2.0d);
         assertFalse(result);
 
-        when(mockPServ.updateProduct(1, "Product 6969", "Description 1", 2.0d, 2.0d)).thenReturn(false);
-        result = updateProductController.updateProduct(1, "Product 6969", "Description 1", 2.0d, 2.0d);
+        when(mockPServ.updateProduct("1", "Product 6969", "Description 1", 2.0d, 2.0d)).thenReturn(false);
+        result = updateProductController.updateProduct("1", "Product 6969", "Description 1", 2.0d, 2.0d);
         assertFalse(result);
 
         ApplicationPOT.getInstance().clearCurrentSession();
         ApplicationPOT.getInstance().setCurrentSession(new UserSession("", 1));
-        result = updateProductController.updateProduct(1, "Product 6969", "Description 1", 2.0d, 2.0d);
+        result = updateProductController.updateProduct("1", "Product 6969", "Description 1", 2.0d, 2.0d);
         assertFalse(result);
 
         ApplicationPOT.getInstance().clearCurrentSession();
         ApplicationPOT.getInstance().setCurrentSession(new UserSession("", 3));
-        result = updateProductController.updateProduct(1, "Product 6969", "Description 1", 2.0d, 2.0d);
+        result = updateProductController.updateProduct("1", "Product 6969", "Description 1", 2.0d, 2.0d);
         assertFalse(result);
 
         ApplicationPOT.getInstance().clearCurrentSession();
         ApplicationPOT.getInstance().setCurrentSession(new UserSession("", 4));
-        result = updateProductController.updateProduct(1, "Product 6969", "Description 1", 2.0d, 2.0d);
+        result = updateProductController.updateProduct("1", "Product 6969", "Description 1", 2.0d, 2.0d);
         assertFalse(result);
     }
 }

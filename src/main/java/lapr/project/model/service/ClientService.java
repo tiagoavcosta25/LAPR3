@@ -25,16 +25,16 @@ public class ClientService {
      * Validates the input information regarding
      * a Client
      *
-     * @param name         Client's name
-     * @param email        Client's email
-     * @param password     Client's password
-     * @param latitude     Client's latitude
-     * @param longitude    Client's longitude
-     * @param streetName   Client's street name
-     * @param doorNumber   Client's door number
-     * @param postalCode   Client's postal code
-     * @param locality     Client's locality
-     * @param country      Client's country
+     * @param name          Client's name
+     * @param email         Client's email
+     * @param password      Client's password
+     * @param latitude      Client's latitude
+     * @param longitude     Client's longitude
+     * @param streetName    Client's street name
+     * @param doorNumber    Client's door number
+     * @param postalCode    Client's postal code
+     * @param locality      Client's locality
+     * @param country       Client's country
      * @param lstCreditCard Client's credit card list
      * @return True if input is valid, false if otherwise
      */
@@ -62,7 +62,6 @@ public class ClientService {
     }
 
 
-
     public Client newClient(String name, Integer nif, String email, String password, Double latitude, Double longitude, Double altitude,
                             String streetName, String doorNumber, String postalCode, String locality, String country,
                             List<CreditCard> lstCreditCard) throws NoSuchAlgorithmException {
@@ -72,21 +71,20 @@ public class ClientService {
 
     public boolean registerNewClient(Client c) {
         if (moClientDB.addClientToDB(c)) {
-            LOGGER.log(Level.INFO,"Successfully registered!");
+            LOGGER.log(Level.INFO, "Successfully registered!");
             String creditCardBody = "";
             for (CreditCard cc : c.getLstCreditCard()) {
                 creditCardBody += cc.getCreditCardNr() + ", ";
             }
-            String body = String.format("Your brand new account has been registered to the System!\n___________________________________________________________________\n" +
-                            "Account Information:\n\nName: %s\nNIF: %s\nAddress: %s, %s, %s, %s\nCredit Card: %s\n\n___________________________________________________________________\n\n" +
-                            "Thank you for choosing us.\nKing regards,\nPharmacy Service G21.",c.getName(),c.getNif(),c.getAddress().getStreetName(),
-                    c.getAddress().getDoorNumber(), c.getAddress().getLocality(),c.getAddress().getCountry(),creditCardBody);
-            creditCardBody = creditCardBody.substring(0,creditCardBody.length()-2);
-            EmailSender.sendEmail(c.getEmail(),"Account Creation",body
-                    );
-            WriteFile.write("ClientRegistration_" + c.getEmail(),body);
+            creditCardBody = creditCardBody.substring(0, creditCardBody.length() - 2);
+            String body = String.format("Account Information:\n\nName: %s\nNIF: %s\nAddress: %s, %s, %s, %s\nCredit Card(/s): %s\n\n"
+                    , c.getName(), c.getNif(), c.getAddress().getStreetName(),
+                    c.getAddress().getDoorNumber(), c.getAddress().getLocality(), c.getAddress().getCountry(), creditCardBody);
+            EmailSender.sendEmail(c.getEmail(), "Account Creation", body
+            );
+            WriteFile.write("ClientRegistration_" + c.getEmail(), body);
             return true;
-        }else return false;
+        } else return false;
     }
 
     public Client getClientByEmail(String strEmail) {

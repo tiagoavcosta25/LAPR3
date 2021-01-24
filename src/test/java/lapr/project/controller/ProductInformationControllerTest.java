@@ -34,29 +34,29 @@ class ProductInformationControllerTest {
         System.out.println("getProduct");
         ApplicationPOT.getInstance().setCurrentSession(new UserSession("", 2));
         Product expectedProduct = new Product();
-        when(mockPServ.getProduct(1)).thenReturn(expectedProduct);
+        when(mockPServ.getProduct("1")).thenReturn(expectedProduct);
 
-        Product result = productInformationController.getProduct(1);
+        Product result = productInformationController.getProduct("1");
         assertEquals(expectedProduct, result);
 
         expectedProduct = null;
 
-        result = productInformationController.getProduct(-1);
+        result = productInformationController.getProduct("-1");
         assertEquals(expectedProduct, result);
 
         ApplicationPOT.getInstance().clearCurrentSession();
         ApplicationPOT.getInstance().setCurrentSession(new UserSession("", 1));
-        result = productInformationController.getProduct(-1);
+        result = productInformationController.getProduct("-1");
         assertEquals(expectedProduct, result);
 
         ApplicationPOT.getInstance().clearCurrentSession();
         ApplicationPOT.getInstance().setCurrentSession(new UserSession("", 3));
-        result = productInformationController.getProduct(-1);
+        result = productInformationController.getProduct("-1");
         assertEquals(expectedProduct, result);
 
         ApplicationPOT.getInstance().clearCurrentSession();
         ApplicationPOT.getInstance().setCurrentSession(new UserSession("", 4));
-        result = productInformationController.getProduct(-1);
+        result = productInformationController.getProduct("-1");
         assertEquals(expectedProduct, result);
     }
 }

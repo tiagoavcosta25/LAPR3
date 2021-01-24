@@ -17,10 +17,10 @@ public class ProductInformationController {
         this.moServ = new ProductService();
     }
 
-    public Product getProduct(int intId) {
+    public Product getProduct(String strName) {
         try {
             if(ApplicationPOT.getInstance().getCurrentSession().getRole().equals(UserSession.Role.ADMIN))
-                return moServ.getProduct(intId);
+                return moServ.getProduct(strName);
         } catch (Exception e) {
             LOGGER.log(Level.WARNING, "User not logged in!");
         }

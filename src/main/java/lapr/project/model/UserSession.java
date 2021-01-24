@@ -79,6 +79,11 @@ public class UserSession {
         ApplicationPOT.getInstance().setCurrentSession(this);
     }
 
+    public UserSession(String email, Role role) {
+        this.mstrCurrentUserEmail = email;
+        this.moRole = role;
+    }
+
     /**
      * Returns the current logged User's email.
      *

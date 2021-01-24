@@ -11,7 +11,7 @@ import java.util.List;
 
 public class ProductDB extends DataHandler {
 
-    public Product getProductFromBD(int intId) {
+    public Product getProductFromBD(String strName) {
 
         CallableStatement callStmt = null;
         try {
@@ -21,13 +21,14 @@ public class ProductDB extends DataHandler {
             // Regista o tipo de dados SQL para interpretar o resultado obtido.
             callStmt.registerOutParameter(1, OracleTypes.CURSOR);
             // Especifica o parâmetro de entrada da função "getProduct".
-            callStmt.setInt(2, intId);
+            callStmt.setString(2, strName);
 
             // Executa a invocação da função "getProduct".
             callStmt.execute();
 
             // Guarda o cursor retornado num objeto "ResultSet".
             ResultSet rSet = (ResultSet) callStmt.getObject(1);
+            rSet.next();
             return productManager(rSet, 1);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -63,14 +64,14 @@ public class ProductDB extends DataHandler {
         return flag;
     }
 
-    public boolean removeProductFromDB(int intId) {
+    public boolean removeProductFromDB(String strName) {
         boolean flag = true;
         try {
             openConnection();
 
             CallableStatement callStmt = getConnection().prepareCall("{ call removeProduct(?) }");
 
-            callStmt.setInt(1, intId);
+            callStmt.setString(1, strName);
 
             callStmt.execute();
 
@@ -82,7 +83,7 @@ public class ProductDB extends DataHandler {
         return flag;
     }
 
-    public boolean updateProductFromDB(int intId, String strName, String strDescription, Double fltUnitaryPrice, Double fltUnitaryWeight) {
+    public boolean updateProductFromDB(String strProductName, String strName, String strDescription, Double fltUnitaryPrice, Double fltUnitaryWeight) {
         /* Objeto "callStmt" para invocar a função "updateProduct" armazenada na BD.
          *
          */
@@ -91,7 +92,7 @@ public class ProductDB extends DataHandler {
             CallableStatement callStmt = getConnection().prepareCall("{call updateProduct(?,?,?,?,?)}");
 
             //Especifica o parâmetro de entrada da função "updateProduct".
-            callStmt.setInt(1, intId);
+            callStmt.setString(1, strProductName);
             callStmt.setString(2, strName);
             callStmt.setString(3, strDescription);
             callStmt.setDouble(4, fltUnitaryPrice);
@@ -118,7 +119,7 @@ public class ProductDB extends DataHandler {
             callStmt.execute();
             ResultSet rSet = (ResultSet) callStmt.getObject(1);
 
-            while(rSet.next()){
+            while (rSet.next()) {
                 lstProducts.add(productManager(rSet, 1));
             }
             return lstProducts;
@@ -141,7 +142,7 @@ public class ProductDB extends DataHandler {
             callStmt.execute();
             ResultSet rSet = (ResultSet) callStmt.getObject(1);
 
-            while(rSet.next()){
+            while (rSet.next()) {
                 Product oProduct = productManager(rSet, 1);
 
                 lstProducts.add(oProduct);

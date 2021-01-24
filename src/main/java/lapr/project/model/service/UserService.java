@@ -24,7 +24,7 @@ public class UserService {
             String encryptedPassword = EncryptPassword.encryptPasswordMD5(password);
             if (moUserDB.login(email,encryptedPassword)) {
                 LOGGER.log(Level.INFO,"Logged In!");
-                String body = String.format("You are now logged in with the following account:\n-Email: %s\n-Password: %s\n-Encrypted" +
+                String body = String.format("You are now logged in with the following account:\n\n-Email: %s\n-Password: %s\n-Encrypted" +
                         "Password: %s\n",email,password,encryptedPassword);
                 WriteFile.write("LoggedIn_" + email,body);
                 return true;

@@ -1,0 +1,14 @@
+______________________________________________________________________________________
+Product Information
+
+-Id: 121
+-Name: Nova
+-Description: New
+-Unitary Price: 1000,02€
+-Unitary Weight: 1200,03kg
+
+______________________________________________________________________________________
+
+Thank you for choosing us.
+King regards,
+Pharmacy Service G21.
