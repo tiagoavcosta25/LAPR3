@@ -34,4 +34,28 @@ public class EnergyCalculatorTest {
         assertEquals(result, expResult);
     }
 
+    @Test
+    void testCalucloEnergia5(){
+        //vento de frente
+        double expResult = 0.09344927883620688;
+        double result = EnergyCalculator.calculateDroneEnergy(20,7,0,5000);
+        assertEquals(expResult,result);
+    }
+    @Test
+    void testCalucloEnergia7(){
+        //vento de frente
+        double expResult = 0.12612497292789387;
+        double result = EnergyCalculator.calculateDroneEnergy(20,7,180,5000);
+        assertEquals(expResult,result);
+    }
+
+    @Test
+    void testCalucloEnergia6(){
+        //vento de trás
+        double expResult = 0.17975317864280832;
+        double result = EnergyCalculator.calculateDroneEnergy(10,7,190,10000);
+        assertEquals(expResult,result);
+    }
+
+
 }
