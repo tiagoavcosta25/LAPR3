@@ -30,6 +30,7 @@ class ProductTest {
         assertEquals(product, product);
         assertNotEquals(product, new Order());
         assertNotEquals(product, productDif);
+        assertTrue(product.hasName("Produto 1"));
         assertTrue(product.hashCode() == productCopy.hashCode());
         assertFalse(product.hashCode() == productDif.hashCode());
         assertEquals(1, product.getId());
@@ -70,7 +71,9 @@ class ProductTest {
         String resultString = product.toString();
         assertEquals(expResultString, resultString);
 
-        boolean resultbool = product.hasId(1);
+        product.setId(-1);
+
+        boolean resultbool = product.hasId(-1);
         assertTrue(resultbool);
 
         resultbool = product.hasId(2);

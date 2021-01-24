@@ -16,7 +16,7 @@ class ChargingSlotTest {
 
     public ChargingSlotTest(){
         c1 = new ChargingSlot(1,new Scooter());
-        c2 = new ChargingSlot();
+        c2 = new ChargingSlot(new Drone());
         c3 = new ChargingSlot(1);
         c4 = new ChargingSlot();
         cCopy = c1;
@@ -30,68 +30,26 @@ class ChargingSlotTest {
         Integer expected4 = -1;
         Integer real4 = c4.getId();
         assertEquals(expected4, real4);
-        Integer expected3 = 1;
-        Integer real3 = c3.getId();
-        assertEquals(expected3, real3);
-        Integer expected2 = -1;
-        Integer real2 = c2.getId();
-        assertEquals(expected2, real2);
-        Integer expected = 1;
-        Integer real = c1.getId();
-        assertEquals(expected, real);
     }
 
     @Test
     void getVehicle() {
-        Vehicle expected4 = null;
-        Vehicle real4 = c4.getVehicle();
-        assertEquals(expected4, real4);
         Vehicle expected3 = null;
         Vehicle real3 = c3.getVehicle();
         assertEquals(expected3, real3);
-        Vehicle expected2 = null;
-        Vehicle real2 = c2.getVehicle();
-        assertEquals(expected2, real2);
-        Vehicle expected = new Scooter();
-        Vehicle real = c1.getVehicle();
-        assertEquals(expected, real);
     }
 
     @Test
     void setVehicle() {
-        c4.setVehicle(new Scooter());
-        c3.setVehicle(new Scooter());
         c2.setVehicle(new Scooter());
-        c1.setVehicle(new Scooter());
-        Vehicle expected4 = new Scooter();
-        Vehicle real4 = c4.getVehicle();
-        assertEquals(expected4, real4);
-        Vehicle expected3 = new Scooter();
-        Vehicle real3 = c3.getVehicle();
-        assertEquals(expected3, real3);
         Vehicle expected2 = new Scooter();
         Vehicle real2 = c2.getVehicle();
         assertEquals(expected2, real2);
-        Vehicle expected = new Scooter();
-        Vehicle real = c1.getVehicle();
-        assertEquals(expected, real);
     }
 
     @Test
     void setId() {
         c1.setId(1);
-        c2.setId(1);
-        c3.setId(1);
-        c4.setId(1);
-        Integer expected4 = 1;
-        Integer real4 = c4.getId();
-        assertEquals(expected4, real4);
-        Integer expected3 = 1;
-        Integer real3 = c3.getId();
-        assertEquals(expected3, real3);
-        Integer expected2 = 1;
-        Integer real2 = c2.getId();
-        assertEquals(expected2, real2);
         Integer expected = 1;
         Integer real = c1.getId();
         assertEquals(expected, real);

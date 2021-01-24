@@ -34,7 +34,10 @@ public class EmailSender {
                     }
                 });
         try {
-            String strHtmlBody = htmlBody(body);
+            String strBody = String.format("______________________________________________________________________________________\n" +
+                    "%s\n\n______________________________________________________________________________________\n\n" +
+                    "Thank you for choosing us.\nKing regards,\nPharmacy Service G21.",body);
+            String strHtmlBody = htmlBody(strBody);
             if(strHtmlBody.equals("") || subject.equals("")) {
                 throw new MessagingException();
             }

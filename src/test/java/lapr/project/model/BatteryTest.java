@@ -62,6 +62,21 @@ class BatteryTest {
     }
 
     @Test
+    void getEfficiency() {
+        double expected = 12;
+        double real = batteryTest2.getEfficiency();
+        assertEquals(expected, real);
+    }
+
+    @Test
+    void setEfficiency() {
+        double expected = -2;
+        batteryTest2.setEfficiency(expected);
+        double real = batteryTest2.getEfficiency();
+        assertEquals(expected, real);
+    }
+
+    @Test
     void testToString() {
         String expected = "Battery{Id=12, Efficiency=12.0, Battery Capacity=12, Battery Voltage=12.0}";
         String real = batteryTest3.toString();

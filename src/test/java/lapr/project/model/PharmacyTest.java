@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -99,6 +100,16 @@ class PharmacyTest {
     }
 
     @Test
+    void hasEmail() {
+        boolean expected = true;
+        boolean real = p2.hasEmail(p2.getEmail());
+        assertEquals(expected, real);
+        expected = false;
+        real = p2.hasEmail("email@test.com");
+        assertEquals(expected, real);
+    }
+
+    @Test
     void getAddress() {
         Pharmacy oPharmacy = new Pharmacy();
         Address expected = new Address();
@@ -136,6 +147,21 @@ class PharmacyTest {
     }
 
     @Test
+    void getParks() {
+        List<Park> expected = new ArrayList<>();
+        List<Park> real = p2.getParks();
+        assertEquals(expected, real);
+    }
+
+    @Test
+    void setParks() {
+        List<Park> expected = new ArrayList<>();
+        p2.setParks(expected);
+        List<Park> real = p2.getParks();
+        assertEquals(expected, real);
+    }
+
+    @Test
     void testEquals() {
         Pharmacy oPharmacy = new Pharmacy();
         boolean real = oPharmacy.equals(new Pharmacy());
@@ -146,6 +172,8 @@ class PharmacyTest {
         assertFalse(real);
         oPharmacy.setId(-2);
         real = oPharmacy.equals(new Pharmacy());
+        assertFalse(real);
+        real = oPharmacy.equals(null);
         assertFalse(real);
     }
 

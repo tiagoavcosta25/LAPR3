@@ -43,7 +43,7 @@ class NonChargingSlotTest {
 
     @Test
     void testCompareTo() {
-        NonChargingSlot oNonChargingSlot = new NonChargingSlot();
+        NonChargingSlot oNonChargingSlot = new NonChargingSlot(1);
         oNonChargingSlot.setId(-2);
         int expected = -1;
         int real = oNonChargingSlot.compareTo(new NonChargingSlot());
@@ -63,6 +63,8 @@ class NonChargingSlotTest {
         oNonChargingSlot.setId(-2);
         real = oNonChargingSlot.equals(new NonChargingSlot());
         assertFalse(real);
+        real = oNonChargingSlot.equals(null);
+        assertFalse(real);
     }
 
     @Test
@@ -70,17 +72,6 @@ class NonChargingSlotTest {
         NonChargingSlot oNonChargingSlot = new NonChargingSlot();
         int expected = 30;
         int real = oNonChargingSlot.hashCode();
-        assertEquals(expected, real);
-    }
-
-    @Test
-    void testToString() {
-        NonChargingSlot oNonChargingSlot = new NonChargingSlot();
-        System.out.println(oNonChargingSlot);
-        //String expected = "ParkingSlot{m_intId=-1, m_oPark=Park{m_intId=-1, m_intMaxSlotsNumber=-1, m_lstChargingSlots=[], m_lstParkingSlots=[]}, m_oScooter=null}";
-        String realString = oNonChargingSlot.toString();
-        boolean expected = true;
-        boolean real = true;
         assertEquals(expected, real);
     }
 }

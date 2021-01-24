@@ -115,6 +115,8 @@ class InvoiceTest {
         oInvoice.setId(-2);
         real = oInvoice.equals(new Invoice());
         assertFalse(real);
+        real = oInvoice.equals(null);
+        assertFalse(real);
     }
 
     @Test
