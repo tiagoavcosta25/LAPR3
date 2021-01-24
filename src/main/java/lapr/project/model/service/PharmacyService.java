@@ -67,7 +67,7 @@ public class PharmacyService {
 
         for(Pharmacy p : lstPharmacies){
             LinkedList<Address> path = new LinkedList<>();
-            double distance = GraphAlgorithms.shortestPath(worldMap, oAddress, p.getAddress(), path);
+            double distance = GraphAlgorithms.shortestPath(worldMap, p.getAddress(), oAddress, path);
 
             if(distance < minDistance && distance > 0){
                 oClosestPharmacy = p;

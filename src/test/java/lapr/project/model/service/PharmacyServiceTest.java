@@ -119,9 +119,9 @@ class PharmacyServiceTest {
         oAddress2.setLongitude(-10d);
         oAddress2.setAltitude(-10d);
         graph.insertVertex(oAddress2);
-        Path oPath = new Path(-22d, -22d, -10d, -10d,
+        Path oPath = new Path(-10d, -10d, -22d, -22d,
         "", 1d, 1d, 1d,VehicleType.SCOOTER);
-        graph.insertEdge(oAddress, oAddress2, oPath, 10);
+        graph.insertEdge(oAddress2, oAddress, oPath, 10);
 
         Pharmacy oPharmacy = new Pharmacy();
         oPharmacy.setAddress(oAddress2);
@@ -144,12 +144,12 @@ class PharmacyServiceTest {
         Graph<Address, Path> graph = new Graph<>(true);
         Address oAddress2 = new Address(9d, 9d, 9d ,"", "", "", "", "");
         graph.insertVertex(oAddress2);
-        Path oPath = new Path(-22d, -22d, 9d, 9d,
+        Path oPath = new Path(9d, 9d, -22d, -22d,
                 "", 1d, 1d, 1d,VehicleType.SCOOTER);
 
         Address oAddress = new Address();
         graph.insertVertex(oAddress);
-        graph.insertEdge(oAddress, oAddress2, oPath, 19);
+        graph.insertEdge(oAddress2, oAddress, oPath, 19);
 
         Pharmacy oPharmacy = new Pharmacy();
         oPharmacy.setAddress(oAddress2);
