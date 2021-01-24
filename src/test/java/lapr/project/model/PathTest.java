@@ -251,22 +251,12 @@ class PathTest {
     }
 
     @Test
-    void testHashCode() {
-        int expResult = 0;
-        int result = path.hashCode();
-        assertNotEquals(expResult, result);
-
-        expResult = 923521;
-        assertEquals(expResult, result);
-    }
-
-    @Test
     void testToString() {
         String expResult = "";
         String result = path.toString();
         assertNotEquals(expResult, result);
 
-        expResult = "Path{m_dblLatitudeA=2.0, m_dblLongitudeA=2.0, m_dblLatitudeB=2.0, m_dblLongitudeB=2.0, m_strName='Rua das Flores', m_dblWindSpeed=2.0, m_dblWindAngle=2.0, m_dblKineticFrictionCoefficient=2.0}";
+        expResult = "Path{mdblLatitudeA=2.0, mdblLongitudeA=2.0, mdblLatitudeB=2.0, mdblLongitudeB=2.0, mstrName='Rua das Flores', mdblWindSpeed=2.0, mdblWindAngle=2.0, mdblKineticFrictionCoefficient=2.0, moVehicleType=VehicleType{m_strDesignation='Scooter'}}";
         assertEquals(expResult, result);
     }
 }

@@ -14,6 +14,7 @@ import org.mockito.Mockito;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
@@ -53,8 +54,8 @@ class VehicleServiceTest {
     void getPharmacyModel() {
         System.out.println("getPharmacyModel");
         when (m_oVehicleDB.getPharmacyModel("email3@gmail.com")).thenReturn(new ArrayList<>());
-        ArrayList real = m_service.getPharamcyModel("email3@gmail.com");
-        assertEquals(new ArrayList(),real);
+        List<VehicleModel> real = m_service.getPharamcyModel("email3@gmail.com");
+        assertEquals(new ArrayList<>(),real);
     }
 
     @Test

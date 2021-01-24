@@ -22,7 +22,7 @@ public class VehicleService {
         return moVehicleDB.getSuitableVehicle(distanceScooter,distanceDrone, currentUserEmail);
     }
 
-    public ArrayList<VehicleModel> getPharamcyModel(String strPharmacyEmail) {
+    public List<VehicleModel> getPharamcyModel(String strPharmacyEmail) {
         return moVehicleDB.getPharmacyModel(strPharmacyEmail);
     }
 

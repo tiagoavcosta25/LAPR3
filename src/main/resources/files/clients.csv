@@ -8,7 +8,7 @@
 #CREDITCARDS regarding the user
 #
 #CLIENTS
-#EMAIL | PW | NIF | NAME | LATITUDE | LONGITUDE | ALTITUDE | STREET NAME | DOOR NUMBER | POSTAL CODE | LOCALITY | COUNTRY | (CREDIT CARD NUMBER | VALIDITY DATE | CCV)*
+#email;password;nif;name;latitude;longitude;altitude;street name;door number;postal code;locality;country;creadit card number;validity date;ccv
 fernando@gmail.com;clpassword;140803565;fernando;41.14582;-8.61398;87.0;Clerigos;2esq;4444-111;Porto;Portugal;9412348029177724;10-23;123;5913620127165361;01-23;929
 manuel@gmail.com;clpassword;232134936;manuel;41.14723;-8.60657;91.0;Majestic;3esq;4333-222;Porto;Portugal;6997327669161303;09-24;135;7734437051662226;02-23;293
 jorge@gmail.com;clpassword;680946657;jorge;41.14871;-8.60746;87.0;Bolhao;4dir;4222-333;Porto;Portugal;2438143586615496;02-23;182;5518150788146910;11-28;235

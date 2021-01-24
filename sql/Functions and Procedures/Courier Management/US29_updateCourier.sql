@@ -1,4 +1,4 @@
-create PROCEDURE updateCourier(intId IN COURIER.USERID%TYPE, strName IN "User".NAME%TYPE,
+CREATE OR REPLACE PROCEDURE updateCourier(intId IN COURIER.USERID%TYPE, strName IN "User".NAME%TYPE,
  strEmail IN "User".EMAIL%TYPE, intNIF IN "User".NIF%TYPE,
   strIban IN COURIER.IBAN%TYPE, pharmacyIDs IN Pharmacy.ID%TYPE) IS
 BEGIN

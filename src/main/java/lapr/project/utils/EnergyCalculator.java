@@ -1,16 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package lapr.project.utils;
 
 import static lapr.project.utils.Constants.*;
 
 public class EnergyCalculator {
 
-    public static double calculoEnergia(double distanceUsingCoordinates, double windDegree, double windSpeed,
-                                        double localHeightDifference, double totalMass, double kineticFrictionCoefficient) {
+    public static double calculateScooterEnergy(double distanceUsingCoordinates, double windDegree, double windSpeed,
+                                                double localHeightDifference, double totalMass, double kineticFrictionCoefficient) {
 
         /**
          * o coef de atrito está negativo pq esta força tem q ser negativa por contrariar o movimento
@@ -53,7 +48,7 @@ public class EnergyCalculator {
         double totalVelocity  = velocity+windEffectiveSpeed;
         double force = (0.5*Constants.DRAG_COEFFICIENT*Constants.DEFAULT_DRONE_AREA*Constants.AIR_DENSITY*Math.pow(totalVelocity,2))+((Math.pow(totalWeight,2))/(Constants.AIR_DENSITY*Math.pow(Constants.DRONE_WIDTH,2)*Math.pow(velocity,2)));
         double liftEnergy = (Math.pow((totalWeight*Constants.GRAVITIC_ACCELERATION),1.5)/(Math.sqrt(2*Constants.AIR_DENSITY*Constants.DEFAULT_DRONE_AREA)))*(Constants.DEFAULT_HEIGHT/velocity);
-        totalEnergy = force*distance+liftEnergy;
+        totalEnergy = (force*distance)+(2*liftEnergy);
         return totalEnergy/KILOWATTHOUR;
     }
 }
