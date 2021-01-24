@@ -1,0 +1,38 @@
+Addresses:
+41.1484;-8.6080 - PSB (Sa da Bandeira)
+41.15227;-8.60929 - PT (Trindade)
+41.150070;-8.612990 - PA (Alianca)
+41.14582;-8.61398 - CF (Clerigos)
+41.14723;-8.60657 - CM (Majestic)
+41.14871;-8.60746 - CJG (Bolhao)
+41.14331;-8.60914 - CA (Batalha)
+41.14063;-8.61118 - CJA (Cais da Ribeira)
+
+Paths:
+Trindade - Clerigos
+Clerigos - Bolhao
+Clerigos - Majestic
+Bolhao - Cais da Ribeira
+Sa da Bandeira - Alianca
+Trindade - Sa da Bandeira
+Alianca - Trindade
+Alianca - Cais da Ribeira
+Clerigos - Alianca
+Clerigos - Sa da Bandeira
+Cais da Ribeira - Clerigos
+Bolhao - Trindade
+Majestic - Bolhao
+Sa da Bandeira - Batalha
+Batalha - Majestic
+Batalha - Cais da Ribeira
+
+Order Example:
+    Client: CF (fernando@gmail.com)
+    Closest Pharmacy: PT (info@trindade.com) (817.7m)
+    Missing Product: 1x Ben-u-ron
+    Closest Pharmacy With Stock: PA (info@alianca.com) (394.7m)
+
+Shortest Path With Middle Points:
+    Clients: CF (fernando@gmail.com), CJA (joana@gmail.com)
+    Pharmacy: PT (info@trindade.com)
+    Shortest Path: PT - PSB - CA - CJA - CF - PA - PT (2858.6m)
