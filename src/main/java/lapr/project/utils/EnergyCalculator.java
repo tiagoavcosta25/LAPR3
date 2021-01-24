@@ -46,8 +46,8 @@ public class EnergyCalculator {
         double velocity = Math.pow((2 * Math.pow(totalWeight, 2)) / (Constants.DRAG_COEFFICIENT * Constants.DEFAULT_DRONE_AREA * Math.pow(Constants.DRONE_WIDTH, 2) * Math.pow(Constants.AIR_DENSITY, 2)), 0.25);
         double windEffectiveSpeed = windSpeed * Math.cos(Math.toRadians(windDegree));
         double totalVelocity  = velocity+windEffectiveSpeed;
-        double force = (0.5*Constants.DRAG_COEFFICIENT*Constants.DEFAULT_DRONE_AREA*Constants.AIR_DENSITY*Math.pow(totalVelocity,2))+((Math.pow(totalWeight,2))/(Constants.AIR_DENSITY*Math.pow(Constants.DRONE_WIDTH,2)*Math.pow(velocity,2)));
-        double liftEnergy = (Math.pow((totalWeight*Constants.GRAVITIC_ACCELERATION),1.5)/(Math.sqrt(2*Constants.AIR_DENSITY*Constants.DEFAULT_DRONE_AREA)))*(Constants.DEFAULT_HEIGHT/velocity);
+        double force = (0.5*Constants.DRAG_COEFFICIENT*Constants.DEFAULT_DRONE_AREA*Constants.AIR_DENSITY*Math.pow(totalVelocity,2))+((Math.pow(totalWeight,2))/(Constants.AIR_DENSITY*Math.pow(Constants.DRONE_WIDTH,2)*Math.pow(totalVelocity,2)));
+        double liftEnergy = (Math.pow((totalWeight*Constants.GRAVITIC_ACCELERATION),1.5)/(Math.sqrt(2*Constants.AIR_DENSITY*Constants.DEFAULT_DRONE_AREA)))*(Constants.DEFAULT_HEIGHT/totalVelocity);
         totalEnergy = (force*distance)+(2*liftEnergy);
         return totalEnergy/KILOWATTHOUR;
     }
