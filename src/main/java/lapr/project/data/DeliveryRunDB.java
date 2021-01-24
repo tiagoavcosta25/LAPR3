@@ -23,7 +23,7 @@ public class DeliveryRunDB extends DataHandler {
         try {
             openConnection();
 
-            CallableStatement callStmt = getConnection().prepareCall("{ call addPath(?,?,?,?,?,?,?,?) }");
+            CallableStatement callStmt = getConnection().prepareCall("{ call addPath(?,?,?,?,?,?,?,?,?) }");
 
             callStmt.setDouble(1, dblLatitudeA);
             callStmt.setDouble(2, dblLongitudeA);
@@ -63,12 +63,12 @@ public class DeliveryRunDB extends DataHandler {
                 double m_dblLongitudeA = rSet.getDouble(2);
                 double m_dblLatitudeB = rSet.getDouble(3);
                 double m_dblLongitudeB = rSet.getDouble(4);
-                String m_strName = rSet.getString(5);
-                double m_dblWindSpeed = rSet.getDouble(6);
-                double m_dblWindAngle = rSet.getDouble(7);
-                double m_dblKineticFrictionCoefficient = rSet.getDouble(8);
+                String m_strName = rSet.getString(6);
+                double m_dblWindSpeed = rSet.getDouble(7);
+                double m_dblWindAngle = rSet.getDouble(8);
+                double m_dblKineticFrictionCoefficient = rSet.getDouble(9);
                 VehicleType oVehicleType = null;
-                if (rSet.getString(9).equals("Scooter")){
+                if (rSet.getString(5).equals("Scooter")){
                     oVehicleType = VehicleType.SCOOTER;
                 }else oVehicleType = VehicleType.DRONE;
 

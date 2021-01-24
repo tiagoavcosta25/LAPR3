@@ -12,6 +12,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
@@ -49,7 +50,7 @@ class SeeSuitableVehicleControllerTest {
         when(mockVehicleService.getPharamcyModel("email3@gmail.com")).thenReturn(new ArrayList<>());
         ApplicationPOT.getInstance().setCurrentSession(new UserSession("email3@gmail.com"));
 
-        ArrayList result = seeSuitableVehicleController.getPharmacyModel("email3@gmail.com");
-        assertEquals(new ArrayList(), result);
+        List<VehicleModel> result = seeSuitableVehicleController.getPharmacyModel("email3@gmail.com");
+        assertEquals(new ArrayList<>(), result);
     }
 }

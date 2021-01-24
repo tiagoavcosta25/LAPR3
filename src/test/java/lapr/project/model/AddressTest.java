@@ -177,16 +177,7 @@ class AddressTest {
     @Test
     void testToString() {
         Address oAddress = new Address();
-        String expected = "Address{" +
-                "m_dblLatitude=" + oAddress.getLatitude() +
-                ", m_dblLongitude=" + oAddress.getLongitude() +
-                ", m_dblAltitude=" + oAddress.getAltitude() +
-                ", m_strStreetName='" + oAddress.getStreetName() + '\'' +
-                ", m_strDoorNumber='" + oAddress.getDoorNumber() + '\'' +
-                ", m_strPostalCode='" + oAddress.getPostalCode() + '\'' +
-                ", m_strLocality='" + oAddress.getLocality() + '\'' +
-                ", m_strCountry='" + oAddress.getCountry() + '\'' +
-                '}';
+        String expected = "No Street Name";
         String real = oAddress.toString();
         assertEquals(expected, real);
     }

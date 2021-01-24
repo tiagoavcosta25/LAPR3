@@ -61,7 +61,7 @@ public class PharmacyService {
     }
 
     private Pharmacy getClosestPharmacy(Address oAddress, List<Pharmacy> lstPharmacies){
-        Graph<Address, Path> worldMap = ApplicationPOT.getInstance().getWorldMap().getGraph();
+        Graph<Address, Path> worldMap = ApplicationPOT.getInstance().getWorldMap().getScooterGraph();
         double minDistance = Double.MAX_VALUE;
         Pharmacy oClosestPharmacy = null;
 
