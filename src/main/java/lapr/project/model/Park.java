@@ -50,48 +50,48 @@ public class Park {
         return mintId;
     }
 
-    public void setId(int m_intId) {
-        this.mintId = m_intId;
+    public void setId(int mintId) {
+        this.mintId = mintId;
     }
 
     public int getMaxSlotsNumber() {
         return mintMaxSlotsNumber;
     }
 
-    public void setMaxSlotsNumber(int m_intMaxSlotsNumber) {
-        this.mintMaxSlotsNumber = m_intMaxSlotsNumber;
+    public void setMaxSlotsNumber(int mintMaxSlotsNumber) {
+        this.mintMaxSlotsNumber = mintMaxSlotsNumber;
     }
 
     public VehicleType getVehicleType() {
         return menumVehicleType;
     }
 
-    public void setVehicleType(VehicleType m_enumVehicleType) {
-        this.menumVehicleType = m_enumVehicleType;
+    public void setVehicleType(VehicleType menumVehicleType) {
+        this.menumVehicleType = menumVehicleType;
     }
 
     public List<ChargingSlot> getChargingSlots() {
         return new ArrayList<>(mLstChargingSlots);
     }
 
-    public void setChargingSlots(List<ChargingSlot> m_lstChargingSlots) {
-        this.mLstChargingSlots = new ArrayList<>(m_lstChargingSlots);
+    public void setChargingSlots(List<ChargingSlot> mlstChargingSlots) {
+        this.mLstChargingSlots = new ArrayList<>(mlstChargingSlots);
     }
 
     public List<NonChargingSlot> getParkingSlots() {
         return new ArrayList<>(mLstNonChargingSlots);
     }
 
-    public void setParkingSlots(List<NonChargingSlot> m_lstNonChargingSlots) {
-        this.mLstNonChargingSlots = new ArrayList<>(m_lstNonChargingSlots);
+    public void setParkingSlots(List<NonChargingSlot> mlstNonChargingSlots) {
+        this.mLstNonChargingSlots = new ArrayList<>(mlstNonChargingSlots);
     }
 
     public Double getTotalOutputCurrent() {
         return mfltTotalOutputCurrent;
     }
 
-    public void getTotalOutputCurrent(Double m_fltTotalOutputCurrent) {
-        this.mfltTotalOutputCurrent = m_fltTotalOutputCurrent;
+    public void setTotalOutputCurrent(Double mfltTotalOutputCurrent) {
+        this.mfltTotalOutputCurrent = mfltTotalOutputCurrent;
     }
 
     @Override

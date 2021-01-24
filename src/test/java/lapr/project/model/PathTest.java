@@ -12,6 +12,8 @@ class PathTest {
 
     private Path pathDiff;
 
+    private Path pathDefault;
+
     PathTest() {
         path = new Path(2,2,2, 2,
                 "Rua das Flores", 2, 2, 2,VehicleType.SCOOTER);
@@ -19,6 +21,14 @@ class PathTest {
                 "Rua das Flores1", 4, 3, 1,VehicleType.SCOOTER);
         pathDiff = new Path(3,1,4, 5,
                 "Rua das Flores", 2, 2, 2,VehicleType.SCOOTER);
+        pathDefault = new Path();
+    }
+
+    @Test
+    void getVehicleType() {
+        VehicleType expResult = null;
+        VehicleType result = pathDefault.getVehicleType();
+        assertEquals(expResult, result);
     }
 
     @Test

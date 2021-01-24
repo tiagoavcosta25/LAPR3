@@ -99,6 +99,16 @@ class PharmacyTest {
     }
 
     @Test
+    void hasEmail() {
+        boolean expected = true;
+        boolean real = p2.hasEmail(p2.getEmail());
+        assertEquals(expected, real);
+        expected = false;
+        real = p2.hasEmail("email@test.com");
+        assertEquals(expected, real);
+    }
+
+    @Test
     void getAddress() {
         Pharmacy oPharmacy = new Pharmacy();
         Address expected = new Address();
@@ -146,6 +156,8 @@ class PharmacyTest {
         assertFalse(real);
         oPharmacy.setId(-2);
         real = oPharmacy.equals(new Pharmacy());
+        assertFalse(real);
+        real = oPharmacy.equals(null);
         assertFalse(real);
     }
 
