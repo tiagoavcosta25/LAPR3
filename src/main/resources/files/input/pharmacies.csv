@@ -8,6 +8,6 @@
 #
 #PHARMACIES     #ids [1-2]
 #pharmacy_name;pharmacy_email;latitude;longitude;altitude;street_name;door_number;postal_code;locality;country
-Pharmacy Sa da Bandeira;info@sabandeira.com;41.1484;-8.6080;10;Rua de Sá da Bandeira;236 54;4000-428;Porto;Portugal
+Pharmacy Sa da Bandeira;info@sabandeira.com;41.1484;-8.6080;10;Rua de Sa da Bandeira;236 54;4000-428;Porto;Portugal
 Pharmacy Trindade;info@trindade.com;41.15227;-8.60929;104;Rua da Trindade;123;4000-123;Porto;Portugal
-Pharmacy Aliança;info@alianca.com;41.150070;-8.612990;4;Rua do Castelo do Queijo;1;4000-119;Porto;Portugal
+Pharmacy Alianca;info@alianca.com;41.150070;-8.612990;4;Rua do Castelo do Queijo;1;4000-119;Porto;Portugal

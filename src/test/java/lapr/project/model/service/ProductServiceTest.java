@@ -8,6 +8,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
@@ -159,5 +162,25 @@ class ProductServiceTest {
 
         intId = 0;
         assertFalse(pServ.validateId(intId));
+    }
+
+    @Test
+    void getProducts() {
+        System.out.println("getProducts");
+        List<Product> lst = new ArrayList<>();
+        when(mockPDB.getProducts()).thenReturn(lst);
+
+        List<Product> result = pServ.getProducts();
+        assertEquals(lst, result);
+    }
+
+    @Test
+    void getAvailableProducts() {
+        System.out.println("getAvailableProducts");
+        List<Product> lst = new ArrayList<>();
+        when(mockPDB.getAvailableProducts(1)).thenReturn(lst);
+
+        List<Product> result = pServ.getAvailableProducts(1);
+        assertEquals(lst, result);
     }
 }

@@ -84,7 +84,6 @@ public class Order {
     public Order(String strDescription, boolean blIsHomeDelivery, Client oClient,
                  Pharmacy oPharmacy, Map<Product, Integer> mapProducts) {
         this.mintId = DEFAULTID;
-        this.mdblAdditionalFee = HOMEDELIVERYFEE;
         this.mdtOrderDate = CURRENTDATE;
         this.mstrDescription = strDescription;
         this.mstrStatus = DEFAULTSTATUS;
@@ -181,8 +180,8 @@ public class Order {
         return moClient;
     }
 
-    public void setClient(Client m_oClient) {
-        this.moClient = m_oClient;
+    public void setClient(Client moClient) {
+        this.moClient = moClient;
     }
 
     public Pharmacy getPharmacy() {

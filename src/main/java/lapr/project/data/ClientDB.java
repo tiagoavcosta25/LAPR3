@@ -118,4 +118,22 @@ public class ClientDB extends DataHandler {
             closeAll();
         }
     }
+
+    public boolean updateClientCredits(String strEmail, Integer intCredits) {
+        try {
+            openConnection();
+            CallableStatement callStmt = getConnection().prepareCall("{ call updateClientCredits(?,?) }");
+
+            callStmt.setString(1, strEmail);
+            callStmt.setInt(2, intCredits);
+
+            callStmt.execute();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            closeAll();
+        }
+        throw new IllegalArgumentException("No Client with the following email:" + strEmail);
+    }
 }

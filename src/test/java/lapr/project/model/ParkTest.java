@@ -19,7 +19,7 @@ class ParkTest {
 
     @Test
     void setId() {
-        Park oPark = new Park(-1, 1, 2d, VehicleType.SCOOTER);
+        Park oPark = new Park(1, 2d, VehicleType.SCOOTER);
         Integer expected = -2;
         oPark.setId(expected);
         Integer real = oPark.getId();
@@ -84,6 +84,40 @@ class ParkTest {
     }
 
     @Test
+    void getVehicleType() {
+        Park oPark = new Park(1, 2d, VehicleType.SCOOTER);
+        VehicleType expected = VehicleType.SCOOTER;
+        VehicleType real = oPark.getVehicleType();
+        assertEquals(expected, real);
+    }
+
+    @Test
+    void setVehicleType() {
+        Park oPark = new Park(1, 2d, VehicleType.DRONE);
+        VehicleType expected = VehicleType.DRONE;
+        oPark.setVehicleType(expected);
+        VehicleType real = oPark.getVehicleType();
+        assertEquals(expected, real);
+    }
+
+    @Test
+    void getTotalOutputCurrent() {
+        Park oPark = new Park(1, 2d, VehicleType.SCOOTER);
+        Double expected = 2d;
+        Double real = oPark.getTotalOutputCurrent();
+        assertEquals(expected, real);
+    }
+
+    @Test
+    void setTotalOutputCurrent() {
+        Park oPark = new Park(1, 2d, VehicleType.DRONE);
+        Double expected = 2d;
+        oPark.setTotalOutputCurrent(expected);
+        Double real = oPark.getTotalOutputCurrent();
+        assertEquals(expected, real);
+    }
+
+    @Test
     void testEquals() {
         Park oPark = new Park();
         boolean expected = true;
@@ -95,6 +129,8 @@ class ParkTest {
         assertFalse(real);
         oPark.setId(-2);
         real = oPark.equals(new Park());
+        assertFalse(real);
+        real = oPark.equals(null);
         assertFalse(real);
     }
 
@@ -109,10 +145,8 @@ class ParkTest {
     @Test
     void testToString() {
         Park oPark = new Park();
-        //String expected = "Park{m_intId=-1, m_intMaxSlotsNumber=-1, m_lstChargingSlots=";
-        String strReal = oPark.toString();
-        boolean expected = true;
-        boolean real = true;
+        String expected = "Park{m_intId=-1, m_intMaxSlotsNumber=-1}";
+        String real = oPark.toString();
         assertEquals(expected, real);
     }
 }

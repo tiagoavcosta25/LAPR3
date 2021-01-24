@@ -1,20 +1,22 @@
 package lapr.project.model;
 
+import java.util.Objects;
+
 public class ChargingSlot extends ParkingSlot implements Comparable{
 
     public ChargingSlot() {
     }
 
-    public ChargingSlot(int m_intId) {
-        super(m_intId);
+    public ChargingSlot(int mintId) {
+        super(mintId);
     }
 
-    public ChargingSlot(Vehicle m_oVehicle) {
-        super(m_oVehicle);
+    public ChargingSlot(Vehicle moVehicle) {
+        super(moVehicle);
     }
 
-    public ChargingSlot(int m_intId, Vehicle m_oVehicle) {
-        super(m_intId, m_oVehicle);
+    public ChargingSlot(int mintId, Vehicle moVehicle) {
+        super(mintId, moVehicle);
     }
 
 
@@ -30,5 +32,10 @@ public class ChargingSlot extends ParkingSlot implements Comparable{
         if (o == null || getClass() != o.getClass()) return false;
         ChargingSlot that = (ChargingSlot) o;
         return super.getId() == that.getId();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.getId());
     }
 }
