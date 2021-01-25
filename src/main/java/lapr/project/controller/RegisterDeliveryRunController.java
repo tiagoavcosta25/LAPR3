@@ -5,6 +5,7 @@ import lapr.project.model.service.DeliveryRunService;
 import lapr.project.model.service.GraphService;
 import lapr.project.model.service.OrderService;
 import lapr.project.model.service.PharmacyService;
+
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -22,23 +23,29 @@ public class RegisterDeliveryRunController {
         moGraphService = ApplicationPOT.getInstance().getWorldMap();
     }
 
-    public boolean registerDeliveryRun(List<Order> lstOrder){
+    public boolean registerDeliveryRun(List<Order> lstOrder) {
         if (ApplicationPOT.getInstance().getCurrentSession().getRole().equals(UserSession.Role.ADMIN)) {
 
             VehicleModel oModel = moGraphService.calculateBestVehicleAndBestPath(lstOrder)
                     .getKey().getKey();
+
+            if (oModel == null) {
+                LOGGER.log(Level.WARNING, "The Delivery Run cannot be carried out!");
+                return false;
+            }
+
             Courier courier = null;
             Vehicle oVehicle;
             if (oModel.getVehicleType().equals(VehicleType.SCOOTER)) {
                 courier = moPharmacyService.getSuitableCourier();
                 oVehicle = moDeliveryRunService.getMostChargedScooter(oModel);
-            }else {
+            } else {
                 oVehicle = moDeliveryRunService.getMostChargedDrone(oModel);
             }
-            DeliveryRun deliveryRun = moDeliveryRunService.newDeliveryRun(courier,lstOrder,oVehicle);
+            DeliveryRun deliveryRun = moDeliveryRunService.newDeliveryRun(courier, lstOrder, oVehicle);
             return moDeliveryRunService.addNewDeliveryRun(deliveryRun);
-        }else{
-            LOGGER.log(Level.WARNING,"User NOT Authorized!");
+        } else {
+            LOGGER.log(Level.WARNING, "User NOT Authorized!");
             return false;
         }
     }

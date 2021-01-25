@@ -329,7 +329,7 @@ class GraphServiceTest {
         addresses.add(a1);
         assertTrue(world.checkIfInListThreeTimes(a1, addresses));
 
-        assertFalse(world.checkIfInListThreeTimes(a2, addresses));
+        assertTrue(world.checkIfInListThreeTimes(a2, addresses));
     }
 
     //TODO:ACABAR ESTE
