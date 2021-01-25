@@ -56,9 +56,7 @@ public class ClientService {
         }
 
 
-        if (password.length() < 6) return false;
-
-        return true;
+        return password.length() >= 6;
     }
 
 
