@@ -40,6 +40,14 @@ public class DeliveryRun {
         this.moStatus = DeliveryStatus.IDLE;
     }
 
+    public DeliveryRun(Courier m_oCourier, List<Order> m_lstDelivery, Vehicle oVehicle) {
+        this.mintId = -1;
+        this.moCourier = m_oCourier;
+        this.mlstOrder = new ArrayList<>(m_lstDelivery);
+        this.moVehicle = oVehicle;
+        this.moStatus = DeliveryStatus.IDLE;
+    }
+
     public Integer getId() {
         return mintId;
     }

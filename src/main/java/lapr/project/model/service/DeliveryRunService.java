@@ -26,8 +26,16 @@ public class DeliveryRunService {
                 strName, dblWindSpeed, dblWindAngle, dblKineticFrictionCoefficient, oVehicleType));
     }
 
-    public DeliveryRun newDeliveryRun(Courier oCourier, List<Order> oLstOrder) {
-        return new DeliveryRun(oCourier, oLstOrder);
+    public DeliveryRun newDeliveryRun(Courier oCourier, List<Order> oLstOrder, Vehicle oVehicle) {
+        return new DeliveryRun(oCourier, oLstOrder, oVehicle);
+    }
+
+    public Scooter getMostChargedScooter(VehicleModel oModel) {
+        return moDeliveryRunDB.getMostChargedScooterFromModel(oModel);
+    }
+
+    public Drone getMostChargedDrone(VehicleModel oModel) {
+        return moDeliveryRunDB.getMostChargedDroneFromModel(oModel);
     }
 
     public boolean addNewDeliveryRun(DeliveryRun oDeliveryRun) {

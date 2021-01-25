@@ -1,0 +1,47 @@
+#lines starting with # should be ignored
+#Column description
+#LATITUDE regarding the first address
+#LONGITUDE regarding the first address
+#LATITUDE regarding the second address
+#LONGITUDE regarding the second address
+#NAME regarding the path
+#WINDSPEED
+#WINDANGLE
+#KINETIC_FRICTION_COEFFICIENT
+#latitudeA;longitudeA;latitudeB;longitudeB;name;windSpeed;windAngle;kineticFrictionCoefficient;VehicleType
+#41.1484;-8.6080 - PSB (Sa da Bandeira)
+#41.15227;-8.60929 - PT (Trindade)
+#41.150070;-8.612990 - PA (Alianca)
+#41.14582;-8.61398 - CF (Clerigos)
+#41.14723;-8.60657 - CM (Majestic)
+#41.14871;-8.60746 - CJG (Bolhao)
+#41.14331;-8.60914 - CA (Batalha)
+#41.14063;-8.61118 - CJA (Cais da Ribeira)
+#Scooter Paths
+41.1484;-8.6080;41.14723;-8.60657;Sa - Majestic;1;0;1;Scooter
+41.14723;-8.60657;41.1484;-8.6080;Majestic - Sa;1;0;1;Scooter
+41.14723;-8.60657;41.14871;-8.60746;Majestic - Bolhao;1;0;1;Scooter
+41.14871;-8.60746;41.15227;-8.60929;Bolhao - Trindade;1;0;1;Scooter
+41.15227;-8.60929;41.14871;-8.60746;Trindade - Bolhao;1;0;1;Scooter
+41.15227;-8.60929;41.14331;-8.60914;Trindade - Batalha;1;0;1;Scooter
+41.14331;-8.60914;41.14723;-8.60657;Batalha - Majestic;1;0;1;Scooter
+41.14723;-8.60657;41.150070;-8.612990;Majestic - Aliança;1;0;1;Scooter
+41.14723;-8.60657;41.14582;-8.61398;Majestic - Clerigos;1;0;1;Scooter
+41.150070;-8.612990;41.14582;-8.61398;Aliança - Clerigos;1;0;1;Scooter
+41.14582;-8.61398;41.1484;-8.6080;Clerigos - Sa;1;0;1;Scooter
+41.14582;-8.61398;41.14063;-8.61118;Clerigos - Cais;1;0;1;Scooter
+41.14063;-8.61118;41.1484;-8.6080;Cais - Sa;1;0;1;Scooter
+#Drone Paths
+41.1484;-8.6080;41.14723;-8.60657;Sa - Majestic;1;0;1;Drone
+41.14723;-8.60657;41.1484;-8.6080;Majestic - Sa;1;0;1;Drone
+41.14723;-8.60657;41.14871;-8.60746;Majestic - Bolhao;1;0;1;Drone
+41.14871;-8.60746;41.15227;-8.60929;Bolhao - Trindade;1;0;1;Drone
+41.15227;-8.60929;41.14871;-8.60746;Trindade - Bolhao;1;0;1;Drone
+41.15227;-8.60929;41.14331;-8.60914;Trindade - Batalha;1;0;1;Drone
+41.14331;-8.60914;41.14723;-8.60657;Batalha - Majestic;1;0;1;Drone
+41.14723;-8.60657;41.150070;-8.612990;Majestic - Aliança;1;0;1;Drone
+41.14723;-8.60657;41.14582;-8.61398;Majestic - Clerigos;1;0;1;Drone
+41.150070;-8.612990;41.14582;-8.61398;Aliança - Clerigos;1;0;1;Drone
+41.14582;-8.61398;41.1484;-8.6080;Clerigos - Sa;1;0;1;Drone
+41.14582;-8.61398;41.14063;-8.61118;Clerigos - Cais;1;0;1;Drone
+41.14063;-8.61118;41.1484;-8.6080;Cais - Sa;1;0;1;Drone

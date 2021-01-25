@@ -41,7 +41,7 @@ class DeliveryRunServiceTest {
     @Test
     void newDeliveryRun() {
         DeliveryRun expected = new DeliveryRun();
-        DeliveryRun real = m_oDeliveryRunService.newDeliveryRun(new Courier(), new ArrayList<>());
+        DeliveryRun real = m_oDeliveryRunService.newDeliveryRun(new Courier(), new ArrayList<>(),new Scooter());
         assertEquals(expected, real);
     }
 

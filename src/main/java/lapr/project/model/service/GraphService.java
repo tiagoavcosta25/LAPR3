@@ -166,10 +166,21 @@ public class GraphService {
      * CALCULATE PATH COST WITH PHARMACIES
      */
 
+    public boolean checkIfInListThreeTimes(Address address, List<Address> addresses) {
+        int counter = 0;
+        for(Address a : addresses) {
+            if(address.equals(a))
+                counter++;
+            if(counter == 3)
+                return true;
+        }
+        return false;
+    }
+
 
     public Pair<Pair<VehicleModel, Double>, List<Address>> pathsWithPharmacies
     (Graph<Address, Path> g, Address s, Address d, List<VehicleModel> vmList, List<Order> orderList) {
-
+        long start = System.currentTimeMillis();
         List<Pair<Pair<VehicleModel, Double>, List<Address>>> result = new LinkedList<>();
         LinkedList<Address> pathList = new LinkedList<>();
         pathList.add(s);
@@ -182,6 +193,10 @@ public class GraphService {
                 minCost = doublePair.getKey().getValue();
             }
         }
+        // finding the time after the operation is executed
+        long end = System.currentTimeMillis();
+        //finding the time difference and converting it into seconds
+        float sec = (end - start) / 1000F; System.out.println(sec + " seconds");
         return finalResult;
     }
 
@@ -201,7 +216,7 @@ public class GraphService {
         }
         for (Address adj : g.adjVertices(u)) {
             localPathList.add(adj);
-            if (localPathList.size() < g.numVertices() * 2) {
+            if (localPathList.size() < g.numVertices() * 2 && !checkIfInListThreeTimes(adj, localPathList)) {
                 pathsWithPharmaciesCalculator(g, adj, d, localPathList, result, vmList, orderList);
             }
             localPathList.removeLast();
@@ -247,7 +262,6 @@ public class GraphService {
 
         Pair<VehicleModel, Double> bestScooter = getBestPossibleModel(scooterList, scooterPath, orderList);
         Pair<VehicleModel, Double> bestDrone = getBestPossibleModel(droneList, dronePath, orderList);
-
         String body;
         if(bestScooter.getValue() != Double.MAX_VALUE && bestDrone.getValue() != Double.MAX_VALUE) {
             body = String.format("\n\n\nBest scooter model: %s\nBest scooter energetic cost: %.2f" +
@@ -261,7 +275,6 @@ public class GraphService {
             }
             return new Pair<>(bestDrone, dronePath);
         }
-
         Pair<Pair<VehicleModel, Double>, List<Address>> resultScooter = null;
         Pair<Pair<VehicleModel, Double>, List<Address>> resultDrone = null;
         if(bestScooter.getValue() == Double.MAX_VALUE) {
