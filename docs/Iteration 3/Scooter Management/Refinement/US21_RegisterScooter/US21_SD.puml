@@ -58,7 +58,7 @@ VS -> VDB ** : create()
 deactivate VS
 deactivate CTRL
 
-UI --> ADMIN : Presents the list of scooter models and asks to choose one or\ncreate a new model
+UI --> ADMIN : Asks to choose one model or create a new one
 deactivate UI
 alt if the admin chooses an existing model
 ADMIN -> UI : Chooses the model

@@ -33,16 +33,16 @@ package "Model" #DDDDDD {
 }
 
 package "Model" #DDDDDD {
-class ScooterPark{
+class Park{
 -   int maxSlotsNumber
 }
 
-class ScooterChargingSlot{
+class ChargingSlot{
 -   int id
 -   float outputPower
 }
 
-class ScooterParkingSlot{
+class ParkingSlot{
 -   int id
 }
 
@@ -123,8 +123,8 @@ Vehicle "1" -- "1" Battery : has >
 Vehicle "*" -- "1" Pharmacy : belongs to a >
 Scooter "*" -- "1" Vehicle : is a type of >
 Pharmacy "1" -- "1" Address : has >
-Pharmacy "1" -- "1" ScooterPark : has >
-ScooterPark "1" -- "1" ScooterChargingSlot : has >
-ScooterPark "1" -- "1" ScooterParkingSlot : has >
+Pharmacy "1" -- "1" Park : has >
+Park "1" -- "1" ChargingSlot : has >
+Park "1" -- "1" ParkingSlot : has >
 
 @enduml
