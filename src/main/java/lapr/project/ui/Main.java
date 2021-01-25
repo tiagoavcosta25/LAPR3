@@ -2,7 +2,7 @@ package lapr.project.ui;
 
 import lapr.project.ui.console.LoginUI;
 import lapr.project.utils.FileReader;
-
+import lapr.project.utils.Menu;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -15,16 +15,17 @@ class Main {
         LOGGER.log(Level.INFO, "Importing Data to the Database...");
         //FileReader.readFiles();
         LOGGER.log(Level.INFO, "Data Imported.");
+
         int intOp;
 
         do{
-            clear();
-            displayMenu();
+            Menu.clear();
+            Menu.displayMenu("MENU", "[1] Login\n[2] Create A Client\n[3] Create A Courier\n\n[0] Exit The Program");
             intOp = sc.nextInt();
 
             switch(intOp){
                 case 1: {
-                    clear();
+                    Menu.clear();
                     LoginUI UI = new LoginUI();
                     UI.run();
                     break;
@@ -46,18 +47,5 @@ class Main {
                     break;
             }
         } while (intOp != 0);
-    }
-
-    public static void displayMenu() {
-        System.out.println("****************MENU*****************");
-        System.out.println("[1] Login\n[2] Create A Client\n[3] Create A Courier\n\n[0] Exit The Program");
-        System.out.println("**************************************");
-        System.out.print("Choose An Option: ");
-    }
-
-    public static void clear() {
-        for (int i = 0; i < 100; i++){
-            System.out.println();
-        }
     }
 }

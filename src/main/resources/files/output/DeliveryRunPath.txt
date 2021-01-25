@@ -2,20 +2,15 @@ ________________________________________________________________________________
 
 
 
-Best scooter model: VehicleModel{m_intId=1, m_strDesignation='model1', m_dblPotency=256.0, m_dblWeight=55.0, m_dblMaxPayload=21.0, m_oBattery=Battery{Id=1, Efficiency=100.0, Battery Capacity=3200, Battery Voltage=6.95}, m_enumVehicleType=VehicleType{m_strDesignation='Scooter'}}
-Best scooter energetic cost: 0,77 kWh
-Scooter best path: [Rua da Trindade, Sé, Cais da Ribeira, Clerigos, Rua da Trindade]
-Scooter path time: 3,22 minutes
-Scooter needed to charge: false
-Scooter charged on: []
+No drone can make this path!
 
 
-Best drone model: VehicleModel{m_intId=4, m_strDesignation='model2', m_dblPotency=356.0, m_dblWeight=60.0, m_dblMaxPayload=12.0, m_oBattery=Battery{Id=4, Efficiency=92.0, Battery Capacity=44, Battery Voltage=8.95}, m_enumVehicleType=VehicleType{m_strDesignation='Drone'}}
-Best drone energetic cost: 0,26 kWh
-Drone best path: [Rua da Trindade, Sé, Cais da Ribeira, Clerigos, Rua da Trindade]
-Drone path time: 1,09 minutes
-Drone needed to charge: false
-Drone charged on: []
+Best scooter model: VehicleModel{m_intId=3, m_strDesignation='model4', m_dblPotency=456.0, m_dblWeight=35.0, m_dblMaxPayload=31.0, m_oBattery=Battery{Id=3, Efficiency=95.0, Battery Capacity=5200, Battery Voltage=6.12}, m_enumVehicleType=VehicleType{m_strDesignation='Scooter'}}
+Best scooter energetic cost: 0,66 kWh
+Scooter best path: [Rua de Sa da Bandeira, Sé, Cais da Ribeira, Clerigos, Rua de Sa da Bandeira]
+Scooter path time: 3,23 minutes
+Scooter needed to recharge: false
+Scooter needed to recharge on: []
 
 ______________________________________________________________________________________
 

@@ -158,7 +158,7 @@ public class DeliveryRunDB extends DataHandler {
             callStmt.execute();
 
             ResultSet rSet = (ResultSet) callStmt.getObject(1);
-
+            System.out.println("Scooter manager: " + scooterManager(rSet,1));
             return scooterManager(rSet,1);
         } catch (SQLException | NoSuchAlgorithmException e) {
             return null;
