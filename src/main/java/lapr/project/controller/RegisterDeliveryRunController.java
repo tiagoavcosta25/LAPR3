@@ -28,10 +28,13 @@ public class RegisterDeliveryRunController {
         return moPharmacyService.getOrdersByPharmacyEmail(strPharmacyEmail);
     }
 
+    //TODO: Arranjar slow
     public boolean registerDeliveryRun(List<Order> lstOrder) {
         if (ApplicationPOT.getInstance().getCurrentSession().getRole().equals(UserSession.Role.ADMIN)) {
-            VehicleModel oModel = moGraphService.calculateBestVehicleAndBestPath(lstOrder)
-                    .getKey().getKey();
+
+            VehicleModel oModel = null;
+            //VehicleModel oModel = moGraphService.calculateBestVehicleAndBestPath(lstOrder)
+            //        .getKey().getKey();
 
             if (oModel == null) {
                 LOGGER.log(Level.WARNING, "The Delivery Run cannot be carried out!");
