@@ -1,23 +1,23 @@
-# US 19 - Register Courier
+# US 289 - Split Charging Capacity
 
 ## 1. Requirements Engineering
 
 ### SSD
-![US19_SSD](US19_SSD.svg)
+![US289_SSD](US289_SSD.svg)
 
 ## 2. OO Analysis
 
 ### Part of the Domain Model Relevant for the UC
 
-![US19_DM](US19_DM.svg)
+![US289_DM](US289_DM.svg)
 
 ## 3. Design - Use Case Realization
 
 ###	Sequence Diagram
 
-![US19_SD.svg](US19_SD.svg)
+![US289_SD.svg](US289_SD.svg)
 
 
 ###	Class Diagram
 
-![US19_CD.svg](US19_CD.svg)
+![US289_CD.svg](US289_CD.svg)

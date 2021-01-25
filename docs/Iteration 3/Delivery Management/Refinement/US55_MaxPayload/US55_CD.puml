@@ -1,58 +1,63 @@
 @startuml
 skinparam classAttributeIconSize 0
 
-package "Controller" #DDDDDD {
-class ApplicationPOT
-{
-  +static getInstance()
-  +getPlatform()
-  +getCurrentSession()
+database Database {
 }
 
-class UserSession
-{
-  +getCurrentUserEmail()
-}
-class KnowDeliveryController{
-+getOrderByCour()
-}
-}
 package "UI" #DDDDDD {
-class KnowDeliveryUI{
+class VehiclePayloadUI{
+}
+}
 
+package "Controller" #DDDDDD {
+class VehiclePayloadController{
++getVehiclePayload(vehicleId)
 }
 }
+
+
 package "Model" #DDDDDD {
-package Service #DDDDDD {
+ package "Service" #DDDDDD {
 
-class DeliveryService{
-+DeliveryService()
-+getMaxPayload(email)
+  class VehicleService{
+      +VehicleService()
+      +getVehiclePayload(vehicleId)
+   }
+
 }
+
+package "Model" #DDDDDD {
+
+class Vehicle{
+  -int id
+  -String vehicleType
+  -float potency
+  -float weight
+  -float maxPayload
+  -String charngingStatus
 }
 
 }
+
+
 package "Data" #DDDDDD {
 class DataHandler{
-+openConnection()
-+closeAll()
+    +openConnection()
+    +closeAll()
+}
+class VehicleDB{
+     +VehicleDB()
+     +getVehiclePayload(vehicleId)
+ }
+
 }
 
- class DeliveryDB{
- +DeliveryDB()
- +getAddressesByDeliveryRunId(email)
- +calculateMostEfficientPath(addressA, addressB, list)
- }
- database database{
- }
- }
-KnowDeliveryUI ..> KnowDeliveryController
-KnowDeliveryController ..> ApplicationPOT
-KnowDeliveryController ..> UserSession
+class VehicleDB extends DataHandler
 
-KnowDeliveryController ..> DeliveryService
-DeliveryService  ->  DeliveryDB : has
-DeliveryDB -> database : manages
-class DeliveryDB extends DataHandler
+VehiclePayloadUI ..> VehiclePayloadController
+VehiclePayloadController ..> VehicleService
+Database "1" --> "1" VehicleDB : manages
+VehicleService "1" --> "*" Vehicle : manage services of
+Database "1" -- "*" Vehicle : has registered >
 
 @enduml

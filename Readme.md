@@ -137,3 +137,79 @@ https://blogs.oracle.com/dev2dev/get-oracle-jdbc-drivers-and-ucp-from-oracle-mav
 You do not need to set a proxy.
 
 You can use existing dummy Oracle credentials available at http://bugmenot.com.
+
+# Project Report
+
+This part of the Readme file will explain the purpose of our LAPR3 Project, our approaches and some considerations regarding the work done.
+
+About the project, we want to mention this **3** topics:
+### 1. Goal
+* The goal of our LAPR3 project was to develop a full functional software that supports the delivery of pharmaceutics products.
+* This software has to be capable of handling customers, pharmacies, orders, deliveries, users, products. 
+1. Client 
+    
+    1.1 A client has to be capable of registering himself.([US18_RegisterClient](docs/Iteration 3/User Management/Refinement/US18_RegisterClient/US18_RegisterClient.md)) 
+
+    1.2 A client has to be capable of making an order.([US25_MakeAnOrder](docs/Iteration 3/Make An Order/Refinement/US25_MakeAnOrder/US25_MakeAnOrder.md))
+
+2. Pharmacies
+
+    2.1 The Administrator should be capable of registering a pharmacy. ([US40_RegisterPharmacy](docs/Iteration%203/Pharmacy%20Management/Refinement/US40_RegisterPharmacy/US40_RegisterPharmacy.md)) 
+
+    2.2 The Administrator should be capable of update a pharmacy. ([US53_UpdatePharmacy](docs/Iteration 3/Pharmacy Management/Refinement/US53_UpdatePharmacy/US53_UpdatePharmacy.md))
+   
+    2.3 The Administrator should be capable of adding products to the pharmacy. ([US64_AddPharmacyProducts](docs/Iteration 3/Pharmacy Management/Refinement/US64_AddPharmacyProducts/US64_AddPharmacyProducts.md))
+    
+    2.4 The Administrator should be capable of making a product transfer between pharmacies. ([US200_MakeAPharmacyTransfer](docs/Iteration 3/Pharmacy Management/Refinement/US200_MakeAPharmacyTransfer/US200_MakeAPharmacyTransfer.md))
+    
+    2.5 As necessary, the program should be capable of transfering stock between pharmacies and issuing a transfer note. ([US202_IssueTransferNote](docs/Iteration 3/Pharmacy Management/Refinement/US202_IssueTransferNote/US202_IssueTransferNote.md))
+
+    2.6 The Administrator should be capable of issuing a pharmacy transfer delivery note. ([US203_IssueDeliveryNote](docs/Iteration 3/Pharmacy Management/Refinement/US203_IssueDeliveryNote/US203_IssueDeliveryNote.md))
+
+3. Orders
+   
+   3.1 The system generates an invoice. ([US26_GenerateInvoice](docs/Iteration 3/Make An Order/Refinement/US26_GenerateInvoice/US26_GenerateInvoice.md))
+
+   3.2 The order can't be done, therefore, the client is notified, and the order is removed. ([US74_NotifyAndRemove](docs/Iteration 3/Make An Order/Refinement/US74_NotifyAndRemove/US74_NotifyAndRemove.md))
+
+   3.3 Know the order associated to a courier. ([US48_KnowDelivery](docs/Iteration 3/Delivery Management/Refinement/US48_KnowDelivery/US48_KnowDelivery.md))
+   
+4. Deliveries
+
+   4.1 Courier
+      
+   - 4.1.1 An administrator should be able of register a courier. ([US19_RegisterCourier](docs/Iteration 3/Courier Management/Refinement/US19_RegisterCourier/US19_RegisterCourier.md))
+   - 4.1.2 An administrator should be able of remove a courier. ([US20_RemoveCourier](docs/Iteration 3/Courier Management/Refinement/US20_RemoveCourier/US20_RemoveCourier.md))
+   - 4.1.3 An administrator should be able of update a courier. ([US29_UpdateCourier](docs/Iteration 3/Courier Management/Refinement/US29_UpdateCourier/US29_UpdateCourier.md))
+   
+   4.2 Vehicles
+   
+   - 4.2.1 **Scooter**
+        - 4.2.1.1 An administrator should be able of register a scooter.([US21_RegisterScooter](docs/Iteration 3/Scooter Management/Refinement/US21_RegisterScooter/US21_RegisterScooter.md))
+        - 4.2.1.2 An administrator should be able of remove a scooter.([US22_RemoveScooter](docs/Iteration 3/Scooter Management/Refinement/US22_RemoveScooter/US22_RemoveScooter.md))
+        - 4.2.1.3 An administrator should be able of update a scooter.([US32_UpdateScooter](docs/Iteration 3/Scooter Management/Refinement/US32_UpdateScooter/US32_UpdateScooter.md))
+        - 4.2.1.4 An administrator should be able of see the scooter information.([US57_ScooterInformation](docs/Iteration 3/Scooter Management/Refinement/US57_ScooterInformation/US57_ScooterInformation.md))
+        - 4.2.1.5 An courier should be able of park a scooter.([US289_SplitChargingCapacity](docs/Iteration 3/Scooter Management/US289_SplitChargingCapacity/US289_SplitChargingCapacity.md))
+   - 4.2.2 **Drone**
+      - 4.2.2.1 An administrator should be able of register a drone.([US193_RegisterDrone](docs/Iteration 3/Drone Management/Refinement/US193_RegisterDrone/US193_RegisterDrone.md))
+      - 4.2.2.2 An administrator should be able of remove a drone.([US194_RemoveDrone](docs/Iteration 3/Drone Management/Refinement/US194_RemoveDrone/US194_RemoveDrone.md))
+      - 4.2.2.3 An administrator should be able of update a drone.([US195_UpdateDrone](docs/Iteration 3/Drone Management/Refinement/US195_UpdateDrone/US195_UpdateDrone.md))
+   - 4.2.3 **Both**
+      - 4.2.3.1 An administrator should be able of know the vehicle maximum payload. ([US55_MaxPayload](docs/Iteration 3/Delivery Management/Refinement/US55_MaxPayload/US55_MaxPayload.md))
+      - 4.2.3.2 An administrator should be able of know the best vehicle for an order.([US290_SeeSuitableVehicle](docs/Iteration 3/Delivery Management/Refinement/US290_SeeSuitableVehicle/US290_SeeSuitableVehicle.md))
+      
+   4.3 Delivery Run
+      - 4.3.1
+      - 4.3.2
+   
+5. Users
+   
+   5.1 A user has to be capable of loging in ([US67_Login](docs/Iteration 3/User Management/Refinement/US67_Login/US67_Login.md))
+
+   5.2 A user has to be capable of loging out ([US68_Logout](docs/Iteration 3/User Management/Refinement/US68_Logout/US68_Logout.md))
+
+6. Products
+
+### Objectives
+
+## 
