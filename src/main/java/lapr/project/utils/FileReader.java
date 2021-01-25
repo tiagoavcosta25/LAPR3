@@ -2,7 +2,6 @@ package lapr.project.utils;
 /*
 import lapr.project.controller.*;
 import lapr.project.model.*;
-import lapr.project.ui.console.MakeAnOrderUI;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -238,10 +237,60 @@ public class FileReader {
     }
 
     private static void readOrderFile(String[] columns) {
-        MakeAnOrderUI UI = new MakeAnOrderUI();
-        if(UI.runFile(columns)){
-            LOGGER.log(Level.INFO,"Order was registered with success!");
-        } else LOGGER.log(Level.WARNING,"There was a problem registering an Order.");
+        MakeAnOrderController oCtrl = new MakeAnOrderController();
+
+        ApplicationPOT.getInstance().setCurrentSession(new UserSession(columns[0]));
+
+        List<Pharmacy> lstPharmacies = oCtrl.getPharmacies();
+        Pharmacy oPharmacy = null;
+
+        for(Pharmacy p : lstPharmacies){
+            if(p.hasEmail(columns[3])){
+                oPharmacy = p;
+                break;
+            }
+        }
+
+        List<Product> lstProducts = oCtrl.getAvailableProducts(oPharmacy);
+
+        int startingCCIndex = -1;
+        Product oProduct;
+        for(int i = 4; i < columns.length; i += 2){
+            oProduct = null;
+            for(Product p : lstProducts){
+                if(p.hasName(columns[i])){
+                    oProduct = p;
+                    break;
+                }
+            }
+            if(oProduct == null){
+                startingCCIndex = i;
+                break;
+            }
+            oCtrl.addProductToOrder(oProduct, Integer.parseInt(columns[i + 1]));
+        }
+
+        List<CreditCard> lstCCs = oCtrl.getCreditCardsByClient();
+
+        if(startingCCIndex != -1){
+            CreditCard oCreditCard;
+            for(int i = startingCCIndex; i < columns.length; i += 2){
+                oCreditCard = null;
+                for(CreditCard c : lstCCs){
+                    if(c.hasNumber(Long.parseLong(columns[i]))){
+                        oCreditCard = c;
+                        break;
+                    }
+                }
+                oCtrl.addPayment(oCreditCard, Double.parseDouble(columns[i + 1]));
+            }
+
+            oCtrl.newOrder(columns[1], Boolean.valueOf(columns[2]));
+
+            if (oCtrl.registerOrder()) {
+                LOGGER.log(Level.INFO,"Order was registered with success!");
+            }else LOGGER.log(Level.WARNING,"There was a problem registering an Order.");
+        }
     }
 
     public static void readCourierFile(String[] columns) {
