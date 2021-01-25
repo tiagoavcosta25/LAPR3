@@ -134,7 +134,7 @@ class GraphServicesTest {
         Path p2 = new Path(10d, 10d, 20d, 20d, "", 1d, 1d, 1d, VehicleType.DRONE);
         Path p4 = new Path(10d, 10d, 20d, 20d, "", 1d, 1d, 1d, VehicleType.NOTDEFINED);
 
-        Path p3 = new Path(12d, 10d, 11d, 20d, "", 1d, 1d, 1d, VehicleType.NOTDEFINED);
+        Path p3 = new Path(12d, 10d, 11d, 20d, "", 1d, 1d, 1d, VehicleType.SCOOTER);
         lPaths.add(p1);
         lPaths.add(p2);
         lPaths.add(p3);
