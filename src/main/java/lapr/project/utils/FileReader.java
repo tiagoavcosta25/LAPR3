@@ -2,6 +2,8 @@ package lapr.project.utils;
 /*
 import lapr.project.controller.*;
 import lapr.project.model.*;
+import lapr.project.ui.console.MakeAnOrderUI;
+
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -12,18 +14,18 @@ import java.util.logging.Logger;
 
 public class FileReader {
 
-    public static final String FILECLIENTS = "src/main/resources/files/clients.csv";
-    public static final String FILEPATHS = "src/main/resources/files/paths.csv";
-    public static final String FILESCOOTERS = "src/main/resources/files/escooters.csv";
-    public static final String FILEREMOVESCOOTERS = "src/main/resources/files/removeScooters.csv";
-    public static final String FILEDRONES = "src/main/resources/files/drones.csv";
-    public static final String FILEREMOVEDRONES = "src/main/resources/files/removeDrones.csv";
-    public static final String FILEPHARMACIES = "src/main/resources/files/pharmacies.csv";
-    public static final String FILEPRODUCTS = "src/main/resources/files/products.csv";
-    public static final String FILEPHARMACYPRODUCTS = "src/main/resources/files/pharmacyProducts.csv";
-    public static final String FILEPARKS = "src/main/resources/files/parks.csv";
-    public static final String FILEORDERS = "src/main/resources/files/orders.csv";
-    public static final String FILECOURIERS = "src/main/resources/files/couriers.csv";
+    public static final String FILECLIENTS = "src/main/resources/files/input/clients.csv";
+    public static final String FILEPATHS = "src/main/resources/files/input/paths.csv";
+    public static final String FILESCOOTERS = "src/main/resources/files/input/escooters.csv";
+    public static final String FILEREMOVESCOOTERS = "src/main/resources/files/input/removeScooters.csv";
+    public static final String FILEDRONES = "src/main/resources/files/input/drones.csv";
+    public static final String FILEREMOVEDRONES = "src/main/resources/files/input/removeDrones.csv";
+    public static final String FILEPHARMACIES = "src/main/resources/files/input/pharmacies.csv";
+    public static final String FILEPRODUCTS = "src/main/resources/files/input/products.csv";
+    public static final String FILEPHARMACYPRODUCTS = "src/main/resources/files/input/pharmacyProducts.csv";
+    public static final String FILEPARKS = "src/main/resources/files/input/parks.csv";
+    public static final String FILEORDERS = "src/main/resources/files/input/orders.csv";
+    public static final String FILECOURIERS = "src/main/resources/files/input/couriers.csv";
     private static final Logger LOGGER = Logger.getLogger(FileReader.class.getName());
 
     public static void readFiles() {
@@ -180,8 +182,8 @@ public class FileReader {
 
     private static void readPharmacyFile(String[] columns) {
         RegisterPharmacyController oCtrl = new RegisterPharmacyController();
-        oCtrl.newPharmacy(columns[0], columns[1], Double.parseDouble(columns[2]), Double.parseDouble(columns[3]),
-                Double.parseDouble(columns[4]), columns[5], columns[6], columns[7], columns[8], columns[9]);
+        oCtrl.newPharmacy(columns[0].trim(), columns[1].trim(), Double.parseDouble(columns[2].trim()), Double.parseDouble(columns[3].trim()),
+                Double.parseDouble(columns[4].trim()), columns[5].trim(), columns[6].trim(), columns[7].trim(), columns[8].trim(), columns[9].trim());
 
         if (oCtrl.registerPharmacy()) {
             LOGGER.log(Level.INFO,"Pharmacy was registered with success!");
@@ -206,14 +208,14 @@ public class FileReader {
         Product oProduct = null;
 
         for(Product p : lstProducts){
-            if(p.hasName(columns[1])){
+            if(p.hasName(columns[1].trim())){
                 oProduct = p;
                 break;
             }
         }
 
         if(oProduct != null){
-            oCtrl.addPharmacyProduct(columns[0], oProduct, Integer.parseInt(columns[2]));
+            oCtrl.addPharmacyProduct(columns[0].trim(), oProduct, Integer.parseInt(columns[2].trim()));
 
             if (oCtrl.registerPharmacyProduct()) {
                 LOGGER.log(Level.INFO,"Product added to the Pharmacy with success!");
@@ -237,60 +239,10 @@ public class FileReader {
     }
 
     private static void readOrderFile(String[] columns) {
-        MakeAnOrderController oCtrl = new MakeAnOrderController();
-
-        ApplicationPOT.getInstance().setCurrentSession(new UserSession(columns[0]));
-
-        List<Pharmacy> lstPharmacies = oCtrl.getPharmacies();
-        Pharmacy oPharmacy = null;
-
-        for(Pharmacy p : lstPharmacies){
-            if(p.hasEmail(columns[3])){
-                oPharmacy = p;
-                break;
-            }
-        }
-
-        List<Product> lstProducts = oCtrl.getAvailableProducts(oPharmacy);
-
-        int startingCCIndex = -1;
-        Product oProduct;
-        for(int i = 4; i < columns.length; i += 2){
-            oProduct = null;
-            for(Product p : lstProducts){
-                if(p.hasName(columns[i])){
-                    oProduct = p;
-                    break;
-                }
-            }
-            if(oProduct == null){
-                startingCCIndex = i;
-                break;
-            }
-            oCtrl.addProductToOrder(oProduct, Integer.parseInt(columns[i + 1]));
-        }
-
-        List<CreditCard> lstCCs = oCtrl.getCreditCardsByClient();
-
-        if(startingCCIndex != -1){
-            CreditCard oCreditCard;
-            for(int i = startingCCIndex; i < columns.length; i += 2){
-                oCreditCard = null;
-                for(CreditCard c : lstCCs){
-                    if(c.hasNumber(Long.parseLong(columns[i]))){
-                        oCreditCard = c;
-                        break;
-                    }
-                }
-                oCtrl.addPayment(oCreditCard, Double.parseDouble(columns[i + 1]));
-            }
-
-            oCtrl.newOrder(columns[1], Boolean.valueOf(columns[2]));
-
-            if (oCtrl.registerOrder()) {
-                LOGGER.log(Level.INFO,"Order was registered with success!");
-            }else LOGGER.log(Level.WARNING,"There was a problem registering an Order.");
-        }
+        MakeAnOrderUI UI = new MakeAnOrderUI();
+        if(UI.runFile(columns)){
+            LOGGER.log(Level.INFO,"Order was registered with success!");
+        } else LOGGER.log(Level.WARNING,"There was a problem registering an Order.");
     }
 
     public static void readCourierFile(String[] columns) {

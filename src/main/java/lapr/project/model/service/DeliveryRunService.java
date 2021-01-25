@@ -39,9 +39,11 @@ public class DeliveryRunService {
     }
 
     //TODO: Verificar mais tarde
+    /*
     public LinkedList<Address> calculateMostEfficientPath(Address a, Address b, List<Address> list) {
         return ApplicationPOT.getInstance().getWorldMap().calculateMostEfficientPath(a, b, list);
     }
+    */
 
     public float getMaxPayload(String email) {
         return moDeliveryDB.getMaxPayload(email);

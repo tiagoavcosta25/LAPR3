@@ -99,7 +99,7 @@ public class CourierService {
         boolean flag = moCourierDB.parkScooter(intIdScooter);
 
         if(flag) {
-            EmailSender.sendEmail(ApplicationPOT.getInstance().getCurrentSession().getCurrentUserEmail(),
+            EmailSender.sendEmail("antoniomsbarros@gmail.com",
                     "Scooter Parked", String.format("The scooter number %d was parked successfully!\n__________" +
                                     "_________________________________________________________\n\n" + "Estimated charging " +
                                     "time: %d hours, %d minutes %d seconds.\nEstimated time for full charge: %s.\n__________" +

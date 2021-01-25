@@ -118,6 +118,7 @@ class DeliveryRunServiceTest {
 
     }
 
+    /*
     @Test
     void calculateMostEfficientPath() {
         ApplicationPOT.getInstance().getWorldMap().setGraph(new Graph<>(true));
@@ -125,6 +126,7 @@ class DeliveryRunServiceTest {
         LinkedList<Address> real = m_oDeliveryRunService.calculateMostEfficientPath(new Address(),new Address(),new LinkedList<>());
         assertEquals(new LinkedList<>(),real);
     }
+     */
 
     @Test
     void testSendsEmail() {

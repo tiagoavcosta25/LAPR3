@@ -114,28 +114,30 @@ public class Path {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Path path = (Path) o;
-        return Objects.equals(mdblLatitudeA, path.mdblLatitudeA) &&
-                Objects.equals(mdblLongitudeA, path.mdblLongitudeA) &&
-                Objects.equals(mdblLatitudeB, path.mdblLatitudeB) &&
-                Objects.equals(mdblLongitudeB, path.mdblLongitudeB);
+        return Double.compare(path.mdblLatitudeA, mdblLatitudeA) == 0 &&
+                Double.compare(path.mdblLongitudeA, mdblLongitudeA) == 0 &&
+                Double.compare(path.mdblLatitudeB, mdblLatitudeB) == 0 &&
+                Double.compare(path.mdblLongitudeB, mdblLongitudeB) == 0 &&
+                moVehicleType == path.moVehicleType;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(mdblLatitudeA, mdblLongitudeA, mdblLatitudeB, mdblLongitudeB);
+        return Objects.hash(mdblLatitudeA, mdblLongitudeA, mdblLatitudeB, mdblLongitudeB, moVehicleType);
     }
 
     @Override
     public String toString() {
         return "Path{" +
-                "m_dblLatitudeA=" + mdblLatitudeA +
-                ", m_dblLongitudeA=" + mdblLongitudeA +
-                ", m_dblLatitudeB=" + mdblLatitudeB +
-                ", m_dblLongitudeB=" + mdblLongitudeB +
-                ", m_strName='" + mstrName + '\'' +
-                ", m_dblWindSpeed=" + mdblWindSpeed +
-                ", m_dblWindAngle=" + mdblWindAngle +
-                ", m_dblKineticFrictionCoefficient=" + mdblKineticFrictionCoefficient +
+                "mdblLatitudeA=" + mdblLatitudeA +
+                ", mdblLongitudeA=" + mdblLongitudeA +
+                ", mdblLatitudeB=" + mdblLatitudeB +
+                ", mdblLongitudeB=" + mdblLongitudeB +
+                ", mstrName='" + mstrName + '\'' +
+                ", mdblWindSpeed=" + mdblWindSpeed +
+                ", mdblWindAngle=" + mdblWindAngle +
+                ", mdblKineticFrictionCoefficient=" + mdblKineticFrictionCoefficient +
+                ", moVehicleType=" + moVehicleType +
                 '}';
     }
 }

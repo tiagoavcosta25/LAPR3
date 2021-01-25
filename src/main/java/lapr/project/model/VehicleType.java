@@ -24,7 +24,7 @@ public enum VehicleType {
 
     @Override
     public String toString() {
-        return "DeliveryStatus{" +
+        return "VehicleType{" +
                 "m_strDesignation='" + mstrDesignation + '\'' +
                 '}';
     }

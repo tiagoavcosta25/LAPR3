@@ -94,4 +94,9 @@ public class ClientService {
     public List<CreditCard> getCreditCardsByClient(String strEmail) {
         return this.moClientDB.getCreditCardsByClient(strEmail);
     }
+
+
+    public boolean updateClientCredits(String strEmail, Integer intCredits) {
+        return this.moClientDB.updateClientCredits(strEmail, intCredits);
+    }
 }

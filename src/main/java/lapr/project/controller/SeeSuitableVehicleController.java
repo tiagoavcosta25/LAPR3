@@ -4,6 +4,7 @@ import lapr.project.model.*;
 import lapr.project.model.service.VehicleService;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Register Courier Controller.
@@ -33,7 +34,7 @@ public class SeeSuitableVehicleController {
         return moVehicleService.getSuitableVehicle(distanceScooter, distanceDrone, ApplicationPOT.getInstance().getCurrentSession().getCurrentUserEmail());
     }
 
-    public ArrayList<VehicleModel> getPharmacyModel(String strPharmacyEmail){
+    public List<VehicleModel> getPharmacyModel(String strPharmacyEmail){
         return moVehicleService.getPharamcyModel(strPharmacyEmail);
     }
 

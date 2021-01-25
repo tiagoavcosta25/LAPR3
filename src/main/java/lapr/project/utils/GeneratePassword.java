@@ -1,4 +1,4 @@
-package lapr.project;
+package lapr.project.utils;
 
 /**
  * Generate Password Interface.
