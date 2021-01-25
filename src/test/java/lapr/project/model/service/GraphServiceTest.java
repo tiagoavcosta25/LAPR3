@@ -137,6 +137,8 @@ class GraphServiceTest {
         Path p6 = new Path(10d, 10d, 11d, 20d, "", 1d, 1d, 1d, VehicleType.DRONE);
         Path p7 = new Path(10d, 10d, 12d, 20d, "", 1d, 1d, 1d, VehicleType.DRONE);
         Path p8 = new Path(10d, 10d, 20d, 12d, "", 1d, 1d, 1d, VehicleType.DRONE);
+        Path p9 = new Path(10d, 14d, 11d, 20d, "", 1d, 1d, 1d, VehicleType.SCOOTER);
+
 
         lPaths.add(p1);
         lPaths.add(p2);
@@ -146,6 +148,7 @@ class GraphServiceTest {
         lPaths.add(p6);
         lPaths.add(p7);
         lPaths.add(p8);
+        lPaths.add(p9);
         when(mockDeliveryRunDB.getAllAddresses()).thenReturn(lAddresses);
         when(mockDeliveryRunDB.getAllPaths()).thenReturn(lPaths);
         world.createGraph();
@@ -205,6 +208,7 @@ class GraphServiceTest {
         Address a2 = new Address(20d, 20d, 4d, "", "", "", "", "");
         lAddresses.add(a1);
         lAddresses.add(a2);
+        assertNull(this.world.getPathFromAddresses(world.getScooterGraph(), a1, a2));
         List<Path> lPaths = new ArrayList<>();
         Path p1 = new Path(10d, 10d, 20d, 20d, "", 1d, 1d, 1d, VehicleType.SCOOTER);
         Path p3 = new Path(20d, 20d, 10d, 10d, "", 1d, 1d, 1d, VehicleType.SCOOTER);
