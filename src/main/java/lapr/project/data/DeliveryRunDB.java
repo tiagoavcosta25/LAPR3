@@ -121,7 +121,9 @@ public class DeliveryRunDB extends DataHandler {
 
             CallableStatement callStmt = getConnection().prepareCall("{ ? = call addNewDeliveryRun(?,?,?) }");
 
-            callStmt.setInt(2,courier.getId());
+            if (courier == null) {
+                callStmt.setInt(2,-1);
+            }else callStmt.setInt(2,courier.getId());
             callStmt.setString(3,status.getDesignation());
             callStmt.setInt(4,oVehicle.getId());
             callStmt.registerOutParameter(1, OracleTypes.INTEGER);
