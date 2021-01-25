@@ -154,7 +154,9 @@ class OrderTest {
 
     @Test
     void setPharmacy() {
-        Order oOrder = new Order();
+        Client oClient = new Client();
+        oClient.setCredits(999);
+        Order oOrder = new Order("", false, oClient, new Pharmacy(), new HashMap<>());
         Pharmacy expected = new Pharmacy();
         oOrder.setPharmacy(expected);
         Pharmacy real = oOrder.getPharmacy();
@@ -215,7 +217,9 @@ class OrderTest {
         boolean real = oOrder.isHomeDelivery();
         assertEquals(expected, real);
 
-        Order orderF = new Order("Teste", true, new Client(), new Pharmacy(), new HashMap<>());
+        Client c = new Client();
+        c.setCredits(1119);
+        Order orderF = new Order("Teste", true, c, new Pharmacy(), new HashMap<>());
         real = orderF.isHomeDelivery();
         assertTrue(real);
     }

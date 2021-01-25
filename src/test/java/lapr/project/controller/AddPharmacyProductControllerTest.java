@@ -50,12 +50,24 @@ class AddPharmacyProductControllerTest {
         assertTrue(real);
 
         when(mockPharmacyService.getPharmacy(null)).thenThrow(new IllegalArgumentException());
-        real = addPharmacyProductController.addPharmacyProduct(null, null, 0);
+        real = addPharmacyProductController.addPharmacyProduct("email3@gmail.com", null, 0);
         assertFalse(real);
         real = addPharmacyProductController.addPharmacyProduct("email3@gmail.com", new Product(), -1);
         assertFalse(real);
 
+        real = addPharmacyProductController.addPharmacyProduct("", new Product(), -1);
+        assertFalse(real);
+
         real = addPharmacyProductController.addPharmacyProduct("", null, -1);
+        assertFalse(real);
+
+        real = addPharmacyProductController.addPharmacyProduct("email3@gmail.com", null, -1);
+        assertFalse(real);
+
+        real = addPharmacyProductController.addPharmacyProduct("", null, 0);
+        assertFalse(real);
+
+        real = addPharmacyProductController.addPharmacyProduct("", new Product(), -1);
         assertFalse(real);
     }
     @Test

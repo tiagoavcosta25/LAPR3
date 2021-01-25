@@ -8,6 +8,9 @@ import java.util.logging.Logger;
 
 public class WriteFile {
 
+    private WriteFile() {
+    }
+
     private static final Logger LOGGER = Logger.getLogger(FileReader.class.getName());
 
     public static boolean write(String strFileName, String strContent) {

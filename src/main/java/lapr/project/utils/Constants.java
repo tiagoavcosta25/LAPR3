@@ -2,6 +2,9 @@ package lapr.project.utils;
 
 public class Constants {
 
+    private Constants() {
+    }
+
     public static final int SLEEP_TIME = 5000;
     public static final double GRAVITIC_ACCELERATION = 9.8;             //  m.s^-2
     public static final double DEFAULT_HEIGHT = 150;                    //  m

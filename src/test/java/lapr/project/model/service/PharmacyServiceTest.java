@@ -1,6 +1,7 @@
 package lapr.project.model.service;
 
 import lapr.project.controller.ApplicationPOT;
+import lapr.project.data.ParkDB;
 import lapr.project.data.PharmacyDB;
 import lapr.project.graph.map.Graph;
 import lapr.project.model.*;
@@ -25,6 +26,9 @@ class PharmacyServiceTest {
     @Mock
     private PharmacyDB mockPharmacyDB;
 
+    @Mock
+    private ParkDB mockParkDB;
+
     private Pharmacy expectedPharmacy;
 
     @BeforeEach
@@ -32,6 +36,7 @@ class PharmacyServiceTest {
         this.expectedPharmacy = new Pharmacy();
         this.pharmacyService = new PharmacyService();
         this.mockPharmacyDB = Mockito.mock(PharmacyDB.class);
+        this.mockParkDB = Mockito.mock(ParkDB.class);
         initMocks(this);
     }
 
@@ -177,5 +182,27 @@ class PharmacyServiceTest {
         when (mockPharmacyDB.getSuitableCourier()).thenReturn(new Courier());
         Courier real = pharmacyService.getSuitableCourier();
         assertEquals(new Courier(),real);
+    }
+
+    @Test
+    void getOrdersByPharmacyEmail() {
+        System.out.println("getOrdersByPharmacyEmail");
+        List<Order> lstExpected = new ArrayList<>();
+        when(mockPharmacyDB.getOrdersByPharmacyEmail(new Pharmacy())).thenReturn(lstExpected);
+        when(mockPharmacyDB.getPharmacy("test@gmail.com")).thenReturn(new Pharmacy());
+        List<Order> result = pharmacyService.getOrdersByPharmacyEmail("test@gmail.com");
+        assertEquals(lstExpected, result);
+    }
+
+    @Test
+    void addPark() {
+        System.out.println("addPark");
+        when(mockParkDB.addParkToDB("", new Park(), 1, 1)).thenReturn(true);
+        boolean result = pharmacyService.addPark("", new Park(), 1, 1);
+        assertTrue(result);
+
+        when(mockParkDB.addParkToDB("teste", new Park(), 19, 11)).thenReturn(false);
+        result = pharmacyService.addPark("teste", new Park(), 19, 11);
+        assertFalse(result);
     }
 }
