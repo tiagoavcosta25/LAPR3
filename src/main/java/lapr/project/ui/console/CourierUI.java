@@ -1,20 +1,16 @@
-package lapr.project.ui;
+package lapr.project.ui.console;
 
-import lapr.project.ui.console.LoginUI;
-import lapr.project.utils.FileReader;
+import lapr.project.controller.LogoutController;
 
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-class Main {
-    private static final Logger LOGGER = Logger.getLogger(Main.class.getName());
+public class CourierUI {
+    private static final Logger LOGGER = Logger.getLogger(CourierUI.class.getName());
 
-    public static void main(String[] args) {
+    public void run() {
         Scanner sc = new Scanner(System.in);
-        LOGGER.log(Level.INFO, "Importing Data to the Database...");
-        //FileReader.readFiles();
-        LOGGER.log(Level.INFO, "Data Imported.");
         int intOp;
 
         do{
@@ -25,20 +21,19 @@ class Main {
             switch(intOp){
                 case 1: {
                     clear();
-                    LoginUI UI = new LoginUI();
-                    UI.run();
+                    //StartDeliveryRun UI = new StartDeliveryRun();
+                    //UI.run();
                     break;
                 }
                 case 2: {
-                    LOGGER.log(Level.INFO, "Create a Client.");
-                    break;
-                }
-                case 3: {
-                    LOGGER.log(Level.INFO, "Create a Courier.");
+                    clear();
+                    ParkScooterUI UI = new ParkScooterUI();
+                    UI.run();
                     break;
                 }
                 case 0: {
-                    LOGGER.log(Level.INFO, "Thank You For Using Our Application.");
+                    LogoutController oLogOut = new LogoutController();
+                    oLogOut.logout();
                     break;
                 }
                 default:
@@ -49,8 +44,8 @@ class Main {
     }
 
     public static void displayMenu() {
-        System.out.println("****************MENU*****************");
-        System.out.println("[1] Login\n[2] Create A Client\n[3] Create A Courier\n\n[0] Exit The Program");
+        System.out.println("****************COURIER*****************");
+        System.out.println("[1] Start Delivery Run\n[2] Park Scooter\n\n[0] Log Out");
         System.out.println("**************************************");
         System.out.print("Choose An Option: ");
     }
