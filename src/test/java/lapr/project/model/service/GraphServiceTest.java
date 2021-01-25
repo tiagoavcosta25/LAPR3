@@ -6,7 +6,6 @@ import lapr.project.data.ProductDB;
 import lapr.project.data.VehicleDB;
 import lapr.project.graph.map.Graph;
 import lapr.project.model.*;
-import lapr.project.model.service.GraphServices;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -21,10 +20,10 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
 
-class GraphServicesTest {
+class GraphServiceTest {
 
     @InjectMocks
-    private GraphServices world;
+    private GraphService world;
 
     @Mock
     private DeliveryRunDB mockDeliveryRunDB;
@@ -37,7 +36,7 @@ class GraphServicesTest {
 
     @BeforeEach
     void setUp() {
-        this.world = new GraphServices();
+        this.world = new GraphService();
         this.mockDeliveryRunDB = Mockito.mock(DeliveryRunDB.class);
         this.mockVehicleDB = Mockito.mock(VehicleDB.class);
         this.mockPharmacyDB = Mockito.mock(PharmacyDB.class);
@@ -135,11 +134,18 @@ class GraphServicesTest {
         Path p4 = new Path(10d, 10d, 20d, 20d, "", 1d, 1d, 1d, VehicleType.NOTDEFINED);
         Path p3 = new Path(12d, 10d, 11d, 20d, "", 1d, 1d, 1d, VehicleType.SCOOTER);
         Path p5 = new Path(12d, 10d, 11d, 20d, "", 1d, 1d, 1d, VehicleType.DRONE);
+        Path p6 = new Path(10d, 10d, 11d, 20d, "", 1d, 1d, 1d, VehicleType.DRONE);
+        Path p7 = new Path(10d, 10d, 12d, 20d, "", 1d, 1d, 1d, VehicleType.DRONE);
+        Path p8 = new Path(10d, 10d, 20d, 12d, "", 1d, 1d, 1d, VehicleType.DRONE);
+
         lPaths.add(p1);
         lPaths.add(p2);
         lPaths.add(p3);
         lPaths.add(p4);
         lPaths.add(p5);
+        lPaths.add(p6);
+        lPaths.add(p7);
+        lPaths.add(p8);
         when(mockDeliveryRunDB.getAllAddresses()).thenReturn(lAddresses);
         when(mockDeliveryRunDB.getAllPaths()).thenReturn(lPaths);
         world.createGraph();

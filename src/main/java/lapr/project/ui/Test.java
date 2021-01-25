@@ -2,7 +2,7 @@ package lapr.project.ui;
 
 import lapr.project.controller.ApplicationPOT;
 import lapr.project.model.*;
-import lapr.project.model.service.GraphServices;
+import lapr.project.model.service.GraphService;
 
 import java.security.NoSuchAlgorithmException;
 import java.sql.Date;
@@ -13,7 +13,7 @@ public class Test {
     public static void main(String[] args) throws NoSuchAlgorithmException {
         //FileReader.readFiles();
         ApplicationPOT.getInstance().getWorldMap().createGraph();
-        GraphServices world = ApplicationPOT.getInstance().getWorldMap();
+        GraphService world = ApplicationPOT.getInstance().getWorldMap();
 
         Address saBandeira = new Address();
         saBandeira.setStreetName("Pharmacy Sa da Bandeira");
