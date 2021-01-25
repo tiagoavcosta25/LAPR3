@@ -1,6 +1,7 @@
 package lapr.project.ui.console;
 
 import lapr.project.controller.LogoutController;
+import lapr.project.utils.Menu;
 
 import java.util.Scanner;
 import java.util.logging.Level;
@@ -14,18 +15,19 @@ public class ClientUI {
         int intOp;
 
         do{
-            clear();
-            displayMenu();
+            Menu.clear();
+            Menu.displayMenu("CLIENT", "[1] Make An Order\n\n[0] Log Out");
             intOp = sc.nextInt();
 
             switch(intOp){
                 case 1: {
-                    clear();
+                    Menu.clear();
                     MakeAnOrderUI UI = new MakeAnOrderUI();
                     UI.run();
                     break;
                 }
                 case 0: {
+                    Menu.clear();
                     LogoutController oLogOut = new LogoutController();
                     oLogOut.logout();
                     break;
@@ -35,18 +37,5 @@ public class ClientUI {
                     break;
             }
         } while (intOp != 0);
-    }
-
-    public static void displayMenu() {
-        System.out.println("****************CLIENT*****************");
-        System.out.println("[1] Make An Order\n\n[0] Log Out");
-        System.out.println("**************************************");
-        System.out.print("Choose An Option: ");
-    }
-
-    public static void clear() {
-        for (int i = 0; i < 100; i++){
-            System.out.println();
-        }
     }
 }
