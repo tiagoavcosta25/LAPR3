@@ -81,6 +81,10 @@ public class PharmacyService {
         return moPharmacyDB.getSuitableCourier();
     }
 
+    public List<Order> getOrdersByPharmacyEmail(String strPharmacyEmail) {
+        return moPharmacyDB.getOrdersByPharmacyEmail(getPharmacy(strPharmacyEmail));
+    }
+
     public boolean addPark(String strPharmacyEmail, Park p, int intNonChargingSlots, int intChargingSlots) {
         return this.moParkDB.addParkToDB(strPharmacyEmail, p, intNonChargingSlots, intChargingSlots);
     }
