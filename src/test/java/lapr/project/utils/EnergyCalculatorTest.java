@@ -57,5 +57,19 @@ public class EnergyCalculatorTest {
         assertEquals(expResult,result);
     }
 
+    @Test
+    void testCalucloEnergia8(){
+        double expResult = 0;
+        double result = EnergyCalculator.calculateScooterEnergy(10,180,100,-100,100,0.8).getKey();
+        assertEquals(expResult,result);
+    }
+    @Test
+    void testCalucloEnergia9(){
+        double expResult = 0.015788895064930555;
+        double result = EnergyCalculator.calculateScooterEnergy(10,180,9.89,50,100,0.8).getKey();
+        assertEquals(expResult,result);
+    }
+
+
 
 }
