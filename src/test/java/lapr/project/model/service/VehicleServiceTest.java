@@ -92,4 +92,11 @@ class VehicleServiceTest {
         result = m_service.registerVehicleModel(null);
         assertEquals(-1, result);
     }
+    @Test
+    void getVehiclePayload() {
+        System.out.println("getVehiclePayload");
+        when(m_oVehicleDB.getVehiclePayload(1)).thenReturn(10.0);
+        double result = m_service.getVehiclePayload(1);
+        assertEquals(10.0, result);
+    }
 }

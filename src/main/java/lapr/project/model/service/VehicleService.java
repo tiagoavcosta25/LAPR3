@@ -44,5 +44,8 @@ public class VehicleService {
     public int registerVehicleModel(VehicleModel moVehicleModel) {
         return this.moVehicleDB.registerVehicleModel(moVehicleModel);
     }
+    public double getVehiclePayload(int vehicleId){
+        return this.moVehicleDB.getVehiclePayload(vehicleId);
+    }
 
 }

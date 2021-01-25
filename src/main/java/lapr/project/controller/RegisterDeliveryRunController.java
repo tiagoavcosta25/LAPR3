@@ -1,5 +1,6 @@
 package lapr.project.controller;
 
+import javafx.util.Pair;
 import lapr.project.model.*;
 import lapr.project.model.service.DeliveryRunService;
 import lapr.project.model.service.GraphService;
@@ -30,8 +31,9 @@ public class RegisterDeliveryRunController {
 
     public boolean registerDeliveryRun(List<Order> lstOrder) {
         if (ApplicationPOT.getInstance().getCurrentSession().getRole().equals(UserSession.Role.ADMIN)) {
-            VehicleModel oModel = moGraphService.calculateBestVehicleAndBestPath(lstOrder)
-                    .getKey().getKey();
+
+            List<Pair<Pair<VehicleModel, Double>, List<Address>>> lstPair = moGraphService.calculateBestVehicleAndBestPath(lstOrder);
+            VehicleModel oModel = moDeliveryRunService.getMostEfficientVehicleModel(lstPair);
 
             if (oModel == null) {
                 LOGGER.log(Level.WARNING, "The Delivery Run cannot be carried out!");

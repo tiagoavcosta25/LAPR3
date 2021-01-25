@@ -163,12 +163,5 @@ class DroneServiceTest {
         assertFalse(result);
     }
 
-    @Test
-    void getDronePayload() {
-        System.out.println("getDronePayload");
-        when(m_mockDroneDB.getDronePayload(1)).thenReturn(expPayload);
-        float result = this.m_oDroneService.getDronePayload(1);
-        assertEquals(expPayload, result);
-    }
 
 }

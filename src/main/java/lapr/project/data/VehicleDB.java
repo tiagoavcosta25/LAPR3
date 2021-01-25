@@ -222,4 +222,20 @@ public class VehicleDB extends DataHandler {
             closeAll();
         }
     }
+    public double getVehiclePayload(int vehicleId){
+        CallableStatement callStmt = null;
+        try {
+            openConnection();
+            callStmt = getConnection().prepareCall("{ ? = call getVehiclePayload(?) }");
+
+            callStmt.registerOutParameter(1, OracleTypes.INTEGER);
+            callStmt.setInt(2, vehicleId);
+            callStmt.execute();
+            return callStmt.getDouble(1);
+        } catch (SQLException e) {
+            throw new IllegalArgumentException("Couldn't return value.");
+        } finally {
+            closeAll();
+        }
+    }
 }

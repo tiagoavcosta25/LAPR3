@@ -60,7 +60,4 @@ public class DroneService {
         return oDeliveryRun.getStatus().getDesignation().equalsIgnoreCase("Idle");
     }
 
-    public float getDronePayload(int droneId) {
-        return moDroneDB.getDronePayload(droneId);
-    }
 }

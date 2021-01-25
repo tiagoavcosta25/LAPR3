@@ -10,34 +10,6 @@ import java.util.*;
 public class DeliveryDB extends DataHandler {
 
 
-    //TODO: IMPLEMENTAR
-    public float getMaxPayload(String email) {
-        CallableStatement callStmt = null;
-        try {
-            openConnection();
-            callStmt = getConnection().prepareCall("{ ? = call getMaxPayload(?) }");
-
-            callStmt.registerOutParameter(1, OracleTypes.FLOAT);
-            callStmt.setString(2, email);
-
-            callStmt.execute();
-
-            ResultSet rSet = (ResultSet) callStmt.getObject(1);
-            float maxPayload = 0;
-            if (rSet.next()) {
-                maxPayload= rSet.getFloat(1);
-            }
-            return maxPayload;
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            closeAll();
-        }
-        throw new IllegalArgumentException("No payload found for the DR with the courier with the following email:" + email);
-
-    }
-
     public Map<String,String> startDeliveryRun(String currentUserEmail) {
         CallableStatement callStmt = null;
         Map<String,String> lstClients = new TreeMap<>();
