@@ -37,9 +37,9 @@ public class RemoveDroneController {
     /**
      * The method returns the list of scooters.
      */
-    public List<Drone> showDronesList(int intPharmacyId) {
+    public List<Drone> showDronesList(String strPharmacyEmail) {
         try {
-            return moDroneService.getDronesList(intPharmacyId);
+            return moDroneService.getDronesList(strPharmacyEmail);
         } catch (Exception ex) {
             return null;
         }

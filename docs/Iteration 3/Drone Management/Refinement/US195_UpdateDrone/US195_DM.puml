@@ -9,41 +9,57 @@ database Database {
 class Pharmacy {
   -int id
   -String name
+-   String email
 }
 
-class DronePark{
+class Park{
 -   int maxSlotsNumber
+-   double totalOutputCorrent
 }
 
-class DroneChargingSlot{
+class ChargingSlot{
 -   int id
--   float outputPower
 }
 
-class DroneParkingSlot{
+class NonChargingSlot{
+-   int id
+}
+
+class ParkingSlot{
 -   int id
 }
 
 class Drone{
 }
 
+class VehicleModel{
+  -int id
+  -String desigantion
+  -double potency
+  -double weight
+  -double maxPayload
+}
+
+class VehicleType{
+  -String desigantion
+}
+
 class Vehicle{
   -int id
-  -float potency
-  -float weight
-  -float maxPayload
+  -double batteryPerc
 }
 
 class Battery{
   -int id
-  -float batteryPerc
   -int batteryCapacity
-  -float batteryVoltage
+  -double batteryVoltage
+  -double efficiency
 }
 
 class Address{
-  -Double longitude
-  -Double latitude
+  -double longitude
+  -double latitude
+  -double altitude
   -String doorNumber
   -String streetName
   -String postalCode
@@ -51,16 +67,23 @@ class Address{
   -String country
 }
 
+class QRCode{
+}
 
 
 Database "1" -- "*" Pharmacy : has >
 Database "1" -- "*" Drone : has >
-Drone "*" -- "1" Pharmacy : belongs to >
 Drone "*" -- "1" Vehicle : is a type of >
-Vehicle "1" -- "1" Battery : has >
+Vehicle "*" -- "1" VehicleModel : has >
+Vehicle "*" -- "1" Pharmacy : belongs to a >
+Vehicle "1" -- "1" QRCode : is identified by a >
 Pharmacy "1" -- "1" Address : has >
-Pharmacy "1" -- "1" DronePark : has >
-DronePark "1" -- "1" DroneParkingSlot : has >
-DronePark "1" -- "1" DroneChargingSlot : has >
+Pharmacy "1" -- "*" Park : has >
+Park "*" -- "1" VehicleType : has >
+Park "1" -- "*" ParkingSlot : has >
+ParkingSlot "1" -- "1" ChargingSlot : is >
+ParkingSlot "1" -- "1" NonChargingSlot : is >
+VehicleModel "1" -- "1" Battery : has >
+VehicleModel "*" -- "1" VehicleType : has >
 @enduml
 
