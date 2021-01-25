@@ -33,7 +33,7 @@ begin
 
 -- Creates a new Order
     Insert into "Order"(AMOUNT, TOTALWEIGHT, ADDITIONALFEE, DESCRIPTION, ORDERDATE, CLIENTID, PHARMACYID, ORDERSTATUS, ISHOMEDELIVERY, DELIVERYRUNID)
-    Values (p_amount, p_totalWeight, p_additionalFee, p_description, p_date, p_clientId, p_pharmacyId, p_status, p_isHomeDelivery, 2);
+    Values (p_amount, p_totalWeight, p_additionalFee, p_description, p_date, p_clientId, p_pharmacyId, p_status, p_isHomeDelivery, null);
 
     select id
     into v_orderId

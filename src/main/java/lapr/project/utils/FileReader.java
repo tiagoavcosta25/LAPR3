@@ -76,6 +76,7 @@ public class FileReader {
                             break;
                         case FILEPARKS:
                             readParkFile(columns);
+                            break;
                         case FILEORDERS:
                             readOrderFile(columns);
                             break;
@@ -223,7 +224,7 @@ public class FileReader {
 
     public static void readParkFile(String[] columns) {
         RegisterParkController oCtrl = new RegisterParkController();
-
+        ApplicationPOT.getInstance().setCurrentSession(new UserSession("admin@gmail.com", UserSession.Role.ADMIN));
         VehicleType oType = null;
         if (columns[3].equals("Scooter"))
             oType = VehicleType.SCOOTER;
@@ -234,6 +235,7 @@ public class FileReader {
                 Integer.parseInt(columns[4]),Integer.parseInt(columns[5]))) {
             LOGGER.log(Level.INFO,"Park added with success!");
         }else LOGGER.log(Level.WARNING,"There was a problem adding the Park.");
+        ApplicationPOT.getInstance().clearCurrentSession();
     }
 
     private static void readOrderFile(String[] columns) {
@@ -303,4 +305,6 @@ public class FileReader {
         }else LOGGER.log(Level.WARNING,"There was a problem creating a Courier");
 
     }
-}*/
+}
+
+ */

@@ -128,7 +128,7 @@ public class ClientDB extends DataHandler {
             callStmt.setInt(2, intCredits);
 
             callStmt.execute();
-
+            return true;
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {

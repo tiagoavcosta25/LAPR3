@@ -132,7 +132,7 @@ class PharmacyServiceTest {
         Order oOrder = new Order();
 
         when(mockPharmacyDB.getPharmaciesWithStock(oOrder, new Product(), 1)).thenReturn(lstPharmacies);
-        ApplicationPOT.getInstance().getWorldMap().setGraph(graph);
+        ApplicationPOT.getInstance().getWorldMap().setScooterGraph(graph);
         Pharmacy result = pharmacyService.getClosestPharmacyWithStock(oOrder, new Product(), 1);
         assertEquals(oPharmacy, result);
     }
@@ -159,7 +159,7 @@ class PharmacyServiceTest {
         lstPharmacies.add(oPharmacy);
 
         when(mockPharmacyDB.getPharmacies()).thenReturn(lstPharmacies);
-        ApplicationPOT.getInstance().getWorldMap().setGraph(graph);
+        ApplicationPOT.getInstance().getWorldMap().setScooterGraph(graph);
         Pharmacy result = pharmacyService.getClosestPharmacyToClient(new Client());
         assertEquals(oPharmacy, result);
     }

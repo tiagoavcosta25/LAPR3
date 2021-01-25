@@ -1,6 +1,7 @@
 package lapr.project.model;
 
 import javafx.util.Pair;
+import lapr.project.controller.RegisterProductController;
 import lapr.project.data.DeliveryRunDB;
 import lapr.project.data.PharmacyDB;
 import lapr.project.data.VehicleDB;
@@ -10,10 +11,14 @@ import lapr.project.graph.map.GraphAlgorithms;
 import lapr.project.utils.Constants;
 import lapr.project.utils.EnergyCalculator;
 
+import javax.sound.sampled.Line;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class WorldMap {
 
+    private static final Logger LOGGER = Logger.getLogger(WorldMap.class.getName());
     private Graph<Address, Path> moGraphScooter;
     private Graph<Address, Path> moGraphDrone;
     private DeliveryRunDB moDeliveryRunDB;
@@ -28,8 +33,16 @@ public class WorldMap {
         moPharmacyDB = new PharmacyDB();
     }
 
+    public void setScooterGraph(Graph<Address, Path> moGraph) {
+        this.moGraphScooter = moGraph;
+    }
+
     public Graph<Address, Path> getScooterGraph() {
         return moGraphScooter;
+    }
+
+    public void setDroneGraph(Graph<Address, Path> moGraphDrone) {
+        this.moGraphDrone = moGraphDrone;
     }
 
     public Graph<Address, Path> getDroneGraph() {
@@ -90,11 +103,6 @@ public class WorldMap {
         return null;
     }
 
-    public void setGraph(Graph<Address, Path> moGraph) {
-        this.moGraphScooter = moGraph;
-    }
-
-    /*
     public LinkedList<Path> getListOfPaths(Graph<Address, Path> g) {
         LinkedList<Path> paths = new LinkedList<>();
         for(Edge<Address, Path> edge : g.edges())
@@ -128,13 +136,13 @@ public class WorldMap {
         }
         return path.containsAll(intermediates);
     }
-    */
+
 
     /**
      * CALCULATE PATH COST WITH PHARMACIES
      */
 
-    /*
+
     public Pair<Pair<VehicleModel, Double>, List<Address>> pathsWithPharmacies
     (Graph<Address, Path> g, Address s, Address d, List<VehicleModel> vmList, List<Order> orderList) {
 
@@ -175,12 +183,11 @@ public class WorldMap {
             localPathList.removeLast();
         }
     }
-    */
 
     /**
      * CALCULATE PATH COST
      */
-    /*
+
     public Pair<Pair<VehicleModel, Double>, List<Address>> calculateBestVehicleAndBestPath(List<Order> orderList) {
         double maxWeight = 0;
         for(Order o : orderList) {
@@ -198,9 +205,7 @@ public class WorldMap {
         if(scooterList.isEmpty() && droneList.isEmpty()) return null;
 
         //CALCULATE WITHOUT PHARMACIES IN CONSIDERATION
-        Pair<Pair<VehicleModel, Double>, List<Address>> bestVehicleAndCost =
-                calculateBestVehicleForMostEficientPath(orderList, pharmacy, scooterList, droneList);
-        return bestVehicleAndCost;
+        return calculateBestVehicleForMostEficientPath(orderList, pharmacy, scooterList, droneList);
     }
 
     public Pair<Pair<VehicleModel, Double>, List<Address>> calculateBestVehicleForMostEficientPath
@@ -220,7 +225,15 @@ public class WorldMap {
         Pair<VehicleModel, Double> bestDrone = getBestPossibleModel(droneList, dronePath, orderList);
 
         if(bestScooter.getValue() != Double.MAX_VALUE && bestDrone.getValue() != Double.MAX_VALUE) {
-            if(bestScooter.getValue() < bestDrone.getValue()) return new Pair<>(bestScooter, scooterPath);
+            LOGGER.log(Level.INFO, "\n\n\nBest scooter model: " + bestScooter.getKey());
+            LOGGER.log(Level.INFO, "Best scooter energetic cost: " + bestScooter.getValue());
+            LOGGER.log(Level.INFO, "Scooter best path: " + scooterPath + "\n\n\n");
+            LOGGER.log(Level.INFO, "\n\n\nBest drone model: " + bestDrone.getKey());
+            LOGGER.log(Level.INFO, "Best drone energetic cost: " + bestDrone.getValue());
+            LOGGER.log(Level.INFO, "Drone best path: " + dronePath + "\n\n\n");
+            if(bestScooter.getValue() < bestDrone.getValue()) {
+                return new Pair<>(bestScooter, scooterPath);
+            }
             return new Pair<>(bestDrone, dronePath);
         }
 
@@ -236,27 +249,54 @@ public class WorldMap {
         }
         //IN CASE WITHOUT PHARMACIES IN CONSIDERATION DOESNT WORK, CALCULATE WITH PHARMACIES
         if(resultDrone == null && resultScooter == null && bestScooter.getValue() == Double.MAX_VALUE &&
-                bestDrone.getValue() == Double.MAX_VALUE)
+                bestDrone.getValue() == Double.MAX_VALUE) {
+            LOGGER.log(Level.INFO, "\n\n\nThere is no scooter model nor drone model that can make this path!");
             return null;
-        else if(resultDrone == null && resultScooter == null && bestScooter.getValue() == Double.MAX_VALUE)
+        }
+        else if(resultDrone == null && resultScooter == null && bestScooter.getValue() == Double.MAX_VALUE) {
+            LOGGER.log(Level.INFO, "\n\n\nNo scooter model could make this path!");
+            LOGGER.log(Level.INFO, "\n\n\nBest drone model: " + bestDrone.getKey());
+            LOGGER.log(Level.INFO, "Best drone energetic cost: " + bestDrone.getValue());
+            LOGGER.log(Level.INFO, "Drone best path: " + dronePath + "\n\n\n");
             return new Pair<>(bestDrone, dronePath);
-        else if(resultDrone == null && resultScooter == null && bestDrone.getValue() == Double.MAX_VALUE)
+        }
+        else if(resultDrone == null && resultScooter == null && bestDrone.getValue() == Double.MAX_VALUE) {
+            LOGGER.log(Level.INFO, "\n\n\nNo drone model could make this path!");
+            LOGGER.log(Level.INFO, "\n\n\nBest scooter model: " + bestScooter.getKey());
+            LOGGER.log(Level.INFO, "Best scooter energetic cost: " + bestScooter.getValue());
+            LOGGER.log(Level.INFO, "Scooter best path: " + scooterPath + "\n\n\n");
             return new Pair<>(bestScooter, scooterPath);
+        }
         else if(resultScooter != null && resultDrone != null) {
+            LOGGER.log(Level.INFO, "\n\n\nBest scooter model: " + resultScooter.getKey().getKey());
+            LOGGER.log(Level.INFO, "Best scooter energetic cost: " + resultScooter.getKey().getValue());
+            LOGGER.log(Level.INFO, "Scooter best path: " + resultScooter.getValue() + "\n\n\n");
+            LOGGER.log(Level.INFO, "\n\n\nBest drone model: " + resultDrone.getKey().getKey());
+            LOGGER.log(Level.INFO, "Best drone energetic cost: " + resultDrone.getKey().getValue());
+            LOGGER.log(Level.INFO, "Drone best path: " + resultDrone.getValue() + "\n\n\n");
             if(resultScooter.getKey().getValue() < resultDrone.getKey().getValue())
                 return resultScooter;
             return resultDrone;
         }
-        else if(resultScooter == null) {
+        else if(resultScooter == null && resultDrone != null) {
+            LOGGER.log(Level.INFO, "\n\n\nNo scooter can make this path!");
+            LOGGER.log(Level.INFO, "\n\n\nBest drone model: " + resultDrone.getKey().getKey());
+            LOGGER.log(Level.INFO, "Best drone energetic cost: " + resultDrone.getKey().getValue());
+            LOGGER.log(Level.INFO, "Drone best path: " + resultDrone.getValue() + "\n\n\n");
             if(bestScooter.getValue() < resultDrone.getKey().getValue())
                 return new Pair<>(bestScooter, scooterPath);
             return resultDrone;
         }
-        else {
+        else if(resultScooter != null) {
+            LOGGER.log(Level.INFO, "\n\n\nNo drone can make this path!");
+            LOGGER.log(Level.INFO, "\n\n\nBest scooter model: " + resultScooter.getKey().getKey());
+            LOGGER.log(Level.INFO, "Best scooter energetic cost: " + resultScooter.getKey().getValue());
+            LOGGER.log(Level.INFO, "Scooter best path: " + resultScooter.getValue() + "\n\n\n");
             if(resultScooter.getKey().getValue() < bestDrone.getValue())
                 return resultScooter;
             return new Pair<>(bestDrone, dronePath);
         }
+        return null;
     }
 
 
@@ -416,5 +456,5 @@ public class WorldMap {
         }
         return returnValue;
     }
-    */
+
 }

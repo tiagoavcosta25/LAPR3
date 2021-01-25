@@ -3,6 +3,7 @@ package lapr.project.ui;
 import javafx.util.Pair;
 import lapr.project.controller.ApplicationPOT;
 import lapr.project.model.*;
+import lapr.project.utils.FileReader;
 
 import java.security.NoSuchAlgorithmException;
 import java.sql.Date;
@@ -11,7 +12,7 @@ import java.util.*;
 public class Test {
 
     public static void main(String[] args) throws NoSuchAlgorithmException {
-        //FileReader.readFiles();
+        FileReader.readFiles();
         ApplicationPOT.getInstance().getWorldMap().createGraph();
         WorldMap world = ApplicationPOT.getInstance().getWorldMap();
 
@@ -111,16 +112,17 @@ public class Test {
         System.out.println("---------------------------------------------\n\n\n");
         System.out.println(world.getDroneGraph().toString());
         System.out.println("---------------------------------------------\n\n\n");
-
-        //Pair<Pair<VehicleModel, Double>, List<Address>> result = world.calculateBestVehicleAndBestPath(lst);
-        //System.out.println("\n\n");
-        //VehicleModel vmResult = result.getKey().getKey();
-        //Double costResult = result.getKey().getValue();
-        //List<Address> pathResult = result.getValue();
-        //double distance = pathResult.get(0).distanceTo(pathResult.get(1));
-        //System.out.println("Modelo: " + vmResult);
-        //System.out.println("Path: " + pathResult);
-        //System.out.println("Custo: " + costResult);
+/*
+        Pair<Pair<VehicleModel, Double>, List<Address>> result = world.calculateBestVehicleAndBestPath(lst);
+        System.out.println("\n\n");
+        VehicleModel vmResult = result.getKey().getKey();
+        Double costResult = result.getKey().getValue();
+        List<Address> pathResult = result.getValue();
+        double distance = pathResult.get(0).distanceTo(pathResult.get(1));
+        System.out.println("Modelo: " + vmResult);
+        System.out.println("Path: " + pathResult);
+        System.out.println("Custo: " + costResult);
         //System.out.println("Distancia 1: " + distance);
+        */
     }
 }
