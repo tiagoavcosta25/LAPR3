@@ -1,8 +1,7 @@
 package lapr.project.ui.console;
 
-import lapr.project.controller.RegisterCourierController;
 import lapr.project.controller.StartDeliveryRunController;
-import lapr.project.utils.FileReader;
+import lapr.project.ui.FileReader;
 
 import java.util.Scanner;
 import java.util.logging.Level;

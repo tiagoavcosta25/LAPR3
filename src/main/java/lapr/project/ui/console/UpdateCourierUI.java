@@ -2,7 +2,7 @@ package lapr.project.ui.console;
 
 import lapr.project.controller.UpdateCourierController;
 import lapr.project.model.Courier;
-import lapr.project.utils.FileReader;
+import lapr.project.ui.FileReader;
 
 import java.util.Scanner;
 import java.util.logging.Level;

@@ -16,6 +16,10 @@ import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 import javax.imageio.ImageIO;
 
 public class QRCode {
+
+    private QRCode() {
+    }
+
     private static String CHARSET = "UTF-8";
     private static String FORMAT = ".png";
     private static String PATH = "src/main/resources/imgs/";

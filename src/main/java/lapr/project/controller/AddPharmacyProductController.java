@@ -2,8 +2,6 @@ package lapr.project.controller;
 
 import lapr.project.model.Pharmacy;
 import lapr.project.model.Product;
-import lapr.project.data.PharmacyDB;
-import lapr.project.data.ProductDB;
 import lapr.project.model.service.PharmacyService;
 import lapr.project.model.service.ProductService;
 
