@@ -60,11 +60,6 @@ public class DeliveryRunService {
         }
     }
 
-    public float getMaxPayload(String email) {
-        return moDeliveryDB.getMaxPayload(email);
-    }
-
-
     public Map<String, String> startDeliveryRun(String currentUserEmail) {
         return moDeliveryDB.startDeliveryRun(currentUserEmail);
     }
