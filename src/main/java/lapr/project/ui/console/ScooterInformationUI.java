@@ -1,8 +1,6 @@
 package lapr.project.ui.console;
 
-import lapr.project.controller.RemoveDroneController;
-import lapr.project.model.DeliveryRun;
-import lapr.project.model.Drone;
+import lapr.project.controller.ScooterInformationController;
 import lapr.project.model.Pharmacy;
 import lapr.project.model.Scooter;
 import lapr.project.utils.FileReader;
@@ -12,14 +10,14 @@ import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class RemoveDroneUI {
+public class ScooterInformationUI {
 
     private static final Logger LOGGER = Logger.getLogger(FileReader.class.getName());
 
     public void run() {
         try {
             Scanner sc = new Scanner(System.in);
-            RemoveDroneController oCtrl = new RemoveDroneController();
+            ScooterInformationController oCtrl = new ScooterInformationController();
             List<Pharmacy> lstPharmacies = oCtrl.showPharmacies();
 
             for (Pharmacy p : lstPharmacies) {
@@ -42,26 +40,29 @@ public class RemoveDroneUI {
                 throw new Exception();
             }
 
-            List<Drone> lstDrones = oCtrl.showDronesList(oPharmacy.getEmail());
-            for (Drone d : lstDrones) {
-                System.out.println(d.toString());
+            List<Scooter> lstScooters = oCtrl.showScootersList(oPharmacy.getEmail());
+            for (Scooter s : lstScooters) {
+                System.out.println(s.toString());
             }
 
-            System.out.println("\nChoose the Drone's ID: ");
-            Integer intDroneID = Integer.parseInt(sc.nextLine());
+            System.out.println("\nChoose the Scooter's ID: ");
+            Integer intScooterID = Integer.parseInt(sc.nextLine());
             System.out.println();
 
-            for (Drone d : lstDrones) {
-                if (d.hasId(intDroneID)) {
+            for (Scooter s : lstScooters) {
+                if (s.hasId(intScooterID)) {
                     break;
                 }
             }
 
-            if (oCtrl.removeDrone(intDroneID)) {
-                LOGGER.log(Level.INFO,"Operation was Successfull!");
-            } else LOGGER.log(Level.WARNING, "There was a problem removing the Scooter");
+            Scooter oScooter = oCtrl.getScooterInformation(intScooterID);
+
+            System.out.println("Scooter Information:");
+            System.out.print(oScooter.toString());
+
+            LOGGER.log(Level.INFO,"Operation was Successfull!");
         }catch (Exception e) {
-            LOGGER.log(Level.WARNING, "There was a problem removing the Scooter");
+            LOGGER.log(Level.WARNING, "There was a problem showing the Scooter information");
         }
     }
 }

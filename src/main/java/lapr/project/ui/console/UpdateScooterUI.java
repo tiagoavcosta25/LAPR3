@@ -13,7 +13,7 @@ import java.util.logging.Logger;
 public class UpdateScooterUI {
     private static final Logger LOGGER = Logger.getLogger(FileReader.class.getName());
 
-    public void run() throws Exception {
+    public void run() {
         try {
             Scanner sc = new Scanner(System.in);
             UpdateScooterController oCtrl = new UpdateScooterController();
