@@ -100,8 +100,8 @@ public class PharmacyTransfer {
         return moNearbyPharmacy;
     }
 
-    public void setNearbyPharmacy(Pharmacy NearbyPharmacy) {
-        this.moNearbyPharmacy = NearbyPharmacy;
+    public void setNearbyPharmacy(Pharmacy oNearbyPharmacy) {
+        this.moNearbyPharmacy = oNearbyPharmacy;
     }
 
     @Override

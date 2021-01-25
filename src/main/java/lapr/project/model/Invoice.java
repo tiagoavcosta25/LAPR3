@@ -52,16 +52,16 @@ public class Invoice {
         return mintId;
     }
 
-    public void setId(int m_intId) {
-        this.mintId = m_intId;
+    public void setId(int intId) {
+        this.mintId = intId;
     }
 
     public Date getInvoiceDate() {
         return (Date) mdtInvoiceDate.clone();
     }
 
-    public void setInvoiceDate(Date m_dtInvoiceDate) {
-        this.mdtInvoiceDate = (Date) m_dtInvoiceDate.clone();
+    public void setInvoiceDate(Date dtInvoiceDate) {
+        this.mdtInvoiceDate = (Date) dtInvoiceDate.clone();
     }
 
     public Double getTotalPrice() {
@@ -76,8 +76,8 @@ public class Invoice {
         return moOrder;
     }
 
-    public void setOrder(Order m_oOrder) {
-        this.moOrder = m_oOrder;
+    public void setOrder(Order oOrder) {
+        this.moOrder = oOrder;
     }
 
     public Map<CreditCard, Double> getPayments() {
