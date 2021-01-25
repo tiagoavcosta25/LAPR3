@@ -151,6 +151,8 @@ class MakeAnOrderControllerTest {
     void testGetAvailableProducts() {
         System.out.println("testGetAvailableProducts");
 
+        ApplicationPOT.getInstance().setCurrentSession(new UserSession("email3@gmail.com"));
+        when(mockClientService.getClientByEmail("email3@gmail.com")).thenReturn(new Client());
         List<Product> expectedListProducts = new ArrayList<>(Arrays.asList(new Product()));
 
         when(mockPharmacyService.getClosestPharmacyToClient(new Client())).thenReturn(new Pharmacy());
