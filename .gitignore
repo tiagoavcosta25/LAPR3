@@ -16,6 +16,9 @@ local.properties
 .loadpath
 .recommenders
 *.properties
+dataSources.local.xml
+dataSources.xml
+sqldialects.xml
 
 # External tool builders
 .externalToolBuilders/
