@@ -1,9 +1,7 @@
 package lapr.project.model.service;
 
-import lapr.project.controller.ApplicationPOT;
 import lapr.project.data.DeliveryDB;
 import lapr.project.data.DeliveryRunDB;
-import lapr.project.graph.map.Graph;
 import lapr.project.model.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,7 +12,6 @@ import org.mockito.Mockito;
 import static org.mockito.Mockito.when;
 
 import java.util.*;
-import java.util.concurrent.ExecutionException;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.MockitoAnnotations.initMocks;
@@ -29,14 +26,14 @@ class DeliveryRunServiceTest {
     @Mock
     private DeliveryDB m_oDeliveryDB;
     @Mock
-    private WorldMap m_oWorldMap;
+    private GraphServices m_oGraphServices;
 
     @BeforeEach
     void setUp() {
         this.m_oDeliveryRunService = new DeliveryRunService();
         this.m_oDeliveryRunDB = Mockito.mock(DeliveryRunDB.class);
         this.m_oDeliveryDB = Mockito.mock(DeliveryDB.class);
-        this.m_oWorldMap = Mockito.mock(WorldMap.class);
+        this.m_oGraphServices = Mockito.mock(GraphServices.class);
         initMocks(this);
     }
 

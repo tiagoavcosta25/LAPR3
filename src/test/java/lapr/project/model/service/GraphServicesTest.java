@@ -1,10 +1,12 @@
-package lapr.project.model;
+package lapr.project.model.service;
 
 import lapr.project.data.DeliveryRunDB;
 import lapr.project.data.PharmacyDB;
 import lapr.project.data.ProductDB;
 import lapr.project.data.VehicleDB;
 import lapr.project.graph.map.Graph;
+import lapr.project.model.*;
+import lapr.project.model.service.GraphServices;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -19,10 +21,10 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
 
-class WorldMapTest {
+class GraphServicesTest {
 
     @InjectMocks
-    private WorldMap world;
+    private GraphServices world;
 
     @Mock
     private DeliveryRunDB mockDeliveryRunDB;
@@ -35,7 +37,7 @@ class WorldMapTest {
 
     @BeforeEach
     void setUp() {
-        this.world = new WorldMap();
+        this.world = new GraphServices();
         this.mockDeliveryRunDB = Mockito.mock(DeliveryRunDB.class);
         this.mockVehicleDB = Mockito.mock(VehicleDB.class);
         this.mockPharmacyDB = Mockito.mock(PharmacyDB.class);
@@ -83,7 +85,45 @@ class WorldMapTest {
     }
 
     @Test
+    void setMoDeliveryRunDB() {
+        assertNotEquals(new ProductDB(), world.getMoDeliveryRunDB());
+
+        DeliveryRunDB dvDB = new DeliveryRunDB();
+        world.setMoDeliveryRunDB(dvDB);
+        assertEquals(dvDB, world.getMoDeliveryRunDB());
+    }
+
+    @Test
+    void setMoVehicleDB() {
+        assertNotEquals(new ProductDB(), world.getMoVehicleDB());
+
+        VehicleDB dvDB = new VehicleDB();
+        world.setMoVehicleDB(dvDB);
+        assertEquals(dvDB, world.getMoVehicleDB());
+    }
+
+    @Test
+    void setMoPharmacyDB() {
+        assertNotEquals(new ProductDB(), world.getMoPharmacyDB());
+
+        PharmacyDB dvDB = new PharmacyDB();
+        world.setMoPharmacyDB(dvDB);
+        assertEquals(dvDB, world.getMoPharmacyDB());
+    }
+
+    @Test
     void createGraph() {
+        Graph<Address, Path> tempGraphScooter = world.getScooterGraph();
+        Graph<Address, Path> tempGraphDrone = world.getDroneGraph();
+        when(mockDeliveryRunDB.getAllAddresses()).thenReturn(new ArrayList<>());
+        when(mockDeliveryRunDB.getAllPaths()).thenReturn(new ArrayList<>());
+        world.createGraph();
+        assertEquals(tempGraphScooter, world.getScooterGraph());
+        assertEquals(tempGraphDrone, world.getDroneGraph());
+
+
+
+
         List<Address> lAddresses = new ArrayList<>();
         Address a1 = new Address(10d, 10d, 2d, "", "", "", "", "");
         Address a2 = new Address(20d, 20d, 4d, "", "", "", "", "");
@@ -92,8 +132,13 @@ class WorldMapTest {
         List<Path> lPaths = new ArrayList<>();
         Path p1 = new Path(10d, 10d, 20d, 20d, "", 1d, 1d, 1d, VehicleType.SCOOTER);
         Path p2 = new Path(10d, 10d, 20d, 20d, "", 1d, 1d, 1d, VehicleType.DRONE);
+        Path p4 = new Path(10d, 10d, 20d, 20d, "", 1d, 1d, 1d, VehicleType.NOTDEFINED);
+
+        Path p3 = new Path(12d, 10d, 11d, 20d, "", 1d, 1d, 1d, VehicleType.NOTDEFINED);
         lPaths.add(p1);
         lPaths.add(p2);
+        lPaths.add(p3);
+        lPaths.add(p4);
         when(mockDeliveryRunDB.getAllAddresses()).thenReturn(lAddresses);
         when(mockDeliveryRunDB.getAllPaths()).thenReturn(lPaths);
         world.createGraph();
@@ -126,8 +171,10 @@ class WorldMapTest {
         List<Path> lPaths = new ArrayList<>();
         Path p1 = new Path(10d, 10d, 20d, 20d, "", 1d, 1d, 1d, VehicleType.SCOOTER);
         Path p2 = new Path(10d, 10d, 20d, 20d, "", 1d, 1d, 1d, VehicleType.DRONE);
+        Path p3 = new Path(11d, 10d, 20d, 20d, "", 1d, 1d, 1d, VehicleType.NOTDEFINED);
         lPaths.add(p1);
         lPaths.add(p2);
+        lPaths.add(p3);
         when(mockDeliveryRunDB.getAllAddresses()).thenReturn(lAddresses);
         when(mockDeliveryRunDB.getAllPaths()).thenReturn(lPaths);
         world.createGraph();
@@ -153,14 +200,18 @@ class WorldMapTest {
         lAddresses.add(a2);
         List<Path> lPaths = new ArrayList<>();
         Path p1 = new Path(10d, 10d, 20d, 20d, "", 1d, 1d, 1d, VehicleType.SCOOTER);
+        Path p3 = new Path(20d, 20d, 10d, 10d, "", 1d, 1d, 1d, VehicleType.SCOOTER);
+
         Path p2 = new Path(10d, 10d, 20d, 20d, "", 1d, 1d, 1d, VehicleType.DRONE);
         lPaths.add(p1);
         lPaths.add(p2);
+        lPaths.add(p3);
         when(mockDeliveryRunDB.getAllAddresses()).thenReturn(lAddresses);
         when(mockDeliveryRunDB.getAllPaths()).thenReturn(lPaths);
         world.createGraph();
         assertNotEquals(world.getPathFromAddresses(world.getScooterGraph(), a1, a2), p2);
         assertNotEquals(world.getPathFromAddresses(world.getDroneGraph(), a1, a2), p1);
+        assertNotEquals(world.getPathFromAddresses(world.getScooterGraph(), a1, a2), p3);
 
         assertEquals(world.getPathFromAddresses(world.getScooterGraph(), a1, a2), p1);
         assertEquals(world.getPathFromAddresses(world.getDroneGraph(), a1, a2), p2);

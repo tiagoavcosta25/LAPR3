@@ -1,4 +1,4 @@
-package lapr.project.model;
+package lapr.project.model.service;
 
 import javafx.util.Pair;
 import lapr.project.data.DeliveryRunDB;
@@ -7,6 +7,7 @@ import lapr.project.data.VehicleDB;
 import lapr.project.graph.map.Edge;
 import lapr.project.graph.map.Graph;
 import lapr.project.graph.map.GraphAlgorithms;
+import lapr.project.model.*;
 import lapr.project.utils.Constants;
 import lapr.project.utils.EnergyCalculator;
 import lapr.project.utils.WriteFile;
@@ -15,17 +16,17 @@ import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class WorldMap {
+public class GraphServices {
 
     private static final String DELIVERYRUNPATH = "DeliveryRunPath";
-    private static final Logger LOGGER = Logger.getLogger(WorldMap.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(GraphServices.class.getName());
     private Graph<Address, Path> moGraphScooter;
     private Graph<Address, Path> moGraphDrone;
     private DeliveryRunDB moDeliveryRunDB;
     private VehicleDB moVehicleDB;
     private PharmacyDB moPharmacyDB;
 
-    public WorldMap() {
+    public GraphServices() {
         moGraphScooter = new Graph<>(true);
         moGraphDrone = new Graph<>(true);
         moDeliveryRunDB = new DeliveryRunDB();
