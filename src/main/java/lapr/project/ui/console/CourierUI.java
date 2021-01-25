@@ -1,6 +1,7 @@
 package lapr.project.ui.console;
 
 import lapr.project.controller.LogoutController;
+import lapr.project.utils.Menu;
 
 import java.util.Scanner;
 import java.util.logging.Level;
@@ -14,24 +15,25 @@ public class CourierUI {
         int intOp;
 
         do{
-            clear();
-            displayMenu();
+            Menu.clear();
+            Menu.displayMenu("COURIER", "[1] Start Delivery Run\n[2] Park Scooter\n\n[0] Log Out");
             intOp = sc.nextInt();
 
             switch(intOp){
                 case 1: {
-                    clear();
-                    //StartDeliveryRun UI = new StartDeliveryRun();
-                    //UI.run();
+                    Menu.clear();
+                    StartDeliveryRunUI UI = new StartDeliveryRunUI();
+                    UI.run();
                     break;
                 }
                 case 2: {
-                    clear();
+                    Menu.clear();
                     ParkScooterUI UI = new ParkScooterUI();
                     UI.run();
                     break;
                 }
                 case 0: {
+                    Menu.clear();
                     LogoutController oLogOut = new LogoutController();
                     oLogOut.logout();
                     break;
@@ -41,18 +43,5 @@ public class CourierUI {
                     break;
             }
         } while (intOp != 0);
-    }
-
-    public static void displayMenu() {
-        System.out.println("****************COURIER*****************");
-        System.out.println("[1] Start Delivery Run\n[2] Park Scooter\n\n[0] Log Out");
-        System.out.println("**************************************");
-        System.out.print("Choose An Option: ");
-    }
-
-    public static void clear() {
-        for (int i = 0; i < 100; i++){
-            System.out.println();
-        }
     }
 }
