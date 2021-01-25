@@ -133,15 +133,6 @@ public class Address {
 
     @Override
     public String toString() {
-        return "Address{" +
-                "m_dblLatitude=" + mdblLatitude +
-                ", m_dblLongitude=" + mdblLongitude +
-                ", m_dblAltitude=" + mdblAltitude +
-                ", m_strStreetName='" + mstrStreetName + '\'' +
-                ", m_strDoorNumber='" + mstrDoorNumber + '\'' +
-                ", m_strPostalCode='" + mstrPostalCode + '\'' +
-                ", m_strLocality='" + mstrLocality + '\'' +
-                ", m_strCountry='" + mstrCountry + '\'' +
-                '}';
+        return  mstrStreetName;
     }
 }

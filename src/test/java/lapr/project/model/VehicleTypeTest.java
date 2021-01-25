@@ -43,9 +43,7 @@ class VehicleTypeTest {
 
     @Test
     void testToString() {
-        String expected =  "DeliveryStatus{" +
-                    "m_strDesignation='" + m_vehicleType.getDesignation() + '\'' +
-                    '}';
+        String expected =  "VehicleType{m_strDesignation='Scooter'}";
 
         String real = m_vehicleType.toString();
         assertEquals(expected,real);

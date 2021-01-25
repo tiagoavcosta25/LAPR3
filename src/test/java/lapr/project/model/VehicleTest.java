@@ -69,12 +69,7 @@ class VehicleTest {
 
     @Test
     void testToString() {
-        String expected = "Vehicle{Id=-1, BatteryPerc=100.0, Model=VehicleModel{m_intId=-1, m_strDesignation='No designation'," +
-                " m_dblPotency=-1.0, m_dblWeight=-1.0, m_dblMaxPayload=-1.0, m_oBattery=Battery{Id=-1, Efficiency=-1.0," +
-                " Battery Capacity=-1, Battery Voltage=-1.0}, m_enumVehicleType=DeliveryStatus{m_strDesignation='Not defined'}}, " +
-                "Pharmacy=Pharmacy{m_intId=-1, m_strName='No name.', m_strEmail='No email.', m_oAddress=Address{m_dblLatitude=-22.0," +
-                " m_dblLongitude=-22.0, m_dblAltitude=-1.7976931348623157E308, m_strStreetName='No Street Name', m_strDoorNumber='No Door Number', " +
-                "m_strPostalCode='No Postal Code', m_strLocality='No Locality', m_strCountry='No Country'}, m_lstParks=[], m_mapStock={}}}";
+        String expected = "Vehicle{Id=-1, BatteryPerc=100.0, Model=VehicleModel{m_intId=-1, m_strDesignation='No designation', m_dblPotency=-1.0, m_dblWeight=-1.0, m_dblMaxPayload=-1.0, m_oBattery=Battery{Id=-1, Efficiency=-1.0, Battery Capacity=-1, Battery Voltage=-1.0}, m_enumVehicleType=VehicleType{m_strDesignation='Not defined'}}, Pharmacy=Pharmacy{m_intId=-1, m_strName='No name.', m_strEmail='No email.', m_oAddress=No Street Name, m_lstParks=[], m_mapStock={}}}";
         String real = scooterTest1.toString();
         assertEquals(expected, real);
     }

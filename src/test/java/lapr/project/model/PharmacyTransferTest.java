@@ -129,6 +129,8 @@ class PharmacyTransferTest {
         oPharmacyTransfer.setId(null);
         real = oPharmacyTransfer.equals(new Order());
         assertFalse(real);
+        real = oPharmacyTransfer.equals(null);
+        assertFalse(real);
     }
 
     @Test

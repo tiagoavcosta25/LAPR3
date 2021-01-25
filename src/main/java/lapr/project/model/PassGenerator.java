@@ -1,6 +1,6 @@
 package lapr.project.model;
 
-import lapr.project.GeneratePassword;
+import lapr.project.utils.GeneratePassword;
 
 /**
  * Password Generator Method.

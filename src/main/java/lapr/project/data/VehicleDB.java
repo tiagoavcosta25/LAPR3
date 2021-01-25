@@ -90,7 +90,7 @@ public class VehicleDB extends DataHandler {
 
     }
 
-    public ArrayList<VehicleModel> getPharmacyModel(String strPharmacyEmail) {
+    public List<VehicleModel> getPharmacyModel(String strPharmacyEmail) {
 
         CallableStatement callStmt = null;
         List<VehicleModel> lstModels = new ArrayList<>();
@@ -114,12 +114,19 @@ public class VehicleDB extends DataHandler {
                 double dblBatteryVoltage = rSet.getDouble(8);
                 double dblEfficiency = rSet.getDouble(9);
                 String vehicleType = rSet.getString(10);
+                VehicleType vt;
+                if(vehicleType.equals(VehicleType.SCOOTER.getDesignation()))
+                    vt = VehicleType.SCOOTER;
+                else
+                    vt = VehicleType.DRONE;
+
 
                 lstModels.add(new VehicleModel(intId,strDesignation,dblPotency,dblWeight,dblMaxPayload,
-                        new Battery(intBatteryId,intBatteryCapacity,dblBatteryVoltage,dblEfficiency),VehicleType.valueOf(vehicleType)));
+                        new Battery(intBatteryId,intBatteryCapacity,dblBatteryVoltage,dblEfficiency),vt));
 
                 rSet.next();
             }
+            return lstModels;
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -194,6 +201,23 @@ public class VehicleDB extends DataHandler {
         } catch (SQLException e) {
             e.printStackTrace();
             return -1;
+        } finally {
+            closeAll();
+        }
+    }
+
+    public Double getEnergyByVehicleModel(int intVehicleModel) {
+        CallableStatement callStmt = null;
+        try {
+            openConnection();
+            callStmt = getConnection().prepareCall("{ ? = call getEnergyByVehicleModel(?) }");
+
+            callStmt.registerOutParameter(1, OracleTypes.INTEGER);
+            callStmt.setInt(2, intVehicleModel);
+            callStmt.execute();
+            return callStmt.getDouble(1);
+        } catch (SQLException e) {
+            throw new IllegalArgumentException("Couldn't return value.");
         } finally {
             closeAll();
         }

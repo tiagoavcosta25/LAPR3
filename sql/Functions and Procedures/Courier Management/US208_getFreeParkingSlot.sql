@@ -1,20 +1,14 @@
-CREATE OR REPLACE FUNCTION getFreeParkingSlot(intId IN SCOOTER.VEHICLEID%TYPE) RETURN INT
+create or replace FUNCTION getFreeParkingSlot(intId IN SCOOTER.VEHICLEID%TYPE) RETURN INT
     IS
     rf_cur SYS_REFCURSOR;
     park_id PARK.ID%TYPE;
     parkingSlot_id PARKINGSLOT.ID%TYPE := -1;
-    battery_percentage BATTERY.BATTERYPERC%TYPE;
+    battery_percentage VEHICLE.BATTERYPERC%TYPE;
 
 BEGIN
 
-    SELECT b.BATTERYPERC INTO battery_percentage
-    FROM BATTERY b
-    INNER JOIN(
-        SELECT v.BATTERYID
-        FROM VEHICLE v
-        WHERE v.ID = intId
-        )bv
-    on bv.BATTERYID = b.ID;
+    SELECT BATTERYPERC INTO battery_percentage
+    FROM VEHICLE;
 
     OPEN rf_cur FOR
         SELECT p.ID
