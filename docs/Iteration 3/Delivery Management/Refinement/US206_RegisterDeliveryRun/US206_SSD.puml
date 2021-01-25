@@ -11,7 +11,7 @@ activate U
 U -> SYST : Initiates the registration of a delivery run
 activate SYST
 
-SYST --> U: Asks for a list of order ids
+SYST --> U: Asks for a list of orders
 
 deactivate SYST
 

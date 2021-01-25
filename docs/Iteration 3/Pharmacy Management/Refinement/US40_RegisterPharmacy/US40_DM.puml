@@ -1,0 +1,65 @@
+@startuml
+skinparam classAttributeIconSize 0
+hide methods
+left to right direction
+
+database Database {
+}
+
+class Pharmacy{
+-   int id
+-   String name
+-   String email
+}
+
+class ScooterPark{
+-   int maxSlotsNumber
+}
+
+class ScooterChargingSlot{
+-   int id
+-   float outputPower
+}
+
+class ScooterParkingSlot{
+-   int id
+}
+
+class DronePark{
+-   int maxSlotsNumber
+}
+
+class DroneChargingSlot{
+-   int id
+-   float outputPower
+}
+
+class DroneParkingSlot{
+-   int id
+}
+class Address{
+-   String streetName
+-   String doorNumber
+-   String postalCode
+-   String locality
+-   String country
+-   float longitude
+-   float latitude
+}
+
+Database "1" -- "*" Pharmacy : has registered >
+Database "1" -- "*" Address : has registered >
+Database "1" -- "*" DronePark : has registered >
+Database "1" -- "*" DroneChargingSlot : has registered >
+Database "1" -- "*" DroneParkingSlot : has registered >
+Database "1" -- "*" ScooterPark : has registered >
+Database "1" -- "*" ScooterChargingSlot : has registered >
+Database "1" -- "*" ScooterParkingSlot : has registered >
+Pharmacy "1" -- "1" DronePark : has >
+DronePark "1" -- "1" DroneChargingSlot : has >
+DronePark "1" -- "1" DroneParkingSlot : has >
+Pharmacy "1" -- "1" ScooterPark : has >
+ScooterPark "1" -- "1" ScooterChargingSlot : has >
+ScooterPark "1" -- "1" ScooterParkingSlot : has >
+Pharmacy "1" -- "1" Address : has >
+@enduml

@@ -1,12 +1,12 @@
 @startuml
 autonumber
-actor "Courier" as CR
+actor "Admin" as ADM
 
-activate CR
-CR -> ":System" : wants to see the scooters available
+activate ADM
+ADM -> ":System" : wants to see the the best type of vehicle for an order
 activate ":System"
-":System" --> CR : presents the information about the available scooters
+":System" --> ADM : shows the best vehicle type for an order
 deactivate ":System"
 
-deactivate CR
+deactivate ADM
 @enduml
