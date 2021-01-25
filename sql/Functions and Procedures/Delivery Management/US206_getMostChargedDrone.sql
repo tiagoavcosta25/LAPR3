@@ -14,9 +14,13 @@ begin
                                from VEHICLE v1
                                         inner join VehicleModel v2 on v1.MODELID = v2.ID
                                where v2.DESIGNATION = p_vehicleModelDesignation
-                                 and v2.VEHICLETYPE = 'Drone');
+                                 and v2.VEHICLETYPE = 'Drone')
+            FETCH FIRST ROW ONLY;
 
 
     return v_curs;
 
+EXCEPTION
+    when no_data_found then
+        return null;
 end;

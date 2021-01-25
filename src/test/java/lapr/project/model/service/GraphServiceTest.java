@@ -312,7 +312,7 @@ class GraphServiceTest {
     void checkIfInList3Times() {
         List<Address> addresses = new ArrayList<>();
         Address a1 = new Address(20d, 20d, 4d, "", "", "", "", "");
-        Address a2 = new Address(20d, 20d, 4d, "", "", "", "", "");
+        Address a2 = new Address(30d, 20d, 4d, "", "", "", "", "");
         assertFalse(world.checkIfInListThreeTimes(a1, addresses));
 
         addresses.add(a1);
@@ -329,7 +329,7 @@ class GraphServiceTest {
         addresses.add(a1);
         assertTrue(world.checkIfInListThreeTimes(a1, addresses));
 
-        assertTrue(world.checkIfInListThreeTimes(a2, addresses));
+        assertFalse(world.checkIfInListThreeTimes(a2, addresses));
     }
 
     //TODO:ACABAR ESTE
@@ -550,8 +550,6 @@ class GraphServiceTest {
         lstPermutation.add(bolhao);
 
         List<LinkedList<Address>> permutations = world.calculatePermutations(lstPermutation);
-
-        List<Pair<LinkedList<Address>, Double>> result = world.calculatePermutationPaths(world.getScooterGraph(), trindade, trindade, permutations);
 
         List<Address> finalResult = new LinkedList<>();
         finalResult.add(trindade);

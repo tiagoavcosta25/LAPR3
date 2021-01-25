@@ -1,0 +1,117 @@
+@startuml
+skinparam classAttributeIconSize 0
+hide methods
+left to right direction
+
+database database {
+}
+
+class Address{
+  -Double longitude
+  -Double latitude
+  -String doorNumber
+  -String streetName
+  -String postalCode
+  -String locality
+  -String country
+}
+
+class CreditCard{
+-Long creditCardNr;
+-String validityDate;
+-Integer CCV;
++CreditCard(creditCardNr,validityDate,CCV)
+}
+
+class Client{
+-String credits
+}
+
+class Pharmacy {
+  -int id
+  -String name
+-   String email
+}
+
+class Park{
+-   int maxSlotsNumber
+-   double totalOutputCorrent
+}
+
+class ChargingSlot{
+-   int id
+}
+
+class NonChargingSlot{
+-   int id
+}
+
+class ParkingSlot{
+-   int id
+}
+
+
+class Courier {
+      -String iban
+}
+
+class VehicleModel{
+  -int id
+  -String desigantion
+  -double potency
+  -double weight
+  -double maxPayload
+}
+
+class VehicleType{
+  -String desigantion
+}
+class Vehicle {
+-int id
+-String vehicleType
+-float potency
+-float potency
+-float weight
+-float maxPayload
+}
+
+class Battery{
+-float batteryPerc
+-float batteryCapacity
+-float batteryVoltage
+}
+
+class Scooter{
+}
+
+class Drone{
+}
+
+abstract class User{
+-Integer id
+-String email
+-String password
+-Integer nif
+-String name
+}
+
+database "1" -- "*" Courier : has registered >
+Courier "1" -- "*" Pharmacy : is associated to >
+Pharmacy "1" -- "1" Park : has >
+Pharmacy "1" -- "*" Vehicle : has >
+Vehicle "1" -- "1" Battery : has >
+Scooter "1" -- "1" Vehicle : is a >
+Drone "1" -- "1" Vehicle : is a >
+Park "1" -- "1" ChargingSlot : has >
+Park "1" -- "1" ParkingSlot : has >
+Vehicle "1" -- "1" ChargingSlot : belongs to >
+Vehicle "1" -- "1" ParkingSlot : belongs to >
+
+database "1" -- "*" Client : has registered
+database "1" -- "*" Address : has registered
+database "1" -- "*" CreditCard : has registered
+Client "1" -- "1" Address : has
+Client "*" -- "*" CreditCard : has
+
+
+@enduml

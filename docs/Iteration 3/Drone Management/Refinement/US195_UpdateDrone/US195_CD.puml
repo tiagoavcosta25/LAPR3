@@ -11,45 +11,53 @@ class UpdateDroneUI{
 
 package "Controller" #DDDDDD {
 class UpdateDroneController{
-+validate(batteryPercentage, pharmacyId,potency,\nweight, batteryCapacity, maxPayload, batteryVoltage, \nchargingStatus,droneId)
-+updateDrone(batteryPercentage, pharmacyId,potency,\nweight, batteryCapacity, maxPayload, batteryVoltage, \nchargingStatus,droneId)
++showPharmacies()
++showDronesList(pharmacyId)
++updateDrone(drone)
 }
 }
 
 
 package "Model" #DDDDDD {
  package "Service" #DDDDDD {
+  class PharmacyService{
+      +PharmacyService()
+      +getPharmacies()
+  }
 
   class DroneService{
       +DroneService()
-+validate(batteryPercentage, pharmacyId,potency,\nweight, batteryCapacity, maxPayload, batteryVoltage, \nchargingStatus, droneId)
-updateDrone(batteryPercentage, pharmacyId,potency,\nweight, batteryCapacity, maxPayload, batteryVoltage, \nchargingStatus, droneId)
+      +getDronesList(pharmacyId)
+      +updateDrone(designation, potency, weight, maxPayload,\nbatteryCapacity, batteryVoltage, efficiency)
    }
 }
 
 package "Model" #DDDDDD {
-class DronePark{
+class Park{
 -   int maxSlotsNumber
 }
 
-class DroneChargingSlot{
+class ChargingSlot{
 -   int id
 -   float outputPower
 }
 
-class DroneParkingSlot{
+class ParkingSlot{
 -   int id
 }
 
 class Drone{
++Drone(batteryPerc, charginStatus, potency,\n weight, batteryCapacity, maxPayload, batteryVoltage, pharmacyId)
 
 }
 
 class Vehicle{
   -int id
+  -String vehicleType
   -float potency
   -float weight
   -float maxPayload
+  -String charngingStatus
 }
 
 class Battery{
@@ -60,8 +68,8 @@ class Battery{
 }
 
 class Address{
-  -Double longitude
-  -Double latitude
+  -double longitude
+  -double latitude
   -String doorNumber
   -String streetName
   -String postalCode
@@ -72,6 +80,7 @@ class Address{
 class Pharmacy {
   -int id
   -String name
+-   String email
   +getScootersList()
 }
 }
@@ -82,28 +91,40 @@ class DataHandler{
     +openConnection()
     +closeAll()
 }
+class PharmacyDB{
+     +PharmacyDB()
+     +getPharmacies()
+ }
 
  class DroneDB{
      +DroneDB()
-+updateDrone(batteryPercentage, pharmacyId,potency,\nweight, batteryCapacity, maxPayload, batteryVoltage, \nchargingStatus, droneId)
+     +getDronesList()
+     +updateDroneFromDB(designation, potency, weight, maxPayload,\nbatteryCapacity, batteryVoltage, efficiency)
   }
 }
 
+class PharmacyDB extends DataHandler
 class DroneDB extends DataHandler
 
 UpdateDroneUI ..> UpdateDroneController
+UpdateDroneController ..> PharmacyService
 UpdateDroneController ..> DroneService
+Database "1" --> "1" PharmacyDB : manages
 Database "1" --> "1" DroneDB : manages
+DroneService "1" --> "*" PharmacyDB : uses
+PharmacyService "1" --> "*" DroneDB : uses
+PharmacyService "1" --> "*" Pharmacy : manage services of
 DroneService "1" --> "*" Drone : manage services of
 
+Database "1" -- "*" Pharmacy : has registered >
 Database "1" -- "*" Drone : has registered >
 
 Vehicle "1" -- "1" Battery : has >
+Vehicle "*" -- "1" Pharmacy : belongs to a >
 Drone "*" -- "1" Vehicle : is a type of >
-Drone "*" -- "1" Pharmacy : belongs to >
 Pharmacy "1" -- "1" Address : has >
-Pharmacy "1" -- "1" DronePark : has >
-DronePark "1" -- "1" DroneChargingSlot : has >
-DronePark "1" -- "1" DroneParkingSlot : has >
+Pharmacy "1" -- "1" Park : has >
+Park "1" -- "1" ChargingSlot : has >
+Park "1" -- "1" ParkingSlot : has >
 
 @enduml

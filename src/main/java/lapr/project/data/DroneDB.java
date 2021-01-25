@@ -37,26 +37,25 @@ public class DroneDB extends DataHandler {
         throw new IllegalArgumentException("No Scooter with ID:" + id);
     }
 
-    public boolean updateDrone(Float percentage, String pharmacyEmail, Float potency, Float weight, Double batteryCapacity,
-                               Float maxPayload, Float batteryVoltage, String chargingStatus, Integer droneId) {
+    public boolean updateDroneFromDB(int intId, double dblBatteryPerc, String strDesignation, double dblPotency, double dblWeight, double dblMaxPayload,
+                                       int intBatteryCapacity, double dblBatteryVoltage, double dblEfficiency) {
         try {
             openConnection();
             CallableStatement callStmt = getConnection().prepareCall("{call updateDrone(?,?,?,?,?,?,?,?,?)}");
 
-            callStmt.setFloat(1, percentage);
-            callStmt.setString(2, pharmacyEmail);
-            callStmt.setFloat(3, potency);
-            callStmt.setFloat(4, weight);
-            callStmt.setDouble(5, batteryCapacity);
-            callStmt.setFloat(6, maxPayload);
-            callStmt.setFloat(7, batteryVoltage);
-            callStmt.setString(8, chargingStatus);
-            callStmt.setInt(9, droneId);
+            callStmt.setInt(1, intId);
+            callStmt.setDouble(2, dblBatteryPerc);
+            callStmt.setString(3, strDesignation);
+            callStmt.setDouble(4, dblPotency);
+            callStmt.setDouble(5, dblWeight);
+            callStmt.setDouble(6, dblMaxPayload);
+            callStmt.setInt(7, intBatteryCapacity);
+            callStmt.setDouble(8, dblBatteryVoltage);
+            callStmt.setDouble(9, dblEfficiency);
 
             callStmt.execute();
 
         } catch (SQLException e) {
-            e.printStackTrace();
             return false;
         } finally {
             closeAll();
@@ -90,7 +89,7 @@ public class DroneDB extends DataHandler {
         }
     }
 
-    public List<Drone> getDronesList(int intPharmacyId) {
+    public List<Drone> getDronesList(String strPharmacyEmail) {
 
         CallableStatement callStmt = null;
         List<Drone> lstDrone = new ArrayList<>();
@@ -99,7 +98,7 @@ public class DroneDB extends DataHandler {
             callStmt = getConnection().prepareCall("{ ? = call getDronesList(?) }");
 
             callStmt.registerOutParameter(1, oracle.jdbc.internal.OracleTypes.CURSOR);
-            callStmt.setInt(2, intPharmacyId);
+            callStmt.setString(2, strPharmacyEmail);
             callStmt.execute();
             ResultSet rSet = (ResultSet) callStmt.getObject(1);
 

@@ -187,6 +187,25 @@ public class DeliveryRunDB extends DataHandler {
         }
     }
 
+    public boolean checkValidChargingSlot(Address oAddress) {
+        try {
+            openConnection();
+
+            CallableStatement callStmt = getConnection().prepareCall("{ ? = call checkValidChargingSlot(?,?) }");
+
+            callStmt.setDouble(2,oAddress.getLatitude());
+            callStmt.setDouble(3,oAddress.getLongitude());
+            callStmt.registerOutParameter(1, OracleTypes.INTEGER);
+            callStmt.execute();
+
+            return callStmt.getInt(1) != 0;
+        } catch (SQLException e) {
+            return false;
+        } finally {
+            closeAll();
+        }
+    }
+
     public List<Address> getAddressesByDeliveryRunId(String email) {
         CallableStatement callStmt = null;
         try {

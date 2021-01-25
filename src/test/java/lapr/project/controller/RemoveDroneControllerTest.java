@@ -54,22 +54,22 @@ class RemoveDroneControllerTest {
     @Test
     void showDronesList() {
         System.out.println("showDronesList");
-        when(m_mockDroneService.getDronesList(1)).thenReturn(new ArrayList<>());
-        List<Drone> result = m_ctrl.showDronesList(1);
+        when(m_mockDroneService.getDronesList("email")).thenReturn(new ArrayList<>());
+        List<Drone> result = m_ctrl.showDronesList("email");
         assertEquals(new ArrayList<>(),result);
 
-        when(m_mockDroneService.getDronesList(1)).thenReturn(null);
-        result = m_ctrl.showDronesList(1);
+        when(m_mockDroneService.getDronesList("email")).thenReturn(null);
+        result = m_ctrl.showDronesList("email");
         assertNull(result);
 
         List<Drone> aux = new ArrayList<>();
         aux.add(new Drone());
-        when(m_mockDroneService.getDronesList(1)).thenReturn(aux);
-        result = m_ctrl.showDronesList(1);
+        when(m_mockDroneService.getDronesList("email")).thenReturn(aux);
+        result = m_ctrl.showDronesList("email");
         assertEquals(aux,result);
 
-        when(m_mockDroneService.getDronesList(-2)).thenThrow(new IllegalArgumentException());
-        result = m_ctrl.showDronesList(-2);
+        when(m_mockDroneService.getDronesList("emailTest")).thenThrow(new IllegalArgumentException());
+        result = m_ctrl.showDronesList("emailTest");
         assertNull(result);
     }
 

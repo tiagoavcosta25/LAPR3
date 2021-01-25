@@ -1,32 +1,34 @@
-create or replace PROCEDURE updateDrone(p_percentage
-    BATTERY.BATTERYPERC%type, p_pharmacyEmail PHARMACY.EMAIL%type,
-                            p_potency VEHICLE.potency%type, p_weight VEHICLE.weight%type, p_batteryCapacity BATTERY.BATTERYCAPACITY%type,
-                            p_maxPayload VEHICLE.MAXPAYLOAD%type, p_batteryVoltage BATTERY.BATTERYVOLTAGE%type,
-                            p_ChargingStatus VEHICLE.chargingStatus%type, p_droneId VEHICLE.id%type
-                            ) IS
-    v_pharId PHARMACY.id%type;
-    v_batteryId BATTERY.id%type;
+create or replace PROCEDURE updateDrone(p_droneId IN VEHICLE.ID%TYPE, p_batteryPerc IN VEHICLE.BATTERYPERC%TYPE,
+                                        p_designation IN VEHICLEMODEL.DESIGNATION%type, p_potency IN VEHICLEMODEL.POTENCY%TYPE,
+                                        p_weight IN VEHICLEMODEL.WEIGHT%TYPE, p_maxPayload IN VEHICLEMODEL.MAXPAYLOAD%TYPE,
+                                        p_batteryCapacity IN BATTERY.BATTERYCAPACITY%TYPE, p_batteryVoltage IN BATTERY.BATTERYVOLTAGE%TYPE,
+                                        p_batteryEfficiency IN BATTERY.EFFICIENCY%TYPE)
+IS
+    v_batteryId BATTERY.ID%type;
+
 BEGIN
 
-    select id
-    into v_pharId
-    from PHARMACY
-    where PHARMACY.EMAIL = p_pharmacyEmail;
-
-
-
-    UPDATE VEHICLE
-    SET PHARMACYID = v_pharId,POTENCY = p_potency,WEIGHT = p_weight
-     ,MAXPAYLOAD = p_maxPayload, CHARGINGSTATUS = p_ChargingStatus
-    WHERE ID = p_droneId;
-
-    SELECT BATTERYID INTO v_batteryId
-    from VEHICLE v
-    where v.ID = p_droneId;
-
+    SELECT B.ID
+    INTO v_batteryId
+    FROM BATTERY B
+        INNER JOIN VEHICLEMODEL VM on B.ID = VM.BATTERYID
+        INNER JOIN VEHICLE V on VM.ID = V.MODELID
+    WHERE V.ID = p_droneId;
 
     UPDATE BATTERY
-    SET BATTERYPERC = p_percentage, BATTERYCAPACITY = p_batteryCapacity, BATTERYVOLTAGE = p_batteryVoltage
-    where BATTERY.ID = v_batteryId ;
+    SET BATTERYCAPACITY = p_batteryCapacity,
+        BATTERYVOLTAGE = p_batteryVoltage,
+        EFFICIENCY = p_batteryEfficiency
+    WHERE ID = v_batteryId;
 
+    UPDATE VEHICLEMODEL
+    SET DESIGNATION = p_designation,
+        POTENCY = p_potency,
+        WEIGHT = p_weight,
+        MAXPAYLOAD = p_maxPayload
+    WHERE ID = p_droneId;
+
+    UPDATE VEHICLE
+    SET BATTERYPERC = p_batteryPerc
+    WHERE ID = p_droneId;
 end;

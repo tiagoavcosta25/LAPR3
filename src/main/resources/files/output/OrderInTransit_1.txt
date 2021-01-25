@@ -1,0 +1,10 @@
+______________________________________________________________________________________
+Dear costumer, I'm sorry to inform you but the products: 
+{Product{m_intId=2, m_strName='Ben-u-ron', m_strDescription='Keep this away from children', m_fltUnitaryPrice=3.0, m_fltUnitaryWeight=1.0}=1}
+ are out of Stock in our Pharmacy. We will send it to you as soon as possible from another one of our providers.
+
+______________________________________________________________________________________
+
+Thank you for choosing us.
+King regards,
+Pharmacy Service G21.

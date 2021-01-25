@@ -8,19 +8,24 @@ participant ":System" as SYST
 
 activate ADMIN
 
-
-ADMIN -> SYST : Engages the "update drone information" feature/button
+ADMIN -> SYST : Sends a request regarding the update of an electric drone's data
 activate SYST
-SYST --> ADMIN : Asks for all the information required \nfor the update (i.e. battery percentage, pharmacy,potency,\nweight, batteryCapacity, maxPayload, batteryVoltage, \nchargingStatus)
+SYST --> ADMIN : Shows the list of pharmacies and asks to choose one
+deactivate SYST
+ADMIN -> SYST : Chooses the pharmacy
+activate SYST
+SYST --> ADMIN : Shows the list of drones and asks to choose one
+deactivate SYST
+ADMIN -> SYST : Chooses the drone
+activate SYST
+SYST -> ADMIN : Shows the information about the drone, asking to update
 deactivate SYST
 
-ADMIN -> SYST : Fills all the information required
+ADMIN -> SYST : Updates the information
 activate SYST
-
-SYST --> ADMIN : Validates, presents the data and asks for a confirmation
+SYST -> ADMIN : Validates all the information, informing of the success of the operation
 deactivate SYST
 
-
-deactivate U
+deactivate ADMIN
 
 @enduml

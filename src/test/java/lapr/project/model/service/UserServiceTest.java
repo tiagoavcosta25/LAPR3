@@ -1,6 +1,8 @@
 package lapr.project.model.service;
 
+import lapr.project.controller.ApplicationPOT;
 import lapr.project.data.UserDB;
+import lapr.project.model.UserSession;
 import lapr.project.utils.EncryptPassword;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -46,6 +48,7 @@ class UserServiceTest {
 
     @Test
     void newUserSession() {
+        ApplicationPOT.getInstance().setCurrentSession(new UserSession());
         assertTrue(m_service.newUserSession());
     }
 }

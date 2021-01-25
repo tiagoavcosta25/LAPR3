@@ -3,9 +3,9 @@ autonumber
 actor "Administrator" as ADM
 
 activate ADM
-ADM -> ":System" : initializes the update of a new Courier
+ADM -> ":System" : initializes the remove of a Courier
 activate ":System"
-":System" --> ADM : asks for the courier's id
+":System" --> ADM : asks for the courier's email
 deactivate ":System"
 
 

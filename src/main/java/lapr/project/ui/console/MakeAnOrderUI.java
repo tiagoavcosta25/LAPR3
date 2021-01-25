@@ -7,66 +7,11 @@ import lapr.project.model.*;
 import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class MakeAnOrderUI{
 
-    public boolean runFile(String[] columns){
-        MakeAnOrderController oCtrl = new MakeAnOrderController();
-
-        ApplicationPOT.getInstance().setCurrentSession(new UserSession(columns[0].trim()));
-
-        List<Pharmacy> lstPharmacies = oCtrl.getPharmacies();
-        Pharmacy oPharmacy = null;
-
-        for(Pharmacy p : lstPharmacies){
-            if(p.hasEmail(columns[3].trim())){
-                oPharmacy = p;
-                break;
-            }
-        }
-
-        List<Product> lstProducts = oCtrl.getAvailableProducts(oPharmacy);
-
-        int startingCCIndex = -1;
-        Product oProduct;
-        for(int i = 4; i < columns.length; i += 2){
-            oProduct = null;
-            for(Product p : lstProducts){
-                if(p.hasName(columns[i].trim())){
-                    oProduct = p;
-                    break;
-                }
-            }
-            if(oProduct == null){
-                startingCCIndex = i;
-                break;
-            }
-            oCtrl.addProductToOrder(oProduct, Integer.parseInt(columns[i + 1].trim()));
-        }
-
-        List<CreditCard> lstCCs = oCtrl.getCreditCardsByClient();
-
-        if(startingCCIndex != -1){
-            CreditCard oCreditCard;
-            for(int i = startingCCIndex; i < columns.length; i += 2){
-                oCreditCard = null;
-                for(CreditCard c : lstCCs){
-                    if(c.hasNumber(Long.parseLong(columns[i].trim()))){
-                        oCreditCard = c;
-                        break;
-                    }
-                }
-                oCtrl.addPayment(oCreditCard, Double.parseDouble(columns[i + 1].trim()));
-            }
-
-            oCtrl.newOrder(columns[1].trim(), Boolean.valueOf(columns[2].trim()));
-
-            if (oCtrl.registerOrder()) {
-                return true;
-            }else return false;
-        }
-        return false;
-    }
+    private static final Logger LOGGER = Logger.getLogger(MakeAnOrderUI.class.getName());
 
     public void run(){
         try{
@@ -193,11 +138,11 @@ public class MakeAnOrderUI{
 
                 if(strCheck.equalsIgnoreCase("Y")){
                     if(oCtrl.registerOrder()){
-                        System.out.println("Operation was successful. Order Registered.");
+                        LOGGER.log(Level.INFO, "Order Registered with success.");
                         oCtrl.generateInvoice();
                         flag = true;
                     } else {
-                        System.out.println("Something went wrong, try again. Order not Registered. If you need any help, please contact us using help@teamlisa.com.");
+                        LOGGER.log(Level.INFO,"Something went wrong, try again. Order not Registered. If you need any help, please contact us using help@teamlisa.com.");
                         flag = false;
                     }
                 } else{
@@ -206,7 +151,7 @@ public class MakeAnOrderUI{
             } while(!flag);
 
         } catch (Exception e){
-            e.printStackTrace();
+            LOGGER.log(Level.INFO,"Something went wrong, try again. Order not Registered. If you need any help, please contact us using help@teamlisa.com.");
         }
     }
 }

@@ -157,6 +157,42 @@ public class PharmacyDB extends DataHandler {
         throw new IllegalArgumentException("No Pharmacies Avaliable.");
     }
 
+    public List<Order> getOrdersByPharmacyEmail(Pharmacy oPharmacy) {
+        try {
+            openConnection();
+            CallableStatement callStmt = getConnection().prepareCall("{ ? = call getOrdersByPharmacyEmail(?) }");
+
+            callStmt.setString(2, oPharmacy.getEmail());
+            callStmt.registerOutParameter(1, OracleTypes.CURSOR);
+
+            callStmt.execute();
+
+            ResultSet rSet = (ResultSet) callStmt.getObject(1);
+            List<Order> lstOrders = new ArrayList<>();
+            while (rSet.next()) {
+                Order oOrder = orderManager(rSet, 1);
+
+                callStmt = getConnection().prepareCall("{ ? = call getProductsByOrder(?) }");
+                callStmt.registerOutParameter(1, OracleTypes.CURSOR);
+                callStmt.setInt(2, oPharmacy.getId());
+
+                callStmt.execute();
+
+                ResultSet rSetProducts = (ResultSet) callStmt.getObject(1);
+
+                while (rSetProducts.next()) {
+                    oOrder = orderProductManager(rSetProducts, 1, oOrder);
+                }
+                lstOrders.add(oOrder);
+            }
+            return lstOrders;
+
+        } catch (SQLException | NoSuchAlgorithmException e) {
+            return null;
+        } finally {
+            closeAll();
+        }
+    }
 
 
     public List<Pharmacy> getPharmaciesWithStock(Order oOrder, Product oProduct, Integer intQuantity) {
