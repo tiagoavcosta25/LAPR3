@@ -1,17 +1,17 @@
 package lapr.project.controller;
 
 import lapr.project.model.UserSession;
-import lapr.project.model.WorldMap;
+import lapr.project.model.service.GraphServices;
 
 public class ApplicationPOT {
 
     private UserSession moCurrentSession;
-    private WorldMap moWorldMap;
+    private GraphServices moGraphServices;
 
     private static ApplicationPOT singleton = null;
 
     public ApplicationPOT() {
-        moWorldMap = new WorldMap();
+        moGraphServices = new GraphServices();
     }
 
     public static ApplicationPOT getInstance()
@@ -44,8 +44,8 @@ public class ApplicationPOT {
 
     public void clearCurrentSession() { moCurrentSession = null; }
 
-    public WorldMap getWorldMap() {
-        return moWorldMap;
+    public GraphServices getWorldMap() {
+        return moGraphServices;
     }
 
 }

@@ -1,31 +1,32 @@
-package lapr.project.model;
+package lapr.project.model.service;
 
 import javafx.util.Pair;
-import lapr.project.controller.RegisterProductController;
 import lapr.project.data.DeliveryRunDB;
 import lapr.project.data.PharmacyDB;
 import lapr.project.data.VehicleDB;
 import lapr.project.graph.map.Edge;
 import lapr.project.graph.map.Graph;
 import lapr.project.graph.map.GraphAlgorithms;
+import lapr.project.model.*;
 import lapr.project.utils.Constants;
 import lapr.project.utils.EnergyCalculator;
+import lapr.project.utils.WriteFile;
 
-import javax.sound.sampled.Line;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class WorldMap {
+public class GraphServices {
 
-    private static final Logger LOGGER = Logger.getLogger(WorldMap.class.getName());
+    private static final String DELIVERYRUNPATH = "DeliveryRunPath";
+    private static final Logger LOGGER = Logger.getLogger(GraphServices.class.getName());
     private Graph<Address, Path> moGraphScooter;
     private Graph<Address, Path> moGraphDrone;
     private DeliveryRunDB moDeliveryRunDB;
     private VehicleDB moVehicleDB;
     private PharmacyDB moPharmacyDB;
 
-    public WorldMap() {
+    public GraphServices() {
         moGraphScooter = new Graph<>(true);
         moGraphDrone = new Graph<>(true);
         moDeliveryRunDB = new DeliveryRunDB();
@@ -47,6 +48,30 @@ public class WorldMap {
 
     public Graph<Address, Path> getDroneGraph() {
         return moGraphDrone;
+    }
+
+    public void setMoDeliveryRunDB(DeliveryRunDB moDeliveryRunDB) {
+        this.moDeliveryRunDB = moDeliveryRunDB;
+    }
+
+    public void setMoVehicleDB(VehicleDB moVehicleDB) {
+        this.moVehicleDB = moVehicleDB;
+    }
+
+    public void setMoPharmacyDB(PharmacyDB moPharmacyDB) {
+        this.moPharmacyDB = moPharmacyDB;
+    }
+
+    public DeliveryRunDB getMoDeliveryRunDB() {
+        return moDeliveryRunDB;
+    }
+
+    public VehicleDB getMoVehicleDB() {
+        return moVehicleDB;
+    }
+
+    public PharmacyDB getMoPharmacyDB() {
+        return moPharmacyDB;
     }
 
     /**
@@ -103,7 +128,7 @@ public class WorldMap {
         return null;
     }
 
-    public LinkedList<Path> getListOfPaths(Graph<Address, Path> g) {
+    public List<Path> getListOfPaths(Graph<Address, Path> g) {
         LinkedList<Path> paths = new LinkedList<>();
         for(Edge<Address, Path> edge : g.edges())
             paths.add(edge.getElement());
@@ -111,7 +136,7 @@ public class WorldMap {
     }
 
     public Path getPathFromAddresses(Graph<Address, Path> g, Address addA, Address addB) {
-        LinkedList<Path> paths = getListOfPaths(g);
+        List<Path> paths = getListOfPaths(g);
         for(Path path : paths) {
             if(path.getLatitudeA() == addA.getLatitude() && path.getLongitudeA() == addA.getLongitude() &&
                     path.getLatitudeB() == addB.getLatitude() && path.getLongitudeB() == addB.getLongitude())
@@ -216,21 +241,22 @@ public class WorldMap {
             deliveryPoints.add(o.getClient().getAddress());
         }
 
-        LinkedList<Address> scooterPath = calculateMostEfficientPath(VehicleType.SCOOTER, pharmacy.getAddress(),
+        List<Address> scooterPath = calculateMostEfficientPath(VehicleType.SCOOTER, pharmacy.getAddress(),
                 pharmacy.getAddress(), deliveryPoints);
-        LinkedList<Address> dronePath = calculateMostEfficientPath(VehicleType.DRONE, pharmacy.getAddress(),
+        List<Address> dronePath = calculateMostEfficientPath(VehicleType.DRONE, pharmacy.getAddress(),
                 pharmacy.getAddress(), deliveryPoints);
 
         Pair<VehicleModel, Double> bestScooter = getBestPossibleModel(scooterList, scooterPath, orderList);
         Pair<VehicleModel, Double> bestDrone = getBestPossibleModel(droneList, dronePath, orderList);
 
+        String body;
         if(bestScooter.getValue() != Double.MAX_VALUE && bestDrone.getValue() != Double.MAX_VALUE) {
-            LOGGER.log(Level.INFO, "\n\n\nBest scooter model: " + bestScooter.getKey());
-            LOGGER.log(Level.INFO, "Best scooter energetic cost: " + bestScooter.getValue());
-            LOGGER.log(Level.INFO, "Scooter best path: " + scooterPath + "\n\n\n");
-            LOGGER.log(Level.INFO, "\n\n\nBest drone model: " + bestDrone.getKey());
-            LOGGER.log(Level.INFO, "Best drone energetic cost: " + bestDrone.getValue());
-            LOGGER.log(Level.INFO, "Drone best path: " + dronePath + "\n\n\n");
+            body = String.format("\n\n\nBest scooter model: %s\nBest scooter energetic cost: %.2f" +
+                    "\nScooter best path: %s\n\n\nBest drone model: %s\nBest drone energetic cost: %.2f" +
+                    "\nDrone best path: %s",bestScooter.getKey(),bestScooter.getValue(),scooterPath,bestDrone.getKey(),
+                    bestDrone.getValue(),dronePath);
+            LOGGER.log(Level.INFO, body);
+            WriteFile.write(DELIVERYRUNPATH,body);
             if(bestScooter.getValue() < bestDrone.getValue()) {
                 return new Pair<>(bestScooter, scooterPath);
             }
@@ -248,50 +274,58 @@ public class WorldMap {
                     pharmacy.getAddress(), pharmacy.getAddress(), droneList, orderList);
         }
         //IN CASE WITHOUT PHARMACIES IN CONSIDERATION DOESNT WORK, CALCULATE WITH PHARMACIES
+
         if(resultDrone == null && resultScooter == null && bestScooter.getValue() == Double.MAX_VALUE &&
                 bestDrone.getValue() == Double.MAX_VALUE) {
-            LOGGER.log(Level.INFO, "\n\n\nThere is no scooter model nor drone model that can make this path!");
+            body = "\n\n\nThere is no scooter model nor drone model that can make this path!";
+            LOGGER.log(Level.INFO, body);
+            WriteFile.write(DELIVERYRUNPATH,body);
             return null;
         }
         else if(resultDrone == null && resultScooter == null && bestScooter.getValue() == Double.MAX_VALUE) {
-            LOGGER.log(Level.INFO, "\n\n\nNo scooter model could make this path!");
-            LOGGER.log(Level.INFO, "\n\n\nBest drone model: " + bestDrone.getKey());
-            LOGGER.log(Level.INFO, "Best drone energetic cost: " + bestDrone.getValue());
-            LOGGER.log(Level.INFO, "Drone best path: " + dronePath + "\n\n\n");
+            body = String.format("\n\n\nNo scooter model could make this path!\n\n\nBest drone model: %s" +
+                    "\nBest drone energetic cost: %.2f\nDrone best path: %s",bestDrone.getKey(),bestDrone.getValue(),
+                    dronePath);
+            LOGGER.log(Level.INFO, body);
+            WriteFile.write(DELIVERYRUNPATH,body);
             return new Pair<>(bestDrone, dronePath);
         }
         else if(resultDrone == null && resultScooter == null && bestDrone.getValue() == Double.MAX_VALUE) {
-            LOGGER.log(Level.INFO, "\n\n\nNo drone model could make this path!");
-            LOGGER.log(Level.INFO, "\n\n\nBest scooter model: " + bestScooter.getKey());
-            LOGGER.log(Level.INFO, "Best scooter energetic cost: " + bestScooter.getValue());
-            LOGGER.log(Level.INFO, "Scooter best path: " + scooterPath + "\n\n\n");
+            body = String.format("\n\n\nNo drone model could make this path!\n\n\nBest scooter model: %s" +
+                    "\nBest scooter energetic cost: %.2f\nScooter best path: %s",bestScooter.getKey(),bestScooter.getValue(),
+                    scooterPath);
+            LOGGER.log(Level.INFO, body);
+            WriteFile.write(DELIVERYRUNPATH,body);
             return new Pair<>(bestScooter, scooterPath);
         }
         else if(resultScooter != null && resultDrone != null) {
-            LOGGER.log(Level.INFO, "\n\n\nBest scooter model: " + resultScooter.getKey().getKey());
-            LOGGER.log(Level.INFO, "Best scooter energetic cost: " + resultScooter.getKey().getValue());
-            LOGGER.log(Level.INFO, "Scooter best path: " + resultScooter.getValue() + "\n\n\n");
-            LOGGER.log(Level.INFO, "\n\n\nBest drone model: " + resultDrone.getKey().getKey());
-            LOGGER.log(Level.INFO, "Best drone energetic cost: " + resultDrone.getKey().getValue());
-            LOGGER.log(Level.INFO, "Drone best path: " + resultDrone.getValue() + "\n\n\n");
+            body = String.format("\n\n\nBest scooter model: %s\nBest scooter energetic cost: %.2f\n" +
+                    "Scooter best path: %s\n\n\nBest drone model: %s\nBest drone energetic cost: %.2f\n" +
+                    "Drone best path: %s",resultScooter.getKey().getKey(),resultScooter.getKey().getValue(),
+                    resultScooter.getValue(),resultDrone.getKey().getKey(),resultDrone.getKey().getValue(),
+                    resultDrone.getValue());
+            LOGGER.log(Level.INFO, body);
+            WriteFile.write(DELIVERYRUNPATH,body);
             if(resultScooter.getKey().getValue() < resultDrone.getKey().getValue())
                 return resultScooter;
             return resultDrone;
         }
         else if(resultScooter == null && resultDrone != null) {
-            LOGGER.log(Level.INFO, "\n\n\nNo scooter can make this path!");
-            LOGGER.log(Level.INFO, "\n\n\nBest drone model: " + resultDrone.getKey().getKey());
-            LOGGER.log(Level.INFO, "Best drone energetic cost: " + resultDrone.getKey().getValue());
-            LOGGER.log(Level.INFO, "Drone best path: " + resultDrone.getValue() + "\n\n\n");
+            body = String.format("\n\n\nNo scooter can make this path!\n\n\nBest drone model: %s" +
+                    "\nBest drone energetic cost: %.2f\nDrone best path: %s",resultDrone.getKey().getKey(),
+                    resultDrone.getKey().getValue(),resultDrone.getValue());
+            LOGGER.log(Level.INFO, body);
+            WriteFile.write(DELIVERYRUNPATH,body);
             if(bestScooter.getValue() < resultDrone.getKey().getValue())
                 return new Pair<>(bestScooter, scooterPath);
             return resultDrone;
         }
         else if(resultScooter != null) {
-            LOGGER.log(Level.INFO, "\n\n\nNo drone can make this path!");
-            LOGGER.log(Level.INFO, "\n\n\nBest scooter model: " + resultScooter.getKey().getKey());
-            LOGGER.log(Level.INFO, "Best scooter energetic cost: " + resultScooter.getKey().getValue());
-            LOGGER.log(Level.INFO, "Scooter best path: " + resultScooter.getValue() + "\n\n\n");
+            body = String.format("\n\n\nNo drone can make this path!\n\n\nBest scooter model: %s" +
+                    "\nBest scooter energetic cost: %.2f\nScooter best path: %s",resultScooter.getKey().getKey(),
+                    resultScooter.getKey().getValue(),resultScooter.getValue());
+            LOGGER.log(Level.INFO, body);
+            WriteFile.write(DELIVERYRUNPATH,body);
             if(resultScooter.getKey().getValue() < bestDrone.getValue())
                 return resultScooter;
             return new Pair<>(bestDrone, dronePath);
@@ -300,7 +334,7 @@ public class WorldMap {
     }
 
 
-    public Pair<VehicleModel, Double> getBestPossibleModel(List<VehicleModel> vList, LinkedList<Address> path,
+    public Pair<VehicleModel, Double> getBestPossibleModel(List<VehicleModel> vList, List<Address> path,
                                                            List<Order> orderList) {
         VehicleModel mostCapableVModel = null;
         double lowestCost = Double.MAX_VALUE;
@@ -319,7 +353,7 @@ public class WorldMap {
         return new Pair<>(mostCapableVModel, lowestCost);
     }
 
-    public Double calculatePathCost(LinkedList<Address> allAddresses, List<Order> orderList,
+    public Double calculatePathCost(List<Address> allAddresses, List<Order> orderList,
                                     VehicleModel vModel, Double maxEnergy) {
 
         double energyRemaining = maxEnergy;
@@ -369,7 +403,7 @@ public class WorldMap {
     }
 
 
-    public LinkedList<Address> calculateMostEfficientPath(VehicleType vType, Address startAddress,
+    public List<Address> calculateMostEfficientPath(VehicleType vType, Address startAddress,
                                                           Address endAddress, List<Address> deliveryPoints) {
         //Pass the weight of each edge of the graph to the enery cost
         Graph<Address, Path> cloneGraph;
