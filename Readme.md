@@ -212,4 +212,13 @@ About the project, we want to mention this **3** topics:
 
 ### Objectives
 
-## 
+# Relational Model (Normalized)
+
+![RelationalModel](docs/Iteration 3/RelationalModel.svg)
+
+# Domain Model
+// not ready
+![DomainModel](docs/Iteration 3/DomainModel.svg)
+
+# Class Diagram
+![ClassDiagram](docs/Iteration 3/ClassDiagram.svg)
