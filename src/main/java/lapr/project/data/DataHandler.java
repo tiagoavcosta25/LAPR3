@@ -447,7 +447,7 @@ public class DataHandler {
         Product oProduct = productManager(rSet, firstColumn);
         firstColumn += COLUMNSADDEDPRODUCT;
         Pharmacy oNearbyPharmacy = pharmacyManager(rSet, firstColumn);
-        firstColumn += COLUMNSADDEDPRODUCT;
+        firstColumn += COLUMNSADDEDPHARMACY;
         Order oOrder = orderManager(rSet, firstColumn);
 
         return new PharmacyTransfer(intId, dtDate, oOrder, oProduct, intQuantity, oNearbyPharmacy);

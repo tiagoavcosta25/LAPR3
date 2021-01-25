@@ -70,9 +70,13 @@ BEGIN
 
         /* IF THE PRODUCT IS ON THE PHARMACY BUT WITH STOCK 0*/
         IF v_checkProductyPharmacy != 0 THEN
+            SELECT ID INTO v_checkPharmacyId
+            FROM PHARMACY
+            WHERE EMAIL = pharmacyEmail;
+
             DELETE
             FROM PHARMACYPRODUCT
-            WHERE PHARMACYPRODUCT.PRODUCTID = productIds;
+            WHERE PHARMACYPRODUCT.PRODUCTID = productIds AND PHARMACYPRODUCT.PHARMACYID = v_checkPharmacyId;
         end if;
 
         /*CHECKS IF THERE IS ANY PHARMACY WITH THE REQUIRED QUANTITY*/

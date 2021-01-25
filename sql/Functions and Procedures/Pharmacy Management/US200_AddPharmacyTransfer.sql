@@ -1,4 +1,4 @@
-create or replace procedure addPharmacyTransfer(p_orderId "Order".ID%type, p_productId PRODUCT.ID%type, p_quantity PHARMACYTRANSFER.QUANTITY%type, p_pharmacyId PHARMACYTRANSFER.ID%type)
+create or replace procedure addPharmacyTransfer(p_orderId "Order".ID%type, p_date PHARMACYTRANSFER.TRANSFERDATE%TYPE, p_productId PRODUCT.ID%type, p_quantity PHARMACYTRANSFER.QUANTITY%type, p_pharmacyId PHARMACYTRANSFER.ID%type)
     is
     v_checkOrderId "Order".ID%type;
     v_checkProductId PRODUCT.ID%type;
@@ -38,6 +38,9 @@ begin
     end if;
 
 -- Creates a Pharmacy Product or Updates its stock
+    Insert into PHARMACYTRANSFER(TRANSFERDATE,ORDERID, PRODUCTID, QUANTITY, NEARBYPHARMACYID)
+    Values (p_date,p_orderId, p_productId, p_quantity, p_pharmacyId);
+
     select ID
     into v_checkPharmacyTransferId
     from PHARMACYTRANSFER
@@ -45,12 +48,9 @@ begin
       and PRODUCTID = p_productId
     and ORDERID = p_orderId;
 
-    if v_checkPharmacyTransferId is not null then
+    if v_checkPharmacyTransferId is null then
         raise pharmacy_transfer_not_found;
     end if;
-
-        Insert into PHARMACYTRANSFER(ORDERID, PRODUCTID, QUANTITY, NEARBYPHARMACYID)
-        Values (p_orderId, p_productId, p_quantity, p_pharmacyId);
 
 EXCEPTION
     when pharmacy_not_found then

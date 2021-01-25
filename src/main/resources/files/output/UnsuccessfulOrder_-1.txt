@@ -1,6 +1,6 @@
 ______________________________________________________________________________________
 Dear costumer, I'm sorry to inform you but some of the products: 
-{}
+{Product{m_intId=1, m_strName='COVID-19 Vaccine', m_strDescription='Keep this product at -20 degrees.', m_fltUnitaryPrice=40.0, m_fltUnitaryWeight=0.5}=2, Product{m_intId=2, m_strName='Ben-u-ron', m_strDescription='Keep this away from children', m_fltUnitaryPrice=3.0, m_fltUnitaryWeight=1.0}=1}
  are out of Stock in every Pharmacy
 
 ______________________________________________________________________________________

@@ -18,7 +18,7 @@ public class PharmacyTransferDB extends DataHandler {
             callStmt = getConnection().prepareCall("{ ? = call getPharmacyTransfer(?) }");
 
             callStmt.registerOutParameter(1, OracleTypes.CURSOR);
-            callStmt.setInt(id, 2);
+            callStmt.setInt(2, id);
 
             callStmt.execute();
 
@@ -38,12 +38,13 @@ public class PharmacyTransferDB extends DataHandler {
     private boolean addPharmacyTransfer(Order oOrder, Product oProduct, Integer intQuantity, Pharmacy oPharmacy) {
         try {
             openConnection();
-            CallableStatement callStmt = getConnection().prepareCall("{ call addPharmacyTransfer(?,?,?,?) }");
+            CallableStatement callStmt = getConnection().prepareCall("{ call addPharmacyTransfer(?,?,?,?,?) }");
 
             callStmt.setInt(1, oOrder.getId());
-            callStmt.setInt(2, oProduct.getId());
-            callStmt.setInt(3, intQuantity);
-            callStmt.setInt(4, oPharmacy.getId());
+            callStmt.setDate(2, oOrder.getOrderDate());
+            callStmt.setInt(3, oProduct.getId());
+            callStmt.setInt(4, intQuantity);
+            callStmt.setInt(5, oPharmacy.getId());
 
             callStmt.execute();
 

@@ -35,7 +35,7 @@ begin
     from PHARMACYTRANSFER PT
     where PT.ID = p_pharmacyTransferId;
 
-    select STOCK
+    select count(STOCK)
     into v_pharmacyStock
     from PHARMACYPRODUCT PP
     where PP.PRODUCTID = v_productId
@@ -52,10 +52,15 @@ begin
     from PHARMACYTRANSFER PT
     where PT.ID = p_pharmacyTransferId;
 
-    update PHARMACYPRODUCT PT
-    set STOCK = v_pharmacyStock + v_productQuantity
-    where PT.PRODUCTID = v_productId
-    and PT.PHARMACYID = v_orderPharmacyId;
+    if v_pharmacyStock = 0 then
+        INSERT INTO PHARMACYPRODUCT(PHARMACYID, PRODUCTID, STOCK)
+        VALUES (v_orderPharmacyId, v_productId, v_productQuantity);
+    else
+        update PHARMACYPRODUCT PT
+        set STOCK = v_pharmacyStock + v_productQuantity
+        where PT.PRODUCTID = v_productId
+          and PT.PHARMACYID = v_orderPharmacyId;
+    end if;
 
     update PHARMACYPRODUCT PT
     set STOCK = v_nearbyPharmacyStock - v_productQuantity
@@ -66,5 +71,4 @@ begin
 EXCEPTION
     when transfer_not_found then
         raise_application_error(-20121, 'Transfer Not Found!');
-        return null;
 end;

@@ -110,11 +110,11 @@ public class MakeAnOrderController {
      */
     public boolean registerOrder() {
         try{
+            int intId = this.moOrderService.registerOrder(moOrder);
+            this.moOrder.setId(intId);
             if(!this.moNotifyAndRemoveController.notifyAndRemove(this.moOrder)){
                 throw new Exception();
             }
-            int intId = this.moOrderService.registerOrder(moOrder);
-            this.moOrder.setId(intId);
             return this.generateInvoice();
         } catch (Exception ex) {
             return false;

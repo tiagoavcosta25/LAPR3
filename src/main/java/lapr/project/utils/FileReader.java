@@ -1,5 +1,5 @@
 package lapr.project.utils;
-/*
+
 import lapr.project.controller.*;
 import lapr.project.model.*;
 import java.io.File;
@@ -36,7 +36,8 @@ public class FileReader {
         readGenericFile(FILESCOOTERS);
         readGenericFile(FILEDRONES);
         readGenericFile(FILEPATHS);
-        //readGenericFile(FILEORDERS);
+        ApplicationPOT.getInstance().getWorldMap().createGraph();
+        readGenericFile(FILEORDERS);
     }
 
     public static void readGenericFile(String path) {
@@ -297,4 +298,4 @@ public class FileReader {
         }else LOGGER.log(Level.WARNING,"There was a problem creating a Courier");
 
     }
-}*/
+}
