@@ -2,12 +2,12 @@ ________________________________________________________________________________
 Drone Update Log
 
 Drone New Info:
--Updated Percentage: 1.00
--Updated Potency: 1.00
--Updated Weight: 1.00kg
--Updated Battery Capacity: 1.00
--Updated Max Payload: 1.00
--Updated Battery Voltage: 1.00
+-Updated Percentage: 1,00
+-Updated Potency: 1,00
+-Updated Weight: 1,00kg
+-Updated Battery Capacity: 1,00
+-Updated Max Payload: 1,00
+-Updated Battery Voltage: 1,00
 Updated Charging Status: As
 -Pharmacy Email: 1
 
