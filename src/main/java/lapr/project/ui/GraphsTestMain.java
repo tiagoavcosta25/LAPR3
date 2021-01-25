@@ -2,7 +2,7 @@ package lapr.project.ui;
 
 import lapr.project.controller.*;
 import lapr.project.model.*;
-import lapr.project.model.service.GraphServices;
+import lapr.project.model.service.GraphService;
 
 import java.util.LinkedList;
 
@@ -54,7 +54,7 @@ class GraphsTestMain {
 
 
         ApplicationPOT.getInstance().getWorldMap().createGraph();
-        GraphServices world = ApplicationPOT.getInstance().getWorldMap();
+        GraphService world = ApplicationPOT.getInstance().getWorldMap();
 
         LinkedList<Address> test = new LinkedList<>();
 

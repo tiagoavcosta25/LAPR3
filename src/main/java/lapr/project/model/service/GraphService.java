@@ -16,17 +16,17 @@ import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class GraphServices {
+public class GraphService {
 
     private static final String DELIVERYRUNPATH = "DeliveryRunPath";
-    private static final Logger LOGGER = Logger.getLogger(GraphServices.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(GraphService.class.getName());
     private Graph<Address, Path> moGraphScooter;
     private Graph<Address, Path> moGraphDrone;
     private DeliveryRunDB moDeliveryRunDB;
     private VehicleDB moVehicleDB;
     private PharmacyDB moPharmacyDB;
 
-    public GraphServices() {
+    public GraphService() {
         moGraphScooter = new Graph<>(true);
         moGraphDrone = new Graph<>(true);
         moDeliveryRunDB = new DeliveryRunDB();
@@ -110,12 +110,11 @@ public class GraphServices {
                                                 double dblLatitudeB, double dblLongitudeB, VehicleType vehicleType) {
         Address origem = null;
         Address destino = null;
-        Iterable<Address> iterable = null;
+        Iterable<Address> iterable;
         if(vehicleType.equals(VehicleType.SCOOTER))
             iterable = moGraphScooter.vertices();
         else
             iterable = moGraphDrone.vertices();
-        if(iterable == null) return null;
         for (Address a : iterable) {
             if (a.getLatitude() == dblLatitudeA && a.getLongitude() == dblLongitudeA) {
                 origem = a;

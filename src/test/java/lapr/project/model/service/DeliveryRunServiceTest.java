@@ -26,14 +26,14 @@ class DeliveryRunServiceTest {
     @Mock
     private DeliveryDB m_oDeliveryDB;
     @Mock
-    private GraphServices m_oGraphServices;
+    private GraphService m_oGraphService;
 
     @BeforeEach
     void setUp() {
         this.m_oDeliveryRunService = new DeliveryRunService();
         this.m_oDeliveryRunDB = Mockito.mock(DeliveryRunDB.class);
         this.m_oDeliveryDB = Mockito.mock(DeliveryDB.class);
-        this.m_oGraphServices = Mockito.mock(GraphServices.class);
+        this.m_oGraphService = Mockito.mock(GraphService.class);
         initMocks(this);
     }
 
