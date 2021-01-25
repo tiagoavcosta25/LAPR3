@@ -3,6 +3,7 @@ package lapr.project.data;
 import lapr.project.model.*;
 import oracle.jdbc.OracleTypes;
 
+import java.security.NoSuchAlgorithmException;
 import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -110,18 +111,19 @@ public class DeliveryRunDB extends DataHandler {
 
     public boolean addNewDeliveryRun(DeliveryRun oDeliveryRun) {
         return addNewDeliveryRun(oDeliveryRun.getCourier(),
-                oDeliveryRun.getOrderList(),oDeliveryRun.getStatus());
+                oDeliveryRun.getOrderList(),oDeliveryRun.getStatus(),oDeliveryRun.getVehicle());
     }
 
-    public boolean addNewDeliveryRun(Courier courier, List<Order> lst, DeliveryStatus status) {
+    public boolean addNewDeliveryRun(Courier courier, List<Order> lst, DeliveryStatus status, Vehicle oVehicle) {
         try {
             openConnection();
 
 
-            CallableStatement callStmt = getConnection().prepareCall("{ ? = call addNewDeliveryRun(?,?) }");
+            CallableStatement callStmt = getConnection().prepareCall("{ ? = call addNewDeliveryRun(?,?,?) }");
 
             callStmt.setInt(2,courier.getId());
             callStmt.setString(3,status.getDesignation());
+            callStmt.setInt(4,oVehicle.getId());
             callStmt.registerOutParameter(1, OracleTypes.INTEGER);
             callStmt.execute();
 
@@ -142,6 +144,47 @@ public class DeliveryRunDB extends DataHandler {
             closeAll();
         }
     }
+
+    public Scooter getMostChargedScooterFromModel(VehicleModel oVehicleModel) {
+        try {
+            openConnection();
+
+            CallableStatement callStmt = getConnection().prepareCall("{ ? = call getMostChargedScooter(?) }");
+
+            callStmt.setString(2,oVehicleModel.getDesignation());
+            callStmt.registerOutParameter(1, OracleTypes.CURSOR);
+            callStmt.execute();
+
+            ResultSet rSet = (ResultSet) callStmt.getObject(1);
+
+            return scooterManager(rSet,1);
+        } catch (SQLException | NoSuchAlgorithmException e) {
+            return null;
+        } finally {
+            closeAll();
+        }
+    }
+
+    public Drone getMostChargedDroneFromModel(VehicleModel oVehicleModel) {
+        try {
+            openConnection();
+
+            CallableStatement callStmt = getConnection().prepareCall("{ ? = call getMostChargedDrone(?) }");
+
+            callStmt.setString(2,oVehicleModel.getDesignation());
+            callStmt.registerOutParameter(1, OracleTypes.CURSOR);
+            callStmt.execute();
+
+            ResultSet rSet = (ResultSet) callStmt.getObject(1);
+
+            return droneManager(rSet,1);
+        } catch (SQLException | NoSuchAlgorithmException e) {
+            return null;
+        } finally {
+            closeAll();
+        }
+    }
+
     public List<Address> getAddressesByDeliveryRunId(String email) {
         CallableStatement callStmt = null;
         try {
