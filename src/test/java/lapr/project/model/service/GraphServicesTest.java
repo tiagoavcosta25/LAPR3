@@ -133,12 +133,13 @@ class GraphServicesTest {
         Path p1 = new Path(10d, 10d, 20d, 20d, "", 1d, 1d, 1d, VehicleType.SCOOTER);
         Path p2 = new Path(10d, 10d, 20d, 20d, "", 1d, 1d, 1d, VehicleType.DRONE);
         Path p4 = new Path(10d, 10d, 20d, 20d, "", 1d, 1d, 1d, VehicleType.NOTDEFINED);
-
         Path p3 = new Path(12d, 10d, 11d, 20d, "", 1d, 1d, 1d, VehicleType.SCOOTER);
+        Path p5 = new Path(12d, 10d, 11d, 20d, "", 1d, 1d, 1d, VehicleType.DRONE);
         lPaths.add(p1);
         lPaths.add(p2);
         lPaths.add(p3);
         lPaths.add(p4);
+        lPaths.add(p5);
         when(mockDeliveryRunDB.getAllAddresses()).thenReturn(lAddresses);
         when(mockDeliveryRunDB.getAllPaths()).thenReturn(lPaths);
         world.createGraph();

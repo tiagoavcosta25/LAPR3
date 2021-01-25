@@ -113,7 +113,7 @@ public class GraphServices {
         Iterable<Address> iterable = null;
         if(vehicleType.equals(VehicleType.SCOOTER))
             iterable = moGraphScooter.vertices();
-        else if(vehicleType.equals(VehicleType.DRONE))
+        else
             iterable = moGraphDrone.vertices();
         if(iterable == null) return null;
         for (Address a : iterable) {
