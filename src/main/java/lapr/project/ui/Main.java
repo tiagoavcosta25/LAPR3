@@ -1,7 +1,6 @@
 package lapr.project.ui;
 
 import lapr.project.ui.console.LoginUI;
-import lapr.project.utils.FileReader;
 import lapr.project.utils.Menu;
 import java.util.Scanner;
 import java.util.logging.Level;

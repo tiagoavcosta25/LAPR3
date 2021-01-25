@@ -1,4 +1,4 @@
-package lapr.project.utils;
+package lapr.project.ui;
 
 import lapr.project.controller.*;
 import lapr.project.model.*;

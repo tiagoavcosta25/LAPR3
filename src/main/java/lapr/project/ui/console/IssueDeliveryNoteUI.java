@@ -1,7 +1,6 @@
 package lapr.project.ui.console;
 
 import lapr.project.controller.IssueDeliveryNoteController;
-import lapr.project.utils.FileReader;
 
 import java.util.Scanner;
 import java.util.logging.Level;
