@@ -1,5 +1,6 @@
 package lapr.project.model.service;
 
+import javafx.util.Pair;
 import lapr.project.controller.ApplicationPOT;
 import lapr.project.data.DeliveryDB;
 import lapr.project.data.DeliveryRunDB;
@@ -46,12 +47,18 @@ public class DeliveryRunService {
         return moDeliveryRunDB.getAddressesByDeliveryRunId(email);
     }
 
-    //TODO: Verificar mais tarde
-    /*
-    public LinkedList<Address> calculateMostEfficientPath(Address a, Address b, List<Address> list) {
-        return ApplicationPOT.getInstance().getWorldMap().calculateMostEfficientPath(a, b, list);
+    public VehicleModel getMostEfficientVehicleModel(List<Pair<Pair<VehicleModel, Double>, List<Address>>> lst) {
+        if (lst.get(0) == null && lst.get(1) == null) {
+            return null;
+        }else if (lst.get(0) == null) {
+            return lst.get(1).getKey().getKey();
+        }else if (lst.get(1) == null) {
+            return lst.get(0).getKey().getKey();
+        }else{
+            if (lst.get(0).getKey().getValue() > lst.get(1).getKey().getValue()) return lst.get(0).getKey().getKey();
+            else return lst.get(1).getKey().getKey();
+        }
     }
-    */
 
     public Map<String, String> startDeliveryRun(String currentUserEmail) {
         return moDeliveryDB.startDeliveryRun(currentUserEmail);
