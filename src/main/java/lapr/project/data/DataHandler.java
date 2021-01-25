@@ -427,13 +427,13 @@ public class DataHandler {
 
         int intBatteryId = rSet.getInt(firstColumn);
         firstColumn++;
-        double dblBatteryPerc = rSet.getDouble(firstColumn);
+        double dblEfficiency = rSet.getDouble(firstColumn);
         firstColumn++;
         int intBatteryCapacity = rSet.getInt(firstColumn);
         firstColumn++;
         double dblBatteryVoltage = rSet.getDouble(firstColumn);
 
-        return new Battery(intBatteryId, intBatteryCapacity, dblBatteryPerc, dblBatteryVoltage);
+        return new Battery(intBatteryId, intBatteryCapacity, dblBatteryVoltage, dblEfficiency);
     }
 
     protected PharmacyTransfer pharmacyTransferManager(ResultSet rSet, int firstColumn) throws SQLException, NoSuchAlgorithmException { // column number +4
