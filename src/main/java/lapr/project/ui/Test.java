@@ -13,11 +13,11 @@ import java.util.*;
 public class Test {
 
     public static void main(String[] args) throws NoSuchAlgorithmException {
-        FileReader.readFiles();
+        //FileReader.readFiles();
         ApplicationPOT.getInstance().getWorldMap().createGraph();
         RegisterDeliveryRunController ctrl = new RegisterDeliveryRunController();
         ApplicationPOT.getInstance().setCurrentSession(new UserSession("A", UserSession.Role.ADMIN));
         List<Order> lstOrder = ctrl.getOrdersList("info@sabandeira.com");
-        System.out.println(ctrl.registerDeliveryRun(lstOrder));
+        //System.out.println(ctrl.registerDeliveryRun(lstOrder));
     }
 }

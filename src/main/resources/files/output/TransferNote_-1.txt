@@ -11,14 +11,14 @@ _______________________________________
 
 
 
-			No name.
+			Pharmacy Alianca
 
-			g21@trash-mail.com
-			No Street Name
-			No Door Number
-			No Postal Code
-			No Locality
-			No Country
+			info@alianca.com
+			Rua do Castelo do Queijo
+			1
+			4000-119
+			Porto
+			Portugal
 
 
 
@@ -28,14 +28,14 @@ _______________________________________
 
 
 
-			No name.
+			Pharmacy Trindade
 
-			g21@trash-mail.com
-			No Street Name
-			No Door Number
-			No Postal Code
-			No Locality
-			No Country
+			info@trindade.com
+			Rua da Trindade
+			123
+			4000-123
+			Porto
+			Portugal
 
 
 
@@ -45,7 +45,7 @@ _______________________________________
 
 
 
-2x SARS-CoV-2 Vaccine
+1x Ben-u-ron
 
 
 
