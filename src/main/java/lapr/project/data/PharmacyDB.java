@@ -301,7 +301,6 @@ public class PharmacyDB extends DataHandler {
                 Pharmacy pharmacy = getPharmacy(rSet.getString(7));
                 oResult = new Courier(id,name,email,pw,nif,iban,pharmacy);
             }
-
             return oResult;
         } catch (SQLException | NoSuchAlgorithmException e) {
             e.printStackTrace();

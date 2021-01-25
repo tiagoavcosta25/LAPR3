@@ -156,10 +156,11 @@ public class DeliveryRunDB extends DataHandler {
             callStmt.setString(2,oVehicleModel.getDesignation());
             callStmt.registerOutParameter(1, OracleTypes.CURSOR);
             callStmt.execute();
-
             ResultSet rSet = (ResultSet) callStmt.getObject(1);
-            System.out.println("Scooter manager: " + scooterManager(rSet,1));
-            return scooterManager(rSet,1);
+            if(rSet.next())
+                return scooterManager(rSet,1);
+            else
+                return null;
         } catch (SQLException | NoSuchAlgorithmException e) {
             return null;
         } finally {

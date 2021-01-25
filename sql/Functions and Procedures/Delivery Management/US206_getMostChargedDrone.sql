@@ -1,4 +1,4 @@
-create or replace function getMostChargedDrone(p_vehicleModelDesignation VehicleModel.DESIGNATION%type) return int
+create or replace function getMostChargedDrone(p_vehicleModelDesignation VehicleModel.DESIGNATION%type) return sys_refcursor
     is
     v_curs sys_refcursor;
 begin
@@ -15,7 +15,7 @@ begin
                  inner join CHARGINGSLOT cs on cs.PARKINGSLOTID = p.ID
                  inner join VEHICLETYPE V3 on p.VEHICLETYPE = V3.DESIGNATION
                  inner join BATTERY B on vm.BATTERYID = B.ID
-        where v.BATTERYPERC = (select Max(v1.BATTERYPERC)
+        where vm.DESIGNATION = p_vehicleModelDesignation and v.BATTERYPERC = (select Max(v1.BATTERYPERC)
                                from VEHICLE v1
                                         inner join VehicleModel v2 on v1.MODELID = v2.ID
                                where v2.DESIGNATION = p_vehicleModelDesignation

@@ -180,7 +180,7 @@ public class GraphService {
         return false;
     }
 
-
+/*
     public Pair<Pair<VehicleModel, Double>, List<Address>> pathsWithPharmacies
     (Graph<Address, Path> g, Address s, Address d, List<VehicleModel> vmList, List<Order> orderList) {
         if(g.numVertices() == 0)
@@ -199,7 +199,9 @@ public class GraphService {
         }
         return finalResult;
     }
+    */
 
+/*
     private void pathsWithPharmaciesCalculator
             (Graph<Address, Path> g, Address u, Address d, LinkedList<Address> localPathList,
              List<Pair<Pair<VehicleModel, Double>, List<Address>>> result, List<VehicleModel> vmList,
@@ -222,11 +224,11 @@ public class GraphService {
             localPathList.removeLast();
         }
     }
-
+*/
     /**
      * PRINT PATH
      */
-
+/*
     public void printPhysics(Graph<Address, Path> g, List<Address> paths) {
         StringBuilder result = new StringBuilder();
         result.append("\n\n");
@@ -240,11 +242,11 @@ public class GraphService {
         result.append("\n\n");
         LOGGER.log(Level.INFO, result.toString());
     }
-
+*/
     /**
      * CALCULATE PATH COST
      */
-
+/*
     public List<Pair<Pair<VehicleModel, Double>, List<Address>>> calculateBestVehicleAndBestPath(List<Order> orderList) {
         double maxWeight = 0;
         for(Order o : orderList) {
@@ -397,7 +399,7 @@ public class GraphService {
         if(lowestCost == Double.MAX_VALUE) return new Pair<>(null, Double.MAX_VALUE);
         return new Pair<>(mostCapableVModel, lowestCost);
     }
-
+*/
     public Double calculatePathCost(List<Address> allAddresses, List<Order> orderList,
                                     VehicleModel vModel, Double maxEnergy) {
         this.chargingSpots = new ArrayList<>();
