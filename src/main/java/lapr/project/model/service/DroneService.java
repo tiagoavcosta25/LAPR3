@@ -38,26 +38,4 @@ public class DroneService {
         return moDroneDB.removeDroneFromDB(intId);
     }
 
-    public boolean checkEnergy(double distance, DeliveryRun oDeliveryRun) {
-        Vehicle oVehicle = oDeliveryRun.getVehicle();
-        VehicleModel oVehicleModel = oVehicle.getModel();
-        double totalWeight = 0;
-        for (Order o : oDeliveryRun.getOrderList()) {
-            totalWeight = totalWeight + o.getTotalWeight();
-        }
-        double totalEnergy;
-        if (oVehicle instanceof Drone) {
-            totalEnergy = EnergyCalculator.calculateDroneEnergy(totalWeight, 0, 1, 100).getKey();
-
-        } else {
-            totalEnergy = EnergyCalculator.calculateScooterEnergy(distance, 0, 1, 10, totalWeight + oVehicleModel.getWeight() + Constants.DEFAULT_COURIER_WEIGHT, Constants.KINETIC_FRICTION_COEFFICIENT).getKey();
-        }
-        return (((oVehicleModel.getBattery().getBatteryCapacity() * oVehicleModel.getBattery().getBatteryVoltage() * (oVehicle.getBatteryPerc() / 100)) / 1000) >= totalEnergy / Constants.KILOWATTHOUR);
-
-    }
-
-    public boolean startDelivery(DeliveryRun oDeliveryRun) {
-        return oDeliveryRun.getStatus().getDesignation().equalsIgnoreCase("Idle");
-    }
-
 }
