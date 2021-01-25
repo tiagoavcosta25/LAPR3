@@ -75,14 +75,6 @@ class DeliveryRunServiceTest {
 
 
     @Test
-    void getMaxPayload() {
-    when(m_oDeliveryDB.getMaxPayload("email")).thenReturn(10f);
-    float result = m_oDeliveryRunService.getMaxPayload("email");
-    assertEquals(result, 10f);
-
-    }
-
-    @Test
     void startDeliveryRun() {
         Map<String,String> lst = new TreeMap<>();
         when(m_oDeliveryDB.startDeliveryRun("123")).thenReturn(lst);
