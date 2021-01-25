@@ -18,8 +18,8 @@ public class RegisterParkController {
         this.moServ = new PharmacyService();
     }
 
-    public boolean addPark(String strPharmacyEmail, int intMaxSlots, Double fltOutputCurrent, VehicleType enumVehicleType, int intNonChargingSlots, int intChargingSlots) {
-        Park p = new Park(intMaxSlots, fltOutputCurrent, enumVehicleType);
+    public boolean addPark(String strPharmacyEmail, int intMaxSlots, Double dblOutputCurrent, VehicleType enumVehicleType, int intNonChargingSlots, int intChargingSlots) {
+        Park p = new Park(intMaxSlots, dblOutputCurrent, enumVehicleType);
         try {
             if(ApplicationPOT.getInstance().getCurrentSession().getRole().equals(UserSession.Role.ADMIN))
                 return moServ.addPark(strPharmacyEmail, p, intNonChargingSlots, intChargingSlots);
