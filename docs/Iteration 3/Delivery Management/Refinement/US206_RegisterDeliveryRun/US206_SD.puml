@@ -1,4 +1,4 @@
-@startuml
+++@startuml
 autonumber
 hide footbox
 
@@ -10,13 +10,14 @@ participant "ApplicationPOT" as _APP
 participant "app\n:ApplicationPOT" as APP
 participant "session\n:UserSession" as SESSION
 participant "deliveryRunService\n:DeliveryRunService" as DRS
+participant "graphService\n:GraphService" as GF
 participant "pharmacyService\n:PharmacyService" as PS
-participant "orderService\n:OrderService" as OS
 participant "deliveryRunDB\n:DeliveryRunDB" as DB
+participant "VehicleDB\n:VehicleDB" as GFDB
 participant "pharmacyDB\n:PharmacyDB" as PDB
-participant "orderDB\n:OrderDB" as ODB
 participant "deliveryRun\n:DeliveryRun" as DR
 participant "status\n:DeliveryStatus" as DS
+
 participant "courier\n:Courier" as C
 participant "Order" as A
 
@@ -36,16 +37,16 @@ activate UI
 deactivate CTRL
 
 
-UI --> U: Asks for a list of order ids
+UI --> U: Asks for a list of orders
 
 deactivate UI
 
 
 
 
-U -> UI : Gives an order id list
+U -> UI : Gives an order list
 activate UI
-UI -> CTRL : registerDeliveryRun(lstOrderId)
+UI -> CTRL : registerDeliveryRun(lstOrder)
 activate CTRL
 
 
@@ -56,14 +57,16 @@ activate DRS
 DRS -> DB** : create()
 deactivate DRS
 
+CTRL -> GF** : create()
+activate GF
+GF -> GFDB** : create()
+deactivate GF
+
 CTRL -> PS** : create()
 activate PS
 PS -> PDB** : create()
 deactivate PS
 
-CTRL -> OS** : create()
-activate OS
-OS -> ODB** : create()
 
 deactivate OS
 CTRL -> _APP: app = getInstance()
@@ -79,19 +82,19 @@ activate SESSION
 deactivate SESSION
 
 alt if user is authorized (if it's an admin)
-CTRL -> OS : lstOrder = getOrderList(lstOrderId)
-activate OS
-OS -> ODB : getOrder(orderId)
-activate ODB
-deactivate ODB
 
-ref over ODB
+
+CTRL -> GF : vehicleModel = calculateBestVehicleAndBestPath(lstOrder)
+activate GF
+GF -> GFDB : vehicleModel = calculateBestVehicleAndBestPath(lstOrder)
+activate GFDB
+ref over GFDB
 SD_CONNECTIONS
 end ref
-deactivate ODB
-deactivate OS
+deactivate GF
+deactivate GFDB
 
-
+alt if vehicle is a scooter
 
 
 CTRL -> PS : courier = getSuitableCourier()
@@ -101,20 +104,39 @@ activate PDB
 ref over PDB
 SD_CONNECTIONS
 end ref
-PDB -> C** : create(id,name,email,pw,nif,iban,pharmacy)
-deactivate DB
 deactivate PS
 deactivate PDB
 
-
-
-CTRL -> DRS : deliveryRun = newDeliveryRun(courier,lstOrder)
+CTRL -> DRS : vehicle = getMostChargedScooter()
 activate DRS
-DRS -> DR** : create(courier,lstOrder)
+DRS -> DB : vehicle = getMostChargedScooter()
+activate DB
+ref over DB
+SD_CONNECTIONS
+end ref
+deactivate DRS
+deactivate DB
+
+else if vehicle is a drone
+
+CTRL -> DRS : vehicle = getMostChargedDrone()
+activate DRS
+DRS -> DB : vehicle = getMostChargedDrone()
+activate DB
+ref over DB
+SD_CONNECTIONS
+end ref
+deactivate DRS
+deactivate DB
+
+end
+
+CTRL -> DRS : deliveryRun = newDeliveryRun(courier,lstOrder, vehicle)
+activate DRS
+DRS -> DR** : create(courier,lstOrder,vehicle)
 activate DR
 DR -> DS** : create()
 deactivate DRS
-
 
 
 deactivate DR

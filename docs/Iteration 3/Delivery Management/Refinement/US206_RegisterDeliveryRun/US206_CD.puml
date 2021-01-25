@@ -15,6 +15,8 @@ package "Data" #DDDDDD {
 class DeliveryRunDB {
 +DeliveryRunDB()
 +addNewDeliveryRun(deliveryRun)
++getMostChargedScooter(vehicleModel)
++getMostChargedDrone(vehicleModel)
 }
 
 class PharmacyDB {
@@ -22,10 +24,11 @@ class PharmacyDB {
 +getSuitableCourier()
 }
 
-class OrderDB {
-+OrderDB()
-+getOrder(orderId)
+class VehicleDB {
++VehicleDB()
++calculateBestVehicleAndBestPath(lstOrder)
 }
+
 
 class DataHandler{
 +openConnection()
@@ -82,6 +85,8 @@ class DeliveryRunService {
 +DeliveryRunService()
 +newDeliveryRun(courier,lstOrder)
 +addNewDeliveryRun(deliveryRun)
++getMostChargedScooter(vehicleModel)
++getMostChargedDrone(vehicleModel)
 }
 
 class PharmacyService {
@@ -89,10 +94,11 @@ class PharmacyService {
 +getSuitableCourier()
 }
 
-class OrderService {
-+OrderService()
-+getOrderList(lstOrderId)
+class GraphService {
++GraphService()
++calculateBestVehicleAndBestPath(lstOrder)
 }
+
 
 }
 
@@ -108,18 +114,20 @@ enum DeliveryStatus{
 
 RegisterDeliveryRunUI ..> RegisterDeliveryRunController
 RegisterDeliveryRunController ..> DeliveryRunService
+RegisterDeliveryRunController ..> GraphService
 RegisterDeliveryRunController ..> ApplicationPOT
 RegisterDeliveryRunController ..> PharmacyService
-RegisterDeliveryRunController ..> OrderService
-OrderService "1" --> "1" OrderDB : has >
 PharmacyService "1" --> "1" PharmacyDB : has >
 DeliveryRunService "1" --> "1" DeliveryRunDB : has >
+GraphService "1" --> "1" VehicleDB : has >
 DeliveryRun "1" --> "1" Courier : has >
 DeliveryRun "1" --> "1" DeliveryStatus : has
 
 DeliveryRunService "1" --> "*" DeliveryRun : creates
 
 class DeliveryRunDB extends DataHandler
+class PharmacyDB extends DataHandler
+class VehicleDB extends DataHandler
 ApplicationPOT "1" -> "1" UserSession : has
 
 @enduml

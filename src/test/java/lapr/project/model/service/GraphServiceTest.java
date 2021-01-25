@@ -1,5 +1,6 @@
 package lapr.project.model.service;
 
+import javafx.util.Pair;
 import lapr.project.data.DeliveryRunDB;
 import lapr.project.data.PharmacyDB;
 import lapr.project.data.ProductDB;
@@ -308,26 +309,92 @@ class GraphServiceTest {
     }
 
     @Test
-    void pathsWithPharmacies() {
-        List<Address> lAddresses = new ArrayList<>();
-        Address a1 = new Address(10d, 10d, 2d, "", "", "", "", "");
+    void checkIfInList3Times() {
+        List<Address> addresses = new ArrayList<>();
+        Address a1 = new Address(20d, 20d, 4d, "", "", "", "", "");
         Address a2 = new Address(20d, 20d, 4d, "", "", "", "", "");
+        assertFalse(world.checkIfInListThreeTimes(a1, addresses));
 
-        lAddresses.add(a1);
-        lAddresses.add(a2);
+        addresses.add(a1);
+        assertFalse(world.checkIfInListThreeTimes(a1, addresses));
 
-        List<Path> lPaths = new ArrayList<>();
-        Path p1 = new Path(10d, 10d, 20d, 20d, "", 1d, 1d, 1d, VehicleType.SCOOTER);
-        Path p3 = new Path(20d, 20d, 10d, 10d, "", 1d, 1d, 1d, VehicleType.SCOOTER);
+        addresses.add(a1);
+        addresses.add(a1);
+        assertTrue(world.checkIfInListThreeTimes(a1, addresses));
 
-        Path p2 = new Path(10d, 10d, 20d, 20d, "", 1d, 1d, 1d, VehicleType.DRONE);
-        lPaths.add(p1);
-        lPaths.add(p2);
-        lPaths.add(p3);
-        when(mockDeliveryRunDB.getAllAddresses()).thenReturn(lAddresses);
-        when(mockDeliveryRunDB.getAllPaths()).thenReturn(lPaths);
-        world.createGraph();
+        addresses = new ArrayList<>();
+        addresses.add(a2);
+        addresses.add(a1);
+        addresses.add(a1);
+        addresses.add(a1);
+        assertTrue(world.checkIfInListThreeTimes(a1, addresses));
 
+        assertTrue(world.checkIfInListThreeTimes(a2, addresses));
+    }
+
+    //TODO:ACABAR ESTE
+    @Test
+    void pathsWithPharmacies() throws NoSuchAlgorithmException {
+        Address saBandeira = new Address();
+        saBandeira.setStreetName("Pharmacy Sa da Bandeira");
+        saBandeira.setLatitude(40.741895);
+        saBandeira.setLongitude(-7.989308);
+        saBandeira.setAltitude(10d);
+
+        Address trindade = new Address();
+        trindade.setStreetName("Pharmacy Trindade");
+        trindade.setLatitude(41.15227);
+        trindade.setLongitude(-8.60929);
+        trindade.setAltitude(104d);
+
+        Address casteloQueijo = new Address();
+        casteloQueijo.setStreetName("Pharmacy Castelo do Queijo");
+        casteloQueijo.setLatitude(41.16875);
+        casteloQueijo.setLongitude(-8.68995);
+        casteloQueijo.setAltitude(4d);
+
+        Address clerigos = new Address();
+        clerigos.setStreetName("Clerigos");
+        clerigos.setLatitude(41.14582);
+        clerigos.setLongitude(-8.61398);
+        clerigos.setAltitude(87.0);
+
+        Address majestic = new Address();
+        majestic.setStreetName("Majestic");
+        majestic.setLatitude(41.14723);
+        majestic.setLongitude(-8.60657);
+        majestic.setAltitude(91.0);
+
+        Address bolhao = new Address();
+        bolhao.setStreetName("Bolhao");
+        bolhao.setLatitude(41.14871);
+        bolhao.setLongitude(-8.60746);
+        bolhao.setAltitude(87.0);
+
+        Address se = new Address();
+        se.setStreetName("Sé");
+        se.setLatitude(41.14331);
+        se.setLongitude(-8.60914);
+        se.setAltitude(82.0);
+
+        Address caisDaRibeira = new Address();
+        caisDaRibeira.setStreetName("Cais da Ribeira");
+        caisDaRibeira.setLatitude(41.14063);
+        caisDaRibeira.setLongitude(-8.61118);
+        caisDaRibeira.setAltitude(25.0);
+
+        //ORDER
+        Pharmacy oPharmacy = new Pharmacy("Pharmacy Trindade","info@trindade.com",new Address(41.15227d,-8.60929d,104d,
+                "Rua da Trindade","123","4000-123","Porto","Portugal"));
+        List<Order> lstOrders = new ArrayList<>();
+        lstOrders.add(new Order("Para Presente, Enviar Embrulhado.", true, new Client("", 123456789, "fernando@gmail.com", "pass",
+                41.14582d,-8.61398d,87.0d,"Clerigos","2esq","4444-111","Porto","Portugal", new ArrayList<>()),
+                oPharmacy, new TreeMap<>()));
+
+        lstOrders.add(new Order("Para Presente, Enviar Embrulhado.", true, new Client("", 123456781, "joana@gmail.com", "pass",
+                41.14063d,-8.61118d,25.0d,"Cais da Ribeira","3esq","4000-555","Porto","Portugal", new ArrayList<>()),
+                oPharmacy, new TreeMap<>()));
+        //ORDER
 
     }
 
@@ -353,9 +420,262 @@ class GraphServiceTest {
 
     @Test
     void calculatePermutationPaths() {
+        Address trindade = new Address();
+        trindade.setStreetName("Pharmacy Trindade");
+        trindade.setLatitude(41.15227);
+        trindade.setLongitude(-8.60929);
+        trindade.setAltitude(104d);
+
+        Address saBandeira = new Address();
+        saBandeira.setStreetName("Pharmacy Sa da Bandeira");
+        saBandeira.setLatitude(40.741895);
+        saBandeira.setLongitude(-7.989308);
+        saBandeira.setAltitude(10d);
+
+        Address casteloQueijo = new Address();
+        casteloQueijo.setStreetName("Pharmacy Castelo do Queijo");
+        casteloQueijo.setLatitude(41.16875);
+        casteloQueijo.setLongitude(-8.68995);
+        casteloQueijo.setAltitude(4d);
+
+        Address clerigos = new Address();
+        clerigos.setStreetName("Clerigos");
+        clerigos.setLatitude(41.14582);
+        clerigos.setLongitude(-8.61398);
+        clerigos.setAltitude(87.0);
+
+        Address majestic = new Address();
+        majestic.setStreetName("Majestic");
+        majestic.setLatitude(41.14723);
+        majestic.setLongitude(-8.60657);
+        majestic.setAltitude(91.0);
+
+        Address bolhao = new Address();
+        bolhao.setStreetName("Bolhao");
+        bolhao.setLatitude(41.14871);
+        bolhao.setLongitude(-8.60746);
+        bolhao.setAltitude(87.0);
+
+        Address se = new Address();
+        se.setStreetName("Sé");
+        se.setLatitude(41.14331);
+        se.setLongitude(-8.60914);
+        se.setAltitude(82.0);
+
+        Address caisDaRibeira = new Address();
+        caisDaRibeira.setStreetName("Cais da Ribeira");
+        caisDaRibeira.setLatitude(41.14063);
+        caisDaRibeira.setLongitude(-8.61118);
+        caisDaRibeira.setAltitude(25.0);
+
+        Path p1 = new Path( 41.15227, -8.60929,40.741895, -7.989308, "trindade - sa", 1,
+                1, 1, VehicleType.SCOOTER);
+
+        Path p2 = new Path(40.741895, -7.989308, 41.15227, -8.60929, "sa - trindade", 1,
+                1, 1, VehicleType.SCOOTER);
+
+        Path p3 = new Path(40.741895, -7.989308, 41.16875, -8.68995, "sa - quejo", 1,
+                1, 1, VehicleType.SCOOTER);
+
+        Path p4 = new Path( 41.16875, -8.68995,40.741895, -7.989308, "quejo - sa", 1,
+                1, 1, VehicleType.SCOOTER);
+
+        Path p5 = new Path( 41.16875, -8.68995,41.14582, -8.61398, "quejo - clerigos", 1,
+                1, 1, VehicleType.SCOOTER);
+
+        Path p6 = new Path( 41.14582, -8.61398, 41.16875, -8.68995, "clerigos - queijo", 1,
+                1, 1, VehicleType.SCOOTER);
+
+        Path p7 = new Path( 41.14582, -8.61398, 41.14723, -8.60657, "clerigos - majestic", 1,
+                1, 1, VehicleType.SCOOTER);
+
+        Path p8 = new Path( 41.14723, -8.60657,41.14582, -8.61398,  "majestic - clerigos", 1,
+                1, 1, VehicleType.SCOOTER);
+
+        Path p9 = new Path( 41.14723, -8.60657,41.14871, -8.60746,  "majestic - bolhao", 1,
+                1, 1, VehicleType.SCOOTER);
+
+        Path p10 = new Path( 41.14871, -8.60746,41.14723, -8.60657,  "bolhao - majestic", 1,
+                1, 1, VehicleType.SCOOTER);
+
+        Path p11 = new Path( 41.14871, -8.60746,41.14331, -8.60914,  "bolhao - se", 1,
+                1, 1, VehicleType.SCOOTER);
+
+        Path p12 = new Path( 41.14331, -8.60914,41.14871, -8.60746,  "se - bolhao", 1,
+                1, 1, VehicleType.SCOOTER);
+
+        Path p13 = new Path( 41.14331, -8.60914,41.14063, -8.61118,  "se - cais", 1,
+                1, 1, VehicleType.SCOOTER);
+
+        Path p14 = new Path( 41.14063, -8.61118,41.14331, -8.60914,  "cais - se", 1,
+                1, 1, VehicleType.SCOOTER);
+
+        Path p15 = new Path( 41.14063, -8.61118,41.15227, -8.60929,  "cais - trindade", 1,
+                1, 1, VehicleType.SCOOTER);
+
+        List<Address> lstA = new LinkedList<>();
+        lstA.add(trindade);
+        lstA.add(saBandeira);
+        lstA.add(casteloQueijo);
+        lstA.add(clerigos);
+        lstA.add(majestic);
+        lstA.add(bolhao);
+        lstA.add(se);
+        lstA.add(caisDaRibeira);
+
+        List<Path> lstP = new LinkedList<>();
+        lstP.add(p1);
+        lstP.add(p2);
+        lstP.add(p3);
+        lstP.add(p4);
+        lstP.add(p5);
+        lstP.add(p6);
+        lstP.add(p7);
+        lstP.add(p8);
+        lstP.add(p9);
+        lstP.add(p10);
+        lstP.add(p11);
+        lstP.add(p12);
+        lstP.add(p13);
+        lstP.add(p14);
+        lstP.add(p15);
+
+        when(mockDeliveryRunDB.getAllAddresses()).thenReturn(lstA);
+        when(mockDeliveryRunDB.getAllPaths()).thenReturn(lstP);
+
+        world.createGraph();
+
+        List<Address> lstPermutation = new LinkedList<>();
+        lstPermutation.add(bolhao);
+        lstPermutation.add(bolhao);
+
+        List<LinkedList<Address>> permutations = world.calculatePermutations(lstPermutation);
+
+        List<Pair<LinkedList<Address>, Double>> result = world.calculatePermutationPaths(world.getScooterGraph(), trindade, trindade, permutations);
+
+        List<Address> finalResult = new LinkedList<>();
+        finalResult.add(trindade);
+        finalResult.add(saBandeira);
+        finalResult.add(casteloQueijo);
+        finalResult.add(clerigos);
+        finalResult.add(majestic);
+        finalResult.add(bolhao);
+        finalResult.add(se);
+        finalResult.add(caisDaRibeira);
+        finalResult.add(trindade);
+        double doubleResult = 154775.30410811413;
+        Pair<List<Address>, Double> pairResult = new Pair<>(finalResult, doubleResult);
+        List<Pair<List<Address>, Double>> listPairResult = new LinkedList<>();
+        listPairResult.add(pairResult);
+        listPairResult.add(pairResult);
+        assertEquals(listPairResult, world.calculatePermutationPaths(world.getScooterGraph(), trindade, trindade, permutations));
     }
 
     @Test
     void calculatePermutations() {
+        Address saBandeira = new Address();
+        saBandeira.setStreetName("Pharmacy Sa da Bandeira");
+        saBandeira.setLatitude(40.741895);
+        saBandeira.setLongitude(-7.989308);
+        saBandeira.setAltitude(10d);
+
+        Address trindade = new Address();
+        trindade.setStreetName("Pharmacy Trindade");
+        trindade.setLatitude(41.15227);
+        trindade.setLongitude(-8.60929);
+        trindade.setAltitude(104d);
+
+        Address casteloQueijo = new Address();
+        casteloQueijo.setStreetName("Pharmacy Castelo do Queijo");
+        casteloQueijo.setLatitude(41.16875);
+        casteloQueijo.setLongitude(-8.68995);
+        casteloQueijo.setAltitude(4d);
+
+        Address clerigos = new Address();
+        clerigos.setStreetName("Clerigos");
+        clerigos.setLatitude(41.14582);
+        clerigos.setLongitude(-8.61398);
+        clerigos.setAltitude(87.0);
+
+        Address majestic = new Address();
+        majestic.setStreetName("Majestic");
+        majestic.setLatitude(41.14723);
+        majestic.setLongitude(-8.60657);
+        majestic.setAltitude(91.0);
+
+        Address bolhao = new Address();
+        bolhao.setStreetName("Bolhao");
+        bolhao.setLatitude(41.14871);
+        bolhao.setLongitude(-8.60746);
+        bolhao.setAltitude(87.0);
+
+        Address se = new Address();
+        se.setStreetName("Sé");
+        se.setLatitude(41.14331);
+        se.setLongitude(-8.60914);
+        se.setAltitude(82.0);
+
+        Address caisDaRibeira = new Address();
+        caisDaRibeira.setStreetName("Cais da Ribeira");
+        caisDaRibeira.setLatitude(41.14063);
+        caisDaRibeira.setLongitude(-8.61118);
+        caisDaRibeira.setAltitude(25.0);
+
+        List<Address> lst = new LinkedList<>();
+        List<List<Address>> expResult = new LinkedList<>();
+        expResult.add(lst);
+        List<LinkedList<Address>> result = world.calculatePermutations(lst);
+        assertEquals(expResult, result);
+
+        lst.add(trindade);
+        expResult = new LinkedList<>();
+        expResult.add(lst);
+        assertNotEquals(expResult, result);
+
+        lst.add(bolhao);
+        lst.add(se);
+
+        result = world.calculatePermutations(lst);
+
+        lst.add(trindade);
+        lst.add(bolhao);
+        lst.add(se);
+
+        expResult = new LinkedList<>();
+        expResult.add(lst);
+
+        lst = new LinkedList<>();
+        lst.add(bolhao);
+        lst.add(trindade);
+        lst.add(se);
+        expResult.add(lst);
+
+        lst = new LinkedList<>();
+        lst.add(bolhao);
+        lst.add(se);
+        lst.add(trindade);
+        expResult.add(lst);
+
+        lst = new LinkedList<>();
+        lst.add(trindade);
+        lst.add(se);
+        lst.add(bolhao);
+        expResult.add(lst);
+
+        lst = new LinkedList<>();
+        lst.add(se);
+        lst.add(trindade);
+        lst.add(bolhao);
+        expResult.add(lst);
+
+        assertNotEquals(expResult, result);
+
+        lst = new LinkedList<>();
+        lst.add(se);
+        lst.add(bolhao);
+        lst.add(trindade);
+        expResult.add(lst);
+
+        assertEquals(expResult,result);
     }
 }
