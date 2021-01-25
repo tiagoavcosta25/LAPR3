@@ -47,10 +47,10 @@ public class DroneService {
         }
         double totalEnergy;
         if (oVehicle instanceof Drone) {
-            totalEnergy = EnergyCalculator.calculateDroneEnergy(totalWeight, 0, 1, 100);
+            totalEnergy = EnergyCalculator.calculateDroneEnergy(totalWeight, 0, 1, 100).getKey();
 
         } else {
-            totalEnergy = EnergyCalculator.calculateScooterEnergy(distance, 0, 1, 10, totalWeight + oVehicleModel.getWeight() + Constants.DEFAULT_COURIER_WEIGHT, Constants.KINETIC_FRICTION_COEFFICIENT);
+            totalEnergy = EnergyCalculator.calculateScooterEnergy(distance, 0, 1, 10, totalWeight + oVehicleModel.getWeight() + Constants.DEFAULT_COURIER_WEIGHT, Constants.KINETIC_FRICTION_COEFFICIENT).getKey();
         }
         return (((oVehicleModel.getBattery().getBatteryCapacity() * oVehicleModel.getBattery().getBatteryVoltage() * (oVehicle.getBatteryPerc() / 100)) / 1000) >= totalEnergy / Constants.KILOWATTHOUR);
 

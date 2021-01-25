@@ -1,11 +1,11 @@
 create or replace function checkValidChargingSlot(p_latitude Address.LATITUDE%type,
-                                                  p_longitude Address.LONGITUDE%type) return boolean
+                                                  p_longitude Address.LONGITUDE%type) return int
     is
-    v_slotId CHARGINGSLOT.PARKINGSLOTID%type;
+    v_slotId int;
 begin
 
 
-    select cs.PARKINGSLOTID
+    select count(cs.PARKINGSLOTID)
     into v_slotId
     from CHARGINGSLOT cs
              inner join PARKINGSLOT ps on ps.ID = cs.PARKINGSLOTID
@@ -15,9 +15,9 @@ begin
     and phar.ADDRESSLONGITUDE = p_longitude
     and ps.VEHICLEID is NULL;
 
-    return true;
+    return v_slotId;
 
 EXCEPTION
     when no_data_found then
-        return false;
+        return 0;
 end;

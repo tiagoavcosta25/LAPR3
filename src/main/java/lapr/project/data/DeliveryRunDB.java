@@ -195,10 +195,10 @@ public class DeliveryRunDB extends DataHandler {
 
             callStmt.setDouble(2,oAddress.getLatitude());
             callStmt.setDouble(3,oAddress.getLongitude());
-            callStmt.registerOutParameter(1, OracleTypes.BOOLEAN);
+            callStmt.registerOutParameter(1, OracleTypes.INTEGER);
             callStmt.execute();
 
-            return callStmt.getBoolean(1);
+            return callStmt.getInt(1) != 0;
         } catch (SQLException e) {
             return false;
         } finally {
