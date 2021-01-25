@@ -1,19 +1,29 @@
-CREATE OR REPLACE PROCEDURE parkScooter(intId IN SCOOTER.VEHICLEID%TYPE) IS
-    id_parkingSlot PARKINGSLOT.ID%TYPE;
+CREATE OR REPLACE FUNCTION parkScooter(p_scooterId IN SCOOTER.VEHICLEID%TYPE) RETURN PARK.ID%TYPE IS
+    v_parkingSlotId PARKINGSLOT.ID%TYPE;
+    v_parkId PARK.ID%TYPE;
     no_avaiable_parkingSlots EXCEPTION;
 BEGIN
 
-    id_parkingSlot := GETFREEPARKINGSLOT(intId);
+    v_parkingSlotId := GETFREEPARKINGSLOT(p_scooterId);
 
-    IF id_parkingSlot = -1 THEN
+    IF v_parkingSlotId = -1 THEN
         raise no_avaiable_parkingSlots;
     end if;
 
     UPDATE PARKINGSLOT ps
-    SET VEHICLEID = intId
-    WHERE ps.ID = id_parkingSlot;
+    SET VEHICLEID = p_scooterId
+    WHERE ps.ID = v_parkingSlotId;
+
+    SELECT P.ID
+    INTO v_parkId
+    FROM PARK P
+    INNER JOIN PARKINGSLOT PS ON P.ID = PS.PARKID
+    WHERE PS.ID = v_parkingSlotId;
+
+    return v_parkId;
 
 EXCEPTION
     when no_avaiable_parkingSlots then
         raise_application_error(-20055, 'No Avaiable Parking Slots!');
+        return null;
 end;

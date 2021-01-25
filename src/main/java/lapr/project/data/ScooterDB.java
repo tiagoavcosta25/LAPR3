@@ -1,6 +1,7 @@
 package lapr.project.data;
 
 
+import javafx.util.Pair;
 import lapr.project.model.*;
 import oracle.jdbc.OracleTypes;
 
@@ -135,6 +136,51 @@ public class ScooterDB extends DataHandler {
 
     public int registerScooter(Scooter s) {
         return addScooter(s.getBatteryPerc(), s.getModel(), s.getPharmacy());
+    }
+
+    public List<Pair<String, Scooter>> getEmailPerChargingScooter(int intParkId) {
+        CallableStatement callStmt = null;
+        List<Pair<String, Scooter>> lstPairs = new ArrayList<>();
+        try {
+            openConnection();
+            callStmt = getConnection().prepareCall("{ ? = call getEmailPerChargingScooter(?) }");
+
+            callStmt.registerOutParameter(1, oracle.jdbc.internal.OracleTypes.CURSOR);
+            callStmt.setInt(2, intParkId);
+            callStmt.execute();
+            ResultSet rSet = (ResultSet) callStmt.getObject(1);
+
+            while(rSet.next()){
+                String strEmail = rSet.getString(1);
+                Scooter oScooter = scooterManager(rSet,2);
+                lstPairs.add(new Pair<>(strEmail, oScooter));
+            }
+        } catch (SQLException | NoSuchAlgorithmException e) {
+            e.printStackTrace();
+            throw new IllegalArgumentException("No Scooters Avaliable.");
+        } finally {
+            closeAll();
+        }
+        return lstPairs;
+    }
+
+    public Double getCurrentPerCharger(int intParkId) {
+        CallableStatement callStmt = null;
+        try {
+            openConnection();
+            callStmt = getConnection().prepareCall("{ ? = call getEmailPerChargingScooter(?) }");
+
+            callStmt.registerOutParameter(1, oracle.jdbc.internal.OracleTypes.DOUBLE);
+            callStmt.setInt(2, intParkId);
+            callStmt.execute();
+
+            return (Double) callStmt.getObject(1);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new IllegalArgumentException("No Scooters Avaliable.");
+        } finally {
+            closeAll();
+        }
     }
 
 }
