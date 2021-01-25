@@ -4,12 +4,13 @@ import lapr.project.controller.ApplicationPOT;
 import lapr.project.controller.KnowDeliveryController;
 import lapr.project.model.Order;
 import lapr.project.model.UserSession;
+import lapr.project.ui.UI;
 
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class KnowDeliveryUI {
+public class KnowDeliveryUI implements UI {
 
     public static final Logger LOGGER = Logger.getLogger(KnowDeliveryUI.class.getName());
 

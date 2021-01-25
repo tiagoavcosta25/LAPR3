@@ -1,13 +1,13 @@
 package lapr.project.ui.console;
 
-import lapr.project.controller.ApplicationPOT;
 import lapr.project.controller.VehiclePayloadController;
+import lapr.project.ui.UI;
 
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class VehiclePayloadUI {
+public class VehiclePayloadUI implements UI {
 
     public static final Logger LOGGER = Logger.getLogger(VehiclePayloadUI.class.getName());
 

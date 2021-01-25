@@ -1,13 +1,14 @@
 package lapr.project.ui.console;
 
 import lapr.project.controller.LogoutController;
-import lapr.project.utils.Menu;
+import lapr.project.ui.Menu;
+import lapr.project.ui.UI;
 
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class CourierUI {
+public class CourierUI implements UI {
     private static final Logger LOGGER = Logger.getLogger(CourierUI.class.getName());
 
     public void run() {
@@ -16,7 +17,8 @@ public class CourierUI {
 
         do{
             Menu.clear();
-            Menu.displayMenu("COURIER", "[1] Start Delivery Run\n[2] Park Scooter\n\n[0] Log Out");
+            Menu.displayMenu("COURIER", "[1] Start Delivery Run\n[2] Park Scooter\n[3] Know Delivery\n" +
+                    "[4] Check Vehicle Payload\n\n[0] Log Out");
             intOp = sc.nextInt();
 
             switch(intOp){
@@ -29,6 +31,18 @@ public class CourierUI {
                 case 2: {
                     Menu.clear();
                     ParkScooterUI UI = new ParkScooterUI();
+                    UI.run();
+                    break;
+                }
+                case 3: {
+                    Menu.clear();
+                    KnowDeliveryUI UI = new KnowDeliveryUI();
+                    UI.run();
+                    break;
+                }
+                case 4: {
+                    Menu.clear();
+                    VehiclePayloadUI UI = new VehiclePayloadUI();
                     UI.run();
                     break;
                 }

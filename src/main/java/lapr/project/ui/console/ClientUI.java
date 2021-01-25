@@ -1,13 +1,14 @@
 package lapr.project.ui.console;
 
 import lapr.project.controller.LogoutController;
-import lapr.project.utils.Menu;
+import lapr.project.ui.Menu;
+import lapr.project.ui.UI;
 
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class ClientUI {
+public class ClientUI implements UI {
     private static final Logger LOGGER = Logger.getLogger(ClientUI.class.getName());
 
     public void run() {

@@ -1,12 +1,13 @@
 package lapr.project.ui.console;
 
 import lapr.project.controller.IssueDeliveryNoteController;
+import lapr.project.ui.UI;
 
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class IssueDeliveryNoteUI {
+public class IssueDeliveryNoteUI implements UI {
 
     private static final Logger LOGGER = Logger.getLogger(IssueDeliveryNoteUI.class.getName());
 

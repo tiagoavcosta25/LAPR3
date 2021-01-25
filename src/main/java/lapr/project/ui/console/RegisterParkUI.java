@@ -1,14 +1,14 @@
 package lapr.project.ui.console;
 
 import lapr.project.controller.RegisterParkController;
-import lapr.project.controller.RegisterPharmacyController;
 import lapr.project.model.VehicleType;
+import lapr.project.ui.UI;
 
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class RegisterParkUI {
+public class RegisterParkUI implements UI {
 
     private static final Logger LOGGER = Logger.getLogger(RegisterParkUI.class.getName());
 

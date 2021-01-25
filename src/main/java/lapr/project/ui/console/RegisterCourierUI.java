@@ -2,12 +2,13 @@ package lapr.project.ui.console;
 
 import lapr.project.controller.RegisterCourierController;
 import lapr.project.ui.FileReader;
+import lapr.project.ui.UI;
 
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class RegisterCourierUI {
+public class RegisterCourierUI implements UI {
 
     private static final Logger LOGGER = Logger.getLogger(FileReader.class.getName());
 
@@ -19,17 +20,17 @@ public class RegisterCourierUI {
             while (flag) {
 
                 System.out.println("Introduce a new Courier's information:\n");
-                System.out.println("Name: ");
+                System.out.print("Name: ");
                 String name = reader.next();
-                System.out.println("Email: ");
+                System.out.print("Email: ");
                 String email = reader.next();
-                System.out.println("Nif: ");
+                System.out.print("Nif: ");
                 Integer nif = Integer.parseInt(reader.next());
-                System.out.println("IBAN: ");
+                System.out.print("IBAN: ");
                 String iban = reader.next();
-                System.out.println("Pharmacy's email: ");
+                System.out.print("Pharmacy's email: ");
                 String pharmacyEmail = reader.next();
-                System.out.println("Do you wish to create a courier with the following data?");
+                System.out.print("Do you wish to create a courier with the following data?");
                 System.out.println("Name: " + name + "\nEmail: " + email + "\nNif: " + nif + "\nIban: " + iban + "\nPharmacy's Email: " + pharmacyEmail);
                 System.out.println();
                 System.out.println("YES[1]");

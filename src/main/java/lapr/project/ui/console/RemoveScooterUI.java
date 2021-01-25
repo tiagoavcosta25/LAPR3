@@ -4,15 +4,16 @@ import lapr.project.controller.RemoveScooterController;
 import lapr.project.model.Pharmacy;
 import lapr.project.model.Scooter;
 import lapr.project.ui.FileReader;
+import lapr.project.ui.UI;
 
 import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class RemoveScooterUI {
+public class RemoveScooterUI implements UI {
 
-    private static final Logger LOGGER = Logger.getLogger(FileReader.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(RemoveDroneUI.class.getName());
 
     public void run() {
         try {

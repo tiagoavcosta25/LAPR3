@@ -1,12 +1,13 @@
 package lapr.project.ui.console;
 
 import lapr.project.controller.RegisterProductController;
+import lapr.project.ui.UI;
 
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class RegisterProductUI {
+public class RegisterProductUI implements UI {
 
     private static final Logger LOGGER = Logger.getLogger(RegisterProductUI.class.getName());
 

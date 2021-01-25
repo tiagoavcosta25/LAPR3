@@ -1,13 +1,13 @@
 package lapr.project.ui.console;
 
 import lapr.project.controller.LogoutController;
-import lapr.project.utils.Menu;
-
+import lapr.project.ui.Menu;
+import lapr.project.ui.UI;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class AdministratorUI {
+public class AdministratorUI implements UI {
     private static final Logger LOGGER = Logger.getLogger(AdministratorUI.class.getName());
 
     public void run() {
@@ -25,26 +25,26 @@ public class AdministratorUI {
             switch(intOp){
                 case 1: {
                     Menu.clear();
-                    RegisterPharamacyUI UI = new RegisterPharamacyUI();
+                    RegisterPharmacyUI UI = new RegisterPharmacyUI();
                     UI.run();
                     break;
                 }
                 case 2: {
                     Menu.clear();
-                    //RegisterProductUI UI = new RegisterProductUI();
-                    //UI.run();
+                    RegisterProductUI UI = new RegisterProductUI();
+                    UI.run();
                     break;
                 }
                 case 3: {
                     Menu.clear();
-                    //RemoveProductUI UI = new RemoveProductUI();
-                    //UI.run();
+                    RemoveProductUI UI = new RemoveProductUI();
+                    UI.run();
                     break;
                 }
                 case 4: {
                     Menu.clear();
-                    //UpdateProductUI UI = new UpdateProductUI();
-                    //UI.run();
+                    UpdateProductUI UI = new UpdateProductUI();
+                    UI.run();
                     break;
                 }
                 case 5: {

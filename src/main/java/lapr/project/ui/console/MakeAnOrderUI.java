@@ -1,15 +1,15 @@
 package lapr.project.ui.console;
 
-import lapr.project.controller.ApplicationPOT;
 import lapr.project.controller.MakeAnOrderController;
 import lapr.project.model.*;
+import lapr.project.ui.UI;
 
 import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class MakeAnOrderUI{
+public class MakeAnOrderUI implements UI {
 
     private static final Logger LOGGER = Logger.getLogger(MakeAnOrderUI.class.getName());
 

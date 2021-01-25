@@ -1,6 +1,5 @@
 package lapr.project.utils;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.file.Paths;
@@ -20,13 +19,13 @@ public class QRCode {
     private QRCode() {
     }
 
-    private static String CHARSET = "UTF-8";
-    private static String FORMAT = ".png";
-    private static String PATH = "src/main/resources/imgs/";
-    private static int HEIGHT = 200;
-    private static int WIDTH = 200;
+    private static String mCHARSET = "UTF-8";
+    private static String mFORMAT = ".png";
+    private static String mPATH = "src/main/resources/imgs/";
+    private static int mHEIGHT = 200;
+    private static int mWIDTH = 200;
 
-    public static boolean generateQRCode(String data, String fileName) throws WriterException, IOException {
+    public static boolean generateQRCode(String data, String fileName) {
 
         try{
             Map<EncodeHintType, ErrorCorrectionLevel> hashMap = new HashMap<>();
@@ -35,10 +34,10 @@ public class QRCode {
                     ErrorCorrectionLevel.L);
 
             BitMatrix matrix = new MultiFormatWriter().encode(
-                    new String(data.getBytes(CHARSET), CHARSET),
-                    BarcodeFormat.QR_CODE, WIDTH, HEIGHT);
+                    new String(data.getBytes(mCHARSET), mCHARSET),
+                    BarcodeFormat.QR_CODE, mHEIGHT, mWIDTH);
 
-            String path = PATH + fileName + FORMAT;
+            String path = mPATH + fileName + mFORMAT;
 
             MatrixToImageWriter.writeToPath(matrix, path.substring(path.lastIndexOf('.') + 1), Paths.get(path));
             return true;
@@ -47,13 +46,13 @@ public class QRCode {
         }
     }
 
-    public static String readQRCode(String fileName) throws IOException, NotFoundException{
+    public static String readQRCode(String fileName){
         try{
             BinaryBitmap binaryBitmap
                     = new BinaryBitmap(new HybridBinarizer(
                     new BufferedImageLuminanceSource(
                             ImageIO.read(
-                                    new FileInputStream(PATH + fileName + FORMAT)))));
+                                    new FileInputStream(mPATH + fileName + mFORMAT)))));
 
             Result result
                     = new MultiFormatReader().decode(binaryBitmap);
