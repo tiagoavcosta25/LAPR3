@@ -36,7 +36,7 @@ public class FileReader {
         readGenericFile(FILESCOOTERS);
         readGenericFile(FILEDRONES);
         readGenericFile(FILEPATHS);
-        readGenericFile(FILEORDERS);
+        //readGenericFile(FILEORDERS);
     }
 
     public static void readGenericFile(String path) {
@@ -241,19 +241,9 @@ public class FileReader {
     private static void readOrderFile(String[] columns) {
         MakeAnOrderController oCtrl = new MakeAnOrderController();
 
-        ApplicationPOT.getInstance().setCurrentSession(new UserSession(columns[0]));
+        ApplicationPOT.getInstance().setCurrentSession(new UserSession(columns[0], UserSession.Role.CLIENT));
 
-        List<Pharmacy> lstPharmacies = oCtrl.getPharmacies();
-        Pharmacy oPharmacy = null;
-
-        for(Pharmacy p : lstPharmacies){
-            if(p.hasEmail(columns[3])){
-                oPharmacy = p;
-                break;
-            }
-        }
-
-        List<Product> lstProducts = oCtrl.getAvailableProducts(oPharmacy);
+        List<Product> lstProducts = oCtrl.getAvailableProducts();
 
         int startingCCIndex = -1;
         Product oProduct;
@@ -292,6 +282,8 @@ public class FileReader {
             if (oCtrl.registerOrder()) {
                 LOGGER.log(Level.INFO,"Order was registered with success!");
             }else LOGGER.log(Level.WARNING,"There was a problem registering an Order.");
+
+            ApplicationPOT.getInstance().clearCurrentSession();
         }
     }
 
@@ -305,7 +297,4 @@ public class FileReader {
         }else LOGGER.log(Level.WARNING,"There was a problem creating a Courier");
 
     }
-}
-
-
- */
+}*/

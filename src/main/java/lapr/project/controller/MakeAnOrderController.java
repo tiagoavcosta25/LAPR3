@@ -113,7 +113,6 @@ public class MakeAnOrderController {
             if(!this.moNotifyAndRemoveController.notifyAndRemove(this.moOrder)){
                 throw new Exception();
             }
-            this.moClientService.updateClientCredits(moClient.getEmail(), moClient.getCredits());
             int intId = this.moOrderService.registerOrder(moOrder);
             this.moOrder.setId(intId);
             return this.generateInvoice();
@@ -147,6 +146,7 @@ public class MakeAnOrderController {
      */
     public List<Product> getAvailableProducts() {
         try {
+            this.moClient = this.moClientService.getClientByEmail(ApplicationPOT.getInstance().getCurrentSession().getCurrentUserEmail());
             this.moPharmacy = this.moPharmacyService.getClosestPharmacyToClient(this.moClient);
             return this.moProductService.getAvailableProducts(this.moPharmacy.getId());
         } catch (Exception ex) {

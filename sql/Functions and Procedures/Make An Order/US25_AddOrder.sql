@@ -31,7 +31,7 @@ begin
         raise pharmacy_not_found;
     end if;
 
--- Creates a new Order
+-- Creates a new Order and select its id
     Insert into "Order"(AMOUNT, TOTALWEIGHT, ADDITIONALFEE, DESCRIPTION, ORDERDATE, CLIENTID, PHARMACYID, ORDERSTATUS, ISHOMEDELIVERY, DELIVERYRUNID)
     Values (p_amount, p_totalWeight, p_additionalFee, p_description, p_date, p_clientId, p_pharmacyId, p_status, p_isHomeDelivery, null);
 
