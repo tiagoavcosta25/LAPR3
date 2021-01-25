@@ -3,7 +3,6 @@ package lapr.project.ui;
 import javafx.util.Pair;
 import lapr.project.controller.ApplicationPOT;
 import lapr.project.model.*;
-import lapr.project.utils.FileReader;
 
 import java.security.NoSuchAlgorithmException;
 import java.sql.Date;
@@ -12,7 +11,7 @@ import java.util.*;
 public class Test {
 
     public static void main(String[] args) throws NoSuchAlgorithmException {
-        FileReader.readFiles();
+        //FileReader.readFiles();
         ApplicationPOT.getInstance().getWorldMap().createGraph();
         WorldMap world = ApplicationPOT.getInstance().getWorldMap();
 
