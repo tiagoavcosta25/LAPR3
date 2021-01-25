@@ -206,9 +206,16 @@ class GraphServiceTest {
         List<Address> lAddresses = new ArrayList<>();
         Address a1 = new Address(10d, 10d, 2d, "", "", "", "", "");
         Address a2 = new Address(20d, 20d, 4d, "", "", "", "", "");
+        Address a3 = new Address(11d, 10d, 4d, "", "", "", "", "");
+        Address a4 = new Address(10d, 11d, 4d, "", "", "", "", "");
+        Address a5 = new Address(21d, 20d, 4d, "", "", "", "", "");
+        Address a6 = new Address(20d, 22d, 4d, "", "", "", "", "");
+
         lAddresses.add(a1);
         lAddresses.add(a2);
         assertNull(this.world.getPathFromAddresses(world.getScooterGraph(), a1, a2));
+
+
         List<Path> lPaths = new ArrayList<>();
         Path p1 = new Path(10d, 10d, 20d, 20d, "", 1d, 1d, 1d, VehicleType.SCOOTER);
         Path p3 = new Path(20d, 20d, 10d, 10d, "", 1d, 1d, 1d, VehicleType.SCOOTER);
@@ -223,6 +230,12 @@ class GraphServiceTest {
         assertNotEquals(world.getPathFromAddresses(world.getScooterGraph(), a1, a2), p2);
         assertNotEquals(world.getPathFromAddresses(world.getDroneGraph(), a1, a2), p1);
         assertNotEquals(world.getPathFromAddresses(world.getScooterGraph(), a1, a2), p3);
+
+        assertNotEquals(world.getPathFromAddresses(world.getScooterGraph(), a3, a2), p1);
+        assertNotEquals(world.getPathFromAddresses(world.getScooterGraph(), a4, a2), p1);
+        assertNotEquals(world.getPathFromAddresses(world.getScooterGraph(), a1, a5), p1);
+        assertNotEquals(world.getPathFromAddresses(world.getScooterGraph(), a1, a6), p1);
+
 
         assertEquals(world.getPathFromAddresses(world.getScooterGraph(), a1, a2), p1);
         assertEquals(world.getPathFromAddresses(world.getDroneGraph(), a1, a2), p2);
