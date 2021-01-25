@@ -309,6 +309,26 @@ class GraphServiceTest {
 
     @Test
     void pathsWithPharmacies() {
+        List<Address> lAddresses = new ArrayList<>();
+        Address a1 = new Address(10d, 10d, 2d, "", "", "", "", "");
+        Address a2 = new Address(20d, 20d, 4d, "", "", "", "", "");
+
+        lAddresses.add(a1);
+        lAddresses.add(a2);
+
+        List<Path> lPaths = new ArrayList<>();
+        Path p1 = new Path(10d, 10d, 20d, 20d, "", 1d, 1d, 1d, VehicleType.SCOOTER);
+        Path p3 = new Path(20d, 20d, 10d, 10d, "", 1d, 1d, 1d, VehicleType.SCOOTER);
+
+        Path p2 = new Path(10d, 10d, 20d, 20d, "", 1d, 1d, 1d, VehicleType.DRONE);
+        lPaths.add(p1);
+        lPaths.add(p2);
+        lPaths.add(p3);
+        when(mockDeliveryRunDB.getAllAddresses()).thenReturn(lAddresses);
+        when(mockDeliveryRunDB.getAllPaths()).thenReturn(lPaths);
+        world.createGraph();
+
+
     }
 
     @Test
