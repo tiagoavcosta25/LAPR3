@@ -1,48 +1,39 @@
 @startuml
 autonumber
 hide footbox
-actor "Courier" as COUR
 
-participant "MaxPayloadUI" as UI
-participant "MaxPayloadController" as CTRL
-participant "ApplicationPOT" as _APP
-participant "app\n:ApplicationPOT" as APP
-participant "session\n:UserSession" as SESSION
-participant "deliveryService\n:DeliveryService" as DS
-participant "deliveryDB\n:DeliveryDB" as DDB
-activate COUR
+actor "Admin" as ADMIN
 
-COUR -> UI : Sends a request regarding what is the maximum \npayload of the scooter
+participant ":VehiclePayloadUI" as UI
+participant ":VehiclePayloadController" as CTRL
+participant "vehicleService\n:VehicleService" as VS
+participant "vehicleDB\n:VehicleDB" as VDB
 
+activate ADMIN
+ADMIN -> UI : Requests the vehicle payload
 activate UI
-UI -> CTRL : getMaxPayload()
-activate CTRL
-CTRL -> _APP: app = getInstance()
-activate _APP
-deactivate _APP
-
-CTRL -> APP: session = getCurrentSession()
-activate APP
-deactivate APP
-
-CTRL -> SESSION : email = getCurrentUserEmail()
-activate SESSION
-deactivate SESSION
-CTRL -> DS* : create()
-activate DS
-DS -> DDB* : create()
-deactivate DS
-CTRL -> DS : getMaxPayload(email)
-activate DS
-DS -> DDB : getMaxPayload(email)
-ref over DDB : SD_CONNECTIONS
-activate DDB
-deactivate DDB
-deactivate DS
-deactivate CTRL
-UI -> COUR : Shows the payload of the scooter, informing \nof the success of the operation.
+UI-> ADMIN : Asks for the vehicle ID
 deactivate UI
-deactivate COUR
-
+ADMIN -> UI : Fills the information
+activate UI
+UI -> CTRL : getVehiclePayload(vehicleId)
+activate CTRL
+CTRL -> VS* : create()
+activate VS
+VS -> VDB* : create()
+deactivate VS
+CTRL -> VS : payload = getVehiclePayload(vehicleId)
+activate VS
+VS -> VDB : payload = getVehiclePayload(vehicleId)
+activate VDB
+ref over VDB : SD_CONNECTIONS
+deactivate VDB
+deactivate VS
+deactivate CTRL
+opt payload !=null
+UI -> ADMIN : Validates and presents the vehicle payload.
+end opt
+UI -> ADMIN : Informs the admin that the vehicle id\ninserted is invalid.
+deactivate UI
 
 @enduml

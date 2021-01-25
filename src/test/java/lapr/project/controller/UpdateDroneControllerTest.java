@@ -1,12 +1,20 @@
 package lapr.project.controller;
 
+import lapr.project.model.Drone;
+import lapr.project.model.Pharmacy;
+import lapr.project.model.Scooter;
 import lapr.project.model.service.ClientService;
 import lapr.project.model.service.DroneService;
+import lapr.project.model.service.PharmacyService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import static org.mockito.Mockito.when;
 import static org.junit.jupiter.api.Assertions.*;
@@ -30,36 +38,56 @@ class UpdateDroneControllerTest {
     @Mock
     private DroneService m_mockDroneService;
 
+    @Mock
+    private PharmacyService m_mockPharmacyService;
+
     @Test
-    void validate() {
-        when (m_mockDroneService.validate(101f,"1",1f,232f,21d,
-                12f,21f,"Das",3)).thenReturn(true);
-        boolean real = m_ctrl.validate(101f,"1",1f,232f,21d,
-                12f,21f,"Das",3);
-        assertTrue(real);
+    void showPharmacies() {
+        System.out.println("showPharmacies");
 
-        when (m_mockDroneService.validate(101f,"1",1f,232f,21d,
-                12f,21f,"Das",3)).thenReturn(false);
-        real = m_ctrl.validate(101f,"1",1f,232f,21d,
-                12f,21f,"Das",3);
-        assertFalse(real);
+        List<Pharmacy> expectedListPharmacies = new ArrayList<>(Arrays.asList(new Pharmacy()));
 
+        when(m_mockPharmacyService.getPharmacies()).thenReturn(expectedListPharmacies);
+
+        List<Pharmacy> result = m_ctrl.showPharmacies();
+        assertEquals(expectedListPharmacies, result);
+    }
+
+    @Test
+    void showDronesList() {
+        System.out.println("showDronesList");
+        when(m_mockDroneService.getDronesList("pharmacy@gmail.com")).thenReturn(new ArrayList<>());
+        List<Drone> result = m_ctrl.showDronesList("pharmacy@gmail.com");
+        assertEquals(new ArrayList<>(),result);
+
+        when(m_mockDroneService.getDronesList("")).thenThrow(new IllegalArgumentException());
+        result = m_ctrl.showDronesList("");
+        assertNull(result);
     }
 
     @Test
     void updateDrone() {
-        when (m_mockDroneService.updateDrone(101f,"1",1f,232f,21d,
-                12f,21f,"Das",3)).thenReturn(true);
-        boolean real = m_ctrl.updateDrone(101f,"1",1f,232f,21d,
-                12f,21f,"Das",3);
+        System.out.println("updateScooter");
+        when(m_mockDroneService.updateDroneFromDB(1, 100d, "Test",
+                2.0d, 2.0d, 30d, 100, 20d,
+                10d)).thenReturn(true);
 
-        assertFalse(real);
+        boolean result = m_ctrl.updateDrone(1, 100d, "Test",
+                2.0d, 2.0d, 30d, 100, 20d,
+                10d);
+        assertTrue(result);
 
-        when (m_mockDroneService.updateDrone(101f,"1",1f,232f,21d,
-                12f,21f,"Das",3)).thenReturn(false);
-        real = m_ctrl.updateDrone(101f,"1",1f,232f,21d,
-                12f,21f,"Das",3);
+        result = m_ctrl.updateDrone(-1, 100d, "Test",
+                2.0d, 2.0d, 30d, 100, 20d,
+                10d);
+        assertFalse(result);
 
-        assertFalse(real);
+        when(m_mockDroneService.updateDroneFromDB(1, 100d, "Test",
+                2.0d, 2.0d, 30d, 100, 20d,
+                10d)).thenReturn(false);
+        result = m_ctrl.updateDrone(1, 100d, "Test",
+                2.0d, 2.0d, 30d, 100, 20d,
+                10d);
+        assertFalse(result);
     }
 }

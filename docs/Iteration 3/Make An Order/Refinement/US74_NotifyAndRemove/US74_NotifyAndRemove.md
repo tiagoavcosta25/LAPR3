@@ -3,21 +3,21 @@
 ## 1. Requirements Engineering
 
 ### SSD
-![US149_SSD](US149_SSD.svg)
+![US74_SSD](US74_SSD.svg)
 
 ## 2. OO Analysis
 
 ### Part of the Domain Model Relevant for the UC
 
-![US149_DM](US149_DM.svg)
+![US74_DM](US74_DM.svg)
 
 ## 3. Design - Use Case Realization
 
 ###	Sequence Diagram
 
-![US149_SD.svg](US149_SD.svg)
+![US74_SD.svg](US74_SD.svg)
 
 
 ###	Class Diagram
 
-![US149_CD.svg](US149_CD.svg)
+![US74_CD.svg](US74_CD.svg)

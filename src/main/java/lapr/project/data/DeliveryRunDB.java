@@ -121,7 +121,9 @@ public class DeliveryRunDB extends DataHandler {
 
             CallableStatement callStmt = getConnection().prepareCall("{ ? = call addNewDeliveryRun(?,?,?) }");
 
-            callStmt.setInt(2,courier.getId());
+            if (courier == null) {
+                callStmt.setInt(2,-1);
+            }else callStmt.setInt(2,courier.getId());
             callStmt.setString(3,status.getDesignation());
             callStmt.setInt(4,oVehicle.getId());
             callStmt.registerOutParameter(1, OracleTypes.INTEGER);
@@ -180,6 +182,25 @@ public class DeliveryRunDB extends DataHandler {
             return droneManager(rSet,1);
         } catch (SQLException | NoSuchAlgorithmException e) {
             return null;
+        } finally {
+            closeAll();
+        }
+    }
+
+    public boolean checkValidChargingSlot(Address oAddress) {
+        try {
+            openConnection();
+
+            CallableStatement callStmt = getConnection().prepareCall("{ ? = call checkValidChargingSlot(?,?) }");
+
+            callStmt.setDouble(2,oAddress.getLatitude());
+            callStmt.setDouble(3,oAddress.getLongitude());
+            callStmt.registerOutParameter(1, OracleTypes.INTEGER);
+            callStmt.execute();
+
+            return callStmt.getInt(1) != 0;
+        } catch (SQLException e) {
+            return false;
         } finally {
             closeAll();
         }

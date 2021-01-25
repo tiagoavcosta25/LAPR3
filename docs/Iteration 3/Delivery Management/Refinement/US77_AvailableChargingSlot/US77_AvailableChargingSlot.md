@@ -1,4 +1,4 @@
-# US 77 - AvailableChargingSlot
+# US 77 - Available Charging Slot
 
 ## 1. Requirements Engineering
 

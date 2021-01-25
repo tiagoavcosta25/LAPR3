@@ -16,22 +16,10 @@ public class DroneService {
         moDroneDB = new DroneDB();
     }
 
-    public boolean validate(Float percentage, String pharmacyEmail, Float potency, Float weight, Double batteryCapacity,
-                            Float maxPayload, Float batteryVoltage, String chargingStatus, Integer droneId) {
-        return percentage >= 0 && percentage <= 100 && !pharmacyEmail.isEmpty() && potency > 0 && weight > 0 && batteryCapacity > 0
-                && maxPayload > 0 && batteryVoltage > 0 && !chargingStatus.isEmpty() && droneId > 0;
-    }
-
-    public boolean updateDrone(Float percentage, String pharmacyEmail, Float potency, Float weight, Double batteryCapacity,
-                               Float maxPayload, Float batteryVoltage, String chargingStatus, Integer droneId) {
-        if (moDroneDB.updateDrone(percentage, pharmacyEmail, potency, weight, batteryCapacity, maxPayload, batteryVoltage, chargingStatus, droneId)){
-            String body = String.format("Drone Update Log\n\n" +
-                    "Drone New Info:\n-Updated Percentage: %.2f\n-Updated Potency: %.2f\n-Updated Weight: %.2fkg\n-Updated " +
-                    "Battery Capacity: %.2f\n-Updated Max Payload: %.2f\n-Updated Battery Voltage: %.2f\nUpdated " +
-                    "Charging Status: %s\n-Pharmacy Email: %s",percentage,potency,weight,batteryCapacity,maxPayload,batteryVoltage,
-                    chargingStatus,pharmacyEmail);
-            return WriteFile.write("UpdateDrone_" + droneId,body);
-        }else return false;
+    public boolean updateDroneFromDB(int intId, double dblBatteryPerc, String strDesignation, double dblPotency, double dblWeight, double dblMaxPayload,
+                                       int intBatteryCapacity, double dblBatteryVoltage, double dblEfficiency){
+        return moDroneDB.updateDroneFromDB(intId, dblBatteryPerc, strDesignation, dblPotency, dblWeight, dblMaxPayload,
+                intBatteryCapacity, dblBatteryVoltage, dblEfficiency);
     }
 
     public Drone newDrone(VehicleModel oVehicleModel, Pharmacy oPharmacy) {
@@ -42,8 +30,8 @@ public class DroneService {
         return moDroneDB.registerDrone(oDrone);
     }
 
-    public List<Drone> getDronesList(int intPharmacyId) {
-        return moDroneDB.getDronesList(intPharmacyId);
+    public List<Drone> getDronesList(String strPharmacyEmail) {
+        return moDroneDB.getDronesList(strPharmacyEmail);
     }
 
     public boolean removeDroneFromDB(int intId) {
@@ -59,10 +47,10 @@ public class DroneService {
         }
         double totalEnergy;
         if (oVehicle instanceof Drone) {
-            totalEnergy = EnergyCalculator.calculateDroneEnergy(totalWeight, 0, 1, 100);
+            totalEnergy = EnergyCalculator.calculateDroneEnergy(totalWeight, 0, 1, 100).getKey();
 
         } else {
-            totalEnergy = EnergyCalculator.calculateScooterEnergy(distance, 0, 1, 10, totalWeight + oVehicleModel.getWeight() + Constants.DEFAULT_COURIER_WEIGHT, Constants.KINETIC_FRICTION_COEFFICIENT);
+            totalEnergy = EnergyCalculator.calculateScooterEnergy(distance, 0, 1, 10, totalWeight + oVehicleModel.getWeight() + Constants.DEFAULT_COURIER_WEIGHT, Constants.KINETIC_FRICTION_COEFFICIENT).getKey();
         }
         return (((oVehicleModel.getBattery().getBatteryCapacity() * oVehicleModel.getBattery().getBatteryVoltage() * (oVehicle.getBatteryPerc() / 100)) / 1000) >= totalEnergy / Constants.KILOWATTHOUR);
 
