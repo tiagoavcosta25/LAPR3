@@ -16,10 +16,10 @@ begin
                  inner join VEHICLETYPE V3 on p.VEHICLETYPE = V3.DESIGNATION
                  inner join BATTERY B on vm.BATTERYID = B.ID
         where vm.DESIGNATION = p_vehicleModelDesignation and v.BATTERYPERC = (select Max(v1.BATTERYPERC)
-                               from VEHICLE v1
-                                        inner join VehicleModel v2 on v1.MODELID = v2.ID
-                               where v2.DESIGNATION = p_vehicleModelDesignation
-                                 and v2.VEHICLETYPE = 'Drone')
+                                                                              from VEHICLE v1
+                                                                                       inner join VehicleModel v2 on v1.MODELID = v2.ID
+                                                                              where v2.DESIGNATION = p_vehicleModelDesignation
+                                                                                and v2.VEHICLETYPE = 'Drone')
             FETCH FIRST ROW ONLY;
 
 
@@ -29,3 +29,5 @@ EXCEPTION
     when no_data_found then
         return null;
 end;
+/
+

@@ -1,19 +1,3 @@
-select *
-from DELIVERYRUN;
-
-select *
-from vehicle;
-
-select *
-from VEHICLEMODEL;
-
-select *
-from courier;
-
-select *
-from "User";
-
-
 create or replace function getMostChargedScooter(p_vehicleModelDesignation VehicleModel.DESIGNATION%type) return sys_refcursor
     is
     v_curs sys_refcursor;
@@ -45,3 +29,5 @@ EXCEPTION
     when no_data_found then
         return null;
 end;
+/
+
