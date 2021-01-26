@@ -24,10 +24,6 @@ public class VehicleService {
         this.moVehicleDB = new VehicleDB();
     }
 
-    public Vehicle getSuitableVehicle(Double distanceScooter, Double distanceDrone, String currentUserEmail) {
-        return moVehicleDB.getSuitableVehicle(distanceScooter,distanceDrone, currentUserEmail);
-    }
-
     public List<VehicleModel> getPharamcyModel(String strPharmacyEmail) {
         return moVehicleDB.getPharmacyModel(strPharmacyEmail);
     }

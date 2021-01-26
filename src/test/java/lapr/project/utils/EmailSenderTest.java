@@ -23,4 +23,5 @@ class EmailSenderTest {
         result = EmailSender.sendEmail("csxmutilation@gmail.com", "Test", "");
         assertTrue(result);
     }
+
 }

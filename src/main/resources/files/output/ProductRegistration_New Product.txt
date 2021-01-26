@@ -1,0 +1,13 @@
+______________________________________________________________________________________
+Product Information:
+
+-Name: New Product
+-Description: Description
+-Unitary Price: 123,00€
+-Unitary Weight: 123,00kg
+
+______________________________________________________________________________________
+
+Thank you for choosing us.
+King regards,
+Pharmacy Service G21.

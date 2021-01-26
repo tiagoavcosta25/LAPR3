@@ -49,7 +49,7 @@ class RegisterDeliveryRunUI{
 
 package "Controller" #DDDDDD {
 class RegisterDeliveryRunController{
-+registerDeliveryRun(lstOrderId)
++registerDeliveryRun(lstOrder)
 }
 }
 
@@ -67,7 +67,7 @@ class DeliveryRun{
 -Vehicle m_oVehicle
 -List<Order> m_lstOrder
 -DeliveryStatus m_oStatus
-+DeliveryRun(courier,lstPath)
++DeliveryRun(courier,lstOrder,vehicle)
 }
 
 }
@@ -87,6 +87,7 @@ class DeliveryRunService {
 +addNewDeliveryRun(deliveryRun)
 +getMostChargedScooter(vehicleModel)
 +getMostChargedDrone(vehicleModel)
++getMostEfficientVehicleModel(lstPair)
 }
 
 class PharmacyService {

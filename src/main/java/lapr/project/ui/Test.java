@@ -3,6 +3,7 @@ package lapr.project.ui;
 import javafx.util.Pair;
 import lapr.project.controller.ApplicationPOT;
 import lapr.project.controller.RegisterDeliveryRunController;
+import lapr.project.controller.RegisterProductController;
 import lapr.project.model.*;
 import lapr.project.model.service.GraphService;
 
@@ -14,10 +15,8 @@ public class Test {
 
     public static void main(String[] args) throws NoSuchAlgorithmException {
         //FileReader.readFiles();
-        ApplicationPOT.getInstance().getWorldMap().createGraph();
-        RegisterDeliveryRunController ctrl = new RegisterDeliveryRunController();
-        ApplicationPOT.getInstance().setCurrentSession(new UserSession("A", UserSession.Role.ADMIN));
-        List<Order> lstOrder = ctrl.getOrdersList("info@sabandeira.com");
-        System.out.println(ctrl.registerDeliveryRun(lstOrder));
+        RegisterProductController ctrl = new RegisterProductController();
+        ApplicationPOT.getInstance().setCurrentSession(new UserSession("asdas", UserSession.Role.ADMIN));
+        ctrl.registerProduct("New Product", "Description", 123d, 123d);
     }
 }

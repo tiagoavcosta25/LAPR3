@@ -84,15 +84,21 @@ deactivate SESSION
 alt if user is authorized (if it's an admin)
 
 
-CTRL -> GF : vehicleModel = calculateBestVehicleAndBestPath(lstOrder)
+CTRL -> GF : lstPair = calculateBestVehicleAndBestPath(lstOrder)
 activate GF
-GF -> GFDB : vehicleModel = calculateBestVehicleAndBestPath(lstOrder)
+GF -> GFDB : lstPair = calculateBestVehicleAndBestPath(lstOrder)
 activate GFDB
 ref over GFDB
 SD_CONNECTIONS
 end ref
 deactivate GF
 deactivate GFDB
+
+
+alt if model is not empty
+CTRL -> DRS : model = getMostEfficientVehicleModel(lstPair)
+activate DRS
+deactivate DRS
 
 alt if vehicle is a scooter
 
@@ -159,8 +165,9 @@ deactivate CTRL
 
 UI --> U : Registers the delivery run and informs\nabout the success of the operation
 deactivate UI
+end
 
-else if User is not authorized
+else if User is not authorized or if model is empty
 
 
 UI --> U : Informs about the unsuccess of\nthe operation
