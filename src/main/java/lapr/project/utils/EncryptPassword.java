@@ -6,6 +6,9 @@ import java.security.NoSuchAlgorithmException;
 
 public class EncryptPassword{
 
+    private EncryptPassword(){
+    }
+
     /**
      * Represents the type of the algorithm
      */
