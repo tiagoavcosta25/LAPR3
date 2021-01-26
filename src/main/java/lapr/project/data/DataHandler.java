@@ -4,7 +4,6 @@ package lapr.project.data;
 import lapr.project.model.*;
 
 import java.io.*;
-import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Properties;

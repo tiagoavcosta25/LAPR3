@@ -3,7 +3,6 @@ package lapr.project.data;
 import lapr.project.model.*;
 import oracle.jdbc.OracleTypes;
 
-import java.security.NoSuchAlgorithmException;
 import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -23,11 +22,7 @@ public class DeliveryRunDB extends DataHandler {
                                 String strName, double dblWindSpeed, double dblWindAngle,
                                 double dblKineticFrictionCoefficient,VehicleType oVehicleType) {
         boolean flag = true;
-        try {
-            openConnection();
-
-            CallableStatement callStmt = getConnection().prepareCall("{ call addPath(?,?,?,?,?,?,?,?,?) }");
-
+        try(CallableStatement callStmt = getConnection().prepareCall("{ call addPath(?,?,?,?,?,?,?,?,?) }");) {
             callStmt.setDouble(1, dblLatitudeA);
             callStmt.setDouble(2, dblLongitudeA);
             callStmt.setDouble(3, dblLatitudeB);
@@ -50,33 +45,29 @@ public class DeliveryRunDB extends DataHandler {
     }
 
     public List<Path> getAllPaths() {
-        CallableStatement callStmt = null;
         List<Path> lstPaths = new ArrayList<>();
-        try {
-            openConnection();
-            callStmt = getConnection().prepareCall("{ ? = call getPaths() }");
-
+        try(CallableStatement callStmt = getConnection().prepareCall("{ ? = call getPaths() }");) {
             callStmt.registerOutParameter(1, oracle.jdbc.internal.OracleTypes.CURSOR);
             callStmt.execute();
             ResultSet rSet = (ResultSet) callStmt.getObject(1);
 
             while (rSet.next()) {
 
-                double m_dblLatitudeA = rSet.getDouble(1);
-                double m_dblLongitudeA = rSet.getDouble(2);
-                double m_dblLatitudeB = rSet.getDouble(3);
-                double m_dblLongitudeB = rSet.getDouble(4);
-                String m_strName = rSet.getString(6);
-                double m_dblWindSpeed = rSet.getDouble(7);
-                double m_dblWindAngle = rSet.getDouble(8);
-                double m_dblKineticFrictionCoefficient = rSet.getDouble(9);
+                double mdblLatitudeA = rSet.getDouble(1);
+                double mdblLongitudeA = rSet.getDouble(2);
+                double mdblLatitudeB = rSet.getDouble(3);
+                double mdblLongitudeB = rSet.getDouble(4);
+                String mstrName = rSet.getString(6);
+                double mdblWindSpeed = rSet.getDouble(7);
+                double mdblWindAngle = rSet.getDouble(8);
+                double mdblKineticFrictionCoefficient = rSet.getDouble(9);
                 VehicleType oVehicleType = null;
                 if (rSet.getString(5).equals("Scooter")){
                     oVehicleType = VehicleType.SCOOTER;
                 }else oVehicleType = VehicleType.DRONE;
 
-                lstPaths.add(new Path(m_dblLatitudeA, m_dblLongitudeA, m_dblLatitudeB, m_dblLongitudeB,
-                        m_strName, m_dblWindSpeed, m_dblWindAngle, m_dblKineticFrictionCoefficient,oVehicleType));
+                lstPaths.add(new Path(mdblLatitudeA, mdblLongitudeA, mdblLatitudeB, mdblLongitudeB,
+                        mstrName, mdblWindSpeed, mdblWindAngle, mdblKineticFrictionCoefficient,oVehicleType));
             }
             return lstPaths;
         } catch (SQLException e) {
@@ -87,14 +78,9 @@ public class DeliveryRunDB extends DataHandler {
         throw new IllegalArgumentException("No Paths Avaliable.");
     }
 
-    //TODO: ARRANJAR
     public List<Address> getAllAddresses() {
-        CallableStatement callStmt = null;
         List<Address> lstAddress = new ArrayList<>();
-        try {
-            openConnection();
-            callStmt = getConnection().prepareCall("{ ? = call getAllAddress() }");
-
+        try(CallableStatement callStmt = getConnection().prepareCall("{ ? = call getAllAddress() }");) {
             callStmt.registerOutParameter(1, oracle.jdbc.internal.OracleTypes.CURSOR);
             callStmt.execute();
             ResultSet rSet = (ResultSet) callStmt.getObject(1);
@@ -117,12 +103,8 @@ public class DeliveryRunDB extends DataHandler {
     }
 
     public boolean addNewDeliveryRun(Courier courier, List<Order> lst, DeliveryStatus status, Vehicle oVehicle) {
-        try {
-            openConnection();
-
-
-            CallableStatement callStmt = getConnection().prepareCall("{ ? = call addNewDeliveryRun(?,?,?) }");
-
+        try(CallableStatement callStmt = getConnection().prepareCall("{ ? = call addNewDeliveryRun(?,?,?) }");
+            CallableStatement callStmt2 = getConnection().prepareCall("{ call addOrderToDeliveryRun(?,?) }");) {
             if (courier == null) {
                 callStmt.setInt(2,-1);
             }else callStmt.setInt(2,courier.getId());
@@ -131,16 +113,13 @@ public class DeliveryRunDB extends DataHandler {
             callStmt.registerOutParameter(1, OracleTypes.INTEGER);
             callStmt.execute();
 
-            Integer deliveryRunId = callStmt.getInt(1);
+            int deliveryRunId = callStmt.getInt(1);
 
             for (Order o : lst) {
-                CallableStatement callStmt2 = getConnection().prepareCall("{ call addOrderToDeliveryRun(?,?) }");
                 callStmt2.setInt(1,deliveryRunId);
                 callStmt2.setInt(2,o.getId());
-
                 callStmt2.execute();
             }
-
             return true;
         } catch (SQLException e) {
             return false;
@@ -150,11 +129,7 @@ public class DeliveryRunDB extends DataHandler {
     }
 
     public Scooter getMostChargedScooterFromModel(VehicleModel oVehicleModel) {
-        try {
-            openConnection();
-
-            CallableStatement callStmt = getConnection().prepareCall("{ ? = call getMostChargedScooter(?) }");
-
+        try(CallableStatement callStmt = getConnection().prepareCall("{ ? = call getMostChargedScooter(?) }");) {
             callStmt.setString(2,oVehicleModel.getDesignation());
             callStmt.registerOutParameter(1, OracleTypes.CURSOR);
             callStmt.execute();
@@ -171,11 +146,7 @@ public class DeliveryRunDB extends DataHandler {
     }
 
     public Drone getMostChargedDroneFromModel(VehicleModel oVehicleModel) {
-        try {
-            openConnection();
-
-            CallableStatement callStmt = getConnection().prepareCall("{ ? = call getMostChargedDrone(?) }");
-
+        try(CallableStatement callStmt = getConnection().prepareCall("{ ? = call getMostChargedDrone(?) }");) {
             callStmt.setString(2,oVehicleModel.getDesignation());
             callStmt.registerOutParameter(1, OracleTypes.CURSOR);
             callStmt.execute();
@@ -192,11 +163,7 @@ public class DeliveryRunDB extends DataHandler {
     }
 
     public boolean checkValidChargingSlot(Address oAddress) {
-        try {
-            openConnection();
-
-            CallableStatement callStmt = getConnection().prepareCall("{ ? = call checkValidChargingSlot(?,?) }");
-
+        try(CallableStatement callStmt = getConnection().prepareCall("{ ? = call checkValidChargingSlot(?,?) }");) {
             callStmt.setDouble(2,oAddress.getLatitude());
             callStmt.setDouble(3,oAddress.getLongitude());
             callStmt.registerOutParameter(1, OracleTypes.INTEGER);
@@ -211,10 +178,8 @@ public class DeliveryRunDB extends DataHandler {
     }
 
     public List<Address> getAddressesByDeliveryRunId(String email) {
-        CallableStatement callStmt = null;
-        try {
-            openConnection();
-            callStmt = getConnection().prepareCall("{ ? = call getDeliveryRunIdByCourierEmail(?) }");
+        try(CallableStatement callStmt = getConnection().prepareCall("{ ? = call getDeliveryRunIdByCourierEmail(?) }");
+            CallableStatement callStmt2 = getConnection().prepareCall("{ ? = call getAddressesByDeliveryRunId(?) }");) {
 
             callStmt.registerOutParameter(1, OracleTypes.NUMBER);
             callStmt.setString(2, email);
@@ -226,14 +191,12 @@ public class DeliveryRunDB extends DataHandler {
             if (rSet.next()) {
                 delRunId = rSet.getInt(1);
             }
-            callStmt = getConnection().prepareCall("{ ? = call getAddressesByDeliveryRunId(?) }");
+            callStmt2.registerOutParameter(1, OracleTypes.CURSOR);
+            callStmt2.setInt(2, delRunId);
 
-            callStmt.registerOutParameter(1, OracleTypes.CURSOR);
-            callStmt.setInt(2, delRunId);
+            callStmt2.execute();
 
-            callStmt.execute();
-
-            rSet = (ResultSet) callStmt.getObject(1);
+            rSet = (ResultSet) callStmt2.getObject(1);
             List<Address> list = new ArrayList<>();
             while (rSet.next()) {
                 Address a = addressManager(rSet, 1);
@@ -250,12 +213,8 @@ public class DeliveryRunDB extends DataHandler {
     }
 
     public Map<String,String> startDeliveryRun(String currentUserEmail) {
-        CallableStatement callStmt = null;
         Map<String,String> lstClients = new TreeMap<>();
-        try {
-            openConnection();
-            callStmt = getConnection().prepareCall("{ ? = call getClientsEmail(?) }");
-
+        try(CallableStatement callStmt = getConnection().prepareCall("{ ? = call getClientsEmail(?) }");) {
             callStmt.registerOutParameter(1, oracle.jdbc.internal.OracleTypes.CURSOR);
             callStmt.setString(2, currentUserEmail);
             callStmt.execute();
@@ -263,7 +222,7 @@ public class DeliveryRunDB extends DataHandler {
 
             while(rSet.next()){
                 String clientEmail = rSet.getString(1);
-                Integer orderID = rSet.getInt(2);
+                int orderID = rSet.getInt(2);
                 String orderDesc = rSet.getString(3);
                 String info = ("Tracking number: " + orderID + "\nOrder description: " + orderDesc);
                 lstClients.put(clientEmail,info);
