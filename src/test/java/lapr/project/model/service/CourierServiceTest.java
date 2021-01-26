@@ -90,6 +90,18 @@ class CourierServiceTest {
                 "123",null);
         assertEquals(c2,c21);
 
+        c2 = new Courier("teste","email","123",0,"No Iban",new Pharmacy());
+        assertEquals("teste", c2.getName());
+        c21 = courierService.updateCourier(c2,null,"email",0,
+                "123",null);
+        assertNotNull(c21);
+        assertEquals("teste", c21.getName());
+        c21 = courierService.updateCourier(c2,"testeteste","email",0,
+                "123",null);
+        assertNotNull(c21);
+        assertEquals("testeteste", c21.getName());
+        assertEquals(c2,c21);
+
     }
 
     @Test
