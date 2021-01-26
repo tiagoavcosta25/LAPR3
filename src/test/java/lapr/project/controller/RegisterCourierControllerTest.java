@@ -102,6 +102,9 @@ class RegisterCourierControllerTest {
         real = registerCourierController.validateInput("Ernesto", "ernesto@gmail.com", 2501761, "PT98003506514853185258910","test2");
         assertFalse(real);
 
+        real = registerCourierController.validateInput("Ernesto", "ernesto@gmail.com", 2501761, "PT98003506514853185258910","");
+        assertFalse(real);
+
 
 
     }
