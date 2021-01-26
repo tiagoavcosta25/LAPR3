@@ -100,11 +100,11 @@ public class Pharmacy {
     }
 
     public List<Park> getParks() {
-        return mlstParks;
+        return new ArrayList<>(mlstParks);
     }
 
     public void setParks(List<Park> lstParks) {
-        this.mlstParks = lstParks;
+        this.mlstParks = new ArrayList<>(lstParks);
     }
 
     public Map<Product, Integer> getStock() {
