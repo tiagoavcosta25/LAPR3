@@ -13,7 +13,10 @@ estimate:
 	#Battery Capacity = b, Current charged [by the charging spot] = c, Current Charge = cc;
 	#Charging Time (h) = (b×((100-cc)/100))/c = xx h
 	
+	movl $0, %eax
 	movl 16(%ebp), %edx 		#--> c --> charge 
+	cmpl $100, %edx
+	jge end
 	movl $100, %eax 			#--> maximum possible charge
 	movl %eax, %ecx 			#--> set %ecx to 100
 	subl %edx, %eax 			#--> 100-cc --> charge % left to charge
@@ -30,6 +33,7 @@ estimate:
 	cdq							#--> prepare division
 	idivl %ecx					#--> charging time (h) --> (b×((100-cc)/100))/c --> (capacity multiplied by ((charge % left to charge) divided by 100)) divided by current
 	
+	end:
 	#Epilogue
 	movl %ebp , %esp 			# restore the stack pointer (" clear " the stack )
 	popl %ebp 					# restore the stack frame pointer

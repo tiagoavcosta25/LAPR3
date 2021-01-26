@@ -3,10 +3,7 @@ package lapr.project.data;
 import lapr.project.model.Courier;
 import lapr.project.model.Pharmacy;
 import lapr.project.model.service.CourierService;
-import lapr.project.utils.Constants;
-import lapr.project.utils.DirectoryVerification;
-import lapr.project.utils.EmailSender;
-import lapr.project.utils.TimeCalculator;
+import lapr.project.utils.*;
 import oracle.jdbc.OracleTypes;
 
 import java.io.BufferedReader;
@@ -24,7 +21,7 @@ import java.util.logging.Level;
 
 public class CourierDB extends DataHandler {
 
-    private static final java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(CourierService.class.getName());
+    private static final java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(CourierDB.class.getName());
 
     public boolean addCourierToDB(String strName, String strEmail, String strPassword, Integer strNif, String strIban, Integer pharmacyId) {
         boolean flag = true;
@@ -114,74 +111,73 @@ public class CourierDB extends DataHandler {
         throw new IllegalArgumentException("No Courier: " + email);
     }
 
-    public boolean parkScooter(int intId) {
-        try(CallableStatement callStmt = getConnection().prepareCall("{ call parkScooter(?) }");) {
-            callStmt.setInt(1, intId);
+    public int parkScooter(int intId) {
+        try(CallableStatement callStmt = getConnection().prepareCall("{ ? = call parkScooter(?) }");) {
+            callStmt.registerOutParameter(1, OracleTypes.INTEGER);
+            callStmt.setInt(2, intId);
 
             callStmt.execute();
-
+            return callStmt.getInt(1);
         } catch (SQLException e) {
             e.printStackTrace();
-            return false;
+            return -1;
         } finally {
             closeAll();
         }
-        return true;
     }
 
-    public boolean parkScooterDirectory(Integer intIdScooter, boolean flag) {
-            String estimateFileName = DirectoryVerification.verifyFileCreation(Constants.ESTIMATE_FILE_PATH,
-                    Constants.ESTIMATE_FILE_FILTER, 50);
+    public boolean parkScooterDirectory(Integer intIdScooter) {
+        String estimateFileName = DirectoryVerification.verifyFileCreation(Constants.ESTIMATE_FILE_PATH,
+                Constants.FILTER, 50);
 
-            if(estimateFileName.equals(""))
-                return false;
+        if (estimateFileName.equals(""))
+            return false;
 
-            double estimate = 0;
+        double estimate = 0;
+        String email = "";
 
-            try (BufferedReader br = new BufferedReader(new FileReader(Constants.ESTIMATE_FILE_PATH + "/" + estimateFileName))) {
-                String strCurrentLine;
-                if ((strCurrentLine = br.readLine()) != null) {
-                    estimate = Double.parseDouble(strCurrentLine);
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
+        try (BufferedReader br = new BufferedReader(new FileReader(Constants.ESTIMATE_FILE_PATH + "/" + estimateFileName))) {
+            String strCurrentLine;
+            if ((strCurrentLine = br.readLine()) != null) {
+                String[] aux = strCurrentLine.split(";");
+                estimate = Double.parseDouble(aux[0]);
+                email = aux[1];
             }
+        } catch (IOException e) {
+            return false;
+        }
 
-            List<Integer> time = TimeCalculator.calculateTime(estimate);
+        List<Integer> time = TimeCalculator.calculateTime(estimate);
 
-            int hours = time.get(0);
-            int minutes = time.get(1);
-            int seconds = time.get(2);
+        int hours = time.get(0);
+        int minutes = time.get(1);
+        int seconds = time.get(2);
 
-            LocalDateTime lt = LocalDateTime.now();
-            lt = lt.plusSeconds(seconds);
-            lt = lt.plusMinutes(minutes);
-            lt = lt.plusHours(hours);
+        LocalDateTime lt = LocalDateTime.now();
+        lt = lt.plusSeconds(seconds);
+        lt = lt.plusMinutes(minutes);
+        lt = lt.plusHours(hours);
 
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss dd-MM-yyyy");
-            String formattedDateTime = lt.format(formatter); //
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss dd-MM-yyyy");
+        String formattedDateTime = lt.format(formatter); //
+        String body = String.format("The scooter number %d was parked successfully!\n__________" +
+                        "_________________________________________________________\n\n" + "Estimated charging " +
+                        "time: %d hours, %d minutes %d seconds.\nEstimated time for full charge: %s.", intIdScooter, time.get(0), time.get(1),
+                time.get(2), formattedDateTime);
+        EmailSender.sendEmail(email,
+                "Scooter Parked", body);
+        WriteFile.write("Park_log_" + intIdScooter, body);
 
-
-            if(flag) {
-                EmailSender.sendEmail("antoniomsbarros@gmail.com",
-                        "Scooter Parked", String.format("The scooter number %d was parked successfully!\n__________" +
-                                        "_________________________________________________________\n\n" + "Estimated charging " +
-                                        "time: %d hours, %d minutes %d seconds.\nEstimated time for full charge: %s.\n__________" +
-                                        "_________________________________________________________\n\n" + "Thank you for " +
-                                        "choosing us.\nKing regards,\nPharmacy Service G21.", intIdScooter, time.get(0), time.get(1),
-                                time.get(2), formattedDateTime));
-
-                File file = new File(Constants.ESTIMATE_FILE_PATH + estimateFileName);
-                try {
-                    Files.delete(file.toPath());
-                    file = new File(Constants.ESTIMATE_FILE_PATH + estimateFileName + Constants.ESTIMATE_FILE_FILTER);
-                    Files.delete(file.toPath());
-                } catch (IOException e) {
-                    LOGGER.log(Level.WARNING, "There was an error deleting the file!");
-                }
-                LOGGER.log(Level.INFO, "File handled successfully!");
-            }
-            return flag;
-
+        File file = new File(Constants.ESTIMATE_FILE_PATH + estimateFileName);
+        try {
+            Files.delete(file.toPath());
+            file = new File(Constants.ESTIMATE_FILE_PATH + estimateFileName + Constants.FILTER);
+            Files.delete(file.toPath());
+        } catch (IOException e) {
+            LOGGER.log(Level.WARNING, "There was an error deleting the file!");
+            return false;
+        }
+        LOGGER.log(Level.INFO, "File handled successfully!");
+        return true;
     }
 }

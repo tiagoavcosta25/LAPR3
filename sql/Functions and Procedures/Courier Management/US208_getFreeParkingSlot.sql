@@ -8,7 +8,7 @@ create or replace FUNCTION getFreeParkingSlot(intId IN SCOOTER.VEHICLEID%TYPE) R
 BEGIN
 
     SELECT BATTERYPERC INTO battery_percentage
-    FROM VEHICLE;
+    FROM VEHICLE WHERE ID = intId;
 
     OPEN rf_cur FOR
         SELECT p.ID
