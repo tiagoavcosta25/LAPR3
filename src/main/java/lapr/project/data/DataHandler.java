@@ -14,6 +14,7 @@ import java.util.TreeMap;
  * Exemplo de classe cujas instâncias manipulam dados de BD Oracle.
  */
 public class DataHandler {
+
     /**
      * O URL da BD.
      */
@@ -45,69 +46,29 @@ public class DataHandler {
     private ResultSet rSet;
 
     /**
-     * Additional Number of columns added when executing the addressManager method.
-     */
-    private static int COLUMNSADDEDADDRESS = 8;
-
-    /**
-     * Additional Number of columns added when executing the creditCardManager method.
-     */
-    private static int COLUMNSADDEDCC = 3;
-
-    /**
      * Additional Number of columns added when executing the pharmacyManager method.
      */
-    private static int COLUMNSADDEDPHARMACY = 11;
+    private static int mCOLUMNSADDEDPHARMACY = 11;
 
     /**
      * Additional Number of columns added when executing the clientManager method.
      */
-    private static int COLUMNSADDEDCLIENT = 14;
+    private static int mCOLUMNSADDEDCLIENT = 14;
 
     /**
      * Additional Number of columns added when executing the orderManager method.
      */
-    private static int COLUMNSADDEDORDER = 37;
-
-    /**
-     * Additional Number of columns added when executing the invoiceManager method.
-     */
-    private static int COLUMNSADDEDINVOICE = 47;
+    private static int mCOLUMNSADDEDORDER = 37;
 
     /**
      * Additional Number of columns added when executing the productManager method.
      */
-    private static int COLUMNSADDEDPRODUCT = 5;
-
-    /**
-     * Additional Number of columns added when executing the pharmacyProductManager method.
-     */
-    private static int COLUMNSADDEDPHARMACYPRODUCT = 6;
-
-    /**
-     * Additional Number of columns added when executing the orderProductManager method.
-     */
-    private static int COLUMNSADDEDORDERPRODUCT = 6;
-
-    /**
-     * Additional Number of columns added when executing the batteryManager method.
-     */
-    private static int COLUMNSADDEDBATTERY = 4;
+    private static int mCOLUMNSADDEDPRODUCT = 5;
 
     /**
      * Additional Number of columns added when executing the vehicleModelManager method.
      */
-    private static int COLUMNSADDEDVEHICLEMODEL = 10;
-
-    /**
-     * Additional Number of columns added when executing the scooterManager method.
-     */
-    private static int COLUMNSADDEDSCOOTER = 23;
-
-    /**
-     * Additional Number of columns added when executing the droneManager method.
-     */
-    private static int COLUMNSADDEDDRONE = 23;
+    private static int mCOLUMNSADDEDVEHICLEMODEL = 10;
 
     /**
      * Use connection properties set on file application.properties
@@ -255,7 +216,7 @@ public class DataHandler {
         return new CreditCard(dblCreditCardNr, utilStartDate, strCCV);
     }
 
-    protected Pharmacy pharmacyManager(ResultSet rSet, int firstColumn) throws SQLException, NoSuchAlgorithmException { // column number +11
+    protected Pharmacy pharmacyManager(ResultSet rSet, int firstColumn) throws SQLException { // column number +11
 
         Integer pharmacyID = rSet.getInt(firstColumn);
         firstColumn++;
@@ -306,7 +267,7 @@ public class DataHandler {
         boolean blIsHomeDelivery = rSet.getBoolean(firstColumn);
         firstColumn++;
         Client oClient = clientManager(rSet, firstColumn);
-        firstColumn+= COLUMNSADDEDCLIENT;
+        firstColumn+= mCOLUMNSADDEDCLIENT;
         Pharmacy oPharmacy = pharmacyManager(rSet, firstColumn);
 
 
@@ -317,7 +278,7 @@ public class DataHandler {
     protected Invoice invoiceManager(ResultSet rSet, int firstColumn) throws SQLException, NoSuchAlgorithmException { // column number +47
 
         Order oOrder = orderManager(rSet, firstColumn);
-        firstColumn+= COLUMNSADDEDORDER;
+        firstColumn+= mCOLUMNSADDEDORDER;
         int intInvoiceId = rSet.getInt(firstColumn);
         firstColumn++;
         Date dtInvoiceDate = rSet.getDate(firstColumn);
@@ -371,7 +332,6 @@ public class DataHandler {
         double intValue = rSet.getDouble(firstColumn);
         firstColumn++;
         CreditCard oCreditCard = creditCardManager(rSet, firstColumn);
-        firstColumn+= COLUMNSADDEDORDER;
 
         oInvoice.getPayments().put(oCreditCard, intValue);
 
@@ -385,7 +345,7 @@ public class DataHandler {
         double dblBatteryPerc = rSet.getDouble(firstColumn);
         firstColumn++;
         VehicleModel oVehicleModel = vehicleModelManager(rSet,firstColumn);
-        firstColumn+= COLUMNSADDEDVEHICLEMODEL;
+        firstColumn+= mCOLUMNSADDEDVEHICLEMODEL;
         Pharmacy oPharmacy = pharmacyManager(rSet,firstColumn);
 
         return new Scooter(intId, dblBatteryPerc, oVehicleModel, oPharmacy);
@@ -398,7 +358,7 @@ public class DataHandler {
         double dblBatteryPerc = rSet.getDouble(firstColumn);
         firstColumn++;
         VehicleModel oVehicleModel = vehicleModelManager(rSet,firstColumn);
-        firstColumn+= COLUMNSADDEDVEHICLEMODEL;
+        firstColumn+= mCOLUMNSADDEDVEHICLEMODEL;
         Pharmacy oPharmacy = pharmacyManager(rSet,firstColumn);
 
         return new Drone(intId, dblBatteryPerc, oVehicleModel, oPharmacy);
@@ -420,7 +380,7 @@ public class DataHandler {
         firstColumn++;
         Battery oBattery = batteryManager(rSet,firstColumn);
 
-        return new VehicleModel(strDesignation, dblPotency, dblWeight, dblMaxPayload, oBattery, oVehicleType);
+        return new VehicleModel(intId, strDesignation, dblPotency, dblWeight, dblMaxPayload, oBattery, oVehicleType);
     }
 
     protected Battery batteryManager(ResultSet rSet, int firstColumn) throws SQLException { // column number +4
@@ -445,28 +405,35 @@ public class DataHandler {
         int intQuantity = rSet.getInt(firstColumn);
         firstColumn++;
         Product oProduct = productManager(rSet, firstColumn);
-        firstColumn += COLUMNSADDEDPRODUCT;
+        firstColumn += mCOLUMNSADDEDPRODUCT;
         Pharmacy oNearbyPharmacy = pharmacyManager(rSet, firstColumn);
-        firstColumn += COLUMNSADDEDPHARMACY;
+        firstColumn += mCOLUMNSADDEDPHARMACY;
         Order oOrder = orderManager(rSet, firstColumn);
 
         return new PharmacyTransfer(intId, dtDate, oOrder, oProduct, intQuantity, oNearbyPharmacy);
     }
 
-    public void genericRemove(int intId, String strProcedureCall) {
-        try {
-            openConnection();
-            String procedureCall = "{ call " + strProcedureCall + "(?) }";
+    public String getJdbcUrl() {
+        return jdbcUrl;
+    }
 
-            CallableStatement callStmt = getConnection().prepareCall(procedureCall);
+    public void setJdbcUrl(String jdbcUrl) {
+        this.jdbcUrl = jdbcUrl;
+    }
 
-            callStmt.setInt(1, intId);
+    public String getUsername() {
+        return username;
+    }
 
-            callStmt.execute();
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
-            closeAll();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

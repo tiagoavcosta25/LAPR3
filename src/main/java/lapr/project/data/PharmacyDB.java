@@ -43,7 +43,7 @@ public class PharmacyDB extends DataHandler {
                 }
                 return oPharmacy;
             }
-        } catch (SQLException | NoSuchAlgorithmException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         } finally {
             closeAll();
@@ -149,7 +149,7 @@ public class PharmacyDB extends DataHandler {
                 lstPharmacies.add(oPharmacy);
             }
             return lstPharmacies;
-        } catch (SQLException | NoSuchAlgorithmException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         } finally {
             closeAll();
@@ -231,7 +231,7 @@ public class PharmacyDB extends DataHandler {
                 lstPharmacies.add(oPharmacy);
             }
             return lstPharmacies;
-        } catch (SQLException | NoSuchAlgorithmException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         } finally {
             closeAll();
@@ -269,7 +269,7 @@ public class PharmacyDB extends DataHandler {
                 }
                 return oPharmacy;
             }
-        } catch (SQLException | NoSuchAlgorithmException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         } finally {
             closeAll();
