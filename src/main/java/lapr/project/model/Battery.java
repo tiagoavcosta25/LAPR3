@@ -9,20 +9,20 @@ public class Battery {
     private int mintBatteryCapacity;
     private double mdlbBatteryVoltage;
 
-    private static int mDEFAULT_ID = -1;
-    private static double mDEFAULT_EFFICICIENY = -1;
-    private static int mDEFAULT_BATTERY_CAPACITY = -1;
-    private static double mDEFAULT_BATTERY_VOLTAGE = -1;
+    private static int mDEFAULTID = -1;
+    private static double mDEFAULTEFFICICIENY = -1;
+    private static int mDEFAULTBATTERY_CAPACITY = -1;
+    private static double mDEFAULTBATTERY_VOLTAGE = -1;
 
     public Battery() {
-        this.mintId = mDEFAULT_ID;
-        this.mintBatteryCapacity = mDEFAULT_BATTERY_CAPACITY;
-        this.mdlbBatteryVoltage = mDEFAULT_BATTERY_VOLTAGE;
-        this.mdblEfficiency = mDEFAULT_EFFICICIENY;
+        this.mintId = mDEFAULTID;
+        this.mintBatteryCapacity = mDEFAULTBATTERY_CAPACITY;
+        this.mdlbBatteryVoltage = mDEFAULTBATTERY_VOLTAGE;
+        this.mdblEfficiency = mDEFAULTEFFICICIENY;
     }
 
     public Battery(int intBatteryCapacity, double dblBatteryVoltage,  double dblEfficiency) {
-        this.mintId = mDEFAULT_ID;
+        this.mintId = mDEFAULTID;
         this.mintBatteryCapacity = intBatteryCapacity;
         this.mdlbBatteryVoltage = dblBatteryVoltage;
         this.mdblEfficiency = dblEfficiency;

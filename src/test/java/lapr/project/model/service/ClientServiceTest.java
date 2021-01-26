@@ -335,4 +335,19 @@ class ClientServiceTest {
         real = m_service.updateClientCredits("", 1);
         assertFalse(real);
     }
+
+    @Test
+    void getClientDB() {
+        ClientDB expected = m_ClientDB;
+        ClientDB real = m_service.getClientDB();
+        assertEquals(expected,real);
+    }
+
+    @Test
+    void setClientDB() {
+        ClientDB expected = new ClientDB();
+        m_service.setClientDB(expected);
+        ClientDB real = m_service.getClientDB();
+        assertEquals(expected,real);
+    }
 }

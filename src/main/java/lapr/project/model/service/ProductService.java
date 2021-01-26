@@ -10,6 +10,14 @@ public class ProductService {
 
     private ProductDB moProductDB;
 
+    public ProductDB getProductDB() {
+        return moProductDB;
+    }
+
+    public void setProductDB(ProductDB oProductDB) {
+        this.moProductDB = oProductDB;
+    }
+
     public ProductService() {
         this.moProductDB = new ProductDB();
     }

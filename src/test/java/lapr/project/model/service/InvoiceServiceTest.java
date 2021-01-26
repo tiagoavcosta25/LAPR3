@@ -113,4 +113,19 @@ class InvoiceServiceTest {
         result = invoiceService.sendInvoiceByEmail(oInvoice);
         assertTrue(result);
     }
+
+    @Test
+    void getInvoiceDB() {
+        InvoiceDB expected = mockInvoiceDB;
+        InvoiceDB real = invoiceService.getInvoiceDB();
+        assertEquals(expected,real);
+    }
+
+    @Test
+    void setInvoiceDB() {
+        InvoiceDB expected = new InvoiceDB();
+        invoiceService.setInvoiceDB(expected);
+        InvoiceDB real = invoiceService.getInvoiceDB();
+        assertEquals(expected,real);
+    }
 }

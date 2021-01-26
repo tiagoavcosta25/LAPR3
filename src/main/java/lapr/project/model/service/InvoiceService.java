@@ -13,6 +13,14 @@ public class InvoiceService {
     private static String mLINEBREAK = String.format("%n%n---------------------------------------");
     private static String mTAB = String.format("%n\t\t\t");
 
+    public InvoiceDB getInvoiceDB() {
+        return moInvoiceDB;
+    }
+
+    public void setInvoiceDB(InvoiceDB oInvoiceDB) {
+        this.moInvoiceDB = oInvoiceDB;
+    }
+
     public InvoiceService() {
         this.moInvoiceDB = new InvoiceDB();
     }

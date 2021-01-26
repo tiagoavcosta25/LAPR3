@@ -222,4 +222,34 @@ class PharmacyServiceTest {
         result = pharmacyService.addPark("teste", new Park(), 19, 11);
         assertFalse(result);
     }
+
+    @Test
+    void getPharmacyDB() {
+        PharmacyDB expected = mockPharmacyDB;
+        PharmacyDB real = pharmacyService.getPharmacyDB();
+        assertEquals(expected,real);
+    }
+
+    @Test
+    void setPharmacyDB() {
+        PharmacyDB expected = new PharmacyDB();
+        pharmacyService.setPharmacyDB(expected);
+        PharmacyDB real = pharmacyService.getPharmacyDB();
+        assertEquals(expected,real);
+    }
+
+    @Test
+    void getParkDB() {
+        ParkDB expected = mockParkDB;
+        ParkDB real = pharmacyService.getParkDB();
+        assertEquals(expected,real);
+    }
+
+    @Test
+    void setParkDB() {
+        ParkDB expected = new ParkDB();
+        pharmacyService.setParkDB(expected);
+        ParkDB real = pharmacyService.getParkDB();
+        assertEquals(expected,real);
+    }
 }

@@ -110,4 +110,19 @@ class OrderServiceTest {
         result = orderService.notifyAndRemove(expectedOrder);
         assertEquals(map,result);
     }
+
+    @Test
+    void getOrderDB() {
+        OrderDB expected = mockOrderDB;
+        OrderDB real = orderService.getOrderDB();
+        assertEquals(expected,real);
+    }
+
+    @Test
+    void setOrderDB() {
+        OrderDB expected = new OrderDB();
+        orderService.setOrderDB(expected);
+        OrderDB real = orderService.getOrderDB();
+        assertEquals(expected,real);
+    }
 }

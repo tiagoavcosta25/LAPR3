@@ -5,8 +5,6 @@ import lapr.project.data.UserDB;
 import lapr.project.model.UserSession;
 import lapr.project.utils.EncryptPassword;
 import lapr.project.utils.WriteFile;
-
-import java.security.NoSuchAlgorithmException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -14,6 +12,14 @@ public class UserService {
 
     private static final Logger LOGGER = Logger.getLogger(UserService.class.getName());
     private UserDB moUserDB;
+
+    public UserDB getUserDB() {
+        return moUserDB;
+    }
+
+    public void setUserDB(UserDB oUserDB) {
+        this.moUserDB = oUserDB;
+    }
 
     public UserService() {
         moUserDB = new UserDB();

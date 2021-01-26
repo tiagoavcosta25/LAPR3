@@ -187,4 +187,34 @@ class DeliveryRunServiceTest {
         assertEquals(null,real);
 
     }
+
+    @Test
+    void getDeliveryRunDB() {
+        DeliveryRunDB expected = m_oDeliveryRunDB;
+        DeliveryRunDB real = m_oDeliveryRunService.getDeliveryRunDB();
+        assertEquals(expected,real);
+    }
+
+    @Test
+    void setDeliveryRunDB() {
+        DeliveryRunDB expected = new DeliveryRunDB();
+        m_oDeliveryRunService.setDeliveryRunDB(expected);
+        DeliveryRunDB real = m_oDeliveryRunService.getDeliveryRunDB();
+        assertEquals(expected,real);
+    }
+
+    @Test
+    void getDeliveryDB() {
+        DeliveryDB expected = m_oDeliveryDB;
+        DeliveryDB real = m_oDeliveryRunService.getDeliveryDB();
+        assertEquals(expected,real);
+    }
+
+    @Test
+    void setDeliveryDB() {
+        DeliveryDB expected = new DeliveryDB();
+        m_oDeliveryRunService.setDeliveryDB(expected);
+        DeliveryDB real = m_oDeliveryRunService.getDeliveryDB();
+        assertEquals(expected,real);
+    }
 }

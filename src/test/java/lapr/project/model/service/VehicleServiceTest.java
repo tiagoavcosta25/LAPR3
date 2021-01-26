@@ -99,4 +99,19 @@ class VehicleServiceTest {
         double result = m_service.getVehiclePayload(1);
         assertEquals(10.0, result);
     }
+
+    @Test
+    void getVehicleDB() {
+        VehicleDB expected = m_oVehicleDB;
+        VehicleDB real = m_service.getVehicleDB();
+        assertEquals(expected,real);
+    }
+
+    @Test
+    void setVehicleDB() {
+        VehicleDB expected = new VehicleDB();
+        m_service.setVehicleDB(expected);
+        VehicleDB real = m_service.getVehicleDB();
+        assertEquals(expected,real);
+    }
 }

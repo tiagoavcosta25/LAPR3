@@ -9,6 +9,14 @@ public class OrderService {
 
     private OrderDB moOrderDB;
 
+    public OrderDB getOrderDB() {
+        return moOrderDB;
+    }
+
+    public void setOrderDB(OrderDB oOrderDB) {
+        this.moOrderDB = oOrderDB;
+    }
+
     public OrderService() {
         this.moOrderDB = new OrderDB();
     }
