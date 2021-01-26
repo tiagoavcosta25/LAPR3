@@ -117,11 +117,11 @@ public class DeliveryRunService {
      */
     public boolean addNewDeliveryRun(DeliveryRun oDeliveryRun) {
         if (moDeliveryRunDB.addNewDeliveryRun(oDeliveryRun)) {
-            StringBuilder body = new StringBuilder();
+            String body = "";
             for (Order o : oDeliveryRun.getOrderList()) {
-                body.append(o.getId()).append(" - ");
+                body += (o.getId() + " - ");
             }
-            body = new StringBuilder(body.substring(0, body.length() - 3));
+            if (body.length()!=0) body = body.substring(0,body.length()-3);
             return WriteFile.write("DeliveryRunRegistration_" + oDeliveryRun.getCourier(),
                     String.format("Delivery Run Information\n\nResponsible Courier: %s\nStatus: %s\n" +
                                     "Vehicle: %s, id-%d\nOrder ID List: %s", oDeliveryRun.getCourier().getName(), oDeliveryRun.getStatus(),
