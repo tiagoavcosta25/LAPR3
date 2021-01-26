@@ -23,7 +23,7 @@ public class Client extends User {
         super(email, password, nif, name);
         this.mintCredits = 0;
         this.moAddress = new Address(latitude, longitude, altitude, streetName, doorNumber, postalCode, locality, country);
-        this.mLstCreditCard = lstCreditCardNr;
+        this.mLstCreditCard = new ArrayList<>(lstCreditCardNr);
     }
 
     public Client(Integer id, String name, Integer nif, String email, String password, Integer credits, Double latitude, Double longitude,
@@ -32,16 +32,14 @@ public class Client extends User {
         super(id, email, password, nif, name);
         this.mintCredits = credits;
         this.moAddress = new Address(latitude, longitude, altitude, streetName, doorNumber, postalCode, locality, country);
-        this.mLstCreditCard = lstCreditCardNr;
-    }
+        this.mLstCreditCard = new ArrayList<>(lstCreditCardNr);    }
 
 
     public Client(Integer id, String name, Integer nif, String email, String password, Integer credits, Address address, List<CreditCard> lstCreditCardNr) {
         super(id, email, password, nif, name);
         this.mintCredits = credits;
         this.moAddress = address;
-        this.mLstCreditCard = lstCreditCardNr;
-    }
+        this.mLstCreditCard = new ArrayList<>(lstCreditCardNr);    }
 
 
     public Address getAddress() {
@@ -53,7 +51,7 @@ public class Client extends User {
     }
 
     public List<CreditCard> getLstCreditCard() {
-        return mLstCreditCard;
+        return new ArrayList<>(mLstCreditCard);
     }
 
     public void setCredits(Integer oCredits) {
@@ -74,7 +72,7 @@ public class Client extends User {
     }
 
     public void setLstCreditCard(List<CreditCard> oCreditCard) {
-        this.mLstCreditCard = oCreditCard;
+        this.mLstCreditCard = new ArrayList<>(oCreditCard);
     }
 
     public void addCredits(Integer oAdditionalCredits) {
