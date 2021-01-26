@@ -7,6 +7,10 @@ import lapr.project.utils.WriteFile;
 
 public class PharmacyTransferService {
 
+    private static final String TRANSFERNUMBER = "Transfer Number: ";
+    private static final String TAB = "%n%n\t\t\t%s";
+    private static final String LINEBREAKER = "%n_______________________________________";
+
     private PharmacyTransferDB moPharmacyTransferDB;
 
     public PharmacyTransferDB getPharmacyTransferDB() {
@@ -42,8 +46,8 @@ public class PharmacyTransferService {
             String strEmail = oPharmacyTransfer.getOrder().getPharmacy().getEmail();
             String strBody = getBody(oPharmacyTransfer, "Product Sent!");
 
-            EmailSender.sendEmail(strEmail, "Transfer Number: " + oPharmacyTransfer.getId(), strBody);
-            EmailSender.sendEmail(oPharmacyTransfer.getNearbyPharmacy().getEmail(), "Transfer Number: " + oPharmacyTransfer.getId(), "Transfer Note Sent With Success!");
+            EmailSender.sendEmail(strEmail, TRANSFERNUMBER + oPharmacyTransfer.getId(), strBody);
+            EmailSender.sendEmail(oPharmacyTransfer.getNearbyPharmacy().getEmail(), TRANSFERNUMBER + oPharmacyTransfer.getId(), "Transfer Note Sent With Success!");
 
             return WriteFile.write("TransferNote_" + oPharmacyTransfer.getId(), strBody);
         } catch (Exception e){
@@ -60,8 +64,8 @@ public class PharmacyTransferService {
             String strEmail = oPharmacyTransfer.getNearbyPharmacy().getEmail();
             String strBody = getBody(oPharmacyTransfer, "Product Delivered!");
 
-            EmailSender.sendEmail(strEmail, "Transfer Number: " + oPharmacyTransfer.getId(), strBody);
-            EmailSender.sendEmail(oPharmacyTransfer.getOrder().getPharmacy().getEmail(), "Transfer Number: " + oPharmacyTransfer.getId(), "Delivery Note Sent With Success!");
+            EmailSender.sendEmail(strEmail, TRANSFERNUMBER + oPharmacyTransfer.getId(), strBody);
+            EmailSender.sendEmail(oPharmacyTransfer.getOrder().getPharmacy().getEmail(), TRANSFERNUMBER + oPharmacyTransfer.getId(), "Delivery Note Sent With Success!");
 
             return WriteFile.write("DeliveryNote_" + oPharmacyTransfer.getId(), strBody);
         } catch (Exception e){
@@ -72,32 +76,32 @@ public class PharmacyTransferService {
     private String getBody(PharmacyTransfer oPharmacyTransfer, String strNote){
             String strBody = String.format("_______________________________________%n%n\t\t\tTransfer No. %d", oPharmacyTransfer.getId());
             strBody += String.format("%n\t\t\t\t%td-%<tb-%<tY", oPharmacyTransfer.getTransferDate());
-            strBody += String.format("%n_______________________________________");
+            strBody += LINEBREAKER;
 
             strBody += String.format("%n%n---------------------------------------");
             strBody += String.format("%n\t\t\tSending Pharmacy:%n---------------------------------------%n%n%n%n\t\t\t%s", oPharmacyTransfer.getNearbyPharmacy().getName());
-            strBody += String.format("%n%n\t\t\t%s", oPharmacyTransfer.getNearbyPharmacy().getEmail());
-            strBody += String.format("%n\t\t\t%s", oPharmacyTransfer.getNearbyPharmacy().getAddress().getStreetName());
-            strBody += String.format("%n\t\t\t%s", oPharmacyTransfer.getNearbyPharmacy().getAddress().getDoorNumber());
-            strBody += String.format("%n\t\t\t%s", oPharmacyTransfer.getNearbyPharmacy().getAddress().getPostalCode());
-            strBody += String.format("%n\t\t\t%s", oPharmacyTransfer.getNearbyPharmacy().getAddress().getLocality());
-            strBody += String.format("%n\t\t\t%s", oPharmacyTransfer.getNearbyPharmacy().getAddress().getCountry());
+            strBody += String.format(TAB, oPharmacyTransfer.getNearbyPharmacy().getEmail());
+            strBody += String.format(TAB, oPharmacyTransfer.getNearbyPharmacy().getAddress().getStreetName());
+            strBody += String.format(TAB, oPharmacyTransfer.getNearbyPharmacy().getAddress().getDoorNumber());
+            strBody += String.format(TAB, oPharmacyTransfer.getNearbyPharmacy().getAddress().getPostalCode());
+            strBody += String.format(TAB, oPharmacyTransfer.getNearbyPharmacy().getAddress().getLocality());
+            strBody += String.format(TAB, oPharmacyTransfer.getNearbyPharmacy().getAddress().getCountry());
             strBody += String.format("%n%n%n%n---------------------------------------");
-            strBody += String.format("%n\t\t\tReceiving Pharmacy:\n---------------------------------------%n%n%n%n\t\t\t%s", oPharmacyTransfer.getOrder().getPharmacy().getName());
-            strBody += String.format("%n%n\t\t\t%s", oPharmacyTransfer.getOrder().getPharmacy().getEmail());
-            strBody += String.format("%n\t\t\t%s", oPharmacyTransfer.getOrder().getPharmacy().getAddress().getStreetName());
-            strBody += String.format("%n\t\t\t%s", oPharmacyTransfer.getOrder().getPharmacy().getAddress().getDoorNumber());
-            strBody += String.format("%n\t\t\t%s", oPharmacyTransfer.getOrder().getPharmacy().getAddress().getPostalCode());
-            strBody += String.format("%n\t\t\t%s", oPharmacyTransfer.getOrder().getPharmacy().getAddress().getLocality());
-            strBody += String.format("%n\t\t\t%s", oPharmacyTransfer.getOrder().getPharmacy().getAddress().getCountry());
+            strBody += String.format("%n\t\t\tReceiving Pharmacy:%n---------------------------------------%n%n%n%n\t\t\t%s", oPharmacyTransfer.getOrder().getPharmacy().getName());
+            strBody += String.format(TAB, oPharmacyTransfer.getOrder().getPharmacy().getEmail());
+            strBody += String.format(TAB, oPharmacyTransfer.getOrder().getPharmacy().getAddress().getStreetName());
+            strBody += String.format(TAB, oPharmacyTransfer.getOrder().getPharmacy().getAddress().getDoorNumber());
+            strBody += String.format(TAB, oPharmacyTransfer.getOrder().getPharmacy().getAddress().getPostalCode());
+            strBody += String.format(TAB, oPharmacyTransfer.getOrder().getPharmacy().getAddress().getLocality());
+            strBody += String.format(TAB, oPharmacyTransfer.getOrder().getPharmacy().getAddress().getCountry());
             strBody += String.format("%n%n%n%n---------------------------------------");
             strBody += String.format("%n\t\t\tProduct Ordered");
             strBody += String.format("%n---------------------------------------%n%n%n%n%dx %s", oPharmacyTransfer.getQuantity(), oPharmacyTransfer.getProduct().getName());
             strBody += String.format("%n%n%n%n_______________________________________");
-            strBody += String.format("%n\t\t\t\t%s", strNote);
-            strBody += String.format("%n_______________________________________");
+            strBody += String.format(TAB, strNote);
+            strBody += LINEBREAKER;
             strBody += String.format("%n\t\t\t\tTHANK YOU!");
-            strBody += String.format("%n_______________________________________");
+            strBody += "LINEBREAKER";
             return strBody;
     }
 }

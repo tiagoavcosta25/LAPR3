@@ -77,14 +77,14 @@ public class ClientService {
     public boolean registerNewClient(Client c) {
         if (moClientDB.addClientToDB(c)) {
             LOGGER.log(Level.INFO, "Successfully registered!");
-            String creditCardBody = "";
+            StringBuilder creditCardBody = new StringBuilder();
             for (CreditCard cc : c.getLstCreditCard()) {
-                creditCardBody += cc.getCreditCardNr() + ", ";
+                creditCardBody.append(cc.getCreditCardNr()).append(", ");
             }
-            creditCardBody = creditCardBody.substring(0, creditCardBody.length() - 2);
+            creditCardBody = new StringBuilder(creditCardBody.substring(0, creditCardBody.length() - 2));
             String body = String.format("Account Information:%n%nName: %s%nNIF: %s%nAddress: %s, %s, %s, %s%nCredit Card(/s): %s%n%n"
                     , c.getName(), c.getNif(), c.getAddress().getStreetName(),
-                    c.getAddress().getDoorNumber(), c.getAddress().getLocality(), c.getAddress().getCountry(), creditCardBody);
+                    c.getAddress().getDoorNumber(), c.getAddress().getLocality(), c.getAddress().getCountry(), creditCardBody.toString());
             EmailSender.sendEmail(c.getEmail(), "Account Creation", body
             );
             WriteFile.write("ClientRegistration_" + c.getEmail(), body);
