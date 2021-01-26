@@ -3,6 +3,7 @@ package lapr.project.controller;
 import lapr.project.model.*;
 import lapr.project.model.service.CourierService;
 import lapr.project.model.service.PharmacyService;
+import lapr.project.ui.console.RegisterCourierUI;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -107,5 +108,41 @@ class RegisterCourierControllerTest {
 
 
 
+    }
+
+    @Test
+    void getCourierService() {
+        RegisterCourierController ctrl = new RegisterCourierController();
+        CourierService expected = new CourierService();
+        ctrl.setCourierService(expected);
+        CourierService real = ctrl.getCourierService();
+        assertEquals(expected, real);
+    }
+
+    @Test
+    void setCourierService() {
+        RegisterCourierController ctrl = new RegisterCourierController();
+        CourierService expected = new CourierService();
+        ctrl.setCourierService(expected);
+        CourierService real = ctrl.getCourierService();
+        assertEquals(expected, real);
+    }
+
+    @Test
+    void getPharmacyService() {
+        RegisterCourierController ctrl = new RegisterCourierController();
+        PharmacyService expected = new PharmacyService();
+        ctrl.setPharmacyService(expected);
+        PharmacyService real = ctrl.getPharmacyService();
+        assertEquals(expected, real);
+    }
+
+    @Test
+    void setMoPharmacyService() {
+        RegisterCourierController ctrl = new RegisterCourierController();
+        PharmacyService expected = new PharmacyService();
+        ctrl.setPharmacyService(expected);
+        PharmacyService real = ctrl.getPharmacyService();
+        assertEquals(expected, real);
     }
 }

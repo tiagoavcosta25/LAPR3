@@ -68,5 +68,13 @@ public class NotifyAndRemoveController {
         }
     }
 
+    public OrderService getOrderService() {
+        return moOrderService;
+    }
+
+    public void setOrderService(OrderService oOrderService) {
+        this.moOrderService = oOrderService;
+    }
+
 }
 

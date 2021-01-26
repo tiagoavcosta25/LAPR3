@@ -107,5 +107,21 @@ public class RegisterCourierController {
         return true;
     }
 
+    public CourierService getCourierService() {
+        return moCourierService;
+    }
+
+    public void setCourierService(CourierService oCourierService) {
+        this.moCourierService = oCourierService;
+    }
+
+    public PharmacyService getPharmacyService() {
+        return moPharmacyService;
+    }
+
+    public void setPharmacyService(PharmacyService oPharmacyService) {
+        this.moPharmacyService = oPharmacyService;
+    }
+
 }
 
