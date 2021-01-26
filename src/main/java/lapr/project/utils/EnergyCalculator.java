@@ -6,6 +6,9 @@ import static lapr.project.utils.Constants.*;
 
 public class EnergyCalculator {
 
+    private EnergyCalculator(){
+    }
+
     public static Pair<Double, Double> calculateScooterEnergy(double distanceUsingCoordinates, double windDegree, double windSpeed,
                                                               double localHeightDifference, double totalMass, double kineticFrictionCoefficient) {
 

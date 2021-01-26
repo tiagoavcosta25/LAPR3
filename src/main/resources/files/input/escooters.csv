@@ -1,7 +1,8 @@
 #pharmacy_email;model_name;[potency, weight, maxPayload, batteryCapacity, batteryVoltage, efficiency]
-info@alianca.com;model1;256;55;21;3200;6.95;100
-info@trindade.com;model3;156;45;11;3200;9.95;98
-info@alianca.com;model4;456;35;31;5200;6.12;95
+info@alianca.com;model1;450;15;21;100;25;90
+info@trindade.com;model3;750;18.5;30;125;25;98
+info@alianca.com;model4;350;35;15;70;12;75
+info@trindade.com;model5;800;27.5;30;95;30;85
 info@trindade.com;model1
 info@alianca.com;model1
 info@trindade.com;model1
@@ -9,3 +10,4 @@ info@sabandeira.com;model1
 info@trindade.com;model3
 info@alianca.com;model4
 info@sabandeira.com;model4
+info@sabandeira.com;model5

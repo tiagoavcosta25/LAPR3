@@ -1016,7 +1016,18 @@ class GraphServiceTest {
 
         VehicleModel notdefined = new VehicleModel(1, "scooter1", 400, 10, 400, b1, VehicleType.NOTDEFINED);
 
-
+        List<Pharmacy> listPh = new ArrayList<>();
+        Pharmacy ph1 = new Pharmacy(1, "Ph1", "a1@.com", majestic, new TreeMap<>());
+        Pharmacy ph2 = new Pharmacy(2, "Ph2", "a2@.com", bolhao, new TreeMap<>());
+        Pharmacy ph3 = new Pharmacy(3, "Ph3", "a3@.com", se, new TreeMap<>());
+        Pharmacy ph4 = new Pharmacy(4, "Ph4", "a4@.com", saBandeira, new TreeMap<>());
+        Pharmacy ph5 = new Pharmacy(5, "Ph5", "a5@.com", trindade, new TreeMap<>());
+        listPh.add(ph1);
+        listPh.add(ph2);
+        listPh.add(ph3);
+        listPh.add(ph4);
+        listPh.add(ph5);
+        when(mockPharmacyDB.getPharmacies()).thenReturn(listPh);
 
         when(mockDeliveryRunDB.checkValidChargingSlot(trindade)).thenReturn(true);
         when(mockDeliveryRunDB.checkValidChargingSlot(saBandeira)).thenReturn(true);
@@ -1027,6 +1038,7 @@ class GraphServiceTest {
         when(mockDeliveryRunDB.checkValidChargingSlot(se)).thenReturn(true);
         when(mockDeliveryRunDB.checkValidChargingSlot(caisDaRibeira)).thenReturn(true);
 
+        assertEquals(36.76915790179582, world.calculatePathCost(pathList, lstOrders, scooter1, 20d));
         assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter1, 10d));
         assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter1, 0d));
         assertEquals(36.76915790179582, world.calculatePathCost(pathList, lstOrders, scooter1, 100000d));

@@ -16,6 +16,24 @@ class Address{
   -String country
 }
 
+class Battery{
+-float batteryPerc
+-float batteryCapacity
+-float batteryVoltage
+}
+
+class ChargingSlot{
+-   int id
+}
+
+class Client{
+-String credits
+}
+
+class Courier {
+      -String iban
+}
+
 class CreditCard{
 -Long creditCardNr;
 -String validityDate;
@@ -23,14 +41,43 @@ class CreditCard{
 +CreditCard(creditCardNr,validityDate,CCV)
 }
 
-class Client{
--String credits
+class DeliveryRun{
+-Integer id
+-Courier courier
+-Scooter scooter
+-Drone drone
 }
 
-class Pharmacy {
-  -int id
-  -String name
--   String email
+class DeliveryStatus{
+-String designation
+}
+
+class Drone{
+}
+
+class Invoice{
+-   int id
+-   Date orderDate
+-   float totalAmount
+}
+
+class NonChargingSlot{
+-   int id
+}
+
+class Order{
+-   int id
+-   float amount
+-   float totalWeight
+-   float additionalFee
+-   Date orderDate
+-   String description
+-   String status
+-   boolean isHomeDelivery
+}
+
+class OrderStatus{
+-String designation
 }
 
 class Park{
@@ -38,21 +85,65 @@ class Park{
 -   double totalOutputCorrent
 }
 
-class ChargingSlot{
--   int id
-}
-
-class NonChargingSlot{
--   int id
-}
-
 class ParkingSlot{
 -   int id
 }
 
+class Path{
+- double mdblLatitudeA;
+- double mdblLongitudeA;
+- double mdblLatitudeB;
+- double mdblLongitudeB;
+- String mstrName;
+- double mdblWindSpeed;
+- double mdblWindAngle;
+- double mdblKineticFrictionCoefficient;
+- VehicleType moVehicleType;
+}
 
-class Courier {
-      -String iban
+class Payment{
+-   float value
+}
+
+class Pharmacy {
+  -int id
+  -String name
+  -String email
+}
+
+class PharmacyTransfer{
+-   int id
+-   Date transferDate
+-   int quantity
+}
+
+class Product{
+-   int id
+-   String name
+-   String description
+-   float unitaryPrice
+-   float unitaryWeight
+}
+
+class Scooter{
+
+}
+
+abstract class User{
+-Integer id
+-String email
+-String password
+-Integer nif
+-String name
+}
+
+class Vehicle {
+-int id
+-String vehicleType
+-float potency
+-float potency
+-float weight
+-float maxPayload
 }
 
 class VehicleModel{
@@ -66,52 +157,60 @@ class VehicleModel{
 class VehicleType{
   -String desigantion
 }
-class Vehicle {
--int id
--String vehicleType
--float potency
--float potency
--float weight
--float maxPayload
-}
-
-class Battery{
--float batteryPerc
--float batteryCapacity
--float batteryVoltage
-}
-
-class Scooter{
-}
-
-class Drone{
-}
-
-abstract class User{
--Integer id
--String email
--String password
--Integer nif
--String name
-}
 
 database "1" -- "*" Courier : has registered >
-Courier "1" -- "*" Pharmacy : is associated to >
-Pharmacy "1" -- "1" Park : has >
-Pharmacy "1" -- "*" Vehicle : has >
-Vehicle "1" -- "1" Battery : has >
-Scooter "1" -- "1" Vehicle : is a >
-Drone "1" -- "1" Vehicle : is a >
-Park "1" -- "1" ChargingSlot : has >
-Park "1" -- "1" ParkingSlot : has >
-Vehicle "1" -- "1" ChargingSlot : belongs to >
-Vehicle "1" -- "1" ParkingSlot : belongs to >
-
 database "1" -- "*" Client : has registered
 database "1" -- "*" Address : has registered
 database "1" -- "*" CreditCard : has registered
+database "1" -- "*" DeliveryRun : has registered
+database "1" -- "*" Invoice : has registered >
+database "1" -- "*" Order : has registered >
+database "1" -- "*" Path : has registered >
+database "1" -- "*" Product : has registered >
+
 Client "1" -- "1" Address : has
 Client "*" -- "*" CreditCard : has
+Client "1" -- "1" Order : makes >
+class Client extends User
 
+Courier "1" -- "*" Pharmacy : is associated to >
+class Courier extends User
+
+DeliveryRun"1" -- "1" DeliveryStatus : has >
+
+Drone "1" -- "1" Vehicle : is a >
+
+Invoice "1" -- "*" Payment : has >
+Invoice "1" -- "*" Product : has >
+Invoice "1" -- "1" Order : has >
+Invoice "1" -- "1" Client : has >
+
+Order "1" -- "*" Product : has >
+Order "1" -- "*" Pharmacy : has >
+Order "1" -- "1" OrderStatus : has >
+
+Park "1" -- "1" ChargingSlot : has >
+Park "1" -- "1" ParkingSlot : has >
+
+Path "1" -- "*" Address : has >
+
+ParkingSlot "1" -- "1" ChargingSlot : is >
+ParkingSlot "1" -- "1" NonChargingSlot : is >
+
+Pharmacy "1" -- "1" Park : has >
+Pharmacy "1" -- "*" Vehicle : has >
+
+PharmacyTransfer "1" -- "2" Pharmacy : has >
+PharmacyTransfer "1" -- "1" Product : has >
+PharmacyTransfer "1" -- "1" Order : has >
+
+Scooter "1" -- "1" Vehicle : is a >
+
+Vehicle "1" -- "1" ChargingSlot : belongs to >
+Vehicle "1" -- "1" ParkingSlot : belongs to >
+Vehicle "1" -- "1" Battery : has >
+
+VehicleModel "1" -- "1" Battery : has >
+VehicleModel "*" -- "1" VehicleType : has >
 
 @enduml

@@ -1,15 +1,15 @@
 @startuml
 autonumber
-participant "xxxReg\n:xxxRegistration" as REG
-participant "//<color #red>extended by xxxReg//\n:DataHandler" as DH
+participant "xxxDB\n:xxxDB" as XDB
+participant "//<color #red>extended by xxxDB//\n:DataHandler" as DH
 participant "runner\n:ScriptRunner" as SR
 database "Database" as DB
 
-note over REG : The "xxxRegistration" class represents\nall the registration classes because the \ndatabase handler is always the same.
-[o-> REG : methodRelatedWithQuery()
-note left REG : The method "methodRelatedWithQuery()" \nrepresents all the methods that interact\nwith the database.
-activate REG
-REG -> DH : scriptRunner()
+note over XDB : The "xxxDB" class represents\nall the Database classes because the \ndatabase handler is always the same.
+[o-> XDB : methodRelatedWithQuery()
+note left XDB : The method "methodRelatedWithQuery()" \nrepresents all the methods that interact\nwith the database.
+activate XDB
+XDB -> DH : scriptRunner()
 activate DH
 DH -> DH : openConnection()
 DH -> SR** : runner = new ScriptRunner(connection)
@@ -24,5 +24,5 @@ deactivate DB
 deactivate SR
 DH -> DH : closeAll()
 deactivate DH
-deactivate REG
+deactivate XDB
 @enduml
