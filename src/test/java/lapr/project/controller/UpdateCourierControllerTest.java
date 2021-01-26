@@ -44,16 +44,16 @@ class UpdateCourierControllerTest {
         Courier courier = updateCourierController.getCourierByEmail("ernesto@gmail.com");
         assertEquals(new Courier(),courier);
 
-        when(mockCourierService.getCourierByEmail("ernesto@gmail.com")).thenThrow(new NullPointerException());
-        courier = updateCourierController.getCourierByEmail(null);
-        assertEquals(new Courier(),courier);
+        when(mockCourierService.getCourierByEmail("ernesto@gmail.com")).thenThrow(new IllegalArgumentException());
+        courier = updateCourierController.getCourierByEmail("ernesto@gmail.com");
+        assertEquals(null,courier);
 
         courier = updateCourierController.getCourierByEmail("");
-        assertEquals(new Courier(),courier);
+        assertEquals(null,courier);
     }
 
     @Test
-    void updateCourier() throws NoSuchAlgorithmException {
+    void updateCourier() {
         when(mockPharmacyService.getPharmacy("test@email.com")).thenReturn(new Pharmacy());
         when(mockCourierService.updateCourier(new Courier(),"name","email@gmail.com",123456789,
                 "PT98003506514853185258910",mockPharmacyService.getPharmacy("test@email.com"))).thenReturn(new Courier());

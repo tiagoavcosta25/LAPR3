@@ -2,30 +2,28 @@
 autonumber
 hide footbox
 
-actor "PharmacyManager" as U
+actor "Admin" as ADM
 
 participant ":System" as SYST
 
-activate U
+activate ADM
 
-U -> SYST : Initiates the registration of a delivery run
+ADM -> SYST : Initiates the registration of a delivery run
 activate SYST
 
-SYST --> U: Asks for a list of orders
+SYST --> ADM: Asks for a list of orders
 
 deactivate SYST
 
 
 
-U -> SYST : Gives an order id list
+ADM -> SYST : Gives an order id list
 activate SYST
 
 
-SYST --> U : Registers the delivery run and informs\nabout the success of the operation
+SYST --> ADM : Registers the delivery run and informs\nabout the success of the operation
 deactivate SYST
 
-
-
-deactivate U
+deactivate ADM
 
 @enduml

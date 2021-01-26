@@ -142,8 +142,10 @@ You can use existing dummy Oracle credentials available at http://bugmenot.com.
 
 This part of the Readme file will explain the purpose of our LAPR3 Project, our approaches and some considerations regarding the work done.
 
-About the project, we want to mention this **3** topics:
+About the project, we want to mention this **6** topics:
+
 ### 1. Goal
+
 * The goal of our LAPR3 project was to develop a full functional software that supports the delivery of pharmaceutics products.
 * This software has to be capable of handling customers, pharmacies, orders, deliveries, users, products. 
 1. Client 
@@ -189,8 +191,9 @@ About the project, we want to mention this **3** topics:
         - 4.2.1.2 An administrator should be able of remove a scooter.([US22_RemoveScooter](docs/Iteration 3/Scooter Management/Refinement/US22_RemoveScooter/US22_RemoveScooter.md))
         - 4.2.1.3 An administrator should be able of update a scooter.([US32_UpdateScooter](docs/Iteration 3/Scooter Management/Refinement/US32_UpdateScooter/US32_UpdateScooter.md))
         - 4.2.1.4 An administrator should be able of see the scooter information.([US57_ScooterInformation](docs/Iteration 3/Scooter Management/Refinement/US57_ScooterInformation/US57_ScooterInformation.md))
-        - 4.2.1.5 An courier should be able of park a scooter.([US289_SplitChargingCapacity](docs/Iteration 3/Scooter Management/US289_SplitChargingCapacity/US289_SplitChargingCapacity.md))
-   - 4.2.2 **Drone**
+        - 4.2.1.5 A courier should be able of park a scooter.([US289_SplitChargingCapacity](docs/Iteration 3/Scooter Management/US289_SplitChargingCapacity/US289_SplitChargingCapacity.md))
+        - 4.2.1.6 A courier should be able of know if there is a parking slot available on a pharmacy. ([US77_AvailableChargingSlot](docs/Iteration 3/Delivery Management/Refinement/US77_AvailableChargingSlot/US77_AvailableChargingSlot.md))
+    - 4.2.2 **Drone**
       - 4.2.2.1 An administrator should be able of register a drone.([US193_RegisterDrone](docs/Iteration 3/Drone Management/Refinement/US193_RegisterDrone/US193_RegisterDrone.md))
       - 4.2.2.2 An administrator should be able of remove a drone.([US194_RemoveDrone](docs/Iteration 3/Drone Management/Refinement/US194_RemoveDrone/US194_RemoveDrone.md))
       - 4.2.2.3 An administrator should be able of update a drone.([US195_UpdateDrone](docs/Iteration 3/Drone Management/Refinement/US195_UpdateDrone/US195_UpdateDrone.md))
@@ -199,9 +202,9 @@ About the project, we want to mention this **3** topics:
       - 4.2.3.2 An administrator should be able of know the best vehicle for an order.([US290_SeeSuitableVehicle](docs/Iteration 3/Delivery Management/Refinement/US290_SeeSuitableVehicle/US290_SeeSuitableVehicle.md))
       
    4.3 Delivery Run
-      - 4.3.1
-      - 4.3.2
-   
+      - 4.3.1 An administrator should be able of register a Delivery Run. ([US206_RegisterDeliveryRun](docs/Iteration 3/Delivery Management/Refinement/US206_RegisterDeliveryRun/US206_RegisterDeliveryRun.md))
+      - 4.3.2 A courier should be able of starting a Delivery Run. ([US205_StartDeliveryRun](docs/Iteration 3/Delivery Management/Refinement/US205_StartDeliveryRun/US205_StartDeliveryRun.md))
+
 5. Users
    
    5.1 A user has to be capable of loging in ([US67_Login](docs/Iteration 3/User Management/Refinement/US67_Login/US67_Login.md))
@@ -209,8 +212,66 @@ About the project, we want to mention this **3** topics:
    5.2 A user has to be capable of loging out ([US68_Logout](docs/Iteration 3/User Management/Refinement/US68_Logout/US68_Logout.md))
 
 6. Products
+   
+   6.1 An administrator should be able of register a Product. ([US70_RegisterProduct](docs/Iteration 3/Product Management/Refinement/US70_RegisterProduct/US70_RegisterProduct.md))
+
+   6.2 An administrator should be able of update a Product. ([US71_UpdateProduct](docs/Iteration 3/Product Management/Refinement/US71_UpdateProduct/US71_UpdateProduct.md))
+
+   6.3 An administrator should be able of remove a Product. ([US72_RemoveProduct](docs/Iteration 3/Product Management/Refinement/US72_RemoveProduct/US72_RemoveProduct.md))
+
+   6.4 An administrator should be able of know a Product information. ([US73_ProductInformation](docs/Iteration 3/Product Management/Refinement/US73_ProductInformation/US73_ProductInformation.md))
 
 ### Objectives
+
+
+### Actors (Personas)
+
+## Physics
+
+### Drone
+
+In order to move a drone and keep it steady on the air, is necessary that the 4 forces that interact with it (**Lift**, **Weight**, **Drag** and **Thrust**) cancel each other. 
+    
+- To obtain an optimum flying speed, where the parasite drag is smaller, and the lift/drag ratio is the most efficient to the flying requirements, we used this formula:
+
+![OptimumSpeedDrone](PhysicFormulas/OptimumSpeedDrone.svg)
+
+**where**
+
+- m is the total mass (drone+payload)
+- Cd is the drag coefficient
+- A is the drone's frontal area
+- b is the drone's width
+- ρ is the air density
+
+
+that has in count the induced drag, and the parasite drag.
+
+- With this speed, we now have to consider the wind speed and its angle, using this formula,
+
+![WindSpeed](PhysicFormulas/WindSpeed.svg)
+
+**where**
+
+- v_wind is the wind speed
+- α is the angle formed between the wind speed and the air/drone speed pair.
+
+and then we added both speeds to know what was the effective speed. 
+
+![TotalSpeed](PhysicFormulas/TotalSpeed.svg)   
+
+![Force](PhysicFormulas/DroneMovingForce.svg)
+
+
+![PowerLevantamento](PhysicFormulas/LiftingPower.svg)
+
+
+
+![]
+
+### Scooter
+
+h<sub>&theta;</sub>(x) = &theta;<sub>o</sub> x + &theta;<sub>1</sub>x
 
 # Relational Model (Normalized)
 

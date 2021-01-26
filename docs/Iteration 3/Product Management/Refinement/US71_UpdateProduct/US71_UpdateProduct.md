@@ -1,4 +1,4 @@
-# US 73 - Update Product
+# US 71 - Update Product
 
 ## 1. Requirements Engineering
 

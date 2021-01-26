@@ -41,7 +41,7 @@ class UserServiceTest {
         real = m_service.login("as@","asdaas");
         assertFalse(real);
 
-        when (m_oUserDB.login("a","a")).thenThrow(new IllegalArgumentException());
+        when (m_oUserDB.login("a","cc175b9c0f1b6a831c399e269772661")).thenThrow(new IllegalArgumentException());
         real = m_service.login("a","a");
         assertFalse(real);
     }

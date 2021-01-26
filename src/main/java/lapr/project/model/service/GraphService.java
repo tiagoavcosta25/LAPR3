@@ -411,7 +411,7 @@ public class GraphService {
         if (vModel.getVehicleType().equals(VehicleType.SCOOTER))
             totalMass += Constants.DEFAULT_COURIER_WEIGHT;
         else if (vModel.getVehicleType().equals(VehicleType.NOTDEFINED))
-            return null;
+            return Double.MAX_VALUE;
         Map<Address, Double> orderWeightMap = new HashMap<>();
         for (Order order : orderList) {
             orderWeightMap.put(order.getClient().getAddress(), order.getTotalWeight());
