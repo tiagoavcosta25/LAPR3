@@ -9,34 +9,48 @@ import lapr.project.utils.WriteFile;
 import java.util.Map;
 
 /**
- * Register Courier Controller.
+ * Notify and Remove Controller.
  * <p>
- * Group: Team Lisa [G-037]
+ * Group: Team Lisa [G-021]
  * ______________________________________________________
  *
+ * @author António Barbosa <1190404@isep.ipp.pt>
  * @author Ernesto Rodrigues <1190560@isep.ipp.pt>
  * @author Jessica Alves <1190682@isep.ipp.pt>
  * @author Pedro Santos <1190967@isep.ipp.pt>
  * @author Rodrigo Costa <1191014@isep.ipp.pt>
+ * @author Tiago Costa <1191460@isep.ipp.pt>
  */
 public class NotifyAndRemoveController {
 
     /**
-     * Courier Management class
+     * Order Service class
      */
     private OrderService moOrderService;
-    MakeAPharmacyTransferController ctrl;
-
-
 
     /**
-     * An empty constructor of RegisterCourierController that initiates the platform variable by getting it from the ApplicationPOT.
+     * MakeAPharmacyTransferController class
+     */
+    MakeAPharmacyTransferController ctrl;
+
+    /**
+     * A constructor of NotifyAndRemoveController that initiates the Order Service
+     * and MakeAPharmacyTransferController.
      */
     public NotifyAndRemoveController() {
         this.moOrderService = new OrderService();
         this.ctrl = new MakeAPharmacyTransferController();
     }
 
+    /**
+     * Recieves an order instance. The method, gets the list of products that the Pharmacy does not have
+     * and its quantity. If the list is null then there is no products in any pharmacy and the methods returns false.
+     * If the list is empty then then the pharmacy has the products and right quatity and returns true.
+     * If the list contains any products, then it asks a pharmacy for that product and returns false.
+     *
+     * @param order Order instance
+     * @return true or false depending on the situation
+     */
     public boolean notifyAndRemove(Order order) {
         Map<Product, Integer> lstProdcuts = moOrderService.notifyAndRemove(order);
         if (lstProdcuts == null) {
@@ -68,10 +82,20 @@ public class NotifyAndRemoveController {
         }
     }
 
+    /**
+     * Returns the Order Service
+     *
+     * @return Order Service
+     */
     public OrderService getOrderService() {
         return moOrderService;
     }
 
+    /**
+     * Sets the Order Service
+     *
+     * @param oOrderService Order Service instance
+     */
     public void setOrderService(OrderService oOrderService) {
         this.moOrderService = oOrderService;
     }

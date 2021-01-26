@@ -2,7 +2,6 @@ package lapr.project.data;
 
 import lapr.project.model.Courier;
 import lapr.project.model.Pharmacy;
-import lapr.project.model.service.CourierService;
 import lapr.project.utils.*;
 import oracle.jdbc.OracleTypes;
 
@@ -19,10 +18,37 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.logging.Level;
 
+/**
+ * Courier Database.
+ *
+ * Group: Team Lisa [G-021]
+ * ______________________________________________________
+ * @author António Barbosa <1190404@isep.ipp.pt>
+ * @author Ernesto Rodrigues <1190560@isep.ipp.pt>
+ * @author Jessica Alves <1190682@isep.ipp.pt>
+ * @author Pedro Santos <1190967@isep.ipp.pt>
+ * @author Rodrigo Costa <1191014@isep.ipp.pt>
+ * @author Tiago Costa <1191460@isep.ipp.pt>
+ */
 public class CourierDB extends DataHandler {
 
+    /**
+     * Logger which is used to generate warnings or information, with
+     * a custom message
+     */
     private static final java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(CourierDB.class.getName());
 
+    /**
+     * Recieves the Courier's name, email, password, nif, iban and pharmacies id and registers it on the Database.
+     *
+     * @param strName Courier's name
+     * @param strEmail Courier's email
+     * @param strPassword Courier's password
+     * @param strNif Courier's nif
+     * @param strIban Courier's Iban
+     * @param pharmacyId Pharmacy's Id
+     * @return true if the Courier is registered on the Database. False otherwise.
+     */
     public boolean addCourierToDB(String strName, String strEmail, String strPassword, Integer strNif, String strIban, Integer pharmacyId) {
         boolean flag = true;
         try(CallableStatement callStmt = getConnection().prepareCall("{ call addCourier(?,?,?,?,?,?) }");) {
@@ -44,6 +70,12 @@ public class CourierDB extends DataHandler {
         return flag;
     }
 
+    /**
+     * Recieves the Courier's email and removes it on the Database
+     *
+     * @param email Courier's email
+     * @return true if the Courier is removed from the Database. False otherwise.
+     */
     public boolean removeCourier(String email) {
         boolean flag = true;
         try(CallableStatement callStmt = getConnection().prepareCall("{ call removeCourier(?) }");) {
@@ -62,6 +94,12 @@ public class CourierDB extends DataHandler {
 
     }
 
+    /**
+     * Recieves the Courier's instance and updates it on the Database
+     *
+     * @param oCourier Courier's instance
+     * @return true if the Courier is updated from the Database. False otherwise.
+     */
     public boolean updateCourierDB(Courier oCourier) {
         boolean flag = true;
         try(CallableStatement callStmt = getConnection().prepareCall("{ call updateCourier(?,?,?,?,?,?) }");) {
@@ -83,6 +121,11 @@ public class CourierDB extends DataHandler {
         return flag;
     }
 
+    /**
+     * Recieves the Courier's email and returns the Courier's instance.
+     * @param email Courier's email
+     * @return the Courier's instance
+     */
     public Courier getCourierByEmail(String email) {
         try(CallableStatement callStmt = getConnection().prepareCall("{ ? = call getCourierByEmail(?) }");) {
 
