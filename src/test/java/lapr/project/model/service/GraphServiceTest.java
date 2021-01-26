@@ -824,7 +824,7 @@ class GraphServiceTest {
         lst2 = new ArrayList<>();
         when(mockVehicleDB.getPharmacyModel("info@trindade.com")).thenReturn(lst2);
         result = world.calculateBestVehicleAndBestPath(lstOrders);
-        assertNull(result);
+        assertEquals(Collections.emptyList(),result);
 
 
         lst2 = new ArrayList<>(lstScooter);
@@ -954,7 +954,7 @@ class GraphServiceTest {
         world.setDroneGraph(new Graph<>(true));
         result = world.calculateBestVehicleAndBestPath(lstOrders);
         expResult = new ArrayList<>();
-        assertNull(result);
+        assertEquals(Collections.emptyList(),result);
     }
 
     @Test
