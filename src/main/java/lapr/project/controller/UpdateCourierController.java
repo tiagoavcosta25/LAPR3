@@ -5,17 +5,18 @@ import lapr.project.model.Pharmacy;
 import lapr.project.model.service.CourierService;
 import lapr.project.model.service.PharmacyService;
 
-
 /**
- * Register Courier Controller.
+ * Update Courier Controller.
  * <p>
- * Group: Team Lisa [G-037]
+ * Group: Team Lisa [G-021]
  * ______________________________________________________
  *
+ * @author António Barbosa <1190404@isep.ipp.pt>
  * @author Ernesto Rodrigues <1190560@isep.ipp.pt>
  * @author Jessica Alves <1190682@isep.ipp.pt>
  * @author Pedro Santos <1190967@isep.ipp.pt>
  * @author Rodrigo Costa <1191014@isep.ipp.pt>
+ * @author Tiago Costa <1191460@isep.ipp.pt>
  */
 public class UpdateCourierController {
     /**
@@ -24,22 +25,22 @@ public class UpdateCourierController {
     private Courier moCourier;
 
     /**
-     * Courier Management class
+     * Courier Service class
      */
     private CourierService moCourierService;
 
     /**
-     * Pharmacy Management class
+     * Pharmacy Service class
      */
     private PharmacyService moPharmacyService;
 
     /**
-     * Pharmacy
+     * Pharmacy class instance
      */
     private Pharmacy moPharmacy;
 
     /**
-     * A constructor of RegisterCourierController that initiates the platform variable by getting it from the ApplicationPOT.
+     * A constructor of UpdateCourierController that initiates the Courier Service and Pharmacy Service.
      */
     public UpdateCourierController() {
         this.moCourierService = new CourierService();
@@ -47,12 +48,10 @@ public class UpdateCourierController {
     }
 
     /**
-     * The method receives Courier's email.
-     * Initiates the CourierRegistration instance and the Courier instance with the provided data.
-     * The method returns the validation of that instance of Courier. True if the data is correct and false if
-     * it doesn't.
+     * Recieves the Courier's email, validates and returns the Courier's instance.
      *
-     * @param email Courier's email.
+     * @param email Courier's email
+     * @return the Courier's instance
      */
     public Courier getCourierByEmail(String email) {
         try {
@@ -67,7 +66,16 @@ public class UpdateCourierController {
     }
 
     /**
-     * The method adds a Freelancer to the Organization of the current user.
+     * The method recieves the Courier's instance, name, email, nif, iban, Courier's pharmacy email,
+     * validates and updates the values.
+     *
+     * @param courier       Courier's instance
+     * @param strName       Courier's name
+     * @param strEmail      Courier's email
+     * @param intNif        Courier's nif
+     * @param strIban       Courier's iban
+     * @param pharmacyEmail Courier's pharmacy  email
+     * @return the Courier's instance
      */
     public Courier updateCourier(Courier courier, String strName, String strEmail, Integer intNif, String strIban, String pharmacyEmail) {
         try {
@@ -81,6 +89,11 @@ public class UpdateCourierController {
         return null;
     }
 
+    /**
+     * Uses the Courier's instance and update's it on the Database.
+     *
+     * @return true if the Courier is updated on the Database. False otherwise.
+     */
     public boolean updateCourierDB() {
         return moCourierService.updateCourierDB(moCourier);
     }
@@ -126,26 +139,56 @@ public class UpdateCourierController {
 
     }
 
+    /**
+     * The method returns the Courier Service
+     *
+     * @return the Courier's Service
+     */
     public CourierService getMoCourierService() {
         return moCourierService;
     }
 
+    /**
+     * The methods sets the Courier Service
+     *
+     * @param moCourierService Courier Service class
+     */
     public void setMoCourierService(CourierService moCourierService) {
         this.moCourierService = moCourierService;
     }
 
+    /**
+     * The method returns the Pharmacy Service
+     *
+     * @return the Pharmacies's Service
+     */
     public PharmacyService getMoPharmacyService() {
         return moPharmacyService;
     }
 
+    /**
+     * The methods sets the Pharmacy Service
+     *
+     * @param moPharmacyService Pharmacy Service class
+     */
     public void setMoPharmacyService(PharmacyService moPharmacyService) {
         this.moPharmacyService = moPharmacyService;
     }
 
+    /**
+     * Returns the Pharmacy instance
+     *
+     * @return Pharmacy instance
+     */
     public Pharmacy getMoPharmacy() {
         return moPharmacy;
     }
 
+    /**
+     * Recieves a Pharmacy instance and sets it.
+     *
+     * @param moPharmacy Pharamcy instance
+     */
     public void setMoPharmacy(Pharmacy moPharmacy) {
         this.moPharmacy = moPharmacy;
     }

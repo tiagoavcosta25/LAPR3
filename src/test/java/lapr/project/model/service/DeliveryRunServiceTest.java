@@ -44,8 +44,12 @@ class DeliveryRunServiceTest {
 
     @Test
     void addNewDeliveryRun() {
+        VehicleModel vm = new VehicleModel(1,"as",23,43,21,new Battery(),
+                VehicleType.SCOOTER);
+        Scooter scooter = new Scooter(1,vm,new Pharmacy());
+        DeliveryRun deliveryRun = new DeliveryRun(new Courier(),new ArrayList<>(),scooter);
         when(m_oDeliveryRunDB.addNewDeliveryRun(new DeliveryRun())).thenReturn(true);
-        boolean real = m_oDeliveryRunService.addNewDeliveryRun(new DeliveryRun());
+        boolean real = m_oDeliveryRunService.addNewDeliveryRun(deliveryRun);
         assertTrue(real);
 
         when(m_oDeliveryRunDB.addNewDeliveryRun(new DeliveryRun())).thenReturn(false);

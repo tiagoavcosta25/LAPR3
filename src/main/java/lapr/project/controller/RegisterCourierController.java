@@ -8,14 +8,15 @@ import lapr.project.model.service.PharmacyService;
 
 /**
  * Register Courier Controller.
- * <p>
- * Group: Team Lisa [G-037]
- * ______________________________________________________
  *
+ * Group: Team Lisa [G-021]
+ * ______________________________________________________
+ * @author António Barbosa <1190404@isep.ipp.pt>
  * @author Ernesto Rodrigues <1190560@isep.ipp.pt>
  * @author Jessica Alves <1190682@isep.ipp.pt>
  * @author Pedro Santos <1190967@isep.ipp.pt>
  * @author Rodrigo Costa <1191014@isep.ipp.pt>
+ * @author Tiago Costa <1191460@isep.ipp.pt>
  */
 public class RegisterCourierController {
     /**
@@ -24,22 +25,22 @@ public class RegisterCourierController {
     private Courier moCourier;
 
     /**
-     * Courier Management class
+     * Courier Service class
      */
     private CourierService moCourierService;
 
     /**
-     * Pharmacy Management class
+     * Pharmacy Service class
      */
     private PharmacyService moPharmacyService;
 
     /**
-     * Pharmacy
+     * Pharmacy class instance
      */
     private Pharmacy moPharmacy;
 
     /**
-     * A constructor of RegisterCourierController that initiates the platform variable by getting it from the ApplicationPOT.
+     * A constructor of UpdateCourierController that initiates the Courier Service and Pharmacy Service.
      */
     public RegisterCourierController() {
         this.moCourierService = new CourierService();
@@ -47,15 +48,16 @@ public class RegisterCourierController {
     }
 
     /**
-     * The method receives Courier's name, email, nif and iban.
-     * Initiates the CourierRegistration instance and the Courier instance with the provided data.
-     * The method returns the validation of that instance of Courier. True if the data is correct and false if
-     * it doesn't.
+     * The method receives Courier's name, email, nif, iban and pharmacy's email.
+     * Validates the input recieved and gets the Pharmacy through the email provided and creates a new Courier's instance.
+     * The method returns the validation of the operation. True if the data is correct
+     * and created and false if it's not.
      *
      * @param strName  Courier's name.
      * @param strEmail Courier's email.
      * @param intNIF   Courier's nif.
      * @param strIBAN  Courier's iban.
+     * @param strPharmacyEmail  Pharmacy's email that the Courier belongs to.
      */
     public boolean newCourier(String strName, String strEmail, Integer intNIF, String strIBAN, String strPharmacyEmail) {
         try {
@@ -71,14 +73,15 @@ public class RegisterCourierController {
     }
 
     /**
-     * The method adds a Freelancer to the Organization of the current user.
+     * The method adds the instance of Courier to the DataBase.
      */
     public boolean registersCourier() {
         return this.moCourierService.registersCourier(this.moCourier);
     }
 
     /**
-     * The method sets the courier.
+     * Recieves the Courier's instance and sets it.
+     * @param oCourier Courier's instance
      */
     public void setCourier(Courier oCourier) {
         this.moCourier = oCourier;
@@ -86,14 +89,14 @@ public class RegisterCourierController {
 
 
     /**
-     * Validates the input information regarding
-     * a Courier
+     * Validates the input information regarding a Courier
      *
      * @param strName  Courier's name.
      * @param strEmail Courier's email.
      * @param intNIF   Courier's nif.
      * @param strIBAN  Courier's iban.
-     * @return True if input is valid, false if otherwise
+     * @param strPharmacyEmail  Pharmacy's email that the Courier belongs to.
+     * @return True if input is valid, false if otherwise.
      */
     public boolean validateInput(String strName, String strEmail, Integer intNIF, String strIBAN, String strPharmacyEmail) {
 
@@ -105,18 +108,34 @@ public class RegisterCourierController {
                 && (int) (Math.log10(intNIF) + 1) == 9;
     }
 
+    /**
+     * The method returns the Courier Service
+     * @return the Courier's Service
+     */
     public CourierService getCourierService() {
         return moCourierService;
     }
 
+    /**
+     * The methods sets the Courier Service
+     * @param oCourierService Courier Service class
+     */
     public void setCourierService(CourierService oCourierService) {
         this.moCourierService = oCourierService;
     }
 
+    /**
+     * The method returns the Pharmacy Service
+     * @return the Pharmacies's Service
+     */
     public PharmacyService getPharmacyService() {
         return moPharmacyService;
     }
 
+    /**
+     * The methods sets the Pharmacy Service
+     * @param oPharmacyService Pharmacy Service class
+     */
     public void setPharmacyService(PharmacyService oPharmacyService) {
         this.moPharmacyService = oPharmacyService;
     }

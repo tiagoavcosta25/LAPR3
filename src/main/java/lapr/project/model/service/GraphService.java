@@ -182,7 +182,7 @@ public class GraphService {
 
 
     public Pair<Pair<VehicleModel, Double>, List<Address>> pathsWithPharmacies
-    (Graph<Address, Path> g, Address s, Address d, List<VehicleModel> vmList, List<Order> orderList) {
+            (Graph<Address, Path> g, Address s, Address d, List<VehicleModel> vmList, List<Order> orderList) {
         if(g.numVertices() == 0)
             return null;
         List<Pair<Pair<VehicleModel, Double>, List<Address>>> result = new LinkedList<>();
@@ -308,8 +308,8 @@ public class GraphService {
             bestDrone = new Pair<>(bestDrone.getKey(), Double.MAX_VALUE);
         if(bestScooter.getValue() != Double.MAX_VALUE && bestDrone.getValue() != Double.MAX_VALUE) {
             body = String.format("\n\n\nBest scooter model: %s\nBest scooter energetic cost: %.2f kWh" +
-                    "\nScooter best path: %s\nScooter path time: %.2f minutes\nScooter needed to charge: %s\nScooter charged on: %s\n\n\nBest drone model: %s\nBest drone energetic cost: %.2f kWh" +
-                    "\nDrone best path: %s\nDrone path time: %.2f minutes\nDrone needed to charge: %s\nDrone charged on: %s",bestScooter.getKey(),
+                            "\nScooter best path: %s\nScooter path time: %.2f minutes\nScooter needed to charge: %s\nScooter charged on: %s\n\n\nBest drone model: %s\nBest drone energetic cost: %.2f kWh" +
+                            "\nDrone best path: %s\nDrone path time: %.2f minutes\nDrone needed to charge: %s\nDrone charged on: %s",bestScooter.getKey(),
                     bestScooter.getValue(),scooterPath,pathTimeScooter, scooterRecharged, chargingSpotScooter, bestDrone.getKey(),
                     bestDrone.getValue(),dronePath, pathTimeDrone, droneRecharged, chargingSpotDrone);
             printPhysics(moGraphScooter, scooterPath);
@@ -351,9 +351,9 @@ public class GraphService {
         }
         else if(resultScooter != null && resultDrone != null) {
             body = String.format("\n\n\nBest scooter model: %s\nBest scooter energetic cost: %.2f kWh\n" +
-                    "Scooter best path: %s\nScooter path time: %.2f minutes\nScooter needed to recharge: %s\nScooter needed to recharge on: %s\n\n\n" +
+                            "Scooter best path: %s\nScooter path time: %.2f minutes\nScooter needed to recharge: %s\nScooter needed to recharge on: %s\n\n\n" +
                             "Best drone model: %s\nBest drone energetic cost: %.2f kWh\n" +
-                    "Drone best path: %s\nDrone path time: %.2f minutes\nDrone needed to recharge: %s\nDrone needed to recharge on: %s",
+                            "Drone best path: %s\nDrone path time: %.2f minutes\nDrone needed to recharge: %s\nDrone needed to recharge on: %s",
                     resultScooter.getKey().getKey(),resultScooter.getKey().getValue(),
                     resultScooter.getValue(),pathTimeScooter, scooterRecharged, chargingSpotScooter,resultDrone.getKey().getKey(),
                     resultDrone.getKey().getValue(),
@@ -365,7 +365,7 @@ public class GraphService {
         }
         else if(resultScooter == null) {
             body = String.format("\n\n\nNo scooter can make this path!\n\n\nBest drone model: %s" +
-                    "\nBest drone energetic cost: %.2f kWh\nDrone best path: %s\nDrone path time: %.2f minutes\nDrone needed to charge: %s\n" +
+                            "\nBest drone energetic cost: %.2f kWh\nDrone best path: %s\nDrone path time: %.2f minutes\nDrone needed to charge: %s\n" +
                             "Drone needed to charge on: %s",resultDrone.getKey().getKey(),
                     resultDrone.getKey().getValue(),resultDrone.getValue(),pathTimeDrone, droneRecharged, chargingSpotDrone);
             printPhysics(moGraphDrone, resultDrone.getValue());
@@ -374,7 +374,7 @@ public class GraphService {
         }
         else {
             body = String.format("\n\n\nNo drone can make this path!\n\n\nBest scooter model: %s" +
-                    "\nBest scooter energetic cost: %.2f kWh\nScooter best path: %s\nScooter path time: %.2f minutes\nScooter needed to recharge: %s\n" +
+                            "\nBest scooter energetic cost: %.2f kWh\nScooter best path: %s\nScooter path time: %.2f minutes\nScooter needed to recharge: %s\n" +
                             "Scooter needed to recharge on: %s",resultScooter.getKey().getKey(),
                     resultScooter.getKey().getValue(),resultScooter.getValue(),pathTimeScooter, scooterRecharged, chargingSpotScooter);
             printPhysics(moGraphScooter, resultScooter.getValue());
@@ -387,6 +387,11 @@ public class GraphService {
 
     public Pair<VehicleModel, Double> getBestPossibleModel(List<VehicleModel> vList, List<Address> path,
                                                            List<Order> orderList) {
+        this.chargingSpots = new ArrayList<>();
+        this.pathRecharge = false;
+        this.pathTime = 0;
+
+
         VehicleModel mostCapableVModel = null;
         double lowestCost = Double.MAX_VALUE;
         double energiaModelo100;
@@ -394,21 +399,29 @@ public class GraphService {
         for(VehicleModel vehicle : vList) {
             // value/1000 for kwh
             energiaModelo100 = moVehicleDB.getEnergyByVehicleModel(vehicle.getId()) / 1000;
-            energiaModeloPath = calculatePathCost(path, orderList, vehicle, energiaModelo100);
+            Pair<Pair<Double, Double>, List<Address>> pair = calculatePathCost(path, orderList, vehicle, energiaModelo100);
+            energiaModeloPath = pair.getKey().getKey();
             if(energiaModeloPath < lowestCost) {
                 mostCapableVModel = vehicle;
                 lowestCost = energiaModeloPath;
+                if(pair.getValue().isEmpty()) {
+                    this.pathRecharge = false;
+                    this.chargingSpots = Collections.emptyList();
+                } else {
+                    this.pathRecharge = true;
+                    this.chargingSpots = pair.getValue();
+                }
+                this.pathTime = pair.getKey().getValue();
             }
         }
         if(lowestCost == Double.MAX_VALUE) return new Pair<>(null, Double.MAX_VALUE);
         return new Pair<>(mostCapableVModel, lowestCost);
     }
 
-    public Double calculatePathCost(List<Address> allAddresses, List<Order> orderList,
-                                    VehicleModel vModel, Double maxEnergy) {
-        this.chargingSpots = new ArrayList<>();
-        this.pathRecharge = false;
-        this.pathTime = 0;
+    public Pair<Pair<Double, Double>, List<Address>> calculatePathCost(List<Address> allAddresses, List<Order> orderList,
+                                                                       VehicleModel vModel, Double maxEnergy) {
+        List<Address> chargeSpots = new ArrayList<>();
+        double pathTotalTime = 0;
         double energyRemaining = maxEnergy;
         double energyCost = 0;
         double tempEnergy;
@@ -417,7 +430,7 @@ public class GraphService {
         if (vModel.getVehicleType().equals(VehicleType.SCOOTER))
             totalMass += Constants.DEFAULT_COURIER_WEIGHT;
         else if (vModel.getVehicleType().equals(VehicleType.NOTDEFINED))
-            return Double.MAX_VALUE;
+            return new Pair<>(new Pair<>(Double.MAX_VALUE, Double.MAX_VALUE), Collections.emptyList());
         Map<Address, Double> orderWeightMap = new HashMap<>();
         for (Order order : orderList) {
             orderWeightMap.put(order.getClient().getAddress(), order.getTotalWeight());
@@ -442,43 +455,38 @@ public class GraphService {
             if (vModel.getVehicleType().equals(VehicleType.SCOOTER)) {
                 tempPair =  EnergyCalculator.calculateScooterEnergy(distanceUsingCoordinates, winDegree, winSpeed,
                         localHeightDifference,
-                        totalMass, kineticFrictionCoefficient);
+                        totalMass, kineticFrictionCoefficient,vModel.getPotency());
             }
             else {
                 tempPair = EnergyCalculator.calculateDroneEnergy(totalMass, winSpeed, winDegree,
-                        distanceUsingCoordinates);
+                        distanceUsingCoordinates,vModel.getPotency());
             }
             tempEnergy = tempPair.getKey();
             tempTime += tempPair.getValue();
             energyCost += tempEnergy;
             energyRemaining -= tempEnergy;
             if (energyRemaining < 0) {
-                chargingSpots = new ArrayList<>();
-                pathRecharge = false;
-                return Double.MAX_VALUE;
+                return new Pair<>(new Pair<>(Double.MAX_VALUE, Double.MAX_VALUE), Collections.emptyList());
             }
             if (checkIfAddressIsPharmacy(allAddresses.get(i + 1))) {
                 if(i + 1 != allAddresses.size() - 1 &&
                         moDeliveryRunDB.checkValidChargingSlot(allAddresses.get(i + 1))) {
                     energyRemaining = maxEnergy;
-                    chargingSpots.add(allAddresses.get(i + 1));
+                    chargeSpots.add(allAddresses.get(i + 1));
                 }
             }
         }
-        if(energyCost > maxEnergy) {
-            pathRecharge = true;
-        } else {
-            pathRecharge = false;
-            chargingSpots = new ArrayList<>();
+        if(energyCost < maxEnergy) {
+            chargeSpots = new ArrayList<>();
         }
 
-        pathTime = tempTime / 60;
-        return energyCost;
+        pathTotalTime = tempTime / 60;
+        return new Pair<>(new Pair<>(energyCost, pathTotalTime), chargeSpots);
     }
 
 
     public List<Address> calculateMostEfficientPath(VehicleType vType, Address startAddress,
-                                                          Address endAddress, List<Address> deliveryPoints) {
+                                                    Address endAddress, List<Address> deliveryPoints) {
         //Pass the weight of each edge of the graph to the enery cost
         Graph<Address, Path> cloneGraph;
 
@@ -490,17 +498,17 @@ public class GraphService {
             double distanceUsingCoordinates = e.getVOrig().distanceTo(e.getVDest());
             double localHeightDifference = e.getVOrig().getAltitude() - e.getVDest().getAltitude();
             double totalMass = 1;
-
+            double totalPower=10000;
 
             double energia;
             if(vType.equals(VehicleType.SCOOTER)) {
                 energia = EnergyCalculator.calculateScooterEnergy(distanceUsingCoordinates, e.getElement().getWindAngle(),
                         e.getElement().getWindSpeed(), localHeightDifference, totalMass,
-                        e.getElement().getKineticFrictionCoefficient()).getKey();
+                        e.getElement().getKineticFrictionCoefficient(),totalPower).getKey();
             }
             else {
                 energia = EnergyCalculator.calculateDroneEnergy(totalMass, e.getElement().getWindSpeed(),
-                        e.getElement().getWindAngle(), distanceUsingCoordinates).getKey();
+                        e.getElement().getWindAngle(), distanceUsingCoordinates,totalPower).getKey();
             }
             e.setWeight(energia);
         }

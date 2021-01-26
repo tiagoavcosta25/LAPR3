@@ -8,8 +8,8 @@ import lapr.project.utils.WriteFile;
 public class PharmacyTransferService {
 
     private static final String TRANSFERNUMBER = "Transfer Number: ";
-    private static final String TAB = "%n%n\t\t\t%s";
-    private static final String LINEBREAKER = "%n_______________________________________";
+    private static final String TAB = String.format("%n\t\t\t");
+    private static final String LINEBREAKER = String.format("%n_______________________________________");
 
     private PharmacyTransferDB moPharmacyTransferDB;
 
@@ -74,34 +74,34 @@ public class PharmacyTransferService {
     }
 
     private String getBody(PharmacyTransfer oPharmacyTransfer, String strNote){
-            String strBody = String.format("_______________________________________%n%n\t\t\tTransfer No. %d", oPharmacyTransfer.getId());
-            strBody += String.format("%n\t\t\t\t%td-%<tb-%<tY", oPharmacyTransfer.getTransferDate());
-            strBody += LINEBREAKER;
+            StringBuilder strBody = new StringBuilder(String.format("_______________________________________%n%n\t\t\tTransfer No. %d", oPharmacyTransfer.getId()));
+            strBody.append(String.format("%n\t\t\t\t%td-%<tb-%<tY\n", oPharmacyTransfer.getTransferDate()));
+            strBody.append(LINEBREAKER);
 
-            strBody += String.format("%n%n---------------------------------------");
-            strBody += String.format("%n\t\t\tSending Pharmacy:%n---------------------------------------%n%n%n%n\t\t\t%s", oPharmacyTransfer.getNearbyPharmacy().getName());
-            strBody += String.format(TAB, oPharmacyTransfer.getNearbyPharmacy().getEmail());
-            strBody += String.format(TAB, oPharmacyTransfer.getNearbyPharmacy().getAddress().getStreetName());
-            strBody += String.format(TAB, oPharmacyTransfer.getNearbyPharmacy().getAddress().getDoorNumber());
-            strBody += String.format(TAB, oPharmacyTransfer.getNearbyPharmacy().getAddress().getPostalCode());
-            strBody += String.format(TAB, oPharmacyTransfer.getNearbyPharmacy().getAddress().getLocality());
-            strBody += String.format(TAB, oPharmacyTransfer.getNearbyPharmacy().getAddress().getCountry());
-            strBody += String.format("%n%n%n%n---------------------------------------");
-            strBody += String.format("%n\t\t\tReceiving Pharmacy:%n---------------------------------------%n%n%n%n\t\t\t%s", oPharmacyTransfer.getOrder().getPharmacy().getName());
-            strBody += String.format(TAB, oPharmacyTransfer.getOrder().getPharmacy().getEmail());
-            strBody += String.format(TAB, oPharmacyTransfer.getOrder().getPharmacy().getAddress().getStreetName());
-            strBody += String.format(TAB, oPharmacyTransfer.getOrder().getPharmacy().getAddress().getDoorNumber());
-            strBody += String.format(TAB, oPharmacyTransfer.getOrder().getPharmacy().getAddress().getPostalCode());
-            strBody += String.format(TAB, oPharmacyTransfer.getOrder().getPharmacy().getAddress().getLocality());
-            strBody += String.format(TAB, oPharmacyTransfer.getOrder().getPharmacy().getAddress().getCountry());
-            strBody += String.format("%n%n%n%n---------------------------------------");
-            strBody += String.format("%n\t\t\tProduct Ordered");
-            strBody += String.format("%n---------------------------------------%n%n%n%n%dx %s", oPharmacyTransfer.getQuantity(), oPharmacyTransfer.getProduct().getName());
-            strBody += String.format("%n%n%n%n_______________________________________");
-            strBody += String.format(TAB, strNote);
-            strBody += LINEBREAKER;
-            strBody += String.format("%n\t\t\t\tTHANK YOU!");
-            strBody += "LINEBREAKER";
-            return strBody;
+            strBody.append(String.format("%n%n---------------------------------------"));
+            strBody.append(String.format("%n\t\t\tSending Pharmacy:%n---------------------------------------%n%n%n%n\t\t\t%s", oPharmacyTransfer.getNearbyPharmacy().getName()));
+            strBody.append(String.format("%s%s\n", TAB, oPharmacyTransfer.getNearbyPharmacy().getEmail()));
+            strBody.append(String.format("%s%s\n", TAB, oPharmacyTransfer.getNearbyPharmacy().getAddress().getStreetName()));
+            strBody.append(String.format("%s%s\n", TAB, oPharmacyTransfer.getNearbyPharmacy().getAddress().getDoorNumber()));
+            strBody.append(String.format("%s%s\n", TAB, oPharmacyTransfer.getNearbyPharmacy().getAddress().getPostalCode()));
+            strBody.append(String.format("%s%s\n", TAB, oPharmacyTransfer.getNearbyPharmacy().getAddress().getLocality()));
+            strBody.append(String.format("%s%s\n", TAB, oPharmacyTransfer.getNearbyPharmacy().getAddress().getCountry()));
+            strBody.append(String.format("%n%n%n%n---------------------------------------"));
+            strBody.append(String.format("%n\t\t\tReceiving Pharmacy:%n---------------------------------------%n%n%n%n\t\t\t%s", oPharmacyTransfer.getOrder().getPharmacy().getName()));
+            strBody.append(String.format("%s%s\n", TAB, oPharmacyTransfer.getOrder().getPharmacy().getEmail()));
+            strBody.append(String.format("%s%s\n", TAB, oPharmacyTransfer.getOrder().getPharmacy().getAddress().getStreetName()));
+            strBody.append(String.format("%s%s\n", TAB, oPharmacyTransfer.getOrder().getPharmacy().getAddress().getDoorNumber()));
+            strBody.append(String.format("%s%s\n", TAB, oPharmacyTransfer.getOrder().getPharmacy().getAddress().getPostalCode()));
+            strBody.append(String.format("%s%s\n", TAB, oPharmacyTransfer.getOrder().getPharmacy().getAddress().getLocality()));
+            strBody.append(String.format("%s%s\n", TAB, oPharmacyTransfer.getOrder().getPharmacy().getAddress().getCountry()));
+            strBody.append(String.format("%n%n%n%n---------------------------------------"));
+            strBody.append(String.format("%n\t\t\tProduct Ordered"));
+            strBody.append(String.format("%n---------------------------------------%n%n%n%n%dx %s", oPharmacyTransfer.getQuantity(), oPharmacyTransfer.getProduct().getName()));
+            strBody.append(String.format("%n%n%n%n_______________________________________"));
+            strBody.append(String.format("%s%s\n", TAB, strNote));
+            strBody.append(LINEBREAKER);
+            strBody.append(String.format("%n\t\t\t\tTHANK YOU!\n"));
+            strBody.append(LINEBREAKER);
+            return strBody.toString();
     }
 }

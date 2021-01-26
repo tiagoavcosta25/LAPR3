@@ -4,34 +4,34 @@ import lapr.project.model.service.CourierService;
 
 
 /**
- * Register Courier Controller.
- * <p>
- * Group: Team Lisa [G-037]
- * ______________________________________________________
+ * Remove Courier Controller.
  *
+ * Group: Team Lisa [G-021]
+ * ______________________________________________________
+ * @author António Barbosa <1190404@isep.ipp.pt>
  * @author Ernesto Rodrigues <1190560@isep.ipp.pt>
  * @author Jessica Alves <1190682@isep.ipp.pt>
  * @author Pedro Santos <1190967@isep.ipp.pt>
  * @author Rodrigo Costa <1191014@isep.ipp.pt>
+ * @author Tiago Costa <1191460@isep.ipp.pt>
  */
 public class RemoveCourierController {
 
     /**
-     * Courier Management class
+     * Courier Service class
      */
     private CourierService moCourierService;
 
     /**
-     * A constructor of RegisterCourierController that initiates the platform variable by getting it from the ApplicationPOT.
+     * A constructor of UpdateCourierController that initiates the Courier Service.
      */
     public RemoveCourierController() {
         this.moCourierService = new CourierService();
     }
 
     /**
-     * The method receives Courier's name, email, nif and iban.
-     * Initiates the CourierRegistration instance and the Courier instance with the provided data.
-     * The method returns the validation of that instance of Courier. True if the data is correct and false if
+     * The method receives Courier's nameemail.
+     * The method returns the validation of that Courier's email. True if the data is correct and false if
      * it doesn't.
      */
     public boolean validateCourier(String email) {
@@ -39,7 +39,9 @@ public class RemoveCourierController {
     }
 
     /**
-     * The method adds a Freelancer to the Organization of the current user.
+     * Recieves the Courier's email and removes it from the Database.
+     * @param email Courier's email
+     * @return true if the Courier is removed. False if otherwise.
      */
     public boolean removeCourier(String email) {
         return this.moCourierService.removeCourier(email);
@@ -48,7 +50,7 @@ public class RemoveCourierController {
 
     /**
      * Validates the input information regarding
-     * a Courier
+     * a Courier's email
      *
      * @param email Courier's email.
      * @return True if input is valid, false if otherwise

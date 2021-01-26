@@ -11,10 +11,28 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Scooter Database.
+ *
+ * Group: Team Lisa [G-021]
+ * ______________________________________________________
+ * @author António Barbosa <1190404@isep.ipp.pt>
+ * @author Ernesto Rodrigues <1190560@isep.ipp.pt>
+ * @author Jessica Alves <1190682@isep.ipp.pt>
+ * @author Pedro Santos <1190967@isep.ipp.pt>
+ * @author Rodrigo Costa <1191014@isep.ipp.pt>
+ * @author Tiago Costa <1191460@isep.ipp.pt>
+ */
+
 public class ScooterDB extends DataHandler {
 
     private static final String NOSCOOTERAVAIABLE = "No Scooters Avaliable.";
 
+    /**
+     * Returns Scooter by ID.
+     * @param id Scooter ID.
+     * @return Scooter.
+     */
     public Scooter getScooter(int id) {
 
         try(CallableStatement callStmt = getConnection().prepareCall("{ ? = call getScooter(?) }");) {
@@ -37,9 +55,12 @@ public class ScooterDB extends DataHandler {
     }
 
     /**
-     * DATABASE
+     * Add a new Scooter to the DataBase.
+     * @param dblBatteryPerc Scooter Battery Percentage.
+     * @param oVehicleModel Scooter Vehicle Model.
+     * @param oPharmacy Scooter Pharmacy.
+     * @return Model ID.
      */
-
     private int addScooter(double dblBatteryPerc, VehicleModel oVehicleModel, Pharmacy oPharmacy) {
         try(CallableStatement callStmt = getConnection().prepareCall("{ ? = call addScooter(?,?,?) }");) {
             callStmt.registerOutParameter(1, OracleTypes.INTEGER);
@@ -58,6 +79,23 @@ public class ScooterDB extends DataHandler {
         }
     }
 
+    /**
+     * Update Scooter from Database.
+     * The method returns the validation of that instance of Scooter. True if the data is correct and false if
+     * it doesn't.
+     *
+     * @param
+     * @param intId Drone ID.
+     * @param dblBatteryPerc Drone Battery Percentage.
+     * @param strDesignation Drone Designation.
+     * @param dblPotency Drone Potency.
+     * @param dblWeight Drone Weight.
+     * @param dblMaxPayload Drone Maximum Payload.
+     * @param intBatteryCapacity Drone Battery Capacity.
+     * @param dblBatteryVoltage Drone Battery Voltage.
+     * @param dblEfficiency Drone Efficiency.
+     * @return the validation of that instance of Drone.
+     */
     public boolean updateScooterFromDB(int intId, double dblBatteryPerc, String strDesignation, double dblPotency, double dblWeight, double dblMaxPayload,
                                        int intBatteryCapacity, double dblBatteryVoltage, double dblEfficiency) {
         try(CallableStatement callStmt = getConnection().prepareCall("{call updateScooter(?,?,?,?,?,?,?,?,?)}");) {
@@ -82,6 +120,11 @@ public class ScooterDB extends DataHandler {
         return true;
     }
 
+    /**
+     * Returns a list of Scooters by Pharmacy Email.
+     * @param strPharmacyEmail Pharmacy Email.
+     * @return a list of Scooters
+     */
     public List<Scooter> getScootersList(String strPharmacyEmail) {
         List<Scooter> lstScooter = new ArrayList<>();
         try(CallableStatement callStmt = getConnection().prepareCall("{ ? = call getScootersList(?) }");) {
@@ -103,6 +146,13 @@ public class ScooterDB extends DataHandler {
         return lstScooter;
     }
 
+    /**
+     * The method removes a Scooter from the Database.
+     * The method returns the validation of that instance of Scooter. True if the data is correct and false if
+     * it doesn't.
+     * @param intId Scooter ID.
+     * @return the validation of that instance of Scooter.
+     */
     public boolean removeScooterFromDB(int intId) {
         try(CallableStatement callStmt = getConnection().prepareCall("{ call removeScooter(?) }");) {
 
@@ -119,10 +169,20 @@ public class ScooterDB extends DataHandler {
         return true;
     }
 
+    /**
+     * Gets all the Scooter's atributtes.
+     * @param s Scooter.
+     * @return Model ID.
+     */
     public int registerScooter(Scooter s) {
         return addScooter(s.getBatteryPerc(), s.getModel(), s.getPharmacy());
     }
 
+    /**
+     * Returns a list of a pair with the Scooter's Email and Sccoter.
+     * @param intParkId Park ID.
+     * @return list of a pair with the Scooter's Email and Sccoter.
+     */
     public List<Pair<String, Scooter>> getEmailPerChargingScooter(int intParkId) {
         List<Pair<String, Scooter>> lstPairs = new ArrayList<>();
         try(CallableStatement callStmt = getConnection().prepareCall("{ ? = call getEmailPerChargingScooter(?) }");) {
@@ -146,14 +206,21 @@ public class ScooterDB extends DataHandler {
         return lstPairs;
     }
 
+    /**
+     * Returns the Charger.
+     * @param intParkId Park ID.
+     * @return the Charger.
+     */
     public Double getCurrentPerCharger(int intParkId) {
-        try(CallableStatement callStmt = getConnection().prepareCall("{ ? = call getEmailPerChargingScooter(?) }");) {
+        try(CallableStatement callStmt = getConnection().prepareCall("{ ? = call getCurrentPerCharger(?) }");) {
 
-            callStmt.registerOutParameter(1, oracle.jdbc.internal.OracleTypes.DOUBLE);
+            callStmt.registerOutParameter(1, OracleTypes.NUMBER);
             callStmt.setInt(2, intParkId);
             callStmt.execute();
 
-            return (Double) callStmt.getObject(1);
+
+
+            return callStmt.getDouble(1);
         } catch (SQLException e) {
             e.printStackTrace();
             throw new IllegalArgumentException(NOSCOOTERAVAIABLE);
