@@ -57,8 +57,11 @@ class OrderTest {
 
     @Test
     void getAdditionalFee() {
-        double expected = 5.0f;
-        double real = o4.getAdditionalFee();
+        Client oClient = new Client();
+        oClient.setCredits(10);
+        Order oOrder = new Order("", true, oClient, new Pharmacy(), new HashMap<>());
+        double real = oOrder.getAdditionalFee();
+        double expected = 1d;
         assertEquals(expected, real);
     }
 
