@@ -122,7 +122,7 @@ public class DeliveryRunService {
                 body += (o.getId() + " - ");
             }
             if (body.length()!=0) body = body.substring(0,body.length()-3);
-            return WriteFile.write("DeliveryRunRegistration_" + oDeliveryRun.getCourier(),
+            return WriteFile.write("DeliveryRunRegistration_" + oDeliveryRun.getCourier().getName(),
                     String.format("Delivery Run Information\n\nResponsible Courier: %s\nStatus: %s\n" +
                                     "Vehicle: %s, id-%d\nOrder ID List: %s", oDeliveryRun.getCourier().getName(), oDeliveryRun.getStatus(),
                             oDeliveryRun.getVehicle().getModel().getDesignation(), oDeliveryRun.getVehicle().getId(), body)
