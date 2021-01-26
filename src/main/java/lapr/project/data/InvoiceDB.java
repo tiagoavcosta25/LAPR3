@@ -9,8 +9,25 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Map;
 
+/**
+ * Invoice DB.
+ *
+ * Group: Team Lisa [G-021]
+ * ______________________________________________________
+ * @author António Barbosa <1190404@isep.ipp.pt>
+ * @author Ernesto Rodrigues <1190560@isep.ipp.pt>
+ * @author Jessica Alves <1190682@isep.ipp.pt>
+ * @author Pedro Santos <1190967@isep.ipp.pt>
+ * @author Rodrigo Costa <1191014@isep.ipp.pt>
+ * @author Tiago Costa <1191460@isep.ipp.pt>
+ */
 public class InvoiceDB extends DataHandler {
 
+    /**
+     * Method that gets an invoice from the database.
+     * @param id Invoice's ID.
+     * @return Invoice.
+     */
     public Invoice getInvoice(int id) {
 
         try(CallableStatement callStmt = getConnection().prepareCall("{ ? = call getInvoice(?) }");) {
@@ -34,6 +51,14 @@ public class InvoiceDB extends DataHandler {
         throw new IllegalArgumentException("No Invoice with ID:" + id);
     }
 
+    /**
+     * Adds an invoice to the databse.
+     * @param dtInvoiceDate Invoice's Date.
+     * @param fltTotalPrice Invoice's Total Price.
+     * @param oOrder Invoice's Order.
+     * @param mapPayments Invoice's Payment map.
+     * @return true if everything works out, false if it doesn't.
+     */
     private boolean addInvoice(Date dtInvoiceDate, Double fltTotalPrice, Order oOrder, Map<CreditCard, Double> mapPayments) {
         try(CallableStatement callStmt = getConnection().prepareCall("{ ? = call addInvoice(?,?,?) }");
             CallableStatement callStmt2 = getConnection().prepareCall("{ call addInvoiceLine(?,?,?,?,?) }");
@@ -78,6 +103,11 @@ public class InvoiceDB extends DataHandler {
         }
     }
 
+    /**
+     * Removes an invoice from the database.
+     * @param intId Invoice's Id.
+     * @return true if everything works out, false if it doesn't.
+     */
     public boolean removeInvoice(int intId) {
 
         try(CallableStatement callStmt = getConnection().prepareCall("{ call removeInvoice(?) }");) {
@@ -95,6 +125,11 @@ public class InvoiceDB extends DataHandler {
 
     }
 
+    /**
+     * Calls the Private Method to add the invoice to the database.
+     * @param oInvoice Invoice.
+     * @return true if everything works out, false if it doesn't.
+     */
     public boolean registerInvoice(Invoice oInvoice) {
         return addInvoice(oInvoice.getInvoiceDate(), oInvoice.getTotalPrice(), oInvoice.getOrder(), oInvoice.getPayments());
     }

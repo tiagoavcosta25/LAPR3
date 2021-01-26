@@ -62,10 +62,6 @@ public class PharmacyService {
         return this.moPharmacyDB.getPharmacies();
     }
 
-    public Pharmacy getPharmacyByManagerEmail(String email) {
-        return this.moPharmacyDB.getPharmacyByManagerEmail(email);
-    }
-
     public Pharmacy getClosestPharmacyToClient(Client oClient) {
         return this.getClosestPharmacy(oClient.getAddress(), moPharmacyDB.getPharmacies());
     }
