@@ -59,4 +59,20 @@ class ProductInformationControllerTest {
         result = productInformationController.getProduct("-1");
         assertEquals(expectedProduct, result);
     }
+    @Test
+    void testGetProductService(){
+        ProductInformationController ctrl = new ProductInformationController();
+        ProductService expected = new ProductService();
+        ctrl.setMoServ(expected);
+        ProductService real = ctrl.getMoServ();
+        assertEquals(expected, real);
+    }
+    @Test
+    void testSetProductService(){
+        ProductInformationController ctrl = new ProductInformationController();
+        ProductService expected = new ProductService();
+        ctrl.setMoServ(expected);
+        ProductService real = ctrl.getMoServ();
+        assertEquals(expected, real);
+    }
 }

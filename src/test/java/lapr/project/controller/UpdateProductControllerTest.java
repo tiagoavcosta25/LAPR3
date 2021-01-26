@@ -62,4 +62,20 @@ class UpdateProductControllerTest {
         result = updateProductController.updateProduct("1", "Product 6969", "Description 1", 2.0d, 2.0d);
         assertFalse(result);
     }
+    @Test
+    void testGetProductService(){
+        UpdateProductController ctrl = new UpdateProductController();
+        ProductService expected = new ProductService();
+        ctrl.setMoServ(expected);
+        ProductService real = ctrl.getMoServ();
+        assertEquals(expected, real);
+    }
+    @Test
+    void testSetProductService(){
+        UpdateProductController ctrl = new UpdateProductController();
+        ProductService expected = new ProductService();
+        ctrl.setMoServ(expected);
+        ProductService real = ctrl.getMoServ();
+        assertEquals(expected, real);
+    }
 }

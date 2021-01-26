@@ -61,4 +61,23 @@ class RemoveProductControllerTest {
         result = removeProductController.removeProductFromDB("1");
         assertFalse(result);
     }
+
+    @Test
+    void testGetProductService() {
+        RemoveProductController ctrl = new RemoveProductController();
+        ProductService expected = new ProductService();
+        ctrl.setMoServ(expected);
+        ProductService real = ctrl.getMoServ();
+        assertEquals(expected, real);
+    }
+
+    @Test
+    void testSetProductService() {
+        RemoveProductController ctrl = new RemoveProductController();
+        ProductService expected = new ProductService();
+        ctrl.setMoServ(expected);
+        ProductService real = ctrl.getMoServ();
+        assertEquals(expected, real);
+    }
+
 }

@@ -5,6 +5,7 @@ import lapr.project.model.Scooter;
 import lapr.project.model.service.PharmacyService;
 import lapr.project.model.service.ScooterService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class UpdateScooterController {
@@ -39,9 +40,13 @@ public class UpdateScooterController {
      */
     public List<Scooter> showScootersList (String strPharmacyEmail) {
         try {
-            return moScooterService.getScootersList(strPharmacyEmail);
+            List<Scooter> oList = moScooterService.getScootersList(strPharmacyEmail);
+            if(oList.isEmpty()){
+                throw new Exception();
+            }
+            return oList;
         } catch (Exception ex) {
-            return null;
+            return new ArrayList<>();
         }
     }
 
@@ -56,4 +61,19 @@ public class UpdateScooterController {
                 intBatteryCapacity, dblBatteryVoltage, dblEfficiency);
     }
 
+    public PharmacyService getMoPharmacyService() {
+        return moPharmacyService;
+    }
+
+    public void setMoPharmacyService(PharmacyService moPharmacyService) {
+        this.moPharmacyService = moPharmacyService;
+    }
+
+    public ScooterService getMoScooterService() {
+        return moScooterService;
+    }
+
+    public void setMoScooterService(ScooterService moScooterService) {
+        this.moScooterService = moScooterService;
+    }
 }
