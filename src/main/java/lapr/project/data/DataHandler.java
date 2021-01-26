@@ -248,7 +248,7 @@ public class DataHandler {
         return new Client(intId, strName, strNif, strEmail, strPassword, intCredits, oClientAddress, new ArrayList<>());
     }
 
-    protected Order orderManager(ResultSet rSet, int firstColumn) throws SQLException, NoSuchAlgorithmException { // column number +37
+    protected Order orderManager(ResultSet rSet, int firstColumn) throws SQLException { // column number +37
 
         int intId = rSet.getInt(firstColumn);
         firstColumn++;
@@ -338,7 +338,7 @@ public class DataHandler {
         return oInvoice;
     }
 
-    protected Scooter scooterManager(ResultSet rSet, int firstColumn) throws SQLException, NoSuchAlgorithmException { // column number +23
+    protected Scooter scooterManager(ResultSet rSet, int firstColumn) throws SQLException { // column number +23
 
         int intId = rSet.getInt(firstColumn);
         firstColumn++;
@@ -351,7 +351,7 @@ public class DataHandler {
         return new Scooter(intId, dblBatteryPerc, oVehicleModel, oPharmacy);
     }
 
-    protected Drone droneManager(ResultSet rSet, int firstColumn) throws SQLException, NoSuchAlgorithmException { // column number +23
+    protected Drone droneManager(ResultSet rSet, int firstColumn) throws SQLException { // column number +23
 
         int intId = rSet.getInt(firstColumn);
         firstColumn++;
