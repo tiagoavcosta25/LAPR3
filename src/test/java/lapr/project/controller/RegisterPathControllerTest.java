@@ -36,4 +36,19 @@ public class RegisterPathControllerTest {
         boolean result = this.oRegisterPathController.registerPath(41.08555,-8.53666,41.9985,-8.058,"rua1",12,45,0.8,VehicleType.DRONE);
         assertFalse(result);
     }
+
+    @Test
+    void getDeliveryRunService() {
+        DeliveryRunService expected = mockDeliveryRunService;
+        DeliveryRunService real = oRegisterPathController.getDeliveryRunService();
+        assertEquals(expected,real);
+    }
+
+    @Test
+    void setDeliveryRunService() {
+        DeliveryRunService expected = new DeliveryRunService();
+        oRegisterPathController.setDeliveryRunService(expected);
+        DeliveryRunService real = oRegisterPathController.getDeliveryRunService();
+        assertEquals(expected,real);
+    }
 }

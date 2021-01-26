@@ -109,4 +109,49 @@ class RegisterDeliveryRunControllerTest {
         List<Order> real = m_ctrl.getOrdersList("test");
         assertEquals(new ArrayList<>(), real);
     }
+
+    @Test
+    void getDeliveryRunService() {
+        DeliveryRunService expected = m_mockDeliveryRunService;
+        DeliveryRunService real = m_ctrl.getDeliveryRunService();
+        assertEquals(expected,real);
+    }
+
+    @Test
+    void setDeliveryRunService() {
+        DeliveryRunService expected = new DeliveryRunService();
+        m_ctrl.setDeliveryRunService(expected);
+        DeliveryRunService real = m_ctrl.getDeliveryRunService();
+        assertEquals(expected,real);
+    }
+
+    @Test
+    void getPharmacyService() {
+        PharmacyService expected = m_mockPharmacyService;
+        PharmacyService real = m_ctrl.getPharmacyService();
+        assertEquals(expected,real);
+    }
+
+    @Test
+    void setPharmacyService() {
+        PharmacyService expected = new PharmacyService();
+        m_ctrl.setPharmacyService(expected);
+        PharmacyService real = m_ctrl.getPharmacyService();
+        assertEquals(expected,real);
+    }
+
+    @Test
+    void getGraphService() {
+        GraphService expected = m_mockGraphService;
+        GraphService real = m_ctrl.getGraphService();
+        assertEquals(expected,real);
+    }
+
+    @Test
+    void setGraphService() {
+        GraphService expected = new GraphService();
+        m_ctrl.setGraphService(expected);
+        GraphService real = m_ctrl.getGraphService();
+        assertEquals(expected,real);
+    }
 }
