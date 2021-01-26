@@ -2,7 +2,6 @@ package lapr.project.ui;
 
 import lapr.project.ui.console.LoginUI;
 import lapr.project.ui.console.RegisterClientUI;
-import lapr.project.ui.console.RegisterCourierUI;
 
 import java.util.Scanner;
 import java.util.logging.Level;
@@ -15,7 +14,7 @@ class Main {
         try{
             Scanner sc = new Scanner(System.in);
             LOGGER.log(Level.INFO, "Importing Data to the Database...");
-            //FileReader.readFiles();
+            FileReader.readFiles();
             LOGGER.log(Level.INFO, "Data Imported.");
 
             int intOp;
@@ -28,13 +27,11 @@ class Main {
 
                 switch(intOp){
                     case 1: {
-                        LoginUI ui = new LoginUI();
-                        ui.run();
+                        Menu.runUI(new LoginUI());
                         break;
                     }
                     case 2: {
-                        RegisterClientUI ui = new RegisterClientUI();
-                        ui.run();
+                        Menu.runUI(new RegisterClientUI());
                         break;
                     }
                     case 0: {

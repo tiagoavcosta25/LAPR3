@@ -28,33 +28,27 @@ public class AdministratorUI implements UI {
 
             switch(intOp){
                 case 1: {
-                    RegisterPharmacyUI ui = new RegisterPharmacyUI();
-                    ui.run();
+                    Menu.runUI(new RegisterPharmacyUI());
                     break;
                 }
                 case 2: {
-                    RegisterProductUI ui = new RegisterProductUI();
-                    ui.run();
+                    Menu.runUI(new RegisterProductUI());
                     break;
                 }
                 case 3: {
-                    RemoveProductUI ui = new RemoveProductUI();
-                    ui.run();
+                    Menu.runUI(new RemoveProductUI());
                     break;
                 }
                 case 4: {
-                    UpdateProductUI ui = new UpdateProductUI();
-                    ui.run();
+                    Menu.runUI(new UpdateProductUI());
                     break;
                 }
                 case 5: {
-                    ProductInformationUI ui = new ProductInformationUI();
-                    ui.run();
+                    Menu.runUI(new ProductInformationUI());
                     break;
                 }
                 case 6: {
-                    AddPharmacyProductUI ui = new AddPharmacyProductUI();
-                    ui.run();
+                    Menu.runUI(new AddPharmacyProductUI());
                     break;
                 }
                 case 7: {
@@ -73,8 +67,7 @@ public class AdministratorUI implements UI {
                     break;
                 }
                 case 10: {
-                    ScooterInformationUI ui = new ScooterInformationUI();
-                    ui.run();
+                    Menu.runUI(new ScooterInformationUI());
                     break;
                 }
                 case 11: {
@@ -93,28 +86,23 @@ public class AdministratorUI implements UI {
                     break;
                 }
                 case 14: {
-                    IssueDeliveryNoteUI ui = new IssueDeliveryNoteUI();
-                    ui.run();
+                    Menu.runUI(new IssueDeliveryNoteUI());
                     break;
                 }
                 case 15: {
-                    RegisterDeliveryRunUI ui = new RegisterDeliveryRunUI();
-                    ui.run();
+                    Menu.runUI(new RegisterDeliveryRunUI());
                     break;
                 }
                 case 16: {
-                    RegisterPathUI ui = new RegisterPathUI();
-                    ui.run();
+                    Menu.runUI(new RegisterPathUI());
                     break;
                 }
                 case 17: {
-                    RegisterParkUI ui = new RegisterParkUI();
-                    ui.run();
+                    Menu.runUI(new RegisterParkUI());
                     break;
                 }
                 case 18: {
-                    RegisterCourierUI ui = new RegisterCourierUI();
-                    ui.run();
+                    Menu.runUI(new RegisterCourierUI());
                     break;
                 }
                 case 0: {
