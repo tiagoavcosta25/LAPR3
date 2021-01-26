@@ -175,6 +175,17 @@ class ProductServiceTest {
 
         List<Product> result = pServ.getProducts();
         assertEquals(lst, result);
+
+        lst = null;
+        when(mockPDB.getProducts()).thenReturn(lst);
+        result = pServ.getProducts();
+        assertEquals(lst, result);
+
+        lst = new ArrayList<>();
+        lst.add(new Product());
+        when(mockPDB.getProducts()).thenReturn(lst);
+        result = pServ.getProducts();
+        assertEquals(lst, result);
     }
 
     @Test
@@ -184,6 +195,18 @@ class ProductServiceTest {
         when(mockPDB.getAvailableProducts(1)).thenReturn(lst);
 
         List<Product> result = pServ.getAvailableProducts(1);
+        assertEquals(lst, result);
+
+        when(mockPDB.getAvailableProducts(1)).thenReturn(null);
+
+        result = pServ.getAvailableProducts(1);
+        assertNull(result);
+
+        lst = new ArrayList<>();
+        lst.add(new Product());
+        when(mockPDB.getAvailableProducts(1)).thenReturn(lst);
+
+        result = pServ.getAvailableProducts(1);
         assertEquals(lst, result);
     }
 

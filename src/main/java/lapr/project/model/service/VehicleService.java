@@ -24,7 +24,7 @@ public class VehicleService {
         this.moVehicleDB = new VehicleDB();
     }
 
-    public List<VehicleModel> getPharamcyModel(String strPharmacyEmail) {
+    public List<VehicleModel> getPharmacyModel(String strPharmacyEmail) {
         return moVehicleDB.getPharmacyModel(strPharmacyEmail);
     }
 

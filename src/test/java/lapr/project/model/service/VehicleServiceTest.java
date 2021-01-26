@@ -1,10 +1,8 @@
 package lapr.project.model.service;
 
 import com.google.zxing.WriterException;
-import lapr.project.data.UserDB;
 import lapr.project.data.VehicleDB;
 import lapr.project.model.*;
-import lapr.project.utils.EncryptPassword;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -12,7 +10,6 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 
 import java.io.IOException;
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,8 +40,19 @@ class VehicleServiceTest {
     void getPharmacyModel() {
         System.out.println("getPharmacyModel");
         when (m_oVehicleDB.getPharmacyModel("email3@gmail.com")).thenReturn(new ArrayList<>());
-        List<VehicleModel> real = m_service.getPharamcyModel("email3@gmail.com");
+        List<VehicleModel> real = m_service.getPharmacyModel("email3@gmail.com");
         assertEquals(new ArrayList<>(),real);
+
+        when (m_oVehicleDB.getPharmacyModel("email3@gmail.com")).thenReturn(null);
+        real = m_service.getPharmacyModel("email3@gmail.com");
+        assertNull(real);
+
+        List<VehicleModel> lst = new ArrayList<>();
+        lst.add(new VehicleModel());
+
+        when (m_oVehicleDB.getPharmacyModel("email3@gmail.com")).thenReturn(lst);
+        real = m_service.getPharmacyModel("email3@gmail.com");
+        assertEquals(lst,real);
     }
 
     @Test
