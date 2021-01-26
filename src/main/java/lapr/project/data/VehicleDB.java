@@ -49,6 +49,7 @@ public class VehicleDB extends DataHandler {
 
                 rSet.next();
             }
+            callStmt.close();
             return lstModels;
         } catch (SQLException e) {
             e.printStackTrace();
