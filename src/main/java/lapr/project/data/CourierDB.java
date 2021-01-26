@@ -154,6 +154,11 @@ public class CourierDB extends DataHandler {
         throw new IllegalArgumentException("No Courier: " + email);
     }
 
+    /**
+     * Recieves the Scooter's id and sets the Scooter as parked on the Database.
+     * @param intId Scooter's id
+     * @return 1 if the Scooter was parked, 0 otherwise.
+     */
     public int parkScooter(int intId) {
         try(CallableStatement callStmt = getConnection().prepareCall("{ ? = call parkScooter(?) }");) {
             callStmt.registerOutParameter(1, OracleTypes.INTEGER);
@@ -169,6 +174,11 @@ public class CourierDB extends DataHandler {
         }
     }
 
+    /**
+     * Recieves the Scooter's id and sends the charging status to the email
+     * @param intIdScooter Scooter's id
+     * @return true if the charging status is sent to the email, false otherwise
+     */
     public boolean parkScooterDirectory(Integer intIdScooter) {
         String estimateFileName = DirectoryVerification.verifyFileCreation(Constants.ESTIMATE_FILE_PATH,
                 Constants.FILTER, 50);
