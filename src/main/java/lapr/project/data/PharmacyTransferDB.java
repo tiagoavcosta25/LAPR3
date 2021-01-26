@@ -3,7 +3,6 @@ package lapr.project.data;
 import lapr.project.model.*;
 import oracle.jdbc.OracleTypes;
 
-import java.security.NoSuchAlgorithmException;
 import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,10 +11,7 @@ public class PharmacyTransferDB extends DataHandler {
 
     public PharmacyTransfer getPharmacyTransfer(int id) {
 
-        CallableStatement callStmt = null;
-        try {
-            openConnection();
-            callStmt = getConnection().prepareCall("{ ? = call getPharmacyTransfer(?) }");
+        try(CallableStatement callStmt = getConnection().prepareCall("{ ? = call getPharmacyTransfer(?) }");) {
 
             callStmt.registerOutParameter(1, OracleTypes.CURSOR);
             callStmt.setInt(2, id);
@@ -36,9 +32,7 @@ public class PharmacyTransferDB extends DataHandler {
     }
 
     private boolean addPharmacyTransfer(Order oOrder, Product oProduct, Integer intQuantity, Pharmacy oPharmacy) {
-        try {
-            openConnection();
-            CallableStatement callStmt = getConnection().prepareCall("{ call addPharmacyTransfer(?,?,?,?,?) }");
+        try(CallableStatement callStmt = getConnection().prepareCall("{ call addPharmacyTransfer(?,?,?,?,?) }");) {
 
             callStmt.setInt(1, oOrder.getId());
             callStmt.setDate(2, oOrder.getOrderDate());
@@ -83,10 +77,7 @@ public class PharmacyTransferDB extends DataHandler {
     }
 
     public boolean updateStockFromTransfer(int intPharmacyTransferId) {
-        try {
-            openConnection();
-
-            CallableStatement callStmt = getConnection().prepareCall("{ call updateStockFromTransfer(?) }");
+        try(CallableStatement callStmt = getConnection().prepareCall("{ call updateStockFromTransfer(?) }");) {
 
             callStmt.setInt(1, intPharmacyTransferId);
 

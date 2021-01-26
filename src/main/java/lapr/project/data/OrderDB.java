@@ -3,7 +3,6 @@ package lapr.project.data;
 import lapr.project.model.*;
 import oracle.jdbc.OracleTypes;
 
-import java.security.NoSuchAlgorithmException;
 import java.sql.CallableStatement;
 import java.sql.Date;
 import java.sql.ResultSet;
@@ -15,10 +14,8 @@ public class OrderDB extends DataHandler {
 
     public Order getOrder(int id) {
 
-        CallableStatement callStmt = null;
-        try {
-            openConnection();
-            callStmt = getConnection().prepareCall("{ ? = call getOrder(?) }");
+        try(CallableStatement callStmt = getConnection().prepareCall("{ ? = call getOrder(?) }");
+            CallableStatement callStmt2 = getConnection().prepareCall("{ ? = call getProductsByOrder(?) }");) {
 
             callStmt.registerOutParameter(1, OracleTypes.CURSOR);
             callStmt.setInt(2, id);
@@ -30,13 +27,12 @@ public class OrderDB extends DataHandler {
             if (rSet.next()) {
                 Order oOrder = orderManager(rSet, 1);
 
-                callStmt = getConnection().prepareCall("{ ? = call getProductsByOrder(?) }");
-                callStmt.registerOutParameter(1, OracleTypes.CURSOR);
-                callStmt.setInt(2, id);
+                callStmt2.registerOutParameter(1, OracleTypes.CURSOR);
+                callStmt2.setInt(2, id);
 
-                callStmt.execute();
+                callStmt2.execute();
 
-                ResultSet rSetProducts = (ResultSet) callStmt.getObject(1);
+                ResultSet rSetProducts = (ResultSet) callStmt2.getObject(1);
 
                 while (rSetProducts.next()) {
                     oOrder = orderProductManager(rSetProducts, 1, oOrder);
@@ -53,9 +49,8 @@ public class OrderDB extends DataHandler {
 
     private int addOrder(Double dblAmount, Double dblTotalWeight, Double dblAdditionalFee, Date dtOrderDate,
                          String strDescription, String strStatus, boolean blnIsHomeDelivery, Client oClient, int intPharmacyId, Map<Product, Integer> mapProducts) {
-        try {
-            openConnection();
-            CallableStatement callStmt = getConnection().prepareCall("{ ? = call addOrder(?,?,?,?,?,?,?,?,?,?) }");
+        try(CallableStatement callStmt = getConnection().prepareCall("{ ? = call addOrder(?,?,?,?,?,?,?,?,?,?) }");
+            CallableStatement callStmt2 = getConnection().prepareCall("{ call addProductToOrder(?,?,?) }");) {
 
             callStmt.registerOutParameter(1, OracleTypes.INTEGER);
             callStmt.setDouble(2, dblAmount);
@@ -74,13 +69,11 @@ public class OrderDB extends DataHandler {
             Integer intId = (Integer) callStmt.getObject(1);
 
             if (intId != null) {
-                for (Product oProduct : mapProducts.keySet()) {
-                    callStmt = getConnection().prepareCall("{ call addProductToOrder(?,?,?) }");
-
-                    callStmt.setInt(1, intId);
-                    callStmt.setInt(2, oProduct.getId());
-                    callStmt.setInt(3, mapProducts.get(oProduct));
-                    callStmt.execute();
+                for (Map.Entry<Product, Integer> entry : mapProducts.entrySet()) {
+                    callStmt2.setInt(1, intId);
+                    callStmt2.setInt(2, entry.getKey().getId());
+                    callStmt2.setInt(3, entry.getValue());
+                    callStmt2.execute();
                 }
             }
 
@@ -95,10 +88,7 @@ public class OrderDB extends DataHandler {
 
     public boolean removeOrder(int intId) {
 
-        try {
-            openConnection();
-
-            CallableStatement callStmt = getConnection().prepareCall("{ call removeOrder(?) }");
+        try(CallableStatement callStmt = getConnection().prepareCall("{ call removeOrder(?) }");) {
 
             callStmt.setInt(1, intId);
 
@@ -120,10 +110,8 @@ public class OrderDB extends DataHandler {
 
     public Order getLatestOrder(Client oClient) {
 
-        CallableStatement callStmt = null;
-        try {
-            openConnection();
-            callStmt = getConnection().prepareCall("{ ? = call getLatestOrder(?) }");
+        try(CallableStatement callStmt = getConnection().prepareCall("{ ? = call getLatestOrder(?) }");
+            CallableStatement callStmt2 = getConnection().prepareCall("{ ? = call getProductsByOrder(?) }");) {
 
             callStmt.registerOutParameter(1, OracleTypes.CURSOR);
             callStmt.setString(2, oClient.getEmail());
@@ -135,13 +123,12 @@ public class OrderDB extends DataHandler {
             if (rSet.next()) {
                 Order oOrder = orderManager(rSet, 1);
 
-                callStmt = getConnection().prepareCall("{ ? = call getProductsByOrder(?) }");
-                callStmt.registerOutParameter(1, OracleTypes.CURSOR);
-                callStmt.setInt(oOrder.getId(), 2);
+                callStmt2.registerOutParameter(1, OracleTypes.CURSOR);
+                callStmt2.setInt(oOrder.getId(), 2);
 
-                callStmt.execute();
+                callStmt2.execute();
 
-                ResultSet rSetProducts = (ResultSet) callStmt.getObject(1);
+                ResultSet rSetProducts = (ResultSet) callStmt2.getObject(1);
 
                 while (rSet.next()) {
                     oOrder = orderProductManager(rSetProducts, 1, oOrder);
@@ -158,10 +145,7 @@ public class OrderDB extends DataHandler {
 
     public Order getOrderByCourier(String strEmail) {
 
-        CallableStatement callStmt = null;
-        try {
-            openConnection();
-            callStmt = getConnection().prepareCall("{ ? = call getOrderByCourier(?) }");
+        try(CallableStatement callStmt = getConnection().prepareCall("{ ? = call getOrderByCourier(?) }");) {
 
             callStmt.registerOutParameter(1, OracleTypes.CURSOR);
             callStmt.setString(2, strEmail);
@@ -184,17 +168,14 @@ public class OrderDB extends DataHandler {
 
 
     public Map<Product, Integer> notifyAndRemove(Order order) {
-        CallableStatement callStmt = null;
         Map<Product, Integer> lstProducts = new TreeMap<>();
         for (Map.Entry<Product, Integer> entry : order.getProducts().entrySet()) {
-            try {
-                openConnection();
-                callStmt = getConnection().prepareCall("{ ? = call removeProductsPharmacy(?,?,?) }");
+            try(CallableStatement callStmt = getConnection().prepareCall("{ ? = call removeProductsPharmacy(?,?,?) }");) {
 
                 callStmt.registerOutParameter(1, oracle.jdbc.internal.OracleTypes.CURSOR);
                 callStmt.setString(2, order.getPharmacy().getEmail());
                 callStmt.setInt(3, entry.getKey().getId());
-                callStmt.setInt(4, entry.getValue().intValue());
+                callStmt.setInt(4, entry.getValue());
 
                 callStmt.execute();
 

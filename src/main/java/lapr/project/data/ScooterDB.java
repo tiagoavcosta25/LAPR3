@@ -5,7 +5,6 @@ import javafx.util.Pair;
 import lapr.project.model.*;
 import oracle.jdbc.OracleTypes;
 
-import java.security.NoSuchAlgorithmException;
 import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,13 +13,11 @@ import java.util.List;
 
 public class ScooterDB extends DataHandler {
 
+    private static final String mNOSCOOTERAVAIABLE = "No Scooters Avaliable.";
+
     public Scooter getScooter(int id) {
 
-        CallableStatement callStmt = null;
-        try {
-            openConnection();
-            callStmt = getConnection().prepareCall("{ ? = call getScooter(?) }");
-
+        try(CallableStatement callStmt = getConnection().prepareCall("{ ? = call getScooter(?) }");) {
             callStmt.registerOutParameter(1, OracleTypes.CURSOR);
             callStmt.setInt(2, id);
 
@@ -44,11 +41,7 @@ public class ScooterDB extends DataHandler {
      */
 
     private int addScooter(double dblBatteryPerc, VehicleModel oVehicleModel, Pharmacy oPharmacy) {
-        try {
-            openConnection();
-
-            CallableStatement callStmt = getConnection().prepareCall("{ ? = call addScooter(?,?,?) }");
-
+        try(CallableStatement callStmt = getConnection().prepareCall("{ ? = call addScooter(?,?,?) }");) {
             callStmt.registerOutParameter(1, OracleTypes.INTEGER);
             callStmt.setDouble(2, dblBatteryPerc);
             callStmt.setInt(3, oVehicleModel.getId());
@@ -67,9 +60,7 @@ public class ScooterDB extends DataHandler {
 
     public boolean updateScooterFromDB(int intId, double dblBatteryPerc, String strDesignation, double dblPotency, double dblWeight, double dblMaxPayload,
                                        int intBatteryCapacity, double dblBatteryVoltage, double dblEfficiency) {
-        try {
-            openConnection();
-            CallableStatement callStmt = getConnection().prepareCall("{call updateScooter(?,?,?,?,?,?,?,?,?)}");
+        try(CallableStatement callStmt = getConnection().prepareCall("{call updateScooter(?,?,?,?,?,?,?,?,?)}");) {
 
             callStmt.setInt(1, intId);
             callStmt.setDouble(2, dblBatteryPerc);
@@ -92,11 +83,8 @@ public class ScooterDB extends DataHandler {
     }
 
     public List<Scooter> getScootersList(String strPharmacyEmail) {
-        CallableStatement callStmt = null;
         List<Scooter> lstScooter = new ArrayList<>();
-        try {
-            openConnection();
-            callStmt = getConnection().prepareCall("{ ? = call getScootersList(?) }");
+        try(CallableStatement callStmt = getConnection().prepareCall("{ ? = call getScootersList(?) }");) {
 
             callStmt.registerOutParameter(1, oracle.jdbc.internal.OracleTypes.CURSOR);
             callStmt.setString(2, strPharmacyEmail);
@@ -108,7 +96,7 @@ public class ScooterDB extends DataHandler {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            throw new IllegalArgumentException("No Scooters Avaliable.");
+            throw new IllegalArgumentException(mNOSCOOTERAVAIABLE);
         } finally {
             closeAll();
         }
@@ -116,10 +104,7 @@ public class ScooterDB extends DataHandler {
     }
 
     public boolean removeScooterFromDB(int intId) {
-        try {
-            openConnection();
-
-            CallableStatement callStmt = getConnection().prepareCall("{ call removeScooter(?) }");
+        try(CallableStatement callStmt = getConnection().prepareCall("{ call removeScooter(?) }");) {
 
             callStmt.setInt(1, intId);
 
@@ -139,11 +124,8 @@ public class ScooterDB extends DataHandler {
     }
 
     public List<Pair<String, Scooter>> getEmailPerChargingScooter(int intParkId) {
-        CallableStatement callStmt = null;
         List<Pair<String, Scooter>> lstPairs = new ArrayList<>();
-        try {
-            openConnection();
-            callStmt = getConnection().prepareCall("{ ? = call getEmailPerChargingScooter(?) }");
+        try(CallableStatement callStmt = getConnection().prepareCall("{ ? = call getEmailPerChargingScooter(?) }");) {
 
             callStmt.registerOutParameter(1, oracle.jdbc.internal.OracleTypes.CURSOR);
             callStmt.setInt(2, intParkId);
@@ -157,7 +139,7 @@ public class ScooterDB extends DataHandler {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            throw new IllegalArgumentException("No Scooters Avaliable.");
+            throw new IllegalArgumentException(mNOSCOOTERAVAIABLE);
         } finally {
             closeAll();
         }
@@ -165,10 +147,7 @@ public class ScooterDB extends DataHandler {
     }
 
     public Double getCurrentPerCharger(int intParkId) {
-        CallableStatement callStmt = null;
-        try {
-            openConnection();
-            callStmt = getConnection().prepareCall("{ ? = call getEmailPerChargingScooter(?) }");
+        try(CallableStatement callStmt = getConnection().prepareCall("{ ? = call getEmailPerChargingScooter(?) }");) {
 
             callStmt.registerOutParameter(1, oracle.jdbc.internal.OracleTypes.DOUBLE);
             callStmt.setInt(2, intParkId);
@@ -177,7 +156,7 @@ public class ScooterDB extends DataHandler {
             return (Double) callStmt.getObject(1);
         } catch (SQLException e) {
             e.printStackTrace();
-            throw new IllegalArgumentException("No Scooters Avaliable.");
+            throw new IllegalArgumentException(mNOSCOOTERAVAIABLE);
         } finally {
             closeAll();
         }
