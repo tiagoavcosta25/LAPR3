@@ -53,6 +53,10 @@ public class RegisterDeliveryRunController {
     public boolean registerDeliveryRun(List<Order> lstOrder) {
         if (ApplicationPOT.getInstance().getCurrentSession().getRole().equals(UserSession.Role.ADMIN)) {
             List<Pair<Pair<VehicleModel, Double>, List<Address>>> lstPair = moGraphService.calculateBestVehicleAndBestPath(lstOrder);
+            if (lstPair.isEmpty()) {
+                LOGGER.log(Level.WARNING, "There is no possible path for scooters or drones!");
+                return false;
+            }
             VehicleModel oModel = moDeliveryRunService.getMostEfficientVehicleModel(lstPair);
 
             if (oModel == null) {
