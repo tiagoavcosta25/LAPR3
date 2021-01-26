@@ -34,11 +34,15 @@ public class EmailSender {
                     }
                 });
         try {
+            if (emailToFoward.equals("")) {
+                throw new MessagingException();
+            }
+
             String strBody = String.format("______________________________________________________________________________________\n" +
                     "%s\n\n______________________________________________________________________________________\n\n" +
-                    "Thank you for choosing us.\nKing regards,\nPharmacy Service G21.",body);
+                    "Thank you for choosing us.\nKing regards,\nPharmacy Service G21.", body);
             String strHtmlBody = htmlBody(strBody);
-            if(strHtmlBody.equals("") || subject.equals("")) {
+            if (subject.equals("")) {
                 throw new MessagingException();
             }
             Message message = new MimeMessage(session);
@@ -56,8 +60,6 @@ public class EmailSender {
     }
 
     private static String htmlBody(String body) {
-        if(body.equals(""))
-            return "";
         return body.replace("\n", "<br />");
     }
 }

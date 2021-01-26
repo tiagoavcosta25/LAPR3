@@ -9,19 +9,18 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class EmailSenderTest {
 
-    /*@Test
+    @Test
     void emailSender() {
-        boolean result = EmailSender.emailSender("csxmutilation@gmail.com", "Test", "Test");
+        boolean result = EmailSender.sendEmail("", "Test", "Test");
+        assertFalse(result);
+
+        result = EmailSender.sendEmail("teste@gmail.com", "Test", "");
         assertTrue(result);
 
-        result = EmailSender.emailSender("teste@gmail.com", "Test", "");
+        result = EmailSender.sendEmail("csxmutilation@gmail.com", "", "Test");
         assertFalse(result);
 
-        result = EmailSender.emailSender("csxmutilation@gmail.com", "", "Test");
-        assertFalse(result);
-
-        result = EmailSender.emailSender("csxmutilation@gmail.com", "Test", "");
-        assertFalse(result);
-    //
-    }*/
+        result = EmailSender.sendEmail("csxmutilation@gmail.com", "Test", "");
+        assertTrue(result);
+    }
 }
