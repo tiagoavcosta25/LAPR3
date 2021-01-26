@@ -134,4 +134,17 @@ class CourierServiceTest {
         result = courierService.removeCourier("ernesto@gmail.com");
         assertFalse(result);
     }
+
+    @Test
+    void parkScooter() {
+        when(mockCourierDB.parkScooter(1)).thenReturn(true);
+        when(mockCourierDB.parkScooterDirectory(1,true)).thenReturn(true);
+        boolean real = courierService.parkScooter(1);
+        assertTrue(real);
+
+        when(mockCourierDB.parkScooter(1)).thenReturn(false);
+        when(mockCourierDB.parkScooterDirectory(1,false)).thenReturn(false);
+        real = courierService.parkScooter(1);
+        assertFalse(real);
+    }
 }
