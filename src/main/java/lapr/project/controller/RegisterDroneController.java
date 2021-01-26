@@ -130,4 +130,28 @@ public class RegisterDroneController {
             return false;
         }
     }
+
+    public PharmacyService getPharmacyService() {
+        return moPharmacyService;
+    }
+
+    public void setPharmacyService(PharmacyService oPharmacyService) {
+        this.moPharmacyService = oPharmacyService;
+    }
+
+    public DroneService getDroneService() {
+        return moDroneService;
+    }
+
+    public void setDroneService(DroneService oDroneService) {
+        this.moDroneService = oDroneService;
+    }
+
+    public VehicleService getVehicleService() {
+        return moVehicleService;
+    }
+
+    public void setVehicleService(VehicleService oVehicleService) {
+        this.moVehicleService = oVehicleService;
+    }
 }

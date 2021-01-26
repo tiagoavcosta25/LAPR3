@@ -2,6 +2,7 @@ package lapr.project.controller;
 
 import lapr.project.model.UserSession;
 import lapr.project.model.service.CourierService;
+import lapr.project.model.service.OrderService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -53,5 +54,23 @@ public class ParkScooterControllerTest {
 
         assertFalse(result);
 
+    }
+
+    @Test
+    void getServ() {
+        ParkScooterController ctrl = new ParkScooterController();
+        CourierService expected = new CourierService();
+        ctrl.setServ(expected);
+        CourierService real = ctrl.getServ();
+        assertEquals(expected, real);
+    }
+
+    @Test
+    void setServ() {
+        ParkScooterController ctrl = new ParkScooterController();
+        CourierService expected = new CourierService();
+        ctrl.setServ(expected);
+        CourierService real = ctrl.getServ();
+        assertEquals(expected, real);
     }
 }

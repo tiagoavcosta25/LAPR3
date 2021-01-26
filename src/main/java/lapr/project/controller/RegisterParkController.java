@@ -28,4 +28,12 @@ public class RegisterParkController {
         }
         return false;
     }
+
+    public PharmacyService getServ() {
+        return moServ;
+    }
+
+    public void setServ(PharmacyService oServ) {
+        this.moServ = oServ;
+    }
 }

@@ -24,24 +24,22 @@ class Main {
                 Menu.clear();
                 Menu.displayMenu("MENU", "[1] Login\n[2] Create A Client\n[3] Create A Courier\n\n[0] Exit The Program");
                 intOp = sc.nextInt();
+                Menu.clear();
 
                 switch(intOp){
                     case 1: {
-                        Menu.clear();
-                        LoginUI UI = new LoginUI();
-                        UI.run();
+                        LoginUI ui = new LoginUI();
+                        ui.run();
                         break;
                     }
                     case 2: {
-                        Menu.clear();
-                        RegisterClientUI UI = new RegisterClientUI();
-                        UI.run();
+                        RegisterClientUI ui = new RegisterClientUI();
+                        ui.run();
                         break;
                     }
                     case 3: {
-                        Menu.clear();
-                        RegisterCourierUI UI = new RegisterCourierUI();
-                        UI.run();
+                        RegisterCourierUI ui = new RegisterCourierUI();
+                        ui.run();
                         break;
                     }
                     case 0: {
