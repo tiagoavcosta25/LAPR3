@@ -5,6 +5,7 @@ import lapr.project.model.Pharmacy;
 import lapr.project.model.service.DroneService;
 import lapr.project.model.service.PharmacyService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class UpdateDroneController {
@@ -27,6 +28,22 @@ public class UpdateDroneController {
         this.moDroneService = new DroneService();
     }
 
+    public PharmacyService getPharmacyService() {
+        return moPharmacyService;
+    }
+
+    public void setPharmacyService(PharmacyService oPharmacyService) {
+        this.moPharmacyService = oPharmacyService;
+    }
+
+    public DroneService getDroneService() {
+        return moDroneService;
+    }
+
+    public void setDroneService(DroneService oDroneService) {
+        this.moDroneService = oDroneService;
+    }
+
     /**
      * The method returns the list of pharmacies.
      */
@@ -41,7 +58,7 @@ public class UpdateDroneController {
         try {
             return moDroneService.getDronesList(strPharmacyEmail);
         } catch (Exception ex) {
-            return null;
+            return new ArrayList<>();
         }
     }
 

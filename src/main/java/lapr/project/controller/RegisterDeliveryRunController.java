@@ -25,6 +25,30 @@ public class RegisterDeliveryRunController {
         moGraphService = ApplicationPOT.getInstance().getWorldMap();
     }
 
+    public DeliveryRunService getDeliveryRunService() {
+        return moDeliveryRunService;
+    }
+
+    public void setDeliveryRunService(DeliveryRunService oDeliveryRunService) {
+        this.moDeliveryRunService = oDeliveryRunService;
+    }
+
+    public PharmacyService getPharmacyService() {
+        return moPharmacyService;
+    }
+
+    public void setPharmacyService(PharmacyService oPharmacyService) {
+        this.moPharmacyService = oPharmacyService;
+    }
+
+    public GraphService getGraphService() {
+        return moGraphService;
+    }
+
+    public void setGraphService(GraphService oGraphService) {
+        this.moGraphService = oGraphService;
+    }
+
     public List<Order> getOrdersList(String strPharmacyEmail) {
         return moPharmacyService.getOrdersByPharmacyEmail(strPharmacyEmail);
     }
