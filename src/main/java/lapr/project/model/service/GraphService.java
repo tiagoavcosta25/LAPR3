@@ -259,7 +259,12 @@ public class GraphService {
                 else droneList.add(vM);
             }
         }
-        if(scooterList.isEmpty() && droneList.isEmpty()) return null;
+        if(scooterList.isEmpty() && droneList.isEmpty()) {
+            String body = "\n\n\nThere is no scooter model nor drone model that can make this path!";
+            LOGGER.log(Level.INFO, body);
+            WriteFile.write(DELIVERYRUNPATH,body);
+            return Collections.emptyList();
+        }
 
         //CALCULATE WITHOUT PHARMACIES IN CONSIDERATION
         return calculateBestVehicleForMostEficientPath(orderList, pharmacy, scooterList, droneList);
