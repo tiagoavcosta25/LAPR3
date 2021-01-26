@@ -3,7 +3,6 @@ package lapr.project.data;
 import lapr.project.model.*;
 import oracle.jdbc.OracleTypes;
 
-import java.security.NoSuchAlgorithmException;
 import java.sql.CallableStatement;
 import java.sql.Date;
 import java.sql.ResultSet;
@@ -14,10 +13,7 @@ public class InvoiceDB extends DataHandler {
 
     public Invoice getInvoice(int id) {
 
-        CallableStatement callStmt = null;
-        try {
-            openConnection();
-            callStmt = getConnection().prepareCall("{ ? = call getInvoice(?) }");
+        try(CallableStatement callStmt = getConnection().prepareCall("{ ? = call getInvoice(?) }");) {
 
             callStmt.registerOutParameter(1, OracleTypes.CURSOR);
             callStmt.setInt(id, 1);
@@ -39,10 +35,9 @@ public class InvoiceDB extends DataHandler {
     }
 
     private boolean addInvoice(Date dtInvoiceDate, Double fltTotalPrice, Order oOrder, Map<CreditCard, Double> mapPayments) {
-        try {
-            openConnection();
-            CallableStatement callStmt = getConnection().prepareCall("{ ? = call addInvoice(?,?,?) }");
-
+        try(CallableStatement callStmt = getConnection().prepareCall("{ ? = call addInvoice(?,?,?) }");
+            CallableStatement callStmt2 = getConnection().prepareCall("{ call addInvoiceLine(?,?,?,?,?) }");
+            CallableStatement callStmt3 = getConnection().prepareCall("{ call addPayment(?,?,?) }");) {
 
             callStmt.registerOutParameter(1, OracleTypes.INTEGER);
             callStmt.setDate(2, dtInvoiceDate);
@@ -57,25 +52,21 @@ public class InvoiceDB extends DataHandler {
 
             if (intInvoiceId != null) {
                 for (Product oProduct : oOrder.getProducts().keySet()) {
-                    callStmt = getConnection().prepareCall("{ call addInvoiceLine(?,?,?,?,?) }");
-
-                    callStmt.setInt(1, c);
-                    callStmt.setInt(2, intInvoiceId);
-                    callStmt.setInt(3, oOrder.getId());
-                    callStmt.setInt(4, oProduct.getId());
-                    callStmt.setDouble(5, oOrder.getProducts().get(oProduct) * oProduct.getUnitaryPrice());
-                    callStmt.execute();
+                    callStmt2.setInt(1, c);
+                    callStmt2.setInt(2, intInvoiceId);
+                    callStmt2.setInt(3, oOrder.getId());
+                    callStmt2.setInt(4, oProduct.getId());
+                    callStmt2.setDouble(5, oOrder.getProducts().get(oProduct) * oProduct.getUnitaryPrice());
+                    callStmt2.execute();
 
                     c++;
                 }
 
-                for (CreditCard oCreditCard : mapPayments.keySet()) {
-                    callStmt = getConnection().prepareCall("{ call addPayment(?,?,?) }");
-
-                    callStmt.setInt(1, intInvoiceId);
-                    callStmt.setLong(2, oCreditCard.getCreditCardNr());
-                    callStmt.setDouble(3, mapPayments.get(oCreditCard));
-                    callStmt.execute();
+                for (Map.Entry<CreditCard, Double> entry : mapPayments.entrySet()) {
+                    callStmt3.setInt(1, intInvoiceId);
+                    callStmt3.setLong(2, entry.getKey().getCreditCardNr());
+                    callStmt3.setDouble(3, entry.getValue());
+                    callStmt3.execute();
                 }
             }
             return true;
@@ -89,11 +80,7 @@ public class InvoiceDB extends DataHandler {
 
     public boolean removeInvoice(int intId) {
 
-        try {
-            openConnection();
-
-            CallableStatement callStmt = getConnection().prepareCall("{ call removeInvoice(?) }");
-
+        try(CallableStatement callStmt = getConnection().prepareCall("{ call removeInvoice(?) }");) {
             callStmt.setInt(1, intId);
 
             callStmt.execute();
