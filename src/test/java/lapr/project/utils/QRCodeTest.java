@@ -28,5 +28,9 @@ class QRCodeTest {
         String real = QRCode.readQRCode("test");
 
         assertEquals(expected, real);
+
+        real = QRCode.readQRCode(null);
+        assertEquals(null,real);
     }
+
 }
