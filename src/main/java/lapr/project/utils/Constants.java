@@ -20,7 +20,8 @@ public class Constants {
     public static final double SCOOTER_TOTAL_WEIGHT = 10;
     public static final double DRONE_WIDTH = 0.2;
     public static final String ESTIMATE_FILE_PATH = "src-C/estimate_files/";
-    public static final String ESTIMATE_FILE_FILTER = ".flag";
+    public static final String LOCK_FILE_PATH = "src-C/lock_files/";
+    public static final String FILTER = ".flag";
     public static final String EMAIL_BODY_TYPE = "text/html; charset=utf-8";
 
 }

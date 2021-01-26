@@ -5,16 +5,17 @@ import lapr.project.utils.EncryptPassword;
 import java.security.NoSuchAlgorithmException;
 
 /**
- * The class that represents a User, which has it's own email, password and role
- * (Administrative, Manager of Organization or Collaborator of Organization.
+ * User.
  * <p>
- * Group: Team Lisa [G-037]
+ * Group: Team Lisa [G-021]
  * ______________________________________________________
  *
+ * @author António Barbosa <1190404@isep.ipp.pt>
  * @author Ernesto Rodrigues <1190560@isep.ipp.pt>
  * @author Jessica Alves <1190682@isep.ipp.pt>
  * @author Pedro Santos <1190967@isep.ipp.pt>
  * @author Rodrigo Costa <1191014@isep.ipp.pt>
+ * @author Tiago Costa <1191460@isep.ipp.pt>
  */
 public abstract class User {
 
@@ -118,26 +119,56 @@ public abstract class User {
         this.mstrPassword = strPw;
     }
 
+    /**
+     * Returns the User ID
+     *
+     * @return User ID
+     */
     public Integer getId() {
         return mintId;
     }
 
+    /**
+     * Sets the User ID to the one given by parameter
+     *
+     * @param intId new User ID
+     */
     public void setId(Integer intId) {
         this.mintId = intId;
     }
 
+    /**
+     * Returns the User NIF
+     *
+     * @return User NIF
+     */
     public Integer getNif() {
         return mintNif;
     }
 
+    /**
+     * Sets the User NIF to the one given by parameter
+     *
+     * @param intNif new User NIF
+     */
     public void setNif(Integer intNif) {
         this.mintNif = intNif;
     }
 
+    /**
+     * Returns the User name
+     *
+     * @return User name
+     */
     public String getName() {
         return mstrName;
     }
 
+    /**
+     * Sets the User name to the one given by parameter
+     *
+     * @param strName new User name
+     */
     public void setName(String strName) {
         this.mstrName = strName;
     }
@@ -163,6 +194,12 @@ public abstract class User {
         return this.mstrEmail.equals(user.mstrEmail);
     }
 
+    /**
+     * ToString method, which formats a string to
+     * print a formatted message
+     *
+     * @return formatted String
+     */
     @Override
     public String toString() {
         return "User{" +
