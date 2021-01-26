@@ -24,8 +24,7 @@ public class ClientUI implements UI {
 
             switch(intOp){
                 case 1: {
-                    MakeAnOrderUI ui = new MakeAnOrderUI();
-                    ui.run();
+                    Menu.runUI(new MakeAnOrderUI());
                     break;
                 }
                 case 0: {

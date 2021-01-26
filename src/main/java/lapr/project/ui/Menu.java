@@ -17,4 +17,8 @@ public class Menu {
             System.out.println();
         }
     }
+
+    public static void runUI(UI oUI){
+        oUI.run();
+    }
 }

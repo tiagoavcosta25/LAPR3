@@ -24,23 +24,19 @@ public class CourierUI implements UI {
 
             switch(intOp){
                 case 1: {
-                    StartDeliveryRunUI ui = new StartDeliveryRunUI();
-                    ui.run();
+                    Menu.runUI(new StartDeliveryRunUI());
                     break;
                 }
                 case 2: {
-                    ParkScooterUI ui = new ParkScooterUI();
-                    ui.run();
+                    Menu.runUI(new ParkScooterUI());
                     break;
                 }
                 case 3: {
-                    KnowDeliveryUI ui = new KnowDeliveryUI();
-                    ui.run();
+                    Menu.runUI(new KnowDeliveryUI());
                     break;
                 }
                 case 4: {
-                    VehiclePayloadUI ui = new VehiclePayloadUI();
-                    ui.run();
+                    Menu.runUI(new VehiclePayloadUI());
                     break;
                 }
                 case 0: {
