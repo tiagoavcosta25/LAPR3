@@ -68,19 +68,7 @@ public class Order {
 
     public Order(String strDescription, boolean blIsHomeDelivery, Client oClient,
                  Pharmacy oPharmacy, Map<Product, Integer> mapProducts) {
-        this.mintId = mDEFAULTID;
-        this.mdtOrderDate = mCURRENTDATE;
-        this.mstrDescription = strDescription;
-        this.mstrStatus = mDEFAULTSTATUS;
-        this.mblIsHomeDelivery = blIsHomeDelivery;
-        this.moClient = oClient;
-        this.moPharmacy = oPharmacy;
-        this.mMapProducts = mapProducts;
-
-        calculateAdditonalFee(this.moClient.getCredits());
-        calculateAmount();
-        calculateTotalWeight();
-        this.moClient.addCredits((int)(this.mdblAmount + this.mdblAdditionalFee) / 5);
+        this(mDEFAULTID, strDescription, blIsHomeDelivery, oClient, oPharmacy, mapProducts);
     }
 
     public Order() {

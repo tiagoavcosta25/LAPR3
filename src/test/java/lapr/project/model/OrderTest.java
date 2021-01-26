@@ -202,11 +202,15 @@ class OrderTest {
     @Test
     void setProducts() {
         Order oOrder = new Order();
+        assertEquals(-1.0, oOrder.getAmount());
+        assertEquals(-1.0, oOrder.getTotalWeight());
         Map<Product, Integer> expected = new TreeMap<>();
         expected.put(new Product(), 1);
         oOrder.setProducts(expected);
         Map<Product, Integer> real = oOrder.getProducts();
         assertEquals(expected, real);
+        assertEquals(0.0, oOrder.getAmount());
+        assertEquals(0.0, oOrder.getTotalWeight());
     }
 
     @Test
