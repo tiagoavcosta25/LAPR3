@@ -156,6 +156,8 @@ public class EdgeTest {
 
         assertNotEquals(null, instance);
 
+        assertNotEquals(instance, null);
+
         assertEquals(instance, instance);
 
         assertEquals(instance, instance.clone());
@@ -164,6 +166,9 @@ public class EdgeTest {
         Edge<String, String> otherEdge = new Edge<>("edge1",1.0,vertex1,vertex1);
 
         assertNotEquals(instance, otherEdge);
+        String c = "";
+        assertNotEquals(new Edge<>(),c);
+
     }
 
     /**
@@ -226,6 +231,10 @@ public class EdgeTest {
         String expResult = "(edge1) - 1.0 - Vertex1";
         String result = instance.toString().trim();
         assertEquals(expResult, result);
+
+        vertex1 = new Vertex<>(0,"Vertex1");
+        System.out.println(vertex1.toString());
+        assertEquals("Vertex1 (0): \n",vertex1.toString());
         
         System.out.println(instance);
     }

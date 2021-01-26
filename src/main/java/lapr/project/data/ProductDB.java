@@ -13,20 +13,13 @@ public class ProductDB extends DataHandler {
 
     public Product getProductFromBD(String strName) {
 
-        CallableStatement callStmt = null;
-        try {
-            openConnection();
-            callStmt = getConnection().prepareCall("{ ? = call getProduct(?) }");
+        try(CallableStatement callStmt = getConnection().prepareCall("{ ? = call getProduct(?) }");) {
 
-            // Regista o tipo de dados SQL para interpretar o resultado obtido.
             callStmt.registerOutParameter(1, OracleTypes.CURSOR);
-            // Especifica o parâmetro de entrada da função "getProduct".
             callStmt.setString(2, strName);
 
-            // Executa a invocação da função "getProduct".
             callStmt.execute();
 
-            // Guarda o cursor retornado num objeto "ResultSet".
             ResultSet rSet = (ResultSet) callStmt.getObject(1);
             rSet.next();
             return productManager(rSet, 1);
@@ -64,10 +57,7 @@ public class ProductDB extends DataHandler {
 
     public boolean removeProductFromDB(String strName) {
         boolean flag = true;
-        try {
-            openConnection();
-
-            CallableStatement callStmt = getConnection().prepareCall("{ call removeProduct(?) }");
+        try(CallableStatement callStmt = getConnection().prepareCall("{ call removeProduct(?) }");) {
 
             callStmt.setString(1, strName);
 
@@ -82,20 +72,13 @@ public class ProductDB extends DataHandler {
     }
 
     public boolean updateProductFromDB(String strProductName, String strName, String strDescription, Double fltUnitaryPrice, Double fltUnitaryWeight) {
-        /* Objeto "callStmt" para invocar a função "updateProduct" armazenada na BD.
-         *
-         */
-        try {
-            openConnection();
-            CallableStatement callStmt = getConnection().prepareCall("{call updateProduct(?,?,?,?,?)}");
+        try(CallableStatement callStmt = getConnection().prepareCall("{call updateProduct(?,?,?,?,?)}");) {
 
-            //Especifica o parâmetro de entrada da função "updateProduct".
             callStmt.setString(1, strProductName);
             callStmt.setString(2, strName);
             callStmt.setString(3, strDescription);
             callStmt.setDouble(4, fltUnitaryPrice);
             callStmt.setDouble(5, fltUnitaryWeight);
-            //Executa a invocação da função "updateProduct".
             callStmt.execute();
 
         } catch (SQLException e) {
@@ -107,11 +90,8 @@ public class ProductDB extends DataHandler {
     }
 
     public List<Product> getProducts() {
-        CallableStatement callStmt = null;
         List<Product> lstProducts = new ArrayList<>();
-        try {
-            openConnection();
-            callStmt = getConnection().prepareCall("{ ? = call getProducts() }");
+        try(CallableStatement callStmt = getConnection().prepareCall("{ ? = call getProducts() }");) {
 
             callStmt.registerOutParameter(1, OracleTypes.CURSOR);
             callStmt.execute();
@@ -129,12 +109,8 @@ public class ProductDB extends DataHandler {
     }
 
     public List<Product> getAvailableProducts(int intPharmacyId) {
-        CallableStatement callStmt = null;
         List<Product> lstProducts = new ArrayList<>();
-        try {
-            openConnection();
-            callStmt = getConnection().prepareCall("{ ? = call getAvailableProducts(?) }");
-
+        try(CallableStatement callStmt = getConnection().prepareCall("{ ? = call getAvailableProducts(?) }");) {
             callStmt.registerOutParameter(1, oracle.jdbc.OracleTypes.CURSOR);
             callStmt.setInt(2, intPharmacyId);
             callStmt.execute();

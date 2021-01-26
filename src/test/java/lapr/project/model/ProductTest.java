@@ -78,5 +78,12 @@ class ProductTest {
 
         resultbool = product.hasId(2);
         assertFalse(resultbool);
+
+        resultbool = product.hasName("saazs");
+        assertFalse(resultbool);
+
+        product.setName("Produto 1");
+        resultbool = product.hasName("Produto 1");
+        assertTrue(resultbool);
     }
 }

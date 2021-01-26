@@ -16,10 +16,7 @@ public class ParkDB extends  DataHandler{
     private boolean addParkToDB(String strPharmacyEmail, VehicleType enumVehicleType, int intMaxSlotsNumber,
                                 Double fltOutputCurrent, int intNonChargingSlots, int intChargingSlots) {
         boolean flag = true;
-        try {
-            openConnection();
-
-            CallableStatement callStmt = getConnection().prepareCall("{ call addPark(?,?,?,?,?,?) }");
+        try(CallableStatement callStmt = getConnection().prepareCall("{ call addPark(?,?,?,?,?,?) }");) {
 
             callStmt.setString(1, strPharmacyEmail);
             callStmt.setString(2, enumVehicleType.getDesignation());

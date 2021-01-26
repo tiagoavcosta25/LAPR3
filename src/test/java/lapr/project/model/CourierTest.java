@@ -84,5 +84,10 @@ class CourierTest {
 
         oCourier2.setIban("b");
         assertNotEquals(oCourier,oCourier2);
+
+        assertNotEquals(oCourier,null);
+
+        String s = "";
+        assertNotEquals(oCourier,s);
     }
 }

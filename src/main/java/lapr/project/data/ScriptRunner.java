@@ -1,32 +1,10 @@
 package lapr.project.data;
-/*
- * Slightly modified version of the com.ibatis.common.jdbc.ScriptRunner class
- * from the iBATIS Apache project. Only removed dependency on Resource class
- * and a constructor
- * GPSHansl, 06.08.2015: regex for delimiter, rearrange comment/delimiter detection, remove some ide warnings.
- */
-
-/*
- *  Copyright 2004 Clinton Begin
- *
- *  Licensed under the Apache License, Version 2.0 (the "License");
- *  you may not use this file except in compliance with the License.
- *  You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- *  Unless required by applicable law or agreed to in writing, software
- *  distributed under the License is distributed on an "AS IS" BASIS,
- *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *  See the License for the specific language governing permissions and
- *  limitations under the License.
- *
- *  https://github.com/BenoitDuffez/ScriptRunner
- */
 
 import java.io.*;
 import java.sql.*;
 import java.text.SimpleDateFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -40,7 +18,9 @@ public class ScriptRunner {
      * ignores spaces, allows delimiter in comment, allows an equals-sign
      */
     public static final Pattern delimP = Pattern.compile("^\\s*(--)?\\s*delimiter\\s*=?\\s*([^\\s]+)+\\s*.*$", Pattern.CASE_INSENSITIVE);
+    private static final Logger LOGGER = Logger.getLogger(ScriptRunner.class.getName());
     private static final String DEFAULTDELIMITER = ";";
+    private static final String NEWLINE = "\n-------\n";
     private final Connection connection;
 
     private final boolean stopOnError;
@@ -71,7 +51,7 @@ public class ScriptRunner {
                 logWriter = new PrintWriter(new FileWriter(logFile, false));
             }
         } catch (IOException e) {
-            System.err.println("Unable to access or create the db_create log");
+            LOGGER.log(Level.WARNING, "Unable to access or create the db_create log");
         }
         try {
             if (errorLogFile.exists()) {
@@ -80,11 +60,12 @@ public class ScriptRunner {
                 errorLogWriter = new PrintWriter(new FileWriter(errorLogFile, false));
             }
         } catch (IOException e) {
-            System.err.println("Unable to access or create the db_create error log");
+            LOGGER.log(Level.WARNING, "Unable to access or create the db_create error log");
         }
         String timeStamp = new SimpleDateFormat("dd/mm/yyyy HH:mm:ss").format(new java.util.Date());
-        println("\n-------\n" + timeStamp + "\n-------\n");
-        printlnError("\n-------\n" + timeStamp + "\n-------\n");
+        String timeStampString = NEWLINE + timeStamp + NEWLINE;
+        LOGGER.log(Level.INFO, timeStampString);
+        LOGGER.log(Level.WARNING, timeStampString);
     }
 
     public void setDelimiter(String delimiter, boolean fullLineDelimiter) {
@@ -144,13 +125,12 @@ public class ScriptRunner {
      */
     private void runScript(Connection conn, Reader reader) throws IOException,
             SQLException {
-        StringBuffer command = null;
-        try {
-            LineNumberReader lineReader = new LineNumberReader(reader);
+        StringBuilder command = null;
+        try (LineNumberReader lineReader = new LineNumberReader(reader);){
             String line;
             while ((line = lineReader.readLine()) != null) {
                 if (command == null) {
-                    command = new StringBuffer();
+                    command = new StringBuilder();
                 }
                 String trimmedLine = line.trim();
                 final Matcher delimMatch = delimP.matcher(trimmedLine);
@@ -192,49 +172,45 @@ public class ScriptRunner {
         }
     }
 
-    private void execCommand(Connection conn, StringBuffer command,
+    private void execCommand(Connection conn, StringBuilder command,
                              LineNumberReader lineReader) throws SQLException {
-        Statement statement = conn.createStatement();
+        try(Statement statement = conn.createStatement();) {
+            println(command);
 
-        println(command);
-
-        boolean hasResults = false;
-        try {
-            hasResults = statement.execute(command.toString());
-        } catch (SQLException e) {
-            final String errText = String.format("Error executing '%s' (line %d): %s",
-                    command, lineReader.getLineNumber(), e.getMessage());
-            printlnError(errText);
-            System.err.println(errText);
-            if (stopOnError) {
-                throw new SQLException(errText, e);
+            boolean hasResults = false;
+            try {
+                hasResults = statement.execute(command.toString());
+            } catch (SQLException e) {
+                final String errText = String.format("Error executing '%s' (line %d): %s",
+                        command, lineReader.getLineNumber(), e.getMessage());
+                printlnError(errText);
+                LOGGER.log(Level.WARNING, errText);
+                if (stopOnError) {
+                    throw new SQLException(errText, e);
+                }
             }
-        }
 
-        if (autoCommit && !conn.getAutoCommit()) {
-            conn.commit();
-        }
-
-        ResultSet rs = statement.getResultSet();
-        if (hasResults && rs != null) {
-            ResultSetMetaData md = rs.getMetaData();
-            int cols = md.getColumnCount();
-            for (int i = 1; i <= cols; i++) {
-                String name = md.getColumnLabel(i);
-                print(name + "\t");
+            if (autoCommit && !conn.getAutoCommit()) {
+                conn.commit();
             }
-            println("");
-            while (rs.next()) {
+
+            ResultSet rs = statement.getResultSet();
+            if (hasResults && rs != null) {
+                ResultSetMetaData md = rs.getMetaData();
+                int cols = md.getColumnCount();
                 for (int i = 1; i <= cols; i++) {
-                    String value = rs.getString(i);
-                    print(value + "\t");
+                    String name = md.getColumnLabel(i);
+                    print(name + "\t");
                 }
                 println("");
+                while (rs.next()) {
+                    for (int i = 1; i <= cols; i++) {
+                        String value = rs.getString(i);
+                        print(value + "\t");
+                    }
+                    println("");
+                }
             }
-        }
-
-        try {
-            statement.close();
         } catch (Exception e) {
             // Ignore to workaround a bug in Jakarta DBCP
         }

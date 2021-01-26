@@ -8,16 +8,18 @@ import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class PharmacyDB extends DataHandler {
 
+    private static final String GETSTOCKBYPHARMACY = "{ ? = call getStockByPharmacy(?) }";
+
     public Pharmacy getPharmacy(String strEmail) {
 
-        CallableStatement callStmt = null;
-        try {
+        try(CallableStatement callStmt = getConnection().prepareCall("{ ? = call getPharmacy(?) }");
+            CallableStatement callStmt2 = getConnection().prepareCall(GETSTOCKBYPHARMACY);) {
             openConnection();
-            callStmt = getConnection().prepareCall("{ ? = call getPharmacy(?) }");
 
             callStmt.registerOutParameter(1, OracleTypes.CURSOR);
             callStmt.setString(2,strEmail);
@@ -30,13 +32,12 @@ public class PharmacyDB extends DataHandler {
 
                 Pharmacy oPharmacy = pharmacyManager(rSet, 1);
 
-                callStmt = getConnection().prepareCall("{ ? = call getStockByPharmacy(?) }");
-                callStmt.registerOutParameter(1, OracleTypes.CURSOR);
-                callStmt.setInt(2,oPharmacy.getId());
+                callStmt2.registerOutParameter(1, OracleTypes.CURSOR);
+                callStmt2.setInt(2,oPharmacy.getId());
 
-                callStmt.execute();
+                callStmt2.execute();
 
-                ResultSet rSetProducts = (ResultSet) callStmt.getObject(1);
+                ResultSet rSetProducts = (ResultSet) callStmt2.getObject(1);
 
                 while (rSet.next()){
                     oPharmacy = pharmacyProductManager(rSetProducts, 1, oPharmacy);
@@ -52,10 +53,7 @@ public class PharmacyDB extends DataHandler {
     }
 
     private boolean addPharmacy(String strName, String strEmail, Address oAddress) {
-        try {
-            openConnection();
-            CallableStatement callStmt = getConnection().prepareCall("{ call addPharmacy(?,?,?,?,?,?,?,?,?,?) }");
-
+        try(CallableStatement callStmt = getConnection().prepareCall("{ call addPharmacy(?,?,?,?,?,?,?,?,?,?) }");) {
             callStmt.setString(1, strName);
             callStmt.setString(2, strEmail);
             callStmt.setDouble(3, oAddress.getLatitude());
@@ -78,10 +76,7 @@ public class PharmacyDB extends DataHandler {
 
     public boolean removePharmacy(String strEmail) {
 
-        try {
-            openConnection();
-
-            CallableStatement callStmt = getConnection().prepareCall("{ call removePharmacy(?) }");
+        try(CallableStatement callStmt = getConnection().prepareCall("{ call removePharmacy(?) }");) {
 
             callStmt.setString(1, strEmail);
 
@@ -100,14 +95,12 @@ public class PharmacyDB extends DataHandler {
         return addPharmacy(oPharmacy.getName(), oPharmacy.getEmail(), oPharmacy.getAddress());
     }
 
-    public boolean registerPharmacyProduct(Pharmacy m_oPharmacy, Product m_oProduct, Integer m_intStock) {
-        try {
-            openConnection();
-            CallableStatement callStmt = getConnection().prepareCall("{ call addPharmacyProduct(?,?,?) }");
+    public boolean registerPharmacyProduct(Pharmacy moPharmacy, Product moProduct, Integer mintStock) {
+        try(CallableStatement callStmt = getConnection().prepareCall("{ call addPharmacyProduct(?,?,?) }");) {
 
-            callStmt.setString(1, m_oPharmacy.getEmail());
-            callStmt.setInt(2, m_oProduct.getId());
-            callStmt.setInt(3, m_intStock);
+            callStmt.setString(1, moPharmacy.getEmail());
+            callStmt.setInt(2, moProduct.getId());
+            callStmt.setInt(3, mintStock);
 
             callStmt.execute();
 
@@ -120,11 +113,9 @@ public class PharmacyDB extends DataHandler {
     }
 
     public List<Pharmacy> getPharmacies() {
-        CallableStatement callStmt = null;
         List<Pharmacy> lstPharmacies = new ArrayList<>();
-        try {
-            openConnection();
-            callStmt = getConnection().prepareCall("{ ? = call getPharmacies() }");
+        try(CallableStatement callStmt = getConnection().prepareCall("{ ? = call getPharmacies() }");
+            CallableStatement callStmt2 = getConnection().prepareCall(GETSTOCKBYPHARMACY);) {
 
             callStmt.registerOutParameter(1, OracleTypes.CURSOR);
 
@@ -134,13 +125,12 @@ public class PharmacyDB extends DataHandler {
             while(rSet.next()){
                 Pharmacy oPharmacy = pharmacyManager(rSet, 1);
 
-                callStmt = getConnection().prepareCall("{ ? = call getStockByPharmacy(?) }");
-                callStmt.registerOutParameter(1, OracleTypes.CURSOR);
-                callStmt.setInt(2, oPharmacy.getId());
+                callStmt2.registerOutParameter(1, OracleTypes.CURSOR);
+                callStmt2.setInt(2, oPharmacy.getId());
 
-                callStmt.execute();
+                callStmt2.execute();
 
-                ResultSet rSetProducts = (ResultSet) callStmt.getObject(1);
+                ResultSet rSetProducts = (ResultSet) callStmt2.getObject(1);
 
                 while (rSetProducts.next()){
                     oPharmacy = pharmacyProductManager(rSetProducts, 1, oPharmacy);
@@ -158,9 +148,8 @@ public class PharmacyDB extends DataHandler {
     }
 
     public List<Order> getOrdersByPharmacyEmail(Pharmacy oPharmacy) {
-        try {
-            openConnection();
-            CallableStatement callStmt = getConnection().prepareCall("{ ? = call getOrdersByPharmacyEmail(?) }");
+        try(CallableStatement callStmt = getConnection().prepareCall("{ ? = call getOrdersByPharmacyEmail(?) }");
+            CallableStatement callStmt2 = getConnection().prepareCall("{ ? = call getProductsByOrder(?) }");) {
 
             callStmt.setString(2, oPharmacy.getEmail());
             callStmt.registerOutParameter(1, OracleTypes.CURSOR);
@@ -172,13 +161,12 @@ public class PharmacyDB extends DataHandler {
             while (rSet.next()) {
                 Order oOrder = orderManager(rSet, 1);
 
-                callStmt = getConnection().prepareCall("{ ? = call getProductsByOrder(?) }");
-                callStmt.registerOutParameter(1, OracleTypes.CURSOR);
-                callStmt.setInt(2, oPharmacy.getId());
+                callStmt2.registerOutParameter(1, OracleTypes.CURSOR);
+                callStmt2.setInt(2, oPharmacy.getId());
 
-                callStmt.execute();
+                callStmt2.execute();
 
-                ResultSet rSetProducts = (ResultSet) callStmt.getObject(1);
+                ResultSet rSetProducts = (ResultSet) callStmt2.getObject(1);
 
                 while (rSetProducts.next()) {
                     oOrder = orderProductManager(rSetProducts, 1, oOrder);
@@ -188,7 +176,7 @@ public class PharmacyDB extends DataHandler {
             return lstOrders;
 
         } catch (SQLException e) {
-            return null;
+            return Collections.emptyList();
         } finally {
             closeAll();
         }
@@ -196,11 +184,9 @@ public class PharmacyDB extends DataHandler {
 
 
     public List<Pharmacy> getPharmaciesWithStock(Order oOrder, Product oProduct, Integer intQuantity) {
-        CallableStatement callStmt = null;
         List<Pharmacy> lstPharmacies = new ArrayList<>();
-        try {
-            openConnection();
-            callStmt = getConnection().prepareCall("{ ? = call getPharmaciesWithStock(?,?,?) }");
+        try(CallableStatement callStmt = getConnection().prepareCall("{ ? = call getPharmaciesWithStock(?,?,?) }");
+            CallableStatement callStmt2 = getConnection().prepareCall(GETSTOCKBYPHARMACY);) {
 
             callStmt.registerOutParameter(1, OracleTypes.CURSOR);
             callStmt.setInt(2, oOrder.getId());
@@ -215,14 +201,12 @@ public class PharmacyDB extends DataHandler {
 
                 Pharmacy oPharmacy = pharmacyManager(rSet, 1);
 
-                callStmt = getConnection().prepareCall("{ ? = call getStockByPharmacy(?) }");
+                callStmt2.registerOutParameter(1, OracleTypes.CURSOR);
+                callStmt2.setInt(2, oPharmacy.getId());
 
-                callStmt.registerOutParameter(1, OracleTypes.CURSOR);
-                callStmt.setInt(2, oPharmacy.getId());
+                callStmt2.execute();
 
-                callStmt.execute();
-
-                ResultSet rSetProducts = (ResultSet) callStmt.getObject(1);
+                ResultSet rSetProducts = (ResultSet) callStmt2.getObject(1);
 
                 while (rSetProducts.next()){
                     oPharmacy = pharmacyProductManager(rSetProducts, 1, oPharmacy);
@@ -241,10 +225,8 @@ public class PharmacyDB extends DataHandler {
 
     public Pharmacy getPharmacyByManagerEmail(String email) {
 
-        CallableStatement callStmt = null;
-        try {
-            openConnection();
-            callStmt = getConnection().prepareCall("{ ? = call getPharmacyByManagerEmail(?) }");
+        try(CallableStatement callStmt = getConnection().prepareCall("{ ? = call getPharmacyByManagerEmail(?) }");
+            CallableStatement callStmt2 = getConnection().prepareCall(GETSTOCKBYPHARMACY);) {
 
             callStmt.registerOutParameter(1, OracleTypes.CURSOR);
             callStmt.setString(2, email);
@@ -256,13 +238,12 @@ public class PharmacyDB extends DataHandler {
             if (rSet.next()) {
                 Pharmacy oPharmacy = pharmacyManager(rSet, 1);
 
-                callStmt = getConnection().prepareCall("{ ? = call getStockByPharmacy(?) }");
-                callStmt.registerOutParameter(1, OracleTypes.CURSOR);
-                callStmt.setInt(oPharmacy.getId(), 2);
+                callStmt2.registerOutParameter(1, OracleTypes.CURSOR);
+                callStmt2.setInt(oPharmacy.getId(), 2);
 
-                callStmt.execute();
+                callStmt2.execute();
 
-                ResultSet rSetProducts = (ResultSet) callStmt.getObject(1);
+                ResultSet rSetProducts = (ResultSet) callStmt2.getObject(1);
 
                 while (rSet.next()){
                     oPharmacy = pharmacyProductManager(rSetProducts, 1, oPharmacy);
@@ -279,10 +260,7 @@ public class PharmacyDB extends DataHandler {
 
 
     public Courier getSuitableCourier() {
-        try {
-            openConnection();
-
-            CallableStatement callStmt = getConnection().prepareCall("{ ? = call getSuitableCourier() }");
+        try(CallableStatement callStmt = getConnection().prepareCall("{ ? = call getSuitableCourier() }");) {
 
             callStmt.registerOutParameter(1, OracleTypes.CURSOR);
 
