@@ -27,7 +27,7 @@ public class PharmacyTransferDB extends DataHandler {
             if (rSet.next()) {
                 return pharmacyTransferManager(rSet, 1);
             }
-        } catch (SQLException | NoSuchAlgorithmException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         } finally {
             closeAll();
