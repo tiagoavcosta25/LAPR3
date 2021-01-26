@@ -80,6 +80,16 @@ class CourierServiceTest {
                 null,new Pharmacy());
         assertEquals(c2,c21);
 
+        c2 = new Courier("No Name",null,"123",0,"No Iban",new Pharmacy());
+        c21 = courierService.updateCourier(c2,"teste",null,0,
+                null,new Pharmacy());
+        assertEquals(c2,c21);
+
+        c2 = new Courier("No Name","email","123",0,"No Iban",new Pharmacy());
+        c21 = courierService.updateCourier(c2,"teste","email",0,
+                "123",null);
+        assertEquals(c2,c21);
+
     }
 
     @Test
