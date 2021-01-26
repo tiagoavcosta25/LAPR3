@@ -55,7 +55,7 @@ public class DeliveryRunService {
         }else if (lst.get(1) == null) {
             return lst.get(0).getKey().getKey();
         }else{
-            if (lst.get(0).getKey().getValue() > lst.get(1).getKey().getValue()) return lst.get(0).getKey().getKey();
+            if (lst.get(0).getKey().getValue() < lst.get(1).getKey().getValue()) return lst.get(0).getKey().getKey();
             else return lst.get(1).getKey().getKey();
         }
     }

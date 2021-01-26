@@ -18,6 +18,6 @@ public class Test {
         RegisterDeliveryRunController ctrl = new RegisterDeliveryRunController();
         ApplicationPOT.getInstance().setCurrentSession(new UserSession("A", UserSession.Role.ADMIN));
         List<Order> lstOrder = ctrl.getOrdersList("info@sabandeira.com");
-        //System.out.println(ctrl.registerDeliveryRun(lstOrder));
+        System.out.println(ctrl.registerDeliveryRun(lstOrder));
     }
 }

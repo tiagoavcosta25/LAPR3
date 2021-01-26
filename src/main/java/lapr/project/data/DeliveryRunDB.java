@@ -179,8 +179,9 @@ public class DeliveryRunDB extends DataHandler {
             callStmt.execute();
 
             ResultSet rSet = (ResultSet) callStmt.getObject(1);
-
-            return droneManager(rSet,1);
+            if(rSet.next())
+                return droneManager(rSet,1);
+            return null;
         } catch (SQLException | NoSuchAlgorithmException e) {
             return null;
         } finally {
