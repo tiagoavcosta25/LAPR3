@@ -41,12 +41,6 @@ class RegisterParkControllerTest {
                 1d,VehicleType.SCOOTER,1,1);
         assertTrue(result);
 
-        when(mockPharmcyService.addPark("test", new Park(3,3d,
-                VehicleType.SCOOTER), 3,3)).thenThrow(new IllegalArgumentException());
-        result = moRegisterParkController.addPark("test", 3,
-                3d,VehicleType.SCOOTER,3,3);
-        assertFalse(result);
-
         ApplicationPOT.getInstance().setCurrentSession(new UserSession("test", UserSession.Role.CLIENT));
 
         when(mockPharmcyService.addPark("test", new Park(2,2d,
@@ -54,5 +48,30 @@ class RegisterParkControllerTest {
         result = moRegisterParkController.addPark("test", 2,
                 2d,VehicleType.SCOOTER,2,2);
         assertFalse(result);
+
+        ApplicationPOT.getInstance().setCurrentSession(new UserSession("email", UserSession.Role.ADMIN));
+        when(mockPharmcyService.addPark("test", new Park(3,3d,
+                VehicleType.SCOOTER), 3,3)).thenThrow(new IllegalArgumentException());
+        result = moRegisterParkController.addPark("test", 3,
+                3d,VehicleType.SCOOTER,3,3);
+        assertFalse(result);
+    }
+
+    @Test
+    void getServ() {
+        RegisterParkController ctrl = new RegisterParkController();
+        PharmacyService expected = new PharmacyService();
+        ctrl.setServ(expected);
+        PharmacyService real = ctrl.getServ();
+        assertEquals(expected, real);
+    }
+
+    @Test
+    void setServ() {
+        RegisterParkController ctrl = new RegisterParkController();
+        PharmacyService expected = new PharmacyService();
+        ctrl.setServ(expected);
+        PharmacyService real = ctrl.getServ();
+        assertEquals(expected, real);
     }
 }

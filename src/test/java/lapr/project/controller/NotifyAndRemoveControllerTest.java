@@ -56,4 +56,22 @@ class NotifyAndRemoveControllerTest {
         result = notifyAndRemoveController.notifyAndRemove(new Order());
         assertEquals(false,result);
     }
+
+    @Test
+    void getOrderService() {
+        NotifyAndRemoveController ctrl = new NotifyAndRemoveController();
+        OrderService expected = new OrderService();
+        ctrl.setOrderService(expected);
+        OrderService real = ctrl.getOrderService();
+        assertEquals(expected, real);
+    }
+
+    @Test
+    void setOrderService() {
+        NotifyAndRemoveController ctrl = new NotifyAndRemoveController();
+        OrderService expected = new OrderService();
+        ctrl.setOrderService(expected);
+        OrderService real = ctrl.getOrderService();
+        assertEquals(expected, real);
+    }
 }

@@ -20,34 +20,30 @@ public class CourierUI implements UI {
             Menu.displayMenu("COURIER", "[1] Start Delivery Run\n[2] Park Scooter\n[3] Know Delivery\n" +
                     "[4] Check Vehicle Payload\n\n[0] Log Out");
             intOp = sc.nextInt();
+            Menu.clear();
 
             switch(intOp){
                 case 1: {
-                    Menu.clear();
-                    StartDeliveryRunUI UI = new StartDeliveryRunUI();
-                    UI.run();
+                    StartDeliveryRunUI ui = new StartDeliveryRunUI();
+                    ui.run();
                     break;
                 }
                 case 2: {
-                    Menu.clear();
-                    ParkScooterUI UI = new ParkScooterUI();
-                    UI.run();
+                    ParkScooterUI ui = new ParkScooterUI();
+                    ui.run();
                     break;
                 }
                 case 3: {
-                    Menu.clear();
-                    KnowDeliveryUI UI = new KnowDeliveryUI();
-                    UI.run();
+                    KnowDeliveryUI ui = new KnowDeliveryUI();
+                    ui.run();
                     break;
                 }
                 case 4: {
-                    Menu.clear();
-                    VehiclePayloadUI UI = new VehiclePayloadUI();
-                    UI.run();
+                    VehiclePayloadUI ui = new VehiclePayloadUI();
+                    ui.run();
                     break;
                 }
                 case 0: {
-                    Menu.clear();
                     LogoutController oLogOut = new LogoutController();
                     oLogOut.logout();
                     break;

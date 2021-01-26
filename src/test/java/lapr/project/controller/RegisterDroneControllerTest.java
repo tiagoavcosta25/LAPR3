@@ -134,4 +134,58 @@ class RegisterDroneControllerTest {
         real = registerDroneController.setPharmacy("Test");
         assertFalse(real);
     }
+
+    @Test
+    void getPharmacyService() {
+        RegisterDroneController ctrl = new RegisterDroneController();
+        PharmacyService expected = new PharmacyService();
+        ctrl.setPharmacyService(expected);
+        PharmacyService real = ctrl.getPharmacyService();
+        assertEquals(expected, real);
+    }
+
+    @Test
+    void setPharmacyService() {
+        RegisterDroneController ctrl = new RegisterDroneController();
+        PharmacyService expected = new PharmacyService();
+        ctrl.setPharmacyService(expected);
+        PharmacyService real = ctrl.getPharmacyService();
+        assertEquals(expected, real);
+    }
+
+    @Test
+    void getDroneService() {
+        RegisterDroneController ctrl = new RegisterDroneController();
+        DroneService expected = new DroneService();
+        ctrl.setDroneService(expected);
+        DroneService real = ctrl.getDroneService();
+        assertEquals(expected, real);
+    }
+
+    @Test
+    void setDroneService() {
+        RegisterDroneController ctrl = new RegisterDroneController();
+        DroneService expected = new DroneService();
+        ctrl.setDroneService(expected);
+        DroneService real = ctrl.getDroneService();
+        assertEquals(expected, real);
+    }
+
+    @Test
+    void getVehicleService() {
+        RegisterDroneController ctrl = new RegisterDroneController();
+        VehicleService expected = new VehicleService();
+        ctrl.setVehicleService(expected);
+        VehicleService real = ctrl.getVehicleService();
+        assertEquals(expected, real);
+    }
+
+    @Test
+    void setVehicleService() {
+        RegisterDroneController ctrl = new RegisterDroneController();
+        VehicleService expected = new VehicleService();
+        ctrl.setVehicleService(expected);
+        VehicleService real = ctrl.getVehicleService();
+        assertEquals(expected, real);
+    }
 }

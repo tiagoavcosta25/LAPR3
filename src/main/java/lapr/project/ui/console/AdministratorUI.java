@@ -23,111 +23,95 @@ public class AdministratorUI implements UI {
                     "[13] Update Drone\n[14] Issue Delivery Note\n[15] Register Delivery Run\n[16] Register Path\n[17] Register Park\n\n[0] Log Out");
             intOp = sc.nextInt();
 
+            Menu.clear();
+
             switch(intOp){
                 case 1: {
-                    Menu.clear();
-                    RegisterPharmacyUI UI = new RegisterPharmacyUI();
-                    UI.run();
+                    RegisterPharmacyUI ui = new RegisterPharmacyUI();
+                    ui.run();
                     break;
                 }
                 case 2: {
-                    Menu.clear();
-                    RegisterProductUI UI = new RegisterProductUI();
-                    UI.run();
+                    RegisterProductUI ui = new RegisterProductUI();
+                    ui.run();
                     break;
                 }
                 case 3: {
-                    Menu.clear();
-                    RemoveProductUI UI = new RemoveProductUI();
-                    UI.run();
+                    RemoveProductUI ui = new RemoveProductUI();
+                    ui.run();
                     break;
                 }
                 case 4: {
-                    Menu.clear();
-                    UpdateProductUI UI = new UpdateProductUI();
-                    UI.run();
+                    UpdateProductUI ui = new UpdateProductUI();
+                    ui.run();
                     break;
                 }
                 case 5: {
-                    Menu.clear();
-                    ProductInformationUI UI = new ProductInformationUI();
-                    UI.run();
+                    ProductInformationUI ui = new ProductInformationUI();
+                    ui.run();
                     break;
                 }
                 case 6: {
-                    Menu.clear();
-                    AddPharmacyProductUI UI = new AddPharmacyProductUI();
-                    UI.run();
+                    AddPharmacyProductUI ui = new AddPharmacyProductUI();
+                    ui.run();
                     break;
                 }
                 case 7: {
-                    Menu.clear();
-                    RegisterVehicleUI UI = new RegisterVehicleUI();
-                    UI.run(VehicleType.SCOOTER);
+                    RegisterVehicleUI ui = new RegisterVehicleUI();
+                    ui.run(VehicleType.SCOOTER);
                     break;
                 }
                 case 8: {
-                    Menu.clear();
-                    RemoveVehicleUI UI = new RemoveVehicleUI();
-                    UI.run(VehicleType.SCOOTER);
+                    RemoveVehicleUI ui = new RemoveVehicleUI();
+                    ui.run(VehicleType.SCOOTER);
                     break;
                 }
                 case 9: {
-                    Menu.clear();
-                    UpdateVehicleUI UI = new UpdateVehicleUI();
-                    UI.run(VehicleType.SCOOTER);
+                    UpdateVehicleUI ui = new UpdateVehicleUI();
+                    ui.run(VehicleType.SCOOTER);
                     break;
                 }
                 case 10: {
-                    Menu.clear();
-                    ScooterInformationUI UI = new ScooterInformationUI();
-                    UI.run();
+                    ScooterInformationUI ui = new ScooterInformationUI();
+                    ui.run();
                     break;
                 }
                 case 11: {
-                    Menu.clear();
-                    RegisterVehicleUI UI = new RegisterVehicleUI();
-                    UI.run(VehicleType.DRONE);
+                    RegisterVehicleUI ui = new RegisterVehicleUI();
+                    ui.run(VehicleType.DRONE);
                     break;
                 }
                 case 12: {
-                    Menu.clear();
-                    RemoveVehicleUI UI = new RemoveVehicleUI();
-                    UI.run(VehicleType.DRONE);
+                    RemoveVehicleUI ui = new RemoveVehicleUI();
+                    ui.run(VehicleType.DRONE);
                     break;
                 }
                 case 13: {
-                    Menu.clear();
-                    UpdateVehicleUI UI = new UpdateVehicleUI();
-                    UI.run(VehicleType.DRONE);
+                    UpdateVehicleUI ui = new UpdateVehicleUI();
+                    ui.run(VehicleType.DRONE);
                     break;
                 }
                 case 14: {
-                    Menu.clear();
-                    IssueDeliveryNoteUI UI = new IssueDeliveryNoteUI();
-                    UI.run();
+                    IssueDeliveryNoteUI ui = new IssueDeliveryNoteUI();
+                    ui.run();
                     break;
                 }
                 case 15: {
-                    Menu.clear();
-                    RegisterDeliveryRunUI UI = new RegisterDeliveryRunUI();
-                    UI.run();
+                    RegisterDeliveryRunUI ui = new RegisterDeliveryRunUI();
+                    ui.run();
                     break;
                 }
                 case 16: {
-                    Menu.clear();
-                    RegisterPathUI UI = new RegisterPathUI();
-                    UI.run();
+                    RegisterPathUI ui = new RegisterPathUI();
+                    ui.run();
                     break;
                 }
                 case 17: {
-                    Menu.clear();
-                    RegisterParkUI UI = new RegisterParkUI();
-                    UI.run();
+                    RegisterParkUI ui = new RegisterParkUI();
+                    ui.run();
                     break;
                 }
                 case 0: {
-                    Menu.clear();
                     LogoutController oLogOut = new LogoutController();
                     oLogOut.logout();
                     break;

@@ -6,9 +6,7 @@ import lapr.project.data.DeliveryRunDB;
 import lapr.project.model.*;
 import lapr.project.utils.EmailSender;
 import lapr.project.utils.WriteFile;
-
 import java.util.*;
-import java.util.logging.Level;
 
 public class DeliveryRunService {
 
