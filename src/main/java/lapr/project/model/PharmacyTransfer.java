@@ -12,12 +12,12 @@ public class PharmacyTransfer {
     private Integer mintQuantity;
     private Pharmacy moNearbyPharmacy;
 
-    private static Integer DEFAULTID = -1;
-    private static Date CURRENTDATE = new Date(Calendar.getInstance().getTimeInMillis());
-    private static Order DEFAULTORDER = new Order();
-    private static Product DEFAULTADDRESS = new Product();
-    private static Integer DEFAULTQUANTITY = -1;
-    private static Pharmacy DEFAULTPHARMACY = new Pharmacy();
+    private static Integer mDEFAULTID = -1;
+    private static Date mCURRENTDATE = new Date(Calendar.getInstance().getTimeInMillis());
+    private static Order mDEFAULTORDER = new Order();
+    private static Product mDEFAULTADDRESS = new Product();
+    private static Integer mDEFAULTQUANTITY = -1;
+    private static Pharmacy mDEFAULTPHARMACY = new Pharmacy();
 
     public PharmacyTransfer(Integer intId, Date dtDate, Order oOrder, Product oProduct, Integer intQuantity, Pharmacy oNearbyPharmacy) {
         this.mintId = intId;
@@ -29,7 +29,7 @@ public class PharmacyTransfer {
     }
 
     public PharmacyTransfer(Date dtDate, Order oOrder, Product oProduct, Integer intQuantity, Pharmacy oNearbyPharmacy) {
-        this.mintId = DEFAULTID;
+        this.mintId = mDEFAULTID;
         this.mdtTransferDate = (Date) dtDate.clone();
         this.moOrder = oOrder;
         this.moProduct = oProduct;
@@ -38,8 +38,8 @@ public class PharmacyTransfer {
     }
 
     public PharmacyTransfer(Order oOrder, Product oProduct, Integer intQuantity, Pharmacy oNearbyPharmacy) {
-        this.mintId = DEFAULTID;
-        this.mdtTransferDate = CURRENTDATE;
+        this.mintId = mDEFAULTID;
+        this.mdtTransferDate = mCURRENTDATE;
         this.moOrder = oOrder;
         this.moProduct = oProduct;
         this.mintQuantity = intQuantity;
@@ -47,12 +47,12 @@ public class PharmacyTransfer {
     }
 
     public PharmacyTransfer() {
-        this.mintId = DEFAULTID;
-        this.mdtTransferDate = CURRENTDATE;
-        this.moOrder = DEFAULTORDER;
-        this.moProduct = DEFAULTADDRESS;
-        this.mintQuantity = DEFAULTQUANTITY;
-        this.moNearbyPharmacy = DEFAULTPHARMACY;
+        this.mintId = mDEFAULTID;
+        this.mdtTransferDate = mCURRENTDATE;
+        this.moOrder = mDEFAULTORDER;
+        this.moProduct = mDEFAULTADDRESS;
+        this.mintQuantity = mDEFAULTQUANTITY;
+        this.moNearbyPharmacy = mDEFAULTPHARMACY;
     }
 
 

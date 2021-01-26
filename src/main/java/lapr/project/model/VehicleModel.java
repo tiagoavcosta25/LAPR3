@@ -12,22 +12,22 @@ public class VehicleModel {
     private Battery moBattery;
     private VehicleType menumVehicleType;
 
-    private static int DEFAULTID = -1;
-    private static String DEFAULTDESIGANTION = "No designation";
-    private static double DEFAULTPOTENCY = -1;
-    private static double DEFAULTWEIGHT = -1;
-    private static double DEFAULTMAXPAYLOAD = -1;
-    private static Battery DEFAULTBATTERY = new Battery();
-    private static VehicleType DEFAULTVEHICLETYPE = VehicleType.NOTDEFINED;
+    private static int mDEFAULTID = -1;
+    private static String mDEFAULTDESIGANTION = "No designation";
+    private static double mDEFAULTPOTENCY = -1;
+    private static double mDEFAULTWEIGHT = -1;
+    private static double mDEFAULTMAXPAYLOAD = -1;
+    private static Battery mDEFAULTBATTERY = new Battery();
+    private static VehicleType mDEFAULTVEHICLETYPE = VehicleType.NOTDEFINED;
 
     public VehicleModel() {
-        this.mintId = DEFAULTID;
-        this.mstrDesignation = DEFAULTDESIGANTION;
-        this.mdblPotency = DEFAULTPOTENCY;
-        this.mdblWeight = DEFAULTWEIGHT;
-        this.mdblMaxPayload = DEFAULTMAXPAYLOAD;
-        this.moBattery = DEFAULTBATTERY;
-        this.menumVehicleType = DEFAULTVEHICLETYPE;
+        this.mintId = mDEFAULTID;
+        this.mstrDesignation = mDEFAULTDESIGANTION;
+        this.mdblPotency = mDEFAULTPOTENCY;
+        this.mdblWeight = mDEFAULTWEIGHT;
+        this.mdblMaxPayload = mDEFAULTMAXPAYLOAD;
+        this.moBattery = mDEFAULTBATTERY;
+        this.menumVehicleType = mDEFAULTVEHICLETYPE;
     }
 
     public VehicleModel(int intId, String strDesignation, double dblPotency, double dblWeight,

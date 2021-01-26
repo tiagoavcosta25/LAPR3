@@ -9,11 +9,11 @@ public class Product implements Comparable {
     private Double mfltUnitaryPrice;
     private Double mfltUnitaryWeight;
 
-    private static int DEFAULTID = -1;
-    private static String DEFAULTNAME = "No name.";
-    private static String DEFAULTDESCRIPTION = "No description.";
-    private static Double DEFAULTUNITARYPRICE = 0d;
-    private static Double DEFAULTUNITARYWEIGHT = 0d;
+    private static int mDEFAULTID = -1;
+    private static String mDEFAULTNAME = "No name.";
+    private static String mDEFAULTDESCRIPTION = "No description.";
+    private static Double mDEFAULTUNITARYPRICE = 0d;
+    private static Double mDEFAULTUNITARYWEIGHT = 0d;
 
     public Product(int intId, String strName, String strDescription, Double fltUnitaryPrice, Double fltUnitaryWeight) {
         this.mintId = intId;
@@ -31,11 +31,11 @@ public class Product implements Comparable {
     }
 
     public Product() {
-        this.mintId = DEFAULTID;
-        this.mstrName = DEFAULTNAME;
-        this.mstrDescription = DEFAULTDESCRIPTION;
-        this.mfltUnitaryPrice = DEFAULTUNITARYPRICE;
-        this.mfltUnitaryWeight = DEFAULTUNITARYWEIGHT;
+        this.mintId = mDEFAULTID;
+        this.mstrName = mDEFAULTNAME;
+        this.mstrDescription = mDEFAULTDESCRIPTION;
+        this.mfltUnitaryPrice = mDEFAULTUNITARYPRICE;
+        this.mfltUnitaryWeight = mDEFAULTUNITARYWEIGHT;
     }
 
     public int getId() {

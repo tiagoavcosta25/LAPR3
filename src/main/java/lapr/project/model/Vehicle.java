@@ -8,30 +8,30 @@ public abstract class Vehicle {
     private VehicleModel moModel;
     private Pharmacy moPharmacy;
 
-    private static int DEFAULTID = -1;
-    private static double DEFAULTBATTERYPERC = -1;
-    private static VehicleModel DEFAULTVEHICLEMODEL = new VehicleModel();
-    private static Pharmacy DEFAULTPHARMACY = new Pharmacy();
+    private static int mDEFAULTID = -1;
+    private static double mDEFAULTBATTERYPERC = -1;
+    private static VehicleModel mDEFAULTVEHICLEMODEL = new VehicleModel();
+    private static Pharmacy mDEFAULTPHARMACY = new Pharmacy();
 
-    private static double STARTINGBATTERYPERC = 100;
+    private static double mSTARTINGBATTERYPERC = 100;
 
     public Vehicle() {
-        this.mintId = DEFAULTID;
-        this.mdblBatteryPerc = DEFAULTBATTERYPERC;
-        this.moModel = DEFAULTVEHICLEMODEL;
-        this.moPharmacy = DEFAULTPHARMACY;
+        this.mintId = mDEFAULTID;
+        this.mdblBatteryPerc = mDEFAULTBATTERYPERC;
+        this.moModel = mDEFAULTVEHICLEMODEL;
+        this.moPharmacy = mDEFAULTPHARMACY;
     }
 
     public Vehicle(VehicleModel oModel, Pharmacy oPharmacy) {
-        this.mintId = DEFAULTID;
-        this.mdblBatteryPerc = STARTINGBATTERYPERC;
+        this.mintId = mDEFAULTID;
+        this.mdblBatteryPerc = mSTARTINGBATTERYPERC;
         this.moModel = oModel;
         this.moPharmacy = oPharmacy;
     }
 
     public Vehicle(int intId, VehicleModel oModel, Pharmacy oPharmacy) {
         this.mintId = intId;
-        this.mdblBatteryPerc = STARTINGBATTERYPERC;
+        this.mdblBatteryPerc = mSTARTINGBATTERYPERC;
         this.moModel = oModel;
         this.moPharmacy = oPharmacy;
     }

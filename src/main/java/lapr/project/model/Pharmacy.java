@@ -11,28 +11,28 @@ public class Pharmacy {
     private List<Park> mlstParks;
     private Map<Product, Integer> mMapStock;
 
-    private static int DEFAULTID = -1;
-    private static String DEFAULTNAME = "No name.";
-    private static String DEFAULTEMAIL = "No email.";
-    private static Address DEFAULTADDRESS = new Address();
-    private static List<Park> DEFAULTPARKS = new ArrayList<>();
-    private static Map<Product, Integer> DEFAULTSTOCK = new TreeMap<>();
+    private static int mDEFAULTID = -1;
+    private static String mDEFAULTNAME = "No name.";
+    private static String mDEFAULTEMAIL = "No email.";
+    private static Address mDEFAULTADDRESS = new Address();
+    private static List<Park> mDEFAULTPARKS = new ArrayList<>();
+    private static Map<Product, Integer> mDEFAULTSTOCK = new TreeMap<>();
 
     public Pharmacy(int intId, String strName, String strEmail, Address oAddress, Map<Product, Integer> mapStock) {
         this.mintId = intId;
         this.mstrName = strName;
         this.mstrEmail = strEmail;
         this.moAddress = oAddress;
-        this.mlstParks = DEFAULTPARKS;
+        this.mlstParks = mDEFAULTPARKS;
         this.mMapStock = mapStock;
     }
 
     public Pharmacy(String strName, String strEmail, Address oAddress, Map<Product, Integer> mapStock) {
-        this.mintId = DEFAULTID;
+        this.mintId = mDEFAULTID;
         this.mstrName = strName;
         this.mstrEmail = strEmail;
         this.moAddress = oAddress;
-        this.mlstParks = DEFAULTPARKS;
+        this.mlstParks = mDEFAULTPARKS;
         this.mMapStock = mapStock;
     }
 
@@ -41,26 +41,26 @@ public class Pharmacy {
         this.mstrName = strName;
         this.mstrEmail = strEmail;
         this.moAddress = oAddress;
-        this.mlstParks = DEFAULTPARKS;
-        this.mMapStock = DEFAULTSTOCK;
+        this.mlstParks = mDEFAULTPARKS;
+        this.mMapStock = mDEFAULTSTOCK;
     }
 
     public Pharmacy(String strName, String strEmail, Address oAddress) {
-        this.mintId = DEFAULTID;
+        this.mintId = mDEFAULTID;
         this.mstrName = strName;
         this.mstrEmail = strEmail;
         this.moAddress = oAddress;
-        this.mlstParks = DEFAULTPARKS;
-        this.mMapStock = DEFAULTSTOCK;
+        this.mlstParks = mDEFAULTPARKS;
+        this.mMapStock = mDEFAULTSTOCK;
     }
 
     public Pharmacy() {
-        this.mintId = DEFAULTID;
-        this.mstrName = DEFAULTNAME;
-        this.mstrEmail = DEFAULTEMAIL;
-        this.moAddress = DEFAULTADDRESS;
-        this.mlstParks = DEFAULTPARKS;
-        this.mMapStock = DEFAULTSTOCK;
+        this.mintId = mDEFAULTID;
+        this.mstrName = mDEFAULTNAME;
+        this.mstrEmail = mDEFAULTEMAIL;
+        this.moAddress = mDEFAULTADDRESS;
+        this.mlstParks = mDEFAULTPARKS;
+        this.mMapStock = mDEFAULTSTOCK;
     }
 
     public int getId() {
