@@ -77,7 +77,7 @@ class ProductServiceTest {
         when(mockPDB.updateProductFromDB("1", "Product 6969", "Description 1", 2.0d, 2.0d)).thenReturn(true);
 
         boolean result = pServ.updateProduct("1", "Product 6969", "Description 1", 2.0d, 2.0d);
-        assertFalse(result);
+        assertTrue(result);
 
         result = pServ.updateProduct("-1", "Product 6969", "Description 1", 2.0d, 2.0d);
         assertFalse(result);
@@ -87,6 +87,9 @@ class ProductServiceTest {
 
         when(mockPDB.updateProductFromDB("1", "Product 6969", "Description 1", 2.0d, 2.0d)).thenReturn(false);
         result = pServ.updateProduct("1", "Product 6969", "Description 1", 2.0d, 2.0d);
+        assertFalse(result);
+
+        result = pServ.updateProduct("", "Product 6969", "Description 1", -2.0d, -2.0d);
         assertFalse(result);
     }
 

@@ -39,7 +39,7 @@ public class ProductService {
                     "Unitary Weight: %.2fkg",strProductName,strName,strDescription,dblUnitaryPrice,dblUnitaryWeight);
             WriteFile.write("UpdateProduct_" + strProductName,body);
         } else return false;
-        return false;
+        return true;
     }
 
     public boolean removeProduct(String strName) {

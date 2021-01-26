@@ -36,12 +36,25 @@ class AdminTest {
     void testEquals() {
         Admin oAdmin = new Admin();
         Admin oAdmin2 = new Admin();
+
+        assertEquals(oAdmin,oAdmin);
+
         oAdmin.setId(1);
         oAdmin2.setId(1);
 
         assertEquals(oAdmin,oAdmin2);
 
         oAdmin2.setId(3);
+        assertNotEquals(oAdmin,oAdmin2);
+
+        assertNotEquals(oAdmin,null);
+        String s = "";
+        assertNotEquals(oAdmin,s);
+
+        oAdmin = new Admin();
+        oAdmin2 = new Admin();
+        oAdmin.setEmail("asa");
+        oAdmin2.setEmail("gaca");
         assertNotEquals(oAdmin,oAdmin2);
     }
 }
