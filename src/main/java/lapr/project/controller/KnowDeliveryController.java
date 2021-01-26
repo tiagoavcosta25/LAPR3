@@ -30,5 +30,27 @@ public class KnowDeliveryController {
         return moOrder;
     }
 
+    public OrderService getMoOrderService() {
+        return moOrderService;
+    }
 
+    public void setMoOrderService(OrderService moOrderService) {
+        this.moOrderService = moOrderService;
+    }
+
+    public String getMoCourierEmail() {
+        return moCourierEmail;
+    }
+
+    public void setMoCourierEmail(String moCourierEmail) {
+        this.moCourierEmail = moCourierEmail;
+    }
+
+    public void setMoOrder(Order moOrder) {
+        this.moOrder = moOrder;
+    }
+
+    public Order getMoOrder() {
+        return moOrder;
+    }
 }
