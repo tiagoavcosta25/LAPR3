@@ -12,75 +12,23 @@ import java.util.logging.Logger;
 public class MakeAnOrderUI implements UI {
 
     private static final Logger LOGGER = Logger.getLogger(MakeAnOrderUI.class.getName());
+    private static Scanner sc = new Scanner(System.in);
+    private static MakeAnOrderController oCtrl = new MakeAnOrderController();
 
     public void run(){
         try{
-            Scanner sc = new Scanner(System.in);
-            MakeAnOrderController oCtrl = new MakeAnOrderController();
 
             boolean flag;
-            boolean blnPaymentFlag;
             boolean blnHomeDelivery;
 
             do{
-                List<Pharmacy> lstPharmacies = oCtrl.getPharmacies();
-
-                for(Pharmacy p : lstPharmacies){
-                    System.out.println(p.toString());
-                }
-
-                System.out.print("\nChoose the Pharamcies's Id: ");
-                Integer intPharamcyId = Integer.parseInt(sc.nextLine());
-                System.out.println();
-
-                Pharmacy oPharmacy = new Pharmacy();
-                for(Pharmacy p : lstPharmacies){
-                    if (p.hasId(intPharamcyId)){
-                        oPharmacy = p;
-                        break;
-                    }
-                }
+                Pharmacy oPharmacy = choosePharmacy();
 
                 if(oPharmacy.getName().equalsIgnoreCase("No name.")){
                     throw new Exception();
                 }
 
-                List<Product> lstProducts = oCtrl.getAvailableProducts(oPharmacy);
-                Integer intProductId;
-
-                do{
-                    for(Product p : lstProducts){
-                        System.out.println(p.toString());
-                    }
-                    System.out.println("0 - to stop the product insertion");
-
-                    System.out.print("\nChoose the Product's Id: ");
-                    intProductId = Integer.parseInt(sc.nextLine());
-                    System.out.println();
-
-                    if(intProductId == 0){
-                        break;
-                    }
-
-                    Product oProduct = new Product();
-                    Integer intQuantity = 0;
-                    for(Product p : lstProducts){
-                        if (p.hasId(intProductId)){
-                            oProduct = p;
-                            break;
-                        }
-                    }
-
-                    System.out.print("\nChoose the Product's Quantity: ");
-                    intQuantity = Integer.parseInt(sc.nextLine());
-                    System.out.println();
-
-                    if(oProduct.getName().equalsIgnoreCase("") || intQuantity <= 0){
-                        throw new Exception();
-                    }
-                    oCtrl.addProductToOrder(oProduct, intQuantity);
-                    lstProducts.remove(oProduct);
-                }while(intProductId != 0);
+                chooseProducts(oPharmacy);
 
                 System.out.print("Order´s Description: ");
                 String strDescription = sc.nextLine();
@@ -94,40 +42,7 @@ public class MakeAnOrderUI implements UI {
                     blnHomeDelivery = false;
                 }
 
-                List<CreditCard> lstCC = oCtrl.getCreditCardsByClient();
-                Long intCCNum;
-
-                do{
-                    for(CreditCard c : lstCC){
-                        System.out.println(c.toString());
-                    }
-
-                    System.out.print("\nChoose the Credit Cards's Number: ");
-                    intCCNum = Long.parseLong(sc.nextLine());
-                    System.out.println();
-
-                    CreditCard oCreditCard = new CreditCard();
-                    double intAmount;
-                    for(CreditCard c : lstCC){
-                        if (c.hasNumber(intCCNum)){
-                            oCreditCard = c;
-                            break;
-                        }
-                    }
-
-                    System.out.print("\nChoose the amount of money you want to pay using that card: ");
-                    intAmount = Integer.parseInt(sc.nextLine());
-                    System.out.println();
-
-                    if(oCreditCard.getCreditCardNr() == -1l || intAmount <= 0f){
-                        throw new Exception();
-                    }
-                    blnPaymentFlag = oCtrl.addPayment(oCreditCard, intAmount);
-
-                    if (blnPaymentFlag){
-                        lstCC.remove(oCreditCard);
-                    }
-                }while(!blnPaymentFlag);
+                chooseCC();
 
                 Order oOrder = oCtrl.newOrder(strDescription, blnHomeDelivery);
 
@@ -153,5 +68,101 @@ public class MakeAnOrderUI implements UI {
         } catch (Exception e){
             LOGGER.log(Level.INFO,"Something went wrong, try again. Order not Registered. If you need any help, please contact us using help@teamlisa.com.");
         }
+    }
+
+    public static Pharmacy choosePharmacy(){
+        List<Pharmacy> lstPharmacies = oCtrl.getPharmacies();
+
+        for(Pharmacy p : lstPharmacies){
+            System.out.println(p.toString());
+        }
+
+        System.out.print("\nChoose the Pharamcies's Id: ");
+        Integer intPharamcyId = Integer.parseInt(sc.nextLine());
+        System.out.println();
+
+        Pharmacy oPharmacy = new Pharmacy();
+        for(Pharmacy p : lstPharmacies){
+            if (p.hasId(intPharamcyId)){
+                oPharmacy = p;
+                break;
+            }
+        }
+
+        return oPharmacy;
+    }
+
+    public static void chooseProducts(Pharmacy oPharmacy){
+        Integer intProductId;
+        List<Product> lstProducts = oCtrl.getAvailableProducts(oPharmacy);
+        do{
+            for(Product p : lstProducts){
+                System.out.println(p.toString());
+            }
+            System.out.println("0 - to stop the product insertion");
+
+            System.out.print("\nChoose the Product's Id: ");
+            intProductId = Integer.parseInt(sc.nextLine());
+            System.out.println();
+
+            if(intProductId == 0){
+                break;
+            }
+
+            Product oProduct = new Product();
+            Integer intQuantity = 0;
+            for(Product p : lstProducts){
+                if (p.hasId(intProductId)){
+                    oProduct = p;
+                    break;
+                }
+            }
+
+            System.out.print("\nChoose the Product's Quantity: ");
+            intQuantity = Integer.parseInt(sc.nextLine());
+            System.out.println();
+
+            if(!oProduct.getName().equalsIgnoreCase("") && intQuantity > 0){
+                oCtrl.addProductToOrder(oProduct, intQuantity);
+                lstProducts.remove(oProduct);
+            }
+        }while(intProductId != 0);
+    }
+
+    public static void chooseCC(){
+        List<CreditCard> lstCC = oCtrl.getCreditCardsByClient();
+        Long intCCNum;
+        boolean blnPaymentFlag = false;
+
+        do{
+            for(CreditCard c : lstCC){
+                System.out.println(c.toString());
+            }
+
+            System.out.print("\nChoose the Credit Cards's Number: ");
+            intCCNum = Long.parseLong(sc.nextLine());
+            System.out.println();
+
+            CreditCard oCreditCard = new CreditCard();
+            double intAmount;
+            for(CreditCard c : lstCC){
+                if (c.hasNumber(intCCNum)){
+                    oCreditCard = c;
+                    break;
+                }
+            }
+
+            System.out.print("\nChoose the amount of money you want to pay using that card: ");
+            intAmount = Integer.parseInt(sc.nextLine());
+            System.out.println();
+
+            if(oCreditCard.getCreditCardNr() != -1l && intAmount > 0f){
+                blnPaymentFlag = oCtrl.addPayment(oCreditCard, intAmount);
+
+                if (blnPaymentFlag){
+                    lstCC.remove(oCreditCard);
+                }
+            }
+        }while(!blnPaymentFlag);
     }
 }
