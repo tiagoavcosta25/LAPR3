@@ -761,6 +761,16 @@ class GraphServiceTest {
         assertNotEquals(expResult, world.getBestPossibleModel(lstModel, pathList, lstOrders));
         expResult = new Pair<>(drone3, 1.1190973594436533);
         assertEquals(expResult, world.getBestPossibleModel(lstModel, pathList, lstOrders));
+
+        when(mockVehicleDB.getEnergyByVehicleModel(1)).thenReturn(0d);
+        when(mockVehicleDB.getEnergyByVehicleModel(2)).thenReturn(0d);
+        when(mockVehicleDB.getEnergyByVehicleModel(3)).thenReturn(0d);
+        when(mockVehicleDB.getEnergyByVehicleModel(4)).thenReturn(0d);
+        when(mockVehicleDB.getEnergyByVehicleModel(5)).thenReturn(0d);
+        when(mockVehicleDB.getEnergyByVehicleModel(6)).thenReturn(0d);
+        assertNotEquals(expResult, world.getBestPossibleModel(lstModel, pathList, lstOrders));
+        expResult = new Pair<>(null, Double.MAX_VALUE);
+        assertEquals(expResult, world.getBestPossibleModel(lstModel, pathList, lstOrders));
     }
 
     @Test
