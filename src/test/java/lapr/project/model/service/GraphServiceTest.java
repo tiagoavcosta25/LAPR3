@@ -855,6 +855,22 @@ class GraphServiceTest {
         expResult.add(null);
         assertEquals(expResult, result);
 
+        //ORDER
+        Product prod1 = new Product("Produto1", "Description", 3d, 40000000d);
+        Map<Product, Integer> productMap = new TreeMap<>();
+        productMap.put(prod1, 100);
+
+        lstOrders = new ArrayList<>();
+        lstOrders.add(new Order("Para Presente, Enviar Embrulhado.", true, new Client("", 123456789, "fernando@gmail.com", "pass",
+                41.14582d,-8.61398d,87.0d,"Clerigos","2esq","4444-111","Porto","Portugal", new ArrayList<>()),
+                oPharmacy, productMap));
+
+        lstOrders.add(new Order("Para Presente, Enviar Embrulhado.", true, new Client("", 123456781, "joana@gmail.com", "pass",
+                41.14063d,-8.61118d,25.0d,"Cais da Ribeira","3esq","4000-555","Porto","Portugal", new ArrayList<>()),
+                oPharmacy, productMap));
+        //ORDER
+
+
         when(mockVehicleDB.getEnergyByVehicleModel(1)).thenReturn(1000d);
         when(mockVehicleDB.getEnergyByVehicleModel(2)).thenReturn(0d);
         when(mockVehicleDB.getEnergyByVehicleModel(3)).thenReturn(0d);
@@ -864,9 +880,7 @@ class GraphServiceTest {
         world.setDroneGraph(new Graph<>(true));
         result = world.calculateBestVehicleAndBestPath(lstOrders);
         expResult = new ArrayList<>();
-        expResult.add(null);
-        expResult.add(null);
-        assertEquals(expResult, result);
+        assertNull(result);
     }
 
     @Test
