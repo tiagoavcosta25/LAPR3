@@ -46,10 +46,10 @@ class UpdateCourierControllerTest {
 
         when(mockCourierService.getCourierByEmail("ernesto@gmail.com")).thenThrow(new IllegalArgumentException());
         courier = updateCourierController.getCourierByEmail("ernesto@gmail.com");
-        assertEquals(new Courier(),courier);
+        assertEquals(null,courier);
 
         courier = updateCourierController.getCourierByEmail("");
-        assertEquals(new Courier(),courier);
+        assertEquals(null,courier);
     }
 
     @Test
