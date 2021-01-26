@@ -151,19 +151,34 @@ class PharmacyServiceTest {
         graph.insertVertex(oAddress2);
         Address oAddress3 = new Address(19d, 19d, 19d ,"", "", "", "", "");
         graph.insertVertex(oAddress3);
+        Address oAddress4 = new Address(11d, 11d, 11d ,"", "", "", "", "");
+        graph.insertVertex(oAddress4);
         Path oPath = new Path(9d, 9d, -22d, -22d,
+                "", 1d, 1d, 1d,VehicleType.SCOOTER);
+        Path oPath2 = new Path(11d, 11d, -22d, -22d,
                 "", 1d, 1d, 1d,VehicleType.SCOOTER);
 
         Address oAddress = new Address();
         graph.insertVertex(oAddress);
         graph.insertEdge(oAddress2, oAddress, oPath, 19);
+        graph.insertEdge(oAddress4, oAddress, oPath2, 19);
 
         Pharmacy oPharmacy = new Pharmacy();
         oPharmacy.setAddress(oAddress2);
         oPharmacy.setId(31);
 
+        Pharmacy oPharmacy2 = new Pharmacy();
+        oPharmacy2.setAddress(oAddress3);
+        oPharmacy2.setId(11);
+
+        Pharmacy oPharmacy3 = new Pharmacy();
+        oPharmacy3.setAddress(oAddress4);
+        oPharmacy3.setId(19);
+
         List<Pharmacy> lstPharmacies = new ArrayList<>();
         lstPharmacies.add(oPharmacy);
+        lstPharmacies.add(oPharmacy2);
+        lstPharmacies.add(oPharmacy3);
 
         when(mockPharmacyDB.getPharmacies()).thenReturn(lstPharmacies);
         ApplicationPOT.getInstance().getWorldMap().setScooterGraph(graph);
