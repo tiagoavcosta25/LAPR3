@@ -10,33 +10,48 @@ import lapr.project.model.service.VehicleService;
 
 import java.util.List;
 
+/**
+ * Register Drone Controller.
+ *
+ * Group: Team Lisa [G-021]
+ * ______________________________________________________
+ * @author António Barbosa <1190404@isep.ipp.pt>
+ * @author Ernesto Rodrigues <1190560@isep.ipp.pt>
+ * @author Jessica Alves <1190682@isep.ipp.pt>
+ * @author Pedro Santos <1190967@isep.ipp.pt>
+ * @author Rodrigo Costa <1191014@isep.ipp.pt>
+ * @author Tiago Costa <1191460@isep.ipp.pt>
+ */
 public class RegisterDroneController {
 
     /**
-     * Drone class instance
+     * Drone class instance.
      */
     private Drone moDrone;
 
     /**
-     * Pharmacy Management class
+     * Pharmacy Management class.
      */
     private PharmacyService moPharmacyService;
 
     /**
-     * Drone Management class
+     * Drone Management class.
      */
     private DroneService moDroneService;
 
     /**
-     * VehicleModel class instance
+     * VehicleModel class instance.
      */
     private VehicleModel moVehicleModel;
 
     /**
-     * Vehicle Management class
+     * Vehicle Management class.
      */
     private VehicleService moVehicleService;
 
+    /**
+     * Pharmacy class instance.
+     */
     private Pharmacy moPharmacy;
 
     /**
@@ -49,8 +64,7 @@ public class RegisterDroneController {
     }
 
     /**
-     * The method receives Drone's battery percentage, charging status, potency, weight, battery capacity and a pharmacy.
-     * Initiates the Pharmacy instance and the Scooter instance with the provided data.
+     * The method creates a new Drone.
      * The method returns the validation of that instance of Drone. True if the data is correct and false if
      * it doesn't.
      */
@@ -67,6 +81,8 @@ public class RegisterDroneController {
 
     /**
      * The method registers an order to the database.
+     * The method returns the validation of that instance of Drone. True if the data is correct and false if
+     * it doesn't.
      */
     public boolean registersDrone() {
         try {
@@ -95,6 +111,8 @@ public class RegisterDroneController {
 
     /**
      * The method sets the Vehicle Model.
+     * The method returns the validation of that instance of Vehicle Model. True if the data is correct and false if
+     * it doesn't.
      */
     public boolean setVehicleModel(String strDesignation) {
         try {
@@ -107,6 +125,19 @@ public class RegisterDroneController {
         return false;
     }
 
+    /**
+     * The method creates a new Vehicle Model.
+     * The method returns the validation of that instance of Vehicle Model. True if the data is correct and false if
+     * it doesn't.
+     *
+     * @param strDesignation Vehicle Model Designation
+     * @param dblPotency Vehicle Model Potency
+     * @param dblWeight Vehicle Model Weight
+     * @param dblMaxPayload Vehicle Model Maximum Paylod
+     * @param intBatteryCapacity Vehicle Model Battery Capacity
+     * @param dblBatteryVoltage Vehicle Model Battery Voltage
+     * @param dblEfficiency Vehicle Model Efficiency
+     */
     public boolean newVehicleModel(String strDesignation, double dblPotency, double dblWeight, double dblMaxPayload, int intBatteryCapacity,
                                    double dblBatteryVoltage, double dblEfficiency) {
         try {
@@ -122,6 +153,12 @@ public class RegisterDroneController {
         return false;
     }
 
+    /**
+     * The method sets the Phramacy.
+     * The method returns the validation of that instance of Vehicle Model. True if the data is correct and false if
+     * it doesn't.
+     * @param strPharmacyEmail Phramacy Email.
+     */
     public boolean setPharmacy(String strPharmacyEmail){
         try {
             this.moPharmacy = this.moPharmacyService.getPharmacy(strPharmacyEmail);
@@ -131,26 +168,50 @@ public class RegisterDroneController {
         }
     }
 
+    /**
+     * Returns the Pharmacy Service Instance.
+     * @return Pharmacy Service Instance.
+     */
     public PharmacyService getPharmacyService() {
         return moPharmacyService;
     }
 
+    /**
+     * Modifies Pharmacy Service Instance.
+     * @param oPharmacyService Pharmacy Service Instance.
+     */
     public void setPharmacyService(PharmacyService oPharmacyService) {
         this.moPharmacyService = oPharmacyService;
     }
 
+    /**
+     *
+     * @return Drone Service Instance.
+     */
     public DroneService getDroneService() {
         return moDroneService;
     }
 
+    /**
+     * Modifies Drone Service Instance.
+     * @param oDroneService Drone Service Instance.
+     */
     public void setDroneService(DroneService oDroneService) {
         this.moDroneService = oDroneService;
     }
 
+    /**
+     * Returns the Vehicle Service Instance.
+     * @return Vehicle Service Instance.
+     */
     public VehicleService getVehicleService() {
         return moVehicleService;
     }
 
+    /**
+     * Modifies Vehicle Service Instance.
+     * @param oVehicleService Vehicle Service Instance.
+     */
     public void setVehicleService(VehicleService oVehicleService) {
         this.moVehicleService = oVehicleService;
     }

@@ -9,8 +9,26 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Drone Database.
+ *
+ * Group: Team Lisa [G-021]
+ * ______________________________________________________
+ * @author António Barbosa <1190404@isep.ipp.pt>
+ * @author Ernesto Rodrigues <1190560@isep.ipp.pt>
+ * @author Jessica Alves <1190682@isep.ipp.pt>
+ * @author Pedro Santos <1190967@isep.ipp.pt>
+ * @author Rodrigo Costa <1191014@isep.ipp.pt>
+ * @author Tiago Costa <1191460@isep.ipp.pt>
+ */
+
 public class DroneDB extends DataHandler {
 
+    /**
+     * Returns Drone by ID.
+     * @param id Drone ID.
+     * @return Drone.
+     */
     public Drone getDrone(int id) {
 
         try (CallableStatement callStmt = getConnection().prepareCall("{ ? = call getDrone(?) }");){
@@ -32,6 +50,22 @@ public class DroneDB extends DataHandler {
         throw new IllegalArgumentException("No Scooter with ID:" + id);
     }
 
+    /**
+     * Update Drone from Database.
+     * The method returns the validation of that instance of Drone. True if the data is correct and false if
+     * it doesn't.
+     *
+     * @param intId Drone ID.
+     * @param dblBatteryPerc Drone Battery Percentage.
+     * @param strDesignation Drone Designation.
+     * @param dblPotency Drone Potency.
+     * @param dblWeight Drone Weight.
+     * @param dblMaxPayload Drone Maximum Payload.
+     * @param intBatteryCapacity Drone Battery Capacity.
+     * @param dblBatteryVoltage Drone Battery Voltage.
+     * @param dblEfficiency Drone Efficiency.
+     * @return the validation of that instance of Drone.
+     */
     public boolean updateDroneFromDB(int intId, double dblBatteryPerc, String strDesignation, double dblPotency, double dblWeight, double dblMaxPayload,
                                        int intBatteryCapacity, double dblBatteryVoltage, double dblEfficiency) {
         try(CallableStatement callStmt = getConnection().prepareCall("{call updateDrone(?,?,?,?,?,?,?,?,?)}");) {
@@ -56,10 +90,22 @@ public class DroneDB extends DataHandler {
         return true;
     }
 
+    /**
+     * Gets all the Drone's atributtes.
+     * @param d Drone.
+     * @return Model ID.
+     */
     public int registerDrone(Drone d) {
         return addDrone(d.getBatteryPerc(), d.getModel(), d.getPharmacy());
     }
 
+    /**
+     * Add a new Drone to the Database.
+     * @param dblBatteryPerc Drone Battery Percentage.
+     * @param oVehicleModel Drone Vehicle Model.
+     * @param oPharmacy Drone Pharmacy.
+     * @return Model ID.
+     */
     public int addDrone(double dblBatteryPerc, VehicleModel oVehicleModel, Pharmacy oPharmacy) {
         try(CallableStatement callStmt = getConnection().prepareCall("{ ? = call addDrone(?,?,?) }");) {
             callStmt.registerOutParameter(1, oracle.jdbc.OracleTypes.INTEGER);
@@ -78,6 +124,11 @@ public class DroneDB extends DataHandler {
         }
     }
 
+    /**
+     * Returns a list of Drones by Pharmacy Email.
+     * @param strPharmacyEmail Pharmacy Email.
+     * @return a list of Drones
+     */
     public List<Drone> getDronesList(String strPharmacyEmail) {
 
         List<Drone> lstDrone = new ArrayList<>();
@@ -100,6 +151,13 @@ public class DroneDB extends DataHandler {
         return lstDrone;
     }
 
+    /**
+     * The method removes a Drone from the Database.
+     * The method returns the validation of that instance of Drone. True if the data is correct and false if
+     * it doesn't.
+     * @param intId Drone ID.
+     * @return the validation of that instance of Drone.
+     */
     public boolean removeDroneFromDB(int intId) {
         try(CallableStatement callStmt = getConnection().prepareCall("{ call removeDrone(?) }");) {
             callStmt.setInt(1, intId);
@@ -116,6 +174,11 @@ public class DroneDB extends DataHandler {
 
     }
 
+    /**
+     * Returns the Drone Payload.
+     * @param droneId Drone Id.
+     * @return Drone Payload.
+     */
     public float getDronePayload(int droneId) {
 
         float payload = 0f;
