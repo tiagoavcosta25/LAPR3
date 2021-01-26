@@ -62,8 +62,8 @@ public class AdministratorUI implements UI {
                 }
                 case 7: {
                     Menu.clear();
-                    RegisterScooterUI UI = new RegisterScooterUI();
-                    UI.run();
+                    RegisterVehicleUI UI = new RegisterVehicleUI();
+                    UI.run(VehicleType.SCOOTER);
                     break;
                 }
                 case 8: {
@@ -74,8 +74,8 @@ public class AdministratorUI implements UI {
                 }
                 case 9: {
                     Menu.clear();
-                    UpdateScooterUI UI = new UpdateScooterUI();
-                    UI.run();
+                    UpdateVehicleUI UI = new UpdateVehicleUI();
+                    UI.run(VehicleType.SCOOTER);
                     break;
                 }
                 case 10: {
@@ -86,8 +86,8 @@ public class AdministratorUI implements UI {
                 }
                 case 11: {
                     Menu.clear();
-                    RegisterDroneUI UI = new RegisterDroneUI();
-                    UI.run();
+                    RegisterVehicleUI UI = new RegisterVehicleUI();
+                    UI.run(VehicleType.DRONE);
                     break;
                 }
                 case 12: {
@@ -98,8 +98,8 @@ public class AdministratorUI implements UI {
                 }
                 case 13: {
                     Menu.clear();
-                    UpdateDroneUI UI = new UpdateDroneUI();
-                    UI.run();
+                    UpdateVehicleUI UI = new UpdateVehicleUI();
+                    UI.run(VehicleType.DRONE);
                     break;
                 }
                 case 14: {

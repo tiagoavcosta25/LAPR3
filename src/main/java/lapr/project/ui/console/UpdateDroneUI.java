@@ -1,9 +1,8 @@
 package lapr.project.ui.console;
-
+/*
 import lapr.project.controller.UpdateDroneController;
 import lapr.project.model.Drone;
 import lapr.project.model.Pharmacy;
-import lapr.project.ui.FileReader;
 import lapr.project.ui.UI;
 
 import java.util.List;
@@ -81,4 +80,4 @@ public class UpdateDroneUI implements UI {
             LOGGER.log(Level.WARNING, "There was a problem updating the Scooter");
         }
     }
-}
+}*/

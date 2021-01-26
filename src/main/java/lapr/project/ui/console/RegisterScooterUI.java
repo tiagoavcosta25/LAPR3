@@ -1,8 +1,7 @@
 package lapr.project.ui.console;
-
+/*
 import lapr.project.controller.RegisterScooterController;
 import lapr.project.model.*;
-import lapr.project.ui.FileReader;
 import lapr.project.ui.UI;
 
 import java.util.List;
@@ -78,4 +77,4 @@ public class RegisterScooterUI implements UI {
             LOGGER.log(Level.WARNING, "There was a problem registering a Scooter");
         }
     }
-}
+}*/

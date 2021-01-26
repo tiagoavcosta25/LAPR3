@@ -1,8 +1,7 @@
 package lapr.project.ui.console;
-
+/*
 import lapr.project.controller.RegisterDroneController;
 import lapr.project.model.Pharmacy;
-import lapr.project.ui.FileReader;
 import lapr.project.ui.UI;
 
 import java.util.List;
@@ -77,4 +76,4 @@ public class RegisterDroneUI implements UI {
             LOGGER.log(Level.WARNING, "There was a problem registering the Drone");
         }
     }
-}
+}*/
