@@ -1,0 +1,24 @@
+______________________________________________________________________________________
+
+
+
+Best scooter model: VehicleModel{m_intId=1, m_strDesignation='scooter1', m_dblPotency=400.0, m_dblWeight=10.0, m_dblMaxPayload=400.0, m_oBattery=Battery{Id=1, Efficiency=100.0, Battery Capacity=40000, Battery Voltage=40.0}, m_enumVehicleType=VehicleType{m_strDesignation='Scooter'}}
+Best scooter energetic cost: 0,85 kWh
+Scooter best path: [Majestic, Clerigos, Majestic, Bolhao, Sé, Cais da Ribeira, Sé, Bolhao, Majestic]
+Scooter path time: 5,41 minutes
+Scooter needed to charge: false
+Scooter charged on: []
+
+
+Best drone model: VehicleModel{m_intId=1, m_strDesignation='drone1', m_dblPotency=400.0, m_dblWeight=10.0, m_dblMaxPayload=400.0, m_oBattery=Battery{Id=1, Efficiency=100.0, Battery Capacity=40000, Battery Voltage=40.0}, m_enumVehicleType=VehicleType{m_strDesignation='Drone'}}
+Best drone energetic cost: 0,08 kWh
+Drone best path: [Majestic, Clerigos, Majestic, Bolhao, Sé, Cais da Ribeira, Sé, Bolhao, Majestic]
+Drone path time: 4,28 minutes
+Drone needed to charge: false
+Drone charged on: []
+
+______________________________________________________________________________________
+
+Thank you for choosing us.
+King regards,
+Pharmacy Service G21.
