@@ -13,10 +13,12 @@ import java.util.List;
 
 public class PharmacyDB extends DataHandler {
 
+    private static final String GETSTOCKBYPHARMACY = "{ ? = call getStockByPharmacy(?) }";
+
     public Pharmacy getPharmacy(String strEmail) {
 
         try(CallableStatement callStmt = getConnection().prepareCall("{ ? = call getPharmacy(?) }");
-            CallableStatement callStmt2 = getConnection().prepareCall("{ ? = call getStockByPharmacy(?) }");) {
+            CallableStatement callStmt2 = getConnection().prepareCall(GETSTOCKBYPHARMACY);) {
             openConnection();
 
             callStmt.registerOutParameter(1, OracleTypes.CURSOR);
@@ -113,7 +115,7 @@ public class PharmacyDB extends DataHandler {
     public List<Pharmacy> getPharmacies() {
         List<Pharmacy> lstPharmacies = new ArrayList<>();
         try(CallableStatement callStmt = getConnection().prepareCall("{ ? = call getPharmacies() }");
-            CallableStatement callStmt2 = getConnection().prepareCall("{ ? = call getStockByPharmacy(?) }");) {
+            CallableStatement callStmt2 = getConnection().prepareCall(GETSTOCKBYPHARMACY);) {
 
             callStmt.registerOutParameter(1, OracleTypes.CURSOR);
 
@@ -184,7 +186,7 @@ public class PharmacyDB extends DataHandler {
     public List<Pharmacy> getPharmaciesWithStock(Order oOrder, Product oProduct, Integer intQuantity) {
         List<Pharmacy> lstPharmacies = new ArrayList<>();
         try(CallableStatement callStmt = getConnection().prepareCall("{ ? = call getPharmaciesWithStock(?,?,?) }");
-            CallableStatement callStmt2 = getConnection().prepareCall("{ ? = call getStockByPharmacy(?) }");) {
+            CallableStatement callStmt2 = getConnection().prepareCall(GETSTOCKBYPHARMACY);) {
 
             callStmt.registerOutParameter(1, OracleTypes.CURSOR);
             callStmt.setInt(2, oOrder.getId());
@@ -224,7 +226,7 @@ public class PharmacyDB extends DataHandler {
     public Pharmacy getPharmacyByManagerEmail(String email) {
 
         try(CallableStatement callStmt = getConnection().prepareCall("{ ? = call getPharmacyByManagerEmail(?) }");
-            CallableStatement callStmt2 = getConnection().prepareCall("{ ? = call getStockByPharmacy(?) }");) {
+            CallableStatement callStmt2 = getConnection().prepareCall(GETSTOCKBYPHARMACY);) {
 
             callStmt.registerOutParameter(1, OracleTypes.CURSOR);
             callStmt.setString(2, email);

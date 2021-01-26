@@ -1,7 +1,5 @@
 package lapr.project.data;
 
-import lapr.project.controller.RegisterProductController;
-
 import java.io.*;
 import java.sql.*;
 import java.text.SimpleDateFormat;
@@ -22,6 +20,7 @@ public class ScriptRunner {
     public static final Pattern delimP = Pattern.compile("^\\s*(--)?\\s*delimiter\\s*=?\\s*([^\\s]+)+\\s*.*$", Pattern.CASE_INSENSITIVE);
     private static final Logger LOGGER = Logger.getLogger(ScriptRunner.class.getName());
     private static final String DEFAULTDELIMITER = ";";
+    private static final String NEWLINE = "\n-------\n";
     private final Connection connection;
 
     private final boolean stopOnError;
@@ -64,8 +63,9 @@ public class ScriptRunner {
             LOGGER.log(Level.WARNING, "Unable to access or create the db_create error log");
         }
         String timeStamp = new SimpleDateFormat("dd/mm/yyyy HH:mm:ss").format(new java.util.Date());
-        LOGGER.log(Level.INFO, "\n-------\n" + timeStamp + "\n-------\n");
-        LOGGER.log(Level.WARNING, "\n-------\n" + timeStamp + "\n-------\n");
+        String timeStampString = NEWLINE + timeStamp + NEWLINE;
+        LOGGER.log(Level.INFO, timeStampString);
+        LOGGER.log(Level.WARNING, timeStampString);
     }
 
     public void setDelimiter(String delimiter, boolean fullLineDelimiter) {
@@ -174,54 +174,45 @@ public class ScriptRunner {
 
     private void execCommand(Connection conn, StringBuilder command,
                              LineNumberReader lineReader) throws SQLException {
-        Statement statement = conn.createStatement();
+        try(Statement statement = conn.createStatement();) {
+            println(command);
 
-        println(command);
-
-        boolean hasResults = false;
-        try {
-            hasResults = statement.execute(command.toString());
-        } catch (SQLException e) {
-            final String errText = String.format("Error executing '%s' (line %d): %s",
-                    command, lineReader.getLineNumber(), e.getMessage());
-            printlnError(errText);
-            LOGGER.log(Level.WARNING, errText);
-            if (stopOnError) {
-                throw new SQLException(errText, e);
+            boolean hasResults = false;
+            try {
+                hasResults = statement.execute(command.toString());
+            } catch (SQLException e) {
+                final String errText = String.format("Error executing '%s' (line %d): %s",
+                        command, lineReader.getLineNumber(), e.getMessage());
+                printlnError(errText);
+                LOGGER.log(Level.WARNING, errText);
+                if (stopOnError) {
+                    throw new SQLException(errText, e);
+                }
             }
-        }
 
-        if (autoCommit && !conn.getAutoCommit()) {
-            conn.commit();
-        }
-
-        ResultSet rs = statement.getResultSet();
-        if (hasResults && rs != null) {
-            ResultSetMetaData md = rs.getMetaData();
-            int cols = md.getColumnCount();
-            for (int i = 1; i <= cols; i++) {
-                String name = md.getColumnLabel(i);
-                print(name + "\t");
+            if (autoCommit && !conn.getAutoCommit()) {
+                conn.commit();
             }
-            println("");
-            while (rs.next()) {
+
+            ResultSet rs = statement.getResultSet();
+            if (hasResults && rs != null) {
+                ResultSetMetaData md = rs.getMetaData();
+                int cols = md.getColumnCount();
                 for (int i = 1; i <= cols; i++) {
-                    String value = rs.getString(i);
-                    print(value + "\t");
+                    String name = md.getColumnLabel(i);
+                    print(name + "\t");
                 }
                 println("");
+                while (rs.next()) {
+                    for (int i = 1; i <= cols; i++) {
+                        String value = rs.getString(i);
+                        print(value + "\t");
+                    }
+                    println("");
+                }
             }
-        }
-
-        try {
-            statement.close();
         } catch (Exception e) {
             // Ignore to workaround a bug in Jakarta DBCP
-        } finally {
-            statement.close();
-            if (rs != null) {
-                rs.close();
-            }
         }
     }
 

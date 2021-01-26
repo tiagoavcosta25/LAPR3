@@ -13,7 +13,7 @@ import java.util.List;
 
 public class ScooterDB extends DataHandler {
 
-    private static final String mNOSCOOTERAVAIABLE = "No Scooters Avaliable.";
+    private static final String NOSCOOTERAVAIABLE = "No Scooters Avaliable.";
 
     public Scooter getScooter(int id) {
 
@@ -96,7 +96,7 @@ public class ScooterDB extends DataHandler {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            throw new IllegalArgumentException(mNOSCOOTERAVAIABLE);
+            throw new IllegalArgumentException(NOSCOOTERAVAIABLE);
         } finally {
             closeAll();
         }
@@ -139,7 +139,7 @@ public class ScooterDB extends DataHandler {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            throw new IllegalArgumentException(mNOSCOOTERAVAIABLE);
+            throw new IllegalArgumentException(NOSCOOTERAVAIABLE);
         } finally {
             closeAll();
         }
@@ -156,7 +156,7 @@ public class ScooterDB extends DataHandler {
             return (Double) callStmt.getObject(1);
         } catch (SQLException e) {
             e.printStackTrace();
-            throw new IllegalArgumentException(mNOSCOOTERAVAIABLE);
+            throw new IllegalArgumentException(NOSCOOTERAVAIABLE);
         } finally {
             closeAll();
         }
