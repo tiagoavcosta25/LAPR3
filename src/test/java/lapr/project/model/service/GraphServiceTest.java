@@ -771,7 +771,6 @@ class GraphServiceTest {
         expResult.add(exp1);
         expResult.add(exp2);
 
-        Pharmacy ph1 = new Pharmacy(1, "Ph1", "a1@.com", majestic, new TreeMap<>());
 
         List<Pair<Pair<VehicleModel, Double>, List<Address>>> result = world.calculateBestVehicleAndBestPath(lstOrders);
         assertEquals(expResult, result);
@@ -792,6 +791,81 @@ class GraphServiceTest {
 
         result = world.calculateBestVehicleAndBestPath(lstOrders);
         assertEquals(expResult, result);
+
+
+
+        lst2 = new ArrayList<>(lstScooter);
+        when(mockVehicleDB.getPharmacyModel("info@trindade.com")).thenReturn(lst2);
+        result = world.calculateBestVehicleAndBestPath(lstOrders);
+        expResult = new ArrayList<>();
+        exp1 = new Pair<>(new Pair<>(scooter6, 36.76915790179582), path);
+        expResult.add(exp1);
+        expResult.add(null);
+        assertEquals(expResult, result);
+
+        expResult = new ArrayList<>();
+        exp1 = new Pair<>(new Pair<>(scooter6, 36.76915790179582), path);
+        expResult.add(exp1);
+        expResult.add(null);
+
+        result = world.calculateBestVehicleAndBestPath(lstOrders);
+        assertEquals(expResult, result);
+
+        expResult = new ArrayList<>();
+        exp1 = new Pair<>(new Pair<>(drone3, 1.1190973594436533), path);
+        expResult.add(null);
+        expResult.add(exp1);
+
+        lst2 = new ArrayList<>(lstDrone);
+        when(mockVehicleDB.getPharmacyModel("info@trindade.com")).thenReturn(lst2);
+        result = world.calculateBestVehicleAndBestPath(lstOrders);
+        assertEquals(expResult, result);
+
+        lst2 = new ArrayList<>();
+        when(mockVehicleDB.getPharmacyModel("info@trindade.com")).thenReturn(lst2);
+        result = world.calculateBestVehicleAndBestPath(lstOrders);
+        assertNull(result);
+
+
+        lst2 = new ArrayList<>(lstScooter);
+        when(mockVehicleDB.getPharmacyModel("info@trindade.com")).thenReturn(lst2);
+        expResult = new ArrayList<>();
+        exp1 = new Pair<>(new Pair<>(scooter6, 36.76915790179582), path);
+        expResult.add(exp1);
+        expResult.add(null);
+        result = world.calculateBestVehicleAndBestPath(lstOrders);
+        assertEquals(expResult, result);
+
+        lst2 = new ArrayList<>(lstScooter);
+        lst2.addAll(lstDrone);
+        when(mockVehicleDB.getPharmacyModel("info@trindade.com")).thenReturn(lst2);
+
+
+        when(mockVehicleDB.getEnergyByVehicleModel(1)).thenReturn(0d);
+        when(mockVehicleDB.getEnergyByVehicleModel(2)).thenReturn(1001d);
+        when(mockVehicleDB.getEnergyByVehicleModel(3)).thenReturn(3000d);
+        when(mockVehicleDB.getEnergyByVehicleModel(4)).thenReturn(10000d);
+        when(mockVehicleDB.getEnergyByVehicleModel(5)).thenReturn(10000000d);
+        when(mockVehicleDB.getEnergyByVehicleModel(6)).thenReturn(10000000d);
+
+
+        expResult = new ArrayList<>();
+        exp1 = new Pair<>(new Pair<>(scooter6, 36.76915790179582), path);
+        exp2 = new Pair<>(new Pair<>(drone3, 1.1190973594436533), path);
+        expResult.add(exp1);
+        expResult.add(exp2);
+
+        result = world.calculateBestVehicleAndBestPath(lstOrders);
+        assertEquals(expResult, result);
+
+
+
+
+
+
+
+
+
 
         when(mockVehicleDB.getEnergyByVehicleModel(1)).thenReturn(0d);
         when(mockVehicleDB.getEnergyByVehicleModel(2)).thenReturn(0d);
