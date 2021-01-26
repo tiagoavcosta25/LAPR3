@@ -62,7 +62,7 @@ class UpdateDroneControllerTest {
 
         when(m_mockDroneService.getDronesList("")).thenThrow(new IllegalArgumentException());
         result = m_ctrl.showDronesList("");
-        assertNull(result);
+        assertEquals(new ArrayList<>(),result);
     }
 
     @Test
@@ -89,5 +89,35 @@ class UpdateDroneControllerTest {
                 2.0d, 2.0d, 30d, 100, 20d,
                 10d);
         assertFalse(result);
+    }
+
+    @Test
+    void getPharmacyService() {
+        PharmacyService expected = m_mockPharmacyService;
+        PharmacyService real = m_ctrl.getPharmacyService();
+        assertEquals(expected,real);
+    }
+
+    @Test
+    void setPharmacyService() {
+        PharmacyService expected = new PharmacyService();
+        m_ctrl.setPharmacyService(expected);
+        PharmacyService real = m_ctrl.getPharmacyService();
+        assertEquals(expected,real);
+    }
+
+    @Test
+    void getDroneService() {
+        DroneService expected = m_mockDroneService;
+        DroneService real = m_ctrl.getDroneService();
+        assertEquals(expected,real);
+    }
+
+    @Test
+    void setDroneService() {
+        DroneService expected = new DroneService();
+        m_ctrl.setDroneService(expected);
+        DroneService real = m_ctrl.getDroneService();
+        assertEquals(expected,real);
     }
 }

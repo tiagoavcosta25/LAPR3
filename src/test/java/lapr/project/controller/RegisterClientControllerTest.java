@@ -44,65 +44,79 @@ class RegisterClientControllerTest {
                 parse("10/23")).getTime());
         List<CreditCard> lst = new ArrayList<>();
         lst.add(new CreditCard());
-        when (m_mockClientService.newClient("as",123456789,"aas@","1234567",123d,12355d,10d,"asd"
-                ,"as","4433-112","loc","country",new ArrayList<>())).thenReturn(new Client("as",123456789,"aas@","1234567",123d,12355d,10d,"asd"
-                ,"as","4433-112","loc","country",lst));
-        when (m_mockClientService.validateInput("as",123456789,"aas@","1234567",123d,12355d,10d,"asd"
-                ,"as","4433-112","loc","country",new ArrayList<>())).thenReturn(true);
-        when (m_mockClientService.registerNewClient(new Client("as",123456789,"aas@","1234567",123d,12355d,10d,"asd"
-                ,"as","4433-112","loc","country",new ArrayList<>()))).thenReturn(true);
-        boolean real = m_ctrl.registerNewClient("as",123456789,"aas@","1234567",123d,12355d,10d,"asd"
-                ,"as","4433-112","loc","country",new ArrayList<>());
+        when(m_mockClientService.newClient("as", 123456789, "aas@", "1234567", 123d, 12355d, 10d, "asd"
+                , "as", "4433-112", "loc", "country", new ArrayList<>())).thenReturn(new Client("as", 123456789, "aas@", "1234567", 123d, 12355d, 10d, "asd"
+                , "as", "4433-112", "loc", "country", lst));
+        when(m_mockClientService.validateInput("as", 123456789, "aas@", "1234567", 123d, 12355d, 10d, "asd"
+                , "as", "4433-112", "loc", "country", new ArrayList<>())).thenReturn(true);
+        when(m_mockClientService.registerNewClient(new Client("as", 123456789, "aas@", "1234567", 123d, 12355d, 10d, "asd"
+                , "as", "4433-112", "loc", "country", new ArrayList<>()))).thenReturn(true);
+        boolean real = m_ctrl.registerNewClient("as", 123456789, "aas@", "1234567", 123d, 12355d, 10d, "asd"
+                , "as", "4433-112", "loc", "country", new ArrayList<>());
         assertTrue(real);
 
-        real = m_ctrl.registerNewClient("as",123456789,"aas@","1234567",123d,12355d,10d,"asd"
-                ,"as","4433-112","loc","country",new ArrayList<>());
+        real = m_ctrl.registerNewClient("as", 123456789, "aas@", "1234567", 123d, 12355d, 10d, "asd"
+                , "as", "4433-112", "loc", "country", new ArrayList<>());
         assertTrue(real);
 
-        real = m_ctrl.registerNewClient("as",123456789,"a@","1234567",1231d,124d,10d,"asda",
-                "asd","434-243","loca","country",new ArrayList<>());
+        real = m_ctrl.registerNewClient("as", 123456789, "a@", "1234567", 1231d, 124d, 10d, "asda",
+                "asd", "434-243", "loca", "country", new ArrayList<>());
 
         assertFalse(real);
 
-        real = m_ctrl.registerNewClient("as",123456789,"a@","1234567",1231d,124d,10d,"asda",
-                "asd","434-243","loca","country",new ArrayList<>());
+        real = m_ctrl.registerNewClient("as", 123456789, "a@", "1234567", 1231d, 124d, 10d, "asda",
+                "asd", "434-243", "loca", "country", new ArrayList<>());
         assertFalse(real);
 
-        real = m_ctrl.registerNewClient("as",123456789,"a@","1234567",1231d,124d,10d,"asda",
-                "asd","434-243","loca","country",new ArrayList<>());
+        real = m_ctrl.registerNewClient("as", 123456789, "a@", "1234567", 1231d, 124d, 10d, "asda",
+                "asd", "434-243", "loca", "country", new ArrayList<>());
         assertFalse(real);
 
-        when (m_mockClientService.validateInput("as",123456789,"a@","1234567",1231d,124d,10d,"asda",
-                "asd","434-243","loca","country",new ArrayList<>())).thenReturn(false);
+        when(m_mockClientService.validateInput("as", 123456789, "a@", "1234567", 1231d, 124d, 10d, "asda",
+                "asd", "434-243", "loca", "country", new ArrayList<>())).thenReturn(false);
 
-        real = m_ctrl.registerNewClient("as",123456789,"a@","1234567",1231d,124d,10d,"asda",
-                "asd","434-243","loca","country",new ArrayList<>());
+        real = m_ctrl.registerNewClient("as", 123456789, "a@", "1234567", 1231d, 124d, 10d, "asda",
+                "asd", "434-243", "loca", "country", new ArrayList<>());
 
         assertFalse(real);
 
-        when (m_mockClientService.newClient("as",123456789,"ass@","1234567",123d,12355d,10d,"asd"
-                ,"as","4433-112","loc","country",new ArrayList<>())).thenReturn(new Client("as",123456789,"ass@","1234567",123d,12355d,10d,"asd"
-                ,"as","4433-112","loc","country",new ArrayList<>()));
-        when (m_mockClientService.validateInput("as",123456789,"ass@","1234567",123d,12355d,10d,"asd"
-                ,"as","4433-112","loc","country",new ArrayList<>())).thenThrow(new NullPointerException());
-        when (m_mockClientService.registerNewClient(new Client("as",123456789,"ass@","1234567",123d,12355d,10d,"asd"
-                ,"as","4433-112","loc","country",new ArrayList<>()))).thenReturn(true);
+        when(m_mockClientService.newClient("as", 123456789, "ass@", "1234567", 123d, 12355d, 10d, "asd"
+                , "as", "4433-112", "loc", "country", new ArrayList<>())).thenReturn(new Client("as", 123456789, "ass@", "1234567", 123d, 12355d, 10d, "asd"
+                , "as", "4433-112", "loc", "country", new ArrayList<>()));
+        when(m_mockClientService.validateInput("as", 123456789, "ass@", "1234567", 123d, 12355d, 10d, "asd"
+                , "as", "4433-112", "loc", "country", new ArrayList<>())).thenThrow(new NullPointerException());
+        when(m_mockClientService.registerNewClient(new Client("as", 123456789, "ass@", "1234567", 123d, 12355d, 10d, "asd"
+                , "as", "4433-112", "loc", "country", new ArrayList<>()))).thenReturn(true);
 
-        real = m_ctrl.registerNewClient("as",123456789,"ass@","1234567",123d,12355d,10d,"asd"
-                ,"as","4433-112","loc","country",new ArrayList<>());
+        real = m_ctrl.registerNewClient("as", 123456789, "ass@", "1234567", 123d, 12355d, 10d, "asd"
+                , "as", "4433-112", "loc", "country", new ArrayList<>());
         assertFalse(real);
 
 
-        when (m_mockClientService.newClient("as",123456777,"a@","1234567",123d,12355d,10d,"asd"
-                ,"as","4433-112","loc","country",new ArrayList<>())).thenReturn(new Client("as",123456777,"a@","1234567",123d,12355d,10d,"asd"
-                ,"as","4433-112","loc","country",new ArrayList<>()));
-        when (m_mockClientService.validateInput("as",123456777,"a@","1234567",123d,12355d,10d,"asd"
-                ,"as","4433-112","loc","country",new ArrayList<>())).thenReturn(true);
-        when (m_mockClientService.registerNewClient(new Client("as",123456777,"a@","1234567",123d,12355d,10d,"asd"
-                ,"as","4433-112","loc","country",new ArrayList<>()))).thenReturn(false);
-        real = m_ctrl.registerNewClient("as",123456777,"a@","1234567",123d,12355d,10d,"asd"
-                ,"as","4433-112","loc","country",new ArrayList<>());
+        when(m_mockClientService.newClient("as", 123456777, "a@", "1234567", 123d, 12355d, 10d, "asd"
+                , "as", "4433-112", "loc", "country", new ArrayList<>())).thenReturn(new Client("as", 123456777, "a@", "1234567", 123d, 12355d, 10d, "asd"
+                , "as", "4433-112", "loc", "country", new ArrayList<>()));
+        when(m_mockClientService.validateInput("as", 123456777, "a@", "1234567", 123d, 12355d, 10d, "asd"
+                , "as", "4433-112", "loc", "country", new ArrayList<>())).thenReturn(true);
+        when(m_mockClientService.registerNewClient(new Client("as", 123456777, "a@", "1234567", 123d, 12355d, 10d, "asd"
+                , "as", "4433-112", "loc", "country", new ArrayList<>()))).thenReturn(false);
+        real = m_ctrl.registerNewClient("as", 123456777, "a@", "1234567", 123d, 12355d, 10d, "asd"
+                , "as", "4433-112", "loc", "country", new ArrayList<>());
         assertFalse(real);
     }
 
+    @Test
+    void getClientService() {
+        ClientService expected = m_mockClientService;
+        ClientService real = m_ctrl.getClientService();
+        assertEquals(expected, real);
+    }
+
+    @Test
+    void setClientService() {
+        ClientService expected = new ClientService();
+        m_ctrl.setClientService(expected);
+        ClientService real = m_ctrl.getClientService();
+        assertEquals(expected,real);
+    }
 }

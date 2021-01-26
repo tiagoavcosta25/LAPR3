@@ -1,6 +1,7 @@
 package lapr.project.controller;
 
 import lapr.project.model.service.DroneService;
+import lapr.project.model.service.OrderService;
 import lapr.project.model.service.VehicleService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -32,5 +33,21 @@ public class VehiclePayloadControllerTest {
         when(mockVehicleService.getVehiclePayload(1)).thenReturn(expResult);
         double result = this.vehiclePayloadController.getVehiclePayload(1);
         assertEquals(expResult,result);
+    }
+    @Test
+    void testGetVehicleService(){
+        VehiclePayloadController ctrl = new VehiclePayloadController();
+        VehicleService expected = new VehicleService();
+        ctrl.setMoVehicleServ(expected);
+        VehicleService real = ctrl.getMoVehicleServ();
+        assertEquals(expected, real);
+    }
+    @Test
+    void testSetVehicleService(){
+        VehiclePayloadController ctrl = new VehiclePayloadController();
+        VehicleService expected = new VehicleService();
+        ctrl.setMoVehicleServ(expected);
+        VehicleService real = ctrl.getMoVehicleServ();
+        assertEquals(expected, real);
     }
 }

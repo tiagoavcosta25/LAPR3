@@ -18,6 +18,14 @@ public class RegisterClientController {
         moClientService = new ClientService();
     }
 
+    public ClientService getClientService() {
+        return moClientService;
+    }
+
+    public void setClientService(ClientService oClientService) {
+        this.moClientService = oClientService;
+    }
+
     /**
      * Registers a new Client in the Database
      *

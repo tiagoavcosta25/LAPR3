@@ -13,4 +13,12 @@ public class VehiclePayloadController {
     public double getVehiclePayload(int vehicleId) {
         return this.moVehicleServ.getVehiclePayload(vehicleId);
     }
+
+    public VehicleService getMoVehicleServ() {
+        return moVehicleServ;
+    }
+
+    public void setMoVehicleServ(VehicleService moVehicleServ) {
+        this.moVehicleServ = moVehicleServ;
+    }
 }

@@ -39,4 +39,54 @@ public class KnowDeliveryControllerTest {
         Order result = knowDeliveryController.getOrderByCour();
         assertEquals(expectedTrue, result);
     }
+    @Test
+    void testGetOrderService(){
+        KnowDeliveryController ctrl = new KnowDeliveryController();
+        OrderService expected = new OrderService();
+        ctrl.setMoOrderService(expected);
+        OrderService real = ctrl.getMoOrderService();
+        assertEquals(expected, real);
+    }
+    @Test
+    void testSetOrderService() {
+        KnowDeliveryController ctrl = new KnowDeliveryController();
+        OrderService expected = new OrderService();
+        ctrl.setMoOrderService(expected);
+        OrderService real = ctrl.getMoOrderService();
+        assertEquals(expected, real);
+    }
+    @Test
+    void testGetCourierEmail(){
+        KnowDeliveryController ctrl = new KnowDeliveryController();
+        ApplicationPOT.getInstance().setCurrentSession(new UserSession("email1@gmail.com"));
+        String expected = "email1@gmail.com";
+        ctrl.setMoCourierEmail(expected);
+        String real = ctrl.getMoCourierEmail();
+        assertEquals(expected, real);
+    }
+    @Test
+    void testSetCourierEmail() {
+        KnowDeliveryController ctrl = new KnowDeliveryController();
+        ApplicationPOT.getInstance().setCurrentSession(new UserSession("email2@gmail.com"));
+        String expected = "email2@gmail.com";
+        ctrl.setMoCourierEmail(expected);
+        String real = ctrl.getMoCourierEmail();
+        assertEquals(expected, real);
+    }
+    @Test
+    void testGetOrder(){
+        KnowDeliveryController ctrl = new KnowDeliveryController();
+        Order expected = new Order();
+        ctrl.setMoOrder(expected);
+        Order real = ctrl.getMoOrder();
+        assertEquals(expected, real);
+    }
+    @Test
+    void testSetOrder() {
+        KnowDeliveryController ctrl = new KnowDeliveryController();
+        Order expected = new Order();
+        ctrl.setMoOrder(expected);
+        Order real = ctrl.getMoOrder();
+        assertEquals(expected, real);
+    }
 }

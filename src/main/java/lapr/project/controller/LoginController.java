@@ -6,6 +6,13 @@ public class LoginController {
 
     private UserService moUserService;
 
+    public UserService getUserService() {
+        return moUserService;
+    }
+
+    public void setUserService(UserService oUserService) {
+        this.moUserService = oUserService;
+    }
 
     public LoginController() {
         moUserService = new UserService();

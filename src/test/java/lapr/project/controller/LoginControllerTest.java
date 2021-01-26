@@ -43,4 +43,18 @@ class LoginControllerTest {
     }
 
 
+    @Test
+    void getUserService() {
+        UserService expected = m_mockUserService;
+        UserService real = m_ctrl.getUserService();
+        assertEquals(expected,real);
+    }
+
+    @Test
+    void setUserService() {
+        UserService expected = new UserService();
+        m_ctrl.setUserService(expected);
+        UserService real = m_ctrl.getUserService();
+        assertEquals(expected,real);
+    }
 }
