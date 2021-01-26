@@ -3,11 +3,9 @@
  */
 package lapr.project.graph.map;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.Map;
+import java.util.List;
 
 /**
  * @author DEI-ESINF
@@ -25,7 +23,7 @@ public class GraphAlgorithms {
      * @param vert information of the Vertex that will be the source of the search
      * @return qbfs a queue with the vertices of breadth-first search
      */
-    public static <V, E> LinkedList<V> BreadthFirstSearch(Graph<V, E> g, V vert) {
+    public static <V, E> List<V> breadthFirstSearch(Graph<V, E> g, V vert) {
         if (!g.validVertex(vert)) {
             return null;
         }
@@ -53,11 +51,11 @@ public class GraphAlgorithms {
      * @param vOrig set of discovered vertices
      * @param qdfs  queue with vertices of depth-first search
      */
-    private static <V, E> void DepthFirstSearch(Graph<V, E> g, V vOrig, LinkedList<V> qdfs) {
+    private static <V, E> void depthFirstSearch(Graph<V, E> g, V vOrig, LinkedList<V> qdfs) {
         qdfs.add(vOrig);
         for (V adj : g.adjVertices(vOrig)) {
             if (!qdfs.contains(adj)) {
-                DepthFirstSearch(g, adj, qdfs);
+                depthFirstSearch(g, adj, qdfs);
             }
         }
     }
@@ -67,12 +65,12 @@ public class GraphAlgorithms {
      * @param vert information of the Vertex that will be the source of the search
      * @return qdfs a queue with the vertices of depth-first search
      */
-    public static <V, E> LinkedList<V> DepthFirstSearch(Graph<V, E> g, V vert) {
+    public static <V, E> LinkedList<V> depthFirstSearch(Graph<V, E> g, V vert) {
         if (!g.validVertex(vert)) {
             return null;
         }
         LinkedList<V> path = new LinkedList<>();
-        DepthFirstSearch(g, vert, path);
+        depthFirstSearch(g, vert, path);
         return path;
 
     }
@@ -123,7 +121,7 @@ public class GraphAlgorithms {
      * @param vDest information of the Vertex destination
      * @return paths ArrayList with all paths from voInf to vdInf
      */
-    public static<V,E> ArrayList<LinkedList<V>> allPaths(Graph<V,E> g, V vOrig, V vDest){
+    public static<V,E> List<LinkedList<V>> allPaths(Graph<V,E> g, V vOrig, V vDest){
         if(!g.validVertex(vOrig) || !g.validVertex(vDest)) return null;
 
         ArrayList<LinkedList<V>> paths = new ArrayList<>();

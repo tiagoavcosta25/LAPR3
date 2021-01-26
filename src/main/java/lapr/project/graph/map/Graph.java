@@ -204,10 +204,8 @@ public class Graph<V, E> implements GraphInterface<V, E> {
         vorig.addAdjVert(vDest, newEdge);
         numEdge++;
 
-        //if graph is not direct insert other edge in the opposite direction 
-        if (!isDirected)
-            // if vDest different vOrig
-            if (getEdge(vDest, vOrig) == null) {
+        //if graph is not direct insert other edge in the opposite direction and if vDest different vOrig
+        if (!isDirected && getEdge(vDest, vOrig) == null) {
                 Edge<V, E> otherEdge = new Edge<>(eInf, eWeight, vdest, vorig);
                 vdest.addAdjVert(vOrig, otherEdge);
                 numEdge++;
@@ -327,14 +325,14 @@ public class Graph<V, E> implements GraphInterface<V, E> {
     //string representation
     @Override
     public String toString() {
-        String s = "";
+        StringBuilder s;
         if (numVert == 0) {
-            s = "\nGraph not defined!!";
+            s = new StringBuilder("\nGraph not defined!!");
         } else {
-            s = "Graph: " + numVert + " vertices, " + numEdge + " edges\n";
+            s = new StringBuilder("Graph: " + numVert + " vertices, " + numEdge + " edges\n");
             for (Vertex<V, E> vert : vertices.values())
-                s += vert + "\n";
+                s.append(vert).append("\n");
         }
-        return s;
+        return s.toString();
     }
 }

@@ -1,9 +1,6 @@
 package lapr.project.graph.map;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.LinkedList;
+import java.util.*;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -73,9 +70,9 @@ public class GraphAlgorithmsTest {
     public void testBreadthFirstSearch() {
         System.out.println("Test BreadthFirstSearch");
 
-        assertNull(GraphAlgorithms.BreadthFirstSearch(completeMap, "LX"));
+        assertNull(GraphAlgorithms.breadthFirstSearch(completeMap, "LX"));
 
-        LinkedList<String> path = GraphAlgorithms.BreadthFirstSearch(incompleteMap, "Faro");
+        List<String> path = GraphAlgorithms.breadthFirstSearch(incompleteMap, "Faro");
 
         assert path != null;
         assertEquals(1, path.size());
@@ -83,11 +80,11 @@ public class GraphAlgorithmsTest {
         Iterator<String> it = path.iterator();
         assertEquals(0, it.next().compareTo("Faro"));
         
-        path = GraphAlgorithms.BreadthFirstSearch(incompleteMap, "Porto");
+        path = GraphAlgorithms.breadthFirstSearch(incompleteMap, "Porto");
         assert path != null;
         assertEquals(7, path.size());
         
-        path = GraphAlgorithms.BreadthFirstSearch(incompleteMap, "Viseu");
+        path = GraphAlgorithms.breadthFirstSearch(incompleteMap, "Viseu");
         assert path != null;
         assertEquals(3, path.size());
     }
@@ -101,20 +98,20 @@ public class GraphAlgorithmsTest {
 
         LinkedList<String> path;
 
-        assertNull(GraphAlgorithms.DepthFirstSearch(completeMap, "LX"));
+        assertNull(GraphAlgorithms.depthFirstSearch(completeMap, "LX"));
 
-        path = GraphAlgorithms.DepthFirstSearch(incompleteMap, "Faro");
+        path = GraphAlgorithms.depthFirstSearch(incompleteMap, "Faro");
         assert path != null;
         assertEquals(1, path.size());
 
         Iterator<String> it = path.iterator();
         assertEquals(0, it.next().compareTo("Faro"));
 
-        path = GraphAlgorithms.DepthFirstSearch(incompleteMap, "Porto");
+        path = GraphAlgorithms.depthFirstSearch(incompleteMap, "Porto");
         assert path != null;
         assertEquals(7, path.size());
 
-        path = GraphAlgorithms.DepthFirstSearch(incompleteMap, "Viseu");
+        path = GraphAlgorithms.depthFirstSearch(incompleteMap, "Viseu");
         assert path != null;
         assertEquals(3, path.size());
 
@@ -131,7 +128,7 @@ public class GraphAlgorithmsTest {
     public void testAllPaths() {
         System.out.println("Test of all paths");
         
-        ArrayList<LinkedList<String>> paths;
+        List<LinkedList<String>> paths;
        
         paths=GraphAlgorithms.allPaths(completeMap, "Porto", "LX");
         assertNull(paths);

@@ -37,6 +37,13 @@ public class EdgeTest {
         assertEquals(expResult, instance1.getElement());
     }
 
+    @Test
+    public void testhashCode() {
+        Edge<String, String> instance1 = new Edge<>("edge1",1.0,null,null);
+        int expResult = 1596761325;
+        assertEquals(expResult, instance1.hashCode());
+    }
+
     /**
      * Test of setElement method, of class Edge.
      */

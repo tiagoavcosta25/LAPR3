@@ -1,6 +1,7 @@
 package lapr.project.graph.map;
 
 import java.lang.reflect.Array;
+import java.util.Objects;
 
 /**
  * @param <V>
@@ -67,7 +68,9 @@ public class Edge<V, E> implements Comparable {
 
     public V[] getEndpoints() {
 
-        V oElem = null, dElem = null, typeElem = null;
+        V oElem = null;
+        V dElem = null;
+        V typeElem = null;
 
         if (this.vOrig != null)
             oElem = vOrig.getElement();
@@ -90,6 +93,11 @@ public class Edge<V, E> implements Comparable {
         endverts[1] = dElem;
 
         return endverts;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(element, weight, vOrig, vDest);
     }
 
     @Override
