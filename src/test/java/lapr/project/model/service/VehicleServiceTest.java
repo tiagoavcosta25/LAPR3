@@ -40,17 +40,6 @@ class VehicleServiceTest {
     }
 
     @Test
-    void getSuitableVehicle() {
-        when (m_oVehicleDB.getSuitableVehicle(-1d,-1d,"email3@gmail.com")).thenReturn(new Scooter());
-        Vehicle real = m_service.getSuitableVehicle(-1d,-1d,"email3@gmail.com");
-        assertEquals(new Scooter(),real);
-
-        when (m_oVehicleDB.getSuitableVehicle(-1d,-1d,"email3@gmail.com")).thenReturn(new Drone());
-        real = m_service.getSuitableVehicle(-1d,-1d,"email3@gmail.com");
-        assertEquals(new Drone(),real);
-    }
-
-    @Test
     void getPharmacyModel() {
         System.out.println("getPharmacyModel");
         when (m_oVehicleDB.getPharmacyModel("email3@gmail.com")).thenReturn(new ArrayList<>());
