@@ -2,11 +2,17 @@ create or replace function getSuitableCourier
     return sys_refcursor
     is
     v_cursor sys_refcursor;
-    courier_not_found exception;
+    v_id COURIER.USERID%type;
+    v_name "User".NAME%TYPE;
+    v_email "User".EMAIL%TYPE;
+    v_pw "User".PASSWORD%type;
+    v_nif "User".NIF%TYPE;
+    v_iban COURIER.IBAN%type;
+    v_pid PHARMACY.EMAIL%type;
 begin
 
     open v_cursor for
-        select c.USERID,u.NAME,u.EMAIL,u.PASSWORD,u.NIF,c.IBAN,p.ID
+        select c.USERID,u.NAME,u.EMAIL,u.PASSWORD,u.NIF,c.IBAN,p.EMAIL
         from COURIER c
                  inner join PHARMACY p on p.ID = c.PHARMACYID
                  inner join DELIVERYRUN d on d.COURIERID = c.USERID
@@ -17,16 +23,21 @@ begin
                                                  from COURIER co inner join DELIVERYRUN dr on dr.COURIERID = co.USERID
                                                  GROUP BY dr.COURIERID) fetch FIRST ROW ONLY;
 
-    if v_cursor is null then
-        raise courier_not_found;
-    end if;
+    for v_counter IN 0.. 0 LOOP
+            FETCH  v_cursor INTO v_id,v_name,v_email,v_pw,v_nif,v_iban,v_pid ;
+            if v_cursor%notFound then
+                open v_cursor for
+                    select c.USERID,u.NAME,u.EMAIL,u.PASSWORD,u.NIF,c.IBAN,p.EMAIL
+                    from COURIER c
+                             inner join PHARMACY p on p.ID = c.PHARMACYID
+                             inner join "User" u on u.ID = c.USERID
+                        fetch first row only;
+                return v_cursor;
+            end if;
+            EXIT;
+
+        end loop;
 
     return v_cursor;
-
-
-EXCEPTION
-    when courier_not_found then
-        RAISE_APPLICATION_ERROR(-20130,'Courier NOT Found!');
-        return null;
 
 end;

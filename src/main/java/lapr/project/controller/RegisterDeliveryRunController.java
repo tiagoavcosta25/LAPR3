@@ -31,7 +31,6 @@ public class RegisterDeliveryRunController {
 
     public boolean registerDeliveryRun(List<Order> lstOrder) {
         if (ApplicationPOT.getInstance().getCurrentSession().getRole().equals(UserSession.Role.ADMIN)) {
-
             List<Pair<Pair<VehicleModel, Double>, List<Address>>> lstPair = moGraphService.calculateBestVehicleAndBestPath(lstOrder);
             VehicleModel oModel = moDeliveryRunService.getMostEfficientVehicleModel(lstPair);
 

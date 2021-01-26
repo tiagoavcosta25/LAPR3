@@ -742,6 +742,7 @@ class GraphServiceTest {
         listPairResult.add(pairResult);
         listPairResult.add(pairResult);
         assertEquals(new LinkedList<>(), world.calculatePermutationPaths(world.getScooterGraph(), trindade, trindade, permutations));
+        assertNotEquals(listPairResult, world.calculatePermutationPaths(world.getScooterGraph(), trindade, trindade, permutations));
     }
 
     @Test
