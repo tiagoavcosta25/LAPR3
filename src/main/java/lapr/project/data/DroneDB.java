@@ -3,7 +3,6 @@ package lapr.project.data;
 import lapr.project.model.*;
 import oracle.jdbc.internal.OracleTypes;
 
-import java.security.NoSuchAlgorithmException;
 import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,11 +13,7 @@ public class DroneDB extends DataHandler {
 
     public Drone getDrone(int id) {
 
-        CallableStatement callStmt = null;
-        try {
-            openConnection();
-            callStmt = getConnection().prepareCall("{ ? = call getDrone(?) }");
-
+        try (CallableStatement callStmt = getConnection().prepareCall("{ ? = call getDrone(?) }");){
             callStmt.registerOutParameter(1, oracle.jdbc.OracleTypes.CURSOR);
             callStmt.setInt(2, id);
 
@@ -39,9 +34,7 @@ public class DroneDB extends DataHandler {
 
     public boolean updateDroneFromDB(int intId, double dblBatteryPerc, String strDesignation, double dblPotency, double dblWeight, double dblMaxPayload,
                                        int intBatteryCapacity, double dblBatteryVoltage, double dblEfficiency) {
-        try {
-            openConnection();
-            CallableStatement callStmt = getConnection().prepareCall("{call updateDrone(?,?,?,?,?,?,?,?,?)}");
+        try(CallableStatement callStmt = getConnection().prepareCall("{call updateDrone(?,?,?,?,?,?,?,?,?)}");) {
 
             callStmt.setInt(1, intId);
             callStmt.setDouble(2, dblBatteryPerc);
@@ -68,11 +61,7 @@ public class DroneDB extends DataHandler {
     }
 
     public int addDrone(double dblBatteryPerc, VehicleModel oVehicleModel, Pharmacy oPharmacy) {
-        try {
-            openConnection();
-
-            CallableStatement callStmt = getConnection().prepareCall("{ ? = call addDrone(?,?,?) }");
-
+        try(CallableStatement callStmt = getConnection().prepareCall("{ ? = call addDrone(?,?,?) }");) {
             callStmt.registerOutParameter(1, oracle.jdbc.OracleTypes.INTEGER);
             callStmt.setDouble(2, dblBatteryPerc);
             callStmt.setInt(3, oVehicleModel.getId());
@@ -91,11 +80,8 @@ public class DroneDB extends DataHandler {
 
     public List<Drone> getDronesList(String strPharmacyEmail) {
 
-        CallableStatement callStmt = null;
         List<Drone> lstDrone = new ArrayList<>();
-        try {
-            openConnection();
-            callStmt = getConnection().prepareCall("{ ? = call getDronesList(?) }");
+        try(CallableStatement callStmt = getConnection().prepareCall("{ ? = call getDronesList(?) }");) {
 
             callStmt.registerOutParameter(1, oracle.jdbc.internal.OracleTypes.CURSOR);
             callStmt.setString(2, strPharmacyEmail);
@@ -115,11 +101,7 @@ public class DroneDB extends DataHandler {
     }
 
     public boolean removeDroneFromDB(int intId) {
-        try {
-            openConnection();
-
-            CallableStatement callStmt = getConnection().prepareCall("{ call removeDrone(?) }");
-
+        try(CallableStatement callStmt = getConnection().prepareCall("{ call removeDrone(?) }");) {
             callStmt.setInt(1, intId);
 
             callStmt.execute();
@@ -136,12 +118,8 @@ public class DroneDB extends DataHandler {
 
     public float getDronePayload(int droneId) {
 
-        CallableStatement callStmt = null;
         float payload = 0f;
-        try {
-            openConnection();
-            callStmt = getConnection().prepareCall("{ ? = call getDronePayload(?) }");
-
+        try (CallableStatement callStmt = getConnection().prepareCall("{ ? = call getDronePayload(?) }");){
             callStmt.registerOutParameter(1, OracleTypes.FLOAT);
             callStmt.setInt(2, droneId);
             callStmt.execute();
