@@ -164,6 +164,15 @@ class DeliveryRunServiceTest {
         assertEquals(new VehicleModel(),real);
 
         lst = new ArrayList<>();
+        lst.add(new Pair<Pair<VehicleModel,Double>,List<Address>>(new Pair<VehicleModel,Double>
+                (new VehicleModel(),2d), new ArrayList<>()));
+        lst.add(new Pair<Pair<VehicleModel,Double>,List<Address>>(new Pair<VehicleModel,Double>
+                (new VehicleModel(),2d), new ArrayList<>()));
+
+        real = m_oDeliveryRunService.getMostEfficientVehicleModel(lst);
+        assertEquals(new VehicleModel(),real);
+
+        lst = new ArrayList<>();
         lst.add(null);
         lst.add(new Pair<Pair<VehicleModel,Double>,List<Address>>(new Pair<VehicleModel,Double>
                 (new VehicleModel(),2d), new ArrayList<>()));
