@@ -12,7 +12,7 @@ class EmailSenderTest {
     @Test
     void emailSender() {
         boolean result = EmailSender.sendEmail("", "Test", "Test");
-        assertTrue(result);
+        assertFalse(result);
 
         result = EmailSender.sendEmail("teste@gmail.com", "Test", "");
         assertTrue(result);
