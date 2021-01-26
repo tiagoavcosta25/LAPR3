@@ -14,13 +14,13 @@ public class WriteFile {
     private static final Logger LOGGER = Logger.getLogger(FileReader.class.getName());
 
     public static boolean write(String strFileName, String strContent) {
-        try {
+
             String strFilePath = "src/main/resources/files/output/" + strFileName + ".txt";
-            File file = new File(strFilePath);
             String body = String.format("______________________________________________________________________________________\n" +
                             "%s\n\n______________________________________________________________________________________\n\n" +
                             "Thank you for choosing us.\nKing regards,\nPharmacy Service G21.",strContent);
-            FileWriter fw = new FileWriter(strFilePath);
+
+        try(FileWriter fw = new FileWriter(strFilePath);) {
             fw.write(body);
             fw.close();
 

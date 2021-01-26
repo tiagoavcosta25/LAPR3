@@ -101,10 +101,8 @@ public class RegisterCourierController {
 
         if (!strEmail.contains("@") || !strPharmacyEmail.contains("@")) return false;
 
-        if ((strIBAN.trim().length() != 25)
-                || (int) (Math.log10(intNIF) + 1) != 9) return false;
-
-        return true;
+        return (strIBAN.trim().length() == 25)
+                && (int) (Math.log10(intNIF) + 1) == 9;
     }
 
     public CourierService getCourierService() {

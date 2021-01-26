@@ -68,8 +68,8 @@ public class PharmacyTransfer {
         return (Date)mdtTransferDate.clone();
     }
 
-    public void setTransferDate(Date m_dtTransferDate) {
-        this.mdtTransferDate = (Date)m_dtTransferDate.clone();
+    public void setTransferDate(Date mdtTransferDate) {
+        this.mdtTransferDate = (Date)mdtTransferDate.clone();
     }
 
     public Order getOrder() {

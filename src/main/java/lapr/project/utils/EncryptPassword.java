@@ -29,8 +29,7 @@ public class EncryptPassword{
         m.update(pass.getBytes());
         byte[] digest = m.digest();
         BigInteger bigInt = new BigInteger(1, digest);
-        String hashText = bigInt.toString(16);
-        return hashText;
+        return bigInt.toString(16);
     }
 
     /**

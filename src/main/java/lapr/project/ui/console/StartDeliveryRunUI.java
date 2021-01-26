@@ -1,7 +1,6 @@
 package lapr.project.ui.console;
 
 import lapr.project.controller.StartDeliveryRunController;
-import lapr.project.ui.FileReader;
 import lapr.project.ui.UI;
 
 import java.util.Scanner;
@@ -22,16 +21,13 @@ public class StartDeliveryRunUI implements UI {
             System.out.println("YES[1]");
             System.out.println("NO[2]");
             input = reader.nextInt();
-            switch (input) {
-                case 1:
-                    StartDeliveryRunController ctrl = new StartDeliveryRunController();
-                    if (ctrl.startDeliveryRun()) {
-                        LOGGER.log(Level.INFO, "Delivery Run was started with success!");
-                    } else LOGGER.log(Level.WARNING, "There was a problem starting the Delivery Run");
-                    break;
-                case 2:
-                    LOGGER.log(Level.INFO, "Operation Cancelled!");
-                    break;
+            if (input == 1) {
+                StartDeliveryRunController ctrl = new StartDeliveryRunController();
+                if (ctrl.startDeliveryRun()) {
+                    LOGGER.log(Level.INFO, "Delivery Run was started with success!");
+                } else LOGGER.log(Level.WARNING, "There was a problem starting the Delivery Run");
+            } else if (input == 2) {
+                LOGGER.log(Level.INFO, "Operation Cancelled!");
             }
 
         } catch (Exception e) {

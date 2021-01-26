@@ -1,6 +1,5 @@
 package lapr.project.model;
 
-
 import java.security.NoSuchAlgorithmException;
 import java.util.Objects;
 
@@ -15,7 +14,7 @@ public class Courier extends User {
         this.setPharmacy(new Pharmacy());
     }
 
-    public Courier(int intId, String strName, String strEmail, String strPassword,Integer strNif,String strIban, Pharmacy oPharmacy) throws NoSuchAlgorithmException {
+    public Courier(int intId, String strName, String strEmail, String strPassword,Integer strNif,String strIban, Pharmacy oPharmacy) {
         super(intId, strEmail,strPassword,strNif,strName);
         this.setIban(strIban);
         this.setPharmacy(oPharmacy);

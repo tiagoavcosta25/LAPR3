@@ -3,7 +3,6 @@ package lapr.project.ui.console;
 import lapr.project.controller.ScooterInformationController;
 import lapr.project.model.Pharmacy;
 import lapr.project.model.Scooter;
-import lapr.project.ui.FileReader;
 import lapr.project.ui.UI;
 
 import java.util.List;

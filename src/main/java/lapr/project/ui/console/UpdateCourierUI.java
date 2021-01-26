@@ -2,7 +2,6 @@ package lapr.project.ui.console;
 
 import lapr.project.controller.UpdateCourierController;
 import lapr.project.model.Courier;
-import lapr.project.ui.FileReader;
 import lapr.project.ui.UI;
 
 import java.util.Scanner;
@@ -46,19 +45,16 @@ public class UpdateCourierUI implements UI {
                 System.out.println("NO[2]");
                 System.out.println("CANCEL[3]");
                 input = reader.nextInt();
-                switch (input) {
-                    case 1:
-                        Courier c2 = ctrl.updateCourier(c, name, email, nif, iban, pharmacyEmail);
-                        if (c2 != c) {
-                            ctrl.updateCourierDB();
-                            LOGGER.log(Level.INFO, "Courier was updated with success!");
-                        } else LOGGER.log(Level.INFO, "There was a problem updating the Courier!");
-                        flag = false;
-                        break;
-                    case 3:
-                        LOGGER.log(Level.INFO, "Operation Cancelled!");
-                        flag = false;
-                        break;
+                if (input == 1) {
+                    Courier c2 = ctrl.updateCourier(c, name, email, nif, iban, pharmacyEmail);
+                    if (c2 != c) {
+                        ctrl.updateCourierDB();
+                        LOGGER.log(Level.INFO, "Courier was updated with success!");
+                    } else LOGGER.log(Level.INFO, "There was a problem updating the Courier!");
+                    flag = false;
+                } else if (input == 3) {
+                    LOGGER.log(Level.INFO, "Operation Cancelled!");
+                    flag = false;
                 }
             }
 

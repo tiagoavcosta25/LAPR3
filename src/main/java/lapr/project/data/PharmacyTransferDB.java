@@ -53,10 +53,7 @@ public class PharmacyTransferDB extends DataHandler {
 
     public boolean removePharmacyTransfer(int intId) {
 
-        try {
-            openConnection();
-
-            CallableStatement callStmt = getConnection().prepareCall("{ call removePharmacyTransfer(?) }");
+        try(CallableStatement callStmt = getConnection().prepareCall("{ call removePharmacyTransfer(?) }");) {
 
             callStmt.setInt(1, intId);
 

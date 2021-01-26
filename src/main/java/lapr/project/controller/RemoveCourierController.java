@@ -55,9 +55,7 @@ public class RemoveCourierController {
      */
     public boolean validateInput(String email) {
 
-        if (email == null || email.isEmpty() || !email.contains("@")) return false;
-
-        return true;
+        return email != null && !email.isEmpty() && email.contains("@");
     }
 }
 

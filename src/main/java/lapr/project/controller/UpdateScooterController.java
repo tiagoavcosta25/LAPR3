@@ -5,7 +5,6 @@ import lapr.project.model.Scooter;
 import lapr.project.model.service.PharmacyService;
 import lapr.project.model.service.ScooterService;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 

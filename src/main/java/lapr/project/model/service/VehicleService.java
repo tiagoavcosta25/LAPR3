@@ -34,7 +34,7 @@ public class VehicleService {
                     dblBatteryVoltage, dblEfficiency), oVehicleType);
     }
 
-    public boolean generateQRCode(Vehicle oVehicle) throws IOException, WriterException {
+    public boolean generateQRCode(Vehicle oVehicle) {
         return QRCode.generateQRCode(oVehicle.getModel().getVehicleType().getDesignation() + "#" + oVehicle.getId()
                         + "_" + oVehicle.getPharmacy().getEmail(), oVehicle.getModel().getVehicleType().getDesignation() + "_" + oVehicle.getId());
     }

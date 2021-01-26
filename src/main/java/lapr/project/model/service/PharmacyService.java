@@ -54,8 +54,8 @@ public class PharmacyService {
                 strLocality, strCountry));
     }
 
-    public boolean registerPharmacyProduct(Pharmacy oPharmacy, Product oProduct, Integer m_intStock) {
-        return this.moPharmacyDB.registerPharmacyProduct(oPharmacy, oProduct, m_intStock);
+    public boolean registerPharmacyProduct(Pharmacy oPharmacy, Product oProduct, Integer mintStock) {
+        return this.moPharmacyDB.registerPharmacyProduct(oPharmacy, oProduct, mintStock);
     }
 
     public List<Pharmacy> getPharmacies() {

@@ -26,18 +26,18 @@ class Main {
                 Menu.clear();
 
                 switch(intOp){
-                    case 1: {
+                    case 1:
                         Menu.runUI(new LoginUI());
                         break;
-                    }
-                    case 2: {
+
+                    case 2:
                         Menu.runUI(new RegisterClientUI());
                         break;
-                    }
-                    case 0: {
+
+                    case 0:
                         LOGGER.log(Level.INFO, "Thank You For Using Our Application.");
                         break;
-                    }
+
                     default:
                         LOGGER.log(Level.WARNING, "Choose a valid option.");
                         break;
