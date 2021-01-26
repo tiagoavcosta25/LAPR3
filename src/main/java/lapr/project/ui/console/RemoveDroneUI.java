@@ -1,5 +1,5 @@
 package lapr.project.ui.console;
-
+/*
 import lapr.project.controller.RemoveDroneController;
 import lapr.project.model.Drone;
 import lapr.project.model.Pharmacy;
@@ -63,4 +63,4 @@ public class RemoveDroneUI implements UI {
             LOGGER.log(Level.WARNING, "There was a problem removing the Scooter");
         }
     }
-}
+}*/

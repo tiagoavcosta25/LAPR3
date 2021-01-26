@@ -1,6 +1,7 @@
 package lapr.project.ui.console;
 
 import lapr.project.controller.LogoutController;
+import lapr.project.model.VehicleType;
 import lapr.project.ui.Menu;
 import lapr.project.ui.UI;
 import java.util.Scanner;
@@ -49,8 +50,8 @@ public class AdministratorUI implements UI {
                 }
                 case 5: {
                     Menu.clear();
-                    //ProductInformationUI UI = new ProductInformationUI();
-                    //UI.run();
+                    ProductInformationUI UI = new ProductInformationUI();
+                    UI.run();
                     break;
                 }
                 case 6: {
@@ -67,8 +68,8 @@ public class AdministratorUI implements UI {
                 }
                 case 8: {
                     Menu.clear();
-                    RemoveScooterUI UI = new RemoveScooterUI();
-                    UI.run();
+                    RemoveVehicleUI UI = new RemoveVehicleUI();
+                    UI.run(VehicleType.SCOOTER);
                     break;
                 }
                 case 9: {
@@ -91,8 +92,8 @@ public class AdministratorUI implements UI {
                 }
                 case 12: {
                     Menu.clear();
-                    RemoveDroneUI UI = new RemoveDroneUI();
-                    UI.run();
+                    RemoveVehicleUI UI = new RemoveVehicleUI();
+                    UI.run(VehicleType.DRONE);
                     break;
                 }
                 case 13: {
