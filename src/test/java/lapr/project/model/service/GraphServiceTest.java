@@ -739,11 +739,6 @@ class GraphServiceTest {
         when(mockVehicleDB.getEnergyByVehicleModel(4)).thenReturn(10000000d);
         when(mockVehicleDB.getEnergyByVehicleModel(5)).thenReturn(10000000d);
         when(mockVehicleDB.getEnergyByVehicleModel(6)).thenReturn(10000000d);
-        when(mockDeliveryRunDB.checkValidChargingSlot(trindade)).thenReturn(true);
-        when(mockDeliveryRunDB.checkValidChargingSlot(saBandeira)).thenReturn(true);
-        when(mockDeliveryRunDB.checkValidChargingSlot(casteloQueijo)).thenReturn(true);
-        when(mockDeliveryRunDB.checkValidChargingSlot(clerigos)).thenReturn(true);
-        when(mockDeliveryRunDB.checkValidChargingSlot(majestic)).thenReturn(true);
         when(mockDeliveryRunDB.checkValidChargingSlot(bolhao)).thenReturn(true);
         when(mockDeliveryRunDB.checkValidChargingSlot(se)).thenReturn(true);
         when(mockDeliveryRunDB.checkValidChargingSlot(caisDaRibeira)).thenReturn(true);
@@ -812,9 +807,67 @@ class GraphServiceTest {
         assertEquals(expResult, result);
 
         world.setScooterGraph(new Graph<>(true));
+        world.setDroneGraph(new Graph<>(true));
 
+        result = world.calculateBestVehicleForMostEficientPath(lstOrders, ph1, lstScooter, lstDrone);
+        assertEquals(expResult, result);
+
+        when(mockVehicleDB.getEnergyByVehicleModel(1)).thenReturn(0d);
+        when(mockVehicleDB.getEnergyByVehicleModel(2)).thenReturn(0d);
+        when(mockVehicleDB.getEnergyByVehicleModel(3)).thenReturn(0d);
+        when(mockVehicleDB.getEnergyByVehicleModel(4)).thenReturn(0d);
+        when(mockVehicleDB.getEnergyByVehicleModel(5)).thenReturn(0d);
+        when(mockVehicleDB.getEnergyByVehicleModel(6)).thenReturn(0d);
+
+        expResult = new ArrayList<>();
+        expResult.add(null);
+        expResult.add(null);
+        result = world.calculateBestVehicleForMostEficientPath(lstOrders, ph1, lstScooter, lstDrone);
+        assertEquals(expResult, result);
+
+        world.createGraph();
+
+        when(mockVehicleDB.getEnergyByVehicleModel(1)).thenReturn(1000d);
+        when(mockVehicleDB.getEnergyByVehicleModel(2)).thenReturn(0d);
+        when(mockVehicleDB.getEnergyByVehicleModel(3)).thenReturn(0d);
+        when(mockVehicleDB.getEnergyByVehicleModel(4)).thenReturn(0d);
+        when(mockVehicleDB.getEnergyByVehicleModel(5)).thenReturn(0d);
+        when(mockVehicleDB.getEnergyByVehicleModel(6)).thenReturn(0d);
         world.setDroneGraph(new Graph<>(true));
         result = world.calculateBestVehicleForMostEficientPath(lstOrders, ph1, lstScooter, lstDrone);
+        expResult = new ArrayList<>();
+        exp1 = new Pair<>(new Pair<>(scooter1, 0.8483898598685257), path);
+        expResult.add(exp1);
+        expResult.add(null);
+        assertEquals(expResult, result);
+
+        world.createGraph();
+
+        when(mockVehicleDB.getEnergyByVehicleModel(1)).thenReturn(1000d);
+        when(mockVehicleDB.getEnergyByVehicleModel(2)).thenReturn(0d);
+        when(mockVehicleDB.getEnergyByVehicleModel(3)).thenReturn(0d);
+        when(mockVehicleDB.getEnergyByVehicleModel(4)).thenReturn(0d);
+        when(mockVehicleDB.getEnergyByVehicleModel(5)).thenReturn(0d);
+        when(mockVehicleDB.getEnergyByVehicleModel(6)).thenReturn(0d);
+        world.setScooterGraph(new Graph<>(true));
+        result = world.calculateBestVehicleForMostEficientPath(lstOrders, ph1, lstScooter, lstDrone);
+        expResult = new ArrayList<>();
+        exp1 = new Pair<>(new Pair<>(drone1, 0.07881060321902969), path);
+        expResult.add(null);
+        expResult.add(exp1);
+        assertEquals(expResult, result);
+
+        when(mockVehicleDB.getEnergyByVehicleModel(1)).thenReturn(1000d);
+        when(mockVehicleDB.getEnergyByVehicleModel(2)).thenReturn(0d);
+        when(mockVehicleDB.getEnergyByVehicleModel(3)).thenReturn(0d);
+        when(mockVehicleDB.getEnergyByVehicleModel(4)).thenReturn(0d);
+        when(mockVehicleDB.getEnergyByVehicleModel(5)).thenReturn(0d);
+        when(mockVehicleDB.getEnergyByVehicleModel(6)).thenReturn(0d);
+        world.setDroneGraph(new Graph<>(true));
+        result = world.calculateBestVehicleForMostEficientPath(lstOrders, ph1, lstScooter, lstDrone);
+        expResult = new ArrayList<>();
+        expResult.add(null);
+        expResult.add(null);
         assertEquals(expResult, result);
     }
 
