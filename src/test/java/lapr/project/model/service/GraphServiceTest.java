@@ -271,7 +271,7 @@ class GraphServiceTest {
         pharmacy1Products.put(benuron, 123);
         pharmacy1Products.put(benuron, 123);
 
-        Pharmacy pharmacy = new Pharmacy("Pharmacy Trindade", "info@trindade.com",new Address(41.15227,-8.60929,104.0,"Rua da Trindade","123","4000-123","Porto","Portugal"),pharmacy1Products);
+        Pharmacy pharmacy = new Pharmacy("Rua da Trindade", "info@trindade.com",new Address(41.15227,-8.60929,104.0,"Rua da Trindade","123","4000-123","Porto","Portugal"),pharmacy1Products);
 
 
         Map<Product, Integer> orderMapProduct = new TreeMap<>();
@@ -336,7 +336,7 @@ class GraphServiceTest {
     @Test
     void pathsWithPharmacies() throws NoSuchAlgorithmException {
         Address trindade = new Address();
-        trindade.setStreetName("Pharmacy Trindade");
+        trindade.setStreetName("Rua da Trindade");
         trindade.setLatitude(41.15227);
         trindade.setLongitude(-8.60929);
         trindade.setAltitude(104d);
@@ -458,7 +458,7 @@ class GraphServiceTest {
 
 
         //ORDER
-        Pharmacy oPharmacy = new Pharmacy("Pharmacy Trindade","info@trindade.com",new Address(41.15227d,-8.60929d,104d,
+        Pharmacy oPharmacy = new Pharmacy("Rua da Trindade","info@trindade.com",new Address(41.15227d,-8.60929d,104d,
                 "Rua da Trindade","123","4000-123","Porto","Portugal"));
         List<Order> lstOrders = new ArrayList<>();
         lstOrders.add(new Order("Para Presente, Enviar Embrulhado.", true, new Client("", 123456789, "fernando@gmail.com", "pass",
@@ -481,7 +481,7 @@ class GraphServiceTest {
     @Test
     void calculateBestVehicleAndBestPath() throws NoSuchAlgorithmException {
         Address trindade = new Address();
-        trindade.setStreetName("Pharmacy Trindade");
+        trindade.setStreetName("Rua da Trindade");
         trindade.setLatitude(41.15227);
         trindade.setLongitude(-8.60929);
         trindade.setAltitude(104d);
@@ -786,7 +786,7 @@ class GraphServiceTest {
 
         expResult = new ArrayList<>();
         exp1 = new Pair<>(new Pair<>(scooter6, 36.76915790179582), path);
-        exp2 = new Pair<>(new Pair<>(drone2, 0.07881060321902969), path);
+        exp2 = new Pair<>(new Pair<>(drone3, 1.1190973594436533), path);
         expResult.add(exp1);
         expResult.add(exp2);
 
@@ -836,8 +836,7 @@ class GraphServiceTest {
         world.setDroneGraph(new Graph<>(true));
         result = world.calculateBestVehicleAndBestPath(lstOrders);
         expResult = new ArrayList<>();
-        exp1 = new Pair<>(new Pair<>(scooter1, 0.8483898598685257), path);
-        expResult.add(exp1);
+        expResult.add(null);
         expResult.add(null);
         assertEquals(expResult, result);
 
@@ -852,9 +851,8 @@ class GraphServiceTest {
         world.setScooterGraph(new Graph<>(true));
         result = world.calculateBestVehicleAndBestPath(lstOrders);
         expResult = new ArrayList<>();
-        exp1 = new Pair<>(new Pair<>(drone1, 0.07881060321902969), path);
         expResult.add(null);
-        expResult.add(exp1);
+        expResult.add(null);
         assertEquals(expResult, result);
 
         when(mockVehicleDB.getEnergyByVehicleModel(1)).thenReturn(1000d);
@@ -1075,7 +1073,7 @@ class GraphServiceTest {
 
 
         //ORDER
-        Pharmacy oPharmacy = new Pharmacy("Pharmacy Trindade","info@trindade.com",new Address(41.15227d,-8.60929d,104d,
+        Pharmacy oPharmacy = new Pharmacy("Rua da Trindade","info@trindade.com",new Address(41.15227d,-8.60929d,104d,
                 "Rua da Trindade","123","4000-123","Porto","Portugal"));
         List<Order> lstOrders = new ArrayList<>();
         lstOrders.add(new Order("Para Presente, Enviar Embrulhado.", true, new Client("", 123456789, "fernando@gmail.com", "pass",
@@ -1263,7 +1261,7 @@ class GraphServiceTest {
     @Test
     void getBestPossibleModel() throws NoSuchAlgorithmException {
         Address trindade = new Address();
-        trindade.setStreetName("Pharmacy Trindade");
+        trindade.setStreetName("Rua da Trindade");
         trindade.setLatitude(41.15227);
         trindade.setLongitude(-8.60929);
         trindade.setAltitude(104d);
@@ -1464,7 +1462,7 @@ class GraphServiceTest {
 
 
         //ORDER
-        Pharmacy oPharmacy = new Pharmacy("Pharmacy Trindade","info@trindade.com",new Address(41.15227d,-8.60929d,104d,
+        Pharmacy oPharmacy = new Pharmacy("Rua da Trindade","info@trindade.com",new Address(41.15227d,-8.60929d,104d,
                 "Rua da Trindade","123","4000-123","Porto","Portugal"));
         List<Order> lstOrders = new ArrayList<>();
         lstOrders.add(new Order("Para Presente, Enviar Embrulhado.", true, new Client("", 123456789, "fernando@gmail.com", "pass",
@@ -1550,7 +1548,7 @@ class GraphServiceTest {
     @Test
     void calculatePathCost() throws NoSuchAlgorithmException {
         Address trindade = new Address();
-        trindade.setStreetName("Pharmacy Trindade");
+        trindade.setStreetName("Rua da Trindade");
         trindade.setLatitude(41.15227);
         trindade.setLongitude(-8.60929);
         trindade.setAltitude(104d);
@@ -1755,7 +1753,7 @@ class GraphServiceTest {
 
 
         //ORDER
-        Pharmacy oPharmacy = new Pharmacy("Pharmacy Trindade","info@trindade.com",new Address(41.15227d,-8.60929d,104d,
+        Pharmacy oPharmacy = new Pharmacy("Rua da Trindade","info@trindade.com",new Address(41.15227d,-8.60929d,104d,
                 "Rua da Trindade","123","4000-123","Porto","Portugal"));
         List<Order> lstOrders = new ArrayList<>();
         lstOrders.add(new Order("Para Presente, Enviar Embrulhado.", true, new Client("", 123456789, "fernando@gmail.com", "pass",
@@ -1936,7 +1934,7 @@ class GraphServiceTest {
     @Test
     void calculateMostEfficientPath() {
         Address trindade = new Address();
-        trindade.setStreetName("Pharmacy Trindade");
+        trindade.setStreetName("Rua da Trindade");
         trindade.setLatitude(41.15227);
         trindade.setLongitude(-8.60929);
         trindade.setAltitude(104d);
@@ -2082,7 +2080,7 @@ class GraphServiceTest {
     @Test
     void calculateMostEfficientPath2() {
         Address trindade = new Address();
-        trindade.setStreetName("Pharmacy Trindade");
+        trindade.setStreetName("Rua da Trindade");
         trindade.setLatitude(41.15227);
         trindade.setLongitude(-8.60929);
         trindade.setAltitude(104d);
@@ -2174,7 +2172,7 @@ class GraphServiceTest {
     @Test
     void calculateMostEfficientPath3() {
         Address trindade = new Address();
-        trindade.setStreetName("Pharmacy Trindade");
+        trindade.setStreetName("Rua da Trindade");
         trindade.setLatitude(41.15227);
         trindade.setLongitude(-8.60929);
         trindade.setAltitude(104d);
@@ -2266,7 +2264,7 @@ class GraphServiceTest {
     @Test
     void calculateMostEfficientPath4() {
         Address trindade = new Address();
-        trindade.setStreetName("Pharmacy Trindade");
+        trindade.setStreetName("Rua da Trindade");
         trindade.setLatitude(41.15227);
         trindade.setLongitude(-8.60929);
         trindade.setAltitude(104d);
@@ -2412,7 +2410,7 @@ class GraphServiceTest {
     @Test
     void calculateMostEfficientPath5() {
         Address trindade = new Address();
-        trindade.setStreetName("Pharmacy Trindade");
+        trindade.setStreetName("Rua da Trindade");
         trindade.setLatitude(41.15227);
         trindade.setLongitude(-8.60929);
         trindade.setAltitude(104d);
@@ -2558,7 +2556,7 @@ class GraphServiceTest {
     @Test
     void calculateMostEfficientPath6() {
         Address trindade = new Address();
-        trindade.setStreetName("Pharmacy Trindade");
+        trindade.setStreetName("Rua da Trindade");
         trindade.setLatitude(41.15227);
         trindade.setLongitude(-8.60929);
         trindade.setAltitude(104d);
@@ -2694,7 +2692,7 @@ class GraphServiceTest {
     @Test
     void calculateMostEfficientPath8() {
         Address trindade = new Address();
-        trindade.setStreetName("Pharmacy Trindade");
+        trindade.setStreetName("Rua da Trindade");
         trindade.setLatitude(41.15227);
         trindade.setLongitude(-8.60929);
         trindade.setAltitude(104d);
@@ -2844,7 +2842,7 @@ class GraphServiceTest {
     @Test
     void calculateMostEfficientPath9() {
         Address trindade = new Address();
-        trindade.setStreetName("Pharmacy Trindade");
+        trindade.setStreetName("Rua da Trindade");
         trindade.setLatitude(41.15227);
         trindade.setLongitude(-8.60929);
         trindade.setAltitude(104d);
@@ -2993,7 +2991,7 @@ class GraphServiceTest {
     @Test
     void calculatePermutationPaths() {
         Address trindade = new Address();
-        trindade.setStreetName("Pharmacy Trindade");
+        trindade.setStreetName("Rua da Trindade");
         trindade.setLatitude(41.15227);
         trindade.setLongitude(-8.60929);
         trindade.setAltitude(104d);
@@ -3144,7 +3142,7 @@ class GraphServiceTest {
     @Test
     void calculatePermutationPaths2() {
         Address trindade = new Address();
-        trindade.setStreetName("Pharmacy Trindade");
+        trindade.setStreetName("Rua da Trindade");
         trindade.setLatitude(41.15227);
         trindade.setLongitude(-8.60929);
         trindade.setAltitude(104d);
@@ -3240,7 +3238,7 @@ class GraphServiceTest {
     @Test
     void calculatePermutationPaths3() {
         Address trindade = new Address();
-        trindade.setStreetName("Pharmacy Trindade");
+        trindade.setStreetName("Rua da Trindade");
         trindade.setLatitude(41.15227);
         trindade.setLongitude(-8.60929);
         trindade.setAltitude(104d);
@@ -3343,7 +3341,7 @@ class GraphServiceTest {
         saBandeira.setAltitude(10d);
 
         Address trindade = new Address();
-        trindade.setStreetName("Pharmacy Trindade");
+        trindade.setStreetName("Rua da Trindade");
         trindade.setLatitude(41.15227);
         trindade.setLongitude(-8.60929);
         trindade.setAltitude(104d);
