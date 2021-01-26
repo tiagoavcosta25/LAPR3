@@ -116,7 +116,20 @@ public class DeliveryRunService {
      * @return True if the DeliveryRun was added, false if otherwise
      */
     public boolean addNewDeliveryRun(DeliveryRun oDeliveryRun) {
-        return moDeliveryRunDB.addNewDeliveryRun(oDeliveryRun);
+        if (moDeliveryRunDB.addNewDeliveryRun(oDeliveryRun)) {
+            StringBuilder body = new StringBuilder();
+            for (Order o : oDeliveryRun.getOrderList()) {
+                body.append(o.getId()).append(" - ");
+            }
+            body = new StringBuilder(body.substring(0, body.length() - 3));
+            return WriteFile.write("DeliveryRunRegistration_" + oDeliveryRun.getCourier(),
+                    String.format("Delivery Run Information\n\nResponsible Courier: %s\nStatus: %s\n" +
+                                    "Vehicle: %s, id-%d\nOrder ID List: %s", oDeliveryRun.getCourier().getName(), oDeliveryRun.getStatus(),
+                            oDeliveryRun.getVehicle().getModel().getDesignation(), oDeliveryRun.getVehicle().getId(), body)
+            );
+        } else {
+            return false;
+        }
     }
 
     /**
