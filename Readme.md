@@ -226,6 +226,12 @@ About the project, we want to mention this **6** topics:
 
 ### Actors (Personas)
 
+-Administrator
+-Courier
+-Client
+-User
+-System
+
 ## Physics
 
 ### Drone
@@ -258,7 +264,9 @@ that has in count the induced drag, and the parasite drag.
 
 and then we added both speeds to know what was the effective speed. 
 
-![TotalSpeed](PhysicFormulas/TotalSpeed.svg)   
+![TotalSpeed](PhysicFormulas/TotalSpeed.svg)
+
+In our work, in order to make it more similiar to reality, instead of using a constant speed, we've used a 
 
 ![Force](PhysicFormulas/DroneMovingForce.svg)
 

@@ -558,18 +558,18 @@ class GraphServiceTest {
         List<VehicleModel> lstScooter = new ArrayList<>();
         List<VehicleModel> lstDrone = new ArrayList<>();
 
-        VehicleModel scooter1 = new VehicleModel(1, "scooter1", 400, 10, 400, b1, VehicleType.SCOOTER);
-        VehicleModel scooter2 = new VehicleModel(2, "scooter2", 400, 10, 400, b2, VehicleType.SCOOTER);
-        VehicleModel scooter3 = new VehicleModel(3, "scooter3", 400, 10, 400, b3, VehicleType.SCOOTER);
-        VehicleModel scooter4 = new VehicleModel(4, "scooter4", 400, 10, 0, b1, VehicleType.SCOOTER);
-        VehicleModel scooter5 = new VehicleModel(5, "scooter5", 400, 4000, 400, b1, VehicleType.SCOOTER);
-        VehicleModel scooter6 = new VehicleModel(6, "scooter6", 1, 10, 400, b1, VehicleType.SCOOTER);
+        VehicleModel scooter1 = new VehicleModel(1, "scooter1", 4000, 100, 400, b1, VehicleType.SCOOTER);
+        VehicleModel scooter2 = new VehicleModel(2, "scooter2", 4000, 100, 400, b2, VehicleType.SCOOTER);
+        VehicleModel scooter3 = new VehicleModel(3, "scooter3", 4000, 100, 400, b3, VehicleType.SCOOTER);
+        VehicleModel scooter4 = new VehicleModel(4, "scooter4", 4000, 100, 0, b1, VehicleType.SCOOTER);
+        VehicleModel scooter5 = new VehicleModel(5, "scooter5", 4000, 4000, 400, b1, VehicleType.SCOOTER);
+        VehicleModel scooter6 = new VehicleModel(6, "scooter6", 100, 10, 400, b1, VehicleType.SCOOTER);
 
-        VehicleModel drone1 = new VehicleModel(1, "drone1", 400, 10, 400, b1, VehicleType.DRONE);
-        VehicleModel drone2 = new VehicleModel(2, "drone2", 400, 10, 400, b2, VehicleType.DRONE);
-        VehicleModel drone3 = new VehicleModel(3, "drone3", 400, 10, 400, b3, VehicleType.DRONE);
-        VehicleModel drone4 = new VehicleModel(4, "drone4", 400, 10, 0, b1, VehicleType.DRONE);
-        VehicleModel drone5 = new VehicleModel(5, "drone5", 400, 4000, 400, b1, VehicleType.DRONE);
+        VehicleModel drone1 = new VehicleModel(1, "drone1", 2500, 10, 400, b1, VehicleType.DRONE);
+        VehicleModel drone2 = new VehicleModel(2, "drone2", 4000, 10, 400, b2, VehicleType.DRONE);
+        VehicleModel drone3 = new VehicleModel(3, "drone3", 3000, 10, 400, b3, VehicleType.DRONE);
+        VehicleModel drone4 = new VehicleModel(4, "drone4", 3500, 10, 0, b1, VehicleType.DRONE);
+        VehicleModel drone5 = new VehicleModel(5, "drone5", 800, 4000, 400, b1, VehicleType.DRONE);
         VehicleModel drone6 = new VehicleModel(6, "drone6", 1, 10, 400, b1, VehicleType.DRONE);
 
         lstScooter.add(scooter1);
@@ -620,7 +620,7 @@ class GraphServiceTest {
         path.add(trindade);
 
         Pair<Pair<VehicleModel, Double>, List<Address>> expResult =
-                new Pair<>(new Pair<>(scooter1, 36.76915790179582), path);
+                new Pair<>(new Pair<>(scooter1, 75.8842308416441), path);
         Pair<Pair<VehicleModel, Double>, List<Address>> result = world.pathsWithPharmacies(world.getScooterGraph(),
                 trindade, trindade, lstScooter, lstOrders);
 
@@ -628,7 +628,7 @@ class GraphServiceTest {
         assertEquals(expResult, result);
 
         expResult =
-                new Pair<>(new Pair<>(drone1, 1.1190973594436533), path);
+                new Pair<>(new Pair<>(drone1, 1.8464918928195921), path);
         result = world.pathsWithPharmacies(world.getDroneGraph(),
                 trindade, trindade, lstDrone, lstOrders);
         assertEquals(expResult, result);
@@ -867,19 +867,20 @@ class GraphServiceTest {
         List<VehicleModel> lstScooter = new ArrayList<>();
         List<VehicleModel> lstDrone = new ArrayList<>();
 
-        VehicleModel scooter1 = new VehicleModel(1, "scooter1", 400, 10, 400, b1, VehicleType.SCOOTER);
-        VehicleModel scooter2 = new VehicleModel(2, "scooter2", 400, 10, 400, b2, VehicleType.SCOOTER);
-        VehicleModel scooter3 = new VehicleModel(3, "scooter3", 400, 10, 400, b3, VehicleType.SCOOTER);
-        VehicleModel scooter4 = new VehicleModel(4, "scooter4", 400, 10, 0, b1, VehicleType.SCOOTER);
-        VehicleModel scooter5 = new VehicleModel(5, "scooter5", 400, 4000, 400, b1, VehicleType.SCOOTER);
-        VehicleModel scooter6 = new VehicleModel(6, "scooter6", 1, 10, 400, b1, VehicleType.SCOOTER);
+        VehicleModel scooter1 = new VehicleModel(1, "scooter1", 4000, 100, 400, b1, VehicleType.SCOOTER);
+        VehicleModel scooter2 = new VehicleModel(2, "scooter2", 4000, 100, 400, b2, VehicleType.SCOOTER);
+        VehicleModel scooter3 = new VehicleModel(3, "scooter3", 4000, 100, 400, b3, VehicleType.SCOOTER);
+        VehicleModel scooter4 = new VehicleModel(4, "scooter4", 4000, 100, 5, b1, VehicleType.SCOOTER);
+        VehicleModel scooter5 = new VehicleModel(5, "scooter5", 4000, 100, 400, b1, VehicleType.SCOOTER);
+        VehicleModel scooter6 = new VehicleModel(6, "scooter6", 100, 10, 400, b1, VehicleType.SCOOTER);
 
-        VehicleModel drone1 = new VehicleModel(1, "drone1", 400, 10, 400, b1, VehicleType.DRONE);
-        VehicleModel drone2 = new VehicleModel(2, "drone2", 400, 10, 400, b2, VehicleType.DRONE);
-        VehicleModel drone3 = new VehicleModel(3, "drone3", 400, 10, 400, b3, VehicleType.DRONE);
-        VehicleModel drone4 = new VehicleModel(4, "drone4", 400, 10, 0, b1, VehicleType.DRONE);
-        VehicleModel drone5 = new VehicleModel(5, "drone5", 400, 4000, 400, b1, VehicleType.DRONE);
+        VehicleModel drone1 = new VehicleModel(1, "drone1", 2500, 10, 400, b1, VehicleType.DRONE);
+        VehicleModel drone2 = new VehicleModel(2, "drone2", 4000, 10, 400, b2, VehicleType.DRONE);
+        VehicleModel drone3 = new VehicleModel(3, "drone3", 3000, 10, 400, b3, VehicleType.DRONE);
+        VehicleModel drone4 = new VehicleModel(4, "drone4", 3500, 10, 0, b1, VehicleType.DRONE);
+        VehicleModel drone5 = new VehicleModel(5, "drone5", 800, 4000, 400, b1, VehicleType.DRONE);
         VehicleModel drone6 = new VehicleModel(6, "drone6", 1, 10, 400, b1, VehicleType.DRONE);
+
 
         lstScooter.add(scooter1);
         lstScooter.add(scooter2);
@@ -929,9 +930,9 @@ class GraphServiceTest {
         path.add(caisDaRibeira);
         path.add(trindade);
 
-        Pair<Pair<VehicleModel, Double>, List<Address>> exp1 = new Pair<>(new Pair<>(scooter1, 36.76915790179582), path);
+        Pair<Pair<VehicleModel, Double>, List<Address>> exp1 = new Pair<>(new Pair<>(scooter1, 75.8842308416441), path);
 
-        Pair<Pair<VehicleModel, Double>, List<Address>> exp2 = new Pair<>(new Pair<>(drone1, 1.1190973594436533), path);
+        Pair<Pair<VehicleModel, Double>, List<Address>> exp2 = new Pair<>(new Pair<>(drone1, 1.8464918928195921), path);
         expResult.add(exp1);
         expResult.add(exp2);
 
@@ -948,8 +949,8 @@ class GraphServiceTest {
 
 
         expResult = new ArrayList<>();
-        exp1 = new Pair<>(new Pair<>(scooter6, 36.76915790179582), path);
-        exp2 = new Pair<>(new Pair<>(drone3, 1.1190973594436533), path);
+        exp1 = new Pair<>(new Pair<>(scooter5, 75.8842308416441), path);
+        exp2 = new Pair<>(new Pair<>(drone3, 1.8464918928195921), path);
         expResult.add(exp1);
         expResult.add(exp2);
 
@@ -962,13 +963,13 @@ class GraphServiceTest {
         when(mockVehicleDB.getPharmacyModel("info@trindade.com")).thenReturn(lst2);
         result = world.calculateBestVehicleAndBestPath(lstOrders);
         expResult = new ArrayList<>();
-        exp1 = new Pair<>(new Pair<>(scooter6, 36.76915790179582), path);
+        exp1 = new Pair<>(new Pair<>(scooter5, 75.8842308416441), path);
         expResult.add(exp1);
         expResult.add(null);
         assertEquals(expResult, result);
 
         expResult = new ArrayList<>();
-        exp1 = new Pair<>(new Pair<>(scooter6, 36.76915790179582), path);
+        exp1 = new Pair<>(new Pair<>(scooter5, 75.8842308416441), path);
         expResult.add(exp1);
         expResult.add(null);
 
@@ -976,7 +977,7 @@ class GraphServiceTest {
         assertEquals(expResult, result);
 
         expResult = new ArrayList<>();
-        exp1 = new Pair<>(new Pair<>(drone3, 1.1190973594436533), path);
+        exp1 = new Pair<>(new Pair<>(drone3, 1.8464918928195921), path);
         expResult.add(null);
         expResult.add(exp1);
 
@@ -994,7 +995,7 @@ class GraphServiceTest {
         lst2 = new ArrayList<>(lstScooter);
         when(mockVehicleDB.getPharmacyModel("info@trindade.com")).thenReturn(lst2);
         expResult = new ArrayList<>();
-        exp1 = new Pair<>(new Pair<>(scooter6, 36.76915790179582), path);
+        exp1 = new Pair<>(new Pair<>(scooter5, 75.8842308416441), path);
         expResult.add(exp1);
         expResult.add(null);
         result = world.calculateBestVehicleAndBestPath(lstOrders);
@@ -1014,8 +1015,8 @@ class GraphServiceTest {
 
 
         expResult = new ArrayList<>();
-        exp1 = new Pair<>(new Pair<>(scooter6, 36.76915790179582), path);
-        exp2 = new Pair<>(new Pair<>(drone3, 1.1190973594436533), path);
+        exp1 = new Pair<>(new Pair<>(scooter5, 75.8842308416441), path);
+        exp2 = new Pair<>(new Pair<>(drone3, 1.8464918928195921), path);
         expResult.add(exp1);
         expResult.add(exp2);
 
@@ -1346,19 +1347,20 @@ class GraphServiceTest {
         List<VehicleModel> lstScooter = new ArrayList<>();
         List<VehicleModel> lstDrone = new ArrayList<>();
 
-        VehicleModel scooter1 = new VehicleModel(1, "scooter1", 400, 10, 400, b1, VehicleType.SCOOTER);
-        VehicleModel scooter2 = new VehicleModel(2, "scooter2", 400, 10, 400, b2, VehicleType.SCOOTER);
-        VehicleModel scooter3 = new VehicleModel(3, "scooter3", 400, 10, 400, b3, VehicleType.SCOOTER);
-        VehicleModel scooter4 = new VehicleModel(4, "scooter4", 400, 10, 0, b1, VehicleType.SCOOTER);
-        VehicleModel scooter5 = new VehicleModel(5, "scooter5", 400, 4000, 400, b1, VehicleType.SCOOTER);
-        VehicleModel scooter6 = new VehicleModel(6, "scooter6", 1, 10, 400, b1, VehicleType.SCOOTER);
+        VehicleModel scooter1 = new VehicleModel(1, "scooter1", 4000, 100, 400, b1, VehicleType.SCOOTER);
+        VehicleModel scooter2 = new VehicleModel(2, "scooter2", 4000, 100, 400, b2, VehicleType.SCOOTER);
+        VehicleModel scooter3 = new VehicleModel(3, "scooter3", 4000, 100, 400, b3, VehicleType.SCOOTER);
+        VehicleModel scooter4 = new VehicleModel(4, "scooter4", 4000, 100, 0, b1, VehicleType.SCOOTER);
+        VehicleModel scooter5 = new VehicleModel(5, "scooter5", 4000, 4000, 400, b1, VehicleType.SCOOTER);
+        VehicleModel scooter6 = new VehicleModel(6, "scooter6", 100, 10, 400, b1, VehicleType.SCOOTER);
 
-        VehicleModel drone1 = new VehicleModel(1, "drone1", 400, 10, 400, b1, VehicleType.DRONE);
-        VehicleModel drone2 = new VehicleModel(2, "drone2", 400, 10, 400, b2, VehicleType.DRONE);
-        VehicleModel drone3 = new VehicleModel(3, "drone3", 400, 10, 400, b3, VehicleType.DRONE);
-        VehicleModel drone4 = new VehicleModel(4, "drone4", 400, 10, 0, b1, VehicleType.DRONE);
-        VehicleModel drone5 = new VehicleModel(5, "drone5", 400, 4000, 400, b1, VehicleType.DRONE);
+        VehicleModel drone1 = new VehicleModel(1, "drone1", 2500, 10, 400, b1, VehicleType.DRONE);
+        VehicleModel drone2 = new VehicleModel(2, "drone2", 4000, 10, 400, b2, VehicleType.DRONE);
+        VehicleModel drone3 = new VehicleModel(3, "drone3", 3000, 10, 400, b3, VehicleType.DRONE);
+        VehicleModel drone4 = new VehicleModel(4, "drone4", 3500, 10, 0, b1, VehicleType.DRONE);
+        VehicleModel drone5 = new VehicleModel(5, "drone5", 800, 4000, 400, b1, VehicleType.DRONE);
         VehicleModel drone6 = new VehicleModel(6, "drone6", 1, 10, 400, b1, VehicleType.DRONE);
+
 
         lstScooter.add(scooter1);
         lstScooter.add(scooter2);
@@ -1394,7 +1396,7 @@ class GraphServiceTest {
         path.add(majestic);
 
         List<Pair<Pair<VehicleModel, Double>, List<Address>>> expResult = new ArrayList<>();
-        Pair<Pair<VehicleModel, Double>, List<Address>> exp1 = new Pair<>(new Pair<>(scooter1, 0.8483898598685257), path);
+        Pair<Pair<VehicleModel, Double>, List<Address>> exp1 = new Pair<>(new Pair<>(scooter1, 1.7509271779115427), path);
         path = new ArrayList<>();
         path.add(majestic);
         path.add(clerigos);
@@ -1406,7 +1408,7 @@ class GraphServiceTest {
         path.add(bolhao);
         path.add(majestic);
 
-        Pair<Pair<VehicleModel, Double>, List<Address>> exp2 = new Pair<>(new Pair<>(drone1, 0.07881060321902969), path);
+        Pair<Pair<VehicleModel, Double>, List<Address>> exp2 = new Pair<>(new Pair<>(drone1, 0.10945902569524549), path);
         expResult.add(exp1);
         expResult.add(exp2);
 
@@ -1424,8 +1426,8 @@ class GraphServiceTest {
 
 
         expResult = new ArrayList<>();
-        exp1 = new Pair<>(new Pair<>(scooter2, 0.8483898598685257), path);
-        exp2 = new Pair<>(new Pair<>(drone2, 0.07881060321902969), path);
+        exp1 = new Pair<>(new Pair<>(scooter3, 1.7509271779115427), path);
+        exp2 = new Pair<>(new Pair<>(drone2, 0.10945902569524549), path);
         expResult.add(exp1);
         expResult.add(exp2);
 
@@ -1475,8 +1477,8 @@ class GraphServiceTest {
         world.setDroneGraph(new Graph<>(true));
         result = world.calculateBestVehicleForMostEficientPath(lstOrders, ph1, lstScooter, lstDrone);
         expResult = new ArrayList<>();
-        exp1 = new Pair<>(new Pair<>(scooter1, 0.8483898598685257), path);
-        expResult.add(exp1);
+        exp1 = new Pair<>(new Pair<>(scooter1, 1.7509271779115427), path);
+        expResult.add(null);
         expResult.add(null);
         assertEquals(expResult, result);
 
@@ -1491,7 +1493,7 @@ class GraphServiceTest {
         world.setScooterGraph(new Graph<>(true));
         result = world.calculateBestVehicleForMostEficientPath(lstOrders, ph1, lstScooter, lstDrone);
         expResult = new ArrayList<>();
-        exp1 = new Pair<>(new Pair<>(drone1, 0.07881060321902969), path);
+        exp1 = new Pair<>(new Pair<>(drone1, 0.10945902569524549), path);
         expResult.add(null);
         expResult.add(exp1);
         assertEquals(expResult, result);
@@ -1734,19 +1736,20 @@ class GraphServiceTest {
 
         List<VehicleModel> lstModel = new ArrayList<>();
 
-        VehicleModel scooter1 = new VehicleModel(1, "scooter1", 400, 10, 400, b1, VehicleType.SCOOTER);
-        VehicleModel scooter2 = new VehicleModel(2, "scooter2", 400, 10, 400, b2, VehicleType.SCOOTER);
-        VehicleModel scooter3 = new VehicleModel(3, "scooter3", 400, 10, 400, b3, VehicleType.SCOOTER);
-        VehicleModel scooter4 = new VehicleModel(4, "scooter4", 400, 10, 0, b1, VehicleType.SCOOTER);
-        VehicleModel scooter5 = new VehicleModel(5, "scooter5", 400, 4000, 400, b1, VehicleType.SCOOTER);
-        VehicleModel scooter6 = new VehicleModel(6, "scooter6", 1, 10, 400, b1, VehicleType.SCOOTER);
+        VehicleModel scooter1 = new VehicleModel(1, "scooter1", 4000, 100, 400, b1, VehicleType.SCOOTER);
+        VehicleModel scooter2 = new VehicleModel(2, "scooter2", 4000, 100, 400, b2, VehicleType.SCOOTER);
+        VehicleModel scooter3 = new VehicleModel(3, "scooter3", 4000, 100, 400, b3, VehicleType.SCOOTER);
+        VehicleModel scooter4 = new VehicleModel(4, "scooter4", 4000, 100, 0, b1, VehicleType.SCOOTER);
+        VehicleModel scooter5 = new VehicleModel(5, "scooter5", 4000, 4000, 400, b1, VehicleType.SCOOTER);
+        VehicleModel scooter6 = new VehicleModel(6, "scooter6", 100, 10, 400, b1, VehicleType.SCOOTER);
 
-        VehicleModel drone1 = new VehicleModel(1, "drone1", 400, 10, 400, b1, VehicleType.DRONE);
-        VehicleModel drone2 = new VehicleModel(2, "drone2", 400, 10, 400, b2, VehicleType.DRONE);
-        VehicleModel drone3 = new VehicleModel(3, "drone3", 400, 10, 400, b3, VehicleType.DRONE);
-        VehicleModel drone4 = new VehicleModel(4, "drone4", 400, 10, 0, b1, VehicleType.DRONE);
-        VehicleModel drone5 = new VehicleModel(5, "drone5", 400, 4000, 400, b1, VehicleType.DRONE);
+        VehicleModel drone1 = new VehicleModel(1, "drone1", 2500, 10, 400, b1, VehicleType.DRONE);
+        VehicleModel drone2 = new VehicleModel(2, "drone2", 4000, 10, 400, b2, VehicleType.DRONE);
+        VehicleModel drone3 = new VehicleModel(3, "drone3", 3000, 10, 400, b3, VehicleType.DRONE);
+        VehicleModel drone4 = new VehicleModel(4, "drone4", 3500, 10, 0, b1, VehicleType.DRONE);
+        VehicleModel drone5 = new VehicleModel(5, "drone5", 800, 4000, 400, b1, VehicleType.DRONE);
         VehicleModel drone6 = new VehicleModel(6, "drone6", 1, 10, 400, b1, VehicleType.DRONE);
+
 
         lstModel.add(scooter1);
         lstModel.add(scooter2);
@@ -1774,7 +1777,7 @@ class GraphServiceTest {
         when(mockDeliveryRunDB.checkValidChargingSlot(bolhao)).thenReturn(true);
         when(mockDeliveryRunDB.checkValidChargingSlot(se)).thenReturn(true);
         when(mockDeliveryRunDB.checkValidChargingSlot(caisDaRibeira)).thenReturn(true);
-        Pair<VehicleModel, Double> expResult = new Pair<>(drone1, 1.1190973594436533);
+        Pair<VehicleModel, Double> expResult = new Pair<>(drone1, 1.8464918928195921);
         assertEquals(expResult, world.getBestPossibleModel(lstModel, pathList, lstOrders));
         when(mockVehicleDB.getEnergyByVehicleModel(1)).thenReturn(0d);
         when(mockVehicleDB.getEnergyByVehicleModel(2)).thenReturn(1001d);
@@ -1783,7 +1786,7 @@ class GraphServiceTest {
         when(mockVehicleDB.getEnergyByVehicleModel(5)).thenReturn(10000000d);
         when(mockVehicleDB.getEnergyByVehicleModel(6)).thenReturn(10000000d);
         assertNotEquals(expResult, world.getBestPossibleModel(lstModel, pathList, lstOrders));
-        expResult = new Pair<>(drone3, 1.1190973594436533);
+        expResult = new Pair<>(drone3, 1.8464918928195921);
         assertEquals(expResult, world.getBestPossibleModel(lstModel, pathList, lstOrders));
 
         when(mockVehicleDB.getEnergyByVehicleModel(1)).thenReturn(0d);
@@ -2023,18 +2026,18 @@ class GraphServiceTest {
 
         Battery b3 = new Battery(3, 40, 40, 0);
 
-        VehicleModel scooter1 = new VehicleModel(1, "scooter1", 400, 10, 400, b1, VehicleType.SCOOTER);
-        VehicleModel scooter2 = new VehicleModel(2, "scooter2", 400, 10, 400, b2, VehicleType.SCOOTER);
-        VehicleModel scooter3 = new VehicleModel(3, "scooter3", 400, 10, 400, b3, VehicleType.SCOOTER);
-        VehicleModel scooter4 = new VehicleModel(4, "scooter4", 400, 10, 0, b1, VehicleType.SCOOTER);
-        VehicleModel scooter5 = new VehicleModel(5, "scooter5", 400, 4000, 400, b1, VehicleType.SCOOTER);
-        VehicleModel scooter6 = new VehicleModel(6, "scooter6", 1, 10, 400, b1, VehicleType.SCOOTER);
+        VehicleModel scooter1 = new VehicleModel(1, "scooter1", 4000, 100, 400, b1, VehicleType.SCOOTER);
+        VehicleModel scooter2 = new VehicleModel(2, "scooter2", 4000, 100, 400, b2, VehicleType.SCOOTER);
+        VehicleModel scooter3 = new VehicleModel(3, "scooter3", 4000, 100, 400, b3, VehicleType.SCOOTER);
+        VehicleModel scooter4 = new VehicleModel(4, "scooter4", 4000, 100, 0, b1, VehicleType.SCOOTER);
+        VehicleModel scooter5 = new VehicleModel(5, "scooter5", 4000, 4000, 400, b1, VehicleType.SCOOTER);
+        VehicleModel scooter6 = new VehicleModel(6, "scooter6", 100, 10, 400, b1, VehicleType.SCOOTER);
 
-        VehicleModel drone1 = new VehicleModel(1, "drone1", 400, 10, 400, b1, VehicleType.DRONE);
-        VehicleModel drone2 = new VehicleModel(2, "drone2", 400, 10, 400, b2, VehicleType.DRONE);
-        VehicleModel drone3 = new VehicleModel(3, "drone3", 400, 10, 400, b3, VehicleType.DRONE);
-        VehicleModel drone4 = new VehicleModel(4, "drone4", 400, 10, 0, b1, VehicleType.DRONE);
-        VehicleModel drone5 = new VehicleModel(5, "drone5", 400, 4000, 400, b1, VehicleType.DRONE);
+        VehicleModel drone1 = new VehicleModel(1, "drone1", 2500, 10, 400, b1, VehicleType.DRONE);
+        VehicleModel drone2 = new VehicleModel(2, "drone2", 4000, 10, 400, b2, VehicleType.DRONE);
+        VehicleModel drone3 = new VehicleModel(3, "drone3", 3000, 10, 400, b3, VehicleType.DRONE);
+        VehicleModel drone4 = new VehicleModel(4, "drone4", 3500, 10, 0, b1, VehicleType.DRONE);
+        VehicleModel drone5 = new VehicleModel(5, "drone5", 800, 4000, 400, b1, VehicleType.DRONE);
         VehicleModel drone6 = new VehicleModel(6, "drone6", 1, 10, 400, b1, VehicleType.DRONE);
 
 
@@ -2062,59 +2065,59 @@ class GraphServiceTest {
         when(mockDeliveryRunDB.checkValidChargingSlot(se)).thenReturn(true);
         when(mockDeliveryRunDB.checkValidChargingSlot(caisDaRibeira)).thenReturn(true);
 
-        assertEquals(36.76915790179582, world.calculatePathCost(pathList, lstOrders, scooter1, 20d));
-        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter1, 10d));
-        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter1, 0d));
-        assertEquals(36.76915790179582, world.calculatePathCost(pathList, lstOrders, scooter1, 100000d));
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter1, 20d).getKey().getKey());
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter1, 10d).getKey().getKey());
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter1, 0d).getKey().getKey());
+        assertEquals(75.8842308416441, world.calculatePathCost(pathList, lstOrders, scooter1, 100000d).getKey().getKey());
 
-        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter2, 10d));
-        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter2, 0d));
-        assertEquals(36.76915790179582, world.calculatePathCost(pathList, lstOrders, scooter2, 100000d));
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter2, 10d).getKey().getKey());
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter2, 0d).getKey().getKey());
+        assertEquals(75.8842308416441, world.calculatePathCost(pathList, lstOrders, scooter2, 100000d).getKey().getKey());
 
-        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter3, 10d));
-        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter3, 0d));
-        assertEquals(36.76915790179582, world.calculatePathCost(pathList, lstOrders, scooter3, 100000d));
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter3, 10d).getKey().getKey());
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter3, 0d).getKey().getKey());
+        assertEquals(75.8842308416441, world.calculatePathCost(pathList, lstOrders, scooter3, 100000d).getKey().getKey());
 
-        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter4, 10d));
-        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter4, 0d));
-        assertEquals(36.76915790179582, world.calculatePathCost(pathList, lstOrders, scooter4, 100000d));
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter4, 10d).getKey().getKey());
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter4, 0d).getKey().getKey());
+        assertEquals(75.8842308416441, world.calculatePathCost(pathList, lstOrders, scooter4, 100000d).getKey().getKey());
 
-        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter5, 10d));
-        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter5, 0d));
-        assertEquals(1717.8869193560959, world.calculatePathCost(pathList, lstOrders, scooter5, 100000d));
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter5, 10d).getKey().getKey());
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter5, 0d).getKey().getKey());
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter5, 100000d).getKey().getKey());
 
-        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter6, 10d));
-        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter6, 0d));
-        assertEquals(36.76915790179582, world.calculatePathCost(pathList, lstOrders, scooter6, 100000d));
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter6, 10d).getKey().getKey());
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter6, 0d).getKey().getKey());
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter6, 100000d).getKey().getKey());
 
 
-        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, drone1, 0.1d));
-        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, drone1, 0d));
-        assertEquals(1.1190973594436533, world.calculatePathCost(pathList, lstOrders, drone1, 100000d));
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, drone1, 0.1d).getKey().getKey());
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, drone1, 0d).getKey().getKey());
+        assertEquals(1.8464918928195921, world.calculatePathCost(pathList, lstOrders, drone1, 100000d).getKey().getKey());
 
-        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, drone2, 0.1d));
-        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, drone2, 0d));
-        assertEquals(1.1190973594436533, world.calculatePathCost(pathList, lstOrders, drone2, 100000d));
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, drone2, 0.1d).getKey().getKey());
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, drone2, 0d).getKey().getKey());
+        assertEquals(1.8464918928195921, world.calculatePathCost(pathList, lstOrders, drone2, 100000d).getKey().getKey());
 
-        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, drone3, 0.1d));
-        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, drone3, 0d));
-        assertEquals(1.1190973594436533, world.calculatePathCost(pathList, lstOrders, drone3, 100000d));
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, drone3, 0.1d).getKey().getKey());
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, drone3, 0d).getKey().getKey());
+        assertEquals(1.8464918928195921, world.calculatePathCost(pathList, lstOrders, drone3, 100000d).getKey().getKey());
 
-        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, drone4, 0.1d));
-        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, drone4, 0d));
-        assertEquals(1.1190973594436533, world.calculatePathCost(pathList, lstOrders, drone4, 100000d));
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, drone4, 0.1d).getKey().getKey());
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, drone4, 0d).getKey().getKey());
+        assertEquals(1.8464918928195921, world.calculatePathCost(pathList, lstOrders, drone4, 100000d).getKey().getKey());
 
-        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, drone5, 0.1));
-        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, drone5, 0d));
-        assertEquals(444.5442235362819, world.calculatePathCost(pathList, lstOrders, drone5, 100000d));
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, drone5, 0.1).getKey().getKey());
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, drone5, 0d).getKey().getKey());
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, drone5, 100000d).getKey().getKey());
 
-        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, drone6, 0.1));
-        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, drone6, 0d));
-        assertEquals(1.1190973594436533, world.calculatePathCost(pathList, lstOrders, drone6, 100000d));
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, drone6, 0.1).getKey().getKey());
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, drone6, 0d).getKey().getKey());
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, drone6, 100000d).getKey().getKey());
 
-        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, notdefined, 0.1));
-        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, notdefined, 0d));
-        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, notdefined, 100000d));
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, notdefined, 0.1).getKey().getKey());
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, notdefined, 0d).getKey().getKey());
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, notdefined, 100000d).getKey().getKey());
 
 
 
@@ -2129,58 +2132,58 @@ class GraphServiceTest {
         when(mockDeliveryRunDB.checkValidChargingSlot(se)).thenReturn(false);
         when(mockDeliveryRunDB.checkValidChargingSlot(caisDaRibeira)).thenReturn(false);
 
-        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter1, 10d));
-        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter1, 0d));
-        assertEquals(36.76915790179582, world.calculatePathCost(pathList, lstOrders, scooter1, 100000d));
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter1, 10d).getKey().getKey());
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter1, 0d).getKey().getKey());
+        assertEquals(75.8842308416441, world.calculatePathCost(pathList, lstOrders, scooter1, 100000d).getKey().getKey());
 
-        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter2, 10d));
-        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter2, 0d));
-        assertEquals(36.76915790179582, world.calculatePathCost(pathList, lstOrders, scooter2, 100000d));
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter2, 10d).getKey().getKey());
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter2, 0d).getKey().getKey());
+        assertEquals(75.8842308416441, world.calculatePathCost(pathList, lstOrders, scooter2, 100000d).getKey().getKey());
 
-        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter3, 10d));
-        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter3, 0d));
-        assertEquals(36.76915790179582, world.calculatePathCost(pathList, lstOrders, scooter3, 100000d));
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter3, 10d).getKey().getKey());
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter3, 0d).getKey().getKey());
+        assertEquals(75.8842308416441, world.calculatePathCost(pathList, lstOrders, scooter3, 100000d).getKey().getKey());
 
-        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter4, 10d));
-        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter4, 0d));
-        assertEquals(36.76915790179582, world.calculatePathCost(pathList, lstOrders, scooter4, 100000d));
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter4, 10d).getKey().getKey());
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter4, 0d).getKey().getKey());
+        assertEquals(75.8842308416441, world.calculatePathCost(pathList, lstOrders, scooter4, 100000d).getKey().getKey());
 
-        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter5, 10d));
-        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter5, 0d));
-        assertEquals(1717.8869193560959, world.calculatePathCost(pathList, lstOrders, scooter5, 100000d));
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter5, 10d).getKey().getKey());
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter5, 0d).getKey().getKey());
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter5, 100000d).getKey().getKey());
 
-        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter6, 10d));
-        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter6, 0d));
-        assertEquals(36.76915790179582, world.calculatePathCost(pathList, lstOrders, scooter6, 100000d));
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter6, 10d).getKey().getKey());
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter6, 0d).getKey().getKey());
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter6, 100000d).getKey().getKey());
 
 
-        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, drone1, 0.1d));
-        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, drone1, 0d));
-        assertEquals(1.1190973594436533, world.calculatePathCost(pathList, lstOrders, drone1, 100000d));
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, drone1, 0.1d).getKey().getKey());
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, drone1, 0d).getKey().getKey());
+        assertEquals(1.8464918928195921, world.calculatePathCost(pathList, lstOrders, drone1, 100000d).getKey().getKey());
 
-        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, drone2, 0.1d));
-        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, drone2, 0d));
-        assertEquals(1.1190973594436533, world.calculatePathCost(pathList, lstOrders, drone2, 100000d));
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, drone2, 0.1d).getKey().getKey());
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, drone2, 0d).getKey().getKey());
+        assertEquals(1.8464918928195921, world.calculatePathCost(pathList, lstOrders, drone2, 100000d).getKey().getKey());
 
-        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, drone3, 0.1d));
-        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, drone3, 0d));
-        assertEquals(1.1190973594436533, world.calculatePathCost(pathList, lstOrders, drone3, 100000d));
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, drone3, 0.1d).getKey().getKey());
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, drone3, 0d).getKey().getKey());
+        assertEquals(1.8464918928195921, world.calculatePathCost(pathList, lstOrders, drone3, 100000d).getKey().getKey());
 
-        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, drone4, 0.1d));
-        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, drone4, 0d));
-        assertEquals(1.1190973594436533, world.calculatePathCost(pathList, lstOrders, drone4, 100000d));
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, drone4, 0.1d).getKey().getKey());
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, drone4, 0d).getKey().getKey());
+        assertEquals(1.8464918928195921, world.calculatePathCost(pathList, lstOrders, drone4, 100000d).getKey().getKey());
 
-        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, drone5, 0.1));
-        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, drone5, 0d));
-        assertEquals(444.5442235362819, world.calculatePathCost(pathList, lstOrders, drone5, 100000d));
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, drone5, 0.1).getKey().getKey());
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, drone5, 0d).getKey().getKey());
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, drone5, 100000d).getKey().getKey());
 
-        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, drone6, 0.1));
-        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, drone6, 0d));
-        assertEquals(1.1190973594436533, world.calculatePathCost(pathList, lstOrders, drone6, 100000d));
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, drone6, 0.1).getKey().getKey());
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, drone6, 0d).getKey().getKey());
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, drone6, 100000d).getKey().getKey());
 
-        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, notdefined, 0.1));
-        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, notdefined, 0d));
-        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, notdefined, 100000d));
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, notdefined, 0.1).getKey().getKey());
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, notdefined, 0d).getKey().getKey());
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, notdefined, 100000d).getKey().getKey());
     }
 
     @Test
