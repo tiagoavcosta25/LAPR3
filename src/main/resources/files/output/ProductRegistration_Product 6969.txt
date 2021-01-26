@@ -3,8 +3,8 @@ Product Information:
 
 -Name: Product 6969
 -Description: Description 1
--Unitary Price: 2,00€
--Unitary Weight: 2,00kg
+-Unitary Price: 2.00€
+-Unitary Weight: 2.00kg
 
 ______________________________________________________________________________________
 

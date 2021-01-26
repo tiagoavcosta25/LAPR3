@@ -58,6 +58,9 @@ class AddPharmacyProductControllerTest {
         real = addPharmacyProductController.addPharmacyProduct("", new Product(), -1);
         assertFalse(real);
 
+        real = addPharmacyProductController.addPharmacyProduct("", new Product(), 0);
+        assertFalse(real);
+
         real = addPharmacyProductController.addPharmacyProduct("", null, -1);
         assertFalse(real);
 
