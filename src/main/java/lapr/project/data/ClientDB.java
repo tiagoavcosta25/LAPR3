@@ -22,11 +22,8 @@ public class ClientDB extends DataHandler {
                                   String email, String password) {
 
         boolean flag = true;
-        try {
-            openConnection();
-
-            CallableStatement callStmt = getConnection().prepareCall("{ ? = call addClient(?,?,?,?,?,?,?,?,?,?,?,?,?) }");
-
+        try(CallableStatement callStmt = getConnection().prepareCall("{ ? = call addClient(?,?,?,?,?,?,?,?,?,?,?,?,?) }");
+            CallableStatement callStmt2 = getConnection().prepareCall("{ call addCreditCardToClient(?,?,?,?) }");) {
             callStmt.setString(2, name);
             callStmt.setInt(3, nif);
             callStmt.setInt(4, credits);
@@ -49,8 +46,6 @@ public class ClientDB extends DataHandler {
             if (userId == -1) return false;
 
             for (CreditCard cc : lstCreditCard) {
-                CallableStatement callStmt2 = getConnection().prepareCall("{ call addCreditCardToClient(?,?,?,?) }");
-
                 callStmt2.setInt(1,userId);
                 callStmt2.setDouble(2, cc.getCreditCardNr());
                 java.util.Date utilStartDate = cc.getValidityDate();
@@ -70,19 +65,11 @@ public class ClientDB extends DataHandler {
     }
 
     public Client getClientByEmail(String strEmail) {
-
-        try {
-            openConnection();
-            CallableStatement callStmt = getConnection().prepareCall("{ ? = call getClientByEmail(?) }");
-
+        try(CallableStatement callStmt = getConnection().prepareCall("{ ? = call getClientByEmail(?) }");) {
             callStmt.registerOutParameter(1, OracleTypes.CURSOR);
             callStmt.setString(2, strEmail);
-
             callStmt.execute();
-
             ResultSet rSet = (ResultSet) callStmt.getObject(1);
-
-
             if (rSet.next()) {
                 Client oClient = clientManager(rSet, 1);
                 oClient.setLstCreditCard(getCreditCardsByClient(oClient.getEmail()));
@@ -99,10 +86,7 @@ public class ClientDB extends DataHandler {
 
     public List<CreditCard> getCreditCardsByClient(String strEmail) {
         List<CreditCard> lstCreditCards = new ArrayList<>();
-        try {
-            openConnection();
-            CallableStatement callStmt = getConnection().prepareCall("{ ? = call getCreditCardsByClient(?) }");
-
+        try(CallableStatement callStmt = getConnection().prepareCall("{ ? = call getCreditCardsByClient(?) }");) {
             callStmt.registerOutParameter(1, OracleTypes.CURSOR);
             callStmt.setString(2, strEmail);
             callStmt.execute();
@@ -120,10 +104,7 @@ public class ClientDB extends DataHandler {
     }
 
     public boolean updateClientCredits(String strEmail, Integer intCredits) {
-        try {
-            openConnection();
-            CallableStatement callStmt = getConnection().prepareCall("{ call updateClientCredits(?,?) }");
-
+        try(CallableStatement callStmt = getConnection().prepareCall("{ call updateClientCredits(?,?) }");) {
             callStmt.setString(1, strEmail);
             callStmt.setInt(2, intCredits);
 
