@@ -1,46 +1,29 @@
 package lapr.project.data;
 
 import lapr.project.model.*;
+import lapr.project.model.service.CourierService;
+import lapr.project.utils.Constants;
+import lapr.project.utils.DirectoryVerification;
+import lapr.project.utils.EmailSender;
+import lapr.project.utils.TimeCalculator;
 import oracle.jdbc.OracleTypes;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
+import java.util.logging.Level;
 
 public class CourierDB extends DataHandler {
 
-    /*public Courier getCourier(int id) {
-        CallableStatement callStmt = null;
-        try {
-            callStmt = getConnection().prepareCall("{ ? = call getCourier(?) }");
-
-            // Regista o tipo de dados SQL para interpretar o resultado obtido.
-            callStmt.registerOutParameter(1, OracleTypes.CURSOR);
-            // Especifica o parâmetro de entrada da função "getSailor".
-            callStmt.setInt(id, 1);
-
-            // Executa a invocação da função "getSailor".
-            callStmt.execute();
-
-            // Guarda o cursor retornado num objeto "ResultSet".
-            ResultSet rSet = (ResultSet) callStmt.getObject(1);
-
-            if (rSet.next()) {
-                int courierID = rSet.getInt(1);
-                String clientName = rSet.getString(2);
-                String email = rSet.getString(3);
-                String strPassword = rSet.getString(4);
-                Integer nif = rSet.getInt(5);
-                String iban = rSet.getString(6);
-
-                return new Courier(courierID,clientName, email,strPassword,nif,iban);
-            }
-        } catch (SQLException | NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        }
-        throw new IllegalArgumentException("No Courier with ID:" + id);
-    }*/
+    private static final java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(CourierService.class.getName());
 
     /**
      * Exemplo de invocação de uma "stored procedure".
@@ -207,5 +190,58 @@ public class CourierDB extends DataHandler {
             closeAll();
         }
         return true;
+    }
+
+    public boolean parkScooterDirectory(Integer intIdScooter, boolean flag) {
+            String estimateFileName = DirectoryVerification.verifyFileCreation(Constants.ESTIMATE_FILE_PATH,
+                    Constants.ESTIMATE_FILE_FILTER, 50);
+
+            if(estimateFileName.equals(""))
+                return false;
+
+            double estimate = 0;
+
+            try (BufferedReader br = new BufferedReader(new FileReader(Constants.ESTIMATE_FILE_PATH + "/" + estimateFileName))) {
+                String strCurrentLine;
+                if ((strCurrentLine = br.readLine()) != null) {
+                    estimate = Double.parseDouble(strCurrentLine);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            List<Integer> time = TimeCalculator.calculateTime(estimate);
+
+            int hours = time.get(0);
+            int minutes = time.get(1);
+            int seconds = time.get(2);
+
+            LocalDateTime lt = LocalDateTime.now();
+            lt = lt.plusSeconds(seconds);
+            lt = lt.plusMinutes(minutes);
+            lt = lt.plusHours(hours);
+
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss dd-MM-yyyy");
+            String formattedDateTime = lt.format(formatter); //
+
+
+            if(flag) {
+                EmailSender.sendEmail("antoniomsbarros@gmail.com",
+                        "Scooter Parked", String.format("The scooter number %d was parked successfully!\n__________" +
+                                        "_________________________________________________________\n\n" + "Estimated charging " +
+                                        "time: %d hours, %d minutes %d seconds.\nEstimated time for full charge: %s.\n__________" +
+                                        "_________________________________________________________\n\n" + "Thank you for " +
+                                        "choosing us.\nKing regards,\nPharmacy Service G21.", intIdScooter, time.get(0), time.get(1),
+                                time.get(2), formattedDateTime));
+
+                File file = new File(Constants.ESTIMATE_FILE_PATH + "/" + estimateFileName);
+                if (file.delete()) {
+                    file = new File(Constants.ESTIMATE_FILE_PATH + "/" + estimateFileName + Constants.ESTIMATE_FILE_FILTER);
+                    if (file.delete())
+                        LOGGER.log(Level.INFO, "File handled successfully!");
+                }
+            }
+            return flag;
+
     }
 }
