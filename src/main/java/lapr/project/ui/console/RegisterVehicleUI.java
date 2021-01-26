@@ -17,10 +17,12 @@ import java.util.logging.Logger;
 public class RegisterVehicleUI {
 
     private static final Logger LOGGER = Logger.getLogger(RegisterVehicleUI.class.getName());
+    private static RegisterScooterController oCtrlScooter = new RegisterScooterController();
+    private static RegisterDroneController oCtrlDrone = new RegisterDroneController();
+    private static Scanner sc = new Scanner(System.in);
 
     public void run(VehicleType oVehicleType) {
         try {
-            Scanner sc = new Scanner(System.in);
             boolean flag;
 
             if(oVehicleType.getDesignation().equalsIgnoreCase(VehicleType.SCOOTER.getDesignation()) ){
@@ -31,26 +33,7 @@ public class RegisterVehicleUI {
                 throw new Exception();
             }
 
-            RegisterScooterController oCtrlScooter = new RegisterScooterController();
-            RegisterDroneController oCtrlDrone = new RegisterDroneController();
-
-            List<Pharmacy> lstPharmacies = oCtrlScooter.showPharmacies();
-
-            for (Pharmacy p : lstPharmacies) {
-                System.out.println(p.toString());
-            }
-
-            System.out.println("\nChoose the Pharamcy's id: ");
-            int intPharmacyID = Integer.parseInt(sc.nextLine());
-            System.out.println();
-
-            Pharmacy oPharmacy = new Pharmacy();
-            for (Pharmacy p : lstPharmacies) {
-                if (p.hasId(intPharmacyID)) {
-                    oPharmacy = p;
-                    break;
-                }
-            }
+            Pharmacy oPharmacy = choosePharmacy();
 
             if (oPharmacy.getName().equalsIgnoreCase("No name.")) {
                 throw new Exception();
@@ -68,29 +51,7 @@ public class RegisterVehicleUI {
                     oCtrlDrone.setVehicleModel(strModelDesignation);
                 }
             } else{
-                System.out.println("Please input the following information:\n");
-                System.out.print("Designation: ");
-                String strDesignation = sc.nextLine();
-                System.out.print("Potency: ");
-                double dblPotency = Double.parseDouble(sc.nextLine());
-                System.out.print("Weight: ");
-                double dblWeight = Double.parseDouble(sc.nextLine());
-                System.out.print("Maximum Payload: ");
-                double dblMaxPayload = Double.parseDouble(sc.nextLine());
-                System.out.print("Battery Capacity: ");
-                int intBatteryCapacity = Integer.parseInt(sc.nextLine());
-                System.out.print("Battery Voltage: ");
-                double dblBatteryVoltage = Double.parseDouble(sc.nextLine());
-                System.out.print("Battery Efficiency: ");
-                double dblEfficiency = Double.parseDouble(sc.nextLine());
-
-                if (flag) {
-                    oCtrlScooter.newVehicleModel(strDesignation, dblPotency, dblWeight, dblMaxPayload, intBatteryCapacity,
-                            dblBatteryVoltage, dblEfficiency);
-                } else {
-                    oCtrlDrone.newVehicleModel(strDesignation, dblPotency, dblWeight, dblMaxPayload, intBatteryCapacity,
-                            dblBatteryVoltage, dblEfficiency);
-                }
+                createVehicleModel(flag);
             }
 
             if(flag){
@@ -116,6 +77,54 @@ public class RegisterVehicleUI {
             }
         }catch (Exception e) {
             LOGGER.log(Level.WARNING, "There was a problem removing the Vehicle.");
+        }
+    }
+
+    public static Pharmacy choosePharmacy(){
+        List<Pharmacy> lstPharmacies = oCtrlScooter.showPharmacies();
+
+        for (Pharmacy p : lstPharmacies) {
+            System.out.println(p.toString());
+        }
+
+        System.out.println("\nChoose the Pharamcy's id: ");
+        int intPharmacyID = Integer.parseInt(sc.nextLine());
+        System.out.println();
+
+        Pharmacy oPharmacy = new Pharmacy();
+        for (Pharmacy p : lstPharmacies) {
+            if (p.hasId(intPharmacyID)) {
+                oPharmacy = p;
+                break;
+            }
+        }
+
+        return oPharmacy;
+    }
+
+    public static void createVehicleModel(boolean flag){
+        System.out.println("Please input the following information:\n");
+        System.out.print("Designation: ");
+        String strDesignation = sc.nextLine();
+        System.out.print("Potency: ");
+        double dblPotency = Double.parseDouble(sc.nextLine());
+        System.out.print("Weight: ");
+        double dblWeight = Double.parseDouble(sc.nextLine());
+        System.out.print("Maximum Payload: ");
+        double dblMaxPayload = Double.parseDouble(sc.nextLine());
+        System.out.print("Battery Capacity: ");
+        int intBatteryCapacity = Integer.parseInt(sc.nextLine());
+        System.out.print("Battery Voltage: ");
+        double dblBatteryVoltage = Double.parseDouble(sc.nextLine());
+        System.out.print("Battery Efficiency: ");
+        double dblEfficiency = Double.parseDouble(sc.nextLine());
+
+        if (flag) {
+            oCtrlScooter.newVehicleModel(strDesignation, dblPotency, dblWeight, dblMaxPayload, intBatteryCapacity,
+                    dblBatteryVoltage, dblEfficiency);
+        } else {
+            oCtrlDrone.newVehicleModel(strDesignation, dblPotency, dblWeight, dblMaxPayload, intBatteryCapacity,
+                    dblBatteryVoltage, dblEfficiency);
         }
     }
 }
