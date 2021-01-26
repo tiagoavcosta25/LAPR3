@@ -30,7 +30,7 @@ public class InvoiceDB extends DataHandler {
 
                 return invoiceManager(rSet, 1);
             }
-        } catch (SQLException | NoSuchAlgorithmException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         } finally {
             closeAll();

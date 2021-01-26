@@ -275,7 +275,7 @@ public class DataHandler {
                 strStatus, blIsHomeDelivery, oClient, oPharmacy, new TreeMap<>());
     }
 
-    protected Invoice invoiceManager(ResultSet rSet, int firstColumn) throws SQLException, NoSuchAlgorithmException { // column number +47
+    protected Invoice invoiceManager(ResultSet rSet, int firstColumn) throws SQLException { // column number +47
 
         Order oOrder = orderManager(rSet, firstColumn);
         firstColumn+= mCOLUMNSADDEDORDER;
@@ -396,7 +396,7 @@ public class DataHandler {
         return new Battery(intBatteryId, intBatteryCapacity, dblBatteryVoltage, dblEfficiency);
     }
 
-    protected PharmacyTransfer pharmacyTransferManager(ResultSet rSet, int firstColumn) throws SQLException, NoSuchAlgorithmException { // column number +4
+    protected PharmacyTransfer pharmacyTransferManager(ResultSet rSet, int firstColumn) throws SQLException { // column number +4
 
         int intId = rSet.getInt(firstColumn);
         firstColumn++;
