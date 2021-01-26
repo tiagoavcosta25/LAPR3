@@ -13,6 +13,7 @@ import org.mockito.Mockito;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -61,7 +62,7 @@ class ScooterInformationControllerTest {
 
         when(m_mockScooterService.getScootersList("")).thenThrow(new IllegalArgumentException());
         result = m_ctrl.showScootersList("");
-        assertNull(result);
+        assertEquals(Collections.emptyList(),result);
     }
 
     @Test
@@ -70,5 +71,35 @@ class ScooterInformationControllerTest {
         when(m_mockScooterService.getScooter(1)).thenReturn(new Scooter());
         Scooter result = m_ctrl.getScooterInformation(1);
         assertEquals(new Scooter(),result);
+    }
+
+    @Test
+    void getPharmacyService() {
+        PharmacyService expected = m_mockPharmacyService;
+        PharmacyService real = m_ctrl.getPharmacyService();
+        assertEquals(expected,real);
+    }
+
+    @Test
+    void setPharmacyService() {
+        PharmacyService expected = new PharmacyService();
+        m_ctrl.setPharmacyService(expected);
+        PharmacyService real = m_ctrl.getPharmacyService();
+        assertEquals(expected,real);
+    }
+
+    @Test
+    void getScooterService() {
+        ScooterService expected = m_mockScooterService;
+        ScooterService real = m_ctrl.getScooterService();
+        assertEquals(expected,real);
+    }
+
+    @Test
+    void setScooterService() {
+        ScooterService expected = new ScooterService();
+        m_ctrl.setScooterService(expected);
+        ScooterService real = m_ctrl.getScooterService();
+        assertEquals(expected,real);
     }
 }

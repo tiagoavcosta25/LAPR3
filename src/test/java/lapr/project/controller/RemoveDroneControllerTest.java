@@ -13,6 +13,7 @@ import org.mockito.Mockito;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -70,7 +71,7 @@ class RemoveDroneControllerTest {
 
         when(m_mockDroneService.getDronesList("emailTest")).thenThrow(new IllegalArgumentException());
         result = m_ctrl.showDronesList("emailTest");
-        assertNull(result);
+        assertEquals(Collections.emptyList(),result);
     }
 
     @Test
@@ -91,4 +92,33 @@ class RemoveDroneControllerTest {
         assertFalse(result);
     }
 
+    @Test
+    void getPharmacyService() {
+        PharmacyService expected = m_mockPharmacyService;
+        PharmacyService real = m_ctrl.getPharmacyService();
+        assertEquals(expected,real);
+    }
+
+    @Test
+    void setPharmacyService() {
+        PharmacyService expected = new PharmacyService();
+        m_ctrl.setPharmacyService(expected);
+        PharmacyService real = m_ctrl.getPharmacyService();
+        assertEquals(expected,real);
+    }
+
+    @Test
+    void getDroneService() {
+        DroneService expected = m_mockDroneService;
+        DroneService real = m_ctrl.getDroneService();
+        assertEquals(expected,real);
+    }
+
+    @Test
+    void setDroneService() {
+        DroneService expected = new DroneService();
+        m_ctrl.setDroneService(expected);
+        DroneService real = m_ctrl.getDroneService();
+        assertEquals(expected,real);
+    }
 }
