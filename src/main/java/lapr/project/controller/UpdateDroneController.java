@@ -4,10 +4,21 @@ import lapr.project.model.Drone;
 import lapr.project.model.Pharmacy;
 import lapr.project.model.service.DroneService;
 import lapr.project.model.service.PharmacyService;
-
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * Update Drone Controller.
+ *
+ * Group: Team Lisa [G-021]
+ * ______________________________________________________
+ * @author António Barbosa <1190404@isep.ipp.pt>
+ * @author Ernesto Rodrigues <1190560@isep.ipp.pt>
+ * @author Jessica Alves <1190682@isep.ipp.pt>
+ * @author Pedro Santos <1190967@isep.ipp.pt>
+ * @author Rodrigo Costa <1191014@isep.ipp.pt>
+ * @author Tiago Costa <1191460@isep.ipp.pt>
+ */
 public class UpdateDroneController {
 
     /**
@@ -97,7 +108,7 @@ public class UpdateDroneController {
      * @param dblBatteryPerc     Drone Battery Capacity
      * @param strDesignation     Drone Designation
      * @param dblPotency         Drone Potency
-     * @param dblWeight          Drone Weigth
+     * @param dblWeight          Drone Weight
      * @param dblMaxPayload      Drone Max Payload
      * @param intBatteryCapacity Drone Battery Capacity
      * @param dblBatteryVoltage  Drone Batteru Voltage

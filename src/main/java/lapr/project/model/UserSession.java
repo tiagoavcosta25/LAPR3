@@ -2,6 +2,19 @@ package lapr.project.model;
 
 import lapr.project.controller.ApplicationPOT;
 
+/**
+ * UserSession.
+ * <p>
+ * Group: Team Lisa [G-021]
+ * ______________________________________________________
+ *
+ * @author António Barbosa <1190404@isep.ipp.pt>
+ * @author Ernesto Rodrigues <1190560@isep.ipp.pt>
+ * @author Jessica Alves <1190682@isep.ipp.pt>
+ * @author Pedro Santos <1190967@isep.ipp.pt>
+ * @author Rodrigo Costa <1191014@isep.ipp.pt>
+ * @author Tiago Costa <1191460@isep.ipp.pt>
+ */
 public class UserSession {
 
     /**
@@ -14,18 +27,37 @@ public class UserSession {
      */
     private Role moRole;
 
-
+    /**
+     * Role Enum
+     */
     public enum Role {
+        /**
+         * Possible Roles
+         */
         ADMIN("Administrator"),
         COURIER("Courier"),
         CLIENT("Client");
 
+        /**
+         * Role designation
+         */
         private final String mstrLabel;
 
+        /**
+         * Constructor of Role Enum, which sets the label to the one
+         * given by parameter
+         *
+         * @param label Role label
+         */
         private Role(String label) {
             this.mstrLabel = label;
         }
 
+        /**
+         * Returns the Role
+         *
+         * @return Role
+         */
         public String getRole() {
             return this.mstrLabel;
         }
@@ -79,6 +111,12 @@ public class UserSession {
         ApplicationPOT.getInstance().setCurrentSession(this);
     }
 
+    /**
+     * UserSession constructor, which sets all the atributes to the ones given by parameter
+     *
+     * @param email Current User Email
+     * @param role  Current User Role
+     */
     public UserSession(String email, Role role) {
         this.mstrCurrentUserEmail = email;
         this.moRole = role;
