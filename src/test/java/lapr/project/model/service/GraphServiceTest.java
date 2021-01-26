@@ -1038,6 +1038,7 @@ class GraphServiceTest {
         when(mockDeliveryRunDB.checkValidChargingSlot(se)).thenReturn(true);
         when(mockDeliveryRunDB.checkValidChargingSlot(caisDaRibeira)).thenReturn(true);
 
+        assertEquals(36.76915790179582, world.calculatePathCost(pathList, lstOrders, scooter1, 20d));
         assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter1, 10d));
         assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter1, 0d));
         assertEquals(36.76915790179582, world.calculatePathCost(pathList, lstOrders, scooter1, 100000d));
