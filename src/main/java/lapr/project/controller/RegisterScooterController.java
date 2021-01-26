@@ -4,43 +4,56 @@ import lapr.project.model.Pharmacy;
 import lapr.project.model.Scooter;
 import lapr.project.model.VehicleModel;
 import lapr.project.model.VehicleType;
+import lapr.project.model.service.DroneService;
 import lapr.project.model.service.PharmacyService;
 import lapr.project.model.service.ScooterService;
 import lapr.project.model.service.VehicleService;
 
 import java.util.List;
 
+/**
+ * Register Scooter Controller.
+ *
+ * Group: Team Lisa [G-021]
+ * ______________________________________________________
+ * @author António Barbosa <1190404@isep.ipp.pt>
+ * @author Ernesto Rodrigues <1190560@isep.ipp.pt>
+ * @author Jessica Alves <1190682@isep.ipp.pt>
+ * @author Pedro Santos <1190967@isep.ipp.pt>
+ * @author Rodrigo Costa <1191014@isep.ipp.pt>
+ * @author Tiago Costa <1191460@isep.ipp.pt>
+ */
 public class RegisterScooterController {
 
     /**
-     * Scooter class instance
+     * Scooter class instance.
      */
     private Scooter moScooter;
 
     /**
-     * Pharmacy Management class
+     * Pharmacy Management class.
      */
     private PharmacyService moPharmacyService;
 
     /**
-     * Scooter Management class
+     * Scooter Management class.
      */
     private ScooterService moScooterService;
 
     /**
-     * VehicleModel class instance
+     * VehicleModel class instance.
      */
     private VehicleModel moVehicleModel;
 
     /**
-     * Vehicle Management class
+     * Vehicle Management class.
      */
     private VehicleService moVehicleService;
 
     private Pharmacy moPharmacy;
 
     /**
-     * An empty constructor of RegisterScooterController that initiates the platform variable by getting it from the ApplicationPOT.
+     * An empty constructor of RegisterScooterController.
      */
     public RegisterScooterController() {
         this.moPharmacyService = new PharmacyService();
@@ -49,8 +62,7 @@ public class RegisterScooterController {
     }
 
     /**
-     * The method receives Scooter's battery percentage, charging status, potency, weight, battery capacity and a pharmacy.
-     * Initiates the Pharmacy instance and the Scooter instance with the provided data.
+     * The method creates a new Scooter.
      * The method returns the validation of that instance of Scooter. True if the data is correct and false if
      * it doesn't.
      */
@@ -67,6 +79,8 @@ public class RegisterScooterController {
 
     /**
      * The method registers an order to the database.
+     * The method returns the validation of that instance of Scooter. True if the data is correct and false if
+     * it doesn't.
      */
     public boolean registersScooter() {
         try {
@@ -107,6 +121,19 @@ public class RegisterScooterController {
         return false;
     }
 
+    /**
+     * The method creates a new Vehicle Model.
+     * The method returns the validation of that instance of Vehicle Model. True if the data is correct and false if
+     * it doesn't.
+     *
+     * @param strDesignation Vehicle Model Designation
+     * @param dblPotency Vehicle Model Potency
+     * @param dblWeight Vehicle Model Weight
+     * @param dblMaxPayload Vehicle Model Maximum Paylod
+     * @param intBatteryCapacity Vehicle Model Battery Capacity
+     * @param dblBatteryVoltage Vehicle Model Battery Voltage
+     * @param dblEfficiency Vehicle Model Efficiency
+     */
     public boolean newVehicleModel(String strDesignation, double dblPotency, double dblWeight, double dblMaxPayload, int intBatteryCapacity,
                                    double dblBatteryVoltage, double dblEfficiency) {
         try {
@@ -122,6 +149,12 @@ public class RegisterScooterController {
         return false;
     }
 
+    /**
+     * The method sets the Phramacy.
+     * The method returns the validation of that instance of Vehicle Model. True if the data is correct and false if
+     * it doesn't.
+     * @param strPharmacyEmail Phramacy Email.
+     */
     public boolean setPharmacy(String strPharmacyEmail){
         try {
             this.moPharmacy = this.moPharmacyService.getPharmacy(strPharmacyEmail);
@@ -131,26 +164,50 @@ public class RegisterScooterController {
         }
     }
 
+    /**
+     * Returns the Pharmacy Service Instance.
+     * @return Pharmacy Service Instance.
+     */
     public PharmacyService getPharmacyService() {
         return moPharmacyService;
     }
 
+    /**
+     * Modifies Pharmacy Service Instance.
+     * @param oPharmacyService Pharmacy Service Instance.
+     */
     public void setPharmacyService(PharmacyService oPharmacyService) {
         this.moPharmacyService = oPharmacyService;
     }
 
+    /**
+     * Returns the Scooter Service Instance.
+     * @return Scooter Service Instance.
+     */
     public ScooterService getScooterService() {
         return moScooterService;
     }
 
+    /**
+     * Modifies Scooter Service Instance.
+     * @param oScooterService Scooter Service Instance.
+     */
     public void setScooterService(ScooterService oScooterService) {
         this.moScooterService = oScooterService;
     }
 
+    /**
+     * Returns the Vehicle Service Instance.
+     * @return Vehicle Service Instance.
+     */
     public VehicleService getVehicleService() {
         return moVehicleService;
     }
 
+    /**
+     * Modifies Vehicle Service Instance.
+     * @param oVehicleService Vehicle Service Instance.
+     */
     public void setVehicleService(VehicleService oVehicleService) {
         this.moVehicleService = oVehicleService;
     }

@@ -10,8 +10,26 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Vehicle Database.
+ *
+ * Group: Team Lisa [G-021]
+ * ______________________________________________________
+ * @author António Barbosa <1190404@isep.ipp.pt>
+ * @author Ernesto Rodrigues <1190560@isep.ipp.pt>
+ * @author Jessica Alves <1190682@isep.ipp.pt>
+ * @author Pedro Santos <1190967@isep.ipp.pt>
+ * @author Rodrigo Costa <1191014@isep.ipp.pt>
+ * @author Tiago Costa <1191460@isep.ipp.pt>
+ */
+
 public class VehicleDB extends DataHandler {
 
+    /**
+     * Returns a list of Vehicle Models by Pharmacy Email.
+     * @param strPharmacyEmail Pharmacy Email.
+     * @return a list of Vehicle Models.
+     */
     public List<VehicleModel> getPharmacyModel(String strPharmacyEmail) {
 
         List<VehicleModel> lstModels = new ArrayList<>();
@@ -52,6 +70,11 @@ public class VehicleDB extends DataHandler {
         throw new IllegalArgumentException("No Models Avaliable.");
     }
 
+    /**
+     * Returns a Vehicle Model by Designation.
+     * @param strDesignation Vehicle Model Designation.
+     * @return a Vehicle Model
+     */
     public VehicleModel getVehicleModel(String strDesignation) {
 
         try(CallableStatement callStmt = getConnection().prepareCall("{ ? = call getVehicleModel(?) }");) {
@@ -87,11 +110,26 @@ public class VehicleDB extends DataHandler {
         throw new IllegalArgumentException("No Model with Designation:" + strDesignation);
     }
 
+    /**
+     * Gets all the Vehicle Model's atributtes.
+     * @param moVehicleModel Vehicle Model.
+     * @return Vehicle Model ID.
+     */
     public int registerVehicleModel(VehicleModel moVehicleModel) {
         return addVehicleModel(moVehicleModel.getDesignation(), moVehicleModel.getMaxPayload(), moVehicleModel.getPotency(),
                 moVehicleModel.getVehicleType(), moVehicleModel.getWeight(), moVehicleModel.getBattery());
     }
 
+    /**
+     * Registers a new Vehicle Model.
+     * @param designation Vehicle Model Designation
+     * @param maxPayload Vehicle ModelMaximum Payload
+     * @param potency Vehicle Model Potency
+     * @param vehicleType Vehicle Model Type
+     * @param weight Vehicle Model Weight
+     * @param battery Vehicle Model Battery
+     * @return Vehicle Model ID.
+     */
     private int addVehicleModel(String designation, double maxPayload, double potency, VehicleType vehicleType, double weight, Battery battery) {
         try(CallableStatement callStmt = getConnection().prepareCall("{ ? = call addVehicleModel(?,?,?,?,?,?,?,?) }");) {
             callStmt.registerOutParameter(1, OracleTypes.INTEGER);
@@ -115,6 +153,11 @@ public class VehicleDB extends DataHandler {
         }
     }
 
+    /**
+     * Returns Energy By Vehicle Model.
+     * @param intVehicleModel Vehicle Model ID.
+     * @return Energy.
+     */
     public Double getEnergyByVehicleModel(int intVehicleModel) {
         try(CallableStatement callStmt = getConnection().prepareCall("{ ? = call getEnergyByVehicleModel(?) }");) {
 
@@ -128,6 +171,12 @@ public class VehicleDB extends DataHandler {
             closeAll();
         }
     }
+
+    /**
+     * Returns Vehicle Payload.
+     * @param vehicleId Vehicle ID.
+     * @return Vehicle Payload.
+     */
     public double getVehiclePayload(int vehicleId){
         try(CallableStatement callStmt = getConnection().prepareCall("{ ? = call getVehiclePayload(?) }");) {
 
