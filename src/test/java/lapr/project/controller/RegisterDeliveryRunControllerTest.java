@@ -108,6 +108,16 @@ class RegisterDeliveryRunControllerTest {
         when(m_mockPharmacyService.getOrdersByPharmacyEmail("test")).thenReturn(new ArrayList<>());
         List<Order> real = m_ctrl.getOrdersList("test");
         assertEquals(new ArrayList<>(), real);
+
+        when(m_mockPharmacyService.getOrdersByPharmacyEmail("test")).thenReturn(null);
+        real = m_ctrl.getOrdersList("test");
+        assertNull(real);
+
+        List<Order> lst = new ArrayList<>();
+        lst.add(new Order());
+        when(m_mockPharmacyService.getOrdersByPharmacyEmail("test")).thenReturn(lst);
+        real = m_ctrl.getOrdersList("test");
+        assertEquals(lst,real);
     }
 
     @Test

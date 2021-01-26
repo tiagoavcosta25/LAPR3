@@ -238,7 +238,7 @@ public class GraphService {
             result.append("\t").append(getPathFromAddresses(g, paths.get(i), paths.get(i + 1))).append("\n");
         }
         result.append("\n\n");
-        LOGGER.log(Level.INFO, result.toString());
+        LOGGER.log(Level.INFO, String.valueOf(result));
     }
 
     /**
@@ -259,7 +259,12 @@ public class GraphService {
                 else droneList.add(vM);
             }
         }
-        if(scooterList.isEmpty() && droneList.isEmpty()) return null;
+        if(scooterList.isEmpty() && droneList.isEmpty()) {
+            String body = "\n\n\nThere is no scooter model nor drone model that can make this path!";
+            LOGGER.log(Level.INFO, body);
+            WriteFile.write(DELIVERYRUNPATH,body);
+            return Collections.emptyList();
+        }
 
         //CALCULATE WITHOUT PHARMACIES IN CONSIDERATION
         return calculateBestVehicleForMostEficientPath(orderList, pharmacy, scooterList, droneList);

@@ -186,6 +186,9 @@ class DeliveryRunServiceTest {
         real = m_oDeliveryRunService.getMostEfficientVehicleModel(lst);
         assertEquals(null,real);
 
+        real = m_oDeliveryRunService.getMostEfficientVehicleModel(new ArrayList<>());
+        assertEquals(null,real);
+
     }
 
     @Test

@@ -60,6 +60,16 @@ class UpdateDroneControllerTest {
         List<Drone> result = m_ctrl.showDronesList("pharmacy@gmail.com");
         assertEquals(new ArrayList<>(),result);
 
+        when(m_mockDroneService.getDronesList("pharmacy@gmail.com")).thenReturn(null);
+        result = m_ctrl.showDronesList("pharmacy@gmail.com");
+        assertNull(result);
+
+        List<Drone> lst = new ArrayList<>();
+        lst.add(new Drone());
+        when(m_mockDroneService.getDronesList("pharmacy@gmail.com")).thenReturn(lst);
+        result = m_ctrl.showDronesList("pharmacy@gmail.com");
+        assertEquals(lst,result);
+
         when(m_mockDroneService.getDronesList("")).thenThrow(new IllegalArgumentException());
         result = m_ctrl.showDronesList("");
         assertEquals(new ArrayList<>(),result);

@@ -6,7 +6,6 @@ import lapr.project.data.DeliveryRunDB;
 import lapr.project.model.*;
 import lapr.project.utils.EmailSender;
 import lapr.project.utils.WriteFile;
-
 import java.util.*;
 
 public class DeliveryRunService {
@@ -63,13 +62,15 @@ public class DeliveryRunService {
     }
 
     public VehicleModel getMostEfficientVehicleModel(List<Pair<Pair<VehicleModel, Double>, List<Address>>> lst) {
+        if (lst.isEmpty()) return null;
+
         if (lst.get(0) == null && lst.get(1) == null) {
             return null;
-        }else if (lst.get(0) == null) {
+        } else if (lst.get(0) == null) {
             return lst.get(1).getKey().getKey();
-        }else if (lst.get(1) == null) {
+        } else if (lst.get(1) == null) {
             return lst.get(0).getKey().getKey();
-        }else{
+        } else {
             if (lst.get(0).getKey().getValue() < lst.get(1).getKey().getValue()) return lst.get(0).getKey().getKey();
             else return lst.get(1).getKey().getKey();
         }
