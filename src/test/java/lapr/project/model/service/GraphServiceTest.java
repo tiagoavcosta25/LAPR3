@@ -808,7 +808,12 @@ class GraphServiceTest {
         expResult = new ArrayList<>();
         expResult.add(null);
         expResult.add(null);
+        result = world.calculateBestVehicleForMostEficientPath(lstOrders, ph1, lstScooter, lstDrone);
+        assertEquals(expResult, result);
 
+        world.setScooterGraph(new Graph<>(true));
+
+        world.setDroneGraph(new Graph<>(true));
         result = world.calculateBestVehicleForMostEficientPath(lstOrders, ph1, lstScooter, lstDrone);
         assertEquals(expResult, result);
     }
