@@ -44,9 +44,7 @@ public class ProductDB extends DataHandler {
 
     private boolean addProductToDB(String strName, String strDescription, Double fltUnitaryPrice, Double fltUnitaryWeight) {
         boolean flag = true;
-        try (
-                CallableStatement callStmt = getConnection().prepareCall("{ call addProduct(?,?,?,?) }");
-        )
+        try (CallableStatement callStmt = getConnection().prepareCall("{ call addProduct(?,?,?,?) }");)
         {
 
             callStmt.setString(1, strName);

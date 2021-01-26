@@ -12,6 +12,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.security.NoSuchAlgorithmException;
 import java.sql.CallableStatement;
 import java.sql.ResultSet;
@@ -25,28 +26,9 @@ public class CourierDB extends DataHandler {
 
     private static final java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(CourierService.class.getName());
 
-    /**
-     * Exemplo de invocação de uma "stored procedure".
-     * <p>
-     * Adiciona o marinheiro especificado à tabela "Sailors".
-     *
-     * @param strName o identificador do marinheiro.
-     * @param strNif  o nome do marinheiro.
-     * @param strIban o "rating" do marinheiro.
-     */
     public boolean addCourierToDB(String strName, String strEmail, String strPassword, Integer strNif, String strIban, Integer pharmacyId) {
         boolean flag = true;
-        try {
-            openConnection();
-            /*
-             *  Objeto "callStmt" para invocar o procedimento "addSailor" armazenado
-             *  na BD.
-             *
-             *  PROCEDURE addSailor(sid NUMBER, sname VARCHAR, rating NUMBER, age NUMBER)
-             *  PACKAGE pkgSailors AS TYPE ref_cursor IS REF CURSOR; END pkgSailors;
-             */
-            CallableStatement callStmt = getConnection().prepareCall("{ call addCourier(?,?,?,?,?,?) }");
-
+        try(CallableStatement callStmt = getConnection().prepareCall("{ call addCourier(?,?,?,?,?,?) }");) {
             callStmt.setString(1, strName);
             callStmt.setString(2, strEmail);
             callStmt.setString(3, strPassword);
@@ -65,26 +47,9 @@ public class CourierDB extends DataHandler {
         return flag;
     }
 
-    /**
-     * Exemplo de invocação de uma "stored procedure".
-     * <p>
-     * Remove o marinheiro especificado da tabela "Sailors".
-     *
-     * @param email o identificador do marinheiro a remover.
-     */
     public boolean removeCourier(String email) {
         boolean flag = true;
-        try {
-            openConnection();
-            /*
-             *  Objeto "callStmt" para invocar o procedimento "removeSailor"
-             *  armazenado na BD.
-             *
-             *  PROCEDURE removeSailor(sid NUMBER)
-             *  PACKAGE pkgSailors AS TYPE ref_cursor IS REF CURSOR; END pkgSailors;
-             */
-            CallableStatement callStmt = getConnection().prepareCall("{ call removeCourier(?) }");
-
+        try(CallableStatement callStmt = getConnection().prepareCall("{ call removeCourier(?) }");) {
             callStmt.setString(1,email);
 
             callStmt.execute();
@@ -102,17 +67,7 @@ public class CourierDB extends DataHandler {
 
     public boolean updateCourierDB(Courier oCourier) {
         boolean flag = true;
-        try {
-            openConnection();
-            /*
-             *  Objeto "callStmt" para invocar o procedimento "addSailor" armazenado
-             *  na BD.
-             *
-             *  PROCEDURE addSailor(sid NUMBER, sname VARCHAR, rating NUMBER, age NUMBER)
-             *  PACKAGE pkgSailors AS TYPE ref_cursor IS REF CURSOR; END pkgSailors;
-             */
-            CallableStatement callStmt = getConnection().prepareCall("{ call updateCourier(?,?,?,?,?,?) }");
-
+        try(CallableStatement callStmt = getConnection().prepareCall("{ call updateCourier(?,?,?,?,?,?) }");) {
             callStmt.setInt(1, oCourier.getId());
             callStmt.setString(2, oCourier.getName());
             callStmt.setString(3, oCourier.getEmail());
@@ -132,26 +87,12 @@ public class CourierDB extends DataHandler {
     }
 
     public Courier getCourierByEmail(String email) {
+        try(CallableStatement callStmt = getConnection().prepareCall("{ ? = call getCourierByEmail(?) }");) {
 
-        /* Objeto "callStmt" para invocar a função "getSailor" armazenada na BD.
-         *
-         * FUNCTION getSailor(id NUMBER) RETURN pkgSailors.ref_cursor
-         * PACKAGE pkgSailors AS TYPE ref_cursor IS REF CURSOR; END pkgSailors;
-         */
-        CallableStatement callStmt = null;
-        try {
-            openConnection();
-            callStmt = getConnection().prepareCall("{ ? = call getCourierByEmail(?) }");
-
-            // Regista o tipo de dados SQL para interpretar o resultado obtido.
             callStmt.registerOutParameter(1, OracleTypes.CURSOR);
-            // Especifica o parâmetro de entrada da função "getSailor".
             callStmt.setString(2, email);
-
-            // Executa a invocação da função "getSailor".
             callStmt.execute();
 
-            // Guarda o cursor retornado num objeto "ResultSet".
             ResultSet rSet = (ResultSet) callStmt.getObject(1);
 
             if (rSet.next()) {
@@ -174,11 +115,7 @@ public class CourierDB extends DataHandler {
     }
 
     public boolean parkScooter(int intId) {
-        try {
-            openConnection();
-
-            CallableStatement callStmt = getConnection().prepareCall("{ call parkScooter(?) }");
-
+        try(CallableStatement callStmt = getConnection().prepareCall("{ call parkScooter(?) }");) {
             callStmt.setInt(1, intId);
 
             callStmt.execute();
@@ -234,12 +171,16 @@ public class CourierDB extends DataHandler {
                                         "choosing us.\nKing regards,\nPharmacy Service G21.", intIdScooter, time.get(0), time.get(1),
                                 time.get(2), formattedDateTime));
 
-                File file = new File(Constants.ESTIMATE_FILE_PATH + "/" + estimateFileName);
-                if (file.delete()) {
+                String Path = new File("").getAbsolutePath();
+                File file = new File(Path + Constants.ESTIMATE_FILE_PATH + "/" + estimateFileName);
+                try {
+                    Files.delete(file.toPath());
                     file = new File(Constants.ESTIMATE_FILE_PATH + "/" + estimateFileName + Constants.ESTIMATE_FILE_FILTER);
-                    if (file.delete())
-                        LOGGER.log(Level.INFO, "File handled successfully!");
+                    Files.delete(file.toPath());
+                } catch (IOException e) {
+                    LOGGER.log(Level.WARNING, "There was an error deleting the file!");
                 }
+                LOGGER.log(Level.INFO, "File handled successfully!");
             }
             return flag;
 
