@@ -27,89 +27,89 @@ public class AdministratorUI implements UI {
             Menu.clear();
 
             switch(intOp){
-                case 1: {
+                case 1:
                     Menu.runUI(new RegisterPharmacyUI());
                     break;
-                }
-                case 2: {
+
+                case 2:
                     Menu.runUI(new RegisterProductUI());
                     break;
-                }
-                case 3: {
+
+                case 3:
                     Menu.runUI(new RemoveProductUI());
                     break;
-                }
-                case 4: {
+
+                case 4:
                     Menu.runUI(new UpdateProductUI());
                     break;
-                }
-                case 5: {
+
+                case 5:
                     Menu.runUI(new ProductInformationUI());
                     break;
-                }
-                case 6: {
+
+                case 6:
                     Menu.runUI(new AddPharmacyProductUI());
                     break;
-                }
-                case 7: {
-                    RegisterVehicleUI ui = new RegisterVehicleUI();
-                    ui.run(VehicleType.SCOOTER);
+
+                case 7:
+                    RegisterVehicleUI regVUI = new RegisterVehicleUI();
+                    regVUI.run(VehicleType.SCOOTER);
                     break;
-                }
-                case 8: {
-                    RemoveVehicleUI ui = new RemoveVehicleUI();
-                    ui.run(VehicleType.SCOOTER);
+
+                case 8:
+                    RemoveVehicleUI remVUI = new RemoveVehicleUI();
+                    remVUI.run(VehicleType.SCOOTER);
                     break;
-                }
-                case 9: {
-                    UpdateVehicleUI ui = new UpdateVehicleUI();
-                    ui.run(VehicleType.SCOOTER);
+
+                case 9:
+                    UpdateVehicleUI updVUI = new UpdateVehicleUI();
+                    updVUI.run(VehicleType.SCOOTER);
                     break;
-                }
-                case 10: {
+                
+                case 10:
                     Menu.runUI(new ScooterInformationUI());
                     break;
-                }
-                case 11: {
-                    RegisterVehicleUI ui = new RegisterVehicleUI();
-                    ui.run(VehicleType.DRONE);
+
+                case 11:
+                    regVUI = new RegisterVehicleUI();
+                    regVUI.run(VehicleType.DRONE);
                     break;
-                }
-                case 12: {
-                    RemoveVehicleUI ui = new RemoveVehicleUI();
-                    ui.run(VehicleType.DRONE);
+
+                case 12:
+                    remVUI = new RemoveVehicleUI();
+                    remVUI.run(VehicleType.DRONE);
                     break;
-                }
-                case 13: {
-                    UpdateVehicleUI ui = new UpdateVehicleUI();
-                    ui.run(VehicleType.DRONE);
+
+                case 13:
+                    updVUI = new UpdateVehicleUI();
+                    updVUI.run(VehicleType.DRONE);
                     break;
-                }
-                case 14: {
+
+                case 14:
                     Menu.runUI(new IssueDeliveryNoteUI());
                     break;
-                }
-                case 15: {
+
+                case 15:
                     Menu.runUI(new RegisterDeliveryRunUI());
                     break;
-                }
-                case 16: {
+
+                case 16:
                     Menu.runUI(new RegisterPathUI());
                     break;
-                }
-                case 17: {
+
+                case 17:
                     Menu.runUI(new RegisterParkUI());
                     break;
-                }
-                case 18: {
+
+                case 18:
                     Menu.runUI(new RegisterCourierUI());
                     break;
-                }
-                case 0: {
+
+                case 0:
                     LogoutController oLogOut = new LogoutController();
                     oLogOut.logout();
                     break;
-                }
+
                 default:
                     LOGGER.log(Level.WARNING, "Choose a valid option.");
                     break;
