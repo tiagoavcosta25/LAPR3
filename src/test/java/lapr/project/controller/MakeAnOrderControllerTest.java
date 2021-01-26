@@ -11,10 +11,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.TreeMap;
+
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
@@ -255,5 +253,185 @@ class MakeAnOrderControllerTest {
         when(mockPharmacyService.getPharmacy("Test")).thenThrow(new IllegalArgumentException());
         real = makeAnOrderController.setPharmacy("Test");
         assertFalse(real);
+    }
+
+    @Test
+    void getOrderService() {
+        MakeAnOrderController ctrl = new MakeAnOrderController();
+        OrderService expected = new OrderService();
+        ctrl.setOrderService(expected);
+        OrderService real = ctrl.getOrderService();
+        assertEquals(expected, real);
+    }
+
+    @Test
+    void setOrderService() {
+        MakeAnOrderController ctrl = new MakeAnOrderController();
+        OrderService expected = new OrderService();
+        ctrl.setOrderService(expected);
+        OrderService real = ctrl.getOrderService();
+        assertEquals(expected, real);
+    }
+
+    @Test
+    void getClientService() {
+        MakeAnOrderController ctrl = new MakeAnOrderController();
+        ClientService expected = new ClientService();
+        ctrl.setClientService(expected);
+        ClientService real = ctrl.getClientService();
+        assertEquals(expected, real);
+    }
+
+    @Test
+    void setClientService() {
+        MakeAnOrderController ctrl = new MakeAnOrderController();
+        ClientService expected = new ClientService();
+        ctrl.setClientService(expected);
+        ClientService real = ctrl.getClientService();
+        assertEquals(expected, real);
+    }
+
+    @Test
+    void getProductService() {
+        MakeAnOrderController ctrl = new MakeAnOrderController();
+        ProductService expected = new ProductService();
+        ctrl.setProductService(expected);
+        ProductService real = ctrl.getProductService();
+        assertEquals(expected, real);
+    }
+
+    @Test
+    void setProductService() {
+        MakeAnOrderController ctrl = new MakeAnOrderController();
+        ProductService expected = new ProductService();
+        ctrl.setProductService(expected);
+        ProductService real = ctrl.getProductService();
+        assertEquals(expected, real);
+    }
+
+    @Test
+    void getPharmacyService() {
+        MakeAnOrderController ctrl = new MakeAnOrderController();
+        PharmacyService expected = new PharmacyService();
+        ctrl.setPharmacyService(expected);
+        PharmacyService real = ctrl.getPharmacyService();
+        assertEquals(expected, real);
+    }
+
+    @Test
+    void setPharmacyService() {
+        MakeAnOrderController ctrl = new MakeAnOrderController();
+        PharmacyService expected = new PharmacyService();
+        ctrl.setPharmacyService(expected);
+        PharmacyService real = ctrl.getPharmacyService();
+        assertEquals(expected, real);
+    }
+
+    @Test
+    void getMapProducts() {
+        MakeAnOrderController ctrl = new MakeAnOrderController();
+        Map<Product, Integer> expected = new TreeMap<>();
+        ctrl.setMapProducts(expected);
+        Map<Product, Integer> real = ctrl.getMapProducts();
+        assertEquals(expected, real);
+    }
+
+    @Test
+    void setMapProducts() {
+        MakeAnOrderController ctrl = new MakeAnOrderController();
+        Map<Product, Integer> expected = new TreeMap<>();
+        ctrl.setMapProducts(expected);
+        Map<Product, Integer> real = ctrl.getMapProducts();
+        assertEquals(expected, real);
+    }
+
+    @Test
+    void getMapPayments() {
+        MakeAnOrderController ctrl = new MakeAnOrderController();
+        Map<CreditCard, Double> expected = new TreeMap<>();
+        ctrl.setMapPayments(expected);
+        Map<CreditCard, Double> real = ctrl.getMapPayments();
+        assertEquals(expected, real);
+    }
+
+    @Test
+    void setMapPayments() {
+        MakeAnOrderController ctrl = new MakeAnOrderController();
+        Map<CreditCard, Double> expected = new TreeMap<>();
+        ctrl.setMapPayments(expected);
+        Map<CreditCard, Double> real = ctrl.getMapPayments();
+        assertEquals(expected, real);
+    }
+
+    @Test
+    void getGenerateInvoiceController() {
+        MakeAnOrderController ctrl = new MakeAnOrderController();
+        GenerateInvoiceController expected = new GenerateInvoiceController();
+        ctrl.setGenerateInvoiceController(expected);
+        GenerateInvoiceController real = ctrl.getGenerateInvoiceController();
+        assertEquals(expected, real);
+    }
+
+    @Test
+    void setGenerateInvoiceController() {
+        MakeAnOrderController ctrl = new MakeAnOrderController();
+        GenerateInvoiceController expected = new GenerateInvoiceController();
+        ctrl.setGenerateInvoiceController(expected);
+        GenerateInvoiceController real = ctrl.getGenerateInvoiceController();
+        assertEquals(expected, real);
+    }
+
+    @Test
+    void getNotifyAndRemoveController() {
+        MakeAnOrderController ctrl = new MakeAnOrderController();
+        NotifyAndRemoveController expected = new NotifyAndRemoveController();
+        ctrl.setNotifyAndRemoveController(expected);
+        NotifyAndRemoveController real = ctrl.getNotifyAndRemoveController();
+        assertEquals(expected, real);
+    }
+
+    @Test
+    void setNotifyAndRemoveController() {
+        MakeAnOrderController ctrl = new MakeAnOrderController();
+        NotifyAndRemoveController expected = new NotifyAndRemoveController();
+        ctrl.setNotifyAndRemoveController(expected);
+        NotifyAndRemoveController real = ctrl.getNotifyAndRemoveController();
+        assertEquals(expected, real);
+    }
+
+    @Test
+    void getCurrentPayment() {
+        MakeAnOrderController ctrl = new MakeAnOrderController();
+        float expected = 1f;
+        ctrl.setCurrentPayment(expected);
+        Float real = ctrl.getCurrentPayment();
+        assertEquals(expected, real);
+    }
+
+    @Test
+    void setCurrentPayment() {
+        MakeAnOrderController ctrl = new MakeAnOrderController();
+        float expected = 1f;
+        ctrl.setCurrentPayment(expected);
+        Float real = ctrl.getCurrentPayment();
+        assertEquals(expected, real);
+    }
+
+    @Test
+    void getExpectedPayment() {
+        MakeAnOrderController ctrl = new MakeAnOrderController();
+        float expected = 1f;
+        ctrl.setExpectedPayment(expected);
+        Float real = ctrl.getExpectedPayment();
+        assertEquals(expected, real);
+    }
+
+    @Test
+    void setExpectedPayment() {
+        MakeAnOrderController ctrl = new MakeAnOrderController();
+        float expected = 1f;
+        ctrl.setExpectedPayment(expected);
+        Float real = ctrl.getExpectedPayment();
+        assertEquals(expected, real);
     }
 }

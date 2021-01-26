@@ -194,22 +194,6 @@ public class MakeAnOrderController {
     }
 
     /**
-     * The method adds a payment method to the map and its value.
-     */
-    /*public boolean payWithCredits(int intCredits) {
-        try{
-            if(intCredits > this.m_oClient.getCredits()){
-                throw new Exception();
-            }
-            this.m_fltCurrentPayment -= (double) this.m_oClient.getCredits() / 5f;
-            this.m_oClientService.deductCredits(this.m_oClient, this.m_oClient.getCredits());
-            return true;
-        } catch(Exception e){
-            return false;
-        }
-    }*/
-
-    /**
      * The method generates the invoice and sends it by email to the client.
      */
     public boolean generateInvoice() {
@@ -243,4 +227,83 @@ public class MakeAnOrderController {
         }
     }
 
+    public OrderService getOrderService() {
+        return moOrderService;
+    }
+
+    public void setOrderService(OrderService oOrderService) {
+        this.moOrderService = oOrderService;
+    }
+
+    public ClientService getClientService() {
+        return moClientService;
+    }
+
+    public void setClientService(ClientService oClientService) {
+        this.moClientService = oClientService;
+    }
+
+    public ProductService getProductService() {
+        return moProductService;
+    }
+
+    public void setProductService(ProductService oProductService) {
+        this.moProductService = oProductService;
+    }
+
+    public PharmacyService getPharmacyService() {
+        return moPharmacyService;
+    }
+
+    public void setPharmacyService(PharmacyService oPharmacyService) {
+        this.moPharmacyService = oPharmacyService;
+    }
+
+    public Map<Product, Integer> getMapProducts() {
+        return mMapProducts;
+    }
+
+    public void setMapProducts(Map<Product, Integer> mapProducts) {
+        this.mMapProducts = mapProducts;
+    }
+
+    public Map<CreditCard, Double> getMapPayments() {
+        return mMapPayments;
+    }
+
+    public void setMapPayments(Map<CreditCard, Double> mapPayments) {
+        this.mMapPayments = mapPayments;
+    }
+
+    public GenerateInvoiceController getGenerateInvoiceController() {
+        return moGenerateInvoiceController;
+    }
+
+    public void setGenerateInvoiceController(GenerateInvoiceController oGenerateInvoiceController) {
+        this.moGenerateInvoiceController = oGenerateInvoiceController;
+    }
+
+    public NotifyAndRemoveController getNotifyAndRemoveController() {
+        return moNotifyAndRemoveController;
+    }
+
+    public void setNotifyAndRemoveController(NotifyAndRemoveController oNotifyAndRemoveController) {
+        this.moNotifyAndRemoveController = oNotifyAndRemoveController;
+    }
+
+    public float getCurrentPayment() {
+        return mfltCurrentPayment;
+    }
+
+    public void setCurrentPayment(float fltCurrentPayment) {
+        this.mfltCurrentPayment = fltCurrentPayment;
+    }
+
+    public float getExpectedPayment() {
+        return mfltExpectedPayment;
+    }
+
+    public void setExpectedPayment(float fltExpectedPayment) {
+        this.mfltExpectedPayment = fltExpectedPayment;
+    }
 }
