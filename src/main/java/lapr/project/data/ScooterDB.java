@@ -147,13 +147,15 @@ public class ScooterDB extends DataHandler {
     }
 
     public Double getCurrentPerCharger(int intParkId) {
-        try(CallableStatement callStmt = getConnection().prepareCall("{ ? = call getEmailPerChargingScooter(?) }");) {
+        try(CallableStatement callStmt = getConnection().prepareCall("{ ? = call getCurrentPerCharger(?) }");) {
 
-            callStmt.registerOutParameter(1, oracle.jdbc.internal.OracleTypes.DOUBLE);
+            callStmt.registerOutParameter(1, OracleTypes.NUMBER);
             callStmt.setInt(2, intParkId);
             callStmt.execute();
 
-            return (Double) callStmt.getObject(1);
+
+
+            return callStmt.getDouble(1);
         } catch (SQLException e) {
             e.printStackTrace();
             throw new IllegalArgumentException(NOSCOOTERAVAIABLE);

@@ -1,15 +1,15 @@
 create or replace function getCurrentPerCharger(p_parkId PARK.ID%type)
     return number is
-    v_checkParkId PARK.ID%type;
-    v_numberOfScootersParked number;
-    v_totalCurrent number;
+    v_checkParkId int;
+    v_numberOfScootersParked int;
+    v_totalCurrent PARK.TOTALOUTPUTCURRENT%TYPE;
     v_currentPerCharger number;
     park_not_found exception;
 begin
 
     SELECT count(ID)
     INTO v_checkParkId
-    FROM PHARMACY
+    FROM PARK
     WHERE ID = p_parkId;
 
     IF v_checkParkId = 0 THEN
@@ -27,9 +27,13 @@ begin
     INNER JOIN CHARGINGSLOT CS on PS.ID = CS.PARKINGSLOTID
     INNER JOIN PARK P on PS.PARKID = P.ID
     WHERE P.ID = p_parkId
-    AND PS.VEHICLEID != null;
+    AND PS.VEHICLEID IS NOT NULL;
 
-    v_currentPerCharger := v_totalCurrent / v_numberOfScootersParked;
+    IF v_numberOfScootersParked = 0 then
+        v_currentPerCharger := v_totalCurrent;
+    ELSE
+        v_currentPerCharger := v_totalCurrent / v_numberOfScootersParked;
+    end if;
 
     return v_currentPerCharger;
 
