@@ -24,6 +24,7 @@ public class FileReader {
     public static final String FILEPARKS = "src/main/resources/files/input/parks.csv";
     public static final String FILEORDERS = "src/main/resources/files/input/orders.csv";
     public static final String FILECOURIERS = "src/main/resources/files/input/couriers.csv";
+    public static final String FILEDELIVERYRUNS = "src/main/resources/files/input/deliveryruns.csv";
     private static final Logger LOGGER = Logger.getLogger(FileReader.class.getName());
 
     public static void readFiles() {
@@ -86,6 +87,9 @@ public class FileReader {
                             break;
                         case FILECOURIERS:
                             readCourierFile(columns);
+                            break;
+                        case FILEDELIVERYRUNS:
+                            readDeliveryRunFile(columns);
                             break;
                     }
                 }
@@ -296,6 +300,13 @@ public class FileReader {
                 LOGGER.log(Level.INFO,"Courier was registered with success!");
             }else LOGGER.log(Level.INFO,"There was a problem registering a Courier");
         }else LOGGER.log(Level.WARNING,"There was a problem creating a Courier");
+    }
 
+    public static void readDeliveryRunFile(String [] columns) {
+        RegisterDeliveryRunController ctrl = new RegisterDeliveryRunController();
+        List<Order> lstOrders = ctrl.getOrdersList(columns[0]);
+        if(ctrl.registerDeliveryRun(lstOrders)) {
+            LOGGER.log(Level.INFO,"Delivery Run registered with success!");
+        }else LOGGER.log(Level.WARNING,"There was a problem registering the delivery run.");
     }
 }
