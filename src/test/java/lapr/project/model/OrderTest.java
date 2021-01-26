@@ -11,7 +11,6 @@ import static org.junit.jupiter.api.Assertions.*;
 class OrderTest {
 
     private Order o1;
-    private Order o2;
     private Order o3;
     private Order o4;
     private Order o5;
@@ -20,8 +19,6 @@ class OrderTest {
         Map<Product, Integer> map = new TreeMap<>();
         map.put(new Product("", "",19d, 11d), 3);
         o1 = new Order(1, 2.0d, 3.0d, 2.0d, new Date(12 - 12 - 13),
-                "testDesc", "testStatus", true, new Client(), new Pharmacy(), map);
-        o2 = new Order(2.0d, 3.0d, 2.0d, new Date(12 - 12 - 13),
                 "testDesc", "testStatus", true, new Client(), new Pharmacy(), map);
         o3 = new Order(1, "", false, new Client(), new Pharmacy(), map);
         o4 = new Order("", true, new Client(), new Pharmacy(), map);
@@ -77,7 +74,7 @@ class OrderTest {
     @Test
     void getDescription() {
         String expected = "testDesc";
-        String real = o2.getDescription();
+        String real = o1.getDescription();
         assertEquals(expected, real);
     }
 

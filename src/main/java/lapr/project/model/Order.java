@@ -49,21 +49,6 @@ public class Order {
         this.mMapProducts = mapProducts;
     }
 
-    public Order(double dblAmount, double dblTotalWeight, double dblAdditionalFee, Date dtOrderDate, String strDescription,
-                 String strStatus, boolean blIsHomeDelivery, Client oClient, Pharmacy oPharmacy, Map<Product, Integer> mapProducts) {
-        this.mintId = mDEFAULTID;
-        this.mdblAmount = dblAmount;
-        this.mdblTotalWeight = dblTotalWeight;
-        this.mdblAdditionalFee = dblAdditionalFee;
-        this.mdtOrderDate = (Date) dtOrderDate.clone();
-        this.mstrDescription = strDescription;
-        this.mstrStatus = strStatus;
-        this.mblIsHomeDelivery = blIsHomeDelivery;
-        this.moClient = oClient;
-        this.moPharmacy = oPharmacy;
-        this.mMapProducts = mapProducts;
-    }
-
     public Order(int intId, String strDescription, boolean blIsHomeDelivery, Client oClient,
                  Pharmacy oPharmacy, Map<Product, Integer> mapProducts) {
         this.mintId = intId;
