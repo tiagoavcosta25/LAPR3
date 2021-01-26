@@ -745,44 +745,122 @@ class GraphServiceTest {
         when(mockDeliveryRunDB.checkValidChargingSlot(caisDaRibeira)).thenReturn(true);
 
         assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter1, 10d));
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter1, 0d));
         assertEquals(36.76915790179582, world.calculatePathCost(pathList, lstOrders, scooter1, 100000d));
 
         assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter2, 10d));
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter2, 0d));
         assertEquals(36.76915790179582, world.calculatePathCost(pathList, lstOrders, scooter2, 100000d));
 
         assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter3, 10d));
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter3, 0d));
         assertEquals(36.76915790179582, world.calculatePathCost(pathList, lstOrders, scooter3, 100000d));
 
         assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter4, 10d));
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter4, 0d));
         assertEquals(36.76915790179582, world.calculatePathCost(pathList, lstOrders, scooter4, 100000d));
 
         assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter5, 10d));
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter5, 0d));
         assertEquals(1717.8869193560959, world.calculatePathCost(pathList, lstOrders, scooter5, 100000d));
 
         assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter6, 10d));
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter6, 0d));
         assertEquals(36.76915790179582, world.calculatePathCost(pathList, lstOrders, scooter6, 100000d));
 
 
         assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, drone1, 0.1d));
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, drone1, 0d));
         assertEquals(1.1190973594436533, world.calculatePathCost(pathList, lstOrders, drone1, 100000d));
 
         assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, drone2, 0.1d));
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, drone2, 0d));
         assertEquals(1.1190973594436533, world.calculatePathCost(pathList, lstOrders, drone2, 100000d));
 
         assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, drone3, 0.1d));
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, drone3, 0d));
         assertEquals(1.1190973594436533, world.calculatePathCost(pathList, lstOrders, drone3, 100000d));
 
         assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, drone4, 0.1d));
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, drone4, 0d));
         assertEquals(1.1190973594436533, world.calculatePathCost(pathList, lstOrders, drone4, 100000d));
 
         assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, drone5, 0.1));
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, drone5, 0d));
         assertEquals(444.5442235362819, world.calculatePathCost(pathList, lstOrders, drone5, 100000d));
 
         assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, drone6, 0.1));
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, drone6, 0d));
         assertEquals(1.1190973594436533, world.calculatePathCost(pathList, lstOrders, drone6, 100000d));
 
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, notdefined, 0.1));
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, notdefined, 0d));
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, notdefined, 100000d));
+
+
+
+
+
+        when(mockDeliveryRunDB.checkValidChargingSlot(trindade)).thenReturn(false);
+        when(mockDeliveryRunDB.checkValidChargingSlot(saBandeira)).thenReturn(false);
+        when(mockDeliveryRunDB.checkValidChargingSlot(casteloQueijo)).thenReturn(false);
+        when(mockDeliveryRunDB.checkValidChargingSlot(clerigos)).thenReturn(false);
+        when(mockDeliveryRunDB.checkValidChargingSlot(majestic)).thenReturn(false);
+        when(mockDeliveryRunDB.checkValidChargingSlot(bolhao)).thenReturn(false);
+        when(mockDeliveryRunDB.checkValidChargingSlot(se)).thenReturn(false);
+        when(mockDeliveryRunDB.checkValidChargingSlot(caisDaRibeira)).thenReturn(false);
+
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter1, 10d));
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter1, 0d));
+        assertEquals(36.76915790179582, world.calculatePathCost(pathList, lstOrders, scooter1, 100000d));
+
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter2, 10d));
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter2, 0d));
+        assertEquals(36.76915790179582, world.calculatePathCost(pathList, lstOrders, scooter2, 100000d));
+
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter3, 10d));
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter3, 0d));
+        assertEquals(36.76915790179582, world.calculatePathCost(pathList, lstOrders, scooter3, 100000d));
+
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter4, 10d));
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter4, 0d));
+        assertEquals(36.76915790179582, world.calculatePathCost(pathList, lstOrders, scooter4, 100000d));
+
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter5, 10d));
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter5, 0d));
+        assertEquals(1717.8869193560959, world.calculatePathCost(pathList, lstOrders, scooter5, 100000d));
+
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter6, 10d));
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter6, 0d));
+        assertEquals(36.76915790179582, world.calculatePathCost(pathList, lstOrders, scooter6, 100000d));
+
+
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, drone1, 0.1d));
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, drone1, 0d));
+        assertEquals(1.1190973594436533, world.calculatePathCost(pathList, lstOrders, drone1, 100000d));
+
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, drone2, 0.1d));
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, drone2, 0d));
+        assertEquals(1.1190973594436533, world.calculatePathCost(pathList, lstOrders, drone2, 100000d));
+
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, drone3, 0.1d));
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, drone3, 0d));
+        assertEquals(1.1190973594436533, world.calculatePathCost(pathList, lstOrders, drone3, 100000d));
+
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, drone4, 0.1d));
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, drone4, 0d));
+        assertEquals(1.1190973594436533, world.calculatePathCost(pathList, lstOrders, drone4, 100000d));
+
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, drone5, 0.1));
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, drone5, 0d));
+        assertEquals(444.5442235362819, world.calculatePathCost(pathList, lstOrders, drone5, 100000d));
+
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, drone6, 0.1));
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, drone6, 0d));
+        assertEquals(1.1190973594436533, world.calculatePathCost(pathList, lstOrders, drone6, 100000d));
 
         assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, notdefined, 0.1));
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, notdefined, 0d));
         assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, notdefined, 100000d));
     }
 
