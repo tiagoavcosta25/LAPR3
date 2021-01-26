@@ -53,6 +53,11 @@ public class VehicleDB extends DataHandler {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
+            try {
+                callStmt.close();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
             closeAll();
         }
         throw new IllegalArgumentException("No Models Avaliable.");
