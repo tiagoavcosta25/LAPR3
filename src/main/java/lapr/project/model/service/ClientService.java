@@ -82,7 +82,7 @@ public class ClientService {
                 creditCardBody += cc.getCreditCardNr() + ", ";
             }
             creditCardBody = creditCardBody.substring(0, creditCardBody.length() - 2);
-            String body = String.format("Account Information:\n\nName: %s\nNIF: %s\nAddress: %s, %s, %s, %s\nCredit Card(/s): %s\n\n"
+            String body = String.format("Account Information:%n%nName: %s%nNIF: %s%nAddress: %s, %s, %s, %s%nCredit Card(/s): %s%n%n"
                     , c.getName(), c.getNif(), c.getAddress().getStreetName(),
                     c.getAddress().getDoorNumber(), c.getAddress().getLocality(), c.getAddress().getCountry(), creditCardBody);
             EmailSender.sendEmail(c.getEmail(), "Account Creation", body

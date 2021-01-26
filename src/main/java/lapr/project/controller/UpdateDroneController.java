@@ -4,7 +4,6 @@ import lapr.project.model.Drone;
 import lapr.project.model.Pharmacy;
 import lapr.project.model.service.DroneService;
 import lapr.project.model.service.PharmacyService;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
