@@ -5,6 +5,9 @@ import java.util.List;
 
 public class TimeCalculator {
 
+    private TimeCalculator() {
+    }
+
     public static List<Integer> calculateTime(double timeInHours) {
         List<Integer> result = new ArrayList<>();
         double rest;
