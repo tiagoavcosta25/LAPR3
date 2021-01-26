@@ -20,15 +20,15 @@ public class ClientUI implements UI {
             Menu.displayMenu("CLIENT", "[1] Make An Order\n\n[0] Log Out");
             intOp = sc.nextInt();
 
+            Menu.clear();
+
             switch(intOp){
                 case 1: {
-                    Menu.clear();
-                    MakeAnOrderUI UI = new MakeAnOrderUI();
-                    UI.run();
+                    MakeAnOrderUI ui = new MakeAnOrderUI();
+                    ui.run();
                     break;
                 }
                 case 0: {
-                    Menu.clear();
                     LogoutController oLogOut = new LogoutController();
                     oLogOut.logout();
                     break;

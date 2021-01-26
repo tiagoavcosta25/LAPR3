@@ -26,4 +26,12 @@ public class ParkScooterController {
         }
         return false;
     }
+
+    public CourierService getServ() {
+        return moServ;
+    }
+
+    public void setServ(CourierService moServ) {
+        this.moServ = moServ;
+    }
 }
