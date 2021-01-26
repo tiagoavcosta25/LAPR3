@@ -2,7 +2,7 @@ ________________________________________________________________________________
 _______________________________________
 
 			Transfer No. -1
-				26-Jan-2021
+				26-jan.-2021
 _______________________________________
 
 ---------------------------------------
@@ -11,14 +11,14 @@ _______________________________________
 
 
 
-			Pharmacy Alianca
+			No name.
 
-			info@alianca.com
-			Rua do Castelo do Queijo
-			1
-			4000-119
-			Porto
-			Portugal
+			g21@trash-mail.com
+			No Street Name
+			No Door Number
+			No Postal Code
+			No Locality
+			No Country
 
 
 
@@ -28,14 +28,14 @@ _______________________________________
 
 
 
-			Pharmacy Trindade
+			No name.
 
-			info@trindade.com
-			Rua da Trindade
-			123
-			4000-123
-			Porto
-			Portugal
+			g21@trash-mail.com
+			No Street Name
+			No Door Number
+			No Postal Code
+			No Locality
+			No Country
 
 
 
@@ -45,7 +45,7 @@ _______________________________________
 
 
 
-1x Ben-u-ron
+2x SARS-CoV-2 Vaccine
 
 
 
