@@ -63,6 +63,13 @@ class OrderTest {
         double real = oOrder.getAdditionalFee();
         double expected = 0d;
         assertEquals(expected, real);
+
+
+        oClient.setCredits(1);
+        oOrder = new Order("", true, oClient, new Pharmacy(), new HashMap<>());
+        real = oOrder.getAdditionalFee();
+        expected = 5d;
+        assertEquals(expected, real);
     }
 
     @Test
