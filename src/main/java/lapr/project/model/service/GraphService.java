@@ -238,7 +238,8 @@ public class GraphService {
             result.append("\t").append(getPathFromAddresses(g, paths.get(i), paths.get(i + 1))).append("\n");
         }
         result.append("\n\n");
-        LOGGER.log(Level.INFO, String.valueOf(result));
+        String logger = result.toString();
+        LOGGER.log(Level.INFO, logger);
     }
 
     /**

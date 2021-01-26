@@ -428,6 +428,54 @@ class GraphServiceTest {
         Path p15 = new Path( 41.14063, -8.61118,41.15227, -8.60929,  "cais - trindade", 1,
                 1, 1, VehicleType.SCOOTER);
 
+
+        Path p21 = new Path( 41.15227, -8.60929,40.741895, -7.989308, "trindade - sa", 1,
+                1, 1, VehicleType.DRONE);
+
+        Path p22 = new Path(40.741895, -7.989308, 41.15227, -8.60929, "sa - trindade", 1,
+                1, 1, VehicleType.DRONE);
+
+        Path p23 = new Path(40.741895, -7.989308, 41.16875, -8.68995, "sa - quejo", 1,
+                1, 1, VehicleType.DRONE);
+
+        Path p24 = new Path( 41.16875, -8.68995,40.741895, -7.989308, "quejo - sa", 1,
+                1, 1, VehicleType.DRONE);
+
+        Path p25 = new Path( 41.16875, -8.68995,41.14582, -8.61398, "quejo - clerigos", 1,
+                1, 1, VehicleType.DRONE);
+
+        Path p26 = new Path( 41.14582, -8.61398, 41.16875, -8.68995, "clerigos - queijo", 1,
+                1, 1, VehicleType.DRONE);
+
+        Path p27 = new Path( 41.14582, -8.61398, 41.14723, -8.60657, "clerigos - majestic", 1,
+                1, 1, VehicleType.DRONE);
+
+        Path p28 = new Path( 41.14723, -8.60657,41.14582, -8.61398,  "majestic - clerigos", 1,
+                1, 1, VehicleType.DRONE);
+
+        Path p29 = new Path( 41.14723, -8.60657,41.14871, -8.60746,  "majestic - bolhao", 1,
+                1, 1, VehicleType.DRONE);
+
+        Path p30 = new Path( 41.14871, -8.60746,41.14723, -8.60657,  "bolhao - majestic", 1,
+                1, 1, VehicleType.DRONE);
+
+        Path p31 = new Path( 41.14871, -8.60746,41.14331, -8.60914,  "bolhao - se", 1,
+                1, 1, VehicleType.DRONE);
+
+        Path p32 = new Path( 41.14331, -8.60914,41.14871, -8.60746,  "se - bolhao", 1,
+                1, 1, VehicleType.DRONE);
+
+        Path p33 = new Path( 41.14331, -8.60914,41.14063, -8.61118,  "se - cais", 1,
+                1, 1, VehicleType.DRONE);
+
+        Path p34 = new Path( 41.14063, -8.61118,41.14331, -8.60914,  "cais - se", 1,
+                1, 1, VehicleType.DRONE);
+
+        Path p35 = new Path( 41.14063, -8.61118,41.15227, -8.60929,  "cais - trindade", 1,
+                1, 1, VehicleType.DRONE);
+
+
+
         List<Address> lstA = new LinkedList<>();
         lstA.add(trindade);
         lstA.add(saBandeira);
@@ -455,6 +503,37 @@ class GraphServiceTest {
         lstP.add(p14);
         lstP.add(p15);
 
+        lstP.add(p21);
+        lstP.add(p22);
+        lstP.add(p23);
+        lstP.add(p24);
+        lstP.add(p25);
+        lstP.add(p26);
+        lstP.add(p27);
+        lstP.add(p28);
+        lstP.add(p29);
+        lstP.add(p30);
+        lstP.add(p31);
+        lstP.add(p32);
+        lstP.add(p33);
+        lstP.add(p34);
+        lstP.add(p35);
+
+        when(mockDeliveryRunDB.getAllAddresses()).thenReturn(lstA);
+        when(mockDeliveryRunDB.getAllPaths()).thenReturn(lstP);
+
+        world.createGraph();
+
+        List<Address> pathList = new LinkedList<>();
+        pathList.add(trindade);
+        pathList.add(saBandeira);
+        pathList.add(casteloQueijo);
+        pathList.add(clerigos);
+        pathList.add(majestic);
+        pathList.add(bolhao);
+        pathList.add(se);
+        pathList.add(caisDaRibeira);
+        pathList.add(trindade);
 
 
         //ORDER
@@ -470,12 +549,97 @@ class GraphServiceTest {
                 oPharmacy, new TreeMap<>()));
         //ORDER
 
-        when(mockDeliveryRunDB.getAllAddresses()).thenReturn(lstA);
-        when(mockDeliveryRunDB.getAllPaths()).thenReturn(lstP);
+        Battery b1 = new Battery(1, 40000, 40, 100);
 
-        //world.createGraph();
+        Battery b2 = new Battery(2, -1, -4, 100);
+
+        Battery b3 = new Battery(3, 40, 40, 0);
+
+        List<VehicleModel> lstScooter = new ArrayList<>();
+        List<VehicleModel> lstDrone = new ArrayList<>();
+
+        VehicleModel scooter1 = new VehicleModel(1, "scooter1", 400, 10, 400, b1, VehicleType.SCOOTER);
+        VehicleModel scooter2 = new VehicleModel(2, "scooter2", 400, 10, 400, b2, VehicleType.SCOOTER);
+        VehicleModel scooter3 = new VehicleModel(3, "scooter3", 400, 10, 400, b3, VehicleType.SCOOTER);
+        VehicleModel scooter4 = new VehicleModel(4, "scooter4", 400, 10, 0, b1, VehicleType.SCOOTER);
+        VehicleModel scooter5 = new VehicleModel(5, "scooter5", 400, 4000, 400, b1, VehicleType.SCOOTER);
+        VehicleModel scooter6 = new VehicleModel(6, "scooter6", 1, 10, 400, b1, VehicleType.SCOOTER);
+
+        VehicleModel drone1 = new VehicleModel(1, "drone1", 400, 10, 400, b1, VehicleType.DRONE);
+        VehicleModel drone2 = new VehicleModel(2, "drone2", 400, 10, 400, b2, VehicleType.DRONE);
+        VehicleModel drone3 = new VehicleModel(3, "drone3", 400, 10, 400, b3, VehicleType.DRONE);
+        VehicleModel drone4 = new VehicleModel(4, "drone4", 400, 10, 0, b1, VehicleType.DRONE);
+        VehicleModel drone5 = new VehicleModel(5, "drone5", 400, 4000, 400, b1, VehicleType.DRONE);
+        VehicleModel drone6 = new VehicleModel(6, "drone6", 1, 10, 400, b1, VehicleType.DRONE);
+
+        lstScooter.add(scooter1);
+        lstScooter.add(scooter2);
+        lstScooter.add(scooter3);
+        lstScooter.add(scooter4);
+        lstScooter.add(scooter5);
+        lstScooter.add(scooter6);
+        lstDrone.add(drone1);
+        lstDrone.add(drone2);
+        lstDrone.add(drone3);
+        lstDrone.add(drone4);
+        lstDrone.add(drone5);
+        lstDrone.add(drone6);
+        List<VehicleModel> lst2 = new ArrayList<>(lstScooter);
+        lst2.addAll(lstDrone);
+        when(mockVehicleDB.getPharmacyModel("info@trindade.com")).thenReturn(lst2);
+        when(mockVehicleDB.getEnergyByVehicleModel(1)).thenReturn(10000000d);
+        when(mockVehicleDB.getEnergyByVehicleModel(2)).thenReturn(10000000d);
+        when(mockVehicleDB.getEnergyByVehicleModel(3)).thenReturn(10000000d);
+        when(mockVehicleDB.getEnergyByVehicleModel(4)).thenReturn(10000000d);
+        when(mockVehicleDB.getEnergyByVehicleModel(5)).thenReturn(10000000d);
+        when(mockVehicleDB.getEnergyByVehicleModel(6)).thenReturn(10000000d);
+        when(mockDeliveryRunDB.checkValidChargingSlot(bolhao)).thenReturn(true);
+        when(mockDeliveryRunDB.checkValidChargingSlot(se)).thenReturn(true);
+        when(mockDeliveryRunDB.checkValidChargingSlot(caisDaRibeira)).thenReturn(true);
+
+        List<Address> path = new ArrayList<>();
+        path.add(majestic);
+        path.add(clerigos);
+        path.add(majestic);
+        path.add(bolhao);
+        path.add(se);
+        path.add(caisDaRibeira);
+        path.add(se);
+        path.add(bolhao);
+        path.add(majestic);
+
+        path = new ArrayList<>();
+        path.add(trindade);
+        path.add(saBandeira);
+        path.add(casteloQueijo);
+        path.add(clerigos);
+        path.add(majestic);
+        path.add(bolhao);
+        path.add(se);
+        path.add(caisDaRibeira);
+        path.add(trindade);
+
+        Pair<Pair<VehicleModel, Double>, List<Address>> expResult =
+                new Pair<>(new Pair<>(scooter1, 36.76915790179582), path);
+        Pair<Pair<VehicleModel, Double>, List<Address>> result = world.pathsWithPharmacies(world.getScooterGraph(),
+                trindade, trindade, lstScooter, lstOrders);
 
 
+        assertEquals(expResult, result);
+
+        expResult =
+                new Pair<>(new Pair<>(drone1, 1.1190973594436533), path);
+        result = world.pathsWithPharmacies(world.getDroneGraph(),
+                trindade, trindade, lstDrone, lstOrders);
+        assertEquals(expResult, result);
+
+        result = world.pathsWithPharmacies(world.getScooterGraph(),
+                trindade, trindade, new ArrayList<>(), lstOrders);
+        assertNull(result);
+
+        result = world.pathsWithPharmacies(world.getDroneGraph(),
+                trindade, trindade, new ArrayList<>(), lstOrders);
+        assertNull(result);
     }
 
     @Test
