@@ -108,25 +108,6 @@ public class DataHandler {
     }
 
     /**
-     * Allows running entire scripts
-     *
-     * @param fileName
-     * @throws IOException
-     * @throws SQLException
-     */
-    public void scriptRunner(String fileName) throws IOException, SQLException {
-
-        openConnection();
-
-        ScriptRunner runner = new ScriptRunner(getConnection(), false, false);
-
-        runner.runScript(new BufferedReader(new FileReader(fileName)));
-
-        closeAll();
-
-    }
-
-    /**
      * Estabelece a ligação à BD.
      */
     protected void openConnection() {
