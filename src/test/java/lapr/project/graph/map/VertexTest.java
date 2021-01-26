@@ -17,8 +17,10 @@ import static org.junit.jupiter.api.Assertions.*;
 public class VertexTest {
     
     Vertex<String, Integer> instance = new Vertex<>() ;
-    
+    Vertex<String,Integer> test;
+
     public VertexTest() {
+         test = new Vertex<>(new Vertex<>());
     }
     
     /**
@@ -268,6 +270,8 @@ public class VertexTest {
         instance.addAdjVert("vAdj2",edge1);
 
         assertNotEquals(null, instance);
+
+        assertNotEquals(instance, null);
 
         assertEquals(instance, instance);
 
