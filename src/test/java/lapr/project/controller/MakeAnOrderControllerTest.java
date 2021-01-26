@@ -42,13 +42,11 @@ class MakeAnOrderControllerTest {
     private NotifyAndRemoveController mockNotifyAndRemoveController;
 
     private Order expectedOrder;
-    private boolean expectedValue;
     private Order expectedNull;
 
     @BeforeEach
     void setUp() {
         this.expectedOrder = new Order();
-        this.expectedValue = true;
         this.expectedNull = null;
         this.makeAnOrderController = new MakeAnOrderController();
         this.mockOrderService = Mockito.mock(OrderService.class);
@@ -100,7 +98,6 @@ class MakeAnOrderControllerTest {
         boolean result = makeAnOrderController.registerOrder();
         assertTrue(result);
 
-        expectedValue = false;
         when(mockOrderService.registerOrder(this.expectedOrder)).thenReturn(-1);
         when(mockGenerateInvoiceController.generateInvoice(expectedOrder, new TreeMap<>())).thenReturn(false);
         result = makeAnOrderController.registerOrder();
@@ -141,7 +138,7 @@ class MakeAnOrderControllerTest {
         assertEquals(expectedListProducts, result);
 
         result = makeAnOrderController.getAvailableProducts(null);
-        expectedListProducts = null;
+        expectedListProducts = new ArrayList<>();
         assertEquals(expectedListProducts, result);
     }
 
@@ -163,7 +160,7 @@ class MakeAnOrderControllerTest {
         when(mockPharmacyService.getClosestPharmacyToClient(new Client())).thenThrow(new IllegalArgumentException());
         makeAnOrderController.setClient(new Client());
         result = makeAnOrderController.getAvailableProducts();
-        expectedListProducts = null;
+        expectedListProducts = new ArrayList<>();
         assertEquals(expectedListProducts, result);
     }
 
@@ -238,7 +235,7 @@ class MakeAnOrderControllerTest {
         makeAnOrderController.setClient(oClient);
         when(mockClientService.getCreditCardsByClient(null)).thenThrow(new IllegalArgumentException());
         result = makeAnOrderController.getCreditCardsByClient();
-        expectedListCreditCards = null;
+        expectedListCreditCards = new ArrayList<>();
         assertEquals(expectedListCreditCards, result);
     }
 
