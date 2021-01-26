@@ -1,7 +1,6 @@
 package lapr.project.model.service;
 
 import javafx.util.Pair;
-import lapr.project.controller.ApplicationPOT;
 import lapr.project.data.DeliveryDB;
 import lapr.project.data.DeliveryRunDB;
 import lapr.project.model.*;
@@ -20,9 +19,25 @@ public class DeliveryRunService {
         moDeliveryDB = new DeliveryDB();
     }
 
+    public DeliveryRunDB getDeliveryRunDB() {
+        return moDeliveryRunDB;
+    }
+
+    public void setDeliveryRunDB(DeliveryRunDB oDeliveryRunDB) {
+        this.moDeliveryRunDB = oDeliveryRunDB;
+    }
+
+    public DeliveryDB getDeliveryDB() {
+        return moDeliveryDB;
+    }
+
+    public void setDeliveryDB(DeliveryDB oDeliveryDB) {
+        this.moDeliveryDB = oDeliveryDB;
+    }
+
     public boolean registerPath(double dblLatitudeA, double dblLongitudeA, double dblLatitudeB, double dblLongitudeB,
                                 String strName, double dblWindSpeed, double dblWindAngle,
-                                double dblKineticFrictionCoefficient,VehicleType oVehicleType) {
+                                double dblKineticFrictionCoefficient, VehicleType oVehicleType) {
         return moDeliveryRunDB.addPathToDB(new Path(dblLatitudeA, dblLongitudeA, dblLatitudeB, dblLongitudeB,
                 strName, dblWindSpeed, dblWindAngle, dblKineticFrictionCoefficient, oVehicleType));
     }

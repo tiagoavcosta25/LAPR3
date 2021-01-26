@@ -117,8 +117,8 @@ public class CourierDB extends DataHandler {
             callStmt.setString(2, oCourier.getName());
             callStmt.setString(3, oCourier.getEmail());
             callStmt.setInt(4, oCourier.getNif());
-            callStmt.setString(5, oCourier.getM_iban());
-            callStmt.setInt(6, oCourier.getM_Pharmacy().getId());
+            callStmt.setString(5, oCourier.getIban());
+            callStmt.setInt(6, oCourier.getPharmacy().getId());
 
             callStmt.execute();
 

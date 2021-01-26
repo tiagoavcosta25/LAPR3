@@ -97,8 +97,8 @@ public class UserSession {
         return moRole;
     }
 
-    public void setRole(Role m_role) {
-        this.moRole = m_role;
+    public void setRole(Role oRole) {
+        this.moRole = oRole;
     }
 
 }

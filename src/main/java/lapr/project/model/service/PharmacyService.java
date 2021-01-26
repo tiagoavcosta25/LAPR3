@@ -20,6 +20,22 @@ public class PharmacyService {
         this.moParkDB = new ParkDB();
     }
 
+    public PharmacyDB getPharmacyDB() {
+        return moPharmacyDB;
+    }
+
+    public void setPharmacyDB(PharmacyDB moPharmacyDB) {
+        this.moPharmacyDB = moPharmacyDB;
+    }
+
+    public ParkDB getParkDB() {
+        return moParkDB;
+    }
+
+    public void setParkDB(ParkDB oParkDB) {
+        this.moParkDB = oParkDB;
+    }
+
     public Pharmacy getPharmacy(String strEmail) {
         return this.moPharmacyDB.getPharmacy(strEmail);
     }

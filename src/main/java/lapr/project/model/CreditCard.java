@@ -15,18 +15,18 @@ public class CreditCard implements Comparable{
         this.mintCCV = -1;
     }
 
-    public CreditCard(long creditCardNr, Date validityDate, Integer CCV) {
+    public CreditCard(long creditCardNr, Date validityDate, Integer ccv) {
         this.mlCreditCardNr = creditCardNr;
         this.mdtValidityDate = (Date) validityDate.clone();
-        this.mintCCV = CCV;
+        this.mintCCV = ccv;
     }
 
     public Long getCreditCardNr() {
         return mlCreditCardNr;
     }
 
-    public void setCreditCardNr(Long m_creditCardNr) {
-        this.mlCreditCardNr = m_creditCardNr;
+    public void setCreditCardNr(Long lCreditCardNr) {
+        this.mlCreditCardNr = lCreditCardNr;
     }
 
     public boolean hasNumber(Long intNum) {return this.mlCreditCardNr.equals(intNum);}
@@ -35,16 +35,16 @@ public class CreditCard implements Comparable{
         return (Date) mdtValidityDate.clone();
     }
 
-    public void setValidityDate(Date m_validityDate) {
-        this.mdtValidityDate = (Date) m_validityDate.clone();
+    public void setValidityDate(Date oValidityDate) {
+        this.mdtValidityDate = (Date) oValidityDate.clone();
     }
 
     public Integer getCCV() {
         return mintCCV;
     }
 
-    public void setCCV(Integer m_CCV) {
-        this.mintCCV = m_CCV;
+    public void setCCV(Integer intCCV) {
+        this.mintCCV = intCCV;
     }
 
     @Override

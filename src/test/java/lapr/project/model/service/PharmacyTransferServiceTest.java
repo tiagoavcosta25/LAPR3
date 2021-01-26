@@ -122,4 +122,19 @@ class PharmacyTransferServiceTest {
         result = pharmacyTransferService.sendEmailWithDeliveryNote(oPharmacyTransfer);
         assertFalse(result);
     }
+
+    @Test
+    void getPharmacyTransferDB() {
+        PharmacyTransferDB expected = mockPharmacyTransferDB;
+        PharmacyTransferDB real = pharmacyTransferService.getPharmacyTransferDB();
+        assertEquals(expected,real);
+    }
+
+    @Test
+    void setPharmacyTransferDB() {
+        PharmacyTransferDB expected = new PharmacyTransferDB();
+        pharmacyTransferService.setPharmacyTransferDB(expected);
+        PharmacyTransferDB real = pharmacyTransferService.getPharmacyTransferDB();
+        assertEquals(expected,real);
+    }
 }

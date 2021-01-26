@@ -147,4 +147,19 @@ class CourierServiceTest {
         real = courierService.parkScooter(1);
         assertFalse(real);
     }
+
+    @Test
+    void getCourierDB() {
+        CourierDB expected = mockCourierDB;
+        CourierDB real = courierService.getCourierDB();
+        assertEquals(expected,real);
+    }
+
+    @Test
+    void setCourierDB() {
+        CourierDB expected = new CourierDB();
+        courierService.setCourierDB(expected);
+        CourierDB real = courierService.getCourierDB();
+        assertEquals(expected,real);
+    }
 }

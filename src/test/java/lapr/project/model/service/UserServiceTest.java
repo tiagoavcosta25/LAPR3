@@ -51,4 +51,19 @@ class UserServiceTest {
         ApplicationPOT.getInstance().setCurrentSession(new UserSession());
         assertTrue(m_service.newUserSession());
     }
+
+    @Test
+    void getUserDB() {
+        UserDB expected = m_oUserDB;
+        UserDB real = m_service.getUserDB();
+        assertEquals(expected,real);
+    }
+
+    @Test
+    void setUserDB() {
+        UserDB expected = new UserDB();
+        m_service.setUserDB(expected);
+        UserDB real = m_service.getUserDB();
+        assertEquals(expected,real);
+    }
 }

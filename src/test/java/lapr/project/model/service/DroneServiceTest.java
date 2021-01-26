@@ -7,13 +7,9 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.TreeMap;
-
 import static org.mockito.Mockito.when;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.MockitoAnnotations.initMocks;
@@ -103,5 +99,20 @@ class DroneServiceTest {
         when(m_mockDroneDB.removeDroneFromDB(-1)).thenReturn(false);
         result = m_oDroneService.removeDroneFromDB(2);
         assertFalse(result);
+    }
+
+    @Test
+    void getDroneDB() {
+        DroneDB expected = m_mockDroneDB;
+        DroneDB real = m_oDroneService.getDroneDB();
+        assertEquals(expected,real);
+    }
+
+    @Test
+    void setDroneDB() {
+        DroneDB expected = new DroneDB();
+        m_oDroneService.setDroneDB(expected);
+        DroneDB real = m_oDroneService.getDroneDB();
+        assertEquals(expected,real);
     }
 }

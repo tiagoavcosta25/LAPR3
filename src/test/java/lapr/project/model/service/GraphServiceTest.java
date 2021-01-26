@@ -271,7 +271,7 @@ class GraphServiceTest {
         pharmacy1Products.put(benuron, 123);
         pharmacy1Products.put(benuron, 123);
 
-        Pharmacy pharmacy = new Pharmacy("Pharmacy Trindade", "info@trindade.com",new Address(41.15227,-8.60929,104.0,"Rua da Trindade","123","4000-123","Porto","Portugal"),pharmacy1Products);
+        Pharmacy pharmacy = new Pharmacy("Rua da Trindade", "info@trindade.com",new Address(41.15227,-8.60929,104.0,"Rua da Trindade","123","4000-123","Porto","Portugal"),pharmacy1Products);
 
 
         Map<Product, Integer> orderMapProduct = new TreeMap<>();
@@ -336,7 +336,7 @@ class GraphServiceTest {
     @Test
     void pathsWithPharmacies() throws NoSuchAlgorithmException {
         Address trindade = new Address();
-        trindade.setStreetName("Pharmacy Trindade");
+        trindade.setStreetName("Rua da Trindade");
         trindade.setLatitude(41.15227);
         trindade.setLongitude(-8.60929);
         trindade.setAltitude(104d);
@@ -458,7 +458,7 @@ class GraphServiceTest {
 
 
         //ORDER
-        Pharmacy oPharmacy = new Pharmacy("Pharmacy Trindade","info@trindade.com",new Address(41.15227d,-8.60929d,104d,
+        Pharmacy oPharmacy = new Pharmacy("Rua da Trindade","info@trindade.com",new Address(41.15227d,-8.60929d,104d,
                 "Rua da Trindade","123","4000-123","Porto","Portugal"));
         List<Order> lstOrders = new ArrayList<>();
         lstOrders.add(new Order("Para Presente, Enviar Embrulhado.", true, new Client("", 123456789, "fernando@gmail.com", "pass",
@@ -479,13 +479,9 @@ class GraphServiceTest {
     }
 
     @Test
-    void calculateBestVehicleAndBestPath() {
-    }
-
-    @Test
-    void calculateBestVehicleForMostEficientPath() throws NoSuchAlgorithmException {
+    void calculateBestVehicleAndBestPath() throws NoSuchAlgorithmException {
         Address trindade = new Address();
-        trindade.setStreetName("Pharmacy Trindade");
+        trindade.setStreetName("Rua da Trindade");
         trindade.setLatitude(41.15227);
         trindade.setLongitude(-8.60929);
         trindade.setAltitude(104d);
@@ -686,7 +682,412 @@ class GraphServiceTest {
 
 
         //ORDER
-        Pharmacy oPharmacy = new Pharmacy("Pharmacy Trindade","info@trindade.com",new Address(41.15227d,-8.60929d,104d,
+        Pharmacy oPharmacy = new Pharmacy("Rua da Trindade","info@trindade.com",new Address(41.15227d,-8.60929d,104d,
+                "Rua da Trindade","123","4000-123","Porto","Portugal"));
+        List<Order> lstOrders = new ArrayList<>();
+        lstOrders.add(new Order("Para Presente, Enviar Embrulhado.", true, new Client("", 123456789, "fernando@gmail.com", "pass",
+                41.14582d,-8.61398d,87.0d,"Clerigos","2esq","4444-111","Porto","Portugal", new ArrayList<>()),
+                oPharmacy, new TreeMap<>()));
+
+        lstOrders.add(new Order("Para Presente, Enviar Embrulhado.", true, new Client("", 123456781, "joana@gmail.com", "pass",
+                41.14063d,-8.61118d,25.0d,"Cais da Ribeira","3esq","4000-555","Porto","Portugal", new ArrayList<>()),
+                oPharmacy, new TreeMap<>()));
+        //ORDER
+
+        Battery b1 = new Battery(1, 40000, 40, 100);
+
+        Battery b2 = new Battery(2, -1, -4, 100);
+
+        Battery b3 = new Battery(3, 40, 40, 0);
+
+        List<VehicleModel> lstScooter = new ArrayList<>();
+        List<VehicleModel> lstDrone = new ArrayList<>();
+
+        VehicleModel scooter1 = new VehicleModel(1, "scooter1", 400, 10, 400, b1, VehicleType.SCOOTER);
+        VehicleModel scooter2 = new VehicleModel(2, "scooter2", 400, 10, 400, b2, VehicleType.SCOOTER);
+        VehicleModel scooter3 = new VehicleModel(3, "scooter3", 400, 10, 400, b3, VehicleType.SCOOTER);
+        VehicleModel scooter4 = new VehicleModel(4, "scooter4", 400, 10, 0, b1, VehicleType.SCOOTER);
+        VehicleModel scooter5 = new VehicleModel(5, "scooter5", 400, 4000, 400, b1, VehicleType.SCOOTER);
+        VehicleModel scooter6 = new VehicleModel(6, "scooter6", 1, 10, 400, b1, VehicleType.SCOOTER);
+
+        VehicleModel drone1 = new VehicleModel(1, "drone1", 400, 10, 400, b1, VehicleType.DRONE);
+        VehicleModel drone2 = new VehicleModel(2, "drone2", 400, 10, 400, b2, VehicleType.DRONE);
+        VehicleModel drone3 = new VehicleModel(3, "drone3", 400, 10, 400, b3, VehicleType.DRONE);
+        VehicleModel drone4 = new VehicleModel(4, "drone4", 400, 10, 0, b1, VehicleType.DRONE);
+        VehicleModel drone5 = new VehicleModel(5, "drone5", 400, 4000, 400, b1, VehicleType.DRONE);
+        VehicleModel drone6 = new VehicleModel(6, "drone6", 1, 10, 400, b1, VehicleType.DRONE);
+
+        lstScooter.add(scooter1);
+        lstScooter.add(scooter2);
+        lstScooter.add(scooter3);
+        lstScooter.add(scooter4);
+        lstScooter.add(scooter5);
+        lstScooter.add(scooter6);
+        lstDrone.add(drone1);
+        lstDrone.add(drone2);
+        lstDrone.add(drone3);
+        lstDrone.add(drone4);
+        lstDrone.add(drone5);
+        lstDrone.add(drone6);
+        List<VehicleModel> lst2 = new ArrayList<>(lstScooter);
+        lst2.addAll(lstDrone);
+        when(mockVehicleDB.getPharmacyModel("info@trindade.com")).thenReturn(lst2);
+        when(mockVehicleDB.getEnergyByVehicleModel(1)).thenReturn(10000000d);
+        when(mockVehicleDB.getEnergyByVehicleModel(2)).thenReturn(10000000d);
+        when(mockVehicleDB.getEnergyByVehicleModel(3)).thenReturn(10000000d);
+        when(mockVehicleDB.getEnergyByVehicleModel(4)).thenReturn(10000000d);
+        when(mockVehicleDB.getEnergyByVehicleModel(5)).thenReturn(10000000d);
+        when(mockVehicleDB.getEnergyByVehicleModel(6)).thenReturn(10000000d);
+        when(mockDeliveryRunDB.checkValidChargingSlot(bolhao)).thenReturn(true);
+        when(mockDeliveryRunDB.checkValidChargingSlot(se)).thenReturn(true);
+        when(mockDeliveryRunDB.checkValidChargingSlot(caisDaRibeira)).thenReturn(true);
+
+        List<Address> path = new ArrayList<>();
+        path.add(majestic);
+        path.add(clerigos);
+        path.add(majestic);
+        path.add(bolhao);
+        path.add(se);
+        path.add(caisDaRibeira);
+        path.add(se);
+        path.add(bolhao);
+        path.add(majestic);
+
+        List<Pair<Pair<VehicleModel, Double>, List<Address>>> expResult = new ArrayList<>();
+        path = new ArrayList<>();
+        path.add(trindade);
+        path.add(saBandeira);
+        path.add(casteloQueijo);
+        path.add(clerigos);
+        path.add(majestic);
+        path.add(bolhao);
+        path.add(se);
+        path.add(caisDaRibeira);
+        path.add(trindade);
+
+        Pair<Pair<VehicleModel, Double>, List<Address>> exp1 = new Pair<>(new Pair<>(scooter1, 36.76915790179582), path);
+
+        Pair<Pair<VehicleModel, Double>, List<Address>> exp2 = new Pair<>(new Pair<>(drone1, 1.1190973594436533), path);
+        expResult.add(exp1);
+        expResult.add(exp2);
+
+        Pharmacy ph1 = new Pharmacy(1, "Ph1", "a1@.com", majestic, new TreeMap<>());
+
+        List<Pair<Pair<VehicleModel, Double>, List<Address>>> result = world.calculateBestVehicleAndBestPath(lstOrders);
+        assertEquals(expResult, result);
+
+        when(mockVehicleDB.getEnergyByVehicleModel(1)).thenReturn(0d);
+        when(mockVehicleDB.getEnergyByVehicleModel(2)).thenReturn(1001d);
+        when(mockVehicleDB.getEnergyByVehicleModel(3)).thenReturn(3000d);
+        when(mockVehicleDB.getEnergyByVehicleModel(4)).thenReturn(10000d);
+        when(mockVehicleDB.getEnergyByVehicleModel(5)).thenReturn(10000000d);
+        when(mockVehicleDB.getEnergyByVehicleModel(6)).thenReturn(10000000d);
+
+
+        expResult = new ArrayList<>();
+        exp1 = new Pair<>(new Pair<>(scooter6, 36.76915790179582), path);
+        exp2 = new Pair<>(new Pair<>(drone3, 1.1190973594436533), path);
+        expResult.add(exp1);
+        expResult.add(exp2);
+
+        result = world.calculateBestVehicleAndBestPath(lstOrders);
+        assertEquals(expResult, result);
+
+        when(mockVehicleDB.getEnergyByVehicleModel(1)).thenReturn(0d);
+        when(mockVehicleDB.getEnergyByVehicleModel(2)).thenReturn(0d);
+        when(mockVehicleDB.getEnergyByVehicleModel(3)).thenReturn(0d);
+        when(mockVehicleDB.getEnergyByVehicleModel(4)).thenReturn(0d);
+        when(mockVehicleDB.getEnergyByVehicleModel(5)).thenReturn(0d);
+        when(mockVehicleDB.getEnergyByVehicleModel(6)).thenReturn(0d);
+
+        expResult = new ArrayList<>();
+        expResult.add(null);
+        expResult.add(null);
+        result = world.calculateBestVehicleAndBestPath(lstOrders);
+        assertEquals(expResult, result);
+
+        world.setScooterGraph(new Graph<>(true));
+        world.setDroneGraph(new Graph<>(true));
+
+        result = world.calculateBestVehicleAndBestPath(lstOrders);
+        assertEquals(expResult, result);
+
+        when(mockVehicleDB.getEnergyByVehicleModel(1)).thenReturn(0d);
+        when(mockVehicleDB.getEnergyByVehicleModel(2)).thenReturn(0d);
+        when(mockVehicleDB.getEnergyByVehicleModel(3)).thenReturn(0d);
+        when(mockVehicleDB.getEnergyByVehicleModel(4)).thenReturn(0d);
+        when(mockVehicleDB.getEnergyByVehicleModel(5)).thenReturn(0d);
+        when(mockVehicleDB.getEnergyByVehicleModel(6)).thenReturn(0d);
+
+        expResult = new ArrayList<>();
+        expResult.add(null);
+        expResult.add(null);
+        result = world.calculateBestVehicleAndBestPath(lstOrders);
+        assertEquals(expResult, result);
+
+        world.createGraph();
+
+        when(mockVehicleDB.getEnergyByVehicleModel(1)).thenReturn(1000d);
+        when(mockVehicleDB.getEnergyByVehicleModel(2)).thenReturn(0d);
+        when(mockVehicleDB.getEnergyByVehicleModel(3)).thenReturn(0d);
+        when(mockVehicleDB.getEnergyByVehicleModel(4)).thenReturn(0d);
+        when(mockVehicleDB.getEnergyByVehicleModel(5)).thenReturn(0d);
+        when(mockVehicleDB.getEnergyByVehicleModel(6)).thenReturn(0d);
+        world.setDroneGraph(new Graph<>(true));
+        result = world.calculateBestVehicleAndBestPath(lstOrders);
+        expResult = new ArrayList<>();
+        expResult.add(null);
+        expResult.add(null);
+        assertEquals(expResult, result);
+
+        world.createGraph();
+
+        when(mockVehicleDB.getEnergyByVehicleModel(1)).thenReturn(1000d);
+        when(mockVehicleDB.getEnergyByVehicleModel(2)).thenReturn(0d);
+        when(mockVehicleDB.getEnergyByVehicleModel(3)).thenReturn(0d);
+        when(mockVehicleDB.getEnergyByVehicleModel(4)).thenReturn(0d);
+        when(mockVehicleDB.getEnergyByVehicleModel(5)).thenReturn(0d);
+        when(mockVehicleDB.getEnergyByVehicleModel(6)).thenReturn(0d);
+        world.setScooterGraph(new Graph<>(true));
+        result = world.calculateBestVehicleAndBestPath(lstOrders);
+        expResult = new ArrayList<>();
+        expResult.add(null);
+        expResult.add(null);
+        assertEquals(expResult, result);
+
+        //ORDER
+        Product prod1 = new Product("Produto1", "Description", 3d, 40000000d);
+        Map<Product, Integer> productMap = new TreeMap<>();
+        productMap.put(prod1, 100);
+
+        lstOrders = new ArrayList<>();
+        lstOrders.add(new Order("Para Presente, Enviar Embrulhado.", true, new Client("", 123456789, "fernando@gmail.com", "pass",
+                41.14582d,-8.61398d,87.0d,"Clerigos","2esq","4444-111","Porto","Portugal", new ArrayList<>()),
+                oPharmacy, productMap));
+
+        lstOrders.add(new Order("Para Presente, Enviar Embrulhado.", true, new Client("", 123456781, "joana@gmail.com", "pass",
+                41.14063d,-8.61118d,25.0d,"Cais da Ribeira","3esq","4000-555","Porto","Portugal", new ArrayList<>()),
+                oPharmacy, productMap));
+        //ORDER
+
+
+        when(mockVehicleDB.getEnergyByVehicleModel(1)).thenReturn(1000d);
+        when(mockVehicleDB.getEnergyByVehicleModel(2)).thenReturn(0d);
+        when(mockVehicleDB.getEnergyByVehicleModel(3)).thenReturn(0d);
+        when(mockVehicleDB.getEnergyByVehicleModel(4)).thenReturn(0d);
+        when(mockVehicleDB.getEnergyByVehicleModel(5)).thenReturn(0d);
+        when(mockVehicleDB.getEnergyByVehicleModel(6)).thenReturn(0d);
+        world.setDroneGraph(new Graph<>(true));
+        result = world.calculateBestVehicleAndBestPath(lstOrders);
+        expResult = new ArrayList<>();
+        assertNull(result);
+    }
+
+    @Test
+    void calculateBestVehicleForMostEficientPath() throws NoSuchAlgorithmException {
+        Address trindade = new Address();
+        trindade.setStreetName("Rua da Trindade");
+        trindade.setLatitude(41.15227);
+        trindade.setLongitude(-8.60929);
+        trindade.setAltitude(104d);
+
+        Address saBandeira = new Address();
+        saBandeira.setStreetName("Pharmacy Sa da Bandeira");
+        saBandeira.setLatitude(40.741895);
+        saBandeira.setLongitude(-7.989308);
+        saBandeira.setAltitude(10d);
+
+        Address casteloQueijo = new Address();
+        casteloQueijo.setStreetName("Pharmacy Castelo do Queijo");
+        casteloQueijo.setLatitude(41.16875);
+        casteloQueijo.setLongitude(-8.68995);
+        casteloQueijo.setAltitude(4d);
+
+        Address clerigos = new Address();
+        clerigos.setStreetName("Clerigos");
+        clerigos.setLatitude(41.14582);
+        clerigos.setLongitude(-8.61398);
+        clerigos.setAltitude(87.0);
+
+        Address majestic = new Address();
+        majestic.setStreetName("Majestic");
+        majestic.setLatitude(41.14723);
+        majestic.setLongitude(-8.60657);
+        majestic.setAltitude(91.0);
+
+        Address bolhao = new Address();
+        bolhao.setStreetName("Bolhao");
+        bolhao.setLatitude(41.14871);
+        bolhao.setLongitude(-8.60746);
+        bolhao.setAltitude(87.0);
+
+        Address se = new Address();
+        se.setStreetName("Sé");
+        se.setLatitude(41.14331);
+        se.setLongitude(-8.60914);
+        se.setAltitude(82.0);
+
+        Address caisDaRibeira = new Address();
+        caisDaRibeira.setStreetName("Cais da Ribeira");
+        caisDaRibeira.setLatitude(41.14063);
+        caisDaRibeira.setLongitude(-8.61118);
+        caisDaRibeira.setAltitude(25.0);
+
+        Path p1 = new Path( 41.15227, -8.60929,40.741895, -7.989308, "trindade - sa", 1,
+                1, 1, VehicleType.SCOOTER);
+
+        Path p2 = new Path(40.741895, -7.989308, 41.15227, -8.60929, "sa - trindade", 1,
+                1, 1, VehicleType.SCOOTER);
+
+        Path p3 = new Path(40.741895, -7.989308, 41.16875, -8.68995, "sa - quejo", 1,
+                1, 1, VehicleType.SCOOTER);
+
+        Path p4 = new Path( 41.16875, -8.68995,40.741895, -7.989308, "quejo - sa", 1,
+                1, 1, VehicleType.SCOOTER);
+
+        Path p5 = new Path( 41.16875, -8.68995,41.14582, -8.61398, "quejo - clerigos", 1,
+                1, 1, VehicleType.SCOOTER);
+
+        Path p6 = new Path( 41.14582, -8.61398, 41.16875, -8.68995, "clerigos - queijo", 1,
+                1, 1, VehicleType.SCOOTER);
+
+        Path p7 = new Path( 41.14582, -8.61398, 41.14723, -8.60657, "clerigos - majestic", 1,
+                1, 1, VehicleType.SCOOTER);
+
+        Path p8 = new Path( 41.14723, -8.60657,41.14582, -8.61398,  "majestic - clerigos", 1,
+                1, 1, VehicleType.SCOOTER);
+
+        Path p9 = new Path( 41.14723, -8.60657,41.14871, -8.60746,  "majestic - bolhao", 1,
+                1, 1, VehicleType.SCOOTER);
+
+        Path p10 = new Path( 41.14871, -8.60746,41.14723, -8.60657,  "bolhao - majestic", 1,
+                1, 1, VehicleType.SCOOTER);
+
+        Path p11 = new Path( 41.14871, -8.60746,41.14331, -8.60914,  "bolhao - se", 1,
+                1, 1, VehicleType.SCOOTER);
+
+        Path p12 = new Path( 41.14331, -8.60914,41.14871, -8.60746,  "se - bolhao", 1,
+                1, 1, VehicleType.SCOOTER);
+
+        Path p13 = new Path( 41.14331, -8.60914,41.14063, -8.61118,  "se - cais", 1,
+                1, 1, VehicleType.SCOOTER);
+
+        Path p14 = new Path( 41.14063, -8.61118,41.14331, -8.60914,  "cais - se", 1,
+                1, 1, VehicleType.SCOOTER);
+
+        Path p15 = new Path( 41.14063, -8.61118,41.15227, -8.60929,  "cais - trindade", 1,
+                1, 1, VehicleType.SCOOTER);
+
+
+        Path p21 = new Path( 41.15227, -8.60929,40.741895, -7.989308, "trindade - sa", 1,
+                1, 1, VehicleType.DRONE);
+
+        Path p22 = new Path(40.741895, -7.989308, 41.15227, -8.60929, "sa - trindade", 1,
+                1, 1, VehicleType.DRONE);
+
+        Path p23 = new Path(40.741895, -7.989308, 41.16875, -8.68995, "sa - quejo", 1,
+                1, 1, VehicleType.DRONE);
+
+        Path p24 = new Path( 41.16875, -8.68995,40.741895, -7.989308, "quejo - sa", 1,
+                1, 1, VehicleType.DRONE);
+
+        Path p25 = new Path( 41.16875, -8.68995,41.14582, -8.61398, "quejo - clerigos", 1,
+                1, 1, VehicleType.DRONE);
+
+        Path p26 = new Path( 41.14582, -8.61398, 41.16875, -8.68995, "clerigos - queijo", 1,
+                1, 1, VehicleType.DRONE);
+
+        Path p27 = new Path( 41.14582, -8.61398, 41.14723, -8.60657, "clerigos - majestic", 1,
+                1, 1, VehicleType.DRONE);
+
+        Path p28 = new Path( 41.14723, -8.60657,41.14582, -8.61398,  "majestic - clerigos", 1,
+                1, 1, VehicleType.DRONE);
+
+        Path p29 = new Path( 41.14723, -8.60657,41.14871, -8.60746,  "majestic - bolhao", 1,
+                1, 1, VehicleType.DRONE);
+
+        Path p30 = new Path( 41.14871, -8.60746,41.14723, -8.60657,  "bolhao - majestic", 1,
+                1, 1, VehicleType.DRONE);
+
+        Path p31 = new Path( 41.14871, -8.60746,41.14331, -8.60914,  "bolhao - se", 1,
+                1, 1, VehicleType.DRONE);
+
+        Path p32 = new Path( 41.14331, -8.60914,41.14871, -8.60746,  "se - bolhao", 1,
+                1, 1, VehicleType.DRONE);
+
+        Path p33 = new Path( 41.14331, -8.60914,41.14063, -8.61118,  "se - cais", 1,
+                1, 1, VehicleType.DRONE);
+
+        Path p34 = new Path( 41.14063, -8.61118,41.14331, -8.60914,  "cais - se", 1,
+                1, 1, VehicleType.DRONE);
+
+        Path p35 = new Path( 41.14063, -8.61118,41.15227, -8.60929,  "cais - trindade", 1,
+                1, 1, VehicleType.DRONE);
+
+
+
+        List<Address> lstA = new LinkedList<>();
+        lstA.add(trindade);
+        lstA.add(saBandeira);
+        lstA.add(casteloQueijo);
+        lstA.add(clerigos);
+        lstA.add(majestic);
+        lstA.add(bolhao);
+        lstA.add(se);
+        lstA.add(caisDaRibeira);
+
+        List<Path> lstP = new LinkedList<>();
+        lstP.add(p1);
+        lstP.add(p2);
+        lstP.add(p3);
+        lstP.add(p4);
+        lstP.add(p5);
+        lstP.add(p6);
+        lstP.add(p7);
+        lstP.add(p8);
+        lstP.add(p9);
+        lstP.add(p10);
+        lstP.add(p11);
+        lstP.add(p12);
+        lstP.add(p13);
+        lstP.add(p14);
+        lstP.add(p15);
+
+        lstP.add(p21);
+        lstP.add(p22);
+        lstP.add(p23);
+        lstP.add(p24);
+        lstP.add(p25);
+        lstP.add(p26);
+        lstP.add(p27);
+        lstP.add(p28);
+        lstP.add(p29);
+        lstP.add(p30);
+        lstP.add(p31);
+        lstP.add(p32);
+        lstP.add(p33);
+        lstP.add(p34);
+        lstP.add(p35);
+
+        when(mockDeliveryRunDB.getAllAddresses()).thenReturn(lstA);
+        when(mockDeliveryRunDB.getAllPaths()).thenReturn(lstP);
+
+        world.createGraph();
+
+        List<Address> pathList = new LinkedList<>();
+        pathList.add(trindade);
+        pathList.add(saBandeira);
+        pathList.add(casteloQueijo);
+        pathList.add(clerigos);
+        pathList.add(majestic);
+        pathList.add(bolhao);
+        pathList.add(se);
+        pathList.add(caisDaRibeira);
+        pathList.add(trindade);
+
+
+        //ORDER
+        Pharmacy oPharmacy = new Pharmacy("Rua da Trindade","info@trindade.com",new Address(41.15227d,-8.60929d,104d,
                 "Rua da Trindade","123","4000-123","Porto","Portugal"));
         List<Order> lstOrders = new ArrayList<>();
         lstOrders.add(new Order("Para Presente, Enviar Embrulhado.", true, new Client("", 123456789, "fernando@gmail.com", "pass",
@@ -874,7 +1275,7 @@ class GraphServiceTest {
     @Test
     void getBestPossibleModel() throws NoSuchAlgorithmException {
         Address trindade = new Address();
-        trindade.setStreetName("Pharmacy Trindade");
+        trindade.setStreetName("Rua da Trindade");
         trindade.setLatitude(41.15227);
         trindade.setLongitude(-8.60929);
         trindade.setAltitude(104d);
@@ -1075,7 +1476,7 @@ class GraphServiceTest {
 
 
         //ORDER
-        Pharmacy oPharmacy = new Pharmacy("Pharmacy Trindade","info@trindade.com",new Address(41.15227d,-8.60929d,104d,
+        Pharmacy oPharmacy = new Pharmacy("Rua da Trindade","info@trindade.com",new Address(41.15227d,-8.60929d,104d,
                 "Rua da Trindade","123","4000-123","Porto","Portugal"));
         List<Order> lstOrders = new ArrayList<>();
         lstOrders.add(new Order("Para Presente, Enviar Embrulhado.", true, new Client("", 123456789, "fernando@gmail.com", "pass",
@@ -1161,7 +1562,7 @@ class GraphServiceTest {
     @Test
     void calculatePathCost() throws NoSuchAlgorithmException {
         Address trindade = new Address();
-        trindade.setStreetName("Pharmacy Trindade");
+        trindade.setStreetName("Rua da Trindade");
         trindade.setLatitude(41.15227);
         trindade.setLongitude(-8.60929);
         trindade.setAltitude(104d);
@@ -1366,7 +1767,7 @@ class GraphServiceTest {
 
 
         //ORDER
-        Pharmacy oPharmacy = new Pharmacy("Pharmacy Trindade","info@trindade.com",new Address(41.15227d,-8.60929d,104d,
+        Pharmacy oPharmacy = new Pharmacy("Rua da Trindade","info@trindade.com",new Address(41.15227d,-8.60929d,104d,
                 "Rua da Trindade","123","4000-123","Porto","Portugal"));
         List<Order> lstOrders = new ArrayList<>();
         lstOrders.add(new Order("Para Presente, Enviar Embrulhado.", true, new Client("", 123456789, "fernando@gmail.com", "pass",
@@ -1547,7 +1948,7 @@ class GraphServiceTest {
     @Test
     void calculateMostEfficientPath() {
         Address trindade = new Address();
-        trindade.setStreetName("Pharmacy Trindade");
+        trindade.setStreetName("Rua da Trindade");
         trindade.setLatitude(41.15227);
         trindade.setLongitude(-8.60929);
         trindade.setAltitude(104d);
@@ -1693,7 +2094,7 @@ class GraphServiceTest {
     @Test
     void calculateMostEfficientPath2() {
         Address trindade = new Address();
-        trindade.setStreetName("Pharmacy Trindade");
+        trindade.setStreetName("Rua da Trindade");
         trindade.setLatitude(41.15227);
         trindade.setLongitude(-8.60929);
         trindade.setAltitude(104d);
@@ -1785,7 +2186,7 @@ class GraphServiceTest {
     @Test
     void calculateMostEfficientPath3() {
         Address trindade = new Address();
-        trindade.setStreetName("Pharmacy Trindade");
+        trindade.setStreetName("Rua da Trindade");
         trindade.setLatitude(41.15227);
         trindade.setLongitude(-8.60929);
         trindade.setAltitude(104d);
@@ -1877,7 +2278,7 @@ class GraphServiceTest {
     @Test
     void calculateMostEfficientPath4() {
         Address trindade = new Address();
-        trindade.setStreetName("Pharmacy Trindade");
+        trindade.setStreetName("Rua da Trindade");
         trindade.setLatitude(41.15227);
         trindade.setLongitude(-8.60929);
         trindade.setAltitude(104d);
@@ -2023,7 +2424,7 @@ class GraphServiceTest {
     @Test
     void calculateMostEfficientPath5() {
         Address trindade = new Address();
-        trindade.setStreetName("Pharmacy Trindade");
+        trindade.setStreetName("Rua da Trindade");
         trindade.setLatitude(41.15227);
         trindade.setLongitude(-8.60929);
         trindade.setAltitude(104d);
@@ -2169,7 +2570,7 @@ class GraphServiceTest {
     @Test
     void calculateMostEfficientPath6() {
         Address trindade = new Address();
-        trindade.setStreetName("Pharmacy Trindade");
+        trindade.setStreetName("Rua da Trindade");
         trindade.setLatitude(41.15227);
         trindade.setLongitude(-8.60929);
         trindade.setAltitude(104d);
@@ -2305,7 +2706,7 @@ class GraphServiceTest {
     @Test
     void calculateMostEfficientPath8() {
         Address trindade = new Address();
-        trindade.setStreetName("Pharmacy Trindade");
+        trindade.setStreetName("Rua da Trindade");
         trindade.setLatitude(41.15227);
         trindade.setLongitude(-8.60929);
         trindade.setAltitude(104d);
@@ -2455,7 +2856,7 @@ class GraphServiceTest {
     @Test
     void calculateMostEfficientPath9() {
         Address trindade = new Address();
-        trindade.setStreetName("Pharmacy Trindade");
+        trindade.setStreetName("Rua da Trindade");
         trindade.setLatitude(41.15227);
         trindade.setLongitude(-8.60929);
         trindade.setAltitude(104d);
@@ -2604,7 +3005,7 @@ class GraphServiceTest {
     @Test
     void calculatePermutationPaths() {
         Address trindade = new Address();
-        trindade.setStreetName("Pharmacy Trindade");
+        trindade.setStreetName("Rua da Trindade");
         trindade.setLatitude(41.15227);
         trindade.setLongitude(-8.60929);
         trindade.setAltitude(104d);
@@ -2755,7 +3156,7 @@ class GraphServiceTest {
     @Test
     void calculatePermutationPaths2() {
         Address trindade = new Address();
-        trindade.setStreetName("Pharmacy Trindade");
+        trindade.setStreetName("Rua da Trindade");
         trindade.setLatitude(41.15227);
         trindade.setLongitude(-8.60929);
         trindade.setAltitude(104d);
@@ -2851,7 +3252,7 @@ class GraphServiceTest {
     @Test
     void calculatePermutationPaths3() {
         Address trindade = new Address();
-        trindade.setStreetName("Pharmacy Trindade");
+        trindade.setStreetName("Rua da Trindade");
         trindade.setLatitude(41.15227);
         trindade.setLongitude(-8.60929);
         trindade.setAltitude(104d);
@@ -2954,7 +3355,7 @@ class GraphServiceTest {
         saBandeira.setAltitude(10d);
 
         Address trindade = new Address();
-        trindade.setStreetName("Pharmacy Trindade");
+        trindade.setStreetName("Rua da Trindade");
         trindade.setLatitude(41.15227);
         trindade.setLongitude(-8.60929);
         trindade.setAltitude(104d);
