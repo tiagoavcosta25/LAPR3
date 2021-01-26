@@ -10,11 +10,15 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class QRCodeTest {
 
+
     @Test
     void createQR() throws IOException, WriterException {
         boolean real = QRCode.generateQRCode("this is a test", "test");
 
         assertTrue(real);
+
+        real = QRCode.generateQRCode(null, null);
+        assertFalse(real);
     }
 
     @Test
