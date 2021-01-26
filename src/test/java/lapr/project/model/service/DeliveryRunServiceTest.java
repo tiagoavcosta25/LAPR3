@@ -1,7 +1,6 @@
 package lapr.project.model.service;
 
 import javafx.util.Pair;
-import lapr.project.data.DeliveryDB;
 import lapr.project.data.DeliveryRunDB;
 import lapr.project.model.*;
 import org.junit.jupiter.api.BeforeEach;
@@ -25,15 +24,12 @@ class DeliveryRunServiceTest {
     @Mock
     private DeliveryRunDB m_oDeliveryRunDB;
     @Mock
-    private DeliveryDB m_oDeliveryDB;
-    @Mock
     private GraphService m_oGraphService;
 
     @BeforeEach
     void setUp() {
         this.m_oDeliveryRunService = new DeliveryRunService();
         this.m_oDeliveryRunDB = Mockito.mock(DeliveryRunDB.class);
-        this.m_oDeliveryDB = Mockito.mock(DeliveryDB.class);
         this.m_oGraphService = Mockito.mock(GraphService.class);
         initMocks(this);
     }
@@ -78,7 +74,7 @@ class DeliveryRunServiceTest {
     @Test
     void startDeliveryRun() {
         Map<String,String> lst = new TreeMap<>();
-        when(m_oDeliveryDB.startDeliveryRun("123")).thenReturn(lst);
+        when(m_oDeliveryRunDB.startDeliveryRun("123")).thenReturn(lst);
         Map<String,String> result = m_oDeliveryRunService.startDeliveryRun("123");
         assertEquals(lst, result);
 
@@ -212,21 +208,6 @@ class DeliveryRunServiceTest {
         DeliveryRunDB expected = new DeliveryRunDB();
         m_oDeliveryRunService.setDeliveryRunDB(expected);
         DeliveryRunDB real = m_oDeliveryRunService.getDeliveryRunDB();
-        assertEquals(expected,real);
-    }
-
-    @Test
-    void getDeliveryDB() {
-        DeliveryDB expected = m_oDeliveryDB;
-        DeliveryDB real = m_oDeliveryRunService.getDeliveryDB();
-        assertEquals(expected,real);
-    }
-
-    @Test
-    void setDeliveryDB() {
-        DeliveryDB expected = new DeliveryDB();
-        m_oDeliveryRunService.setDeliveryDB(expected);
-        DeliveryDB real = m_oDeliveryRunService.getDeliveryDB();
         assertEquals(expected,real);
     }
 }

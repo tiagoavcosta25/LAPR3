@@ -1,7 +1,6 @@
 package lapr.project.model.service;
 
 import javafx.util.Pair;
-import lapr.project.data.DeliveryDB;
 import lapr.project.data.DeliveryRunDB;
 import lapr.project.model.*;
 import lapr.project.utils.EmailSender;
@@ -11,11 +10,9 @@ import java.util.*;
 public class DeliveryRunService {
 
     private DeliveryRunDB moDeliveryRunDB;
-    private DeliveryDB moDeliveryDB;
 
     public DeliveryRunService() {
         moDeliveryRunDB = new DeliveryRunDB();
-        moDeliveryDB = new DeliveryDB();
     }
 
     public DeliveryRunDB getDeliveryRunDB() {
@@ -24,14 +21,6 @@ public class DeliveryRunService {
 
     public void setDeliveryRunDB(DeliveryRunDB oDeliveryRunDB) {
         this.moDeliveryRunDB = oDeliveryRunDB;
-    }
-
-    public DeliveryDB getDeliveryDB() {
-        return moDeliveryDB;
-    }
-
-    public void setDeliveryDB(DeliveryDB oDeliveryDB) {
-        this.moDeliveryDB = oDeliveryDB;
     }
 
     public boolean registerPath(double dblLatitudeA, double dblLongitudeA, double dblLatitudeB, double dblLongitudeB,
@@ -77,7 +66,7 @@ public class DeliveryRunService {
     }
 
     public Map<String, String> startDeliveryRun(String currentUserEmail) {
-        return moDeliveryDB.startDeliveryRun(currentUserEmail);
+        return moDeliveryRunDB.startDeliveryRun(currentUserEmail);
     }
 
     public boolean sendsEmail(Map lstClients) {

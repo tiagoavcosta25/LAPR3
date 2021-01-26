@@ -29,7 +29,7 @@ public class DroneDB extends DataHandler {
             if (rSet.next()) {
                 return droneManager(rSet,1);
             }
-        } catch (SQLException | NoSuchAlgorithmException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         } finally {
             closeAll();
@@ -105,7 +105,7 @@ public class DroneDB extends DataHandler {
             while (rSet.next()) {
                 lstDrone.add(droneManager(rSet,1));
             }
-        } catch (SQLException | NoSuchAlgorithmException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
             throw new IllegalArgumentException("No Drones Avaliable.");
         } finally {

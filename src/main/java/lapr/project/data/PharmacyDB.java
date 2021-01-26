@@ -187,7 +187,7 @@ public class PharmacyDB extends DataHandler {
             }
             return lstOrders;
 
-        } catch (SQLException | NoSuchAlgorithmException e) {
+        } catch (SQLException e) {
             return null;
         } finally {
             closeAll();

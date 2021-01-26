@@ -31,7 +31,7 @@ public class ScooterDB extends DataHandler {
             if (rSet.next()) {
                 return scooterManager(rSet,1);
             }
-        } catch (SQLException | NoSuchAlgorithmException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         } finally {
             closeAll();
@@ -106,7 +106,7 @@ public class ScooterDB extends DataHandler {
             while(rSet.next()){
                 lstScooter.add(scooterManager(rSet,1));
             }
-        } catch (SQLException | NoSuchAlgorithmException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
             throw new IllegalArgumentException("No Scooters Avaliable.");
         } finally {
@@ -155,7 +155,7 @@ public class ScooterDB extends DataHandler {
                 Scooter oScooter = scooterManager(rSet,2);
                 lstPairs.add(new Pair<>(strEmail, oScooter));
             }
-        } catch (SQLException | NoSuchAlgorithmException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
             throw new IllegalArgumentException("No Scooters Avaliable.");
         } finally {

@@ -43,7 +43,7 @@ public class OrderDB extends DataHandler {
                 }
                 return oOrder;
             }
-        } catch (SQLException | NoSuchAlgorithmException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         } finally {
             closeAll();
@@ -148,7 +148,7 @@ public class OrderDB extends DataHandler {
                 }
                 return oOrder;
             }
-        } catch (SQLException | NoSuchAlgorithmException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         } finally {
             closeAll();
@@ -173,7 +173,7 @@ public class OrderDB extends DataHandler {
             if (rSet.next()) {
                 return orderManager(rSet, 1);
             }
-        } catch (SQLException | NoSuchAlgorithmException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
             return null;
         } finally {
