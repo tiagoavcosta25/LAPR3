@@ -79,11 +79,13 @@ class RegisterDeliveryRunControllerTest {
         real = m_ctrl.registerDeliveryRun(new ArrayList<>());
         assertFalse(real);
 
+
+        ApplicationPOT.getInstance().setCurrentSession(new UserSession("", UserSession.Role.ADMIN));
+
         when(m_mockDeliveryRunService.getMostEfficientVehicleModel(new ArrayList<>())).thenReturn(null);
         real = m_ctrl.registerDeliveryRun(new ArrayList<>());
         assertFalse(real);
 
-        ApplicationPOT.getInstance().setCurrentSession(new UserSession("", UserSession.Role.ADMIN));
         VehicleModel vm = new VehicleModel();
         vm.setVehicleType(VehicleType.SCOOTER);
         when(m_mockGraphService.calculateBestVehicleAndBestPath(new ArrayList<>())).thenReturn(new ArrayList<>());
