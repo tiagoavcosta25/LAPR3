@@ -4,7 +4,6 @@ package lapr.project.data;
 import lapr.project.model.*;
 import oracle.jdbc.OracleTypes;
 
-import java.security.NoSuchAlgorithmException;
 import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -16,9 +15,7 @@ public class VehicleDB extends DataHandler {
     public List<VehicleModel> getPharmacyModel(String strPharmacyEmail) {
 
         List<VehicleModel> lstModels = new ArrayList<>();
-        try {
-            openConnection();
-            CallableStatement callStmt = getConnection().prepareCall("{ ? = call getPharmacyModel(?) }");
+        try(CallableStatement callStmt = getConnection().prepareCall("{ ? = call getPharmacyModel(?) }");) {
 
             callStmt.registerOutParameter(1, oracle.jdbc.internal.OracleTypes.CURSOR);
             callStmt.setString(2, strPharmacyEmail);
@@ -57,10 +54,7 @@ public class VehicleDB extends DataHandler {
 
     public VehicleModel getVehicleModel(String strDesignation) {
 
-        CallableStatement callStmt = null;
-        try {
-            openConnection();
-            callStmt = getConnection().prepareCall("{ ? = call getVehicleModel(?) }");
+        try(CallableStatement callStmt = getConnection().prepareCall("{ ? = call getVehicleModel(?) }");) {
 
             callStmt.registerOutParameter(1, OracleTypes.CURSOR);
             callStmt.setString(2, strDesignation);
@@ -99,12 +93,7 @@ public class VehicleDB extends DataHandler {
     }
 
     private int addVehicleModel(String designation, double maxPayload, double potency, VehicleType vehicleType, double weight, Battery battery) {
-        try {
-            openConnection();
-
-            CallableStatement callStmt = getConnection().prepareCall("{ ? = call addVehicleModel(?,?,?,?,?,?,?,?) }");
-
-
+        try(CallableStatement callStmt = getConnection().prepareCall("{ ? = call addVehicleModel(?,?,?,?,?,?,?,?) }");) {
             callStmt.registerOutParameter(1, OracleTypes.INTEGER);
             callStmt.setString(2, designation);
             callStmt.setDouble(3, maxPayload);
@@ -127,10 +116,7 @@ public class VehicleDB extends DataHandler {
     }
 
     public Double getEnergyByVehicleModel(int intVehicleModel) {
-        CallableStatement callStmt = null;
-        try {
-            openConnection();
-            callStmt = getConnection().prepareCall("{ ? = call getEnergyByVehicleModel(?) }");
+        try(CallableStatement callStmt = getConnection().prepareCall("{ ? = call getEnergyByVehicleModel(?) }");) {
 
             callStmt.registerOutParameter(1, OracleTypes.INTEGER);
             callStmt.setInt(2, intVehicleModel);
@@ -143,10 +129,7 @@ public class VehicleDB extends DataHandler {
         }
     }
     public double getVehiclePayload(int vehicleId){
-        CallableStatement callStmt = null;
-        try {
-            openConnection();
-            callStmt = getConnection().prepareCall("{ ? = call getVehiclePayload(?) }");
+        try(CallableStatement callStmt = getConnection().prepareCall("{ ? = call getVehiclePayload(?) }");) {
 
             callStmt.registerOutParameter(1, OracleTypes.INTEGER);
             callStmt.setInt(2, vehicleId);
