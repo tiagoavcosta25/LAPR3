@@ -32,10 +32,10 @@ public class DeliveryRun {
         this.moStatus = DeliveryStatus.IDLE;
     }
 
-    public DeliveryRun(Courier oCourier, List<Order> m_lstDelivery) {
+    public DeliveryRun(Courier oCourier, List<Order> lstDelivery) {
         this.mintId = -1;
         this.moCourier = oCourier;
-        this.mlstOrder = new ArrayList<>(m_lstDelivery);
+        this.mlstOrder = new ArrayList<>(lstDelivery);
         this.moVehicle = null;
         this.moStatus = DeliveryStatus.IDLE;
     }

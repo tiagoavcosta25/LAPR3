@@ -2,6 +2,7 @@ package lapr.project.controller;
 
 import lapr.project.model.*;
 import lapr.project.model.service.PharmacyService;
+import lapr.project.model.service.ProductService;
 import lapr.project.model.service.ScooterService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -58,7 +59,16 @@ class UpdateScooterControllerTest {
 
         when(m_mockScooterService.getScootersList("")).thenThrow(new IllegalArgumentException());
         result = m_ctrl.showScootersList("");
-        assertNull(result);
+        assertEquals(result, new ArrayList<>());
+    }
+    @Test
+    void showScootersList2() {
+        System.out.println("showScootersList2");
+        List<Scooter> lst = new ArrayList<>();
+        lst.add(new Scooter());
+        when(m_mockScooterService.getScootersList("pharmacy@gmail.com")).thenReturn(lst);
+        List<Scooter> result = m_ctrl.showScootersList("pharmacy@gmail.com");
+        assertEquals(lst,result);
     }
 
     @Test
@@ -85,5 +95,30 @@ class UpdateScooterControllerTest {
                 2.0d, 2.0d, 30d, 100, 20d,
                 10d);
         assertFalse(result);
+    }
+    @Test
+    void testGetPharmacyService(){
+        UpdateScooterController ctrl = new UpdateScooterController();
+        PharmacyService expected = new PharmacyService();
+        ctrl.setMoPharmacyService(expected);
+        PharmacyService real = ctrl.getMoPharmacyService();
+        assertEquals(expected, real);
+    }
+
+    @Test
+    void testSetPharmacyService(){
+        UpdateScooterController ctrl = new UpdateScooterController();
+        PharmacyService expected = new PharmacyService();
+        ctrl.setMoPharmacyService(expected);
+        PharmacyService real = ctrl.getMoPharmacyService();
+        assertEquals(expected, real);
+    }
+    @Test
+    void testGetScooterService(){
+        UpdateScooterController ctrl = new UpdateScooterController();
+        ScooterService expected = new ScooterService();
+        ctrl.setMoScooterService(expected);
+        ScooterService real = ctrl.getMoScooterService();
+        assertEquals(expected, real);
     }
 }

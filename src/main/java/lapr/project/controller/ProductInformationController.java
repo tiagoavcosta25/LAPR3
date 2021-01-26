@@ -26,4 +26,12 @@ public class ProductInformationController {
         }
         return null;
     }
+
+    public ProductService getMoServ() {
+        return moServ;
+    }
+
+    public void setMoServ(ProductService moServ) {
+        this.moServ = moServ;
+    }
 }

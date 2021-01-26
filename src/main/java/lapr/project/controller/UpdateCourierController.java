@@ -128,5 +128,28 @@ public class UpdateCourierController {
 
     }
 
+    public CourierService getMoCourierService() {
+        return moCourierService;
+    }
+
+    public void setMoCourierService(CourierService moCourierService) {
+        this.moCourierService = moCourierService;
+    }
+
+    public PharmacyService getMoPharmacyService() {
+        return moPharmacyService;
+    }
+
+    public void setMoPharmacyService(PharmacyService moPharmacyService) {
+        this.moPharmacyService = moPharmacyService;
+    }
+
+    public Pharmacy getMoPharmacy() {
+        return moPharmacy;
+    }
+
+    public void setMoPharmacy(Pharmacy moPharmacy) {
+        this.moPharmacy = moPharmacy;
+    }
 }
 

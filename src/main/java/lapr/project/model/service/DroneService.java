@@ -2,10 +2,6 @@ package lapr.project.model.service;
 
 import lapr.project.data.DroneDB;
 import lapr.project.model.*;
-import lapr.project.utils.Constants;
-import lapr.project.utils.EnergyCalculator;
-import lapr.project.utils.WriteFile;
-
 import java.util.List;
 
 public class DroneService {
@@ -16,8 +12,16 @@ public class DroneService {
         moDroneDB = new DroneDB();
     }
 
+    public DroneDB getDroneDB() {
+        return moDroneDB;
+    }
+
+    public void setDroneDB(DroneDB oDroneDB) {
+        this.moDroneDB = oDroneDB;
+    }
+
     public boolean updateDroneFromDB(int intId, double dblBatteryPerc, String strDesignation, double dblPotency, double dblWeight, double dblMaxPayload,
-                                       int intBatteryCapacity, double dblBatteryVoltage, double dblEfficiency){
+                                     int intBatteryCapacity, double dblBatteryVoltage, double dblEfficiency){
         return moDroneDB.updateDroneFromDB(intId, dblBatteryPerc, strDesignation, dblPotency, dblWeight, dblMaxPayload,
                 intBatteryCapacity, dblBatteryVoltage, dblEfficiency);
     }

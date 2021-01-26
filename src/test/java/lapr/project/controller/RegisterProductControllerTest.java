@@ -1,6 +1,5 @@
 package lapr.project.controller;
 
-import lapr.project.model.Product;
 import lapr.project.model.UserSession;
 import lapr.project.model.service.ProductService;
 import org.junit.jupiter.api.BeforeEach;
@@ -62,5 +61,21 @@ class RegisterProductControllerTest {
         ApplicationPOT.getInstance().setCurrentSession(new UserSession("", 4));
         result = registerProductController.registerProduct("", "Description 1", 2.0d, 2.0d);
         assertFalse(result);
+    }
+    @Test
+    void testGetProductService(){
+        RegisterProductController ctrl = new RegisterProductController();
+        ProductService expected = new ProductService();
+        ctrl.setMoServ(expected);
+        ProductService real = ctrl.getMoServ();
+        assertEquals(expected, real);
+    }
+    @Test
+    void testSetProductService(){
+        RegisterProductController ctrl = new RegisterProductController();
+        ProductService expected = new ProductService();
+        ctrl.setMoServ(expected);
+        ProductService real = ctrl.getMoServ();
+        assertEquals(expected, real);
     }
 }

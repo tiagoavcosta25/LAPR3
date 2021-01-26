@@ -5,12 +5,17 @@ import lapr.project.model.*;
 import lapr.project.utils.EmailSender;
 import lapr.project.utils.WriteFile;
 
-import java.io.File;
-import java.io.FileWriter;
-
 public class PharmacyTransferService {
 
     private PharmacyTransferDB moPharmacyTransferDB;
+
+    public PharmacyTransferDB getPharmacyTransferDB() {
+        return moPharmacyTransferDB;
+    }
+
+    public void setPharmacyTransferDB(PharmacyTransferDB oPharmacyTransferDB) {
+        this.moPharmacyTransferDB = oPharmacyTransferDB;
+    }
 
     public PharmacyTransferService() {
         this.moPharmacyTransferDB = new PharmacyTransferDB();

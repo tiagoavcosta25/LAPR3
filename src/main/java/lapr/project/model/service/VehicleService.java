@@ -4,15 +4,21 @@ import com.google.zxing.WriterException;
 import lapr.project.data.VehicleDB;
 import lapr.project.model.*;
 import lapr.project.utils.QRCode;
-
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 
 public class VehicleService {
 
     private VehicleDB moVehicleDB;
+
+    public VehicleDB getVehicleDB() {
+        return moVehicleDB;
+    }
+
+    public void setVehicleDB(VehicleDB oVehicleDB) {
+        this.moVehicleDB = oVehicleDB;
+    }
 
     public VehicleService() {
         this.moVehicleDB = new VehicleDB();

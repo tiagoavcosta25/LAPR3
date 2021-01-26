@@ -20,6 +20,13 @@ public class ClientService {
         moClientDB = new ClientDB();
     }
 
+    public ClientDB getClientDB() {
+        return moClientDB;
+    }
+
+    public void setClientDB(ClientDB oClientDB) {
+        this.moClientDB = oClientDB;
+    }
 
     /**
      * Validates the input information regarding

@@ -118,4 +118,19 @@ class ScooterServiceTest {
         boolean real = scooterService.parkScooter(12, 12);
         assertFalse(real);
     }
+
+    @Test
+    void getScooterDB() {
+        ScooterDB expected = mockScooterDB;
+        ScooterDB real = scooterService.getScooterDB();
+        assertEquals(expected,real);
+    }
+
+    @Test
+    void setScooterDB() {
+        ScooterDB expected = new ScooterDB();
+        scooterService.setScooterDB(expected);
+        ScooterDB real = scooterService.getScooterDB();
+        assertEquals(expected,real);
+    }
 }

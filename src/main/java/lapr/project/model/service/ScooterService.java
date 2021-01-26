@@ -11,6 +11,14 @@ public class ScooterService {
 
     private ScooterDB moScooterDB;
 
+    public ScooterDB getScooterDB() {
+        return moScooterDB;
+    }
+
+    public void setScooterDB(ScooterDB oScooterDB) {
+        this.moScooterDB = oScooterDB;
+    }
+
     public ScooterService() {
         this.moScooterDB = new ScooterDB();
     }

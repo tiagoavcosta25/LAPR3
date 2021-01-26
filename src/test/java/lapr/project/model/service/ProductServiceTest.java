@@ -183,4 +183,19 @@ class ProductServiceTest {
         List<Product> result = pServ.getAvailableProducts(1);
         assertEquals(lst, result);
     }
+
+    @Test
+    void getProductDB() {
+        ProductDB expected = mockPDB;
+        ProductDB real = pServ.getProductDB();
+        assertEquals(expected,real);
+    }
+
+    @Test
+    void setProductDB() {
+        ProductDB expected = new ProductDB();
+        pServ.setProductDB(expected);
+        ProductDB real = pServ.getProductDB();
+        assertEquals(expected,real);
+    }
 }

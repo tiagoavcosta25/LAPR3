@@ -4,6 +4,7 @@ import lapr.project.model.Courier;
 import lapr.project.model.Pharmacy;
 import lapr.project.model.service.CourierService;
 import lapr.project.model.service.PharmacyService;
+import lapr.project.model.service.ProductService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -136,5 +137,50 @@ class UpdateCourierControllerTest {
         real = updateCourierController.validateInput("ernestogmail.com");
         assertFalse(real);
 
+    }
+
+    @Test
+    void testGetCourierService(){
+        UpdateCourierController ctrl = new UpdateCourierController();
+        CourierService expected = new CourierService();
+        ctrl.setMoCourierService(expected);
+        CourierService real = ctrl.getMoCourierService();
+        assertEquals(expected, real);
+    }
+
+    @Test
+    void testSetCourierService(){
+        UpdateCourierController ctrl = new UpdateCourierController();
+        CourierService expected = new CourierService();
+        ctrl.setMoCourierService(expected);
+        CourierService real = ctrl.getMoCourierService();
+        assertEquals(expected, real);
+    }
+
+    @Test
+    void testGetPharmacyService(){
+        UpdateCourierController ctrl = new UpdateCourierController();
+        PharmacyService expected = new PharmacyService();
+        ctrl.setMoPharmacyService(expected);
+        PharmacyService real = ctrl.getMoPharmacyService();
+        assertEquals(expected, real);
+    }
+
+    @Test
+    void testGetPharmacy(){
+        UpdateCourierController ctrl = new UpdateCourierController();
+        Pharmacy expected = new Pharmacy();
+        ctrl.setMoPharmacy(expected);
+        Pharmacy real = ctrl.getMoPharmacy();
+        assertEquals(expected, real);
+    }
+
+    @Test
+    void testSetPharmacy(){
+        UpdateCourierController ctrl = new UpdateCourierController();
+        Pharmacy expected = new Pharmacy();
+        ctrl.setMoPharmacy(expected);
+        Pharmacy real = ctrl.getMoPharmacy();
+        assertEquals(expected, real);
     }
 }

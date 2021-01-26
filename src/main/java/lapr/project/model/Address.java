@@ -73,32 +73,32 @@ public class Address {
         return mstrCountry;
     }
 
-    public void setLatitude(Double m_latitude) {
-        this.mdblLatitude = m_latitude;
+    public void setLatitude(Double mdblLatitude) {
+        this.mdblLatitude = mdblLatitude;
     }
 
-    public void setLongitude(Double m_longitude) {
-        this.mdblLongitude = m_longitude;
+    public void setLongitude(Double mdblLongitude) {
+        this.mdblLongitude = mdblLongitude;
     }
 
-    public void setStreetName(String m_streetName) {
-        this.mstrStreetName = m_streetName;
+    public void setStreetName(String mstrStreetName) {
+        this.mstrStreetName = mstrStreetName;
     }
 
-    public void setDoorNumber(String m_doorNumber) {
-        this.mstrDoorNumber = m_doorNumber;
+    public void setDoorNumber(String mstrDoorNumber) {
+        this.mstrDoorNumber = mstrDoorNumber;
     }
 
-    public void setPostalCode(String m_postalCode) {
-        this.mstrPostalCode = m_postalCode;
+    public void setPostalCode(String mstrPostalCode) {
+        this.mstrPostalCode = mstrPostalCode;
     }
 
-    public void setLocality(String m_locality) {
-        this.mstrLocality = m_locality;
+    public void setLocality(String mstrLocality) {
+        this.mstrLocality = mstrLocality;
     }
 
-    public void setCountry(String m_country) {
-        this.mstrCountry = m_country;
+    public void setCountry(String mstrCountry) {
+        this.mstrCountry = mstrCountry;
     }
 
     public double distanceTo(Address oAddress) {

@@ -25,4 +25,12 @@ public class RemoveProductController {
         }
         return false;
     }
+
+    public ProductService getMoServ() {
+        return moServ;
+    }
+
+    public void setMoServ(ProductService moServ) {
+        this.moServ = moServ;
+    }
 }
