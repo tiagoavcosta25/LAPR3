@@ -1,6 +1,7 @@
 package lapr.project.controller;
 
 import lapr.project.model.PharmacyTransfer;
+import lapr.project.model.service.InvoiceService;
 import lapr.project.model.service.PharmacyTransferService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -49,11 +50,23 @@ class IssueDeliveryNoteControllerTest {
         when(mockPharmacyTransferService.getPharmacyTransfer(-2)).thenThrow(new IllegalArgumentException());
         result = issueDeliveryNoteController.issueDeliveryNote(-2);
         assertFalse(result);
+    }
 
+    @Test
+    void getPharmacyTransferService() {
+        IssueDeliveryNoteController ctrl = new IssueDeliveryNoteController();
+        PharmacyTransferService expected = new PharmacyTransferService();
+        ctrl.setPharmacyTransferService(expected);
+        PharmacyTransferService real = ctrl.getPharmacyTransferService();
+        assertEquals(expected, real);
+    }
 
-
-
-
-
+    @Test
+    void setPharmacyTransferService() {
+        IssueDeliveryNoteController ctrl = new IssueDeliveryNoteController();
+        PharmacyTransferService expected = new PharmacyTransferService();
+        ctrl.setPharmacyTransferService(expected);
+        PharmacyTransferService real = ctrl.getPharmacyTransferService();
+        assertEquals(expected, real);
     }
 }

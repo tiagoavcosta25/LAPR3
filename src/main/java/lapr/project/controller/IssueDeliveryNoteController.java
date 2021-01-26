@@ -11,11 +11,6 @@ public class IssueDeliveryNoteController {
     private PharmacyTransferService moPharmacyTransferService;
 
     /**
-     * Pharmacy Transfer instance
-     */
-    private PharmacyTransfer moPharmacyTransfer;
-
-    /**
      * An empty constructor of IssueTransferNoteController.
      */
     public IssueDeliveryNoteController() {
@@ -28,11 +23,20 @@ public class IssueDeliveryNoteController {
      */
     public boolean issueDeliveryNote(int intPharmacyTransferId) {
         try {
-            this.moPharmacyTransfer = this.moPharmacyTransferService.getPharmacyTransfer(intPharmacyTransferId);
+            PharmacyTransfer oPharmacyTransfer = this.moPharmacyTransferService.getPharmacyTransfer(intPharmacyTransferId);
             this.moPharmacyTransferService.updateStockFromTransfer(intPharmacyTransferId);
-            return this.moPharmacyTransferService.sendEmailWithDeliveryNote(this.moPharmacyTransfer);
+            return this.moPharmacyTransferService.sendEmailWithDeliveryNote(oPharmacyTransfer);
         } catch (Exception ex) {
             return false;
         }
     }
+
+    public PharmacyTransferService getPharmacyTransferService() {
+        return moPharmacyTransferService;
+    }
+
+    public void setPharmacyTransferService(PharmacyTransferService oPharmacyTransferService) {
+        this.moPharmacyTransferService = oPharmacyTransferService;
+    }
 }
+

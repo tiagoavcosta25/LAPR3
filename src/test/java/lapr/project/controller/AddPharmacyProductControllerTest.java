@@ -103,4 +103,40 @@ class AddPharmacyProductControllerTest {
         List<Product>  result = addPharmacyProductController.getProducts();
         assertEquals(expectedListProducts, result);
     }
+
+    @Test
+    void getProductService() {
+        AddPharmacyProductController ctrl = new AddPharmacyProductController();
+        ProductService expected = new ProductService();
+        ctrl.setProductService(expected);
+        ProductService real = ctrl.getProductService();
+        assertEquals(expected, real);
+    }
+
+    @Test
+    void setProductService() {
+        AddPharmacyProductController ctrl = new AddPharmacyProductController();
+        ProductService expected = new ProductService();
+        ctrl.setProductService(expected);
+        ProductService real = ctrl.getProductService();
+        assertEquals(expected, real);
+    }
+
+    @Test
+    void getPharmacyService() {
+        AddPharmacyProductController ctrl = new AddPharmacyProductController();
+        PharmacyService expected = new PharmacyService();
+        ctrl.setPharmacyService(expected);
+        PharmacyService real = ctrl.getPharmacyService();
+        assertEquals(expected, real);
+    }
+
+    @Test
+    void setPharmacyService() {
+        AddPharmacyProductController ctrl = new AddPharmacyProductController();
+        PharmacyService expected = new PharmacyService();
+        ctrl.setPharmacyService(expected);
+        PharmacyService real = ctrl.getPharmacyService();
+        assertEquals(expected, real);
+    }
 }

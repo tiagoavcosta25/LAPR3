@@ -26,11 +26,6 @@ public class MakeAPharmacyTransferController {
     private Pharmacy moPharmacy;
 
     /**
-     * Order
-     */
-    private PharmacyTransfer moPharmacyTransfer;
-
-    /**
      * An empty constructor of MakeAnOrderController that initiates the platform variable by getting it from the ApplicationPOT.
      */
     public MakeAPharmacyTransferController() {
@@ -45,9 +40,9 @@ public class MakeAPharmacyTransferController {
     public boolean getStockFromAnotherPharamacy(Order oOrder, Product oProduct, Integer intQuantity) {
         try {
             this.moPharmacy = moPharmacyService.getClosestPharmacyWithStock(oOrder, oProduct, intQuantity);
-            this.moPharmacyTransfer = moPharmacyTransferService.newPharmacyTransfer(oOrder, oProduct, intQuantity, this.moPharmacy);
-            this.moPharmacyTransferService.registerPharmacyTransfer(this.moPharmacyTransfer);
-            return this.moIssueTransferNoteController.issueTransferNote(this.moPharmacyTransfer);
+            PharmacyTransfer oPharmacyTransfer = moPharmacyTransferService.newPharmacyTransfer(oOrder, oProduct, intQuantity, this.moPharmacy);
+            this.moPharmacyTransferService.registerPharmacyTransfer(oPharmacyTransfer);
+            return this.moIssueTransferNoteController.issueTransferNote(oPharmacyTransfer);
         } catch (Exception ex) {
             return false;
         }
@@ -55,5 +50,29 @@ public class MakeAPharmacyTransferController {
 
     public void setPharmacy(String strPharmacyEmail){
         this.moPharmacy = this.moPharmacyService.getPharmacy(strPharmacyEmail);
+    }
+
+    public PharmacyService getPharmacyService() {
+        return moPharmacyService;
+    }
+
+    public void setPharmacyService(PharmacyService oPharmacyService) {
+        this.moPharmacyService = oPharmacyService;
+    }
+
+    public PharmacyTransferService getPharmacyTransferService() {
+        return moPharmacyTransferService;
+    }
+
+    public void setPharmacyTransferService(PharmacyTransferService oPharmacyTransferService) {
+        this.moPharmacyTransferService = oPharmacyTransferService;
+    }
+
+    public IssueTransferNoteController getIssueTransferNoteController() {
+        return moIssueTransferNoteController;
+    }
+
+    public void setIssueTransferNoteController(IssueTransferNoteController oIssueTransferNoteController) {
+        this.moIssueTransferNoteController = oIssueTransferNoteController;
     }
 }

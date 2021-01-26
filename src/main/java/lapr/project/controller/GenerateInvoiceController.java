@@ -34,4 +34,20 @@ public class GenerateInvoiceController {
             return false;
         }
     }
+
+    public Invoice getInvoice() {
+        return moInvoice;
+    }
+
+    public void setInvoice(Invoice moInvoice) {
+        this.moInvoice = moInvoice;
+    }
+
+    public InvoiceService getInvoiceService() {
+        return moInvoiceService;
+    }
+
+    public void setInvoiceService(InvoiceService moInvoiceService) {
+        this.moInvoiceService = moInvoiceService;
+    }
 }

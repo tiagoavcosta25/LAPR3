@@ -4,6 +4,7 @@ import lapr.project.model.*;
 import lapr.project.model.service.ClientService;
 import lapr.project.model.service.InvoiceService;
 import lapr.project.model.service.OrderService;
+import lapr.project.model.service.PharmacyService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -55,5 +56,41 @@ class GenerateInvoiceControllerTest {
         when(mockInvoiceService.registerInvoice(new Invoice())).thenThrow(new IllegalArgumentException());
         result = this.generateInvoiceController.generateInvoice(new Order(), new TreeMap<>());
         assertFalse(result);
+    }
+
+    @Test
+    void getInvoice() {
+        GenerateInvoiceController ctrl = new GenerateInvoiceController();
+        Invoice expected = new Invoice();
+        ctrl.setInvoice(expected);
+        Invoice real = ctrl.getInvoice();
+        assertEquals(expected, real);
+    }
+
+    @Test
+    void setInvoice() {
+        GenerateInvoiceController ctrl = new GenerateInvoiceController();
+        Invoice expected = new Invoice();
+        ctrl.setInvoice(expected);
+        Invoice real = ctrl.getInvoice();
+        assertEquals(expected, real);
+    }
+
+    @Test
+    void getInvoiceService() {
+        GenerateInvoiceController ctrl = new GenerateInvoiceController();
+        InvoiceService expected = new InvoiceService();
+        ctrl.setInvoiceService(expected);
+        InvoiceService real = ctrl.getInvoiceService();
+        assertEquals(expected, real);
+    }
+
+    @Test
+    void setInvoiceService() {
+        GenerateInvoiceController ctrl = new GenerateInvoiceController();
+        InvoiceService expected = new InvoiceService();
+        ctrl.setInvoiceService(expected);
+        InvoiceService real = ctrl.getInvoiceService();
+        assertEquals(expected, real);
     }
 }

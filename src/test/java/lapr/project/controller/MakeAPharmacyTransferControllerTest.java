@@ -54,11 +54,11 @@ class MakeAPharmacyTransferControllerTest {
         boolean result = makeAPharmacyTransferController.getStockFromAnotherPharamacy(m_oOrder, new Product(), 1);
         assertTrue(result);
 
-        when(mockPharmacyTransferService.registerPharmacyTransfer(m_oPharmacyTransfer)).thenThrow(new IllegalArgumentException());
+        when(mockIssueTransferNoteController.issueTransferNote(m_oPharmacyTransfer)).thenReturn(false);
         result = makeAPharmacyTransferController.getStockFromAnotherPharamacy(m_oOrder, new Product(), 1);
         assertFalse(result);
 
-        when(mockIssueTransferNoteController.issueTransferNote(m_oPharmacyTransfer)).thenReturn(false);
+        when(mockPharmacyTransferService.registerPharmacyTransfer(m_oPharmacyTransfer)).thenThrow(new IllegalArgumentException());
         result = makeAPharmacyTransferController.getStockFromAnotherPharamacy(m_oOrder, new Product(), 1);
         assertFalse(result);
 
@@ -72,5 +72,59 @@ class MakeAPharmacyTransferControllerTest {
         Pharmacy real = new Pharmacy();
         real.setId(1202);
         assertNotEquals(expected,real);
+    }
+
+    @Test
+    void getPharmacyService() {
+        MakeAPharmacyTransferController ctrl = new MakeAPharmacyTransferController();
+        PharmacyService expected = new PharmacyService();
+        ctrl.setPharmacyService(expected);
+        PharmacyService real = ctrl.getPharmacyService();
+        assertEquals(expected, real);
+    }
+
+    @Test
+    void setPharmacyService() {
+        MakeAPharmacyTransferController ctrl = new MakeAPharmacyTransferController();
+        PharmacyService expected = new PharmacyService();
+        ctrl.setPharmacyService(expected);
+        PharmacyService real = ctrl.getPharmacyService();
+        assertEquals(expected, real);
+    }
+
+    @Test
+    void getPharmacyTransferService() {
+        MakeAPharmacyTransferController ctrl = new MakeAPharmacyTransferController();
+        PharmacyTransferService expected = new PharmacyTransferService();
+        ctrl.setPharmacyTransferService(expected);
+        PharmacyTransferService real = ctrl.getPharmacyTransferService();
+        assertEquals(expected, real);
+    }
+
+    @Test
+    void setPharmacyTransferService() {
+        MakeAPharmacyTransferController ctrl = new MakeAPharmacyTransferController();
+        PharmacyTransferService expected = new PharmacyTransferService();
+        ctrl.setPharmacyTransferService(expected);
+        PharmacyTransferService real = ctrl.getPharmacyTransferService();
+        assertEquals(expected, real);
+    }
+
+    @Test
+    void getIssueTransferNoteController() {
+        MakeAPharmacyTransferController ctrl = new MakeAPharmacyTransferController();
+        IssueTransferNoteController expected = new IssueTransferNoteController();
+        ctrl.setIssueTransferNoteController(expected);
+        IssueTransferNoteController real = ctrl.getIssueTransferNoteController();
+        assertEquals(expected, real);
+    }
+
+    @Test
+    void setIssueTransferNoteController() {
+        MakeAPharmacyTransferController ctrl = new MakeAPharmacyTransferController();
+        IssueTransferNoteController expected = new IssueTransferNoteController();
+        ctrl.setIssueTransferNoteController(expected);
+        IssueTransferNoteController real = ctrl.getIssueTransferNoteController();
+        assertEquals(expected, real);
     }
 }

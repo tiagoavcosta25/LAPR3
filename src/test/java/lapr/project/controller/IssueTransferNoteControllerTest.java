@@ -45,4 +45,22 @@ class IssueTransferNoteControllerTest {
         result = issueTransferNoteController.issueTransferNote(m_oPharmacyTransfer);
         assertFalse(result);
     }
+
+    @Test
+    void getPharmacyTransferService() {
+        IssueTransferNoteController ctrl = new IssueTransferNoteController();
+        PharmacyTransferService expected = new PharmacyTransferService();
+        ctrl.setPharmacyTransferService(expected);
+        PharmacyTransferService real = ctrl.getPharmacyTransferService();
+        assertEquals(expected, real);
+    }
+
+    @Test
+    void setPharmacyTransferService() {
+        IssueTransferNoteController ctrl = new IssueTransferNoteController();
+        PharmacyTransferService expected = new PharmacyTransferService();
+        ctrl.setPharmacyTransferService(expected);
+        PharmacyTransferService real = ctrl.getPharmacyTransferService();
+        assertEquals(expected, real);
+    }
 }

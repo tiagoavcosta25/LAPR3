@@ -87,4 +87,20 @@ public class AddPharmacyProductController {
     public void setStock(Integer intStock) {
         this.mintStock = intStock;
     }
+
+    public ProductService getProductService() {
+        return moProductService;
+    }
+
+    public void setProductService(ProductService oProductService) {
+        this.moProductService = oProductService;
+    }
+
+    public PharmacyService getPharmacyService() {
+        return moPharmacyService;
+    }
+
+    public void setPharmacyService(PharmacyService oPharmacyService) {
+        this.moPharmacyService = oPharmacyService;
+    }
 }

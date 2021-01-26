@@ -27,4 +27,12 @@ public class IssueTransferNoteController {
             return false;
         }
     }
+
+    public PharmacyTransferService getPharmacyTransferService() {
+        return moPharmacyTransferService;
+    }
+
+    public void setPharmacyTransferService(PharmacyTransferService oPharmacyTransferService) {
+        this.moPharmacyTransferService = oPharmacyTransferService;
+    }
 }
