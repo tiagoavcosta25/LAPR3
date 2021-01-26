@@ -225,6 +225,10 @@ public class MakeAnOrderController {
         }
     }
 
+    public Order getOrder() {
+        return moOrder;
+    }
+
     public OrderService getOrderService() {
         return moOrderService;
     }

@@ -80,8 +80,6 @@ class MakeAnOrderControllerTest {
         result = makeAnOrderController.newOrder(null, null);
 
         assertEquals(expectedNull, result);
-
-
     }
 
     @Test
@@ -110,6 +108,37 @@ class MakeAnOrderControllerTest {
         when(mockNotifyAndRemoveController.notifyAndRemove(this.expectedOrder)).thenReturn(false);
         result = makeAnOrderController.registerOrder();
         assertFalse(result);
+    }
+
+    @Test
+    void registerOrder2() {
+        System.out.println("registerOrder");
+
+        when(mockOrderService.registerOrder(this.expectedOrder)).thenReturn(-1);
+        when(mockNotifyAndRemoveController.notifyAndRemove(this.expectedOrder)).thenReturn(true);
+        when(mockClientService.updateClientCredits("No Email Registered", 0)).thenReturn(true);
+        when(mockGenerateInvoiceController.generateInvoice(expectedOrder, new TreeMap<>())).thenReturn(true);
+
+        makeAnOrderController.setClient(new Client());
+        makeAnOrderController.setOrder(this.expectedOrder);
+        boolean result = makeAnOrderController.registerOrder();
+        assertTrue(result);
+        assertEquals(-1, makeAnOrderController.getOrder().getId());
+        assertNotEquals(0, makeAnOrderController.getOrder().getId());
+
+        when(mockOrderService.registerOrder(this.expectedOrder)).thenReturn(1);
+        result = makeAnOrderController.registerOrder();
+        assertTrue(result);
+        assertNotEquals(-1, makeAnOrderController.getOrder().getId());
+        assertEquals(1, makeAnOrderController.getOrder().getId());
+    }
+
+    @Test
+    void getOrder() {
+        Order o = new Order();
+        assertNull(makeAnOrderController.getOrder());
+        makeAnOrderController.setOrder(o);
+        assertEquals(o, makeAnOrderController.getOrder());
     }
 
     @Test
