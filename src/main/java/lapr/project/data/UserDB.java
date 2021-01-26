@@ -2,12 +2,8 @@ package lapr.project.data;
 
 
 import lapr.project.model.UserSession;
-import lapr.project.data.DataHandler;
-import lapr.project.model.service.UserService;
-import lapr.project.utils.EncryptPassword;
 import oracle.jdbc.internal.OracleTypes;
 
-import java.security.NoSuchAlgorithmException;
 import java.sql.CallableStatement;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -27,13 +23,7 @@ public class UserDB extends DataHandler {
      */
     public boolean login(String email, String password) {
         boolean flag = true;
-        try {
-            openConnection();
-
-            CallableStatement callStmt = getConnection().prepareCall("{ call logIn(?,?,?) }");
-
-            // Regista o tipo de dados SQL para interpretar o resultado obtido.
-
+        try(CallableStatement callStmt = getConnection().prepareCall("{ call logIn(?,?,?) }");) {
 
             callStmt.setString(1, email);
             callStmt.setString(2, password);
