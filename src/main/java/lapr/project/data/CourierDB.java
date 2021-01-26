@@ -171,11 +171,10 @@ public class CourierDB extends DataHandler {
                                         "choosing us.\nKing regards,\nPharmacy Service G21.", intIdScooter, time.get(0), time.get(1),
                                 time.get(2), formattedDateTime));
 
-                String Path = new File("").getAbsolutePath();
-                File file = new File(Path + Constants.ESTIMATE_FILE_PATH + "/" + estimateFileName);
+                File file = new File(Constants.ESTIMATE_FILE_PATH + estimateFileName);
                 try {
                     Files.delete(file.toPath());
-                    file = new File(Constants.ESTIMATE_FILE_PATH + "/" + estimateFileName + Constants.ESTIMATE_FILE_FILTER);
+                    file = new File(Constants.ESTIMATE_FILE_PATH + estimateFileName + Constants.ESTIMATE_FILE_FILTER);
                     Files.delete(file.toPath());
                 } catch (IOException e) {
                     LOGGER.log(Level.WARNING, "There was an error deleting the file!");
