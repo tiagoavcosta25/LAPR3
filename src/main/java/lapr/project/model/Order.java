@@ -197,16 +197,16 @@ public class Order {
 
     private void calculateAmount() {
         double dblAmount = 0d;
-        for(Product p : this.mMapProducts.keySet()){
-            dblAmount += p.getUnitaryPrice() * (double) this.mMapProducts.get(p);
+        for(Map.Entry<Product, Integer> e : this.mMapProducts.entrySet()){
+            dblAmount += e.getKey().getUnitaryPrice() * (double) e.getValue();
         }
         this.mdblAmount = dblAmount;
     }
 
     private void calculateTotalWeight() {
         double dblTotalWeight = 0f;
-        for(Product p : this.mMapProducts.keySet()){
-            dblTotalWeight += p.getUnitaryWeight() * (double) this.mMapProducts.get(p);
+        for(Map.Entry<Product, Integer> e : this.mMapProducts.entrySet()){
+            dblTotalWeight += e.getKey().getUnitaryWeight() * (double) e.getValue();
         }
         this.mdblTotalWeight = dblTotalWeight;
     }

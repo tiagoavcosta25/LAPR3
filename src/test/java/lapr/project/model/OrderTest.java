@@ -141,8 +141,9 @@ class OrderTest {
 
     @Test
     void setClient() {
-        Order oOrder = new Order();
         Client expected = new Client();
+        expected.setCredits(10);
+        Order oOrder = new Order("", true, expected, new Pharmacy(), new HashMap<>());
         oOrder.setClient(expected);
         Client real = oOrder.getClient();
         assertEquals(expected, real);
