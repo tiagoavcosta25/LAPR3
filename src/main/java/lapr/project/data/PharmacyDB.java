@@ -3,7 +3,6 @@ package lapr.project.data;
 import lapr.project.model.*;
 import oracle.jdbc.OracleTypes;
 
-import java.security.NoSuchAlgorithmException;
 import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -280,7 +279,7 @@ public class PharmacyDB extends DataHandler {
                 oResult = new Courier(id,name,email,pw,nif,iban,pharmacy);
             }
             return oResult;
-        } catch (SQLException | NoSuchAlgorithmException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
             return null;
         } finally {

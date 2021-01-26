@@ -1,6 +1,7 @@
 package lapr.project.data;
 
-import lapr.project.model.*;
+import lapr.project.model.Courier;
+import lapr.project.model.Pharmacy;
 import lapr.project.model.service.CourierService;
 import lapr.project.utils.Constants;
 import lapr.project.utils.DirectoryVerification;
@@ -13,7 +14,6 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.security.NoSuchAlgorithmException;
 import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -105,7 +105,7 @@ public class CourierDB extends DataHandler {
                 Pharmacy oPharmacy = pharmacyManager(rSet, 7);
                 return new Courier(courierID, courierName, courierEmail, password, strNIF, strIban, oPharmacy);
             }
-        } catch (SQLException | NoSuchAlgorithmException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
             return null;
         } finally {
