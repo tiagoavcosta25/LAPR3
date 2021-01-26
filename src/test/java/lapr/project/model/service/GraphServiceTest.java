@@ -789,7 +789,14 @@ class GraphServiceTest {
         when(mockVehicleDB.getEnergyByVehicleModel(6)).thenReturn(10000000d);
 
 
+        expResult = new ArrayList<>();
+        exp1 = new Pair<>(new Pair<>(scooter2, 0.8483898598685257), path);
+        exp2 = new Pair<>(new Pair<>(drone2, 0.07881060321902969), path);
+        expResult.add(exp1);
+        expResult.add(exp2);
 
+        result = world.calculateBestVehicleForMostEficientPath(lstOrders, ph1, lstScooter, lstDrone);
+        assertEquals(expResult, result);
 
         when(mockVehicleDB.getEnergyByVehicleModel(1)).thenReturn(0d);
         when(mockVehicleDB.getEnergyByVehicleModel(2)).thenReturn(0d);
@@ -798,6 +805,12 @@ class GraphServiceTest {
         when(mockVehicleDB.getEnergyByVehicleModel(5)).thenReturn(0d);
         when(mockVehicleDB.getEnergyByVehicleModel(6)).thenReturn(0d);
 
+        expResult = new ArrayList<>();
+        expResult.add(null);
+        expResult.add(null);
+
+        result = world.calculateBestVehicleForMostEficientPath(lstOrders, ph1, lstScooter, lstDrone);
+        assertEquals(expResult, result);
     }
 
     @Test
