@@ -72,4 +72,17 @@ class CourierTest {
         Pharmacy result3 = c3.getPharmacy();
         assertEquals(expected3,result3);
     }
+
+    @Test
+    void testEquals() {
+        Courier oCourier = new Courier();
+        Courier oCourier2 = new Courier();
+        oCourier.setIban("a");
+        oCourier2.setIban("a");
+
+        assertEquals(oCourier,oCourier2);
+
+        oCourier2.setIban("b");
+        assertNotEquals(oCourier,oCourier2);
+    }
 }

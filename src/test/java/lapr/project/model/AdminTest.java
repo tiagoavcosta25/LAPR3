@@ -32,4 +32,16 @@ class AdminTest {
         assertEquals(expected,real);
     }
 
+    @Test
+    void testEquals() {
+        Admin oAdmin = new Admin();
+        Admin oAdmin2 = new Admin();
+        oAdmin.setId(1);
+        oAdmin2.setId(1);
+
+        assertEquals(oAdmin,oAdmin2);
+
+        oAdmin2.setId(3);
+        assertNotEquals(oAdmin,oAdmin2);
+    }
 }

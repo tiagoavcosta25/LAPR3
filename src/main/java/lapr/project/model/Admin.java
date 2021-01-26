@@ -1,6 +1,7 @@
 package lapr.project.model;
 
 import java.security.NoSuchAlgorithmException;
+import java.util.Objects;
 
 public class Admin extends User {
 
@@ -19,6 +20,15 @@ public class Admin extends User {
         this.setId(intId);
     }
 
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        Admin admin = (Admin) o;
+        return Objects.equals(mId, admin.mId);
+    }
 
     @Override
     public Integer getId() {

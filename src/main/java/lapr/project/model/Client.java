@@ -3,6 +3,7 @@ package lapr.project.model;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Client extends User {
 
@@ -63,6 +64,15 @@ public class Client extends User {
         this.moAddress = oAddress;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        Client client = (Client) o;
+        return Objects.equals(moAddress, client.moAddress);
+    }
+
     public void setLstCreditCard(List<CreditCard> oCreditCard) {
         this.mLstCreditCard = oCreditCard;
     }
@@ -74,7 +84,7 @@ public class Client extends User {
     @Override
     public String toString() {
 
-        return  super.toString() + "Client{" +
+        return super.toString() + "Client{" +
                 "m_credits=" + mintCredits +
                 ", m_address=" + moAddress +
                 ", m_creditCard=" + mLstCreditCard +

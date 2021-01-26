@@ -102,4 +102,16 @@ class ClientTest {
         String real = oClient.toString().substring(0,68);
         assertEquals(expected, real);
     }
+
+    @Test
+    void testEquals() {
+        Client oClient = new Client();
+        Client oClient2 = new Client();
+        oClient.setAddress(new Address());
+        oClient2.setAddress(new Address());
+        assertEquals(oClient,oClient2);
+
+        oClient2.setAddress(null);
+        assertNotEquals(oClient,oClient2);
+    }
 }

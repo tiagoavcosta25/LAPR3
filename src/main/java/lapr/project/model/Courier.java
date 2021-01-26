@@ -2,6 +2,7 @@ package lapr.project.model;
 
 
 import java.security.NoSuchAlgorithmException;
+import java.util.Objects;
 
 public class Courier extends User {
 
@@ -24,6 +25,15 @@ public class Courier extends User {
         super(strEmail,strPassword,strNif,strName);
         this.setPharmacy(oPharmacy);
         this.setIban(strIban);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        Courier courier = (Courier) o;
+        return Objects.equals(mIban, courier.mIban);
     }
 
     public String getIban() {
