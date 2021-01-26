@@ -14,17 +14,11 @@ _______________________________________
 
 			No name.
 			g21@trash-mail.com
-
 			No Street Name
-
 			No Door Number
-
 			No Postal Code
-
 			No Locality
-
 			No Country
-
 
 
 
@@ -36,17 +30,11 @@ _______________________________________
 
 			No name.
 			g21@trash-mail.com
-
 			No Street Name
-
 			No Door Number
-
 			No Postal Code
-
 			No Locality
-
 			No Country
-
 
 
 
