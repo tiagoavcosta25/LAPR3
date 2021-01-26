@@ -15,11 +15,10 @@ public class VehicleDB extends DataHandler {
 
     public List<VehicleModel> getPharmacyModel(String strPharmacyEmail) {
 
-        CallableStatement callStmt = null;
         List<VehicleModel> lstModels = new ArrayList<>();
         try {
             openConnection();
-            callStmt = getConnection().prepareCall("{ ? = call getPharmacyModel(?) }");
+            CallableStatement callStmt = getConnection().prepareCall("{ ? = call getPharmacyModel(?) }");
 
             callStmt.registerOutParameter(1, oracle.jdbc.internal.OracleTypes.CURSOR);
             callStmt.setString(2, strPharmacyEmail);
@@ -42,8 +41,6 @@ public class VehicleDB extends DataHandler {
                     vt = VehicleType.SCOOTER;
                 else
                     vt = VehicleType.DRONE;
-
-
                 lstModels.add(new VehicleModel(intId,strDesignation,dblPotency,dblWeight,dblMaxPayload,
                         new Battery(intBatteryId,intBatteryCapacity,dblBatteryVoltage,dblEfficiency),vt));
 
@@ -53,11 +50,6 @@ public class VehicleDB extends DataHandler {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            try {
-                callStmt.close();
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
-            }
             closeAll();
         }
         throw new IllegalArgumentException("No Models Avaliable.");
