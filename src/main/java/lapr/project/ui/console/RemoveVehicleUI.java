@@ -7,7 +7,6 @@ import lapr.project.model.Pharmacy;
 import lapr.project.model.Scooter;
 import lapr.project.model.VehicleType;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Level;

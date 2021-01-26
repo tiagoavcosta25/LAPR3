@@ -39,10 +39,12 @@ public class RegisterDeliveryRunUI implements UI {
 
                     lstIds.add(intOrderId);
 
+                    //TODO: Arranjar
                 }while(intOrderId != 0);
 
                 List<Order> lstOrders = new ArrayList<>(); // MUDAR ISTO PARA O NOVO METODO
 
+                //TODO: Arranjar
                 if(lstOrders == null){
                     LOGGER.log(Level.WARNING,"The Orders Must be from the same pharmacy");
                 }

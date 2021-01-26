@@ -23,15 +23,13 @@ public class ClientUI implements UI {
             Menu.clear();
 
             switch(intOp){
-                case 1: {
+                case 1:
                     Menu.runUI(new MakeAnOrderUI());
                     break;
-                }
-                case 0: {
+                case 0:
                     LogoutController oLogOut = new LogoutController();
                     oLogOut.logout();
                     break;
-                }
                 default:
                     LOGGER.log(Level.WARNING, "Choose a valid option.");
                     break;

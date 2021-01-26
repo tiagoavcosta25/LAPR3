@@ -15,7 +15,6 @@ public class LoginUI implements UI {
         try {
             LoginController oCtrl = new LoginController();
             Scanner sc = new Scanner(System.in);
-            int intOp;
 
             System.out.print("Login:\n\nEmail: ");
             String strEmail = sc.nextLine();
@@ -29,21 +28,18 @@ public class LoginUI implements UI {
             String strRole = ApplicationPOT.getInstance().getCurrentSession().getRole().getRole();
 
             switch (strRole) {
-                case "Administrator": {
-                    AdministratorUI UI = new AdministratorUI();
-                    UI.run();
+                case "Administrator":
+                    AdministratorUI admUI = new AdministratorUI();
+                    admUI.run();
                     break;
-                }
-                case "Courier": {
-                    CourierUI UI = new CourierUI();
-                    UI.run();
+                case "Courier":
+                    CourierUI couUI = new CourierUI();
+                    couUI.run();
                     break;
-                }
-                case "Client": {
-                    ClientUI UI = new ClientUI();
-                    UI.run();
+                case "Client":
+                    ClientUI clnUI = new ClientUI();
+                    clnUI.run();
                     break;
-                }
                 default:
                     throw new Exception();
             }

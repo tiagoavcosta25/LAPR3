@@ -1,7 +1,6 @@
 package lapr.project.ui.console;
 
 import lapr.project.controller.RemoveCourierController;
-import lapr.project.ui.FileReader;
 import lapr.project.ui.UI;
 
 import java.util.Scanner;
@@ -41,6 +40,8 @@ public class RemoveCourierUI implements UI {
                     case 3:
                         LOGGER.log(Level.INFO, "Operation Cancelled!");
                         flag = false;
+                        break;
+                    default:
                         break;
                 }
             }

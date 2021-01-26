@@ -2,11 +2,7 @@ package lapr.project.ui.console;
 
 import lapr.project.controller.RegisterDroneController;
 import lapr.project.controller.RegisterScooterController;
-import lapr.project.controller.UpdateDroneController;
-import lapr.project.controller.UpdateScooterController;
-import lapr.project.model.Drone;
 import lapr.project.model.Pharmacy;
-import lapr.project.model.Scooter;
 import lapr.project.model.VehicleType;
 
 import java.util.List;

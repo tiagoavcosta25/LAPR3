@@ -88,6 +88,8 @@ public class RegisterClientUI implements UI {
                         LOGGER.log(Level.INFO, "Operation Cancelled!");
                         flag = false;
                         break;
+                    default:
+                        break;
                 }
             }
 

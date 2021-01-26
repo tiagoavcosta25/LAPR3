@@ -23,27 +23,27 @@ public class CourierUI implements UI {
             Menu.clear();
 
             switch(intOp){
-                case 1: {
+                case 1:
                     Menu.runUI(new StartDeliveryRunUI());
                     break;
-                }
-                case 2: {
+
+                case 2:
                     Menu.runUI(new ParkScooterUI());
                     break;
-                }
-                case 3: {
+
+                case 3:
                     Menu.runUI(new KnowDeliveryUI());
                     break;
-                }
-                case 4: {
+
+                case 4:
                     Menu.runUI(new VehiclePayloadUI());
                     break;
-                }
-                case 0: {
+
+                case 0:
                     LogoutController oLogOut = new LogoutController();
                     oLogOut.logout();
                     break;
-                }
+
                 default:
                     LOGGER.log(Level.WARNING, "Choose a valid option.");
                     break;

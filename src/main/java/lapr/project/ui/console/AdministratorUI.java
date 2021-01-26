@@ -65,7 +65,7 @@ public class AdministratorUI implements UI {
                     UpdateVehicleUI updVUI = new UpdateVehicleUI();
                     updVUI.run(VehicleType.SCOOTER);
                     break;
-                
+
                 case 10:
                     Menu.runUI(new ScooterInformationUI());
                     break;
