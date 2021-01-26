@@ -1,16 +1,15 @@
 package lapr.project.ui.console;
 
 import lapr.project.controller.AddPharmacyProductController;
-import lapr.project.controller.RegisterPharmacyController;
-import lapr.project.controller.RegisterProductController;
 import lapr.project.model.Product;
+import lapr.project.ui.UI;
 
 import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class AddPharmacyProductUI {
+public class AddPharmacyProductUI implements UI {
     private static final Logger LOGGER = Logger.getLogger(LoginUI.class.getName());
 
     public void run(){

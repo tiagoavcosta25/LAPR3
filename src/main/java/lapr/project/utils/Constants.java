@@ -1,6 +1,6 @@
 package lapr.project.utils;
 
-public class Constants {
+public final class Constants {
 
     private Constants() {
     }

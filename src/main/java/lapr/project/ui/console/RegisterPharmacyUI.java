@@ -1,14 +1,15 @@
 package lapr.project.ui.console;
 
 import lapr.project.controller.RegisterPharmacyController;
+import lapr.project.ui.UI;
 
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class RegisterPharamacyUI {
+public class RegisterPharmacyUI implements UI {
 
-    private static final Logger LOGGER = Logger.getLogger(RegisterPharamacyUI.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(RegisterPharmacyUI.class.getName());
 
     public void run(){
             RegisterPharmacyController oCtrl = new RegisterPharmacyController();

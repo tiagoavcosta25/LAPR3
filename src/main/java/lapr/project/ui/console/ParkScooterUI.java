@@ -1,12 +1,13 @@
 package lapr.project.ui.console;
 
 import lapr.project.controller.ParkScooterController;
+import lapr.project.ui.UI;
 
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class ParkScooterUI {
+public class ParkScooterUI implements UI {
     private static final Logger LOGGER = Logger.getLogger(ParkScooterUI.class.getName());
 
     public void run(){

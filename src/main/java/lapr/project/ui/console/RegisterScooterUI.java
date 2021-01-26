@@ -1,17 +1,17 @@
 package lapr.project.ui.console;
-
+/*
 import lapr.project.controller.RegisterScooterController;
 import lapr.project.model.*;
-import lapr.project.ui.FileReader;
+import lapr.project.ui.UI;
 
 import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class RegisterScooterUI {
+public class RegisterScooterUI implements UI {
 
-    private static final Logger LOGGER = Logger.getLogger(FileReader.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(RegisterScooterUI.class.getName());
 
     public void run(){
         try {
@@ -77,4 +77,4 @@ public class RegisterScooterUI {
             LOGGER.log(Level.WARNING, "There was a problem registering a Scooter");
         }
     }
-}
+}*/

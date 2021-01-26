@@ -1,13 +1,14 @@
 package lapr.project.ui.console;
 
 import lapr.project.controller.LogoutController;
-import lapr.project.utils.Menu;
-
+import lapr.project.model.VehicleType;
+import lapr.project.ui.Menu;
+import lapr.project.ui.UI;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class AdministratorUI {
+public class AdministratorUI implements UI {
     private static final Logger LOGGER = Logger.getLogger(AdministratorUI.class.getName());
 
     public void run() {
@@ -25,32 +26,32 @@ public class AdministratorUI {
             switch(intOp){
                 case 1: {
                     Menu.clear();
-                    RegisterPharamacyUI UI = new RegisterPharamacyUI();
+                    RegisterPharmacyUI UI = new RegisterPharmacyUI();
                     UI.run();
                     break;
                 }
                 case 2: {
                     Menu.clear();
-                    //RegisterProductUI UI = new RegisterProductUI();
-                    //UI.run();
+                    RegisterProductUI UI = new RegisterProductUI();
+                    UI.run();
                     break;
                 }
                 case 3: {
                     Menu.clear();
-                    //RemoveProductUI UI = new RemoveProductUI();
-                    //UI.run();
+                    RemoveProductUI UI = new RemoveProductUI();
+                    UI.run();
                     break;
                 }
                 case 4: {
                     Menu.clear();
-                    //UpdateProductUI UI = new UpdateProductUI();
-                    //UI.run();
+                    UpdateProductUI UI = new UpdateProductUI();
+                    UI.run();
                     break;
                 }
                 case 5: {
                     Menu.clear();
-                    //ProductInformationUI UI = new ProductInformationUI();
-                    //UI.run();
+                    ProductInformationUI UI = new ProductInformationUI();
+                    UI.run();
                     break;
                 }
                 case 6: {
@@ -61,20 +62,20 @@ public class AdministratorUI {
                 }
                 case 7: {
                     Menu.clear();
-                    RegisterScooterUI UI = new RegisterScooterUI();
-                    UI.run();
+                    RegisterVehicleUI UI = new RegisterVehicleUI();
+                    UI.run(VehicleType.SCOOTER);
                     break;
                 }
                 case 8: {
                     Menu.clear();
-                    RemoveScooterUI UI = new RemoveScooterUI();
-                    UI.run();
+                    RemoveVehicleUI UI = new RemoveVehicleUI();
+                    UI.run(VehicleType.SCOOTER);
                     break;
                 }
                 case 9: {
                     Menu.clear();
-                    UpdateScooterUI UI = new UpdateScooterUI();
-                    UI.run();
+                    UpdateVehicleUI UI = new UpdateVehicleUI();
+                    UI.run(VehicleType.SCOOTER);
                     break;
                 }
                 case 10: {
@@ -85,20 +86,20 @@ public class AdministratorUI {
                 }
                 case 11: {
                     Menu.clear();
-                    RegisterDroneUI UI = new RegisterDroneUI();
-                    UI.run();
+                    RegisterVehicleUI UI = new RegisterVehicleUI();
+                    UI.run(VehicleType.DRONE);
                     break;
                 }
                 case 12: {
                     Menu.clear();
-                    RemoveDroneUI UI = new RemoveDroneUI();
-                    UI.run();
+                    RemoveVehicleUI UI = new RemoveVehicleUI();
+                    UI.run(VehicleType.DRONE);
                     break;
                 }
                 case 13: {
                     Menu.clear();
-                    UpdateDroneUI UI = new UpdateDroneUI();
-                    UI.run();
+                    UpdateVehicleUI UI = new UpdateVehicleUI();
+                    UI.run(VehicleType.DRONE);
                     break;
                 }
                 case 14: {

@@ -411,7 +411,7 @@ public class GraphService {
         if (vModel.getVehicleType().equals(VehicleType.SCOOTER))
             totalMass += Constants.DEFAULT_COURIER_WEIGHT;
         else if (vModel.getVehicleType().equals(VehicleType.NOTDEFINED))
-            return null;
+            return Double.MAX_VALUE;
         Map<Address, Double> orderWeightMap = new HashMap<>();
         for (Order order : orderList) {
             orderWeightMap.put(order.getClient().getAddress(), order.getTotalWeight());
@@ -478,7 +478,7 @@ public class GraphService {
 
         if(vType.equals(VehicleType.SCOOTER)) cloneGraph = this.moGraphScooter.clone();
         else if(vType.equals(VehicleType.DRONE)) cloneGraph = this.moGraphDrone.clone();
-        else return null;
+        else return Collections.emptyList();
 
         for(Edge<Address, Path> e : cloneGraph.edges()) {
             double distanceUsingCoordinates = e.getVOrig().distanceTo(e.getVDest());
@@ -530,7 +530,7 @@ public class GraphService {
                 //CALCULATE ENERGY
                 totalCost += GraphAlgorithms.shortestPath(g, list.get(i), list.get(i + 1), tempPath);   //O(V^2)
                 if (tempPath.isEmpty())
-                    return new LinkedList<>();
+                    return Collections.emptyList();
                 tempPath.removeLast();
                 permutationPath.addAll(tempPath);
             }

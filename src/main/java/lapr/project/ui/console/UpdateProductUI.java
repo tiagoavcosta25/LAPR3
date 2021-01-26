@@ -1,12 +1,13 @@
 package lapr.project.ui.console;
 
 import lapr.project.controller.UpdateProductController;
+import lapr.project.ui.UI;
 
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class UpdateProductUI {
+public class UpdateProductUI implements UI {
     private static final Logger LOGGER = Logger.getLogger(UpdateProductUI.class.getName());
 
     public void run() {

@@ -2,12 +2,13 @@ package lapr.project.ui.console;
 
 import lapr.project.controller.RegisterPathController;
 import lapr.project.model.VehicleType;
+import lapr.project.ui.UI;
 
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class RegisterPathUI {
+public class RegisterPathUI implements UI {
 
     private static final Logger LOGGER = Logger.getLogger(RegisterPathUI.class.getName());
 

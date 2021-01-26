@@ -3,14 +3,15 @@ package lapr.project.ui.console;
 import lapr.project.controller.UpdateCourierController;
 import lapr.project.model.Courier;
 import lapr.project.ui.FileReader;
+import lapr.project.ui.UI;
 
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class UpdateCourierUI {
+public class UpdateCourierUI implements UI {
 
-    private static final Logger LOGGER = Logger.getLogger(FileReader.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(UpdateCourierUI.class.getName());
 
     public void run() {
         try {

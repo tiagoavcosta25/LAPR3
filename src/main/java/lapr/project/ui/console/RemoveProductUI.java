@@ -3,12 +3,13 @@ package lapr.project.ui.console;
 import lapr.project.controller.ApplicationPOT;
 import lapr.project.controller.RemoveProductController;
 import lapr.project.model.UserSession;
+import lapr.project.ui.UI;
 
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class RemoveProductUI {
+public class RemoveProductUI implements UI {
 
     private static final Logger LOGGER = Logger.getLogger(RemoveProductUI.class.getName());
 

@@ -2,12 +2,13 @@ package lapr.project.ui.console;
 
 import lapr.project.controller.ApplicationPOT;
 import lapr.project.controller.LoginController;
+import lapr.project.ui.UI;
 
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class LoginUI {
+public class LoginUI implements UI {
     private static final Logger LOGGER = Logger.getLogger(LoginUI.class.getName());
 
     public void run() {
