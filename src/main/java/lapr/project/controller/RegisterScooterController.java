@@ -130,4 +130,28 @@ public class RegisterScooterController {
             return false;
         }
     }
+
+    public PharmacyService getPharmacyService() {
+        return moPharmacyService;
+    }
+
+    public void setPharmacyService(PharmacyService oPharmacyService) {
+        this.moPharmacyService = oPharmacyService;
+    }
+
+    public ScooterService getScooterService() {
+        return moScooterService;
+    }
+
+    public void setScooterService(ScooterService oScooterService) {
+        this.moScooterService = oScooterService;
+    }
+
+    public VehicleService getVehicleService() {
+        return moVehicleService;
+    }
+
+    public void setVehicleService(VehicleService oVehicleService) {
+        this.moVehicleService = oVehicleService;
+    }
 }

@@ -20,7 +20,8 @@ public class AdministratorUI implements UI {
             Menu.displayMenu("ADMIN", "[1] Register Pharmacy\n[2] Register Product\n[3] Remove Product\n[4] Update Product\n" +
                     "[5] Show Product Info\n[6] Add Stock to Pharmacy\n[7] Register Scooter\n" +
                     "[8] Remove Scooter\n[9] Update Scooter\n[10] Show Scooter Info\n[11] Register Drone\n[12] Remove Drone\n" +
-                    "[13] Update Drone\n[14] Issue Delivery Note\n[15] Register Delivery Run\n[16] Register Path\n[17] Register Park\n\n[0] Log Out");
+                    "[13] Update Drone\n[14] Issue Delivery Note\n[15] Register Delivery Run\n[16] Register Path\n[17] Register Park" +
+                    "[18] Register Courier\n\n[0] Log Out");
             intOp = sc.nextInt();
 
             Menu.clear();
@@ -108,6 +109,11 @@ public class AdministratorUI implements UI {
                 }
                 case 17: {
                     RegisterParkUI ui = new RegisterParkUI();
+                    ui.run();
+                    break;
+                }
+                case 18: {
+                    RegisterCourierUI ui = new RegisterCourierUI();
                     ui.run();
                     break;
                 }

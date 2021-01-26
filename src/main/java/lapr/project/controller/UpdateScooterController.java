@@ -6,6 +6,7 @@ import lapr.project.model.service.PharmacyService;
 import lapr.project.model.service.ScooterService;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class UpdateScooterController {
@@ -46,7 +47,7 @@ public class UpdateScooterController {
             }
             return oList;
         } catch (Exception ex) {
-            return new ArrayList<>();
+            return Collections.emptyList();
         }
     }
 

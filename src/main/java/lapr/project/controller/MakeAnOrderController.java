@@ -6,10 +6,7 @@ import lapr.project.model.service.OrderService;
 import lapr.project.model.service.PharmacyService;
 import lapr.project.model.service.ProductService;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 
 public class MakeAnOrderController {
     /**
@@ -136,7 +133,7 @@ public class MakeAnOrderController {
             this.moPharmacy = oPharmacy;
             return this.moProductService.getAvailableProducts(this.moPharmacy.getId());
         } catch (Exception ex) {
-            return new ArrayList<>();
+            return Collections.emptyList();
         }
     }
 
@@ -149,7 +146,7 @@ public class MakeAnOrderController {
             this.moPharmacy = this.moPharmacyService.getClosestPharmacyToClient(this.moClient);
             return this.moProductService.getAvailableProducts(this.moPharmacy.getId());
         } catch (Exception ex) {
-            return new ArrayList<>();
+            return Collections.emptyList();
         }
     }
 
@@ -160,7 +157,7 @@ public class MakeAnOrderController {
         try {
             return this.moClientService.getCreditCardsByClient(this.moClient.getEmail());
         } catch (Exception ex) {
-            return new ArrayList<>();
+            return Collections.emptyList();
         }
     }
 

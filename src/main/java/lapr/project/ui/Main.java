@@ -22,7 +22,7 @@ class Main {
 
             do{
                 Menu.clear();
-                Menu.displayMenu("MENU", "[1] Login\n[2] Create A Client\n[3] Create A Courier\n\n[0] Exit The Program");
+                Menu.displayMenu("MENU", "[1] Login\n[2] Register Client Account\n\n[0] Exit The Program");
                 intOp = sc.nextInt();
                 Menu.clear();
 
@@ -34,11 +34,6 @@ class Main {
                     }
                     case 2: {
                         RegisterClientUI ui = new RegisterClientUI();
-                        ui.run();
-                        break;
-                    }
-                    case 3: {
-                        RegisterCourierUI ui = new RegisterCourierUI();
                         ui.run();
                         break;
                     }

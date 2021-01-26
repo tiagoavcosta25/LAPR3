@@ -2,6 +2,7 @@ package lapr.project.controller;
 
 import lapr.project.model.*;
 import lapr.project.model.service.PharmacyService;
+import lapr.project.model.service.ProductService;
 import lapr.project.model.service.ScooterService;
 import lapr.project.model.service.VehicleService;
 import org.junit.jupiter.api.BeforeEach;
@@ -132,5 +133,59 @@ class RegisterScooterControllerTest {
         when(mockPharmacyService.getPharmacy("Test")).thenThrow(new IllegalArgumentException());
         real = registerScooterController.setPharmacy("Test");
         assertFalse(real);
+    }
+
+    @Test
+    void getPharmacyService() {
+        RegisterScooterController ctrl = new RegisterScooterController();
+        PharmacyService expected = new PharmacyService();
+        ctrl.setPharmacyService(expected);
+        PharmacyService real = ctrl.getPharmacyService();
+        assertEquals(expected, real);
+    }
+
+    @Test
+    void setPharmacyService() {
+        RegisterScooterController ctrl = new RegisterScooterController();
+        PharmacyService expected = new PharmacyService();
+        ctrl.setPharmacyService(expected);
+        PharmacyService real = ctrl.getPharmacyService();
+        assertEquals(expected, real);
+    }
+
+    @Test
+    void getScooterService() {
+        RegisterScooterController ctrl = new RegisterScooterController();
+        ScooterService expected = new ScooterService();
+        ctrl.setScooterService(expected);
+        ScooterService real = ctrl.getScooterService();
+        assertEquals(expected, real);
+    }
+
+    @Test
+    void setScooterService() {
+        RegisterScooterController ctrl = new RegisterScooterController();
+        ScooterService expected = new ScooterService();
+        ctrl.setScooterService(expected);
+        ScooterService real = ctrl.getScooterService();
+        assertEquals(expected, real);
+    }
+
+    @Test
+    void getVehicleService() {
+        RegisterScooterController ctrl = new RegisterScooterController();
+        VehicleService expected = new VehicleService();
+        ctrl.setVehicleService(expected);
+        VehicleService real = ctrl.getVehicleService();
+        assertEquals(expected, real);
+    }
+
+    @Test
+    void setVehicleService() {
+        RegisterScooterController ctrl = new RegisterScooterController();
+        VehicleService expected = new VehicleService();
+        ctrl.setVehicleService(expected);
+        VehicleService real = ctrl.getVehicleService();
+        assertEquals(expected, real);
     }
 }

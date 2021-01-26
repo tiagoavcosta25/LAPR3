@@ -5,6 +5,7 @@ import lapr.project.model.Pharmacy;
 import lapr.project.model.service.DroneService;
 import lapr.project.model.service.PharmacyService;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class UpdateDroneController {
@@ -57,7 +58,7 @@ public class UpdateDroneController {
         try {
             return moDroneService.getDronesList(strPharmacyEmail);
         } catch (Exception ex) {
-            return new ArrayList<>();
+            return Collections.emptyList();
         }
     }
 
