@@ -1,5 +1,6 @@
 package lapr.project.model.service;
 
+import javafx.util.Pair;
 import lapr.project.data.DeliveryDB;
 import lapr.project.data.DeliveryRunDB;
 import lapr.project.model.*;
@@ -126,5 +127,64 @@ class DeliveryRunServiceTest {
 
         real = m_oDeliveryRunService.sendsEmail(null);
         assertFalse(real);
+    }
+
+    @Test
+    void getMostChargedScooter() {
+        when(m_oDeliveryRunDB.getMostChargedScooterFromModel(new VehicleModel())).thenReturn(new Scooter());
+        Scooter real = m_oDeliveryRunService.getMostChargedScooter(new VehicleModel());
+        assertEquals(new Scooter(),real);
+    }
+
+    @Test
+    void getMostChargedDrone() {
+        when(m_oDeliveryRunDB.getMostChargedDroneFromModel(new VehicleModel())).thenReturn(new Drone());
+        Drone real = m_oDeliveryRunService.getMostChargedDrone(new VehicleModel());
+        assertEquals(new Drone(),real);
+    }
+
+    @Test
+    void getMostEfficientVehicleModel() {
+        List<Pair<Pair<VehicleModel, Double>, List<Address>>> lst = new ArrayList<>();
+        lst.add(new Pair<Pair<VehicleModel,Double>,List<Address>>(new Pair<VehicleModel,Double>
+                (new VehicleModel(),2d), new ArrayList<>()));
+        lst.add(new Pair<Pair<VehicleModel,Double>,List<Address>>(new Pair<VehicleModel,Double>
+                (new VehicleModel(),5d), new ArrayList<>()));
+
+        VehicleModel real = m_oDeliveryRunService.getMostEfficientVehicleModel(lst);
+        assertEquals(new VehicleModel(),real);
+
+        lst = new ArrayList<>();
+        lst.add(new Pair<Pair<VehicleModel,Double>,List<Address>>(new Pair<VehicleModel,Double>
+                (new VehicleModel(),5d), new ArrayList<>()));
+        lst.add(new Pair<Pair<VehicleModel,Double>,List<Address>>(new Pair<VehicleModel,Double>
+                (new VehicleModel(),2d), new ArrayList<>()));
+
+        real = m_oDeliveryRunService.getMostEfficientVehicleModel(lst);
+        assertEquals(new VehicleModel(),real);
+
+        lst = new ArrayList<>();
+        lst.add(null);
+        lst.add(new Pair<Pair<VehicleModel,Double>,List<Address>>(new Pair<VehicleModel,Double>
+                (new VehicleModel(),2d), new ArrayList<>()));
+
+        real = m_oDeliveryRunService.getMostEfficientVehicleModel(lst);
+        assertEquals(new VehicleModel(),real);
+
+        lst = new ArrayList<>();
+        lst.add(new Pair<Pair<VehicleModel,Double>,List<Address>>(new Pair<VehicleModel,Double>
+                (new VehicleModel(),5d), new ArrayList<>()));
+        lst.add(null);
+
+        real = m_oDeliveryRunService.getMostEfficientVehicleModel(lst);
+        assertEquals(new VehicleModel(),real);
+
+        lst = new ArrayList<>();
+        lst.add(null);
+        lst.add(null);
+
+        real = m_oDeliveryRunService.getMostEfficientVehicleModel(lst);
+        assertEquals(null,real);
+
     }
 }

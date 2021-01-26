@@ -17,8 +17,8 @@ public class Delivery {
         mstrNotes = "";
     }
 
-    public Delivery(Order m_oOrder) {
-        this.moOrder = m_oOrder;
+    public Delivery(Order oOrder) {
+        this.moOrder = oOrder;
         this.mdtDeliveryDate = new Date();
         this.mstrNotes = "";
     }

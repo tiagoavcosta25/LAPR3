@@ -46,7 +46,8 @@ public abstract class User {
      */
     public User() {
         this.mstrEmail = "No Email Registered";
-        this.mstrPassword = "No Password Registered";
+        PassGenerator oPG = new PassGenerator();
+        this.mstrPassword = oPG.generatePassword();
         this.mintNif = 0;
         this.mstrName = "No Name";
     }

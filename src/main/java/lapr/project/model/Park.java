@@ -13,37 +13,37 @@ public class Park {
     private List<ChargingSlot> mLstChargingSlots;
     private List<NonChargingSlot> mLstNonChargingSlots;
 
-    private static int DEFAULTID = -1;
-    private static int DEFAULTMAXSLOTS = -1;
-    private static Double DEFAULTTOTALOUTPUTCURRENT = -1d;
-    private static VehicleType DEFAULTVEHICLETYPE = VehicleType.NOTDEFINED;
-    private static List<ChargingSlot> DEFAULTCHARGINGSLOTS = new ArrayList<>();
-    private static List<NonChargingSlot> DEFAULTPARKINGSLOTS = new ArrayList<>();
+    private static int mDEFAULTID = -1;
+    private static int mDEFAULTMAXSLOTS = -1;
+    private static Double mDEFAULTTOTALOUTPUTCURRENT = -1d;
+    private static VehicleType mDEFAULTVEHICLETYPE = VehicleType.NOTDEFINED;
+    private static List<ChargingSlot> mDEFAULTCHARGINGSLOTS = new ArrayList<>();
+    private static List<NonChargingSlot> mDEFAULTPARKINGSLOTS = new ArrayList<>();
 
     public Park(int intId, int intMaxSlotsNumber, Double fltTotalOutputCurrent, VehicleType enumVehicleType) {
         this.mintId = intId;
         this.mintMaxSlotsNumber = intMaxSlotsNumber;
         this.mfltTotalOutputCurrent = fltTotalOutputCurrent;
         this.menumVehicleType = enumVehicleType;
-        this.mLstChargingSlots = DEFAULTCHARGINGSLOTS;
-        this.mLstNonChargingSlots = DEFAULTPARKINGSLOTS;
+        this.mLstChargingSlots = mDEFAULTCHARGINGSLOTS;
+        this.mLstNonChargingSlots = mDEFAULTPARKINGSLOTS;
     }
 
     public Park(int intMaxSlotsNumber, Double fltTotalOutputCurrent, VehicleType enumVehicleType) {
         this.mintMaxSlotsNumber = intMaxSlotsNumber;
         this.mfltTotalOutputCurrent = fltTotalOutputCurrent;
         this.menumVehicleType = enumVehicleType;
-        this.mLstChargingSlots = DEFAULTCHARGINGSLOTS;
-        this.mLstNonChargingSlots = DEFAULTPARKINGSLOTS;
+        this.mLstChargingSlots = mDEFAULTCHARGINGSLOTS;
+        this.mLstNonChargingSlots = mDEFAULTPARKINGSLOTS;
     }
 
     public Park() {
-        this.mintId = DEFAULTID;
-        this.mintMaxSlotsNumber = DEFAULTMAXSLOTS;
-        this.mfltTotalOutputCurrent = DEFAULTTOTALOUTPUTCURRENT;
-        this.menumVehicleType = DEFAULTVEHICLETYPE;
-        this.mLstChargingSlots = DEFAULTCHARGINGSLOTS;
-        this.mLstNonChargingSlots = DEFAULTPARKINGSLOTS;
+        this.mintId = mDEFAULTID;
+        this.mintMaxSlotsNumber = mDEFAULTMAXSLOTS;
+        this.mfltTotalOutputCurrent = mDEFAULTTOTALOUTPUTCURRENT;
+        this.menumVehicleType = mDEFAULTVEHICLETYPE;
+        this.mLstChargingSlots = mDEFAULTCHARGINGSLOTS;
+        this.mLstNonChargingSlots = mDEFAULTPARKINGSLOTS;
     }
 
     public int getId() {

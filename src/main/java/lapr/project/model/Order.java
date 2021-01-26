@@ -19,20 +19,20 @@ public class Order {
     private Pharmacy moPharmacy;
     private Map<Product, Integer> mMapProducts;
 
-    private static int DEFAULTID = -1;
-    private static double DEFAULTAMOUNT = -1d;
-    private static double DEFAULTTOTALWEIGHT = -1d;
-    private static double DEFAULTADDITIONALFEE = -1d;
-    private static double HOMEDELIVERYFEE = 5d;
-    private static double STOREPICKUPFEE = 0d;
-    private static int MINOFCREDITSFORFREEDELIVERY = 10;
-    private static Date CURRENTDATE = new Date(Calendar.getInstance().getTimeInMillis());
-    private static String DEFAULTDESCRIPTION = "No Description.";
-    private static String DEFAULTSTATUS = "ordered";
-    private static boolean DEFAULTISHOMEDELIVERY = false;
-    private static Client DEFAULTCLIENT = new Client();
-    private static Pharmacy DEFAULTPHARMACY = new Pharmacy();
-    private static Map<Product, Integer> DEFAULTPRODUCTMAP = new TreeMap<>();
+    private static int mDEFAULTID = -1;
+    private static double mDEFAULTAMOUNT = -1d;
+    private static double mDEFAULTTOTALWEIGHT = -1d;
+    private static double mDEFAULTADDITIONALFEE = -1d;
+    private static double mHOMEDELIVERYFEE = 5d;
+    private static double mSTOREPICKUPFEE = 0d;
+    private static int mMINOFCREDITSFORFREEDELIVERY = 10;
+    private static Date mCURRENTDATE = new Date(Calendar.getInstance().getTimeInMillis());
+    private static String mDEFAULTDESCRIPTION = "No Description.";
+    private static String mDEFAULTSTATUS = "ordered";
+    private static boolean mDEFAULTISHOMEDELIVERY = false;
+    private static Client mDEFAULTCLIENT = new Client();
+    private static Pharmacy mDEFAULTPHARMACY = new Pharmacy();
+    private static Map<Product, Integer> mDEFAULTPRODUCTMAP = new TreeMap<>();
 
     public Order(int intId, double dblAmount, double dblTotalWeight, double dblAdditionalFee, Date dtOrderDate,
                  String strDescription, String strStatus, boolean blIsHomeDelivery, Client oClient, Pharmacy oPharmacy, Map<Product, Integer> mapProducts) {
@@ -51,7 +51,7 @@ public class Order {
 
     public Order(double dblAmount, double dblTotalWeight, double dblAdditionalFee, Date dtOrderDate, String strDescription,
                  String strStatus, boolean blIsHomeDelivery, Client oClient, Pharmacy oPharmacy, Map<Product, Integer> mapProducts) {
-        this.mintId = DEFAULTID;
+        this.mintId = mDEFAULTID;
         this.mdblAmount = dblAmount;
         this.mdblTotalWeight = dblTotalWeight;
         this.mdblAdditionalFee = dblAdditionalFee;
@@ -67,9 +67,9 @@ public class Order {
     public Order(int intId, String strDescription, boolean blIsHomeDelivery, Client oClient,
                  Pharmacy oPharmacy, Map<Product, Integer> mapProducts) {
         this.mintId = intId;
-        this.mdtOrderDate = CURRENTDATE;
+        this.mdtOrderDate = mCURRENTDATE;
         this.mstrDescription = strDescription;
-        this.mstrStatus = DEFAULTSTATUS;
+        this.mstrStatus = mDEFAULTSTATUS;
         this.mblIsHomeDelivery = blIsHomeDelivery;
         this.moClient = oClient;
         this.moPharmacy = oPharmacy;
@@ -83,10 +83,10 @@ public class Order {
 
     public Order(String strDescription, boolean blIsHomeDelivery, Client oClient,
                  Pharmacy oPharmacy, Map<Product, Integer> mapProducts) {
-        this.mintId = DEFAULTID;
-        this.mdtOrderDate = CURRENTDATE;
+        this.mintId = mDEFAULTID;
+        this.mdtOrderDate = mCURRENTDATE;
         this.mstrDescription = strDescription;
-        this.mstrStatus = DEFAULTSTATUS;
+        this.mstrStatus = mDEFAULTSTATUS;
         this.mblIsHomeDelivery = blIsHomeDelivery;
         this.moClient = oClient;
         this.moPharmacy = oPharmacy;
@@ -99,17 +99,17 @@ public class Order {
     }
 
     public Order() {
-        this.mintId = DEFAULTID;
-        this.mdblAmount = DEFAULTAMOUNT;
-        this.mdblTotalWeight = DEFAULTTOTALWEIGHT;
-        this.mdblAdditionalFee = DEFAULTADDITIONALFEE;
-        this.mdtOrderDate = CURRENTDATE;
-        this.mstrDescription = DEFAULTDESCRIPTION;
-        this.mstrStatus = DEFAULTSTATUS;
-        this.mblIsHomeDelivery = DEFAULTISHOMEDELIVERY;
-        this.moClient = DEFAULTCLIENT;
-        this.moPharmacy = DEFAULTPHARMACY;
-        this.mMapProducts = DEFAULTPRODUCTMAP;
+        this.mintId = mDEFAULTID;
+        this.mdblAmount = mDEFAULTAMOUNT;
+        this.mdblTotalWeight = mDEFAULTTOTALWEIGHT;
+        this.mdblAdditionalFee = mDEFAULTADDITIONALFEE;
+        this.mdtOrderDate = mCURRENTDATE;
+        this.mstrDescription = mDEFAULTDESCRIPTION;
+        this.mstrStatus = mDEFAULTSTATUS;
+        this.mblIsHomeDelivery = mDEFAULTISHOMEDELIVERY;
+        this.moClient = mDEFAULTCLIENT;
+        this.moPharmacy = mDEFAULTPHARMACY;
+        this.mMapProducts = mDEFAULTPRODUCTMAP;
     }
 
     public int getId() {
@@ -203,10 +203,10 @@ public class Order {
     }
 
     private void calculateAdditonalFee(int intCredits) {
-        if(!this.mblIsHomeDelivery || intCredits >= MINOFCREDITSFORFREEDELIVERY){
-            this.mdblAdditionalFee = STOREPICKUPFEE;
+        if(!this.mblIsHomeDelivery || intCredits >= mMINOFCREDITSFORFREEDELIVERY){
+            this.mdblAdditionalFee = mSTOREPICKUPFEE;
         } else{
-            this.mdblAdditionalFee = HOMEDELIVERYFEE;
+            this.mdblAdditionalFee = mHOMEDELIVERYFEE;
         }
     }
 

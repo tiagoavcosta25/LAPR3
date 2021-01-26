@@ -98,12 +98,8 @@ class ClientTest {
     @Test
     void testToString() {
         Client oClient= new Client();
-        String expected = "Client{" +
-                "m_credits=" + oClient.getCredits() +
-                ", m_address=" + oClient.getAddress() +
-                ", m_creditCard=" + oClient.getLstCreditCard() +
-                '}';
-        String real = oClient.toString().substring(125);
+        String expected = "User{m_intId=null, m_strEmail='No Email Registered', m_strPassword='";
+        String real = oClient.toString().substring(0,68);
         assertEquals(expected, real);
     }
 }

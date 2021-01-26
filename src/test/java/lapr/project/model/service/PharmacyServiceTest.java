@@ -149,6 +149,8 @@ class PharmacyServiceTest {
         Graph<Address, Path> graph = new Graph<>(true);
         Address oAddress2 = new Address(9d, 9d, 9d ,"", "", "", "", "");
         graph.insertVertex(oAddress2);
+        Address oAddress3 = new Address(19d, 19d, 19d ,"", "", "", "", "");
+        graph.insertVertex(oAddress3);
         Path oPath = new Path(9d, 9d, -22d, -22d,
                 "", 1d, 1d, 1d,VehicleType.SCOOTER);
 

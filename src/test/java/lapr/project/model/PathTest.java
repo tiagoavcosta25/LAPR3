@@ -259,4 +259,13 @@ class PathTest {
         expResult = "Path{mdblLatitudeA=2.0, mdblLongitudeA=2.0, mdblLatitudeB=2.0, mdblLongitudeB=2.0, mstrName='Rua das Flores', mdblWindSpeed=2.0, mdblWindAngle=2.0, mdblKineticFrictionCoefficient=2.0, moVehicleType=VehicleType{m_strDesignation='Scooter'}}";
         assertEquals(expResult, result);
     }
+
+    @Test
+    void testHashCode() {
+        Path oPath = new Path();
+        int real = oPath.hashCode();
+        int expected = 28629151;
+
+        assertEquals(expected, real);
+    }
 }

@@ -80,6 +80,16 @@ class CourierServiceTest {
                 null,new Pharmacy());
         assertEquals(c2,c21);
 
+        c2 = new Courier("No Name",null,"123",0,"No Iban",new Pharmacy());
+        c21 = courierService.updateCourier(c2,"teste",null,0,
+                null,new Pharmacy());
+        assertEquals(c2,c21);
+
+        c2 = new Courier("No Name","email","123",0,"No Iban",new Pharmacy());
+        c21 = courierService.updateCourier(c2,"teste","email",0,
+                "123",null);
+        assertEquals(c2,c21);
+
     }
 
     @Test
@@ -123,5 +133,18 @@ class CourierServiceTest {
         when(mockCourierDB.removeCourier("ernesto@gmail.com")).thenThrow(new RuntimeException());
         result = courierService.removeCourier("ernesto@gmail.com");
         assertFalse(result);
+    }
+
+    @Test
+    void parkScooter() {
+        when(mockCourierDB.parkScooter(1)).thenReturn(true);
+        when(mockCourierDB.parkScooterDirectory(1,true)).thenReturn(true);
+        boolean real = courierService.parkScooter(1);
+        assertTrue(real);
+
+        when(mockCourierDB.parkScooter(1)).thenReturn(false);
+        when(mockCourierDB.parkScooterDirectory(1,false)).thenReturn(false);
+        real = courierService.parkScooter(1);
+        assertFalse(real);
     }
 }

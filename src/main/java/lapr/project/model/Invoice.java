@@ -12,16 +12,16 @@ public class Invoice {
     private Order moOrder;
     private Map<CreditCard, Double> mMapPayments;
 
-    private static int DEFAULTID = -1;
-    private static Order DEFAULTORDER = new Order();
-    private static Map<CreditCard, Double> DEFAULTPAYMENTS = new TreeMap<>();
+    private static int mDEFAULTID = -1;
+    private static Order mDEFAULTORDER = new Order();
+    private static Map<CreditCard, Double> mDEFAULTPAYMENTS = new TreeMap<>();
 
     public Invoice(int intId, Date dtDate, Double dblTotalAmount, Order oOrder) {
         this.mintId = intId;
         this.mdtInvoiceDate = (Date) dtDate.clone();
         this.mdblTotalPrice = dblTotalAmount;
         this.moOrder = oOrder;
-        this.mMapPayments = DEFAULTPAYMENTS;
+        this.mMapPayments = mDEFAULTPAYMENTS;
     }
 
     public Invoice(int intId, Order oOrder, Map<CreditCard, Double> mapPayments) {
@@ -33,7 +33,7 @@ public class Invoice {
     }
 
     public Invoice(Order oOrder, Map<CreditCard, Double> mapPayments) {
-        this.mintId = DEFAULTID;
+        this.mintId = mDEFAULTID;
         this.mdtInvoiceDate = (Date) oOrder.getOrderDate().clone();
         this.mdblTotalPrice = oOrder.getAmount();
         this.moOrder = oOrder;
@@ -41,11 +41,11 @@ public class Invoice {
     }
 
     public Invoice() {
-        this.mintId = DEFAULTID;
-        this.mdtInvoiceDate = DEFAULTORDER.getOrderDate();
-        this.mdblTotalPrice = DEFAULTORDER.getAmount();
-        this.moOrder = DEFAULTORDER;
-        this.mMapPayments = DEFAULTPAYMENTS;
+        this.mintId = mDEFAULTID;
+        this.mdtInvoiceDate = mDEFAULTORDER.getOrderDate();
+        this.mdblTotalPrice = mDEFAULTORDER.getAmount();
+        this.moOrder = mDEFAULTORDER;
+        this.mMapPayments = mDEFAULTPAYMENTS;
     }
 
     public int getId() {

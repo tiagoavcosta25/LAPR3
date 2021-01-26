@@ -24,26 +24,26 @@ public class DeliveryRun {
         this.moStatus = DeliveryStatus.IDLE;
     }
 
-    public DeliveryRun(Courier m_oCourier) {
+    public DeliveryRun(Courier oCourier) {
         this.mintId = -1;
-        this.moCourier = m_oCourier;
+        this.moCourier = oCourier;
         this.moVehicle = null;
         this.mlstOrder = new ArrayList<>();
         this.moStatus = DeliveryStatus.IDLE;
     }
 
-    public DeliveryRun(Courier m_oCourier, List<Order> m_lstDelivery) {
+    public DeliveryRun(Courier oCourier, List<Order> m_lstDelivery) {
         this.mintId = -1;
-        this.moCourier = m_oCourier;
+        this.moCourier = oCourier;
         this.mlstOrder = new ArrayList<>(m_lstDelivery);
         this.moVehicle = null;
         this.moStatus = DeliveryStatus.IDLE;
     }
 
-    public DeliveryRun(Courier m_oCourier, List<Order> m_lstDelivery, Vehicle oVehicle) {
+    public DeliveryRun(Courier oCourier, List<Order> lstDelivery, Vehicle oVehicle) {
         this.mintId = -1;
-        this.moCourier = m_oCourier;
-        this.mlstOrder = new ArrayList<>(m_lstDelivery);
+        this.moCourier = oCourier;
+        this.mlstOrder = new ArrayList<>(lstDelivery);
         this.moVehicle = oVehicle;
         this.moStatus = DeliveryStatus.IDLE;
     }
@@ -76,8 +76,8 @@ public class DeliveryRun {
         return new ArrayList<>(mlstOrder);
     }
 
-    public void setDeliveryList(List<Order> m_lstDelivery) {
-        this.mlstOrder = new ArrayList<>(m_lstDelivery);
+    public void setDeliveryList(List<Order> lstDelivery) {
+        this.mlstOrder = new ArrayList<>(lstDelivery);
     }
 
     public DeliveryStatus getStatus() {

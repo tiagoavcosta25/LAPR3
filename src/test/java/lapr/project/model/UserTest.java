@@ -122,14 +122,8 @@ class UserTest {
     @Test
     void toStringTest() {
         Client c = new Client();
-        String expResult = "User{" +
-                "m_intId=" + c.getId() +
-                ", m_strEmail='" + c.getEmail() + '\'' +
-                ", m_strPassword='" + c.getPw() + '\'' +
-                ", m_intNif=" + c.getNif() +
-                ", m_strName='" + c.getName() + '\'' +
-                '}';;
-        String result = c.toString().substring(0,125);
+        String expResult = "User{m_intId=null, m_strEmail='No Email Registered', m_strPassword='";
+        String result = c.toString().substring(0,68);
         assertEquals(expResult, result);
     }
 }
