@@ -5,6 +5,7 @@ import lapr.project.model.Pharmacy;
 import lapr.project.model.service.DroneService;
 import lapr.project.model.service.PharmacyService;
 
+import java.util.Collections;
 import java.util.List;
 
 public class RemoveDroneController {
@@ -18,6 +19,21 @@ public class RemoveDroneController {
      */
     private DroneService moDroneService;
 
+    public PharmacyService getPharmacyService() {
+        return moPharmacyService;
+    }
+
+    public void setPharmacyService(PharmacyService moPharmacyService) {
+        this.moPharmacyService = moPharmacyService;
+    }
+
+    public DroneService getDroneService() {
+        return moDroneService;
+    }
+
+    public void setDroneService(DroneService oDroneService) {
+        this.moDroneService = oDroneService;
+    }
 
     /**
      * An empty constructor of RegisterDroneController.
@@ -41,7 +57,7 @@ public class RemoveDroneController {
         try {
             return moDroneService.getDronesList(strPharmacyEmail);
         } catch (Exception ex) {
-            return null;
+            return Collections.emptyList();
         }
     }
 

@@ -5,6 +5,7 @@ import lapr.project.model.Scooter;
 import lapr.project.model.service.PharmacyService;
 import lapr.project.model.service.ScooterService;
 
+import java.util.Collections;
 import java.util.List;
 
 public class ScooterInformationController {
@@ -27,6 +28,22 @@ public class ScooterInformationController {
         this.moScooterService = new ScooterService();
     }
 
+    public PharmacyService getPharmacyService() {
+        return moPharmacyService;
+    }
+
+    public void setPharmacyService(PharmacyService oPharmacyService) {
+        this.moPharmacyService = oPharmacyService;
+    }
+
+    public ScooterService getScooterService() {
+        return moScooterService;
+    }
+
+    public void setScooterService(ScooterService oScooterService) {
+        this.moScooterService = oScooterService;
+    }
+
     /**
      * The method returns the list of pharmacies.
      */
@@ -42,7 +59,7 @@ public class ScooterInformationController {
         try {
             return moScooterService.getScootersList(strPharmacyEmail);
         } catch (Exception ex) {
-            return null;
+            return Collections.emptyList();
         }
     }
 
