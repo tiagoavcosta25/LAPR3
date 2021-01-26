@@ -1,5 +1,5 @@
 package lapr.project.ui.console;
-
+/*
 import lapr.project.controller.UpdateScooterController;
 import lapr.project.model.Pharmacy;
 import lapr.project.model.Scooter;
@@ -81,4 +81,4 @@ public class UpdateScooterUI implements UI {
                 LOGGER.log(Level.WARNING, "There was a problem updating the Scooter");
         }
     }
-}
+}*/

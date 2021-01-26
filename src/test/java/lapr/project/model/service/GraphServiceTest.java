@@ -1112,8 +1112,8 @@ class GraphServiceTest {
         expResult.add(caisDaRibeira);
         expResult.add(trindade);
         List<Address> result = world.calculateMostEfficientPath(VehicleType.NOTDEFINED, trindade, trindade, lstPermutation);
-        assertNotEquals(new LinkedList<>(), result);
-        assertNull(result);
+        assertNotNull(result);
+        assertEquals(Collections.emptyList(), result);
     }
 
     @Test
@@ -1247,6 +1247,144 @@ class GraphServiceTest {
         lstPermutation.add(bolhao);
 
 
+        List<Address> result = world.calculateMostEfficientPath(VehicleType.NOTDEFINED, trindade, trindade, lstPermutation);
+        assertEquals(Collections.emptyList(), result);
+        assertNotNull(result);
+    }
+
+    @Test
+    void calculateMostEfficientPath8() {
+        Address trindade = new Address();
+        trindade.setStreetName("Pharmacy Trindade");
+        trindade.setLatitude(41.15227);
+        trindade.setLongitude(-8.60929);
+        trindade.setAltitude(104d);
+
+        Address saBandeira = new Address();
+        saBandeira.setStreetName("Pharmacy Sa da Bandeira");
+        saBandeira.setLatitude(40.741895);
+        saBandeira.setLongitude(-7.989308);
+        saBandeira.setAltitude(10d);
+
+        Address casteloQueijo = new Address();
+        casteloQueijo.setStreetName("Pharmacy Castelo do Queijo");
+        casteloQueijo.setLatitude(41.16875);
+        casteloQueijo.setLongitude(-8.68995);
+        casteloQueijo.setAltitude(4d);
+
+        Address clerigos = new Address();
+        clerigos.setStreetName("Clerigos");
+        clerigos.setLatitude(41.14582);
+        clerigos.setLongitude(-8.61398);
+        clerigos.setAltitude(87.0);
+
+        Address majestic = new Address();
+        majestic.setStreetName("Majestic");
+        majestic.setLatitude(41.14723);
+        majestic.setLongitude(-8.60657);
+        majestic.setAltitude(91.0);
+
+        Address bolhao = new Address();
+        bolhao.setStreetName("Bolhao");
+        bolhao.setLatitude(41.14871);
+        bolhao.setLongitude(-8.60746);
+        bolhao.setAltitude(87.0);
+
+        Address se = new Address();
+        se.setStreetName("Sé");
+        se.setLatitude(41.14331);
+        se.setLongitude(-8.60914);
+        se.setAltitude(82.0);
+
+        Address caisDaRibeira = new Address();
+        caisDaRibeira.setStreetName("Cais da Ribeira");
+        caisDaRibeira.setLatitude(41.14063);
+        caisDaRibeira.setLongitude(-8.61118);
+        caisDaRibeira.setAltitude(25.0);
+
+        Path p1 = new Path( 41.15227, -8.60929,40.741895, -7.989308, "trindade - sa", 1,
+                1, 1, VehicleType.SCOOTER);
+
+        Path p2 = new Path(40.741895, -7.989308, 41.15227, -8.60929, "sa - trindade", 1,
+                1, 1, VehicleType.SCOOTER);
+
+        Path p3 = new Path(40.741895, -7.989308, 41.16875, -8.68995, "sa - quejo", 1,
+                1, 1, VehicleType.SCOOTER);
+
+        Path p4 = new Path( 41.16875, -8.68995,40.741895, -7.989308, "quejo - sa", 1,
+                1, 1, VehicleType.SCOOTER);
+
+        Path p5 = new Path( 41.16875, -8.68995,41.14582, -8.61398, "quejo - clerigos", 1,
+                1, 1, VehicleType.SCOOTER);
+
+        Path p6 = new Path( 41.14582, -8.61398, 41.16875, -8.68995, "clerigos - queijo", 1,
+                1, 1, VehicleType.SCOOTER);
+
+        Path p7 = new Path( 41.14582, -8.61398, 41.14723, -8.60657, "clerigos - majestic", 1,
+                1, 1, VehicleType.SCOOTER);
+
+        Path p8 = new Path( 41.14723, -8.60657,41.14582, -8.61398,  "majestic - clerigos", 1,
+                1, 1, VehicleType.SCOOTER);
+
+        Path p9 = new Path( 41.14723, -8.60657,41.14871, -8.60746,  "majestic - bolhao", 1,
+                1, 1, VehicleType.SCOOTER);
+
+        Path p10 = new Path( 41.14871, -8.60746,41.14723, -8.60657,  "bolhao - majestic", 1,
+                1, 1, VehicleType.SCOOTER);
+
+        Path p11 = new Path( 41.14871, -8.60746,41.14331, -8.60914,  "bolhao - se", 1,
+                1, 1, VehicleType.SCOOTER);
+
+        Path p12 = new Path( 41.14331, -8.60914,41.14871, -8.60746,  "se - bolhao", 1,
+                1, 1, VehicleType.SCOOTER);
+
+        Path p13 = new Path( 41.14331, -8.60914,41.14063, -8.61118,  "se - cais", 1,
+                1, 1, VehicleType.SCOOTER);
+
+        Path p14 = new Path( 41.14063, -8.61118,41.14331, -8.60914,  "cais - se", 1,
+                1, 1, VehicleType.SCOOTER);
+
+        Path p15 = new Path( 41.14063, -8.61118,41.15227, -8.60929,  "cais - trindade", 1,
+                1, 1, VehicleType.SCOOTER);
+
+        List<Address> lstA = new LinkedList<>();
+        lstA.add(trindade);
+        lstA.add(saBandeira);
+        lstA.add(casteloQueijo);
+        lstA.add(clerigos);
+        lstA.add(majestic);
+        lstA.add(bolhao);
+        lstA.add(se);
+        lstA.add(caisDaRibeira);
+
+        List<Path> lstP = new LinkedList<>();
+        lstP.add(p1);
+        lstP.add(p2);
+        lstP.add(p3);
+        lstP.add(p4);
+        lstP.add(p5);
+        lstP.add(p6);
+        lstP.add(p7);
+        lstP.add(p8);
+        lstP.add(p9);
+        lstP.add(p10);
+        lstP.add(p11);
+        lstP.add(p12);
+        lstP.add(p13);
+        lstP.add(p14);
+        lstP.add(p15);
+
+        when(mockDeliveryRunDB.getAllAddresses()).thenReturn(lstA);
+        when(mockDeliveryRunDB.getAllPaths()).thenReturn(lstP);
+
+        world.createGraph();
+
+        List<Address> lstPermutation = new LinkedList<>();
+        lstPermutation.add(bolhao);
+        lstPermutation.add(clerigos);
+        lstPermutation.add(majestic);
+
+
         List<Address> expResult = new LinkedList<>();
         expResult.add(trindade);
         expResult.add(saBandeira);
@@ -1257,10 +1395,161 @@ class GraphServiceTest {
         expResult.add(se);
         expResult.add(caisDaRibeira);
         expResult.add(trindade);
-        List<Address> result = world.calculateMostEfficientPath(VehicleType.NOTDEFINED, trindade, trindade, lstPermutation);
+        List<Address> result = world.calculateMostEfficientPath(VehicleType.SCOOTER, trindade, trindade, lstPermutation);
         assertNotEquals(new LinkedList<>(), result);
-        assertNull(result);
+        assertEquals(expResult, result);
     }
+
+
+
+    @Test
+    void calculateMostEfficientPath9() {
+        Address trindade = new Address();
+        trindade.setStreetName("Pharmacy Trindade");
+        trindade.setLatitude(41.15227);
+        trindade.setLongitude(-8.60929);
+        trindade.setAltitude(104d);
+
+        Address saBandeira = new Address();
+        saBandeira.setStreetName("Pharmacy Sa da Bandeira");
+        saBandeira.setLatitude(40.741895);
+        saBandeira.setLongitude(-7.989308);
+        saBandeira.setAltitude(10d);
+
+        Address casteloQueijo = new Address();
+        casteloQueijo.setStreetName("Pharmacy Castelo do Queijo");
+        casteloQueijo.setLatitude(41.16875);
+        casteloQueijo.setLongitude(-8.68995);
+        casteloQueijo.setAltitude(4d);
+
+        Address clerigos = new Address();
+        clerigos.setStreetName("Clerigos");
+        clerigos.setLatitude(41.14582);
+        clerigos.setLongitude(-8.61398);
+        clerigos.setAltitude(87.0);
+
+        Address majestic = new Address();
+        majestic.setStreetName("Majestic");
+        majestic.setLatitude(41.14723);
+        majestic.setLongitude(-8.60657);
+        majestic.setAltitude(91.0);
+
+        Address bolhao = new Address();
+        bolhao.setStreetName("Bolhao");
+        bolhao.setLatitude(41.14871);
+        bolhao.setLongitude(-8.60746);
+        bolhao.setAltitude(87.0);
+
+        Address se = new Address();
+        se.setStreetName("Sé");
+        se.setLatitude(41.14331);
+        se.setLongitude(-8.60914);
+        se.setAltitude(82.0);
+
+        Address caisDaRibeira = new Address();
+        caisDaRibeira.setStreetName("Cais da Ribeira");
+        caisDaRibeira.setLatitude(41.14063);
+        caisDaRibeira.setLongitude(-8.61118);
+        caisDaRibeira.setAltitude(25.0);
+
+        Path p1 = new Path( 41.15227, -8.60929,40.741895, -7.989308, "trindade - sa", 1,
+                1, 1, VehicleType.SCOOTER);
+
+        Path p2 = new Path(40.741895, -7.989308, 41.15227, -8.60929, "sa - trindade", 1,
+                1, 1, VehicleType.SCOOTER);
+
+        Path p3 = new Path(40.741895, -7.989308, 41.16875, -8.68995, "sa - quejo", 1,
+                1, 1, VehicleType.SCOOTER);
+
+        Path p4 = new Path( 41.16875, -8.68995,40.741895, -7.989308, "quejo - sa", 1,
+                1, 1, VehicleType.SCOOTER);
+
+        Path p5 = new Path( 41.16875, -8.68995,41.14582, -8.61398, "quejo - clerigos", 1,
+                1, 1, VehicleType.SCOOTER);
+
+        Path p6 = new Path( 41.14582, -8.61398, 41.16875, -8.68995, "clerigos - queijo", 1,
+                1, 1, VehicleType.SCOOTER);
+
+        Path p7 = new Path( 41.14582, -8.61398, 41.14723, -8.60657, "clerigos - majestic", 1,
+                1, 1, VehicleType.SCOOTER);
+
+        Path p8 = new Path( 41.14723, -8.60657,41.14582, -8.61398,  "majestic - clerigos", 1,
+                1, 1, VehicleType.SCOOTER);
+
+        Path p9 = new Path( 41.14723, -8.60657,41.14871, -8.60746,  "majestic - bolhao", 1,
+                1, 1, VehicleType.SCOOTER);
+
+        Path p10 = new Path( 41.14871, -8.60746,41.14723, -8.60657,  "bolhao - majestic", 1,
+                1, 1, VehicleType.SCOOTER);
+
+        Path p11 = new Path( 41.14871, -8.60746,41.14331, -8.60914,  "bolhao - se", 1,
+                1, 1, VehicleType.SCOOTER);
+
+        Path p12 = new Path( 41.14331, -8.60914,41.14871, -8.60746,  "se - bolhao", 1,
+                1, 1, VehicleType.SCOOTER);
+
+        Path p13 = new Path( 41.14331, -8.60914,41.14063, -8.61118,  "se - cais", 1,
+                1, 1, VehicleType.SCOOTER);
+
+        Path p14 = new Path( 41.14063, -8.61118,41.14331, -8.60914,  "cais - se", 1,
+                1, 1, VehicleType.SCOOTER);
+
+        Path p15 = new Path( 41.14063, -8.61118,41.15227, -8.60929,  "cais - trindade", 1,
+                1, 1, VehicleType.SCOOTER);
+
+        List<Address> lstA = new LinkedList<>();
+        lstA.add(trindade);
+        lstA.add(saBandeira);
+        lstA.add(casteloQueijo);
+        lstA.add(clerigos);
+        lstA.add(majestic);
+        lstA.add(bolhao);
+        lstA.add(se);
+        lstA.add(caisDaRibeira);
+
+        List<Path> lstP = new LinkedList<>();
+        lstP.add(p1);
+        lstP.add(p2);
+        lstP.add(p3);
+        lstP.add(p4);
+        lstP.add(p5);
+        lstP.add(p6);
+        lstP.add(p7);
+        lstP.add(p8);
+        lstP.add(p9);
+        lstP.add(p10);
+        lstP.add(p11);
+        lstP.add(p12);
+        lstP.add(p13);
+        lstP.add(p14);
+        lstP.add(p15);
+
+        when(mockDeliveryRunDB.getAllAddresses()).thenReturn(lstA);
+        when(mockDeliveryRunDB.getAllPaths()).thenReturn(lstP);
+
+        world.createGraph();
+
+        List<Address> lstPermutation = new LinkedList<>();
+        lstPermutation.add(bolhao);
+        lstPermutation.add(clerigos);
+        lstPermutation.add(majestic);
+
+
+        List<Address> expResult = new LinkedList<>();
+        expResult.add(trindade);
+        expResult.add(saBandeira);
+        expResult.add(casteloQueijo);
+        expResult.add(clerigos);
+        expResult.add(majestic);
+        expResult.add(bolhao);
+        expResult.add(se);
+        expResult.add(caisDaRibeira);
+        expResult.add(trindade);
+        List<Address> result = world.calculateMostEfficientPath(VehicleType.SCOOTER, trindade, trindade, lstPermutation);
+        assertNotEquals(new LinkedList<>(), result);
+        assertEquals(expResult, result);
+    }
+
 
     @Test
     void calculatePermutationPaths() {

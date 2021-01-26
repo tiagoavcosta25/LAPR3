@@ -1,21 +1,20 @@
 package lapr.project.ui.console;
 
-import lapr.project.controller.RemoveDroneController;
-import lapr.project.controller.RemoveScooterController;
+import lapr.project.controller.UpdateDroneController;
+import lapr.project.controller.UpdateScooterController;
 import lapr.project.model.Drone;
 import lapr.project.model.Pharmacy;
 import lapr.project.model.Scooter;
 import lapr.project.model.VehicleType;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class RemoveVehicleUI {
+public class UpdateVehicleUI {
 
-    private static final Logger LOGGER = Logger.getLogger(RemoveVehicleUI.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(UpdateVehicleUI.class.getName());
 
     public void run(VehicleType oVehicleType) {
         try {
@@ -30,8 +29,8 @@ public class RemoveVehicleUI {
                 throw new Exception();
             }
 
-            RemoveScooterController oCtrlScooter = new RemoveScooterController();
-            RemoveDroneController oCtrlDrone = new RemoveDroneController();
+            UpdateScooterController oCtrlScooter = new UpdateScooterController();
+            UpdateDroneController oCtrlDrone = new UpdateDroneController();
 
             List<Pharmacy> lstPharmacies = oCtrlScooter.showPharmacies();
             List<Scooter> lstScooters;
@@ -75,14 +74,34 @@ public class RemoveVehicleUI {
             Integer intID = Integer.parseInt(sc.nextLine());
             System.out.println();
 
+            System.out.println("Please input the following information:\n");
+            System.out.print("Designation: ");
+            String strDesignation = sc.nextLine();
+            System.out.print("Potency: ");
+            double dblPotency = Double.parseDouble(sc.nextLine());
+            System.out.print("Weight: ");
+            double dblWeight = Double.parseDouble(sc.nextLine());
+            System.out.print("Maximum Payload: ");
+            double dblMaxPayload = Double.parseDouble(sc.nextLine());
+            System.out.print("Battery Percentage: ");
+            double dblBatteryPerc = Double.parseDouble(sc.nextLine());
+            System.out.print("Battery Capacity: ");
+            int intBatteryCapacity = Integer.parseInt(sc.nextLine());
+            System.out.print("Battery Voltage: ");
+            double dblBatteryVoltage = Double.parseDouble(sc.nextLine());
+            System.out.print("Battery Efficiency: ");
+            double dblEfficiency = Double.parseDouble(sc.nextLine());
+
             if(flag){
-                if (oCtrlScooter.removeScooter(intID)) {
+                if (oCtrlScooter.updateScooter(intID, dblBatteryPerc, strDesignation, dblPotency, dblWeight, dblMaxPayload,
+                        intBatteryCapacity, dblBatteryVoltage, dblEfficiency)) {
                     LOGGER.log(Level.INFO, "Operation was Successfull!");
                 } else{
                     throw new Exception();
                 }
             } else{
-                if (oCtrlDrone.removeDrone(intID)) {
+                if (oCtrlDrone.updateDrone(intID, dblBatteryPerc, strDesignation, dblPotency, dblWeight, dblMaxPayload,
+                        intBatteryCapacity, dblBatteryVoltage, dblEfficiency)) {
                     LOGGER.log(Level.INFO, "Operation was Successfull!");
                 } else{
                     throw new Exception();
