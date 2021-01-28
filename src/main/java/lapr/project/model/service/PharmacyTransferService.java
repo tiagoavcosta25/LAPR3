@@ -157,7 +157,7 @@ public class PharmacyTransferService {
      */
     private String getBody(PharmacyTransfer oPharmacyTransfer, String strNote){
             StringBuilder strBody = new StringBuilder(String.format("_______________________________________%n%n\t\t\tTransfer No. %d", oPharmacyTransfer.getId()));
-            strBody.append(String.format("%n\t\t\t\t%td-%<tb-%<tY\n", oPharmacyTransfer.getTransferDate()));
+            strBody.append(String.format("%n\t\t\t\t%td-%<tb-%<tY%n", oPharmacyTransfer.getTransferDate()));
             strBody.append(LINEBREAKER);
 
             strBody.append(String.format("%n%n---------------------------------------"));
