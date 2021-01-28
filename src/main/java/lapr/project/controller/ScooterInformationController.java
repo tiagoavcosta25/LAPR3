@@ -28,24 +28,41 @@ public class ScooterInformationController {
         this.moScooterService = new ScooterService();
     }
 
+    /**
+     * Returns the Pharmacy Service Instance.
+     * @return Pharmacy Service Instance.
+     */
     public PharmacyService getPharmacyService() {
         return moPharmacyService;
     }
 
+    /**
+     * Modifies Pharmacy Service Instance.
+     * @param oPharmacyService Pharmacy Service Instance.
+     */
     public void setPharmacyService(PharmacyService oPharmacyService) {
         this.moPharmacyService = oPharmacyService;
     }
 
+    /**
+     * Returns the Scooter Service Instance.
+     * @return Scooter Service Instance.
+     */
     public ScooterService getScooterService() {
         return moScooterService;
     }
 
+    /**
+     * Modifies Scooter Service Instance.
+     * @param oScooterService Scooter Service Instance.
+     */
     public void setScooterService(ScooterService oScooterService) {
         this.moScooterService = oScooterService;
     }
 
     /**
      * The method returns the list of pharmacies.
+     * @return List of Pharmacies.
      */
     public List<Pharmacy> showPharmacies() {
         return this.moPharmacyService.getPharmacies();
@@ -54,6 +71,7 @@ public class ScooterInformationController {
 
     /**
      * The method returns the list of scooters.
+     * @return List of Scooters.
      */
     public List<Scooter> showScootersList(String strPharmacyEmail) {
         try {
@@ -64,7 +82,8 @@ public class ScooterInformationController {
     }
 
     /**
-     * The method shows the scooter information from the database.
+     * The method gets the scooter information from the database.
+     * @return Scooter Information.
      */
     public Scooter getScooterInformation(int intScooterId){
         return moScooterService.getScooter(intScooterId);
