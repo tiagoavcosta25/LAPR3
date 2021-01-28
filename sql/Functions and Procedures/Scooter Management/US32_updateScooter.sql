@@ -22,7 +22,7 @@ create or replace PROCEDURE updateScooter(p_scooterId IN VEHICLE.ID%TYPE, p_batt
             EFFICIENCY = p_batteryEfficiency
         WHERE ID = v_batteryId;
 
-        SELECT V.ID
+        SELECT VM.ID
         INTO v_modelId
         FROM VEHICLEMODEL VM
                  INNER JOIN VEHICLE V on VM.ID = V.MODELID

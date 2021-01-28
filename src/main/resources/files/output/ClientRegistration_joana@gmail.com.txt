@@ -1,10 +1,12 @@
 ______________________________________________________________________________________
-Product Information:
+Account Information:
 
--Name: Product 6969
--Description: Description 1
--Unitary Price: 2.00€
--Unitary Weight: 2.00kg
+Name: joana
+NIF: 105117973
+Address: Cais da Ribeira, 3esq, Porto, Portugal
+Credit Card(/s): 5323943797733841, 8292933502275238
+
+
 
 ______________________________________________________________________________________
 

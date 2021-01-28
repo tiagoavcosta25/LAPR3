@@ -6,6 +6,7 @@ import lapr.project.model.Drone;
 import lapr.project.model.Pharmacy;
 import lapr.project.model.Scooter;
 import lapr.project.model.VehicleType;
+import lapr.project.ui.Menu;
 
 import java.util.List;
 import java.util.Scanner;
@@ -37,10 +38,10 @@ public class RemoveVehicleUI {
             List<Drone> lstDrones;
 
             for (Pharmacy p : lstPharmacies) {
-                System.out.println(p.toString());
+                System.out.printf("[%d] %s\n", p.getId(), p.getName());
             }
 
-            System.out.println("\nChoose the Pharamcy's id: ");
+            System.out.print("\nChoose the Pharamcy's id: ");
             int intPharmacyID = Integer.parseInt(sc.nextLine());
             System.out.println();
 
@@ -56,24 +57,27 @@ public class RemoveVehicleUI {
                 throw new Exception();
             }
 
+            Menu.clear();
+
             if(flag){
                 lstScooters = oCtrlScooter.showScootersList(oPharmacy.getEmail());
 
                 for (Scooter s : lstScooters) {
-                    System.out.println(s.toString());
+                    System.out.printf("[%d] %s (Battery: %.2f%%)\n", s.getId(), s.getModel().getDesignation(), s.getBatteryPerc());
                 }
             } else{
                 lstDrones = oCtrlDrone.showDronesList(oPharmacy.getEmail());
 
                 for (Drone d : lstDrones) {
-                    System.out.println(d.toString());
+                    System.out.printf("[%d] %s (Battery: %.2f%%)\n", d.getId(), d.getModel().getDesignation(), d.getBatteryPerc());
                 }
             }
 
-            System.out.println("\nChoose the Vehicle's ID: ");
+            System.out.print("\nChoose the Vehicle's ID: ");
             Integer intID = Integer.parseInt(sc.nextLine());
             System.out.println();
 
+            Menu.clear();
             if(flag){
                 if (oCtrlScooter.removeScooter(intID)) {
                     LOGGER.log(Level.INFO, "Operation was Successfull!");

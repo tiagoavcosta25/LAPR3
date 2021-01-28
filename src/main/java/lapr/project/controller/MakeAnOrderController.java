@@ -79,12 +79,12 @@ public class MakeAnOrderController {
     /**
      * Current Value Payed.
      */
-    private float mfltCurrentPayment;
+    private double mdblCurrentPayment;
 
     /**
      * Expected Total Payment.
      */
-    private float mfltExpectedPayment;
+    private double mdblExpectedPayment;
 
     /**
      * An empty constructor of MakeAnOrderController that initiates the platform variable by getting it from the ApplicationPOT.
@@ -98,8 +98,8 @@ public class MakeAnOrderController {
         this.mMapPayments = new TreeMap<>();
         this.moGenerateInvoiceController = new GenerateInvoiceController();
         this.moNotifyAndRemoveController = new NotifyAndRemoveController();
-        this.mfltCurrentPayment = 0f;
-        this.mfltExpectedPayment = 0f;
+        this.mdblCurrentPayment = 0f;
+        this.mdblExpectedPayment = 0f;
     }
 
     /**
@@ -111,6 +111,7 @@ public class MakeAnOrderController {
     public Order newOrder(String strDescription, Boolean blIsHomeDelivery) {
         try {
             this.moOrder = moOrderService.newOrder(strDescription, blIsHomeDelivery, moClient, moPharmacy, this.mMapProducts);
+            this.mdblExpectedPayment = this.moOrder.getAmount() + this.moOrder.getAdditionalFee();
             return this.moOrder;
         } catch (Exception ex) {
             this.moOrder = null;
@@ -190,7 +191,7 @@ public class MakeAnOrderController {
     public boolean addProductToOrder(Product oProduct, Integer intQuantity) {
         try{
             this.mMapProducts.put(oProduct, intQuantity);
-            mfltExpectedPayment += oProduct.getUnitaryPrice() * (float) intQuantity;
+            mdblExpectedPayment += oProduct.getUnitaryPrice() * (float) intQuantity;
             return true;
         } catch(Exception e){
             return false;
@@ -203,17 +204,21 @@ public class MakeAnOrderController {
      * @param dblValue Value.
      * @return true if everything works out, false if it doesn't.
      */
-    public boolean addPayment(CreditCard oCreditCard, Double dblValue) {
+    public int addPayment(CreditCard oCreditCard, Double dblValue) {
         try{
-            if((this.mfltCurrentPayment + dblValue) <= this.mfltExpectedPayment){
+
+            if((this.mdblCurrentPayment + dblValue) <= this.mdblExpectedPayment){
                 this.mMapPayments.put(oCreditCard, dblValue);
-                this.mfltCurrentPayment += dblValue;
-                return true;
+                this.mdblCurrentPayment += dblValue;
+                if ((this.mdblCurrentPayment) == this.mdblExpectedPayment){
+                    return 1; // if its fully payed
+                }
+                return 0; // if there is still money owed
             } else{
                 throw new Exception();
             }
         } catch(Exception e){
-            return false;
+            return -1;
         }
     }
 
@@ -399,31 +404,31 @@ public class MakeAnOrderController {
      * The method gets the Current Payment.
      * @return The Current Payment.
      */
-    public float getCurrentPayment() {
-        return mfltCurrentPayment;
+    public double getCurrentPayment() {
+        return mdblCurrentPayment;
     }
 
     /**
      * The method sets the Current Payment.
-     * @param fltCurrentPayment The Current Payment.
+     * @param dblCurrentPayment The Current Payment.
      */
-    public void setCurrentPayment(float fltCurrentPayment) {
-        this.mfltCurrentPayment = fltCurrentPayment;
+    public void setCurrentPayment(double dblCurrentPayment) {
+        this.mdblCurrentPayment = dblCurrentPayment;
     }
 
     /**
      * The method gets the Expected Payment.
      * @return The Expected Payment.
      */
-    public float getExpectedPayment() {
-        return mfltExpectedPayment;
+    public double getExpectedPayment() {
+        return mdblExpectedPayment;
     }
 
     /**
      * The method sets the Expected Payment.
-     * @param fltExpectedPayment The Expected Payment.
+     * @param dblExpectedPayment The Expected Payment.
      */
-    public void setExpectedPayment(float fltExpectedPayment) {
-        this.mfltExpectedPayment = fltExpectedPayment;
+    public void setExpectedPayment(double dblExpectedPayment) {
+        this.mdblExpectedPayment = dblExpectedPayment;
     }
 }

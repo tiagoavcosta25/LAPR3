@@ -4,6 +4,7 @@ import lapr.project.controller.RegisterDroneController;
 import lapr.project.controller.RegisterScooterController;
 import lapr.project.model.Pharmacy;
 import lapr.project.model.VehicleType;
+import lapr.project.ui.Menu;
 
 import java.util.List;
 import java.util.Scanner;
@@ -30,6 +31,7 @@ public class RegisterVehicleUI {
             }
 
             Pharmacy oPharmacy = choosePharmacy();
+            Menu.clear();
 
             if (oPharmacy.getName().equalsIgnoreCase("No name.")) {
                 throw new Exception();
@@ -37,6 +39,7 @@ public class RegisterVehicleUI {
 
             System.out.print("Do you want to create a new vehicle model? (Y/N): ");
             String strModelCreation = sc.nextLine();
+            Menu.clear();
 
             if(strModelCreation.equalsIgnoreCase("N")){
                 System.out.print("Model designation: ");
@@ -51,6 +54,7 @@ public class RegisterVehicleUI {
             } else{
                 createVehicleModel(flag);
             }
+            Menu.clear();
 
             if(flag){
                 if (oCtrlScooter.newScooter()) {
@@ -82,10 +86,10 @@ public class RegisterVehicleUI {
         List<Pharmacy> lstPharmacies = oCtrlScooter.showPharmacies();
 
         for (Pharmacy p : lstPharmacies) {
-            System.out.println(p.toString());
+            System.out.printf("[%d] %s\n", p.getId(), p.getName());
         }
 
-        System.out.println("\nChoose the Pharamcy's id: ");
+        System.out.print("\nChoose the Pharamcy's id: ");
         int intPharmacyID = Integer.parseInt(sc.nextLine());
         System.out.println();
 

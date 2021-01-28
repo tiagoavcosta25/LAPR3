@@ -2,6 +2,7 @@ package lapr.project.ui.console;
 
 import lapr.project.controller.MakeAnOrderController;
 import lapr.project.model.*;
+import lapr.project.ui.Menu;
 import lapr.project.ui.UI;
 
 import java.util.List;
@@ -13,51 +14,53 @@ public class MakeAnOrderUI implements UI {
 
     private static final Logger LOGGER = Logger.getLogger(MakeAnOrderUI.class.getName());
     private static Scanner sc = new Scanner(System.in);
-    private static MakeAnOrderController oCtrl = new MakeAnOrderController();
 
     public void run(){
         try{
-
+            MakeAnOrderController oCtrl = new MakeAnOrderController();
             boolean flag;
             boolean blnHomeDelivery;
 
             do{
-                Pharmacy oPharmacy = choosePharmacy();
 
-                if(oPharmacy.getName().equalsIgnoreCase("No name.")){
-                    throw new Exception();
-                }
+                chooseProducts(oCtrl);
+                Menu.clear();
 
-                chooseProducts(oPharmacy);
+                if(oCtrl.getMapProducts().isEmpty()){throw new Exception();}
 
                 System.out.print("Order´s Description: ");
                 String strDescription = sc.nextLine();
+                Menu.clear();
 
-                System.out.print("Do you want to pick it up on the pharmacy? (Y/N): ");
+                System.out.print("Do you want the order delivered to your home with an additional fee? (Y/N): ");
                 String strCheck = sc.nextLine();
+                Menu.clear();
 
-                if(strCheck.equalsIgnoreCase("N")){
+                if(strCheck.equalsIgnoreCase("Y")){
                     blnHomeDelivery = true;
                 } else{
                     blnHomeDelivery = false;
                 }
 
-                chooseCC();
-
                 Order oOrder = oCtrl.newOrder(strDescription, blnHomeDelivery);
 
-                System.out.println(oOrder.toString());
+                System.out.printf("Order:\n\n-Pharmacy: %s\n-Description: %s\n-Total: %.2f€", oOrder.getPharmacy().getName(),
+                        oOrder.getDescription(), oOrder.getAmount() + oOrder.getAdditionalFee());
 
-                System.out.print("Do you want to confirm this order? (Y/N): ");
+                System.out.print("\n\nDo you want to confirm this order? (Y/N): ");
                 strCheck = sc.nextLine();
+                Menu.clear();
 
                 if(strCheck.equalsIgnoreCase("Y")){
+                    chooseCC(oCtrl);
+                    Menu.clear();
+                    if(oCtrl.getMapPayments().isEmpty()){throw new Exception();}
+
                     if(oCtrl.registerOrder()){
                         LOGGER.log(Level.INFO, "Order Registered with success.");
-                        oCtrl.generateInvoice();
                         flag = true;
                     } else {
-                        LOGGER.log(Level.INFO,"Something went wrong, try again. Order not Registered. If you need any help, please contact us using help@teamlisa.com.");
+                        LOGGER.log(Level.WARNING,"Something went wrong, try again. Order not Registered. If you need any help, please contact us using help@teamlisa.com.");
                         flag = false;
                     }
                 } else{
@@ -66,40 +69,19 @@ public class MakeAnOrderUI implements UI {
             } while(!flag);
 
         } catch (Exception e){
-            LOGGER.log(Level.INFO,"Something went wrong, try again. Order not Registered. If you need any help, please contact us using help@teamlisa.com.");
+            LOGGER.log(Level.WARNING,"Something went wrong, try again. Order not Registered. If you need any help, please contact us using help@teamlisa.com.");
         }
     }
 
-    public static Pharmacy choosePharmacy(){
-        List<Pharmacy> lstPharmacies = oCtrl.getPharmacies();
-
-        for(Pharmacy p : lstPharmacies){
-            System.out.println(p.toString());
-        }
-
-        System.out.print("\nChoose the Pharamcies's Id: ");
-        Integer intPharamcyId = Integer.parseInt(sc.nextLine());
-        System.out.println();
-
-        Pharmacy oPharmacy = new Pharmacy();
-        for(Pharmacy p : lstPharmacies){
-            if (p.hasId(intPharamcyId)){
-                oPharmacy = p;
-                break;
-            }
-        }
-
-        return oPharmacy;
-    }
-
-    public static void chooseProducts(Pharmacy oPharmacy){
+    public static void chooseProducts(MakeAnOrderController oCtrl){
         Integer intProductId;
-        List<Product> lstProducts = oCtrl.getAvailableProducts(oPharmacy);
+        List<Product> lstProducts = oCtrl.getAvailableProducts();
         do{
+            if(lstProducts.isEmpty()){break;}
             for(Product p : lstProducts){
-                System.out.println(p.toString());
+                System.out.printf("[%d] %s (%.2f€)\n", p.getId(), p.getName(), p.getUnitaryPrice());
             }
-            System.out.println("0 - to stop the product insertion");
+            System.out.println("\n[0] to stop the product insertion");
 
             System.out.print("\nChoose the Product's Id: ");
             intProductId = Integer.parseInt(sc.nextLine());
@@ -126,18 +108,22 @@ public class MakeAnOrderUI implements UI {
                 oCtrl.addProductToOrder(oProduct, intQuantity);
                 lstProducts.remove(oProduct);
             }
+            Menu.clear();
         }while(intProductId != 0);
     }
 
-    public static void chooseCC(){
+    public static void chooseCC(MakeAnOrderController oCtrl){
         List<CreditCard> lstCC = oCtrl.getCreditCardsByClient();
         Long intCCNum;
-        boolean blnPaymentFlag = false;
+        int blnPaymentFlag = -1;
 
         do{
+            System.out.printf("Total Amount to Pay: %.2f€\nTotal Left To Pay: %.2f€\n-----------------------------------------------------\n\nCredit Cards:\n",
+                    oCtrl.getExpectedPayment(), oCtrl.getExpectedPayment() - oCtrl.getCurrentPayment());
             for(CreditCard c : lstCC){
-                System.out.println(c.toString());
+                System.out.printf("[%d]\n", c.getCreditCardNr());
             }
+            System.out.println("\n[0] to stop the credit card insertion");
 
             System.out.print("\nChoose the Credit Cards's Number: ");
             intCCNum = Long.parseLong(sc.nextLine());
@@ -159,10 +145,15 @@ public class MakeAnOrderUI implements UI {
             if(oCreditCard.getCreditCardNr() != -1l && intAmount > 0f){
                 blnPaymentFlag = oCtrl.addPayment(oCreditCard, intAmount);
 
-                if (blnPaymentFlag){
+                if (blnPaymentFlag == 1){
+                    break;
+                } else if(blnPaymentFlag == 0){
                     lstCC.remove(oCreditCard);
+                } else{
+                    LOGGER.log(Level.WARNING,"The Amount you tried to pay was more than the amount owed. Try again.");
                 }
             }
-        }while(!blnPaymentFlag);
+            Menu.clear();
+        }while(blnPaymentFlag != 1);
     }
 }

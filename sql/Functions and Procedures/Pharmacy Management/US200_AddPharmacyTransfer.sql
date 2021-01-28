@@ -37,6 +37,10 @@ begin
         raise order_not_found;
     end if;
 
+    update "Order"
+    set ORDERSTATUS = 'Transfering Products'
+    where ID = p_orderId;
+
 -- Creates a Pharmacy Product or Updates its stock
     Insert into PHARMACYTRANSFER(TRANSFERDATE,ORDERID, PRODUCTID, QUANTITY, NEARBYPHARMACYID)
     Values (p_date,p_orderId, p_productId, p_quantity, p_pharmacyId);

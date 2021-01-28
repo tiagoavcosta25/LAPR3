@@ -1,10 +1,10 @@
 ______________________________________________________________________________________
-Product Information:
+You are now logged in with the following account:
 
--Name: Product 6969
--Description: Description 1
--Unitary Price: 2.00€
--Unitary Weight: 2.00kg
+-Email: jorge@gmail.com
+-Password: clpassword
+-EncryptedPassword: 488b9a3fee5b5270b05ee713e2a64ffd
+
 
 ______________________________________________________________________________________
 

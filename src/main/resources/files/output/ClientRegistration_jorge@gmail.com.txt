@@ -1,10 +1,12 @@
 ______________________________________________________________________________________
-Product Information:
+Account Information:
 
--Name: Product 6969
--Description: Description 1
--Unitary Price: 2.00€
--Unitary Weight: 2.00kg
+Name: jorge
+NIF: 680946657
+Address: Bolhao, 4dir, Porto, Portugal
+Credit Card(/s): 2438143586615496, 5518150788146910
+
+
 
 ______________________________________________________________________________________
 

@@ -1,10 +1,12 @@
 ______________________________________________________________________________________
-Product Information:
+Account Information:
 
--Name: Product 6969
--Description: Description 1
--Unitary Price: 2.00€
--Unitary Weight: 2.00kg
+Name: manuel
+NIF: 232134936
+Address: Majestic, 3esq, Porto, Portugal
+Credit Card(/s): 6997327669161303, 7734437051662226
+
+
 
 ______________________________________________________________________________________
 

@@ -1,10 +1,10 @@
 ______________________________________________________________________________________
 Product Information:
 
--Name: Product 6969
--Description: Description 1
--Unitary Price: 2.00€
--Unitary Weight: 2.00kg
+-Name: COVID-19 Vaccine
+-Description: Keep this product at -20 degrees.
+-Unitary Price: 40.00€
+-Unitary Weight: 0.50kg
 
 ______________________________________________________________________________________
 

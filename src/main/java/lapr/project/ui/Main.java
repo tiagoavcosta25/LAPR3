@@ -1,5 +1,6 @@
 package lapr.project.ui;
 
+import lapr.project.controller.ApplicationPOT;
 import lapr.project.ui.console.LoginUI;
 import lapr.project.ui.console.RegisterClientUI;
 
@@ -16,6 +17,7 @@ class Main {
             LOGGER.log(Level.INFO, "Importing Data to the Database...");
             //FileReader.readFiles();
             LOGGER.log(Level.INFO, "Data Imported.");
+            ApplicationPOT.getInstance().getWorldMap().createGraph();
 
             int intOp;
 

@@ -1,10 +1,10 @@
 ______________________________________________________________________________________
 Product Information:
 
--Name: Product 6969
--Description: Description 1
--Unitary Price: 2.00€
--Unitary Weight: 2.00kg
+-Name: Ben-u-ron
+-Description: Keep this away from children
+-Unitary Price: 3.00€
+-Unitary Weight: 1.00kg
 
 ______________________________________________________________________________________
 
