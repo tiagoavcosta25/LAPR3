@@ -211,14 +211,25 @@ class MakeAnOrderControllerTest {
         System.out.println("addPayment");
 
         makeAnOrderController.setOrder(new Order());
-        boolean  result = makeAnOrderController.addPayment(new CreditCard(), -1d);
-        assertTrue(result);
+        int result = makeAnOrderController.addPayment(new CreditCard(), -1d);
+        int expected = 0;
+        assertEquals(expected, result);
 
-        result = makeAnOrderController.addPayment(new CreditCard(), 2d);
-        assertFalse(result);
+        makeAnOrderController.setCurrentPayment(0);
+        makeAnOrderController.setExpectedPayment(1);
+        result = makeAnOrderController.addPayment(new CreditCard(), 1d);
+        expected = 1;
+        assertEquals(expected, result);
+
+        makeAnOrderController.setCurrentPayment(1);
+        makeAnOrderController.setExpectedPayment(1);
+        result = makeAnOrderController.addPayment(new CreditCard(), 19d);
+        expected = -1;
+        assertEquals(expected, result);
 
         result = makeAnOrderController.addPayment(null, null);
-        assertFalse(result);
+        expected = -1;
+        assertEquals(expected, result);
 
     }
 
@@ -428,36 +439,36 @@ class MakeAnOrderControllerTest {
     @Test
     void getCurrentPayment() {
         MakeAnOrderController ctrl = new MakeAnOrderController();
-        float expected = 1f;
+        Double expected = 1d;
         ctrl.setCurrentPayment(expected);
-        Float real = ctrl.getCurrentPayment();
+        Double real = ctrl.getCurrentPayment();
         assertEquals(expected, real);
     }
 
     @Test
     void setCurrentPayment() {
         MakeAnOrderController ctrl = new MakeAnOrderController();
-        float expected = 1f;
+        Double expected = 1d;
         ctrl.setCurrentPayment(expected);
-        Float real = ctrl.getCurrentPayment();
+        Double real = ctrl.getCurrentPayment();
         assertEquals(expected, real);
     }
 
     @Test
     void getExpectedPayment() {
         MakeAnOrderController ctrl = new MakeAnOrderController();
-        float expected = 1f;
+        Double expected = 1d;
         ctrl.setExpectedPayment(expected);
-        Float real = ctrl.getExpectedPayment();
+        Double real = ctrl.getExpectedPayment();
         assertEquals(expected, real);
     }
 
     @Test
     void setExpectedPayment() {
         MakeAnOrderController ctrl = new MakeAnOrderController();
-        float expected = 1f;
+        Double expected = 1d;
         ctrl.setExpectedPayment(expected);
-        Float real = ctrl.getExpectedPayment();
+        Double real = ctrl.getExpectedPayment();
         assertEquals(expected, real);
     }
 }

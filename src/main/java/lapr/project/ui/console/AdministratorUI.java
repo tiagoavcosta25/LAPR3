@@ -19,8 +19,8 @@ public class AdministratorUI implements UI {
             Menu.sleep();
             Menu.clear();
             Menu.displayMenu("ADMIN", "[1] Register Pharmacy\n[2] Register Product\n[3] Remove Product\n[4] Update Product\n" +
-                    "[5] Show Product Info\n[6] Add Stock to Pharmacy\n[7] Register Scooter\n" +
-                    "[8] Remove Scooter\n[9] Update Scooter\n[10] Show Scooter Info\n[11] Register Drone\n[12] Remove Drone\n" +
+                    "[5] Show Product Information\n[6] Add Stock to Pharmacy\n[7] Register Scooter\n" +
+                    "[8] Remove Scooter\n[9] Update Scooter\n[10] Show Scooter Information\n[11] Register Drone\n[12] Remove Drone\n" +
                     "[13] Update Drone\n[14] Issue Delivery Note\n[15] Register Delivery Run\n[16] Register Path\n[17] Register Park\n" +
                     "[18] Register Courier\n[19] Update Courier\n[20] Remove Courier\n\n[0] Log Out");
             intOp = sc.nextInt();

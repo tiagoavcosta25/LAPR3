@@ -71,10 +71,12 @@ public class RegisterClientUI implements UI {
 
                 System.out.println("Do you want to register with this information?");
                 System.out.println("Name: " + strName + "\nEmail: " + strEmail + "\nNif: " + intNIF + "\nLatitude: " + dblLatitude + "\nLongitude: " + dblLongitude);
-                System.out.println("\nYES[1]");
-                System.out.println("NO[2]");
-                System.out.println("CANCEL[3]");
+                System.out.println("\n[1] YES");
+                System.out.println("[2] NO");
+                System.out.println("[3] CANCEL");
+                System.out.print("\nYour Option: ");
                 op = sc.nextInt();
+                System.out.println();
                 switch (op) {
                     case 1:
                         if (oCtrl.registerNewClient(strName, intNIF, strEmail, strPassword, dblLatitude, dblLongitude, dblAltitude,

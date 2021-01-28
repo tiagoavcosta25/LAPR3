@@ -45,7 +45,8 @@ public class GenerateInvoiceController {
     public boolean generateInvoice(Order oOrder, Map<CreditCard, Double> mapPayments) {
         try {
             this.moInvoice = moInvoiceService.newInvoice(oOrder, mapPayments);
-            this.moInvoiceService.registerInvoice(this.moInvoice);
+            int intId = this.moInvoiceService.registerInvoice(this.moInvoice);
+            this.moInvoice.setId(intId);
             return this.moInvoiceService.sendInvoiceByEmail(this.moInvoice);
         } catch (Exception ex) {
             this.moInvoice = null;

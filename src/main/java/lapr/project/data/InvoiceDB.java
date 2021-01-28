@@ -59,7 +59,7 @@ public class InvoiceDB extends DataHandler {
      * @param mapPayments Invoice's Payment map.
      * @return true if everything works out, false if it doesn't.
      */
-    private boolean addInvoice(Date dtInvoiceDate, Double fltTotalPrice, Order oOrder, Map<CreditCard, Double> mapPayments) {
+    private int addInvoice(Date dtInvoiceDate, Double fltTotalPrice, Order oOrder, Map<CreditCard, Double> mapPayments) {
         try(CallableStatement callStmt = getConnection().prepareCall("{ ? = call addInvoice(?,?,?) }");
             CallableStatement callStmt2 = getConnection().prepareCall("{ call addInvoiceLine(?,?,?,?,?) }");
             CallableStatement callStmt3 = getConnection().prepareCall("{ call addPayment(?,?,?) }");) {
@@ -94,10 +94,10 @@ public class InvoiceDB extends DataHandler {
                     callStmt3.execute();
                 }
             }
-            return true;
+            return intInvoiceId;
         } catch (SQLException e) {
             e.printStackTrace();
-            return false;
+            return -1;
         } finally {
             closeAll();
         }
@@ -130,7 +130,7 @@ public class InvoiceDB extends DataHandler {
      * @param oInvoice Invoice.
      * @return true if everything works out, false if it doesn't.
      */
-    public boolean registerInvoice(Invoice oInvoice) {
+    public int registerInvoice(Invoice oInvoice) {
         return addInvoice(oInvoice.getInvoiceDate(), oInvoice.getTotalPrice(), oInvoice.getOrder(), oInvoice.getPayments());
     }
 

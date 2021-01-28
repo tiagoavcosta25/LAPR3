@@ -59,8 +59,6 @@ public class VehicleService {
 
     /**
      * The method creates a new Vehicle Model.
-     * The method returns the validation of that instance of Vehicle Model. True if the data is correct and false if
-     * it doesn't.
      *
      * @param strDesignation Vehicle Model Designation
      * @param dblPotency Vehicle Model Potency
@@ -69,6 +67,7 @@ public class VehicleService {
      * @param intBatteryCapacity Vehicle Model Battery Capacity
      * @param dblBatteryVoltage Vehicle Model Battery Voltage
      * @param dblEfficiency Vehicle Model Efficiency
+     * @return Vehicle Model.
      */
     public VehicleModel newVehicleModel(String strDesignation, double dblPotency, double dblWeight, double dblMaxPayload, int intBatteryCapacity,
                                         double dblBatteryVoltage, double dblEfficiency, VehicleType oVehicleType) {
@@ -78,11 +77,9 @@ public class VehicleService {
 
     /**
      * The method generates a QrCode for the vehicle.
-     * The method returns the validation of that instance of Vehicle Model. True if the data is correct and false if
-     * it doesn't.
      *
      * @param oVehicle Vehicle.
-     * @return the validation of that instance of Vehicle Model.
+     * @return true if the QrCode is generated. False if otherwise.
      */
     public boolean generateQRCode(Vehicle oVehicle) {
         return QRCode.generateQRCode(oVehicle.getModel().getVehicleType().getDesignation() + "#" + oVehicle.getId()

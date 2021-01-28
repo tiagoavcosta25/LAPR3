@@ -7,41 +7,106 @@ import lapr.project.utils.WriteFile;
 
 import java.util.Map;
 
+/**
+ * Invoice Service.
+ *
+ * Group: Team Lisa [G-021]
+ * ______________________________________________________
+ * @author António Barbosa <1190404@isep.ipp.pt>
+ * @author Ernesto Rodrigues <1190560@isep.ipp.pt>
+ * @author Jessica Alves <1190682@isep.ipp.pt>
+ * @author Pedro Santos <1190967@isep.ipp.pt>
+ * @author Rodrigo Costa <1191014@isep.ipp.pt>
+ * @author Tiago Costa <1191460@isep.ipp.pt>
+ */
 public class InvoiceService {
 
+    /**
+     * Invoice DB Management.
+     */
     private InvoiceDB moInvoiceDB;
+
+    /**
+     * Linebreak used in the invoice.
+     */
     private static final String LINEBREAK = String.format("%n%n---------------------------------------");
+
+    /**
+     * Linebreak variant used in the invoice.
+     */
     private static final String LINEBREAK2 = String.format("%n---------------------------------------");
+
+    /**
+     * Tab format used in the invoice.
+     */
     private static final String TAB = String.format("%n\t\t\t");
 
-    public InvoiceDB getInvoiceDB() {
-        return moInvoiceDB;
-    }
 
-    public void setInvoiceDB(InvoiceDB oInvoiceDB) {
-        this.moInvoiceDB = oInvoiceDB;
-    }
-
+    /**
+     * Empty Contructor.
+     */
     public InvoiceService() {
         this.moInvoiceDB = new InvoiceDB();
     }
 
+    /**
+     * Getter for Invoice Databse Connection Class.
+     * @return Invoice Databse Connection Class.
+     */
+    public InvoiceDB getInvoiceDB() {
+        return moInvoiceDB;
+    }
+
+    /**
+     * Setter for the Invoice Databse Connection Class.
+     * @param oInvoiceDB Invoice Databse Connection Class..
+     */
+    public void setInvoiceDB(InvoiceDB oInvoiceDB) {
+        this.moInvoiceDB = oInvoiceDB;
+    }
+
+    /**
+     * Calls a InvoiceDB method to get an Invoice from the Database based on its ID.
+     * @param strId ID.
+     * @return Invoice.
+     */
     public Invoice getInvoice(int strId) {
         return this.moInvoiceDB.getInvoice(strId);
     }
 
+    /**
+     * Calls a InvoiceDB method to remove an Invoice from the Database based on its ID.
+     * @param intId ID.
+     * @return Invoice.
+     */
     public boolean removeInvoice(int intId) {
         return this.moInvoiceDB.removeInvoice(intId);
     }
 
-    public boolean registerInvoice(Invoice oInvoice) {
+    /**
+     * Calls a InvoiceDB method to register an Invoice on the Database.
+     * @param oInvoice Invoice.
+     * @return Invoice Id.
+     */
+    public int registerInvoice(Invoice oInvoice) {
         return this.moInvoiceDB.registerInvoice(oInvoice);
     }
 
+    /**
+     * Creates a new Instance of an Invoice.
+     * @param oOrder Order.
+     * @param mapPayments Map of Payments.
+     * @return Invoice.
+     */
     public Invoice newInvoice(Order oOrder, Map<CreditCard, Double> mapPayments) {
         return new Invoice(oOrder, mapPayments);
     }
 
+    /**
+     * Sends an email to the client with
+     * @param oInvoice Invoice.
+     * @return true if itsends the email, false otherwise.
+     */
     public boolean sendInvoiceByEmail(Invoice oInvoice) {
         try{
             String strEmail = oInvoice.getOrder().getClient().getEmail();
@@ -110,7 +175,7 @@ public class InvoiceService {
             strBody.append(String.format("%n|\t   Sub Total\t\t      %.2f€ |", oInvoice.getTotalPrice() - dblFee));
             strBody.append(LINEBREAK2);
             if(isHomeDelivery) {
-                strBody.append(String.format("%n|\t   Home Delivery Fee\t\t\t\t  %.2f€ |", dblFee));
+                strBody.append(String.format("%n|\tHome Delivery Fee\t\t  %.2f€ |", dblFee));
                 strBody.append(LINEBREAK2);
             }
             strBody.append(String.format("%n|\t   Total\t\t\t\t   %.2f€ |", oInvoice.getTotalPrice()));

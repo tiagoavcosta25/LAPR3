@@ -42,6 +42,7 @@ public class UpdateScooterController {
 
     /**
      * The method returns the list of pharmacies.
+     * @return List of Pharmacies.
      */
     public List<Pharmacy> showPharmacies() {
         return this.moPharmacyService.getPharmacies();
@@ -49,6 +50,7 @@ public class UpdateScooterController {
 
     /**
      * The method returns the list of scooters.
+     * @return List of Scooters.
      */
     public List<Scooter> showScootersList (String strPharmacyEmail) {
         try {
@@ -64,6 +66,7 @@ public class UpdateScooterController {
 
     /**
      * The method updates a scooter from the database.
+     * @return true if the Scooter is updated. False if otherwise.
      */
     public boolean updateScooter(int intId, double dblBatteryPerc, String strDesignation, double dblPotency, double dblWeight,
                                  double dblMaxPayload, int intBatteryCapacity, double dblBatteryVoltage,
