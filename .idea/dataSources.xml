@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="DB_LAPR3" uuid="09197a3e-c10c-4207-99fc-3e5122ef58b9">
+    <data-source source="LOCAL" name="localhost" uuid="d0d02d03-ec13-4784-9e1e-c44b82ad54c6">
       <driver-ref>oracle</driver-ref>
       <synchronize>true</synchronize>
       <auto-commit>false</auto-commit>
       <jdbc-driver>oracle.jdbc.OracleDriver</jdbc-driver>
-      <jdbc-url>jdbc:oracle:thin:@vsrvbd1.dei.isep.ipp.pt:1521/pdborcl</jdbc-url>
+      <jdbc-url>jdbc:oracle:thin:@//149.90.28.218:1521/orclpdb</jdbc-url>
     </data-source>
   </component>
 </project>

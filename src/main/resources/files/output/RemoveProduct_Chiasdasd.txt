@@ -1,10 +1,5 @@
 ______________________________________________________________________________________
-Product Information:
-
--Name: Product 6969
--Description: Description 1
--Unitary Price: 2,00€
--Unitary Weight: 2,00kg
+The product with the corresponding name: 'Chiasdasd' has been removed from our database!
 
 ______________________________________________________________________________________
 

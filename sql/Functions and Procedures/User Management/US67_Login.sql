@@ -1,9 +1,10 @@
-create or replace procedure logIn(p_email IN "User".email%type, p_password IN "User".password%type, userType OUT int default -1)
+create or replace procedure logIn(p_email IN "User".email%type, p_password IN "User".password%type, userType OUT int)
     is
     userIdentifier "User".id%type;
     user_not_found exception;
 begin
 
+    userType := -1;
     -- Checks if User exists and if the password given by parameter matches
     begin
         select id
@@ -11,7 +12,7 @@ begin
         from "User"
         where email = p_email
           and password = p_password;
-        EXCEPTION
+    EXCEPTION
         when NO_DATA_FOUND then
             raise_application_error(-20038,'User not found!');
     end;
@@ -51,7 +52,7 @@ begin
 
 
 
-    EXCEPTION
+EXCEPTION
     when NO_DATA_FOUND then
-                    userType := 3;
+        userType := 3;
 end;

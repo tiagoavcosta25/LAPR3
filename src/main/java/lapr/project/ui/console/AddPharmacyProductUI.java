@@ -50,11 +50,11 @@ public class AddPharmacyProductUI implements UI {
 
                 if(oProduct.getName().equalsIgnoreCase("") || intQuantity <= 0){
                     throw new Exception();
-                } LOGGER.log(Level.WARNING, "Error Registering a Pharmacy.");
+                }
 
                 if(oCtrl.addPharmacyProduct(strEmail, oProduct, intQuantity)) {
                     if(oCtrl.registerPharmacyProduct()) {
-                        LOGGER.log(Level.INFO, "Pharmacy Registered with success.");
+                        LOGGER.log(Level.INFO, "Stock added with success.");
                         break;
                     } else LOGGER.log(Level.WARNING, "Error Adding Stock to the Pharmacy.");
                 } else LOGGER.log(Level.WARNING, "Error Adding Stock to the Pharmacy.");

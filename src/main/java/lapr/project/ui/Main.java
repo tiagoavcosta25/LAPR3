@@ -14,12 +14,13 @@ class Main {
         try{
             Scanner sc = new Scanner(System.in);
             LOGGER.log(Level.INFO, "Importing Data to the Database...");
-            FileReader.readFiles();
+            //FileReader.readFiles();
             LOGGER.log(Level.INFO, "Data Imported.");
 
             int intOp;
 
             do{
+                Menu.sleep();
                 Menu.clear();
                 Menu.displayMenu("MENU", "[1] Login\n[2] Register Client Account\n\n[0] Exit The Program");
                 intOp = sc.nextInt();

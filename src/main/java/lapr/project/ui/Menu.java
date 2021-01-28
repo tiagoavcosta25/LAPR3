@@ -18,6 +18,14 @@ public class Menu {
         }
     }
 
+    public static void sleep() {
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void runUI(UI oUI){
         oUI.run();
     }

@@ -230,10 +230,16 @@ public class GraphService {
     public void printPhysics(Graph<Address, Path> g, List<Address> paths) {
         StringBuilder result = new StringBuilder();
         result.append("\n\n");
-        if(g.equals(this.getScooterGraph())) {
-            result.append("Scooter paths:\n");
-        } else
-            result.append("Drone paths:\n");
+        if(g.numVertices() == 0)
+            return;
+
+        for(Edge<Address, Path> e : g.edges()) {
+            if (e.getElement().getVehicleType().equals(VehicleType.SCOOTER))
+                result.append("Scooter paths:\n");
+            else
+                result.append("Drone paths:\n");
+            break;
+        }
         for(int i = 0; i < paths.size() - 1; i++) {
             result.append("\t").append(getPathFromAddresses(g, paths.get(i), paths.get(i + 1))).append("\n");
         }

@@ -1,10 +1,13 @@
 ______________________________________________________________________________________
-Product Information:
+Product Update Log
 
--Name: Product 6969
--Description: Description 1
--Unitary Price: 2,00€
--Unitary Weight: 2,00kg
+Product Original Name: Chicha
+
+Product New Info:
+-Updated Name: Chicha2
+-Updated Description: asd
+-Updated Unitary Price: 12,00€
+-Updated Unitary Weight: 12,00kg
 
 ______________________________________________________________________________________
 

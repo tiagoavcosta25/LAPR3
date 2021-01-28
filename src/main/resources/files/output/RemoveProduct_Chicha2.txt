@@ -1,9 +1,5 @@
 ______________________________________________________________________________________
-The scooter number 8 was parked successfully!
-___________________________________________________________________
-
-Estimated charging time: 0 hours, 1 minutes 59 seconds.
-Estimated time for full charge: 18:38:20 26-01-2021.
+The product with the corresponding name: 'Chicha2' has been removed from our database!
 
 ______________________________________________________________________________________
 

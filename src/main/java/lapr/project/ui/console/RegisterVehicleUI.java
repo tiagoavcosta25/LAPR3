@@ -42,8 +42,10 @@ public class RegisterVehicleUI {
                 System.out.print("Model designation: ");
                 String strModelDesignation = sc.nextLine();
                 if (flag) {
+                    oCtrlScooter.setPharmacy(oPharmacy.getEmail());
                     oCtrlScooter.setVehicleModel(strModelDesignation);
                 } else {
+                    oCtrlDrone.setPharmacy(oPharmacy.getEmail());
                     oCtrlDrone.setVehicleModel(strModelDesignation);
                 }
             } else{
@@ -72,7 +74,7 @@ public class RegisterVehicleUI {
                 }
             }
         }catch (Exception e) {
-            LOGGER.log(Level.WARNING, "There was a problem removing the Vehicle.");
+            LOGGER.log(Level.WARNING, "There was a problem registering the Vehicle.");
         }
     }
 

@@ -1,9 +1,11 @@
 ______________________________________________________________________________________
-The scooter number 12 was parked successfully!
-___________________________________________________________________
+Product Information
 
-Estimated charging time: 1 hours, 55 minutes 22 seconds.
-Estimated time for full charge: 20:31:25 26-01-2021.
+-Id: 2
+-Name: Ben-u-ron
+-Description: Keep this away from children
+-Unitary Price: 3,00€
+-Unitary Weight: 1,00kg
 
 ______________________________________________________________________________________
 
