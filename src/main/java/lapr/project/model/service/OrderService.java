@@ -6,7 +6,7 @@ import lapr.project.model.*;
 import java.util.Map;
 
 /**
- * Invoice Service.
+ * Order Service.
  *
  * Group: Team Lisa [G-021]
  * ______________________________________________________

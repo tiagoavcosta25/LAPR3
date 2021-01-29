@@ -32,7 +32,7 @@ begin
         raise product_not_found;
     end if;
 
-    select stock
+    select sum(stock)
     into v_currentStock
     from PHARMACYPRODUCT
     where PHARMACYID = v_pharmacyId

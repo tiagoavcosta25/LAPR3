@@ -81,7 +81,7 @@ public class OrderDB extends DataHandler {
     private int addOrder(Double dblAmount, Double dblTotalWeight, Double dblAdditionalFee, Date dtOrderDate,
                          String strDescription, String strStatus, boolean blnIsHomeDelivery, Client oClient, int intPharmacyId, Map<Product, Integer> mapProducts) {
         try(CallableStatement callStmt = getConnection().prepareCall("{ ? = call addOrder(?,?,?,?,?,?,?,?,?,?) }");
-            CallableStatement callStmt2 = getConnection().prepareCall("{ call addProductToOrder(?,?,?) }");) {
+            CallableStatement callStmt2 = getConnection().prepareCall("{ call addProductToOrder(?,?,?) }")) {
 
             callStmt.registerOutParameter(1, OracleTypes.INTEGER);
             callStmt.setDouble(2, dblAmount);
