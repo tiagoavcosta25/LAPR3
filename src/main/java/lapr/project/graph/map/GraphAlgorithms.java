@@ -294,7 +294,7 @@ public class GraphAlgorithms {
         for (int k = 0; k < size; ++k) {
             for (int i = 0; i < size; ++i) {
                 for (int j = 0; j < size; j++) {
-                    if (matriz[i][k] != Integer.MAX_VALUE && matriz[k][j] != Integer.MAX_VALUE
+                    if (matriz[i][k] != Double.MAX_VALUE && matriz[k][j] != Double.MAX_VALUE
                             && (matriz[i][k] + matriz[k][j] < matriz[i][j])) {
                         matriz[i][j] = matriz[i][k] + matriz[k][j];
                         paths[i][j] = paths[k][j];
