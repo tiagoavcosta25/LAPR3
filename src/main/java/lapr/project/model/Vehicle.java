@@ -3,7 +3,7 @@ package lapr.project.model;
 import java.util.Objects;
 
 /**
- * Battery.
+ * Vehicle.
  *
  * Group: Team Lisa [G-021]
  * ______________________________________________________
@@ -16,6 +16,7 @@ import java.util.Objects;
  */
 
 public abstract class Vehicle {
+
     /**
      * Vehicle ID.
      */
@@ -210,7 +211,7 @@ public abstract class Vehicle {
 
     /**
      * Returns the textual description of the Vehicle in the format: ID, Battery Percentage, Vehicle Model
-     * and Phamacy.
+     * and Pharmacy.
      *
      * @return textual description of the Vehicle.
      */

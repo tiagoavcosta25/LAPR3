@@ -52,8 +52,6 @@ public class DroneDB extends DataHandler {
 
     /**
      * Update Drone from Database.
-     * The method returns the validation of that instance of Drone. True if the data is correct and false if
-     * it doesn't.
      *
      * @param intId Drone ID.
      * @param dblBatteryPerc Drone Battery Percentage.
@@ -64,7 +62,7 @@ public class DroneDB extends DataHandler {
      * @param intBatteryCapacity Drone Battery Capacity.
      * @param dblBatteryVoltage Drone Battery Voltage.
      * @param dblEfficiency Drone Efficiency.
-     * @return the validation of that instance of Drone.
+     * @return true if the Drone is updated. False if otherwise.
      */
     public boolean updateDroneFromDB(int intId, double dblBatteryPerc, String strDesignation, double dblPotency, double dblWeight, double dblMaxPayload,
                                        int intBatteryCapacity, double dblBatteryVoltage, double dblEfficiency) {
@@ -100,7 +98,7 @@ public class DroneDB extends DataHandler {
     }
 
     /**
-     * Add a new Drone to the Database.
+     * Adds a new Drone to the Database.
      * @param dblBatteryPerc Drone Battery Percentage.
      * @param oVehicleModel Drone Vehicle Model.
      * @param oPharmacy Drone Pharmacy.
@@ -153,10 +151,8 @@ public class DroneDB extends DataHandler {
 
     /**
      * The method removes a Drone from the Database.
-     * The method returns the validation of that instance of Drone. True if the data is correct and false if
-     * it doesn't.
      * @param intId Drone ID.
-     * @return the validation of that instance of Drone.
+     * @return true if the Drone is removed. False if otherwise.
      */
     public boolean removeDroneFromDB(int intId) {
         try(CallableStatement callStmt = getConnection().prepareCall("{ call removeDrone(?) }");) {

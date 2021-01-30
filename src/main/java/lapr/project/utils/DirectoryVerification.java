@@ -5,13 +5,40 @@ import java.io.FilenameFilter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * Directory Verification.
+ *
+ * Group: Team Lisa [G-021]
+ * ______________________________________________________
+ * @author António Barbosa <1190404@isep.ipp.pt>
+ * @author Ernesto Rodrigues <1190560@isep.ipp.pt>
+ * @author Jessica Alves <1190682@isep.ipp.pt>
+ * @author Pedro Santos <1190967@isep.ipp.pt>
+ * @author Rodrigo Costa <1191014@isep.ipp.pt>
+ * @author Tiago Costa <1191460@isep.ipp.pt>
+ */
+
 public class DirectoryVerification {
 
+    /**
+     * Logger which is used to generate warnings or information, with
+     * a custom message.
+     */
     private static final Logger LOGGER = Logger.getLogger(DirectoryVerification.class.getName());
 
+    /**
+     * An empty constructor of Directory Verification.
+     */
     private DirectoryVerification() {
     }
 
+    /**
+     * verify File Creation.
+     * @param path File Path.
+     * @param filter Filter.
+     * @param secTimeToTest Time To Test.
+     * @return String.
+     */
     public static String verifyFileCreation(String path, String filter, int secTimeToTest) {
         int slept = 0;
         int timeToTest = secTimeToTest * 1000;
