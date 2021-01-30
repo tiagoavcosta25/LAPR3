@@ -26,7 +26,6 @@ import java.util.logging.Level;
  * @author Tiago Costa <1191460@isep.ipp.pt>
  */
 public class CourierService {
-
     /**
      * Logger which is used to generate warnings or information, with
      * a custom message

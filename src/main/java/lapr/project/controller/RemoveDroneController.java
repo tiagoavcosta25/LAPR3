@@ -47,7 +47,7 @@ public class RemoveDroneController {
     }
 
     /**
-     *
+     * Returns tge Drone Service Instance.
      * @return Drone Service Instance.
      */
     public DroneService getDroneService() {
@@ -72,13 +72,15 @@ public class RemoveDroneController {
 
     /**
      * The method returns the list of pharmacies.
+     * @return List of Pharmacies.
      */
     public List<Pharmacy> showPharmacies() {
         return this.moPharmacyService.getPharmacies();
     }
 
     /**
-     * The method returns the list of scooters.
+     * The method returns the list of drones.
+     * @return List of Drones.
      */
     public List<Drone> showDronesList(String strPharmacyEmail) {
         try {
@@ -90,6 +92,7 @@ public class RemoveDroneController {
 
     /**
      * The method removes a scooter from the database.
+     * @return true if the Drone is removed. False if otherwise.
      */
     public boolean removeDrone(int intDroneId){
         return moDroneService.removeDroneFromDB(intDroneId);

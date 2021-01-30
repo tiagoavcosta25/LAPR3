@@ -3,15 +3,27 @@ package lapr.project.controller;
 import lapr.project.model.PharmacyTransfer;
 import lapr.project.model.service.PharmacyTransferService;
 
+/**
+ * Issue transfer Note Controller.
+ *
+ * Group: Team Lisa [G-021]
+ * ______________________________________________________
+ * @author António Barbosa <1190404@isep.ipp.pt>
+ * @author Ernesto Rodrigues <1190560@isep.ipp.pt>
+ * @author Jessica Alves <1190682@isep.ipp.pt>
+ * @author Pedro Santos <1190967@isep.ipp.pt>
+ * @author Rodrigo Costa <1191014@isep.ipp.pt>
+ * @author Tiago Costa <1191460@isep.ipp.pt>
+ */
 public class IssueTransferNoteController {
 
     /**
-     * Pharmacy Management class
+     * Pharmacy Transfer Management class.
      */
     private PharmacyTransferService moPharmacyTransferService;
 
     /**
-     * An empty constructor of MakeAnOrderController that initiates the platform variable by getting it from the ApplicationPOT.
+     * An empty constructor of IssueTransferNoteController.
      */
     public IssueTransferNoteController() {
         this.moPharmacyTransferService = new PharmacyTransferService();
@@ -28,10 +40,18 @@ public class IssueTransferNoteController {
         }
     }
 
+    /**
+     * Gets the Pharmacy Transfer Management Class.
+     * @return The Pharmacy Transfer Management Class.
+     */
     public PharmacyTransferService getPharmacyTransferService() {
         return moPharmacyTransferService;
     }
 
+    /**
+     * Sets the Pharmacy Transfer Management Class.
+     * @param oPharmacyTransferService The Pharmacy Transfer Management Class.
+     */
     public void setPharmacyTransferService(PharmacyTransferService oPharmacyTransferService) {
         this.moPharmacyTransferService = oPharmacyTransferService;
     }

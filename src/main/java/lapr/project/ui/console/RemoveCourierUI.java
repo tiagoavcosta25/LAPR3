@@ -19,14 +19,14 @@ public class RemoveCourierUI implements UI {
             while (flag) {
                 System.out.println("Introduce the Courier's email from the Courier you would like to remove:\n");
                 System.out.println("Email: ");
-                String email = reader.next();
+                String email = reader.nextLine();
                 System.out.println("Do you wish to remove the courier with the following email?");
                 System.out.println("Email: " + email);
                 System.out.println();
                 System.out.println("YES[1]");
                 System.out.println("NO[2]");
                 System.out.println("CANCEL[3]");
-                input = reader.nextInt();
+                input = Integer.parseInt(reader.nextLine());
                 switch (input) {
                     case 1:
                         RemoveCourierController ctrl = new RemoveCourierController();

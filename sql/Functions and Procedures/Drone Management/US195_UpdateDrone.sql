@@ -5,6 +5,7 @@ create or replace PROCEDURE updateDrone(p_droneId IN VEHICLE.ID%TYPE, p_batteryP
                                         p_batteryEfficiency IN BATTERY.EFFICIENCY%TYPE)
 IS
     v_batteryId BATTERY.ID%type;
+    v_modelId VehicleModel.ID%type;
 
 BEGIN
 
@@ -21,14 +22,25 @@ BEGIN
         EFFICIENCY = p_batteryEfficiency
     WHERE ID = v_batteryId;
 
+    SELECT V.MODELID
+    INTO v_modelId
+    FROM VEHICLE V
+        INNER JOIN VEHICLEMODEL VM ON VM.ID = V.MODELID
+    WHERE V.ID = p_droneId;
+
+
     UPDATE VEHICLEMODEL
     SET DESIGNATION = p_designation,
         POTENCY = p_potency,
         WEIGHT = p_weight,
         MAXPAYLOAD = p_maxPayload
-    WHERE ID = p_droneId;
+    WHERE ID = v_modelId;
 
     UPDATE VEHICLE
     SET BATTERYPERC = p_batteryPerc
     WHERE ID = p_droneId;
+
+    EXCEPTION
+    when no_data_found then
+        raise_application_error(-20030,'There was an error updating the drone!');
 end;

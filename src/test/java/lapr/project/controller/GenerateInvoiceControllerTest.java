@@ -42,13 +42,13 @@ class GenerateInvoiceControllerTest {
     void newInvoice() {
         ApplicationPOT.getInstance().setCurrentSession(new UserSession("email1@gmail.com"));
         when(mockInvoiceService.newInvoice(new Order(), new TreeMap<>())).thenReturn(new Invoice());
-        when(mockInvoiceService.registerInvoice(new Invoice())).thenReturn(true);
+        when(mockInvoiceService.registerInvoice(new Invoice())).thenReturn(-1);
         when(mockInvoiceService.sendInvoiceByEmail(new Invoice())).thenReturn(true);
         boolean result = this.generateInvoiceController.generateInvoice(new Order(), new TreeMap<>());
         assertTrue(result);
 
         when(mockInvoiceService.newInvoice(new Order(), new TreeMap<>())).thenReturn(new Invoice());
-        when(mockInvoiceService.registerInvoice(new Invoice())).thenReturn(true);
+        when(mockInvoiceService.registerInvoice(new Invoice())).thenReturn(-1);
         when(mockInvoiceService.sendInvoiceByEmail(new Invoice())).thenReturn(false);
         result = this.generateInvoiceController.generateInvoice(new Order(), new TreeMap<>());
         assertFalse(result);

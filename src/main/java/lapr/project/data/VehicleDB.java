@@ -87,20 +87,7 @@ public class VehicleDB extends DataHandler {
             ResultSet rSet = (ResultSet) callStmt.getObject(1);
 
             if (rSet.next()) {
-
-                int intModelId = rSet.getInt(1);
-                double dblPotency = rSet.getDouble(2);
-                double dblWeight = rSet.getDouble(3);
-                double dblMaxPayload = rSet.getDouble(4);
-                VehicleType oVehicleType = VehicleType.getTypeByDesignation(rSet.getString(5));
-                int intBatteryId = rSet.getInt(6);
-                int intBatteryCapacity = rSet.getInt(7);
-                double dblBatteryVoltage = rSet.getDouble(8);
-                double dblEfficiency = rSet.getDouble(9);
-
-                return new VehicleModel(intModelId, strDesignation, dblPotency, dblWeight,
-                        dblMaxPayload, new Battery(intBatteryId, intBatteryCapacity, dblBatteryVoltage, dblEfficiency),
-                        oVehicleType);
+                return vehicleModelManager(rSet, 1);
             }
         } catch (SQLException e) {
             e.printStackTrace();

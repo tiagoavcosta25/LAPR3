@@ -61,8 +61,6 @@ public class ScooterService {
 
     /**
      * Update a Scooter Information.
-     * The method returns the validation of that instance of Scooter. True if the data is correct and false if
-     * it doesn't.
      *
      * @param intId Scooter ID.
      * @param dblBatteryPerc Scooter Battery Percentage.
@@ -73,7 +71,7 @@ public class ScooterService {
      * @param intBatteryCapacity Scooter Battery Capacity.
      * @param dblBatteryVoltage Scooter Battery Voltage.
      * @param dblEfficiency Scooter Efficiency.
-     * @return the validation of that instance of Scooter.
+     * @return true if the Scooter is updated. False if otherwise.
      */
     public boolean updateScooterFromDB(int intId, double dblBatteryPerc, String strDesignation, double dblPotency, double dblWeight, double dblMaxPayload,
                                        int intBatteryCapacity, double dblBatteryVoltage, double dblEfficiency){
@@ -90,44 +88,28 @@ public class ScooterService {
 
     /**
      * Remove a Scooter.
-     * The method returns the validation of that instance of Scooter. True if the data is correct and false if
-     * it doesn't.
      * @param intId Scooter ID.
-     * @return the validation of that instance of Scooter.
+     * @return true if the Scooter is removed. False if otherwise.
      */
     public boolean removeScooterFromDB(int intId) { return moScooterDB.removeScooterFromDB(intId);}
 
     /**
      * Creates a new Scooter.
-     * The method returns the validation of that instance of Scooter. True if the data is correct and false if
-     * it doesn't.
      * @param oVehicleModel Scooter Model.
      * @param oPharmacy Scooter Pharmacy.
-     * @return the validation of that instance of Scooter.
+     * @return new Scooter Instance.
      */
     public Scooter newScooter(VehicleModel oVehicleModel, Pharmacy oPharmacy) {
         return new Scooter(oVehicleModel, oPharmacy);
     }
 
     /**
-     * Register a new Scooter.
-     * The method returns the validation of that instance of Scooter. True if the data is correct and false if
-     * it doesn't.
+     * Register a Scooter.
      * @param oScooter Scooter.
-     * @return the validation of that instance of Scooter.
+     * @return true if the Scooter is registered. False if otherwise.
      */
     public int registerScooter(Scooter oScooter) {
         return moScooterDB.registerScooter(oScooter);
-    }
-
-    /**
-     *
-     * @param idScooter
-     * @param idParkingSlot
-     * @return
-     */
-    public boolean parkScooter(int idScooter, int idParkingSlot) {
-        return false;
     }
 
 }

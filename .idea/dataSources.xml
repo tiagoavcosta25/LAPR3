@@ -8,5 +8,12 @@
       <jdbc-driver>oracle.jdbc.OracleDriver</jdbc-driver>
       <jdbc-url>jdbc:oracle:thin:@vsrvbd1.dei.isep.ipp.pt:1521/pdborcl</jdbc-url>
     </data-source>
+    <data-source source="LOCAL" name="DB_LOCAL" uuid="ad35d9e2-d276-4f72-88c8-44c0157a8b88">
+      <driver-ref>oracle</driver-ref>
+      <synchronize>true</synchronize>
+      <auto-commit>false</auto-commit>
+      <jdbc-driver>oracle.jdbc.OracleDriver</jdbc-driver>
+      <jdbc-url>jdbc:oracle:thin:@//149.90.28.218:1521/orclpdb</jdbc-url>
+    </data-source>
   </component>
 </project>

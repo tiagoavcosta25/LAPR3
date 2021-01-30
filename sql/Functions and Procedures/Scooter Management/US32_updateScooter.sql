@@ -5,6 +5,7 @@ create or replace PROCEDURE updateScooter(p_scooterId IN VEHICLE.ID%TYPE, p_batt
                                 p_batteryEfficiency IN BATTERY.EFFICIENCY%TYPE)
     IS
     v_batteryId BATTERY.ID%type;
+    v_modelId VEHICLEMODEL.ID%type;
 
     BEGIN
 
@@ -21,12 +22,18 @@ create or replace PROCEDURE updateScooter(p_scooterId IN VEHICLE.ID%TYPE, p_batt
             EFFICIENCY = p_batteryEfficiency
         WHERE ID = v_batteryId;
 
+        SELECT VM.ID
+        INTO v_modelId
+        FROM VEHICLEMODEL VM
+                 INNER JOIN VEHICLE V on VM.ID = V.MODELID
+        WHERE V.ID = p_scooterId;
+
         UPDATE VEHICLEMODEL
         SET DESIGNATION = p_designation,
             POTENCY = p_potency,
             WEIGHT = p_weight,
             MAXPAYLOAD = p_maxPayload
-        WHERE ID = p_scooterId;
+        WHERE ID = v_modelId;
 
         UPDATE VEHICLE
         SET BATTERYPERC = p_batteryPerc

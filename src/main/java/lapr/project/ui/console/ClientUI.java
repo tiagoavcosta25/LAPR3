@@ -16,10 +16,10 @@ public class ClientUI implements UI {
         int intOp;
 
         do{
+            Menu.sleep();
             Menu.clear();
             Menu.displayMenu("CLIENT", "[1] Make An Order\n\n[0] Log Out");
             intOp = sc.nextInt();
-
             Menu.clear();
 
             switch(intOp){

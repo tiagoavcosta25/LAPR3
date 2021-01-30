@@ -16,6 +16,7 @@ public class CourierUI implements UI {
         int intOp;
 
         do{
+            Menu.sleep();
             Menu.clear();
             Menu.displayMenu("COURIER", "[1] Start Delivery Run\n[2] Park Scooter\n[3] Know Delivery\n" +
                     "[4] Check Vehicle Payload\n\n[0] Log Out");

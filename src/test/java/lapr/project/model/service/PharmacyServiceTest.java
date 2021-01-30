@@ -105,14 +105,6 @@ class PharmacyServiceTest {
     }
 
     @Test
-    void getPharmacyByManagerEmail() {
-        System.out.println("getPharmacyByManagerEmail");
-        when(mockPharmacyDB.getPharmacyByManagerEmail("test@isep.ipp.pt")).thenReturn(new Pharmacy());
-        Pharmacy result = pharmacyService.getPharmacyByManagerEmail("test@isep.ipp.pt");
-        assertEquals(expectedPharmacy, result);
-    }
-
-    @Test
     void getClosestPharmacyWithStock() {
         System.out.println("getClosestPharmacyWithStock");
 

@@ -63,8 +63,7 @@ public class RegisterScooterController {
 
     /**
      * The method creates a new Scooter.
-     * The method returns the validation of that instance of Scooter. True if the data is correct and false if
-     * it doesn't.
+     * @return true if the Scooter is created. False if otherwise.
      */
     public boolean newScooter() {
         try {
@@ -79,8 +78,7 @@ public class RegisterScooterController {
 
     /**
      * The method registers an order to the database.
-     * The method returns the validation of that instance of Scooter. True if the data is correct and false if
-     * it doesn't.
+     * @return true if the Scooter is registered. False if otherwise.
      */
     public boolean registersScooter() {
         try {
@@ -95,20 +93,22 @@ public class RegisterScooterController {
 
     /**
      * The method returns the list of pharmacies.
+     * @return List of Pharmacies.
      */
     public List<Pharmacy> showPharmacies() {
         return this.moPharmacyService.getPharmacies();
     }
 
     /**
-     * The method sets the scooter.
+     * Modifies the Scooter.
      */
     public void setScooter(Scooter oScooter) {
          this.moScooter = oScooter;
     }
 
     /**
-     * The method sets the Vehicle Model.
+     * Modifies the Vehicle Model.
+     * @return true if the Vehicle Model is modified. False if otherwise.
      */
     public boolean setVehicleModel(String strDesignation) {
         try {
@@ -123,8 +123,6 @@ public class RegisterScooterController {
 
     /**
      * The method creates a new Vehicle Model.
-     * The method returns the validation of that instance of Vehicle Model. True if the data is correct and false if
-     * it doesn't.
      *
      * @param strDesignation Vehicle Model Designation
      * @param dblPotency Vehicle Model Potency
@@ -133,6 +131,7 @@ public class RegisterScooterController {
      * @param intBatteryCapacity Vehicle Model Battery Capacity
      * @param dblBatteryVoltage Vehicle Model Battery Voltage
      * @param dblEfficiency Vehicle Model Efficiency
+     * @return true if the Vehicle Model is created. False if otherwise.
      */
     public boolean newVehicleModel(String strDesignation, double dblPotency, double dblWeight, double dblMaxPayload, int intBatteryCapacity,
                                    double dblBatteryVoltage, double dblEfficiency) {
@@ -150,10 +149,9 @@ public class RegisterScooterController {
     }
 
     /**
-     * The method sets the Phramacy.
-     * The method returns the validation of that instance of Vehicle Model. True if the data is correct and false if
-     * it doesn't.
+     * Modifies the Phramacy.
      * @param strPharmacyEmail Phramacy Email.
+     * @return true if the Pharmacy is modified. False if otherwise.
      */
     public boolean setPharmacy(String strPharmacyEmail){
         try {

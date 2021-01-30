@@ -1,0 +1,14 @@
+______________________________________________________________________________________
+Product Information
+
+-Id: 2
+-Name: Ben-u-ron
+-Description: Keep this away from children
+-Unitary Price: 3,00€
+-Unitary Weight: 1,00kg
+
+______________________________________________________________________________________
+
+Thank you for choosing us.
+King regards,
+Pharmacy Service G21.

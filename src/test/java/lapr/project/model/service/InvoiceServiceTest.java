@@ -63,13 +63,14 @@ class InvoiceServiceTest {
     @Test
     void registerInvoice() {
         System.out.println("registerInvoice");
-        when(mockInvoiceDB.registerInvoice(expectedInvoice)).thenReturn(true);
-        boolean result = invoiceService.registerInvoice(expectedInvoice);
-        assertTrue(result);
+        when(mockInvoiceDB.registerInvoice(expectedInvoice)).thenReturn(-1);
+        int result = invoiceService.registerInvoice(expectedInvoice);
+        Integer expected = -1;
+        assertEquals(expected, result);
 
-        when(mockInvoiceDB.registerInvoice(null)).thenReturn(false);
+        when(mockInvoiceDB.registerInvoice(null)).thenReturn(-1);
         result = invoiceService.registerInvoice(null);
-        assertFalse(result);
+        assertEquals(expected, result);
     }
 
     @Test

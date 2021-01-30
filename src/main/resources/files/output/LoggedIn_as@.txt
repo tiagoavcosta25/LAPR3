@@ -1,9 +1,10 @@
 ______________________________________________________________________________________
-The scooter number 12 was parked successfully!
-___________________________________________________________________
+You are now logged in with the following account:
 
-Estimated charging time: 1 hours, 55 minutes 22 seconds.
-Estimated time for full charge: 20:31:25 26-01-2021.
+-Email: as@
+-Password: asdaas
+-EncryptedPassword: f6d41c7bd3c0220d59b189d52b28b39c
+
 
 ______________________________________________________________________________________
 

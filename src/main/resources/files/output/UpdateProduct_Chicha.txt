@@ -1,0 +1,16 @@
+______________________________________________________________________________________
+Product Update Log
+
+Product Original Name: Chicha
+
+Product New Info:
+-Updated Name: Chicha2
+-Updated Description: asd
+-Updated Unitary Price: 12,00€
+-Updated Unitary Weight: 12,00kg
+
+______________________________________________________________________________________
+
+Thank you for choosing us.
+King regards,
+Pharmacy Service G21.

@@ -10,12 +10,31 @@ import java.sql.SQLException;
 import java.util.Map;
 import java.util.TreeMap;
 
+/**
+ * Order DB.
+ * <p>
+ * Group: Team Lisa [G-021]
+ * ______________________________________________________
+ *
+ * @author António Barbosa <1190404@isep.ipp.pt>
+ * @author Ernesto Rodrigues <1190560@isep.ipp.pt>
+ * @author Jessica Alves <1190682@isep.ipp.pt>
+ * @author Pedro Santos <1190967@isep.ipp.pt>
+ * @author Rodrigo Costa <1191014@isep.ipp.pt>
+ * @author Tiago Costa <1191460@isep.ipp.pt>
+ */
 public class OrderDB extends DataHandler {
 
+    /**
+     * Method that gets an order from the database.
+     *
+     * @param id Order's ID.
+     * @return Order.
+     */
     public Order getOrder(int id) {
 
-        try(CallableStatement callStmt = getConnection().prepareCall("{ ? = call getOrder(?) }");
-            CallableStatement callStmt2 = getConnection().prepareCall("{ ? = call getProductsByOrder(?) }");) {
+        try (CallableStatement callStmt = getConnection().prepareCall("{ ? = call getOrder(?) }");
+             CallableStatement callStmt2 = getConnection().prepareCall("{ ? = call getProductsByOrder(?) }");) {
 
             callStmt.registerOutParameter(1, OracleTypes.CURSOR);
             callStmt.setInt(2, id);
@@ -47,10 +66,25 @@ public class OrderDB extends DataHandler {
         return null;
     }
 
+    /**
+     * Adds an Order to the database.
+     *
+     * @param dblAmount         Amount.
+     * @param dblTotalWeight    Total Weight.
+     * @param dblAdditionalFee  Additional Fee.
+     * @param dtOrderDate       Date.
+     * @param strDescription    Description.
+     * @param strStatus         Status.
+     * @param blnIsHomeDelivery Is Home Delivery.
+     * @param oClient           Client.
+     * @param intPharmacyId     Pharmacy's Id.
+     * @param mapProducts       Products.
+     * @return Order's Id.
+     */
     private int addOrder(Double dblAmount, Double dblTotalWeight, Double dblAdditionalFee, Date dtOrderDate,
                          String strDescription, String strStatus, boolean blnIsHomeDelivery, Client oClient, int intPharmacyId, Map<Product, Integer> mapProducts) {
-        try(CallableStatement callStmt = getConnection().prepareCall("{ ? = call addOrder(?,?,?,?,?,?,?,?,?,?) }");
-            CallableStatement callStmt2 = getConnection().prepareCall("{ call addProductToOrder(?,?,?) }");) {
+        try (CallableStatement callStmt = getConnection().prepareCall("{ ? = call addOrder(?,?,?,?,?,?,?,?,?,?) }");
+             CallableStatement callStmt2 = getConnection().prepareCall("{ call addProductToOrder(?,?,?) }")) {
 
             callStmt.registerOutParameter(1, OracleTypes.INTEGER);
             callStmt.setDouble(2, dblAmount);
@@ -86,9 +120,15 @@ public class OrderDB extends DataHandler {
         }
     }
 
+    /**
+     * Removes an Order from the database.
+     *
+     * @param intId Order's Id.
+     * @return true if everything works out, false if it doesn't.
+     */
     public boolean removeOrder(int intId) {
 
-        try(CallableStatement callStmt = getConnection().prepareCall("{ call removeOrder(?) }");) {
+        try (CallableStatement callStmt = getConnection().prepareCall("{ call removeOrder(?) }");) {
 
             callStmt.setInt(1, intId);
 
@@ -103,15 +143,27 @@ public class OrderDB extends DataHandler {
         }
     }
 
+    /**
+     * Calls the private method addOrder().
+     *
+     * @param oOrder Order.
+     * @return The id.
+     */
     public int registerOrder(Order oOrder) {
         return addOrder(oOrder.getAmount(), oOrder.getTotalWeight(), oOrder.getAdditionalFee(), oOrder.getOrderDate(),
                 oOrder.getDescription(), oOrder.getStatus(), oOrder.isHomeDelivery(), oOrder.getClient(), oOrder.getPharmacy().getId(), oOrder.getProducts());
     }
 
+    /**
+     * Gets the latest Order For a Specific Client.
+     *
+     * @param oClient Client.
+     * @return Order.
+     */
     public Order getLatestOrder(Client oClient) {
 
-        try(CallableStatement callStmt = getConnection().prepareCall("{ ? = call getLatestOrder(?) }");
-            CallableStatement callStmt2 = getConnection().prepareCall("{ ? = call getProductsByOrder(?) }");) {
+        try (CallableStatement callStmt = getConnection().prepareCall("{ ? = call getLatestOrder(?) }");
+             CallableStatement callStmt2 = getConnection().prepareCall("{ ? = call getProductsByOrder(?) }");) {
 
             callStmt.registerOutParameter(1, OracleTypes.CURSOR);
             callStmt.setString(2, oClient.getEmail());
@@ -143,9 +195,15 @@ public class OrderDB extends DataHandler {
         throw new IllegalArgumentException("No Order with the following client:" + oClient.getName());
     }
 
+    /**
+     * Gets An Order By Courier
+     *
+     * @param strEmail Courier Email.
+     * @return Order.
+     */
     public Order getOrderByCourier(String strEmail) {
 
-        try(CallableStatement callStmt = getConnection().prepareCall("{ ? = call getOrderByCourier(?) }");) {
+        try (CallableStatement callStmt = getConnection().prepareCall("{ ? = call getOrderByCourier(?) }");) {
 
             callStmt.registerOutParameter(1, OracleTypes.CURSOR);
             callStmt.setString(2, strEmail);
@@ -166,11 +224,17 @@ public class OrderDB extends DataHandler {
         throw new IllegalArgumentException("No Order with the following courier email:" + strEmail);
     }
 
-
+    /**
+     * Notifies and Remove A Product That Doesnt Have Stock.
+     *
+     * @param order Order.
+     * @return Map with Product and Quantities.
+     */
     public Map<Product, Integer> notifyAndRemove(Order order) {
         Map<Product, Integer> lstProducts = new TreeMap<>();
+        boolean flag = false;
         for (Map.Entry<Product, Integer> entry : order.getProducts().entrySet()) {
-            try(CallableStatement callStmt = getConnection().prepareCall("{ ? = call removeProductsPharmacy(?,?,?) }");) {
+            try (CallableStatement callStmt = getConnection().prepareCall("{ ? = call removeProductsPharmacy(?,?,?) }");) {
 
                 callStmt.registerOutParameter(1, oracle.jdbc.internal.OracleTypes.CURSOR);
                 callStmt.setString(2, order.getPharmacy().getEmail());
@@ -182,7 +246,7 @@ public class OrderDB extends DataHandler {
                 ResultSet rSet = (ResultSet) callStmt.getObject(1);
 
                 if (rSet == null) {
-                    return null;
+                    flag = true;
                 }
                 while (rSet.next()) {
                     Product product = productManager(rSet, 1);
@@ -200,7 +264,11 @@ public class OrderDB extends DataHandler {
                 closeAll();
             }
         }
-        return lstProducts;
+        if (flag) {
+            return null;
+        } else {
+            return lstProducts;
+        }
 
     }
 }

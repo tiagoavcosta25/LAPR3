@@ -10,10 +10,30 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * Pharmacy DB.
+ *
+ * Group: Team Lisa [G-021]
+ * ______________________________________________________
+ * @author António Barbosa <1190404@isep.ipp.pt>
+ * @author Ernesto Rodrigues <1190560@isep.ipp.pt>
+ * @author Jessica Alves <1190682@isep.ipp.pt>
+ * @author Pedro Santos <1190967@isep.ipp.pt>
+ * @author Rodrigo Costa <1191014@isep.ipp.pt>
+ * @author Tiago Costa <1191460@isep.ipp.pt>
+ */
 public class PharmacyDB extends DataHandler {
 
+    /**
+     * Static Call To Get Stock By Pharmacy.
+     */
     private static final String GETSTOCKBYPHARMACY = "{ ? = call getStockByPharmacy(?) }";
 
+    /**
+     * Gets a Pharmacy By Its Email.
+     * @param strEmail Email.
+     * @return Pharmacy.
+     */
     public Pharmacy getPharmacy(String strEmail) {
 
         try(CallableStatement callStmt = getConnection().prepareCall("{ ? = call getPharmacy(?) }");
@@ -51,6 +71,13 @@ public class PharmacyDB extends DataHandler {
         throw new IllegalArgumentException("No Pharmacy with Email:" + strEmail);
     }
 
+    /**
+     * Adds A Pharmacy to the database.
+     * @param strName Name.
+     * @param strEmail Email.
+     * @param oAddress Address.
+     * @return true if everything works out, false if it doesn't.
+     */
     private boolean addPharmacy(String strName, String strEmail, Address oAddress) {
         try(CallableStatement callStmt = getConnection().prepareCall("{ call addPharmacy(?,?,?,?,?,?,?,?,?,?) }");) {
             callStmt.setString(1, strName);
@@ -73,6 +100,11 @@ public class PharmacyDB extends DataHandler {
         }
     }
 
+    /**
+     * Removes a Pharmacy By Its Email.
+     * @param strEmail Email.
+     * @return true if everything works out, false if it doesn't.
+     */
     public boolean removePharmacy(String strEmail) {
 
         try(CallableStatement callStmt = getConnection().prepareCall("{ call removePharmacy(?) }");) {
@@ -90,10 +122,22 @@ public class PharmacyDB extends DataHandler {
 
     }
 
+    /**
+     * Calls a private method to add a pharamcy to the database.
+     * @param oPharmacy Pharmacy.
+     * @return true if everything works out, false if it doesn't.
+     */
     public boolean registerPharmacy(Pharmacy oPharmacy) {
         return addPharmacy(oPharmacy.getName(), oPharmacy.getEmail(), oPharmacy.getAddress());
     }
 
+    /**
+     * Register stock to the pharmacy.
+     * @param moPharmacy Pharmacy.
+     * @param moProduct Product.
+     * @param mintStock Stock.
+     * @return true if everything works out, false if it doesn't.
+     */
     public boolean registerPharmacyProduct(Pharmacy moPharmacy, Product moProduct, Integer mintStock) {
         try(CallableStatement callStmt = getConnection().prepareCall("{ call addPharmacyProduct(?,?,?) }");) {
 
@@ -111,6 +155,10 @@ public class PharmacyDB extends DataHandler {
         }
     }
 
+    /**
+     * Gets the list of every pharmacy.
+     * @return The list of every pharmacy.
+     */
     public List<Pharmacy> getPharmacies() {
         List<Pharmacy> lstPharmacies = new ArrayList<>();
         try(CallableStatement callStmt = getConnection().prepareCall("{ ? = call getPharmacies() }");
@@ -146,6 +194,11 @@ public class PharmacyDB extends DataHandler {
         throw new IllegalArgumentException("No Pharmacies Avaliable.");
     }
 
+    /**
+     * Gets Orders By Pharmacy.
+     * @param oPharmacy Pharmacy.
+     * @return The list of orders.
+     */
     public List<Order> getOrdersByPharmacyEmail(Pharmacy oPharmacy) {
         try(CallableStatement callStmt = getConnection().prepareCall("{ ? = call getOrdersByPharmacyEmail(?) }");
             CallableStatement callStmt2 = getConnection().prepareCall("{ ? = call getProductsByOrder(?) }");) {
@@ -181,7 +234,13 @@ public class PharmacyDB extends DataHandler {
         }
     }
 
-
+    /**
+     * Gets Pharamacy With Stock.
+     * @param oOrder Order.
+     * @param oProduct Product.
+     * @param intQuantity Quantity.
+     * @return The list of pharmacy.
+     */
     public List<Pharmacy> getPharmaciesWithStock(Order oOrder, Product oProduct, Integer intQuantity) {
         List<Pharmacy> lstPharmacies = new ArrayList<>();
         try(CallableStatement callStmt = getConnection().prepareCall("{ ? = call getPharmaciesWithStock(?,?,?) }");
@@ -222,42 +281,10 @@ public class PharmacyDB extends DataHandler {
         throw new IllegalArgumentException("No Pharmacy with enough stock.");
     }
 
-    public Pharmacy getPharmacyByManagerEmail(String email) {
-
-        try(CallableStatement callStmt = getConnection().prepareCall("{ ? = call getPharmacyByManagerEmail(?) }");
-            CallableStatement callStmt2 = getConnection().prepareCall(GETSTOCKBYPHARMACY);) {
-
-            callStmt.registerOutParameter(1, OracleTypes.CURSOR);
-            callStmt.setString(2, email);
-
-            callStmt.execute();
-
-            ResultSet rSet = (ResultSet) callStmt.getObject(1);
-
-            if (rSet.next()) {
-                Pharmacy oPharmacy = pharmacyManager(rSet, 1);
-
-                callStmt2.registerOutParameter(1, OracleTypes.CURSOR);
-                callStmt2.setInt(oPharmacy.getId(), 2);
-
-                callStmt2.execute();
-
-                ResultSet rSetProducts = (ResultSet) callStmt2.getObject(1);
-
-                while (rSet.next()){
-                    oPharmacy = pharmacyProductManager(rSetProducts, 1, oPharmacy);
-                }
-                return oPharmacy;
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            closeAll();
-        }
-        throw new IllegalArgumentException("No Pharmacy with Manager Email: " + email);
-    }
-
-
+    /**
+     * Gets a Suitable Courier.
+     * @return Courier.
+     */
     public Courier getSuitableCourier() {
         try(CallableStatement callStmt = getConnection().prepareCall("{ ? = call getSuitableCourier() }");) {
 

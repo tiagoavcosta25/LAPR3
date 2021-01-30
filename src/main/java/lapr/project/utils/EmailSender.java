@@ -38,7 +38,7 @@ public class EmailSender {
                     "%s\n\n______________________________________________________________________________________\n\n" +
                     "Thank you for choosing us.\nKing regards,\nPharmacy Service G21.",body);
             String strHtmlBody = htmlBody(strBody);
-            if(strHtmlBody.equals("") || subject.equals("")) {
+            if(emailToFoward.equals("") || strHtmlBody.equals("") || subject.equals("")) {
                 throw new MessagingException();
             }
             Message message = new MimeMessage(session);
@@ -46,7 +46,7 @@ public class EmailSender {
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(emailToFoward));
             message.setSubject(subject);
             message.setContent(strHtmlBody, Constants.EMAIL_BODY_TYPE);
-            Transport.send(message);
+            //Transport.send(message);
             LOGGER.log(Level.INFO, "Email Sent!");
             return true;
         } catch (MessagingException e) {

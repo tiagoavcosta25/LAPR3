@@ -17,10 +17,10 @@ class EmailSenderTest {
         result = EmailSender.sendEmail("teste@gmail.com", "Test", "");
         assertTrue(result);
 
-        result = EmailSender.sendEmail("csxmutilation@gmail.com", "", "Test");
+        result = EmailSender.sendEmail("teste@gmail.com", "", "Test");
         assertFalse(result);
 
-        result = EmailSender.sendEmail("csxmutilation@gmail.com", "Test", "");
+        result = EmailSender.sendEmail("teste@gmail.com", "Test", "");
         assertTrue(result);
     }
 

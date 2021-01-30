@@ -77,7 +77,6 @@ class AddPharmacyProductControllerTest {
     void registerPharmacyProduct() {
         System.out.println("registerPharmacyProduct");
         ApplicationPOT.getInstance().setCurrentSession(new UserSession("email3@gmail.com"));
-        when(mockPharmacyService.getPharmacyByManagerEmail("email3@gmail.com")).thenReturn(new Pharmacy());
         when(mockPharmacyService.registerPharmacyProduct(new Pharmacy(), new Product(), 1)).thenReturn(expectedValue);
 
         addPharmacyProductController.setProduct(new Product());

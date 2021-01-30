@@ -4,7 +4,7 @@ CREATE OR REPLACE FUNCTION removeProductsPharmacy(pharmacyEmail "PHARMACY".EMAIL
     RFC sys_refcursor;
     v_checkPharmacyId int;
     v_checkProductyId int;
-    v_checkProductyPharmacy int;
+    v_checkProductPharmacy int;
     v_checkProductQuantity int;
     v_checkProductPharmacies int;
     pharmacy_not_found exception;
@@ -30,7 +30,7 @@ BEGIN
     END IF;
 
     /*CHECK IF THE PRODUCT EVEN EXISTS ON THE PHARMACY*/
-    SELECT COUNT(PHARMACYPRODUCT.PRODUCTID) INTO v_checkProductyPharmacy
+    SELECT COUNT(PHARMACYPRODUCT.PRODUCTID) INTO v_checkProductPharmacy
     FROM PHARMACYPRODUCT INNER JOIN PHARMACY P2 on P2.ID = PHARMACYPRODUCT.PHARMACYID
     WHERE P2.EMAIL = pharmacyEmail AND PHARMACYPRODUCT.PRODUCTID = productIds;
 
@@ -61,15 +61,15 @@ BEGIN
     END IF;
 
     /*CASE WHERE THE PHARMACY DOESNT HAVE ANY QUANTITY FOR THE PRODUCT*/
-    IF v_checkProductQuantity = 0 OR v_checkProductyPharmacy = 0 THEN
+    IF v_checkProductQuantity = 0 OR v_checkProductPharmacy = 0 THEN
 
         /*CHECK IF EVEN EXISTS ON THE PHARMACY OR IF THE THE STOCK IS 0*/
-        SELECT COUNT(PHARMACYPRODUCT.PRODUCTID) INTO v_checkProductyPharmacy
+        SELECT COUNT(PHARMACYPRODUCT.PRODUCTID) INTO v_checkProductPharmacy
         FROM PHARMACYPRODUCT INNER JOIN PHARMACY P2 on P2.ID = PHARMACYPRODUCT.PHARMACYID
         WHERE P2.EMAIL = pharmacyEmail AND PHARMACYPRODUCT.PRODUCTID = productIds;
 
         /* IF THE PRODUCT IS ON THE PHARMACY BUT WITH STOCK 0*/
-        IF v_checkProductyPharmacy != 0 THEN
+        IF v_checkProductPharmacy != 0 THEN
             SELECT ID INTO v_checkPharmacyId
             FROM PHARMACY
             WHERE EMAIL = pharmacyEmail;
@@ -112,3 +112,4 @@ EXCEPTION
         RETURN NULL;
 
 END;
+

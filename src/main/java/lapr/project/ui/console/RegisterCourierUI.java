@@ -21,22 +21,22 @@ public class RegisterCourierUI implements UI {
 
                 System.out.println("Introduce a new Courier's information:\n");
                 System.out.print("Name: ");
-                String name = reader.next();
+                String name = reader.nextLine();
                 System.out.print("Email: ");
-                String email = reader.next();
+                String email = reader.nextLine();
                 System.out.print("Nif: ");
-                Integer nif = Integer.parseInt(reader.next());
+                Integer nif = Integer.parseInt(reader.nextLine());
                 System.out.print("IBAN: ");
-                String iban = reader.next();
+                String iban = reader.nextLine();
                 System.out.print("Pharmacy's email: ");
-                String pharmacyEmail = reader.next();
+                String pharmacyEmail = reader.nextLine();
                 System.out.print("Do you wish to create a courier with the following data?");
                 System.out.println("Name: " + name + "\nEmail: " + email + "\nNif: " + nif + "\nIban: " + iban + "\nPharmacy's Email: " + pharmacyEmail);
                 System.out.println();
                 System.out.println("YES[1]");
                 System.out.println("NO[2]");
                 System.out.println("CANCEL[3]");
-                input = reader.nextInt();
+                input = Integer.parseInt(reader.nextLine());
                 switch (input) {
                     case 1:
                         RegisterCourierController ctrl = new RegisterCourierController();
