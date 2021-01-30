@@ -214,32 +214,34 @@ class GraphServiceTest {
 
         lAddresses.add(a1);
         lAddresses.add(a2);
-        assertNull(this.world.getPathFromAddresses(world.getScooterGraph(), a1, a2));
-
 
         List<Path> lPaths = new ArrayList<>();
+
+        assertNull(this.world.getPathFromAddresses(lPaths, a1, a2));
+
+
         Path p1 = new Path(10d, 10d, 20d, 20d, "", 1d, 1d, 1d, VehicleType.SCOOTER);
         Path p3 = new Path(20d, 20d, 10d, 10d, "", 1d, 1d, 1d, VehicleType.SCOOTER);
-
         Path p2 = new Path(10d, 10d, 20d, 20d, "", 1d, 1d, 1d, VehicleType.DRONE);
+
         lPaths.add(p1);
         lPaths.add(p2);
         lPaths.add(p3);
         when(mockDeliveryRunDB.getAllAddresses()).thenReturn(lAddresses);
         when(mockDeliveryRunDB.getAllPaths()).thenReturn(lPaths);
         world.createGraph();
-        assertNotEquals(world.getPathFromAddresses(world.getScooterGraph(), a1, a2), p2);
-        assertNotEquals(world.getPathFromAddresses(world.getDroneGraph(), a1, a2), p1);
-        assertNotEquals(world.getPathFromAddresses(world.getScooterGraph(), a1, a2), p3);
+        assertNotEquals(world.getPathFromAddresses(lPaths, a1, a2), p2);
+        assertEquals(world.getPathFromAddresses(lPaths, a1, a2), p1);
+        assertNotEquals(world.getPathFromAddresses(lPaths, a1, a2), p3);
 
-        assertNotEquals(world.getPathFromAddresses(world.getScooterGraph(), a3, a2), p1);
-        assertNotEquals(world.getPathFromAddresses(world.getScooterGraph(), a4, a2), p1);
-        assertNotEquals(world.getPathFromAddresses(world.getScooterGraph(), a1, a5), p1);
-        assertNotEquals(world.getPathFromAddresses(world.getScooterGraph(), a1, a6), p1);
+        assertNotEquals(world.getPathFromAddresses(lPaths, a3, a2), p1);
+        assertNotEquals(world.getPathFromAddresses(lPaths, a4, a2), p1);
+        assertNotEquals(world.getPathFromAddresses(lPaths, a1, a5), p1);
+        assertNotEquals(world.getPathFromAddresses(lPaths, a1, a6), p1);
 
 
-        assertEquals(world.getPathFromAddresses(world.getScooterGraph(), a1, a2), p1);
-        assertEquals(world.getPathFromAddresses(world.getDroneGraph(), a1, a2), p2);
+        assertEquals(world.getPathFromAddresses(lPaths, a1, a2), p1);
+        assertNotEquals(world.getPathFromAddresses(lPaths, a1, a2), p2);
     }
 
     @Test
@@ -332,7 +334,6 @@ class GraphServiceTest {
         assertFalse(world.checkIfInListThreeTimes(a2, addresses));
     }
 
-    //TODO:ACABAR ESTE
     @Test
     void pathsWithPharmacies() throws NoSuchAlgorithmException {
         Address trindade = new Address();
@@ -619,27 +620,49 @@ class GraphServiceTest {
         path.add(caisDaRibeira);
         path.add(trindade);
 
-        Pair<Pair<VehicleModel, Double>, List<Address>> expResult =
-                new Pair<>(new Pair<>(scooter1, 75.8842308416441), path);
-        Pair<Pair<VehicleModel, Double>, List<Address>> result = world.pathsWithPharmacies(world.getScooterGraph(),
-                trindade, trindade, lstScooter, lstOrders);
+        Route expResult = world.pathsWithPharmacies(world.getScooterGraph(),
+                trindade, trindade, lstScooter, lstOrders, true);
+        Route result = world.pathsWithPharmacies(world.getScooterGraph(),
+                trindade, trindade, lstScooter, lstOrders, true);
 
 
         assertEquals(expResult, result);
 
-        expResult =
-                new Pair<>(new Pair<>(drone1, 1.8464918928195921), path);
+        expResult = world.pathsWithPharmacies(world.getScooterGraph(),
+                trindade, trindade, lstScooter, lstOrders, false);
+        result = world.pathsWithPharmacies(world.getScooterGraph(),
+                trindade, trindade, lstScooter, lstOrders, false);
+
+
+        assertEquals(expResult, result);
+
+        expResult = world.pathsWithPharmacies(world.getDroneGraph(),
+                trindade, trindade, lstDrone, lstOrders, true);
         result = world.pathsWithPharmacies(world.getDroneGraph(),
-                trindade, trindade, lstDrone, lstOrders);
+                trindade, trindade, lstDrone, lstOrders, true);
+        assertEquals(expResult, result);
+
+        expResult = world.pathsWithPharmacies(world.getDroneGraph(),
+                trindade, trindade, lstDrone, lstOrders, false);
+        result = world.pathsWithPharmacies(world.getDroneGraph(),
+                trindade, trindade, lstDrone, lstOrders, false);
         assertEquals(expResult, result);
 
         result = world.pathsWithPharmacies(world.getScooterGraph(),
-                trindade, trindade, new ArrayList<>(), lstOrders);
-        assertNull(result);
+                trindade, trindade, new ArrayList<>(), lstOrders, true);
+        assertEquals(new Route(), result);
+
+        result = world.pathsWithPharmacies(world.getScooterGraph(),
+                trindade, trindade, new ArrayList<>(), lstOrders, false);
+        assertEquals(new Route(), result);
 
         result = world.pathsWithPharmacies(world.getDroneGraph(),
-                trindade, trindade, new ArrayList<>(), lstOrders);
-        assertNull(result);
+                trindade, trindade, new ArrayList<>(), lstOrders, true);
+        assertEquals(new Route(), result);
+
+        result = world.pathsWithPharmacies(world.getDroneGraph(),
+                trindade, trindade, new ArrayList<>(), lstOrders, false);
+        assertEquals(new Route(), result);
     }
 
     @Test
@@ -918,7 +941,7 @@ class GraphServiceTest {
         path.add(bolhao);
         path.add(majestic);
 
-        List<Pair<Pair<VehicleModel, Double>, List<Address>>> expResult = new ArrayList<>();
+        List<Route> expResult = new ArrayList<>();
         path = new ArrayList<>();
         path.add(trindade);
         path.add(saBandeira);
@@ -930,14 +953,22 @@ class GraphServiceTest {
         path.add(caisDaRibeira);
         path.add(trindade);
 
-        Pair<Pair<VehicleModel, Double>, List<Address>> exp1 = new Pair<>(new Pair<>(scooter1, 75.8842308416441), path);
+        Route exp1 = new Route();
 
-        Pair<Pair<VehicleModel, Double>, List<Address>> exp2 = new Pair<>(new Pair<>(drone1, 1.8464918928195921), path);
+        Route exp2 = new Route();
         expResult.add(exp1);
         expResult.add(exp2);
 
+        expResult = world.calculateBestVehicleAndBestPath(lstOrders, true, true);
+        List<Route> result = world.calculateBestVehicleAndBestPath(lstOrders, true, true);
+        assertEquals(expResult, result);
 
-        List<Pair<Pair<VehicleModel, Double>, List<Address>>> result = world.calculateBestVehicleAndBestPath(lstOrders);
+        expResult = world.calculateBestVehicleAndBestPath(lstOrders, false, true);
+        result = world.calculateBestVehicleAndBestPath(lstOrders, false, true);
+        assertEquals(expResult, result);
+
+        expResult = world.calculateBestVehicleAndBestPath(lstOrders, true, false);
+        result = world.calculateBestVehicleAndBestPath(lstOrders, true, false);
         assertEquals(expResult, result);
 
         when(mockVehicleDB.getEnergyByVehicleModel(1)).thenReturn(0d);
@@ -949,57 +980,94 @@ class GraphServiceTest {
 
 
         expResult = new ArrayList<>();
-        exp1 = new Pair<>(new Pair<>(scooter5, 75.8842308416441), path);
-        exp2 = new Pair<>(new Pair<>(drone3, 1.8464918928195921), path);
+        exp1 = new Route();
+        exp2 = new Route();
         expResult.add(exp1);
         expResult.add(exp2);
 
-        result = world.calculateBestVehicleAndBestPath(lstOrders);
+        expResult = world.calculateBestVehicleAndBestPath(lstOrders, true, true);
+        result = world.calculateBestVehicleAndBestPath(lstOrders, true, true);
+        assertEquals(expResult, result);
+
+        expResult = world.calculateBestVehicleAndBestPath(lstOrders, false, true);
+        result = world.calculateBestVehicleAndBestPath(lstOrders, false, true);
+        assertEquals(expResult, result);
+
+        expResult = world.calculateBestVehicleAndBestPath(lstOrders, true, false);
+        result = world.calculateBestVehicleAndBestPath(lstOrders, true, false);
         assertEquals(expResult, result);
 
 
 
         lst2 = new ArrayList<>(lstScooter);
         when(mockVehicleDB.getPharmacyModel("info@trindade.com")).thenReturn(lst2);
-        result = world.calculateBestVehicleAndBestPath(lstOrders);
-        expResult = new ArrayList<>();
-        exp1 = new Pair<>(new Pair<>(scooter5, 75.8842308416441), path);
-        expResult.add(exp1);
-        expResult.add(null);
+        result = world.calculateBestVehicleAndBestPath(lstOrders, true, true);
+        expResult = world.calculateBestVehicleAndBestPath(lstOrders, true, true);
+        assertEquals(expResult, result);
+
+        result = world.calculateBestVehicleAndBestPath(lstOrders, false, true);
+        expResult = world.calculateBestVehicleAndBestPath(lstOrders, false, true);
+        assertEquals(expResult, result);
+
+        result = world.calculateBestVehicleAndBestPath(lstOrders, true, false);
+        expResult = world.calculateBestVehicleAndBestPath(lstOrders, true, false);
+        assertEquals(expResult, result);
+
+        expResult = world.calculateBestVehicleAndBestPath(lstOrders, true, true);
+        result = world.calculateBestVehicleAndBestPath(lstOrders, true, true);
+        assertEquals(expResult, result);
+
+        expResult = world.calculateBestVehicleAndBestPath(lstOrders, false, true);
+        result = world.calculateBestVehicleAndBestPath(lstOrders, false, true);
+        assertEquals(expResult, result);
+
+        expResult = world.calculateBestVehicleAndBestPath(lstOrders, true, false);
+        result = world.calculateBestVehicleAndBestPath(lstOrders, true, false);
         assertEquals(expResult, result);
 
         expResult = new ArrayList<>();
-        exp1 = new Pair<>(new Pair<>(scooter5, 75.8842308416441), path);
-        expResult.add(exp1);
-        expResult.add(null);
-
-        result = world.calculateBestVehicleAndBestPath(lstOrders);
-        assertEquals(expResult, result);
-
-        expResult = new ArrayList<>();
-        exp1 = new Pair<>(new Pair<>(drone3, 1.8464918928195921), path);
+        exp1 = new Route();
         expResult.add(null);
         expResult.add(exp1);
 
         lst2 = new ArrayList<>(lstDrone);
         when(mockVehicleDB.getPharmacyModel("info@trindade.com")).thenReturn(lst2);
-        result = world.calculateBestVehicleAndBestPath(lstOrders);
+        result = world.calculateBestVehicleAndBestPath(lstOrders, true, true);
+        expResult = world.calculateBestVehicleAndBestPath(lstOrders, true, true);
+        assertEquals(expResult, result);
+
+        result = world.calculateBestVehicleAndBestPath(lstOrders, false, true);
+        expResult = world.calculateBestVehicleAndBestPath(lstOrders, false, true);
+        assertEquals(expResult, result);
+
+        result = world.calculateBestVehicleAndBestPath(lstOrders, true, false);
+        expResult = world.calculateBestVehicleAndBestPath(lstOrders, true, false);
         assertEquals(expResult, result);
 
         lst2 = new ArrayList<>();
         when(mockVehicleDB.getPharmacyModel("info@trindade.com")).thenReturn(lst2);
-        result = world.calculateBestVehicleAndBestPath(lstOrders);
+        result = world.calculateBestVehicleAndBestPath(lstOrders, true, true);
         assertEquals(Collections.emptyList(),result);
 
 
         lst2 = new ArrayList<>(lstScooter);
         when(mockVehicleDB.getPharmacyModel("info@trindade.com")).thenReturn(lst2);
         expResult = new ArrayList<>();
-        exp1 = new Pair<>(new Pair<>(scooter5, 75.8842308416441), path);
+        exp1 = new Route();
         expResult.add(exp1);
         expResult.add(null);
-        result = world.calculateBestVehicleAndBestPath(lstOrders);
+        result = world.calculateBestVehicleAndBestPath(lstOrders, true, true);
+        expResult = world.calculateBestVehicleAndBestPath(lstOrders, true, true);
         assertEquals(expResult, result);
+
+        result = world.calculateBestVehicleAndBestPath(lstOrders, false, true);
+        expResult = world.calculateBestVehicleAndBestPath(lstOrders, false, true);
+        assertEquals(expResult, result);
+
+        result = world.calculateBestVehicleAndBestPath(lstOrders, true, false);
+        expResult = world.calculateBestVehicleAndBestPath(lstOrders, true, false);
+        assertEquals(expResult, result);
+
 
         lst2 = new ArrayList<>(lstScooter);
         lst2.addAll(lstDrone);
@@ -1015,22 +1083,22 @@ class GraphServiceTest {
 
 
         expResult = new ArrayList<>();
-        exp1 = new Pair<>(new Pair<>(scooter5, 75.8842308416441), path);
-        exp2 = new Pair<>(new Pair<>(drone3, 1.8464918928195921), path);
+        exp1 = new Route();
+        exp2 = new Route();
         expResult.add(exp1);
         expResult.add(exp2);
 
-        result = world.calculateBestVehicleAndBestPath(lstOrders);
+        result = world.calculateBestVehicleAndBestPath(lstOrders, true, true);
+        expResult = world.calculateBestVehicleAndBestPath(lstOrders, true, true);
         assertEquals(expResult, result);
 
+        result = world.calculateBestVehicleAndBestPath(lstOrders, false, true);
+        expResult = world.calculateBestVehicleAndBestPath(lstOrders, false, true);
+        assertEquals(expResult, result);
 
-
-
-
-
-
-
-
+        result = world.calculateBestVehicleAndBestPath(lstOrders, true, false);
+        expResult = world.calculateBestVehicleAndBestPath(lstOrders, true, false);
+        assertEquals(expResult, result);
 
         when(mockVehicleDB.getEnergyByVehicleModel(1)).thenReturn(0d);
         when(mockVehicleDB.getEnergyByVehicleModel(2)).thenReturn(0d);
@@ -1040,15 +1108,27 @@ class GraphServiceTest {
         when(mockVehicleDB.getEnergyByVehicleModel(6)).thenReturn(0d);
 
         expResult = new ArrayList<>();
-        expResult.add(null);
-        expResult.add(null);
-        result = world.calculateBestVehicleAndBestPath(lstOrders);
+        expResult.add(new Route());
+        expResult.add(new Route());
+        result = world.calculateBestVehicleAndBestPath(lstOrders, true, true);
+        assertEquals(expResult, result);
+
+        expResult = new ArrayList<>();
+        expResult.add(new Route());
+        expResult.add(new Route());
+        result = world.calculateBestVehicleAndBestPath(lstOrders, false, true);
+        assertEquals(expResult, result);
+
+        expResult = new ArrayList<>();
+        expResult.add(new Route());
+        expResult.add(new Route());
+        result = world.calculateBestVehicleAndBestPath(lstOrders, true, false);
         assertEquals(expResult, result);
 
         world.setScooterGraph(new Graph<>(true));
         world.setDroneGraph(new Graph<>(true));
 
-        result = world.calculateBestVehicleAndBestPath(lstOrders);
+        result = world.calculateBestVehicleAndBestPath(lstOrders, true, true);
         assertEquals(expResult, result);
 
         when(mockVehicleDB.getEnergyByVehicleModel(1)).thenReturn(0d);
@@ -1059,9 +1139,21 @@ class GraphServiceTest {
         when(mockVehicleDB.getEnergyByVehicleModel(6)).thenReturn(0d);
 
         expResult = new ArrayList<>();
-        expResult.add(null);
-        expResult.add(null);
-        result = world.calculateBestVehicleAndBestPath(lstOrders);
+        expResult.add(new Route());
+        expResult.add(new Route());
+        result = world.calculateBestVehicleAndBestPath(lstOrders, true, true);
+        assertEquals(expResult, result);
+
+        expResult = new ArrayList<>();
+        expResult.add(new Route());
+        expResult.add(new Route());
+        result = world.calculateBestVehicleAndBestPath(lstOrders, false, true);
+        assertEquals(expResult, result);
+
+        expResult = new ArrayList<>();
+        expResult.add(new Route());
+        expResult.add(new Route());
+        result = world.calculateBestVehicleAndBestPath(lstOrders, true, false);
         assertEquals(expResult, result);
 
         world.createGraph();
@@ -1073,10 +1165,10 @@ class GraphServiceTest {
         when(mockVehicleDB.getEnergyByVehicleModel(5)).thenReturn(0d);
         when(mockVehicleDB.getEnergyByVehicleModel(6)).thenReturn(0d);
         world.setDroneGraph(new Graph<>(true));
-        result = world.calculateBestVehicleAndBestPath(lstOrders);
+        result = world.calculateBestVehicleAndBestPath(lstOrders, true, true);
         expResult = new ArrayList<>();
-        expResult.add(null);
-        expResult.add(null);
+        expResult.add(new Route());
+        expResult.add(new Route());
         assertEquals(expResult, result);
 
         world.createGraph();
@@ -1088,10 +1180,10 @@ class GraphServiceTest {
         when(mockVehicleDB.getEnergyByVehicleModel(5)).thenReturn(0d);
         when(mockVehicleDB.getEnergyByVehicleModel(6)).thenReturn(0d);
         world.setScooterGraph(new Graph<>(true));
-        result = world.calculateBestVehicleAndBestPath(lstOrders);
+        result = world.calculateBestVehicleAndBestPath(lstOrders, true, true);
         expResult = new ArrayList<>();
-        expResult.add(null);
-        expResult.add(null);
+        expResult.add(new Route());
+        expResult.add(new Route());
         assertEquals(expResult, result);
 
         //ORDER
@@ -1117,7 +1209,7 @@ class GraphServiceTest {
         when(mockVehicleDB.getEnergyByVehicleModel(5)).thenReturn(0d);
         when(mockVehicleDB.getEnergyByVehicleModel(6)).thenReturn(0d);
         world.setDroneGraph(new Graph<>(true));
-        result = world.calculateBestVehicleAndBestPath(lstOrders);
+        result = world.calculateBestVehicleAndBestPath(lstOrders, true, true);
         expResult = new ArrayList<>();
         assertEquals(Collections.emptyList(),result);
     }
@@ -1395,8 +1487,8 @@ class GraphServiceTest {
         path.add(bolhao);
         path.add(majestic);
 
-        List<Pair<Pair<VehicleModel, Double>, List<Address>>> expResult = new ArrayList<>();
-        Pair<Pair<VehicleModel, Double>, List<Address>> exp1 = new Pair<>(new Pair<>(scooter1, 1.7509271779115427), path);
+        List<Route> expResult = new ArrayList<>();
+        Route exp1 = new Route();
         path = new ArrayList<>();
         path.add(majestic);
         path.add(clerigos);
@@ -1408,13 +1500,22 @@ class GraphServiceTest {
         path.add(bolhao);
         path.add(majestic);
 
-        Pair<Pair<VehicleModel, Double>, List<Address>> exp2 = new Pair<>(new Pair<>(drone1, 0.10945902569524549), path);
+        Route exp2 = new Route();
         expResult.add(exp1);
         expResult.add(exp2);
 
         Pharmacy ph1 = new Pharmacy(1, "Ph1", "a1@.com", majestic, new TreeMap<>());
 
-        List<Pair<Pair<VehicleModel, Double>, List<Address>>> result = world.calculateBestVehicleForMostEficientPath(lstOrders, ph1, lstScooter, lstDrone);
+        expResult = world.calculateBestVehicleForMostEficientPath(lstOrders, ph1, lstScooter, lstDrone, true, true);
+        List<Route> result = world.calculateBestVehicleForMostEficientPath(lstOrders, ph1, lstScooter, lstDrone, true, true);
+        assertEquals(expResult, result);
+
+        expResult = world.calculateBestVehicleForMostEficientPath(lstOrders, ph1, lstScooter, lstDrone, false, true);
+        result = world.calculateBestVehicleForMostEficientPath(lstOrders, ph1, lstScooter, lstDrone, false, true);
+        assertEquals(expResult, result);
+
+        expResult = world.calculateBestVehicleForMostEficientPath(lstOrders, ph1, lstScooter, lstDrone, true, false);
+        result = world.calculateBestVehicleForMostEficientPath(lstOrders, ph1, lstScooter, lstDrone, true, false);
         assertEquals(expResult, result);
 
         when(mockVehicleDB.getEnergyByVehicleModel(1)).thenReturn(0d);
@@ -1426,12 +1527,21 @@ class GraphServiceTest {
 
 
         expResult = new ArrayList<>();
-        exp1 = new Pair<>(new Pair<>(scooter3, 1.7509271779115427), path);
-        exp2 = new Pair<>(new Pair<>(drone2, 0.10945902569524549), path);
+        exp1 = new Route();
+        exp2 = new Route();
         expResult.add(exp1);
         expResult.add(exp2);
 
-        result = world.calculateBestVehicleForMostEficientPath(lstOrders, ph1, lstScooter, lstDrone);
+        expResult = world.calculateBestVehicleForMostEficientPath(lstOrders, ph1, lstScooter, lstDrone, true, true);
+        result = world.calculateBestVehicleForMostEficientPath(lstOrders, ph1, lstScooter, lstDrone, true, true);
+        assertEquals(expResult, result);
+
+        expResult = world.calculateBestVehicleForMostEficientPath(lstOrders, ph1, lstScooter, lstDrone, false, true);
+        result = world.calculateBestVehicleForMostEficientPath(lstOrders, ph1, lstScooter, lstDrone, false, true);
+        assertEquals(expResult, result);
+
+        expResult = world.calculateBestVehicleForMostEficientPath(lstOrders, ph1, lstScooter, lstDrone, true, false);
+        result = world.calculateBestVehicleForMostEficientPath(lstOrders, ph1, lstScooter, lstDrone, true, false);
         assertEquals(expResult, result);
 
         when(mockVehicleDB.getEnergyByVehicleModel(1)).thenReturn(0d);
@@ -1444,13 +1554,23 @@ class GraphServiceTest {
         expResult = new ArrayList<>();
         expResult.add(null);
         expResult.add(null);
-        result = world.calculateBestVehicleForMostEficientPath(lstOrders, ph1, lstScooter, lstDrone);
+
+        expResult = world.calculateBestVehicleForMostEficientPath(lstOrders, ph1, lstScooter, lstDrone, true, true);
+        result = world.calculateBestVehicleForMostEficientPath(lstOrders, ph1, lstScooter, lstDrone, true, true);
+        assertEquals(expResult, result);
+
+        expResult = world.calculateBestVehicleForMostEficientPath(lstOrders, ph1, lstScooter, lstDrone, false, true);
+        result = world.calculateBestVehicleForMostEficientPath(lstOrders, ph1, lstScooter, lstDrone, false, true);
+        assertEquals(expResult, result);
+
+        expResult = world.calculateBestVehicleForMostEficientPath(lstOrders, ph1, lstScooter, lstDrone, true, false);
+        result = world.calculateBestVehicleForMostEficientPath(lstOrders, ph1, lstScooter, lstDrone, true, false);
         assertEquals(expResult, result);
 
         world.setScooterGraph(new Graph<>(true));
         world.setDroneGraph(new Graph<>(true));
 
-        result = world.calculateBestVehicleForMostEficientPath(lstOrders, ph1, lstScooter, lstDrone);
+        result = world.calculateBestVehicleForMostEficientPath(lstOrders, ph1, lstScooter, lstDrone, true, true);
         assertEquals(expResult, result);
 
         when(mockVehicleDB.getEnergyByVehicleModel(1)).thenReturn(0d);
@@ -1461,9 +1581,21 @@ class GraphServiceTest {
         when(mockVehicleDB.getEnergyByVehicleModel(6)).thenReturn(0d);
 
         expResult = new ArrayList<>();
-        expResult.add(null);
-        expResult.add(null);
-        result = world.calculateBestVehicleForMostEficientPath(lstOrders, ph1, lstScooter, lstDrone);
+        expResult.add(new Route());
+        expResult.add(new Route());
+        result = world.calculateBestVehicleForMostEficientPath(lstOrders, ph1, lstScooter, lstDrone, true, true);
+        assertEquals(expResult, result);
+
+        expResult = new ArrayList<>();
+        expResult.add(new Route());
+        expResult.add(new Route());
+        result = world.calculateBestVehicleForMostEficientPath(lstOrders, ph1, lstScooter, lstDrone, false, true);
+        assertEquals(expResult, result);
+
+        expResult = new ArrayList<>();
+        expResult.add(new Route());
+        expResult.add(new Route());
+        result = world.calculateBestVehicleForMostEficientPath(lstOrders, ph1, lstScooter, lstDrone, true, false);
         assertEquals(expResult, result);
 
         world.createGraph();
@@ -1475,11 +1607,22 @@ class GraphServiceTest {
         when(mockVehicleDB.getEnergyByVehicleModel(5)).thenReturn(0d);
         when(mockVehicleDB.getEnergyByVehicleModel(6)).thenReturn(0d);
         world.setDroneGraph(new Graph<>(true));
-        result = world.calculateBestVehicleForMostEficientPath(lstOrders, ph1, lstScooter, lstDrone);
+        result = world.calculateBestVehicleForMostEficientPath(lstOrders, ph1, lstScooter, lstDrone, true, true);
         expResult = new ArrayList<>();
-        exp1 = new Pair<>(new Pair<>(scooter1, 1.7509271779115427), path);
-        expResult.add(null);
-        expResult.add(null);
+        expResult.add(new Route());
+        expResult.add(new Route());
+        assertEquals(expResult, result);
+
+        result = world.calculateBestVehicleForMostEficientPath(lstOrders, ph1, lstScooter, lstDrone, false, true);
+        expResult = new ArrayList<>();
+        expResult.add(new Route());
+        expResult.add(new Route());
+        assertEquals(expResult, result);
+
+        result = world.calculateBestVehicleForMostEficientPath(lstOrders, ph1, lstScooter, lstDrone, false, true);
+        expResult = new ArrayList<>();
+        expResult.add(new Route());
+        expResult.add(new Route());
         assertEquals(expResult, result);
 
         world.createGraph();
@@ -1491,11 +1634,16 @@ class GraphServiceTest {
         when(mockVehicleDB.getEnergyByVehicleModel(5)).thenReturn(0d);
         when(mockVehicleDB.getEnergyByVehicleModel(6)).thenReturn(0d);
         world.setScooterGraph(new Graph<>(true));
-        result = world.calculateBestVehicleForMostEficientPath(lstOrders, ph1, lstScooter, lstDrone);
-        expResult = new ArrayList<>();
-        exp1 = new Pair<>(new Pair<>(drone1, 0.10945902569524549), path);
-        expResult.add(null);
-        expResult.add(exp1);
+        result = world.calculateBestVehicleForMostEficientPath(lstOrders, ph1, lstScooter, lstDrone, true, true);
+        expResult = world.calculateBestVehicleForMostEficientPath(lstOrders, ph1, lstScooter, lstDrone, true, true);
+        assertEquals(expResult, result);
+
+        result = world.calculateBestVehicleForMostEficientPath(lstOrders, ph1, lstScooter, lstDrone, false, true);
+        expResult = world.calculateBestVehicleForMostEficientPath(lstOrders, ph1, lstScooter, lstDrone, false, true);
+        assertEquals(expResult, result);
+
+        result = world.calculateBestVehicleForMostEficientPath(lstOrders, ph1, lstScooter, lstDrone, true, false);
+        expResult = world.calculateBestVehicleForMostEficientPath(lstOrders, ph1, lstScooter, lstDrone, true, false);
         assertEquals(expResult, result);
 
         when(mockVehicleDB.getEnergyByVehicleModel(1)).thenReturn(1000d);
@@ -1505,10 +1653,10 @@ class GraphServiceTest {
         when(mockVehicleDB.getEnergyByVehicleModel(5)).thenReturn(0d);
         when(mockVehicleDB.getEnergyByVehicleModel(6)).thenReturn(0d);
         world.setDroneGraph(new Graph<>(true));
-        result = world.calculateBestVehicleForMostEficientPath(lstOrders, ph1, lstScooter, lstDrone);
+        result = world.calculateBestVehicleForMostEficientPath(lstOrders, ph1, lstScooter, lstDrone, true, true);
         expResult = new ArrayList<>();
-        expResult.add(null);
-        expResult.add(null);
+        expResult.add(new Route());
+        expResult.add(new Route());
         assertEquals(expResult, result);
     }
 
@@ -1777,17 +1925,22 @@ class GraphServiceTest {
         when(mockDeliveryRunDB.checkValidChargingSlot(bolhao)).thenReturn(true);
         when(mockDeliveryRunDB.checkValidChargingSlot(se)).thenReturn(true);
         when(mockDeliveryRunDB.checkValidChargingSlot(caisDaRibeira)).thenReturn(true);
-        Pair<VehicleModel, Double> expResult = new Pair<>(drone1, 1.8464918928195921);
-        assertEquals(expResult, world.getBestPossibleModel(lstModel, pathList, lstOrders));
+        Route expResult = world.getBestPossibleModel(lstModel, pathList, lstOrders, true);
+        assertEquals(expResult, world.getBestPossibleModel(lstModel, pathList, lstOrders, true));
+        expResult = world.getBestPossibleModel(lstModel, pathList, lstOrders, false);
+        assertEquals(expResult, world.getBestPossibleModel(lstModel, pathList, lstOrders, false));
         when(mockVehicleDB.getEnergyByVehicleModel(1)).thenReturn(0d);
         when(mockVehicleDB.getEnergyByVehicleModel(2)).thenReturn(1001d);
         when(mockVehicleDB.getEnergyByVehicleModel(3)).thenReturn(3000d);
         when(mockVehicleDB.getEnergyByVehicleModel(4)).thenReturn(10000d);
         when(mockVehicleDB.getEnergyByVehicleModel(5)).thenReturn(10000000d);
         when(mockVehicleDB.getEnergyByVehicleModel(6)).thenReturn(10000000d);
-        assertNotEquals(expResult, world.getBestPossibleModel(lstModel, pathList, lstOrders));
-        expResult = new Pair<>(drone3, 1.8464918928195921);
-        assertEquals(expResult, world.getBestPossibleModel(lstModel, pathList, lstOrders));
+        assertNotEquals(expResult, world.getBestPossibleModel(lstModel, pathList, lstOrders, true));
+        expResult = world.getBestPossibleModel(lstModel, pathList, lstOrders, true);
+        assertEquals(expResult, world.getBestPossibleModel(lstModel, pathList, lstOrders, true));
+
+        expResult = world.getBestPossibleModel(lstModel, pathList, lstOrders, false);
+        assertEquals(expResult, world.getBestPossibleModel(lstModel, pathList, lstOrders, false));
 
         when(mockVehicleDB.getEnergyByVehicleModel(1)).thenReturn(0d);
         when(mockVehicleDB.getEnergyByVehicleModel(2)).thenReturn(0d);
@@ -1795,9 +1948,11 @@ class GraphServiceTest {
         when(mockVehicleDB.getEnergyByVehicleModel(4)).thenReturn(0d);
         when(mockVehicleDB.getEnergyByVehicleModel(5)).thenReturn(0d);
         when(mockVehicleDB.getEnergyByVehicleModel(6)).thenReturn(0d);
-        assertNotEquals(expResult, world.getBestPossibleModel(lstModel, pathList, lstOrders));
-        expResult = new Pair<>(null, Double.MAX_VALUE);
-        assertEquals(expResult, world.getBestPossibleModel(lstModel, pathList, lstOrders));
+        assertNotEquals(expResult, world.getBestPossibleModel(lstModel, pathList, lstOrders, true));
+        expResult = world.getBestPossibleModel(lstModel, pathList, lstOrders, true);
+        assertEquals(expResult, world.getBestPossibleModel(lstModel, pathList, lstOrders, true));
+        expResult = world.getBestPossibleModel(lstModel, pathList, lstOrders, false);
+        assertEquals(expResult, world.getBestPossibleModel(lstModel, pathList, lstOrders, false));
     }
 
     @Test
@@ -2065,59 +2220,59 @@ class GraphServiceTest {
         when(mockDeliveryRunDB.checkValidChargingSlot(se)).thenReturn(true);
         when(mockDeliveryRunDB.checkValidChargingSlot(caisDaRibeira)).thenReturn(true);
 
-        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter1, 20d).getKey().getKey());
-        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter1, 10d).getKey().getKey());
-        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter1, 0d).getKey().getKey());
-        assertEquals(75.8842308416441, world.calculatePathCost(pathList, lstOrders, scooter1, 100000d).getKey().getKey());
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter1, 20d).getTotalEnergy());
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter1, 10d).getTotalEnergy());
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter1, 0d).getTotalEnergy());
+        assertEquals(75.8842308416441, world.calculatePathCost(pathList, lstOrders, scooter1, 100000d).getTotalEnergy());
 
-        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter2, 10d).getKey().getKey());
-        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter2, 0d).getKey().getKey());
-        assertEquals(75.8842308416441, world.calculatePathCost(pathList, lstOrders, scooter2, 100000d).getKey().getKey());
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter2, 10d).getTotalEnergy());
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter2, 0d).getTotalEnergy());
+        assertEquals(75.8842308416441, world.calculatePathCost(pathList, lstOrders, scooter2, 100000d).getTotalEnergy());
 
-        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter3, 10d).getKey().getKey());
-        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter3, 0d).getKey().getKey());
-        assertEquals(75.8842308416441, world.calculatePathCost(pathList, lstOrders, scooter3, 100000d).getKey().getKey());
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter3, 10d).getTotalEnergy());
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter3, 0d).getTotalEnergy());
+        assertEquals(75.8842308416441, world.calculatePathCost(pathList, lstOrders, scooter3, 100000d).getTotalEnergy());
 
-        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter4, 10d).getKey().getKey());
-        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter4, 0d).getKey().getKey());
-        assertEquals(75.8842308416441, world.calculatePathCost(pathList, lstOrders, scooter4, 100000d).getKey().getKey());
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter4, 10d).getTotalEnergy());
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter4, 0d).getTotalEnergy());
+        assertEquals(75.8842308416441, world.calculatePathCost(pathList, lstOrders, scooter4, 100000d).getTotalEnergy());
 
-        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter5, 10d).getKey().getKey());
-        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter5, 0d).getKey().getKey());
-        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter5, 100000d).getKey().getKey());
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter5, 10d).getTotalEnergy());
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter5, 0d).getTotalEnergy());
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter5, 100000d).getTotalEnergy());
 
-        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter6, 10d).getKey().getKey());
-        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter6, 0d).getKey().getKey());
-        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter6, 100000d).getKey().getKey());
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter6, 10d).getTotalEnergy());
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter6, 0d).getTotalEnergy());
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter6, 100000d).getTotalEnergy());
 
 
-        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, drone1, 0.1d).getKey().getKey());
-        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, drone1, 0d).getKey().getKey());
-        assertEquals(1.8464918928195921, world.calculatePathCost(pathList, lstOrders, drone1, 100000d).getKey().getKey());
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, drone1, 0.1d).getTotalEnergy());
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, drone1, 0d).getTotalEnergy());
+        assertEquals(1.8464918928195921, world.calculatePathCost(pathList, lstOrders, drone1, 100000d).getTotalEnergy());
 
-        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, drone2, 0.1d).getKey().getKey());
-        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, drone2, 0d).getKey().getKey());
-        assertEquals(1.8464918928195921, world.calculatePathCost(pathList, lstOrders, drone2, 100000d).getKey().getKey());
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, drone2, 0.1d).getTotalEnergy());
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, drone2, 0d).getTotalEnergy());
+        assertEquals(1.8464918928195921, world.calculatePathCost(pathList, lstOrders, drone2, 100000d).getTotalEnergy());
 
-        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, drone3, 0.1d).getKey().getKey());
-        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, drone3, 0d).getKey().getKey());
-        assertEquals(1.8464918928195921, world.calculatePathCost(pathList, lstOrders, drone3, 100000d).getKey().getKey());
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, drone3, 0.1d).getTotalEnergy());
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, drone3, 0d).getTotalEnergy());
+        assertEquals(1.8464918928195921, world.calculatePathCost(pathList, lstOrders, drone3, 100000d).getTotalEnergy());
 
-        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, drone4, 0.1d).getKey().getKey());
-        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, drone4, 0d).getKey().getKey());
-        assertEquals(1.8464918928195921, world.calculatePathCost(pathList, lstOrders, drone4, 100000d).getKey().getKey());
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, drone4, 0.1d).getTotalEnergy());
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, drone4, 0d).getTotalEnergy());
+        assertEquals(1.8464918928195921, world.calculatePathCost(pathList, lstOrders, drone4, 100000d).getTotalEnergy());
 
-        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, drone5, 0.1).getKey().getKey());
-        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, drone5, 0d).getKey().getKey());
-        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, drone5, 100000d).getKey().getKey());
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, drone5, 0.1).getTotalEnergy());
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, drone5, 0d).getTotalEnergy());
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, drone5, 100000d).getTotalEnergy());
 
-        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, drone6, 0.1).getKey().getKey());
-        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, drone6, 0d).getKey().getKey());
-        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, drone6, 100000d).getKey().getKey());
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, drone6, 0.1).getTotalEnergy());
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, drone6, 0d).getTotalEnergy());
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, drone6, 100000d).getTotalEnergy());
 
-        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, notdefined, 0.1).getKey().getKey());
-        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, notdefined, 0d).getKey().getKey());
-        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, notdefined, 100000d).getKey().getKey());
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, notdefined, 0.1).getTotalEnergy());
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, notdefined, 0d).getTotalEnergy());
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, notdefined, 100000d).getTotalEnergy());
 
 
 
@@ -2132,58 +2287,58 @@ class GraphServiceTest {
         when(mockDeliveryRunDB.checkValidChargingSlot(se)).thenReturn(false);
         when(mockDeliveryRunDB.checkValidChargingSlot(caisDaRibeira)).thenReturn(false);
 
-        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter1, 10d).getKey().getKey());
-        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter1, 0d).getKey().getKey());
-        assertEquals(75.8842308416441, world.calculatePathCost(pathList, lstOrders, scooter1, 100000d).getKey().getKey());
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter1, 10d).getTotalEnergy());
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter1, 0d).getTotalEnergy());
+        assertEquals(75.8842308416441, world.calculatePathCost(pathList, lstOrders, scooter1, 100000d).getTotalEnergy());
 
-        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter2, 10d).getKey().getKey());
-        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter2, 0d).getKey().getKey());
-        assertEquals(75.8842308416441, world.calculatePathCost(pathList, lstOrders, scooter2, 100000d).getKey().getKey());
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter2, 10d).getTotalEnergy());
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter2, 0d).getTotalEnergy());
+        assertEquals(75.8842308416441, world.calculatePathCost(pathList, lstOrders, scooter2, 100000d).getTotalEnergy());
 
-        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter3, 10d).getKey().getKey());
-        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter3, 0d).getKey().getKey());
-        assertEquals(75.8842308416441, world.calculatePathCost(pathList, lstOrders, scooter3, 100000d).getKey().getKey());
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter3, 10d).getTotalEnergy());
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter3, 0d).getTotalEnergy());
+        assertEquals(75.8842308416441, world.calculatePathCost(pathList, lstOrders, scooter3, 100000d).getTotalEnergy());
 
-        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter4, 10d).getKey().getKey());
-        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter4, 0d).getKey().getKey());
-        assertEquals(75.8842308416441, world.calculatePathCost(pathList, lstOrders, scooter4, 100000d).getKey().getKey());
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter4, 10d).getTotalEnergy());
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter4, 0d).getTotalEnergy());
+        assertEquals(75.8842308416441, world.calculatePathCost(pathList, lstOrders, scooter4, 100000d).getTotalEnergy());
 
-        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter5, 10d).getKey().getKey());
-        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter5, 0d).getKey().getKey());
-        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter5, 100000d).getKey().getKey());
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter5, 10d).getTotalEnergy());
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter5, 0d).getTotalEnergy());
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter5, 100000d).getTotalEnergy());
 
-        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter6, 10d).getKey().getKey());
-        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter6, 0d).getKey().getKey());
-        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter6, 100000d).getKey().getKey());
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter6, 10d).getTotalEnergy());
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter6, 0d).getTotalEnergy());
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, scooter6, 100000d).getTotalEnergy());
 
 
-        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, drone1, 0.1d).getKey().getKey());
-        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, drone1, 0d).getKey().getKey());
-        assertEquals(1.8464918928195921, world.calculatePathCost(pathList, lstOrders, drone1, 100000d).getKey().getKey());
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, drone1, 0.1d).getTotalEnergy());
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, drone1, 0d).getTotalEnergy());
+        assertEquals(1.8464918928195921, world.calculatePathCost(pathList, lstOrders, drone1, 100000d).getTotalEnergy());
 
-        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, drone2, 0.1d).getKey().getKey());
-        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, drone2, 0d).getKey().getKey());
-        assertEquals(1.8464918928195921, world.calculatePathCost(pathList, lstOrders, drone2, 100000d).getKey().getKey());
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, drone2, 0.1d).getTotalEnergy());
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, drone2, 0d).getTotalEnergy());
+        assertEquals(1.8464918928195921, world.calculatePathCost(pathList, lstOrders, drone2, 100000d).getTotalEnergy());
 
-        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, drone3, 0.1d).getKey().getKey());
-        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, drone3, 0d).getKey().getKey());
-        assertEquals(1.8464918928195921, world.calculatePathCost(pathList, lstOrders, drone3, 100000d).getKey().getKey());
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, drone3, 0.1d).getTotalEnergy());
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, drone3, 0d).getTotalEnergy());
+        assertEquals(1.8464918928195921, world.calculatePathCost(pathList, lstOrders, drone3, 100000d).getTotalEnergy());
 
-        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, drone4, 0.1d).getKey().getKey());
-        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, drone4, 0d).getKey().getKey());
-        assertEquals(1.8464918928195921, world.calculatePathCost(pathList, lstOrders, drone4, 100000d).getKey().getKey());
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, drone4, 0.1d).getTotalEnergy());
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, drone4, 0d).getTotalEnergy());
+        assertEquals(1.8464918928195921, world.calculatePathCost(pathList, lstOrders, drone4, 100000d).getTotalEnergy());
 
-        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, drone5, 0.1).getKey().getKey());
-        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, drone5, 0d).getKey().getKey());
-        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, drone5, 100000d).getKey().getKey());
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, drone5, 0.1).getTotalEnergy());
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, drone5, 0d).getTotalEnergy());
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, drone5, 100000d).getTotalEnergy());
 
-        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, drone6, 0.1).getKey().getKey());
-        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, drone6, 0d).getKey().getKey());
-        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, drone6, 100000d).getKey().getKey());
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, drone6, 0.1).getTotalEnergy());
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, drone6, 0d).getTotalEnergy());
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, drone6, 100000d).getTotalEnergy());
 
-        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, notdefined, 0.1).getKey().getKey());
-        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, notdefined, 0d).getKey().getKey());
-        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, notdefined, 100000d).getKey().getKey());
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, notdefined, 0.1).getTotalEnergy());
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, notdefined, 0d).getTotalEnergy());
+        assertEquals(Double.MAX_VALUE, world.calculatePathCost(pathList, lstOrders, notdefined, 100000d).getTotalEnergy());
     }
 
     @Test
@@ -2327,7 +2482,7 @@ class GraphServiceTest {
         expResult.add(se);
         expResult.add(caisDaRibeira);
         expResult.add(trindade);
-        List<Address> result = world.calculateMostEfficientPath(VehicleType.SCOOTER, trindade, trindade, lstPermutation);
+        List<Address> result = world.calculateMostEfficientPath(VehicleType.SCOOTER, trindade, trindade, lstPermutation, true);
         assertNotEquals(new LinkedList<>(), result);
         assertEquals(expResult, result);
     }
@@ -2417,7 +2572,7 @@ class GraphServiceTest {
         expResult.add(se);
         expResult.add(caisDaRibeira);
         expResult.add(trindade);
-        List<Address> result = world.calculateMostEfficientPath(VehicleType.SCOOTER, trindade, trindade, lstPermutation);
+        List<Address> result = world.calculateMostEfficientPath(VehicleType.SCOOTER, trindade, trindade, lstPermutation, true);
         assertNotEquals(expResult, result);
 
         expResult = new ArrayList<>();
@@ -2509,7 +2664,7 @@ class GraphServiceTest {
         expResult.add(se);
         expResult.add(caisDaRibeira);
         expResult.add(trindade);
-        List<Address> result = world.calculateMostEfficientPath(VehicleType.DRONE, trindade, trindade, lstPermutation);
+        List<Address> result = world.calculateMostEfficientPath(VehicleType.DRONE, trindade, trindade, lstPermutation, true);
         assertNotEquals(expResult, result);
 
         expResult = new ArrayList<>();
@@ -2657,7 +2812,7 @@ class GraphServiceTest {
         expResult.add(se);
         expResult.add(caisDaRibeira);
         expResult.add(trindade);
-        List<Address> result = world.calculateMostEfficientPath(VehicleType.DRONE, trindade, trindade, lstPermutation);
+        List<Address> result = world.calculateMostEfficientPath(VehicleType.DRONE, trindade, trindade, lstPermutation, true);
         assertNotEquals(new LinkedList<>(), result);
         assertEquals(expResult, result);
     }
@@ -2803,7 +2958,7 @@ class GraphServiceTest {
         expResult.add(se);
         expResult.add(caisDaRibeira);
         expResult.add(trindade);
-        List<Address> result = world.calculateMostEfficientPath(VehicleType.NOTDEFINED, trindade, trindade, lstPermutation);
+        List<Address> result = world.calculateMostEfficientPath(VehicleType.NOTDEFINED, trindade, trindade, lstPermutation, true);
         assertNotNull(result);
         assertEquals(Collections.emptyList(), result);
     }
@@ -2939,7 +3094,7 @@ class GraphServiceTest {
         lstPermutation.add(bolhao);
 
 
-        List<Address> result = world.calculateMostEfficientPath(VehicleType.NOTDEFINED, trindade, trindade, lstPermutation);
+        List<Address> result = world.calculateMostEfficientPath(VehicleType.NOTDEFINED, trindade, trindade, lstPermutation, true);
         assertEquals(Collections.emptyList(), result);
         assertNotNull(result);
     }
@@ -3087,12 +3242,10 @@ class GraphServiceTest {
         expResult.add(se);
         expResult.add(caisDaRibeira);
         expResult.add(trindade);
-        List<Address> result = world.calculateMostEfficientPath(VehicleType.SCOOTER, trindade, trindade, lstPermutation);
+        List<Address> result = world.calculateMostEfficientPath(VehicleType.SCOOTER, trindade, trindade, lstPermutation, true);
         assertNotEquals(new LinkedList<>(), result);
         assertEquals(expResult, result);
     }
-
-
 
     @Test
     void calculateMostEfficientPath9() {
@@ -3237,11 +3390,10 @@ class GraphServiceTest {
         expResult.add(se);
         expResult.add(caisDaRibeira);
         expResult.add(trindade);
-        List<Address> result = world.calculateMostEfficientPath(VehicleType.SCOOTER, trindade, trindade, lstPermutation);
+        List<Address> result = world.calculateMostEfficientPath(VehicleType.SCOOTER, trindade, trindade, lstPermutation, true);
         assertNotEquals(new LinkedList<>(), result);
         assertEquals(expResult, result);
     }
-
 
     @Test
     void calculatePermutationPaths() {
@@ -3372,7 +3524,6 @@ class GraphServiceTest {
 
         List<Address> lstPermutation = new LinkedList<>();
         lstPermutation.add(bolhao);
-        lstPermutation.add(bolhao);
 
         List<LinkedList<Address>> permutations = world.calculatePermutations(lstPermutation);
 
@@ -3389,7 +3540,6 @@ class GraphServiceTest {
         double doubleResult = 154775.30410811413;
         Pair<List<Address>, Double> pairResult = new Pair<>(finalResult, doubleResult);
         List<Pair<List<Address>, Double>> listPairResult = new LinkedList<>();
-        listPairResult.add(pairResult);
         listPairResult.add(pairResult);
         assertEquals(listPairResult, world.calculatePermutationPaths(world.getScooterGraph(), trindade, trindade, permutations));
     }

@@ -297,4 +297,10 @@ public class VehicleModel {
                 ", m_enumVehicleType=" + menumVehicleType +
                 '}';
     }
+
+    public String toStringRoute() {
+        return "name->" + mstrDesignation + ", potency->" + mdblPotency + " watt's, weight->" +
+                mdblWeight + " kilos, max payload weight->" + mdblMaxPayload + " kilos" +
+                moBattery.toStringRoute();
+    }
 }

@@ -195,4 +195,11 @@ public class Battery {
                 ", Battery Voltage=" + mdlbBatteryVoltage +
                 '}';
     }
+
+    public String toStringRoute() {
+        return ", battery efficiency->" + mdblEfficiency +
+                ", battery capacity->" + mintBatteryCapacity +
+                ", battery voltage->" + mdlbBatteryVoltage +
+                '.';
+    }
 }
