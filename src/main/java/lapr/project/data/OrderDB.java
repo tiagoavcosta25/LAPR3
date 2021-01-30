@@ -232,9 +232,10 @@ public class OrderDB extends DataHandler {
      */
     public Map<Product, Integer> notifyAndRemove(Order order) {
         Map<Product, Integer> lstProducts = new TreeMap<>();
+        Map<Product, Integer> updateProducts = new TreeMap<>();
         boolean flag = false;
         for (Map.Entry<Product, Integer> entry : order.getProducts().entrySet()) {
-            try (CallableStatement callStmt = getConnection().prepareCall("{ ? = call removeProductsPharmacy(?,?,?) }");) {
+            try (CallableStatement callStmt = getConnection().prepareCall("{ ? = call removeProductsPharmacy(?,?,?) }")) {
 
                 callStmt.registerOutParameter(1, oracle.jdbc.internal.OracleTypes.CURSOR);
                 callStmt.setString(2, order.getPharmacy().getEmail());
@@ -252,6 +253,7 @@ public class OrderDB extends DataHandler {
                     Product product = productManager(rSet, 1);
                     Integer intAskQuantity = rSet.getInt(6);
                     if (intAskQuantity.equals(-1)) {
+                        updateProducts.put(product, entry.getValue());
                         continue;
                     } else {
                         lstProducts.put(product, intAskQuantity);
@@ -266,9 +268,22 @@ public class OrderDB extends DataHandler {
         }
         if (flag) {
             return null;
-        } else {
-            return lstProducts;
-        }
+        } else if (!(updateProducts.isEmpty())) {
+            for (Map.Entry<Product, Integer> entry2 : updateProducts.entrySet()) {
+                try (CallableStatement callStmt = getConnection().prepareCall("{ call updatePharmacyStock(?,?,?) }")) {
 
+                    callStmt.setInt(1, entry2.getKey().getId());
+                    callStmt.setInt(2, entry2.getValue());
+
+                    callStmt.execute();
+
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                } finally {
+                    closeAll();
+                }
+            }
+        }
+        return lstProducts;
     }
 }
