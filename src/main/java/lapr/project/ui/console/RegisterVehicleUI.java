@@ -14,12 +14,12 @@ import java.util.logging.Logger;
 public class RegisterVehicleUI {
 
     private static final Logger LOGGER = Logger.getLogger(RegisterVehicleUI.class.getName());
-    private static RegisterScooterController oCtrlScooter = new RegisterScooterController();
-    private static RegisterDroneController oCtrlDrone = new RegisterDroneController();
     private static Scanner sc = new Scanner(System.in);
 
     public void run(VehicleType oVehicleType) {
         try {
+            RegisterScooterController oCtrlScooter = new RegisterScooterController();
+            RegisterDroneController oCtrlDrone = new RegisterDroneController();
             boolean flag;
 
             if(oVehicleType.getDesignation().equalsIgnoreCase(VehicleType.SCOOTER.getDesignation()) ){
@@ -30,7 +30,7 @@ public class RegisterVehicleUI {
                 throw new Exception();
             }
 
-            Pharmacy oPharmacy = choosePharmacy();
+            Pharmacy oPharmacy = choosePharmacy(oCtrlScooter);
             Menu.clear();
 
             if (oPharmacy.getName().equalsIgnoreCase("No name.")) {
@@ -52,7 +52,9 @@ public class RegisterVehicleUI {
                     oCtrlDrone.setVehicleModel(strModelDesignation);
                 }
             } else{
-                createVehicleModel(flag);
+                oCtrlScooter.setPharmacy(oPharmacy.getEmail());
+                oCtrlDrone.setPharmacy(oPharmacy.getEmail());
+                createVehicleModel(flag, oCtrlScooter, oCtrlDrone);
             }
             Menu.clear();
 
@@ -82,7 +84,7 @@ public class RegisterVehicleUI {
         }
     }
 
-    public static Pharmacy choosePharmacy(){
+    public static Pharmacy choosePharmacy(RegisterScooterController oCtrlScooter){
         List<Pharmacy> lstPharmacies = oCtrlScooter.showPharmacies();
 
         for (Pharmacy p : lstPharmacies) {
@@ -104,7 +106,7 @@ public class RegisterVehicleUI {
         return oPharmacy;
     }
 
-    public static void createVehicleModel(boolean flag){
+    public static void createVehicleModel(boolean flag, RegisterScooterController oCtrlScooter, RegisterDroneController oCtrlDrone){
         System.out.println("Please input the following information:\n");
         System.out.print("Designation: ");
         String strDesignation = sc.nextLine();

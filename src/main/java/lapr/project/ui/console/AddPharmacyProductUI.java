@@ -2,6 +2,7 @@ package lapr.project.ui.console;
 
 import lapr.project.controller.AddPharmacyProductController;
 import lapr.project.model.Product;
+import lapr.project.ui.Menu;
 import lapr.project.ui.UI;
 
 import java.util.List;
@@ -20,17 +21,19 @@ public class AddPharmacyProductUI implements UI {
             try{
                 System.out.print("Add Stock to Pharmacy:\n\nPharmacy's Email: ");
                 String strEmail = sc.nextLine();
+                Menu.clear();
 
                 List<Product> lstProducts = oCtrl.getProducts();
 
                 for(Product p : lstProducts){
-                    System.out.println(p.toString());
+                    System.out.printf("[%d] %s (%.2f€)\n", p.getId(), p.getName(), p.getUnitaryPrice());
                 }
 
                 System.out.print("\nChoose the Product's Id: ");
                 int intProductId = Integer.parseInt(sc.nextLine());
                 System.out.println();
 
+                Menu.clear();
                 if(intProductId == 0){
                     throw new Exception();
                 }
@@ -47,6 +50,7 @@ public class AddPharmacyProductUI implements UI {
                 System.out.print("\nChoose the Product's Added Stock: ");
                 intQuantity = Integer.parseInt(sc.nextLine());
                 System.out.println();
+                Menu.clear();
 
                 if(oProduct.getName().equalsIgnoreCase("") || intQuantity <= 0){
                     throw new Exception();
