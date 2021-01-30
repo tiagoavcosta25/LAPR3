@@ -433,7 +433,8 @@ public class GraphService {
         Pharmacy pharmacy = orderList.get(0).getPharmacy();
         List<VehicleModel> scooterList = new ArrayList<>();
         List<VehicleModel> droneList = new ArrayList<>();
-        for(VehicleModel vM : moVehicleDB.getPharmacyModel(pharmacy.getEmail())) {
+        List<VehicleModel> lstModels = moVehicleDB.getPharmacyModel(pharmacy.getEmail());
+        for(VehicleModel vM : lstModels) {
             if(vM.getMaxPayload() >= maxWeight) {
                 if (vM.getVehicleType().equals(VehicleType.SCOOTER)) scooterList.add(vM);
                 else droneList.add(vM);
