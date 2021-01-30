@@ -16,16 +16,58 @@ import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * Graph Service.
+ *
+ * Group: Team Lisa [G-021]
+ * ______________________________________________________
+ * @author António Barbosa <1190404@isep.ipp.pt>
+ * @author Ernesto Rodrigues <1190560@isep.ipp.pt>
+ * @author Jessica Alves <1190682@isep.ipp.pt>
+ * @author Pedro Santos <1190967@isep.ipp.pt>
+ * @author Rodrigo Costa <1191014@isep.ipp.pt>
+ * @author Tiago Costa <1191460@isep.ipp.pt>
+ */
 public class GraphService {
 
+    /**
+     * Static final Delivery Run Path.
+     */
     private static final String DELIVERYRUNPATH = "DeliveryRunPath";
+
+    /**
+     * Logger for the graph management class.
+     */
     private static final Logger LOGGER = Logger.getLogger(GraphService.class.getName());
+
+    /**
+     * Scooter Graph.
+     */
     private Graph<Address, Path> moGraphScooter;
+
+    /**
+     * Drone Graph.
+     */
     private Graph<Address, Path> moGraphDrone;
+
+    /**
+     * Delivery Run Database Class.
+     */
     private DeliveryRunDB moDeliveryRunDB;
+
+    /**
+     * Vehicle Database Class.
+     */
     private VehicleDB moVehicleDB;
+
+    /**
+     * Pharmacy Database Class.
+     */
     private PharmacyDB moPharmacyDB;
 
+    /**
+     * Empty Constructor.
+     */
     public GraphService() {
         moGraphScooter = new Graph<>(true);
         moGraphDrone = new Graph<>(true);
@@ -34,53 +76,98 @@ public class GraphService {
         moPharmacyDB = new PharmacyDB();
     }
 
+    /**
+     * Setter for the scooter graph.
+     * @param moGraph scooter graph.
+     */
     public void setScooterGraph(Graph<Address, Path> moGraph) {
         this.moGraphScooter = moGraph;
     }
 
+    /**
+     * Getter for the scooter graph.
+     * @return scooter graph.
+     */
     public Graph<Address, Path> getScooterGraph() {
         return moGraphScooter;
     }
 
+    /**
+     * Setter for the drone graph.
+     * @param moGraphDrone drone graph.
+     */
     public void setDroneGraph(Graph<Address, Path> moGraphDrone) {
         this.moGraphDrone = moGraphDrone;
     }
 
+    /**
+     * Getter for the drone graph.
+     * @return drone graph.
+     */
     public Graph<Address, Path> getDroneGraph() {
         return moGraphDrone;
     }
 
+    /**
+     * Setter for the delivery run database class.
+     * @param moDeliveryRunDB delivery run database class.
+     */
     public void setMoDeliveryRunDB(DeliveryRunDB moDeliveryRunDB) {
         this.moDeliveryRunDB = moDeliveryRunDB;
     }
 
+    /**
+     * Setter for the vehicle database class.
+     * @param moVehicleDB vehicle database class.
+     */
     public void setMoVehicleDB(VehicleDB moVehicleDB) {
         this.moVehicleDB = moVehicleDB;
     }
 
+    /**
+     * Setter for the pharmacy database class.
+     * @param moPharmacyDB pharmacy database class.
+     */
     public void setMoPharmacyDB(PharmacyDB moPharmacyDB) {
         this.moPharmacyDB = moPharmacyDB;
     }
 
+    /**
+     * Getter for the delivery run database class.
+     * @return delivery run database class.
+     */
     public DeliveryRunDB getMoDeliveryRunDB() {
         return moDeliveryRunDB;
     }
 
+    /**
+     * Setter for the vehicle database class.
+     * @return vehicle database class.
+     */
     public VehicleDB getMoVehicleDB() {
         return moVehicleDB;
     }
 
+    /**
+     * Getter for the pharmacy database class.
+     * @return pharmacy database class.
+     */
     public PharmacyDB getMoPharmacyDB() {
         return moPharmacyDB;
     }
 
     /**
-     * CREATE GRAPH
+     * Creates both the scooter's and drone's graphs.
      */
     public void createGraph() {
         createGraph(moDeliveryRunDB.getAllAddresses(), moDeliveryRunDB.getAllPaths());
     }
 
+    /**
+     * Private method that creates both the scooter's and drone's graphs.
+     * @param addresses list of all addresses in the database.
+     * @param paths list of all paths in the database.
+     */
     private void createGraph(List<Address> addresses, List<Path> paths) {
         double dist;
         Pair<Address, Address> pathAdd;
@@ -106,6 +193,15 @@ public class GraphService {
         }
     }
 
+    /**
+     * Method that gets a pair of addresses from their coordinates.
+     * @param dblLatitudeA first address's latitude.
+     * @param dblLongitudeA first address's longitude.
+     * @param dblLatitudeB second address's latitude.
+     * @param dblLongitudeB second address's longitude.
+     * @param vehicleType type of vehicle.
+     * @return pair of addresses.
+     */
     private Pair<Address, Address> getAddresses(double dblLatitudeA, double dblLongitudeA,
                                                 double dblLatitudeB, double dblLongitudeB, VehicleType vehicleType) {
         Address origem = null;
@@ -127,6 +223,11 @@ public class GraphService {
         return null;
     }
 
+    /**
+     * Method that gets all Paths on graph.
+     * @param g graph.
+     * @return list of paths.
+     */
     public List<Path> getListOfPaths(Graph<Address, Path> g) {
         LinkedList<Path> paths = new LinkedList<>();
         for(Edge<Address, Path> edge : g.edges())
@@ -134,6 +235,13 @@ public class GraphService {
         return paths;
     }
 
+    /**
+     * Method that gets a Path from two Addresses.
+     * @param paths list of paths.
+     * @param addA first address.
+     * @param addB second address.
+     * @return path.
+     */
     public Path getPathFromAddresses(List<Path> paths, Address addA, Address addB) {
         for(Path path : paths) {
             if(path.getLatitudeA() == addA.getLatitude() && path.getLongitudeA() == addA.getLongitude() &&
@@ -143,6 +251,12 @@ public class GraphService {
         return null;
     }
 
+    /**
+     * Method that gets all Paths From a List of Addresses.
+     * @param vType type of vehicle.
+     * @param addresses list of addresses.
+     * @return list of paths.
+     */
     public List<Path> getAllPathsFromAddresses(VehicleType vType, List<Address> addresses) {
         List<Path> pathsReturn = new ArrayList<>();
         List<Path> paths;
@@ -158,6 +272,11 @@ public class GraphService {
         return pathsReturn;
     }
 
+    /**
+     * Checks If a address is a pharmacy.
+     * @param add address.
+     * @return true if the address is a pharmacy, false otherwise.
+     */
     public boolean checkIfAddressIsPharmacy(Address add) {
         List<Pharmacy> pharmacyList = moPharmacyDB.getPharmacies();
         for(Pharmacy ph : pharmacyList) {
@@ -166,7 +285,12 @@ public class GraphService {
         return false;
     }
 
-
+    /**
+     * Checks If a Path Passes Through Certain Intermediates provided by a list of orders.
+     * @param path path.
+     * @param orders list of orders.
+     * @return true if the path contains all the addresses, false otherwise.
+     */
     public boolean checkIfPathGoesByIntermediates(List<Address> path, List<Order> orders) {
         List<Address> intermediates = new LinkedList<>();
         for(Order o : orders) {
@@ -175,6 +299,12 @@ public class GraphService {
         return path.containsAll(intermediates);
     }
 
+    /**
+     * Method that checks if a path contains a certain address 3 times.
+     * @param address address to check.
+     * @param addresses path.
+     * @return true if the address appears at least three times in the path, false otherwise.
+     */
     public boolean checkIfInListThreeTimes(Address address, List<Address> addresses) {
         int counter = 0;
         for(Address a : addresses) {
@@ -186,7 +316,16 @@ public class GraphService {
         return false;
     }
 
-
+    /**
+     * Paths With Pharamacies.
+     * @param g graph.
+     * @param s address.
+     * @param d address.
+     * @param vmList list of vehicle models.
+     * @param orderList list of orders.
+     * @param energy energy boolean.
+     * @return route.
+     */
     public Route pathsWithPharmacies(Graph<Address, Path> g, Address s, Address d, List<VehicleModel> vmList,
                                      List<Order> orderList,
              boolean energy) {
@@ -216,6 +355,17 @@ public class GraphService {
         return finalResult;
     }
 
+    /**
+     * Calculates the Paths With Pharamacies Stops.
+     * @param g graph.
+     * @param u address.
+     * @param d address.
+     * @param localPathList list of paths.
+     * @param result list of routes.
+     * @param vmList list of vehicle models.
+     * @param orderList list of orders.
+     * @param energy energy boolean.
+     */
     private void pathsWithPharmaciesCalculator
             (Graph<Address, Path> g, Address u, Address d, LinkedList<Address> localPathList,
              List<Route> result, List<VehicleModel> vmList,
@@ -240,7 +390,7 @@ public class GraphService {
     }
 
     /**
-     * PRINT RESULTS
+     * Prints the Results.
      */
     public void printResults(Route resultScooter,
                              Route resultDrone) {
@@ -273,7 +423,7 @@ public class GraphService {
     }
 
     /**
-     * CALCULATE PATH COST WITH PHARMACIES
+     * Calculates Path Cost With Pharmacies.
      */
     public List<Route> calculateBestVehicleAndBestPath(List<Order> orderList, boolean energy, boolean lookForPharmacies) {
         double maxWeight = 0;
@@ -301,7 +451,16 @@ public class GraphService {
                 energy, lookForPharmacies);
     }
 
-
+    /**
+     * Calculates the Best Vehicle For the Most Efficent Path.
+     * @param orderList list of orders.
+     * @param pharmacy pharamacy.
+     * @param scooterList list of scooters.
+     * @param droneList list of drones.
+     * @param energy energy boolean.
+     * @param lookForPharmacies look for pharmacies boolean.
+     * @return list of routes.
+     */
     public List<Route> calculateBestVehicleForMostEficientPath
             (List<Order> orderList, Pharmacy pharmacy, List<VehicleModel> scooterList, List<VehicleModel> droneList,
              boolean energy, boolean lookForPharmacies) {
@@ -356,6 +515,14 @@ public class GraphService {
         return lstReturn;
     }
 
+    /**
+     * Gets the best possible model.
+     * @param vList list of vehicle models.
+     * @param path list of addresses.
+     * @param orderList list of orders.
+     * @param energy energy boolean.
+     * @return route.
+     */
     public Route getBestPossibleModel(List<VehicleModel> vList, List<Address> path,
                                                            List<Order> orderList, boolean energy) {
         double lowestCost = Double.MAX_VALUE;
@@ -378,6 +545,14 @@ public class GraphService {
         return bestCostRoute;
     }
 
+    /**
+     * Calculates Path Cost.
+     * @param allAddresses every address.
+     * @param orderList list of orders.
+     * @param vModel vehicle model.
+     * @param maxEnergy energy maximum value.
+     * @return route.
+     */
     public Route calculatePathCost(List<Address> allAddresses, List<Order> orderList,
                                    VehicleModel vModel, Double maxEnergy) {
         double energyRemaining = maxEnergy;
@@ -450,7 +625,15 @@ public class GraphService {
         return route;
     }
 
-
+    /**
+     * Calculates the Most Efficient Path.
+     * @param vType vehicle type.
+     * @param startAddress first address.
+     * @param endAddress last address.
+     * @param deliveryPoints intermidiary addresses.
+     * @param energy energy boolean.
+     * @return most efficient path.
+     */
     public List<Address> calculateMostEfficientPath(VehicleType vType, Address startAddress,
                                                     Address endAddress, List<Address> deliveryPoints, boolean energy) {
         Graph<Address, Path> cloneGraph;
@@ -478,6 +661,12 @@ public class GraphService {
         return result;
     }
 
+    /**
+     * Prepares a Graph.
+     * @param g graph.
+     * @param vType type of vehicle.
+     * @param energy energy.
+     */
     public void prepareGraph(Graph<Address, Path> g, VehicleType vType, boolean energy) {
         for(Edge<Address, Path> e : g.edges()) {
             double distanceUsingCoordinates = e.getVOrig().distanceTo(e.getVDest());
@@ -507,6 +696,14 @@ public class GraphService {
         }
     }
 
+    /**
+     * Calculates Permutation Paths.
+     * @param g graph.
+     * @param a1 first address.
+     * @param a2 last address.
+     * @param permutations list of permutations.
+     * @return list of paths.
+     */
     public List<Pair<LinkedList<Address>, Double>> calculatePermutationPaths
             (Graph<Address, Path> g, Address a1, Address a2, List<LinkedList<Address>> permutations) {
         int[][] path;
@@ -535,6 +732,11 @@ public class GraphService {
         return listOfPaths;
     }
 
+    /**
+     * Prepares Adjacency Matrix.
+     * @param g graph.
+     * @return matriz.
+     */
     public double[][] prepareAdjacencyMatrix(Graph<Address, Path> g) {
         double[][] matriz = new double[g.numVertices()][g.numVertices()];
         Object[] teste1 = g.allkeyVerts();
@@ -556,6 +758,11 @@ public class GraphService {
         return matriz;
     }
 
+    /**
+     * Calculates Permutations.
+     * @param original list of addresses.
+     * @return list of permutations.
+     */
     public List<LinkedList<Address>> calculatePermutations(List<Address> original) {
         if (original.isEmpty()) {
             List<LinkedList<Address>> result = new ArrayList<>();

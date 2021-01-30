@@ -4,7 +4,6 @@ create or replace procedure addProductToOrder(p_orderId "Order".ID%type, p_produ
     v_checkOrderId "Order".ID%type;
     v_checkProductId PRODUCT.ID%type;
     v_pharmacyId "Order".PHARMACYID%type;
-    v_currentStock PHARMACYPRODUCT.STOCK%type;
     order_not_found exception;
     product_not_found exception;
 begin
@@ -31,19 +30,6 @@ begin
     if v_checkProductId is null then
         raise product_not_found;
     end if;
-
-    select sum(stock)
-    into v_currentStock
-    from PHARMACYPRODUCT
-    where PHARMACYID = v_pharmacyId
-    and PRODUCTID = p_productId;
-
-    v_currentStock := v_currentStock - p_quantity;
-
-    update PHARMACYPRODUCT
-    set STOCK = v_currentStock
-    where PHARMACYID = v_pharmacyId
-    and PRODUCTID = p_productId;
 
 -- Creates a new OrderProduct
 

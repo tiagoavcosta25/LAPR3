@@ -308,6 +308,10 @@ public class Path {
                 '}';
     }
 
+    /**
+     * To String Used in the route class
+     * @return String with information.
+     */
     public String toStringRoute() {
         StringBuilder str = new StringBuilder();
         if(this.getVehicleType().equals(VehicleType.SCOOTER))
