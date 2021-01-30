@@ -11,13 +11,40 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+/**
+ * Email Sender.
+ *
+ * Group: Team Lisa [G-021]
+ * ______________________________________________________
+ * @author António Barbosa <1190404@isep.ipp.pt>
+ * @author Ernesto Rodrigues <1190560@isep.ipp.pt>
+ * @author Jessica Alves <1190682@isep.ipp.pt>
+ * @author Pedro Santos <1190967@isep.ipp.pt>
+ * @author Rodrigo Costa <1191014@isep.ipp.pt>
+ * @author Tiago Costa <1191460@isep.ipp.pt>
+ */
+
 public class EmailSender {
 
+    /**
+     * Logger which is used to generate warnings or information, with
+     * a custom message.
+     */
     private static final Logger LOGGER = Logger.getLogger(EmailSender.class.getName());
 
+    /**
+     * An empty constructor of Email Sender.
+     */
     private EmailSender() {
     }
 
+    /**
+     * The Method sends a email to an eletronic mail passed by parameter.
+     * @param emailToFoward Eletronic Mail.
+     * @param subject Email's Subject.
+     * @param body Email's Body.
+     * @return true if the Email is sent. False if otherwise.
+     */
     public static boolean sendEmail(String emailToFoward, String subject, String body) {
         Properties props = new Properties();
         props.put("mail.smtp.auth", "true");
@@ -55,6 +82,11 @@ public class EmailSender {
         return false;
     }
 
+    /**
+     * HTML Body.
+     * @param body Body.
+     * @return HTML Body.
+     */
     private static String htmlBody(String body) {
         return body.replace("\n", "<br />");
     }
