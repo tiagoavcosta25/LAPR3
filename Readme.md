@@ -237,8 +237,21 @@ About the project, we want to mention this **6** topics:
 ### Drone
 
 In order to move a drone and keep it steady on the air, is necessary that the 4 forces that interact with it (**Lift**, **Weight**, **Drag** and **Thrust**) cancel each other. 
+- **Drag**
+    - Drag (or air resistance) is a force acting opposite to the relative motion of any object moving with respect to a surrounding fluid.
+    - This can exist between two fluid layers (or surfaces) or a fluid and a solid surface. Unlike other resistive forces, such as dry friction, which are nearly independent of velocity, drag force depends on velocity.
+- **Lift**
+    - A fluid flowing around the surface of an object exerts a force on it. Lift is the component of this force that is perpendicular to the oncoming flow direction. 
+    - It contrasts with the drag force, which is the component of the force parallel to the flow direction. Lift conventionally acts in an upward direction in order to counter the force of gravity, but it can act in any direction at right angles to the flow.
+- **Weight**
+    - The weight of an object is the force acting on the object due to gravity.
+- **Thrust**
+    - Thrust is a reaction force described quantitatively by Newton's third law. 
+    - When a system expels or accelerates mass in one direction, the accelerated mass will cause a force of equal magnitude but opposite direction, to be applied to that system.
+    - The force applied on a surface in a direction perpendicular or normal to the surface is also called thrust.
     
-- To obtain an optimum flying speed, where the parasite drag is smaller, and the lift/drag ratio is the most efficient to the flying requirements, we used this formula:
+In our work, in order to make it more similiar to reality, instead of using a constant speed, we've used an optimum flying speed. 
+To obtain an optimum flying speed, where the parasite drag is smaller, and the lift/drag ratio is the most efficient to the flying requirements, we used this formula:
 
 ![OptimumSpeedDrone](PhysicFormulas/OptimumSpeedDrone.svg)
 
@@ -262,14 +275,24 @@ that has in count the induced drag, and the parasite drag.
 - v_wind is the wind speed
 - α is the angle formed between the wind speed and the air/drone speed pair.
 
-and then we added both speeds to know what was the effective speed. 
+and then we added both speeds to know what was the effective speed.
 
 ![TotalSpeed](PhysicFormulas/TotalSpeed.svg)
 
-In our work, in order to make it more similiar to reality, instead of using a constant speed, we've used a 
+With the speed calculated, we have to use the following formula:
 
 ![Force](PhysicFormulas/DroneMovingForce.svg)
 
+**where**
+
+- W is the total mass (drone+payload)
+- Cd is the drag coefficient
+- A is the drone's frontal area
+- b is the drone's width
+- ρ is the air density
+- v is the total velocity calculated in the step before.
+
+that adds the parasitic drag and the induced drag.
 
 ![PowerLevantamento](PhysicFormulas/LiftingPower.svg)
 
@@ -279,7 +302,7 @@ In our work, in order to make it more similiar to reality, instead of using a co
 
 ### Scooter
 
-h<sub>&theta;</sub>(x) = &theta;<sub>o</sub> x + &theta;<sub>1</sub>x
+
 
 # Relational Model (Normalized)
 
@@ -288,3 +311,29 @@ h<sub>&theta;</sub>(x) = &theta;<sub>o</sub> x + &theta;<sub>1</sub>x
 # Domain Model
 
 ![DomainModel](docs/Iteration 3/DomainModel.svg)
+
+#Bibliography
+
+- Energy Consumption in Unmanned Aerial Vehicles: A Review of Energy Consumption Models and Their Relation to the UAV Routing: THIBBOTUWAWA, Amilia et all, ISBN : 978-3-319-99995-1
+- 12F - VENTURA, Graça et all ISBN: 978 972 47 5488 8
+- https://hypertextbook.com/facts/2006/MatthewMichaels.shtml
+- https://4.bp.blogspot.com/_urSQl6wUA5g/TTZFTUOs6FI/AAAAAAAAIe8/zeE_bHhBpOE/s1600/drag_chart.jpg
+- https://www.endless-sphere.com/forums/viewtopic.php?p=843530
+- https://info.simuleon.com/blog/how-to-calculate-drag-coefficient-for-motorcycle
+- https://en.wikipedia.org/wiki/Drag_(physics)
+- https://en.wikipedia.org/wiki/Thrust
+- https://en.wikipedia.org/wiki/Weight
+- https://en.wikipedia.org/wiki/Lift_(force)
+- https://en.wikipedia.org/wiki/Density_of_air
+- https://analyticcycling.com/ForcesPower_Page.html
+- https://www.wired.com/story/the-physics-of-why-bigger-drones-can-fly-longer/
+- https://www.engineeringtoolbox.com/drag-coefficient-d_627.html
+- https://dieselnet.com/standards/cycles/wltp.php
+- https://electricscooterparts.com/motor-power-calculator.html
+- https://www.intechopen.com/books/flight-physics-models-techniques-and-technologies/helicopter-flight-physics
+- https://www.sciencedirect.com/science/article/pii/S1361920920308531?via%3Dihu
+- https://www.stackoverflow.com/
+- https://stackoverflow.com/a/25885587
+- https://www.tutorialspoint.com/c_standard_library
+- https://www.geeksforgeeks.org/how-to-generate-and-read-qr-code-with-java-using-zxing-library/
+- https://stackoverflow.com/questions/10305153/generating-all-possible-permutations-of-a-list-recursively
