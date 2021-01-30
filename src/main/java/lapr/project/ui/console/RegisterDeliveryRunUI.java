@@ -49,7 +49,28 @@ public class RegisterDeliveryRunUI implements UI {
                     LOGGER.log(Level.WARNING,"The Orders Must be from the same pharmacy");
                 }
 
-                if(oCtrl.registerDeliveryRun(lstOrders)){
+                String choice;
+                do {
+
+                    System.out.print("Do you wish to calculate the path by Time or Energy (T/E)");
+                    choice = sc.nextLine();
+                    System.out.println();
+
+                } while(!choice.equalsIgnoreCase("t") && !choice.equalsIgnoreCase("e"));
+
+                boolean timeOrEnergy = choice.equalsIgnoreCase("e");
+
+                do {
+
+                    System.out.print("Do you wish to use extensive backtrack? (Y/N)");
+                    choice = sc.nextLine();
+                    System.out.println();
+
+                } while(!choice.equalsIgnoreCase("y") && !choice.equalsIgnoreCase("n"));
+
+                boolean extensiveBacktrack = choice.equalsIgnoreCase("y");
+
+                if(oCtrl.registerDeliveryRun(lstOrders,timeOrEnergy,extensiveBacktrack)){
                     LOGGER.log(Level.INFO, "Delivery Run Registered with success.");
                     flag = true;
                 } else {

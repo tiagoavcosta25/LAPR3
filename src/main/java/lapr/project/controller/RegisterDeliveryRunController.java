@@ -127,9 +127,9 @@ public class RegisterDeliveryRunController {
      * @param lstOrder List of Orders
      * @return True if the Delivery Run was registered, false if otherwise
      */
-    public boolean registerDeliveryRun(List<Order> lstOrder) {
+    public boolean registerDeliveryRun(List<Order> lstOrder, boolean energyCheck, boolean backTrackCheck) {
         if (ApplicationPOT.getInstance().getCurrentSession().getRole().equals(UserSession.Role.ADMIN)) {
-            List<Pair<Pair<VehicleModel, Double>, List<Address>>> lstPair = moGraphService.calculateBestVehicleAndBestPath(lstOrder);
+            List<Route> lstPair = moGraphService.calculateBestVehicleAndBestPath(lstOrder,energyCheck,backTrackCheck);
             VehicleModel oModel = moDeliveryRunService.getMostEfficientVehicleModel(lstPair);
 
             if (oModel == null) {

@@ -307,4 +307,13 @@ public class Path {
                 ", moVehicleType=" + moVehicleType +
                 '}';
     }
+
+    public String toStringRoute() {
+        StringBuilder str = new StringBuilder();
+        if(this.getVehicleType().equals(VehicleType.SCOOTER))
+            str.append("\t\t").append(String.format("Path kinetic friction coefficient is %.2f.", this.mdblWindAngle)).append("\n");
+        str.append("\t\t").append(String.format("Path wind speed is %.2f.", this.mdblWindSpeed));
+        str.append("\n\t\t").append(String.format("Path wind angle is %.2f.", this.mdblWindAngle));
+        return str.toString();
+    }
 }

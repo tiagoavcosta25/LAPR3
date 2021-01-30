@@ -3,7 +3,10 @@
  */
 package lapr.project.graph.map;
 
+import lapr.project.model.Address;
+
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -132,7 +135,6 @@ public class GraphAlgorithms {
         }
 
         return paths;
-
     }
 
     /**
@@ -275,4 +277,64 @@ public class GraphAlgorithms {
 
         return pathrev;
     }
+
+    public static int[][] transitiveClosureFloyd(double[][] matriz, int size) {
+        int[][] paths = new int[size][size];
+        for (int v = 0; v < size; v++) {
+            for (int u = 0; u < size; u++) {
+                if (v == u)
+                    paths[v][u] = 0;
+                else if (matriz[v][u] != Double.MAX_VALUE)
+                    paths[v][u] = v;
+                else
+                    paths[v][u] = -1;
+            }
+        }
+
+        for (int k = 0; k < size; ++k) {
+            for (int i = 0; i < size; ++i) {
+                for (int j = 0; j < size; j++) {
+                    if (matriz[i][k] != Integer.MAX_VALUE && matriz[k][j] != Integer.MAX_VALUE
+                            && (matriz[i][k] + matriz[k][j] < matriz[i][j])) {
+                        matriz[i][j] = matriz[i][k] + matriz[k][j];
+                        paths[i][j] = paths[k][j];
+                    }
+                }
+            }
+        }
+        return paths;
+    }
+
+    public static <V, E> double getShortestPathFloyd(Graph<V, E> g ,int[][] path, double[][] cost, V vOrg, V vDest,
+                                                     LinkedList<V> finalPath) {
+        if(g.numVertices() == 0 && g.numEdges() == 0)
+            return Double.MAX_VALUE;
+        V[] vertices = g.allkeyVerts();
+        int vOrgKey = g.getKey(vOrg);
+        int vDestKey = g.getKey(vDest);
+        double custo = cost[vOrgKey][vDestKey];
+
+        if (path[vOrgKey][vDestKey] != -1) {
+            finalPath.add(vOrg);
+            printPath(path, vOrgKey, vDestKey, finalPath, vertices);
+            finalPath.add(vDest);
+        }
+        return custo;
+    }
+
+    private static <V> void printPath(int[][] path, int v, int u, LinkedList<V> finalPath,
+                                      V[] vertices)
+    {
+        if (path[v][u] == v)
+            return;
+
+        printPath(path, v, path[v][u], finalPath, vertices);
+        finalPath.add(vertices[path[v][u]]);
+    }
+
+
+
+
+
+
 }

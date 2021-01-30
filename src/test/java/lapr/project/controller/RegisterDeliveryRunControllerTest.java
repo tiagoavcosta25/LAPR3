@@ -1,7 +1,6 @@
 package lapr.project.controller;
 
 
-import javafx.util.Pair;
 import lapr.project.model.*;
 import lapr.project.model.service.DeliveryRunService;
 import lapr.project.model.service.GraphService;
@@ -55,40 +54,40 @@ class RegisterDeliveryRunControllerTest {
         ApplicationPOT.getInstance().setCurrentSession(new UserSession("", UserSession.Role.ADMIN));
         when(m_mockPharmacyService.getSuitableCourier()).thenReturn(new Courier());
         when(m_mockDeliveryRunService.newDeliveryRun(null, new ArrayList<>(), new Drone())).thenReturn(new DeliveryRun());
-        List<Pair<Pair<VehicleModel, Double>, List<Address>>> lst = new ArrayList<>();
-        when(m_mockGraphService.calculateBestVehicleAndBestPath(new ArrayList<>())).thenReturn(lst);
+        List<Route> lst = new ArrayList<>();
+        when(m_mockGraphService.calculateBestVehicleAndBestPath(new ArrayList<>(),true,true)).thenReturn(lst);
         when(m_mockDeliveryRunService.getMostChargedDrone(new VehicleModel())).thenReturn(new Drone());
         when(m_mockDeliveryRunService.addNewDeliveryRun(new DeliveryRun())).thenReturn(true);
         when(m_mockDeliveryRunService.getMostEfficientVehicleModel(new ArrayList<>())).thenReturn(new VehicleModel());
-        boolean real = m_ctrl.registerDeliveryRun(new ArrayList<>());
+        boolean real = m_ctrl.registerDeliveryRun(new ArrayList<>(),true,true);
         assertTrue(real);
 
-        when(m_mockGraphService.calculateBestVehicleAndBestPath(new ArrayList<>())).thenReturn(lst);
+        when(m_mockGraphService.calculateBestVehicleAndBestPath(new ArrayList<>(),true,true)).thenReturn(lst);
         when(m_mockDeliveryRunService.getMostChargedScooter(new VehicleModel(1, "", 2, 3, 4, new Battery(),
                 VehicleType.SCOOTER))).thenReturn(new Scooter());
         when(m_mockDeliveryRunService.newDeliveryRun(new Courier(), new ArrayList<>(), new Scooter())).thenReturn(new DeliveryRun());
 
-        real = m_ctrl.registerDeliveryRun(new ArrayList<>());
+        real = m_ctrl.registerDeliveryRun(new ArrayList<>(),true,true);
         assertTrue(real);
 
         when(m_mockDeliveryRunService.addNewDeliveryRun(new DeliveryRun())).thenReturn(false);
-        real = m_ctrl.registerDeliveryRun(new ArrayList<>());
+        real = m_ctrl.registerDeliveryRun(new ArrayList<>(),true,true);
         assertFalse(real);
 
         ApplicationPOT.getInstance().setCurrentSession(new UserSession("", UserSession.Role.CLIENT));
-        real = m_ctrl.registerDeliveryRun(new ArrayList<>());
+        real = m_ctrl.registerDeliveryRun(new ArrayList<>(),true,true);
         assertFalse(real);
 
 
         ApplicationPOT.getInstance().setCurrentSession(new UserSession("", UserSession.Role.ADMIN));
 
         when(m_mockDeliveryRunService.getMostEfficientVehicleModel(new ArrayList<>())).thenReturn(null);
-        real = m_ctrl.registerDeliveryRun(new ArrayList<>());
+        real = m_ctrl.registerDeliveryRun(new ArrayList<>(),true,true);
         assertFalse(real);
 
         VehicleModel vm = new VehicleModel();
         vm.setVehicleType(VehicleType.SCOOTER);
-        when(m_mockGraphService.calculateBestVehicleAndBestPath(new ArrayList<>())).thenReturn(new ArrayList<>());
+        when(m_mockGraphService.calculateBestVehicleAndBestPath(new ArrayList<>(),true,true)).thenReturn(new ArrayList<>());
         when(m_mockDeliveryRunService.getMostEfficientVehicleModel(new ArrayList<>())).thenReturn(vm);
         when(m_mockDeliveryRunService.getMostChargedScooter(vm)).thenReturn(new Scooter());
         when(m_mockPharmacyService.getSuitableCourier()).thenReturn(new Courier());
@@ -96,7 +95,7 @@ class RegisterDeliveryRunControllerTest {
         when(m_mockDeliveryRunService.newDeliveryRun(new Courier(),new ArrayList<>(),new Scooter()))
                 .thenReturn(new DeliveryRun());
         when(m_mockDeliveryRunService.addNewDeliveryRun(new DeliveryRun())).thenReturn(true);
-        real = m_ctrl.registerDeliveryRun(new ArrayList<>());
+        real = m_ctrl.registerDeliveryRun(new ArrayList<>(),true,true);
 
         assertTrue(real);
 

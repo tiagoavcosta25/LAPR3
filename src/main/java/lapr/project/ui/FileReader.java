@@ -305,7 +305,7 @@ public class FileReader {
     public static void readDeliveryRunFile(String [] columns) {
         RegisterDeliveryRunController ctrl = new RegisterDeliveryRunController();
         List<Order> lstOrders = ctrl.getOrdersList(columns[0]);
-        if(ctrl.registerDeliveryRun(lstOrders)) {
+        if(ctrl.registerDeliveryRun(lstOrders,true,false)) {
             LOGGER.log(Level.INFO,"Delivery Run registered with success!");
         }else LOGGER.log(Level.WARNING,"There was a problem registering the delivery run.");
     }
