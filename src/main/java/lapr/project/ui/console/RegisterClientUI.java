@@ -51,23 +51,17 @@ public class RegisterClientUI implements UI {
                 String strCountry = sc.nextLine();
 
                 List<CreditCard> lstCCs = new ArrayList<>();
-                do {
-                    System.out.print("Do you want to add a credit card? (Y/N): ");
-                    String strCheck = sc.nextLine();
 
-                    if (strCheck.equalsIgnoreCase("Y")) {
-                        System.out.print("Number: ");
-                        Long lngNumber = Long.parseLong(sc.nextLine());
-                        System.out.print("validaty Date (MM-YY): ");
-                        Date dtDate = new SimpleDateFormat("MM-yy").parse(sc.nextLine());
-                        System.out.print("CCV: ");
-                        Integer strCCV = Integer.parseInt(sc.nextLine());
 
-                        lstCCs.add(new CreditCard(lngNumber, dtDate, strCCV));
-                    }else{
-                        break;
-                    }
-                }while(true);
+                System.out.print("Credit Card Number: ");
+                Long lngNumber = Long.parseLong(sc.nextLine());
+                System.out.print("Validaty Date (MM-YY): ");
+                Date dtDate = new SimpleDateFormat("MM-yy").parse(sc.nextLine());
+                System.out.print("CCV: ");
+                Integer strCCV = Integer.parseInt(sc.nextLine());
+
+                lstCCs.add(new CreditCard(lngNumber, dtDate, strCCV));
+
 
                 System.out.println("Do you want to register with this information?");
                 System.out.println("Name: " + strName + "\nEmail: " + strEmail + "\nNif: " + intNIF + "\nLatitude: " + dblLatitude + "\nLongitude: " + dblLongitude);

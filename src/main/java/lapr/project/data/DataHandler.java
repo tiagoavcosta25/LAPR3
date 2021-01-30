@@ -10,37 +10,47 @@ import java.util.Properties;
 import java.util.TreeMap;
 
 /**
- * Exemplo de classe cujas instâncias manipulam dados de BD Oracle.
+ * Data Handler.
+ *
+ * Group: Team Lisa [G-021]
+ * ______________________________________________________
+ * @author António Barbosa <1190404@isep.ipp.pt>
+ * @author Ernesto Rodrigues <1190560@isep.ipp.pt>
+ * @author Jessica Alves <1190682@isep.ipp.pt>
+ * @author Pedro Santos <1190967@isep.ipp.pt>
+ * @author Rodrigo Costa <1191014@isep.ipp.pt>
+ * @author Tiago Costa <1191460@isep.ipp.pt>
  */
+
 public class DataHandler {
 
     /**
-     * O URL da BD.
+     * Database URL.
      */
     private String jdbcUrl;
 
     /**
-     * O nome de utilizador da BD.
+     * Database User.
      */
     private String username;
 
     /**
-     * A password de utilizador da BD.
+     * Database Password.
      */
     private String password;
 
     /**
-     * A ligação à BD.
+     * Database Connection.
      */
     private Connection connection;
 
     /**
-     * A invocação de "stored procedures".
+     * "Stored Procedures" Invocation.
      */
     private CallableStatement callStmt;
 
     /**
-     * Conjunto de resultados retornados por "stored procedures".
+     * Result Set of "Stored Procedures".
      */
     private ResultSet rSet;
 
@@ -91,12 +101,11 @@ public class DataHandler {
     }
 
     /**
-     * Constrói uma instância de "DataHandler" recebendo, por parâmetro, o URL
-     * da BD e as credenciais do utilizador.
+     * Creates a DataHandler instance reciving Database URL, User Name and Password.
      *
-     * @param jdbcUrl  o URL da BD.
-     * @param username o nome do utilizador.
-     * @param password a password do utilizador.
+     * @param jdbcUrl  Database URL.
+     * @param username User Name.
+     * @param password User Password.
      */
     public DataHandler(String jdbcUrl, String username, String password) {
         this.jdbcUrl = jdbcUrl;
@@ -108,7 +117,7 @@ public class DataHandler {
     }
 
     /**
-     * Estabelece a ligação à BD.
+     * Open a Connection the the DataBase.
      */
     protected void openConnection() {
         try {
@@ -120,9 +129,8 @@ public class DataHandler {
     }
 
     /**
-     * Fecha os objetos "ResultSet", "CallableStatement" e "Connection", e
-     * retorna uma mensagem de erro se alguma dessas operações não for bem
-     * sucedida. Caso contrário retorna uma "string" vazia.
+     * Close the ResultSet, CallableStatement e Connection, and returns an error message if anything goes wrong.
+     * Otherwise returns an empty String.
      */
     protected String closeAll() {
 
@@ -160,13 +168,23 @@ public class DataHandler {
         return message.toString();
     }
 
-
+    /**
+     * Returns the Database Connection.
+     * @return the Database Connection.
+     */
     protected Connection getConnection() {
         if (connection == null)
             openConnection();
         return connection;
     }
 
+    /**
+     * Generic method that converts Data in a ResultSet from the Database to a Java Object related to an Address.
+     * @param rSet ResultSet.
+     * @param firstColumn Column that the Data starts.
+     * @return Address.
+     * @throws SQLException SQLException.
+     */
     protected Address addressManager(ResultSet rSet, int firstColumn) throws SQLException { // column number +8
         Double latitude = rSet.getDouble(firstColumn);
         firstColumn++;
@@ -186,6 +204,13 @@ public class DataHandler {
         return new Address(latitude, longitude, altitude, streetName, doorNumber, postalCode, locality, country);
     }
 
+    /**
+     * Generic method that converts Data in a ResultSet from the Database to a Java Object related to a Credit Card.
+     * @param rSet ResultSet.
+     * @param firstColumn Column that the Data starts.
+     * @return Credit Card.
+     * @throws SQLException SQLException.
+     */
     protected CreditCard creditCardManager(ResultSet rSet, int firstColumn) throws SQLException { // column number +3
         long dblCreditCardNr = rSet.getLong(firstColumn);
         firstColumn++;
@@ -196,6 +221,13 @@ public class DataHandler {
         return new CreditCard(dblCreditCardNr, utilStartDate, strCCV);
     }
 
+    /**
+     * Generic method that converts Data in a ResultSet from the Database to a Java Object related to a Pharmacy.
+     * @param rSet ResultSet.
+     * @param firstColumn Column that the Data starts.
+     * @return Pharmacy.
+     * @throws SQLException SQLException.
+     */
     protected Pharmacy pharmacyManager(ResultSet rSet, int firstColumn) throws SQLException { // column number +11
 
         Integer pharmacyID = rSet.getInt(firstColumn);
@@ -209,6 +241,13 @@ public class DataHandler {
         return new Pharmacy(pharmacyID, pharmacyName, strEmail, oAddress);
     }
 
+    /**
+     * Generic method that converts Data in a ResultSet from the Database to a Java Object related to a Client.
+     * @param rSet ResultSet.
+     * @param firstColumn Column that the Data starts.
+     * @return Client.
+     * @throws SQLException SQLException.
+     */
     protected Client clientManager(ResultSet rSet, int firstColumn) throws SQLException { // column number +14
 
         int intId = rSet.getInt(firstColumn);
@@ -228,6 +267,13 @@ public class DataHandler {
         return new Client(intId, strName, strNif, strEmail, strPassword, intCredits, oClientAddress, new ArrayList<>());
     }
 
+    /**
+     * Generic method that converts Data in a ResultSet from the Database to a Java Object related to an Order.
+     * @param rSet ResultSet.
+     * @param firstColumn Column that the Data starts.
+     * @return Order.
+     * @throws SQLException SQLException.
+     */
     protected Order orderManager(ResultSet rSet, int firstColumn) throws SQLException { // column number +37
 
         int intId = rSet.getInt(firstColumn);
@@ -255,6 +301,14 @@ public class DataHandler {
                 strStatus, blIsHomeDelivery, oClient, oPharmacy, new TreeMap<>());
     }
 
+
+    /**
+     * Generic method that converts Data in a ResultSet from the Database to a Java Object related to an Invoice.
+     * @param rSet ResultSet.
+     * @param firstColumn Column that the Data starts.
+     * @return Invoice.
+     * @throws SQLException SQLException.
+     */
     protected Invoice invoiceManager(ResultSet rSet, int firstColumn) throws SQLException { // column number +47
 
         Order oOrder = orderManager(rSet, firstColumn);
@@ -269,6 +323,14 @@ public class DataHandler {
         return new Invoice(intInvoiceId, dtInvoiceDate, dblTotalPrice, oOrder);
     }
 
+
+    /**
+     * Generic method that converts Data in a ResultSet from the Database to a Java Object related to a Product.
+     * @param rSet ResultSet.
+     * @param firstColumn Column that the Data starts.
+     * @return Product.
+     * @throws SQLException SQLException.
+     */
     protected Product productManager(ResultSet rSet, int firstColumn) throws SQLException { // column number +5
 
         int intID = rSet.getInt(firstColumn);
@@ -285,6 +347,15 @@ public class DataHandler {
         return new Product(intID, strName, strDescription, dblUnitaryPrice, dblUnitaryWeight);
     }
 
+    /**
+     * Generic method that adds Stock from Data in a ResultSet from the Database to a Java Object
+     * related to a Pharmacy.
+     * @param rSet ResultSet.
+     * @param firstColumn Column that the Data starts.
+     * @param oPharmacy Pharmacy.
+     * @return Pharmacy.
+     * @throws SQLException SQLException.
+     */
     protected Pharmacy pharmacyProductManager(ResultSet rSet, int firstColumn, Pharmacy oPharmacy) throws SQLException { // column number +6
 
         int intStock = rSet.getInt(firstColumn);
@@ -296,6 +367,15 @@ public class DataHandler {
         return oPharmacy;
     }
 
+    /**
+     * Generic method that adds a Produtc from Data in a ResultSet from the Database to a Java Object
+     * related to an Order.
+     * @param rSet ResultSet.
+     * @param firstColumn Column that the Data starts.
+     * @param oOrder Order.
+     * @return Order.
+     * @throws SQLException SQLException.
+     */
     protected Order orderProductManager(ResultSet rSet, int firstColumn, Order oOrder) throws SQLException { // column number +6
 
         int intQuantity = rSet.getInt(firstColumn);
@@ -307,6 +387,15 @@ public class DataHandler {
         return oOrder;
     }
 
+    /**
+     * Generic method that adds Product fromm Data in a ResultSet from the Database to a Java Object
+     * related to an Invoice.
+     * @param rSet ResultSet.
+     * @param firstColumn Column that the Data starts.
+     * @param oInvoice Invoice.
+     * @return Invoice.
+     * @throws SQLException SQLException.
+     */
     protected Invoice invoiceProductManager(ResultSet rSet, int firstColumn, Invoice oInvoice) throws SQLException { // column number +6
 
         double intValue = rSet.getDouble(firstColumn);
@@ -318,6 +407,14 @@ public class DataHandler {
         return oInvoice;
     }
 
+
+    /**
+     * Generic method that converts Data in a ResultSet from the Database to a Java Object related to a Scooter.
+     * @param rSet ResultSet.
+     * @param firstColumn Column that the Data starts.
+     * @return Scooter.
+     * @throws SQLException SQLException.
+     */
     protected Scooter scooterManager(ResultSet rSet, int firstColumn) throws SQLException { // column number +23
 
         int intId = rSet.getInt(firstColumn);
@@ -331,6 +428,14 @@ public class DataHandler {
         return new Scooter(intId, dblBatteryPerc, oVehicleModel, oPharmacy);
     }
 
+
+    /**
+     * Generic method that converts Data in a ResultSet from the Database to a Java Object related to a Drone.
+     * @param rSet ResultSet.
+     * @param firstColumn Column that the Data starts.
+     * @return Drone.
+     * @throws SQLException SQLException.
+     */
     protected Drone droneManager(ResultSet rSet, int firstColumn) throws SQLException { // column number +23
 
         int intId = rSet.getInt(firstColumn);
@@ -344,6 +449,14 @@ public class DataHandler {
         return new Drone(intId, dblBatteryPerc, oVehicleModel, oPharmacy);
     }
 
+
+    /**
+     * Generic method that converts Data in a ResultSet from the Database to a Java Object related to a Vehicle Model.
+     * @param rSet ResultSet.
+     * @param firstColumn Column that the Data starts.
+     * @return Vehicle Model.
+     * @throws SQLException SQLException.
+     */
     protected VehicleModel vehicleModelManager(ResultSet rSet, int firstColumn) throws SQLException { // column number +10
 
         int intId = rSet.getInt(firstColumn);
@@ -363,6 +476,14 @@ public class DataHandler {
         return new VehicleModel(intId, strDesignation, dblPotency, dblWeight, dblMaxPayload, oBattery, oVehicleType);
     }
 
+
+    /**
+     * Generic method that converts Data in a ResultSet from the Database to a Java Object related to a Battery.
+     * @param rSet ResultSet.
+     * @param firstColumn Column that the Data starts.
+     * @return Battery.
+     * @throws SQLException SQLException.
+     */
     protected Battery batteryManager(ResultSet rSet, int firstColumn) throws SQLException { // column number +4
 
         int intBatteryId = rSet.getInt(firstColumn);
@@ -376,6 +497,13 @@ public class DataHandler {
         return new Battery(intBatteryId, intBatteryCapacity, dblBatteryVoltage, dblEfficiency);
     }
 
+    /**
+     * Generic method that converts Data in a ResultSet from the Database to a Java Object related to a Pharmacy Transfer.
+     * @param rSet ResultSet.
+     * @param firstColumn Column that the Data starts.
+     * @return Pharmacy Transfer.
+     * @throws SQLException SQLException.
+     */
     protected PharmacyTransfer pharmacyTransferManager(ResultSet rSet, int firstColumn) throws SQLException { // column number +4
 
         int intId = rSet.getInt(firstColumn);
@@ -393,26 +521,50 @@ public class DataHandler {
         return new PharmacyTransfer(intId, dtDate, oOrder, oProduct, intQuantity, oNearbyPharmacy);
     }
 
+    /**
+     * Returns the Database URL.
+     * @return the Database URL.
+     */
     public String getJdbcUrl() {
         return jdbcUrl;
     }
 
+    /**
+     * Modifies the Database URL.
+     * @param jdbcUrl the Database URL.
+     */
     public void setJdbcUrl(String jdbcUrl) {
         this.jdbcUrl = jdbcUrl;
     }
 
+    /**
+     * Returns the Database Username.
+     * @return the Database Username.
+     */
     public String getUsername() {
         return username;
     }
 
+    /**
+     * Modifies the Database Username.
+     * @param username the Database Username.
+     */
     public void setUsername(String username) {
         this.username = username;
     }
 
+    /**
+     * Returns the Database Password.
+     * @return the Database Password.
+     */
     public String getPassword() {
         return password;
     }
 
+    /**
+     * Modifies the Database Password.
+     * @param password the Database Password.
+     */
     public void setPassword(String password) {
         this.password = password;
     }

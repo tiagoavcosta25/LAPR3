@@ -2,6 +2,7 @@ package lapr.project.ui.console;
 
 import lapr.project.controller.ApplicationPOT;
 import lapr.project.controller.LoginController;
+import lapr.project.ui.Menu;
 import lapr.project.ui.UI;
 
 import java.util.Scanner;
@@ -20,6 +21,7 @@ public class LoginUI implements UI {
             String strEmail = sc.nextLine();
             System.out.print("Password: ");
             String strPassword = sc.nextLine();
+            Menu.clear();
 
             if (!oCtrl.login(strEmail, strPassword)) {
                 throw new Exception();

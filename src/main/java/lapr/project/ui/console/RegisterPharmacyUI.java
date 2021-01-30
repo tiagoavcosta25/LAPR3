@@ -1,6 +1,7 @@
 package lapr.project.ui.console;
 
 import lapr.project.controller.RegisterPharmacyController;
+import lapr.project.ui.Menu;
 import lapr.project.ui.UI;
 
 import java.util.Scanner;
@@ -17,6 +18,7 @@ public class RegisterPharmacyUI implements UI {
 
             do{
                 try{
+                    Menu.clear();
                     System.out.print("Register a Pharmacy:\n\nName: ");
                     String strName = sc.nextLine();
                     System.out.print("Email: ");
@@ -38,6 +40,9 @@ public class RegisterPharmacyUI implements UI {
                     System.out.print("Country: ");
                     String strCountry = sc.nextLine();
 
+                    if(!strEmail.contains("@")){throw new Exception();}
+
+                    Menu.clear();
                     oCtrl.newPharmacy(strName, strEmail, dblLatitude, dblLongitude, dblAltitude,
                             strStreetName, strDoorNumber, strPostalCode, strLocality, strCountry);
 
@@ -47,6 +52,7 @@ public class RegisterPharmacyUI implements UI {
                     }
                     LOGGER.log(Level.WARNING, "Error Registering a Pharmacy.");
                 } catch (Exception e){
+                    Menu.clear();
                     LOGGER.log(Level.WARNING, "Error Registering a Pharmacy.");
                 }
             } while(true);

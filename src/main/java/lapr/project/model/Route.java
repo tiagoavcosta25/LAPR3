@@ -4,16 +4,59 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Route.
+ * <p>
+ * Group: Team Lisa [G-021]
+ * ______________________________________________________
+ *
+ * @author António Barbosa <1190404@isep.ipp.pt>
+ * @author Ernesto Rodrigues <1190560@isep.ipp.pt>
+ * @author Jessica Alves <1190682@isep.ipp.pt>
+ * @author Pedro Santos <1190967@isep.ipp.pt>
+ * @author Rodrigo Costa <1191014@isep.ipp.pt>
+ * @author Tiago Costa <1191460@isep.ipp.pt>
+ */
 public class Route {
 
+    /**
+     * Vehicle Type.
+     */
     private VehicleType vehicleType;
+
+    /**
+     * Vehicle Model.
+     */
     private VehicleModel vehicleModel;
+
+    /**
+     * List Of Addresses.
+     */
     private List<Address> addressList;
+
+    /**
+     * List Of Paths.
+     */
     private List<Path> pathList;
+
+    /**
+     * List Of Energy.
+     */
     private List<Double> energyList;
+
+    /**
+     * List of Time.
+     */
     private List<Double> timeList;
+
+    /**
+     * List of Charge Stops.
+     */
     private List<Address> chargeStops;
 
+    /**
+     * Empty Constructor.
+     */
     public Route() {
         this.vehicleType = VehicleType.NOTDEFINED;
         this.vehicleModel = null;
@@ -24,6 +67,11 @@ public class Route {
         this.chargeStops = new ArrayList<>();
     }
 
+    /**
+     * Route Constructor.
+     * @param vehicleType Vehicle Type.
+     * @param addressList List Of Addresses.
+     */
     public Route(VehicleType vehicleType, List<Address> addressList) {
         this.vehicleType = vehicleType;
         this.vehicleModel = null;
@@ -34,62 +82,122 @@ public class Route {
         this.chargeStops = new ArrayList<>();
     }
 
+    /**
+     * Getter for the Vehicle Model.
+     * @return Vehicle Model.
+     */
     public VehicleModel getVehicleModel() {
         return vehicleModel;
     }
 
+    /**
+     * Setter for the Vehicle Model.
+     * @param vehicleModel Vehicle Model.
+     */
     public void setVehicleModel(VehicleModel vehicleModel) {
         this.vehicleModel = vehicleModel;
     }
 
+    /**
+     * Getter for the Vehicle Type.
+     * @return Vehicle Type.
+     */
     public VehicleType getVehicleType() {
         return vehicleType;
     }
 
+    /**
+     * Setter for the Vehicle Type.
+     * @param vehicleType Vehicle Type.
+     */
     public void setVehicleType(VehicleType vehicleType) {
         this.vehicleType = vehicleType;
     }
 
+    /**
+     * Getter for the Address List.
+     * @return Address List.
+     */
     public List<Address> getAddressList() {
         return addressList;
     }
 
+    /**
+     * Getter for the Address List.
+     * @param addressList Address List.
+     */
     public void setAddressList(List<Address> addressList) {
         this.addressList = addressList;
     }
 
+    /**
+     * Getter for the Path List.
+     * @return Path List.
+     */
     public List<Path> getPathList() {
         return pathList;
     }
 
+    /**
+     * Setter for the Path List.
+     * @param pathList Path List.
+     */
     public void setPathList(List<Path> pathList) {
         this.pathList = pathList;
     }
 
+    /**
+     * Getter for the Energy List.
+     * @return Energy List.
+     */
     public List<Double> getEnergyList() {
         return energyList;
     }
 
+    /**
+     * Setter for the Energy List.
+     * @param energyList Energy List.
+     */
     public void setEnergyList(List<Double> energyList) {
         this.energyList = energyList;
     }
 
+    /**
+     * Getter for the Time List.
+     * @return Time List.
+     */
     public List<Double> getTimeList() {
         return timeList;
     }
 
+    /**
+     * Setter for the Time List.
+     * @param timeList Time List.
+     */
     public void setTimeList(List<Double> timeList) {
         this.timeList = timeList;
     }
 
+    /**
+     * Getter for the Charge Stops List.
+     * @return Charge Stops List.
+     */
     public List<Address> getChargeStops() {
         return chargeStops;
     }
 
+    /**
+     * Setter for the Charge Stops List.
+     * @param chargeStops Charge Stops List.
+     */
     public void setChargeStops(List<Address> chargeStops) {
         this.chargeStops = chargeStops;
     }
 
+    /**
+     * Method that calculates the total time.
+     * @return Total Time.
+     */
     public double getTotalTime() {
         if(this.addressList.isEmpty())
             return Double.MAX_VALUE;
@@ -99,6 +207,10 @@ public class Route {
         return time;
     }
 
+    /**
+     * Method that calculates the energy.
+     * @return Energy.
+     */
     public double getTotalEnergy() {
         if(this.addressList.isEmpty())
             return Double.MAX_VALUE;
@@ -108,6 +220,10 @@ public class Route {
         return energy;
     }
 
+    /**
+     * Method that calculates the total distance.
+     * @return Total Distance.
+     */
     public double getTotalDistance() {
         if(this.addressList.isEmpty())
             return Double.MAX_VALUE;
@@ -117,6 +233,11 @@ public class Route {
         return distance;
     }
 
+    /**
+     * Equals Override.
+     * @param o object.
+     * @return true if the objects are equal, false they are not.
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -131,11 +252,19 @@ public class Route {
                 Objects.equals(chargeStops, route.chargeStops);
     }
 
+    /**
+     * Hash Code Override.
+     * @return Hash Code Value.
+     */
     @Override
     public int hashCode() {
         return Objects.hash(vehicleType, vehicleModel, addressList, pathList, energyList, timeList, chargeStops);
     }
 
+    /**
+     * toString Override.
+     * @return Route Information.
+     */
     @Override
     public String toString() {
         StringBuilder str = new StringBuilder();

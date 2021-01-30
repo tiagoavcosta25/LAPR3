@@ -26,6 +26,9 @@ import java.util.List;
 
 public class ScooterDB extends DataHandler {
 
+    /**
+     * Static Final No Scooters Avaliable.
+     */
     private static final String NOSCOOTERAVAIABLE = "No Scooters Avaliable.";
 
     /**
@@ -55,7 +58,7 @@ public class ScooterDB extends DataHandler {
     }
 
     /**
-     * Add a new Scooter to the DataBase.
+     * Adds a new Scooter to the DataBase.
      * @param dblBatteryPerc Scooter Battery Percentage.
      * @param oVehicleModel Scooter Vehicle Model.
      * @param oPharmacy Scooter Pharmacy.
@@ -81,8 +84,6 @@ public class ScooterDB extends DataHandler {
 
     /**
      * Update Scooter from Database.
-     * The method returns the validation of that instance of Scooter. True if the data is correct and false if
-     * it doesn't.
      *
      * @param
      * @param intId Drone ID.
@@ -94,7 +95,7 @@ public class ScooterDB extends DataHandler {
      * @param intBatteryCapacity Drone Battery Capacity.
      * @param dblBatteryVoltage Drone Battery Voltage.
      * @param dblEfficiency Drone Efficiency.
-     * @return the validation of that instance of Drone.
+     * @return true if the Scooter is updated. False if otherwise.
      */
     public boolean updateScooterFromDB(int intId, double dblBatteryPerc, String strDesignation, double dblPotency, double dblWeight, double dblMaxPayload,
                                        int intBatteryCapacity, double dblBatteryVoltage, double dblEfficiency) {
@@ -148,10 +149,8 @@ public class ScooterDB extends DataHandler {
 
     /**
      * The method removes a Scooter from the Database.
-     * The method returns the validation of that instance of Scooter. True if the data is correct and false if
-     * it doesn't.
      * @param intId Scooter ID.
-     * @return the validation of that instance of Scooter.
+     * @return true if the Scooter is removed. False if otherwise.
      */
     public boolean removeScooterFromDB(int intId) {
         try(CallableStatement callStmt = getConnection().prepareCall("{ call removeScooter(?) }");) {
@@ -179,9 +178,9 @@ public class ScooterDB extends DataHandler {
     }
 
     /**
-     * Returns a list of a pair with the Scooter's Email and Sccoter.
+     * Returns a list of a pair with the Scooter's Email and Scooter.
      * @param intParkId Park ID.
-     * @return list of a pair with the Scooter's Email and Sccoter.
+     * @return list of a pair with the Scooter's Email and Scooter.
      */
     public List<Pair<String, Scooter>> getEmailPerChargingScooter(int intParkId) {
         List<Pair<String, Scooter>> lstPairs = new ArrayList<>();
