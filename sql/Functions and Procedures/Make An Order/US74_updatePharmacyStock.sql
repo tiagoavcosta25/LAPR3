@@ -4,7 +4,6 @@ create or replace procedure updatePharmacyStock(pharmacyEmail "PHARMACY".EMAIL%t
     quantityStock     int;
     v_checkPharmacyId int;
 begin
-
     SELECT STOCK
     INTO quantityStock
     FROM PHARMACYPRODUCT
@@ -20,4 +19,8 @@ begin
     SET STOCK = quantityStock - quantity
     WHERE PHARMACYID = v_checkPharmacyId
       AND PRODUCTID = productIds;
+
+    EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+        NULL;
 end;

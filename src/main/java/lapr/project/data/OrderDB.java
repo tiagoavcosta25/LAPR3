@@ -225,7 +225,8 @@ public class OrderDB extends DataHandler {
     }
 
     /**
-     * Notifies and Remove A Product That Doesnt Have Stock.
+     * Removes a product from a PharmacyProduct ifd it has zero stock, verifies wich Pharmacy has the products
+     * for the order and if the order can be fulfilled. Manages the order status.
      *
      * @param order Order.
      * @return Map with Product and Quantities.
@@ -257,6 +258,7 @@ public class OrderDB extends DataHandler {
                         continue;
                     } else {
                         lstProducts.put(product, intAskQuantity);
+                        updateProducts.put(product, entry.getValue() - intAskQuantity);
                     }
                     rSet.next();
                 }
@@ -267,13 +269,25 @@ public class OrderDB extends DataHandler {
             }
         }
         if (flag) {
+            try (CallableStatement callStmt = getConnection().prepareCall("{ call updateOrderStatus(?) }")) {
+
+                callStmt.setInt(1, order.getId());
+                callStmt.execute();
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            } finally {
+                closeAll();
+            }
             return null;
         } else if (!(updateProducts.isEmpty())) {
             for (Map.Entry<Product, Integer> entry2 : updateProducts.entrySet()) {
+
                 try (CallableStatement callStmt = getConnection().prepareCall("{ call updatePharmacyStock(?,?,?) }")) {
 
-                    callStmt.setInt(1, entry2.getKey().getId());
-                    callStmt.setInt(2, entry2.getValue());
+                    callStmt.setString(1, order.getPharmacy().getEmail());
+                    callStmt.setInt(2, entry2.getKey().getId());
+                    callStmt.setInt(3, entry2.getValue());
 
                     callStmt.execute();
 
