@@ -145,58 +145,64 @@ class DeliveryRunServiceTest {
 
     @Test
     void getMostEfficientVehicleModel() {
-        List<Pair<Pair<VehicleModel, Double>, List<Address>>> lst = new ArrayList<>();
-        lst.add(new Pair<Pair<VehicleModel,Double>,List<Address>>(new Pair<VehicleModel,Double>
-                (new VehicleModel(),2d), new ArrayList<>()));
-        lst.add(new Pair<Pair<VehicleModel,Double>,List<Address>>(new Pair<VehicleModel,Double>
-                (new VehicleModel(),5d), new ArrayList<>()));
+        List<Route> lst = new ArrayList<>();
+        List<Double> dbl = new ArrayList<>();
+        dbl.add(1002d);
+        Route r1 = new Route(VehicleType.SCOOTER,new ArrayList<>());
+        Route r2 = new Route(VehicleType.SCOOTER,new ArrayList<>());
+        r1.setVehicleModel(new VehicleModel());
+        r1.setEnergyList(dbl);
+        r2.setVehicleModel(new VehicleModel());
+        lst.add(r2);
+        lst.add(r1);
 
         VehicleModel real = m_oDeliveryRunService.getMostEfficientVehicleModel(lst);
         assertEquals(new VehicleModel(),real);
 
         lst = new ArrayList<>();
-        lst.add(new Pair<Pair<VehicleModel,Double>,List<Address>>(new Pair<VehicleModel,Double>
-                (new VehicleModel(),5d), new ArrayList<>()));
-        lst.add(new Pair<Pair<VehicleModel,Double>,List<Address>>(new Pair<VehicleModel,Double>
-                (new VehicleModel(),2d), new ArrayList<>()));
+        dbl = new ArrayList<>();
+        dbl.add(1002d);
+        r1 = new Route(VehicleType.SCOOTER,new ArrayList<>());
+        r2 = new Route(VehicleType.SCOOTER,new ArrayList<>());
+        r1.setVehicleModel(new VehicleModel());
+        r1.setEnergyList(dbl);
+        r2.setVehicleModel(new VehicleModel());
+        lst.add(r1);
+        lst.add(r2);
 
         real = m_oDeliveryRunService.getMostEfficientVehicleModel(lst);
         assertEquals(new VehicleModel(),real);
 
         lst = new ArrayList<>();
-        lst.add(new Pair<Pair<VehicleModel,Double>,List<Address>>(new Pair<VehicleModel,Double>
-                (new VehicleModel(),2d), new ArrayList<>()));
-        lst.add(new Pair<Pair<VehicleModel,Double>,List<Address>>(new Pair<VehicleModel,Double>
-                (new VehicleModel(),2d), new ArrayList<>()));
+        lst.add(new Route(VehicleType.SCOOTER,new ArrayList<>()));
+        lst.add(new Route(VehicleType.SCOOTER,new ArrayList<>()));
 
         real = m_oDeliveryRunService.getMostEfficientVehicleModel(lst);
-        assertEquals(new VehicleModel(),real);
+        assertNull(real);
 
         lst = new ArrayList<>();
         lst.add(null);
-        lst.add(new Pair<Pair<VehicleModel,Double>,List<Address>>(new Pair<VehicleModel,Double>
-                (new VehicleModel(),2d), new ArrayList<>()));
+        lst.add(new Route(VehicleType.SCOOTER,new ArrayList<>()));
 
         real = m_oDeliveryRunService.getMostEfficientVehicleModel(lst);
-        assertEquals(new VehicleModel(),real);
+        assertNull(real);
 
         lst = new ArrayList<>();
-        lst.add(new Pair<Pair<VehicleModel,Double>,List<Address>>(new Pair<VehicleModel,Double>
-                (new VehicleModel(),5d), new ArrayList<>()));
+        lst.add(new Route(VehicleType.SCOOTER,new ArrayList<>()));
         lst.add(null);
 
         real = m_oDeliveryRunService.getMostEfficientVehicleModel(lst);
-        assertEquals(new VehicleModel(),real);
+        assertNull(real);
 
         lst = new ArrayList<>();
         lst.add(null);
         lst.add(null);
 
         real = m_oDeliveryRunService.getMostEfficientVehicleModel(lst);
-        assertEquals(null,real);
+        assertNull(real);
 
         real = m_oDeliveryRunService.getMostEfficientVehicleModel(new ArrayList<>());
-        assertEquals(null,real);
+        assertNull(real);
 
     }
 

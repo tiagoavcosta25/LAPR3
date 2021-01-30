@@ -151,18 +151,18 @@ public class DeliveryRunService {
      *            Addresses (/path)
      * @return most efficient Vehicle Model
      */
-    public VehicleModel getMostEfficientVehicleModel(List<Pair<Pair<VehicleModel, Double>, List<Address>>> lst) {
+    public VehicleModel getMostEfficientVehicleModel(List<Route> lst) {
         if (lst.isEmpty()) return null;
 
         if (lst.get(0) == null && lst.get(1) == null) {
             return null;
         } else if (lst.get(0) == null) {
-            return lst.get(1).getKey().getKey();
+            return lst.get(1).getVehicleModel();
         } else if (lst.get(1) == null) {
-            return lst.get(0).getKey().getKey();
+            return lst.get(0).getVehicleModel();
         } else {
-            if (lst.get(0).getKey().getValue() < lst.get(1).getKey().getValue()) return lst.get(0).getKey().getKey();
-            else return lst.get(1).getKey().getKey();
+            if (lst.get(0).getTotalEnergy() < lst.get(1).getTotalEnergy()) return lst.get(0).getVehicleModel();
+            else return lst.get(1).getVehicleModel();
         }
     }
 
