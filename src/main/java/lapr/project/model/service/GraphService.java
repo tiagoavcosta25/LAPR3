@@ -392,8 +392,7 @@ public class GraphService {
     /**
      * Prints the Results.
      */
-    public void printResults(Route resultScooter,
-                             Route resultDrone) {
+    public void printResults(Route resultScooter, Route resultDrone) {
         String body;
         if(resultScooter.getTotalTime() == Double.MAX_VALUE && resultDrone.getTotalTime() == Double.MAX_VALUE) {
             body = "\n\n\nThere is no scooter model nor drone model that can make this path!";
@@ -499,7 +498,6 @@ public class GraphService {
             return lstReturn;
         }
 
-
         if(routeScooter.getTotalEnergy() == Double.MAX_VALUE) {
             routeScooter = pathsWithPharmacies(this.moGraphScooter,
                     pharmacy.getAddress(), pharmacy.getAddress(), scooterList, orderList, energy);
@@ -599,8 +597,12 @@ public class GraphService {
                         distanceUsingCoordinates,vModel.getPotency());
             }
             tempEnergy = tempPair.getKey();
-            route.getEnergyList().add(tempEnergy);
-            route.getTimeList().add(tempPair.getValue() / 60);
+            List<Double> energyList = route.getEnergyList();
+            energyList.add(tempEnergy);
+            route.setEnergyList(energyList);
+            List<Double> timeList = route.getTimeList();
+            timeList.add(tempPair.getValue() / 60);
+            route.setTimeList(timeList);
             energyCost += tempEnergy;
             energyRemaining -= tempEnergy;
             if (energyRemaining < 0) {

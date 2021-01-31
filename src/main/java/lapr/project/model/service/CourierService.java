@@ -35,6 +35,11 @@ public class CourierService {
     private static final java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(CourierService.class.getName());
 
     /**
+     * Subject for email sender and file writer
+     */
+    private static final String SUBJECT = "Scooter parking automated response.";
+
+    /**
      * Courier Database class
      */
     private CourierDB moCourierDB;
@@ -144,51 +149,126 @@ public class CourierService {
      * @param intIdScooter Scooter's Id
      * @return true if the Scooter is set as parked. False if otherwise.
      */
-    public boolean parkScooter(int intIdScooter) {
-        boolean flag = moCourierDB.parkScooterDirectory(intIdScooter);
-        if(!flag) return false;
-        int parkId = moCourierDB.parkScooter(intIdScooter);
-        if(parkId == -1) {
+    public boolean parkScooter(int intIdScooter, String strEmailCourier) {
+        //Prepare print
+        String temp;
+        String fileName = String.format("Park_log_%d", intIdScooter);
+        StringBuilder outputBody = new StringBuilder();
+        outputBody.append(SUBJECT).append("\n\n");
+
+        //Check if scooter and Courier belong to the same pharmacy
+        boolean samePh = moCourierDB.checkIfScooterAndCourierFromSamePh(intIdScooter, strEmailCourier);
+        if(!samePh) {
+            temp = String.format("Courier with email %s and scooter with id %d are not from the " +
+                    "same pharmacy!", strEmailCourier, intIdScooter);
+            outputBody.append(temp);
+            LOGGER.log(Level.WARNING, temp);
+            WriteFile.write(fileName, outputBody.toString());
+            EmailSender.sendEmail(strEmailCourier, SUBJECT, outputBody.toString());
             return false;
         }
-        //lock_2020_12_32_12_34_54.data
-        List<Pair<String, Scooter>> lst = moScooterDB.getEmailPerChargingScooter(parkId);
-        double currentDouble = moScooterDB.getCurrentPerCharger(parkId);
-        String parkCurrent = String.format("Park id: %d - Current: %f A", parkId, currentDouble);
-        LOGGER.log(Level.INFO, parkCurrent);
-        int current = (int) currentDouble;
-        for(Pair<String, Scooter> pair : lst) {
 
-            LocalDateTime now = LocalDateTime.now();
-            int year = now.getYear();
-            int month = now.getMonthValue();
-            int day = now.getDayOfMonth();
-            int hour = now.getHour();
-            int minute = now.getMinute();
-            int second = now.getSecond();
-            String body = String.format("lock_%d_%02d_%02d_%02d_%02d_%02d.data", year, month, day, hour, minute, second);
-            int capacity = pair.getValue().getModel().getBattery().getBatteryCapacity();
-            int charge = (int) pair.getValue().getBatteryPerc();
-            String email = pair.getKey();
-            String fileText = String.format("%d;%d;%d;%s", capacity,current,charge,email);
-            try {
-                FileWriter myWriter = new FileWriter(Constants.LOCK_FILE_PATH + body);
-                myWriter.write(fileText);
-                myWriter.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            try {
-                FileWriter myWriter = new FileWriter(Constants.LOCK_FILE_PATH + body + Constants.FILTER);
-                myWriter.write(fileText);
-                myWriter.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            moCourierDB.parkScooterDirectory(pair.getValue().getId());
+        //Id of avaiable park
+        int parkId = moCourierDB.getFreeParkingSlot(intIdScooter);
+        boolean chargingSlot;
+        boolean flag;
+
+        //If -1 no park avaiable
+        if(parkId == -1) {
+            temp = String.format("There are no avaiable parks to park the scooter with id %d or it's already parked!",
+                    intIdScooter);
+            outputBody.append(temp);
+            LOGGER.log(Level.WARNING, temp);
+            WriteFile.write(fileName, outputBody.toString());
+            EmailSender.sendEmail(strEmailCourier, SUBJECT, outputBody.toString());
+            return false;
         }
-        String body = String.format("Scooter with id: %d was parked parked successfully!", intIdScooter);
-        LOGGER.log(Level.INFO, body);
+
+        //Check if it's charing slot
+        else
+            chargingSlot = moCourierDB.checkIfChargingSlot(parkId);
+
+        //If it's charging slot ask for file verification
+        if(chargingSlot) {
+            double currentDouble = moScooterDB.getCurrentPerCharger(parkId);
+            String parkCurrent = String.format("Park id: %d - Current: %.2f A", parkId, currentDouble);
+            LOGGER.log(Level.INFO, parkCurrent);
+            flag = moCourierDB.parkScooterDirectory(intIdScooter);
+
+            //If file verification returns false end with error
+            if (!flag) {
+                temp = String.format("Scooter with id %d was not locked correctly!",
+                        intIdScooter);
+                outputBody.append(temp);
+                LOGGER.log(Level.WARNING, temp);
+                WriteFile.write(fileName, outputBody.toString());
+                EmailSender.sendEmail(strEmailCourier, SUBJECT, outputBody.toString());
+                return false;
+            }
+
+            //If file verification returns true start prints
+            List<Pair<String, Scooter>> lst = moScooterDB.getEmailPerChargingScooter(parkId);
+            int current = (int) currentDouble;
+            for(Pair<String, Scooter> pair : lst) {
+
+                LocalDateTime now = LocalDateTime.now();
+                int year = now.getYear();
+                int month = now.getMonthValue();
+                int day = now.getDayOfMonth();
+                int hour = now.getHour();
+                int minute = now.getMinute();
+                int second = now.getSecond();
+                String body = String.format("lock_%d_%02d_%02d_%02d_%02d_%02d.data", year, month, day, hour, minute, second);
+                int capacity = pair.getValue().getModel().getBattery().getBatteryCapacity();
+                int charge = (int) pair.getValue().getBatteryPerc();
+                String email = pair.getKey();
+                String fileText = String.format("%d;%d;%d;%s", capacity,current,charge,email);
+                try (FileWriter myWriter = new FileWriter(Constants.LOCK_FILE_PATH + body);){
+                    myWriter.write(fileText);
+                } catch (IOException e) {
+                    temp = String.format("Scooter with id %d was not locked successfully!",
+                            intIdScooter);
+                    outputBody.append(temp);
+                    WriteFile.write(fileName, outputBody.toString());
+                    EmailSender.sendEmail(strEmailCourier, SUBJECT, outputBody.toString());
+                    return false;
+                }
+                try (FileWriter myWriter = new FileWriter(Constants.LOCK_FILE_PATH + body + Constants.FILTER);){
+                    myWriter.write(fileText);
+                } catch (IOException e) {
+                    temp = String.format("Scooter with id %d was not locked successfully!",
+                            intIdScooter);
+                    outputBody.append(temp);
+                    WriteFile.write(fileName, outputBody.toString());
+                    EmailSender.sendEmail(strEmailCourier, SUBJECT, outputBody.toString());
+                    return false;
+                }
+                moCourierDB.parkScooterDirectory(pair.getValue().getId());
+            }
+        }
+
+        //Check if parked successfully
+        boolean parked = moCourierDB.parkScooter(intIdScooter, parkId);
+
+        //If not parked successfully end with error
+        if(!parked) {
+            temp = String.format("Scooter with id %d was not locked successfully!",
+                    intIdScooter);
+            outputBody.append(temp);
+            WriteFile.write(fileName, outputBody.toString());
+            EmailSender.sendEmail(strEmailCourier, SUBJECT, outputBody.toString());
+            return false;
+        }
+
+        //If scooter didn't need to charge and nothing went wrong, prepare output for non charing spot
+        if(!chargingSlot) {
+            temp = String.format("Scooter with id %d was parked successfully on a non charging parking spot!",
+                    intIdScooter);
+            outputBody.append(temp);
+            LOGGER.log(Level.WARNING, temp);
+            WriteFile.write(fileName, outputBody.toString());
+            EmailSender.sendEmail(strEmailCourier, SUBJECT, outputBody.toString());
+        }
         return true;
     }
 
@@ -208,4 +288,19 @@ public class CourierService {
         this.moCourierDB = oCourierDB;
     }
 
+    /**
+     * Returns the Scooter's Database
+     * @return Scooter DataBase
+     */
+    public ScooterDB getMoScooterDB() {
+        return moScooterDB;
+    }
+
+    /**
+     * The methods sets the Scooter's Database
+     * @param moScooterDB Scooter Database
+     */
+    public void setMoScooterDB(ScooterDB moScooterDB) {
+        this.moScooterDB = moScooterDB;
+    }
 }

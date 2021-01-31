@@ -20,7 +20,7 @@ class EmailSenderTest {
         result = EmailSender.sendEmail("g21@trash-mail.com", "", "Test");
         assertFalse(result);
 
-        result = EmailSender.sendEmail("g21@trash-mail.com", "Test", "");
+        result = EmailSender.sendEmail("g21@trash-mail.com", "Test", "asdas");
         assertTrue(result);
     }
 

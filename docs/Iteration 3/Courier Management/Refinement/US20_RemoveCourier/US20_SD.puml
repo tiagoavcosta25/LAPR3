@@ -45,6 +45,7 @@ activate RF
 RF -> CDB : removeCourier(email)
 activate CDB
 deactivate CDB
+ref over CDB : SD_CONNECTIONS
 UI -> ADMIN : informs the success of the operation
 deactivate RF
 deactivate CTRL

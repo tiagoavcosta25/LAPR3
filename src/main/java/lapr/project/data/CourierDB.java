@@ -156,19 +156,77 @@ public class CourierDB extends DataHandler {
 
     /**
      * Recieves the Scooter's id and sets the Scooter as parked on the Database.
-     * @param intId Scooter's id
-     * @return 1 if the Scooter was parked, 0 otherwise.
+     * @param intIdScooter Scooter's id
+     * @param intIdParkSlot ParkingSlot id
+     * @return true if the Scooter was parked, false otherwise.
      */
-    public int parkScooter(int intId) {
-        try(CallableStatement callStmt = getConnection().prepareCall("{ ? = call parkScooter(?) }");) {
-            callStmt.registerOutParameter(1, OracleTypes.INTEGER);
-            callStmt.setInt(2, intId);
+    public boolean parkScooter(int intIdScooter, int intIdParkSlot) {
+        try(CallableStatement callStmt = getConnection().prepareCall("{ call parkScooter(?, ?) }");) {
+            callStmt.setInt(1, intIdScooter);
+            callStmt.setInt(2, intIdParkSlot);
 
+            callStmt.execute();
+            return true;
+        } catch (SQLException e) {
+            return false;
+        } finally {
+            closeAll();
+        }
+    }
+
+    /**
+     * Recieves the id of a free parking slot to park the scooter.
+     * @param intIdScooter Scooter's id
+     * @return id of the parking slot
+     */
+    public int getFreeParkingSlot(int intIdScooter) {
+        try(CallableStatement callStmt = getConnection().prepareCall("{ ? = call getFreeParkingSlot(?) }");) {
+            callStmt.registerOutParameter(1, OracleTypes.INTEGER);
+            callStmt.setInt(2, intIdScooter);
             callStmt.execute();
             return callStmt.getInt(1);
         } catch (SQLException e) {
-            e.printStackTrace();
             return -1;
+        } finally {
+            closeAll();
+        }
+    }
+
+    /**
+     * Checks if the parking slot is a chargingSlot
+     * @param intIdParkSlot Parking slot's id
+     * @return true if it is, false if it's not
+     */
+    public boolean checkIfChargingSlot(int intIdParkSlot) {
+        try(CallableStatement callStmt = getConnection().prepareCall("{ ? = call checkIfChargingSlot(?) }");) {
+            callStmt.registerOutParameter(1, OracleTypes.NUMBER);
+            callStmt.setInt(2, intIdParkSlot);
+            callStmt.execute();
+            int result = callStmt.getInt(1);
+            return result > 0;
+        } catch (SQLException e) {
+            return false;
+        } finally {
+            closeAll();
+        }
+    }
+
+    /**
+     * Checks if scooter and courier are from same pharmacy
+     * @param intIdScooter Scooter's id
+     * @param strEmailCourier Courier's email
+     * @return true if they are, false if they are not
+     */
+    public boolean checkIfScooterAndCourierFromSamePh(int intIdScooter, String strEmailCourier) {
+        try(CallableStatement callStmt = getConnection().prepareCall("{ ? = call checkIfScooterAndCourierFromSamePh(?, ?) }");) {
+            callStmt.registerOutParameter(1, OracleTypes.NUMBER);
+            callStmt.setInt(2, intIdScooter);
+            callStmt.setString(3, strEmailCourier);
+            callStmt.execute();
+            int result = callStmt.getInt(1);
+            return result > 0;
+        } catch (SQLException e) {
+            return false;
         } finally {
             closeAll();
         }
@@ -217,6 +275,7 @@ public class CourierDB extends DataHandler {
                         "_________________________________________________________\n\n" + "Estimated charging " +
                         "time: %d hours, %d minutes %d seconds.\nEstimated time for full charge: %s.", intIdScooter, time.get(0), time.get(1),
                 time.get(2), formattedDateTime);
+        LOGGER.log(Level.INFO, body);
         EmailSender.sendEmail(email,
                 "Scooter Parked", body);
         WriteFile.write("Park_log_" + intIdScooter, body);

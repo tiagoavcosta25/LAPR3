@@ -31,20 +31,22 @@ public class ParkScooterControllerTest {
     }
 
 
+
+
     @Test
     void parkScooter() {
         ApplicationPOT.getInstance().setCurrentSession(new UserSession("email123@gmail.com", 3));
 
-        when (mockCourierService.parkScooter(10)).thenReturn(true);
+        when (mockCourierService.parkScooter(10, "email123@gmail.com")).thenReturn(true);
         boolean result = oParkScooterController.parkScooter(10);
         assertTrue(result);
 
-        when (mockCourierService.parkScooter(10)).thenReturn(false);
+        when (mockCourierService.parkScooter(10, "email123@gmail.com")).thenReturn(false);
         result = oParkScooterController.parkScooter(10);
 
         assertFalse(result);
 
-        when (mockCourierService.parkScooter(10)).thenThrow(new IllegalArgumentException());
+        when (mockCourierService.parkScooter(10, "email123@gmail.com")).thenThrow(new IllegalArgumentException());
         result = oParkScooterController.parkScooter(10);
 
         assertFalse(result);
@@ -55,6 +57,7 @@ public class ParkScooterControllerTest {
         assertFalse(result);
 
     }
+
 
     @Test
     void getServ() {

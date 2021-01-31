@@ -234,4 +234,13 @@ class VehicleModelTest {
         expResult = "VehicleModel{m_intId=2, m_strDesignation='Designacao', m_dblPotency=2.0, m_dblWeight=2.0, m_dblMaxPayload=2.0, m_oBattery=Battery{Id=-1, Efficiency=-1.0, Battery Capacity=-1, Battery Voltage=-1.0}, m_enumVehicleType=VehicleType{m_strDesignation='Scooter'}}";
         assertEquals(expResult, result);
     }
+
+    @Test
+    void toStringRoute() {
+        String expResult = "";
+        String result = model.toStringRoute();
+        assertNotEquals(expResult, result);
+        expResult = "name->Designacao, potency->2.0 watt's, weight->2.0 kilos, max payload weight->2.0 kilos, battery efficiency->-1.0, battery capacity->-1, battery voltage->-1.0.";
+        assertEquals(expResult, result);
+    }
 }

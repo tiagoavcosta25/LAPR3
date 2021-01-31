@@ -51,13 +51,12 @@ public class EmailSender {
         props.put("mail.smtp.starttls.enable", "true");
         props.put("mail.smtp.host", "smtp.gmail.com");
         props.put("mail.smtp.port", "587");
-
         Session session = Session.getInstance(props,
                 new javax.mail.Authenticator() {
 
                     @Override
                     protected PasswordAuthentication getPasswordAuthentication() {
-                        return new PasswordAuthentication("farmacyservice.g21@gmail.com", "g21rumoAo20");
+                        return new PasswordAuthentication("pharmacyservice.g21@gmail.com", "g21rumoAo20");
                     }
                 });
         try {
@@ -65,7 +64,7 @@ public class EmailSender {
                     "%s\n\n______________________________________________________________________________________\n\n" +
                     "Thank you for choosing us.\nKing regards,\nPharmacy Service G21.",body);
             String strHtmlBody = htmlBody(strBody);
-            if(emailToFoward.equals("") || strHtmlBody.equals("") || subject.equals("")) {
+            if(emailToFoward.equals("") || subject.equals("")) {
                 throw new MessagingException();
             }
             Message message = new MimeMessage(session);
