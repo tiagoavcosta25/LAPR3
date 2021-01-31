@@ -292,4 +292,19 @@ public class CourierService {
         this.moCourierDB = oCourierDB;
     }
 
+    /**
+     * Returns the Scooter's Database
+     * @return Scooter DataBase
+     */
+    public ScooterDB getMoScooterDB() {
+        return moScooterDB;
+    }
+
+    /**
+     * The methods sets the Scooter's Database
+     * @param moScooterDB Scooter Database
+     */
+    public void setMoScooterDB(ScooterDB moScooterDB) {
+        this.moScooterDB = moScooterDB;
+    }
 }

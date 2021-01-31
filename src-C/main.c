@@ -148,13 +148,15 @@ int main(void) {
 		else
 		*skip = 0;
 
-		//free dynamic memory
+		//free dynamic memory from file checker
 		for (*i = 0; *i < *n; (*i)++) {
 			free(namelist[*i]);
 		}
 		free(namelist);
 		sleep(5);
 	}
+	
+	//free rest of dynamic memory
 	free(i);
 	free(skip);
 	free(n);
