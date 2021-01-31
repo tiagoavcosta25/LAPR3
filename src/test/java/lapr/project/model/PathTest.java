@@ -258,6 +258,24 @@ class PathTest {
 
         expResult = "Path{mdblLatitudeA=2.0, mdblLongitudeA=2.0, mdblLatitudeB=2.0, mdblLongitudeB=2.0, mstrName='Rua das Flores', mdblWindSpeed=2.0, mdblWindAngle=2.0, mdblKineticFrictionCoefficient=2.0, moVehicleType=VehicleType{m_strDesignation='Scooter'}}";
         assertEquals(expResult, result);
+
+        Path p2 = new Path(2d, 2d, 2d, 2d, "name",
+                2d, 2d, 2d, VehicleType.DRONE);
+        expResult = "Path{mdblLatitudeA=2.0, mdblLongitudeA=2.0, mdblLatitudeB=2.0, mdblLongitudeB=2.0, mstrName='name', mdblWindSpeed=2.0, mdblWindAngle=2.0, mdblKineticFrictionCoefficient=2.0, moVehicleType=VehicleType{m_strDesignation='Drone'}}";
+        result = p2.toString();
+        assertEquals(expResult, result);
+
+        p2 = new Path(2d, 2d, 2d, 2d, "name",
+                2d, 2d, 2d, VehicleType.SCOOTER);
+        expResult = "Path{mdblLatitudeA=2.0, mdblLongitudeA=2.0, mdblLatitudeB=2.0, mdblLongitudeB=2.0, mstrName='name', mdblWindSpeed=2.0, mdblWindAngle=2.0, mdblKineticFrictionCoefficient=2.0, moVehicleType=VehicleType{m_strDesignation='Scooter'}}";
+        result = p2.toString();
+        assertEquals(expResult, result);
+
+        p2 = new Path(2d, 2d, 2d, 2d, "name",
+                2d, 2d, 2d, VehicleType.NOTDEFINED);
+        expResult = "Path{mdblLatitudeA=2.0, mdblLongitudeA=2.0, mdblLatitudeB=2.0, mdblLongitudeB=2.0, mstrName='name', mdblWindSpeed=2.0, mdblWindAngle=2.0, mdblKineticFrictionCoefficient=2.0, moVehicleType=VehicleType{m_strDesignation='Not defined'}}";
+        result = p2.toString();
+        assertEquals(expResult, result);
     }
 
     @Test

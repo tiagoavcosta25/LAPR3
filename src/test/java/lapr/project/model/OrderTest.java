@@ -91,7 +91,7 @@ class OrderTest {
     @Test
     void getStatus() {
         Order oOrder = new Order();
-        String expected = "ordered";
+        String expected = "Ordered";
         String real = oOrder.getStatus();
         assertEquals(expected, real);
     }

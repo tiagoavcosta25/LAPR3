@@ -46,8 +46,9 @@ public class ParkScooterController {
      */
     public boolean parkScooter(int intIdScooter) {
         try {
-            if (ApplicationPOT.getInstance().getCurrentSession().getRole().equals(UserSession.Role.COURIER)) {
-                return moServ.parkScooter(intIdScooter);
+            UserSession uSession = ApplicationPOT.getInstance().getCurrentSession();
+            if (uSession.getRole().equals(UserSession.Role.COURIER)) {
+                return moServ.parkScooter(intIdScooter, uSession.getCurrentUserEmail());
             }
         } catch (Exception e) {
             LOGGER.log(Level.WARNING, "There was an error parking the scooter!");

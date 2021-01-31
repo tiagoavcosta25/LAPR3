@@ -42,19 +42,22 @@ class NotifyAndRemoveControllerTest {
     @Test
     void notifyAndRemove() {
         Map<Product,Integer> map = new TreeMap<>();
-        when(mockOrderService.notifyAndRemove(new Order())).thenReturn(null);
-        boolean result = notifyAndRemoveController.notifyAndRemove(new Order());
-        assertEquals(false,result);
+        map.put(new Product("dadwa", "adda", 1d, 1d), 420);
+        Order oOrder = new Order();
+        oOrder.setProducts(map);
+        when(mockOrderService.notifyAndRemove(oOrder)).thenReturn(null);
+        boolean result = notifyAndRemoveController.notifyAndRemove(oOrder);
+        assertFalse(result);
 
         when(mockOrderService.notifyAndRemove(new Order())).thenReturn(map);
         result = notifyAndRemoveController.notifyAndRemove(new Order());
-        assertEquals(true,result);
+        assertTrue(result);
 
         map.put(new Product(),2);
         when(mockOrderService.notifyAndRemove(new Order())).thenReturn(map);
         when(mockController.getStockFromAnotherPharamacy(new Order(),new Product(),2)).thenReturn(true);
         result = notifyAndRemoveController.notifyAndRemove(new Order());
-        assertEquals(false,result);
+        assertTrue(result);
     }
 
     @Test
