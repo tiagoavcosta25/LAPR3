@@ -285,11 +285,11 @@ public class PharmacyDB extends DataHandler {
      * Gets a Suitable Courier.
      * @return Courier.
      */
-    public Courier getSuitableCourier() {
-        try(CallableStatement callStmt = getConnection().prepareCall("{ ? = call getSuitableCourier() }");) {
+    public Courier getSuitableCourier(Integer pharmacyId) {
+        try(CallableStatement callStmt = getConnection().prepareCall("{ ? = call getSuitableCourier(?) }");) {
 
             callStmt.registerOutParameter(1, OracleTypes.CURSOR);
-
+            callStmt.setInt(2,pharmacyId);
             callStmt.execute();
 
             ResultSet rSet = (ResultSet) callStmt.getObject(1);
