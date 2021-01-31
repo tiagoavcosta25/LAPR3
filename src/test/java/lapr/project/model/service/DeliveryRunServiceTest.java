@@ -225,6 +225,49 @@ class DeliveryRunServiceTest {
         real = m_oDeliveryRunService.getMostEfficientVehicleModel(lst);
         assertEquals(new VehicleModel(),real);
 
+        addresses = new ArrayList<>();
+        addresses.add(new Address());
+        lst = new ArrayList<>();
+        dbl = new ArrayList<>();
+        dbl.add(1002d);
+        dbl.add(10002d);
+        dbl1 = new ArrayList<>();
+        dbl1.add(1002d);
+        r1 = new Route(VehicleType.SCOOTER,new ArrayList<>());
+        r2 = new Route(VehicleType.SCOOTER,new ArrayList<>());
+        r1.setVehicleModel(new VehicleModel());
+        r2.setEnergyList(dbl1);
+        r1.setEnergyList(dbl);
+        r2.setVehicleModel(new VehicleModel());
+        r1.setAddressList(addresses);
+        r2.setAddressList(addresses);
+        lst.add(r1);
+        lst.add(r2);
+
+        real = m_oDeliveryRunService.getMostEfficientVehicleModel(lst);
+        assertEquals(new VehicleModel(),real);
+
+        addresses = new ArrayList<>();
+        addresses.add(new Address());
+        lst = new ArrayList<>();
+        dbl = new ArrayList<>();
+        dbl.add(1002d);
+        dbl1 = new ArrayList<>();
+        dbl1.add(1002d);
+        r1 = new Route(VehicleType.SCOOTER,new ArrayList<>());
+        r2 = new Route(VehicleType.SCOOTER,new ArrayList<>());
+        r1.setVehicleModel(new VehicleModel());
+        r2.setEnergyList(dbl);
+        r1.setEnergyList(dbl1);
+        r2.setVehicleModel(new VehicleModel());
+        r1.setAddressList(addresses);
+        r2.setAddressList(addresses);
+        lst.add(r1);
+        lst.add(r2);
+
+        real = m_oDeliveryRunService.getMostEfficientVehicleModel(lst);
+        assertEquals(new VehicleModel(),real);
+
 //
         lst = new ArrayList<>();
         r1 = new Route(VehicleType.SCOOTER,new ArrayList<>());
