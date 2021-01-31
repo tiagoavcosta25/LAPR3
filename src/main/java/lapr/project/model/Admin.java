@@ -92,7 +92,7 @@ public class Admin extends User {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (o == null) return false;
         if (!super.equals(o)) return false;
         Admin admin = (Admin) o;
         return Objects.equals(mId, admin.mId);
