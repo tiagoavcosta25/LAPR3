@@ -230,4 +230,20 @@ public class EnergyCalculator {
 
         return new Pair<>(totalEnergy / Constants.KILOWATTHOUR, time);
     }
+
+    public static double getVelocityByPower() {
+        return velocityByPower;
+    }
+
+    public static void setVelocityByPower(double velocityByPower) {
+        EnergyCalculator.velocityByPower = velocityByPower;
+    }
+
+    public static double getDroneVelocityByPower() {
+        return droneVelocityByPower;
+    }
+
+    public static void setDroneVelocityByPower(double droneVelocityByPower) {
+        EnergyCalculator.droneVelocityByPower = droneVelocityByPower;
+    }
 }

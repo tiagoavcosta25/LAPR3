@@ -88,20 +88,44 @@ public class EnergyCalculatorTest {
 
     @Test
     void testCalculoEnergia12() {
-        double expResult =0.11025000000000001;
+        double expResult = 0.11025000000000001;
         double result = EnergyCalculator.calculateScooterEnergy(1000, 180, 8.3, 10, 50, 0.8, 4000).getKey();
         assertEquals(expResult, result);
     }
+
     @Test
-    void testCalculoEnergia13(){
-        double expResult =0;
-        double result = EnergyCalculator.calculateScooterEnergy(1000,180,8.3,0,50,0,4000).getKey();
+    void testCalculoEnergia13() {
+        double expResult = 0;
+        double result = EnergyCalculator.calculateScooterEnergy(1000, 180, 8.3, 0, 50, 0, 4000).getKey();
         assertEquals(expResult, result);
     }
-    @Test
-    void testCalculoEnergia14(){
-        double expResult = 0;
 
+    @Test
+    void testGetVelocityByPower() {
+        double expResult = Constants.DEFAULT_VELOCITY;
+        double result = EnergyCalculator.getVelocityByPower();
+        assertEquals(expResult, result);
+    }
+
+    @Test
+    void testSetVelocityByPower() {
+        EnergyCalculator.setVelocityByPower(Constants.DEFAULT_VELOCITY);
+        double result = EnergyCalculator.getVelocityByPower();
+        assertEquals(Constants.DEFAULT_VELOCITY, result);
+    }
+
+    @Test
+    void testGetDroneVelocityByPower() {
+        double expResult = 0.0;
+        double result = EnergyCalculator.getDroneVelocityByPower();
+        assertEquals(expResult, result);
+    }
+
+    @Test
+    void testSetDroneVelocityByPower() {
+        EnergyCalculator.setDroneVelocityByPower(0.0);
+        double result = EnergyCalculator.getDroneVelocityByPower();
+        assertEquals(0.0, result);
     }
 
 
