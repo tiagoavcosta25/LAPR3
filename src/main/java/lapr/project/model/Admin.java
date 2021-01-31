@@ -93,9 +93,7 @@ public class Admin extends User {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null) return false;
-        if (!super.equals(o)) return false;
-        Admin admin = (Admin) o;
-        return Objects.equals(mId, admin.mId);
+        return super.equals(o);
     }
 
 

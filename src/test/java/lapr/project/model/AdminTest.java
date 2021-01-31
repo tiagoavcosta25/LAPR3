@@ -50,5 +50,14 @@ class AdminTest {
         oAdmin.setEmail("asa");
         oAdmin2.setEmail("gaca");
         assertNotEquals(oAdmin,oAdmin2);
+
+        oAdmin = new Admin();
+        oAdmin2 = new Admin();
+        oAdmin.setEmail("a");
+
+        assertNotEquals(oAdmin,oAdmin2);
+
+        oAdmin2.setEmail("a");
+        assertEquals(oAdmin,oAdmin2);
     }
 }
