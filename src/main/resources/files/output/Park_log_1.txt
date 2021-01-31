@@ -1,10 +1,9 @@
 ______________________________________________________________________________________
-Product Information:
+The scooter number 1 was parked successfully!
+___________________________________________________________________
 
--Name: Product 6969
--Description: Description 1
--Unitary Price: 2,00€
--Unitary Weight: 2,00kg
+Estimated charging time: 1 hours, 55 minutes 22 seconds.
+Estimated time for full charge: 13:27:09 31-01-2021.
 
 ______________________________________________________________________________________
 

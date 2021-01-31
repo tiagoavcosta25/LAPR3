@@ -1,5 +1,6 @@
-create or replace function getCurrentPerCharger(p_parkId PARK.ID%type)
+create or replace function getCurrentPerCharger(p_parkSlotId PARK.ID%type)
     return number is
+    v_parkId PARK.ID%TYPE;
     v_checkParkId int;
     v_numberOfScootersParked int;
     v_totalCurrent PARK.TOTALOUTPUTCURRENT%TYPE;
@@ -7,10 +8,11 @@ create or replace function getCurrentPerCharger(p_parkId PARK.ID%type)
     park_not_found exception;
 begin
 
-    SELECT count(ID)
-    INTO v_checkParkId
-    FROM PARK
-    WHERE ID = p_parkId;
+    SELECT PRK.ID
+    INTO v_parkId
+    FROM PARK PRK
+             INNER JOIN PARKINGSLOT P on PRK.ID = P.PARKID
+    WHERE P.ID = p_parkSlotId;
 
     IF v_checkParkId = 0 THEN
         raise park_not_found;
@@ -19,15 +21,15 @@ begin
     SELECT TOTALOUTPUTCURRENT
     INTO v_totalCurrent
     FROM PARK P
-    WHERE P.ID = p_parkId;
+    WHERE P.ID = v_parkId;
 
     SELECT count(PS.VEHICLEID)
     INTO v_numberOfScootersParked
     FROM PARKINGSLOT PS
-    INNER JOIN CHARGINGSLOT CS on PS.ID = CS.PARKINGSLOTID
-    INNER JOIN PARK P on PS.PARKID = P.ID
-    WHERE P.ID = p_parkId
-    AND PS.VEHICLEID IS NOT NULL;
+             INNER JOIN CHARGINGSLOT CS on PS.ID = CS.PARKINGSLOTID
+             INNER JOIN PARK P on PS.PARKID = P.ID
+    WHERE P.ID = v_parkId
+      AND PS.VEHICLEID IS NOT NULL;
 
     IF v_numberOfScootersParked = 0 then
         v_currentPerCharger := v_totalCurrent;

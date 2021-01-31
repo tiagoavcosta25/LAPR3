@@ -1,10 +1,10 @@
 ______________________________________________________________________________________
-Product Information:
+You are now logged in with the following account:
 
--Name: Product 6969
--Description: Description 1
--Unitary Price: 2,00€
--Unitary Weight: 2,00kg
+-Email: 1190967@isep.ipp.pt
+-Password: rnHrQ55
+-EncryptedPassword: 43790d4d43d899784ab573ea919e2f61
+
 
 ______________________________________________________________________________________
 

@@ -1,10 +1,10 @@
 ______________________________________________________________________________________
-Product Information:
+Delivery Run Information
 
--Name: Product 6969
--Description: Description 1
--Unitary Price: 2,00€
--Unitary Weight: 2,00kg
+Responsible Courier: No Name
+Status: DeliveryStatus{m_strDesignation='Idle'}
+Vehicle: as, id-1
+Order ID List: 
 
 ______________________________________________________________________________________
 

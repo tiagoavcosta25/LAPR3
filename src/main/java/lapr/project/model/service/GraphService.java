@@ -392,8 +392,7 @@ public class GraphService {
     /**
      * Prints the Results.
      */
-    public void printResults(Route resultScooter,
-                             Route resultDrone) {
+    public void printResults(Route resultScooter, Route resultDrone) {
         String body;
         if(resultScooter.getTotalTime() == Double.MAX_VALUE && resultDrone.getTotalTime() == Double.MAX_VALUE) {
             body = "\n\n\nThere is no scooter model nor drone model that can make this path!";
@@ -498,7 +497,6 @@ public class GraphService {
             lstReturn.add(routeDrone);
             return lstReturn;
         }
-
 
         if(routeScooter.getTotalEnergy() == Double.MAX_VALUE) {
             routeScooter = pathsWithPharmacies(this.moGraphScooter,

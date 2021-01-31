@@ -1,10 +1,13 @@
 ______________________________________________________________________________________
-Product Information:
+Product Update Log
 
--Name: Product 6969
--Description: Description 1
--Unitary Price: 2,00€
--Unitary Weight: 2,00kg
+Product Original Name: 1
+
+Product New Info:
+-Updated Name: Product 6969
+-Updated Description: Description 1
+-Updated Unitary Price: 2.00€
+-Updated Unitary Weight: 2.00kg
 
 ______________________________________________________________________________________
 
