@@ -19,9 +19,6 @@ import java.util.Map;
  */
 public class StartDeliveryRunController {
 
-    /**
-     * Courier Management class
-     */
     private DeliveryRunService moDeliveryRunService;
 
 
@@ -29,7 +26,7 @@ public class StartDeliveryRunController {
      * A constructor of RegisterCourierController that initiates the platform variable by getting it from the ApplicationPOT.
      */
     public StartDeliveryRunController() {
-        this.moDeliveryRunService = new DeliveryRunService();
+        this.setMoDeliveryRunService(new DeliveryRunService());
     }
 
     /**
@@ -37,15 +34,32 @@ public class StartDeliveryRunController {
      * Initiates the CourierRegistration instance and the Courier instance with the provided data.
      * The method returns the validation of that instance of Courier. True if the data is correct and false if
      * it doesn't.
-     *
      */
     public boolean startDeliveryRun() {
         try {
-            Map<String,String> clientList = moDeliveryRunService.startDeliveryRun(ApplicationPOT.getInstance().getCurrentSession().getCurrentUserEmail());
-             return moDeliveryRunService.sendsEmail(clientList);
-        }catch (Exception e){
+            Map<String, String> clientList = getMoDeliveryRunService().startDeliveryRun(ApplicationPOT.getInstance().getCurrentSession().getCurrentUserEmail());
+            return getMoDeliveryRunService().sendsEmail(clientList);
+        } catch (Exception e) {
             return false;
         }
     }
 
+
+    /**
+     * Returns the Delivery Run Service
+     *
+     * @return Delivery Run Service
+     */
+    public DeliveryRunService getMoDeliveryRunService() {
+        return moDeliveryRunService;
+    }
+
+    /**
+     * Sets the Delivery Run Service
+     *
+     * @param moDeliveryRunService Delivery Run Service
+     */
+    public void setMoDeliveryRunService(DeliveryRunService moDeliveryRunService) {
+        this.moDeliveryRunService = moDeliveryRunService;
+    }
 }

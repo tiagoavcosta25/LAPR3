@@ -62,4 +62,20 @@ class StartDeliveryRunControllerTest {
 
     }
 
+    @Test
+    void getDeliveryRunService(){
+        DeliveryRunService expected = mockDeliveryService;
+        DeliveryRunService real = startDeliveryRunController.getMoDeliveryRunService();
+        assertEquals(expected,real);
+
+    }
+
+    @Test
+    void setsDeliveryRunService(){
+        DeliveryRunService expected = new DeliveryRunService();
+        startDeliveryRunController.setMoDeliveryRunService(expected);
+        DeliveryRunService real = startDeliveryRunController.getMoDeliveryRunService();
+        assertEquals(expected,real);
+    }
+
 }
