@@ -33,14 +33,13 @@ class Battery{
   -float batteryVoltage
 }
 
-database database{
-
+database Database {
 }
 
 Courier "1" -- "1" User : acts as >
 Vehicle "1" -- "1" Battery : has a >
 Courier "1" -- "1" DeliveryRun : does a >
 DeliveryRun "1" -- "1" Vehicle :  has a >
-database "1" -- "*" Courier : has registered
-database "1" -- "*" DeliveryRun : has registered
+Database "1" -- "*" Courier : has registered
+Database "1" -- "*" DeliveryRun : has registered
 @enduml
