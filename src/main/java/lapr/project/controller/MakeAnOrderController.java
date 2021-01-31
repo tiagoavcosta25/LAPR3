@@ -126,7 +126,7 @@ public class MakeAnOrderController {
         try{
             int intId = this.moOrderService.registerOrder(moOrder);
             this.moOrder.setId(intId);
-            this.moNotifyAndRemoveController.notifyAndRemove(this.moOrder);
+            if(!this.moNotifyAndRemoveController.notifyAndRemove(this.moOrder)){ throw new Exception(); }
             return this.generateInvoice();
         } catch (Exception ex) {
             return false;

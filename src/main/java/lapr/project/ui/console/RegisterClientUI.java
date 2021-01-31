@@ -2,6 +2,7 @@ package lapr.project.ui.console;
 
 import lapr.project.controller.RegisterClientController;
 import lapr.project.model.CreditCard;
+import lapr.project.ui.Menu;
 import lapr.project.ui.UI;
 
 import java.text.SimpleDateFormat;
@@ -31,7 +32,7 @@ public class RegisterClientUI implements UI {
                 String strEmail = sc.nextLine();
                 System.out.print("Nif: ");
                 Integer intNIF = Integer.parseInt(sc.nextLine());
-                System.out.print("Password: ");
+                System.out.print("Password (More than 5 characters): ");
                 String strPassword = sc.nextLine();
                 System.out.print("Latitude: ");
                 Double dblLatitude = Double.parseDouble(sc.nextLine());
@@ -49,6 +50,7 @@ public class RegisterClientUI implements UI {
                 String strLocality = sc.nextLine();
                 System.out.print("Country: ");
                 String strCountry = sc.nextLine();
+                Menu.clear();
 
                 List<CreditCard> lstCCs = new ArrayList<>();
 
@@ -59,6 +61,7 @@ public class RegisterClientUI implements UI {
                 Date dtDate = new SimpleDateFormat("MM-yy").parse(sc.nextLine());
                 System.out.print("CCV: ");
                 Integer strCCV = Integer.parseInt(sc.nextLine());
+                Menu.clear();
 
                 lstCCs.add(new CreditCard(lngNumber, dtDate, strCCV));
 

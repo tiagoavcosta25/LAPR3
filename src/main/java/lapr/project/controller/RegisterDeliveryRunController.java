@@ -140,7 +140,7 @@ public class RegisterDeliveryRunController {
             Courier courier = null;
             Vehicle oVehicle;
             if (oModel.getVehicleType().equals(VehicleType.SCOOTER)) {
-                courier = moPharmacyService.getSuitableCourier();
+                courier = moPharmacyService.getSuitableCourier(lstOrder.get(0).getPharmacy().getId());
                 oVehicle = moDeliveryRunService.getMostChargedScooter(oModel);
             } else {
                 oVehicle = moDeliveryRunService.getMostChargedDrone(oModel);

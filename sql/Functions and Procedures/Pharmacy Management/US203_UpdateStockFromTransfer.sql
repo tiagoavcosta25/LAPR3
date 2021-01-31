@@ -1,6 +1,7 @@
 create or replace PROCEDURE updateStockFromTransfer(p_pharmacyTransferId PHARMACYTRANSFER.ID%type)
     is
     v_checkTransfer PHARMACYTRANSFER.ID%type;
+    v_orderId "Order".ID%type;
     v_orderPharmacyId "Order".PHARMACYID%type;
     v_nearbyPharmacyId PHARMACYTRANSFER.NEARBYPHARMACYID%type;
     v_productId PHARMACYTRANSFER.PRODUCTID%type;
@@ -18,6 +19,12 @@ begin
     if v_checkTransfer is null then
         raise transfer_not_found;
     end if;
+
+    select O.ID
+    into v_orderId
+    from PHARMACYTRANSFER PT
+             inner join "Order" O ON PT.ORDERID = O.ID
+    where PT.ID = p_pharmacyTransferId;
 
     select PHARMACYID
     into v_orderPharmacyId
@@ -67,6 +74,9 @@ begin
     where PT.PRODUCTID = v_productId
       and PT.PHARMACYID = v_nearbyPharmacyId;
 
+    Update "Order" O2
+    SET ORDERSTATUS = 'Ordered'
+    WHERE O2.ID = v_orderId;
 
 EXCEPTION
     when transfer_not_found then

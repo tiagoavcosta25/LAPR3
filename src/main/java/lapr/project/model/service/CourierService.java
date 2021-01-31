@@ -5,6 +5,8 @@ import lapr.project.data.CourierDB;
 import lapr.project.data.ScooterDB;
 import lapr.project.model.*;
 import lapr.project.utils.Constants;
+import lapr.project.utils.EmailSender;
+import lapr.project.utils.WriteFile;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -43,6 +45,11 @@ public class CourierService {
     private ScooterDB moScooterDB;
 
     /**
+     * Password.
+     */
+    private String mstrPassword;
+
+    /**
      * Initializes the Courier Service with an instance of CourierDB and ScooterDB.
      */
     public CourierService() {
@@ -62,18 +69,23 @@ public class CourierService {
      */
     public Courier newCourier(String strName, String strEmail, Integer intNIF, String strIBAN, Pharmacy oPharmacy) throws NoSuchAlgorithmException {
         PassGenerator pass = new PassGenerator();
-        String password = pass.generatePassword();
+        this.mstrPassword = pass.generatePassword();
 
-        return new Courier(strName, strEmail, password, intNIF, strIBAN, oPharmacy);
+        return new Courier(strName, strEmail, this.mstrPassword, intNIF, strIBAN, oPharmacy);
     }
 
     /**
      * The methods registers a Courier on the Database.
-     * @param oCourier Courier instance
+     * @param c Courier instance
      * @return true if the Courier is registered on the Database. False otherwise.
      */
-    public boolean registersCourier(Courier oCourier) {
-        return moCourierDB.addCourierToDB(oCourier.getName(), oCourier.getEmail(), oCourier.getPw(), oCourier.getNif(), oCourier.getIban(), oCourier.getPharmacy().getId());
+    public boolean registersCourier(Courier c) {
+        String body = String.format("Account Information:%n%nName: %s%nNIF: %s%nPassword: %s%n"
+                , c.getName(), c.getNif(), this.mstrPassword);
+        EmailSender.sendEmail(c.getEmail(), "Account Creation", body
+        );
+        WriteFile.write("CourierRegistration_" + c.getEmail(), body);
+        return moCourierDB.addCourierToDB(c.getName(), c.getEmail(), c.getPw(), c.getNif(), c.getIban(), c.getPharmacy().getId());
     }
 
     /**

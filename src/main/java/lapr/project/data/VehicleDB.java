@@ -58,8 +58,6 @@ public class VehicleDB extends DataHandler {
                     vt = VehicleType.DRONE;
                 lstModels.add(new VehicleModel(intId,strDesignation,dblPotency,dblWeight,dblMaxPayload,
                         new Battery(intBatteryId,intBatteryCapacity,dblBatteryVoltage,dblEfficiency),vt));
-
-                rSet.next();
             }
             return lstModels;
         } catch (SQLException e) {

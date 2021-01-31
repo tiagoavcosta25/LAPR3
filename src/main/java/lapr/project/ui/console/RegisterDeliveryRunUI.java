@@ -6,6 +6,7 @@ import lapr.project.model.OrderStatus;
 import lapr.project.model.Pharmacy;
 import lapr.project.model.service.OrderService;
 import lapr.project.model.service.PharmacyService;
+import lapr.project.ui.Menu;
 import lapr.project.ui.UI;
 
 import java.util.ArrayList;
@@ -23,12 +24,11 @@ public class RegisterDeliveryRunUI implements UI {
             Scanner sc = new Scanner(System.in);
             RegisterDeliveryRunController oCtrl = new RegisterDeliveryRunController();
             PharmacyService oPharmacyService = new PharmacyService();
-            OrderService oOrderService = new OrderService();
 
             boolean flag;
 
             do {
-
+                Menu.clear();
                 List<Integer> lstIds = new ArrayList<>();
                 String strPharmacyEmail;
                 Integer intOrderId;
@@ -44,14 +44,20 @@ public class RegisterDeliveryRunUI implements UI {
                 System.out.print("Choose a Pharmacy (by email) that refers to your new Delivery Run: ");
 
                 strPharmacyEmail = sc.nextLine();
+                Menu.clear();
                 List<Order> lstOrdersByPharmacy = oCtrl.getOrdersList(strPharmacyEmail);
                 List<Order> lstOrdered = new ArrayList<>();
                 for (Order ord : lstOrdersByPharmacy) {
-                    if (ord.getStatus().equalsIgnoreCase(OrderStatus.ORDERED.getDesignation())) {
+                    if (ord.getStatus().equalsIgnoreCase(OrderStatus.ORDERED.getDesignation()) && !ord.isHomeDelivery()) {
                         lstOrdered.add(ord);
                     }
                 }
+
+                if(lstOrdered.isEmpty()){throw new Exception();}
+
+                List<Order> lstTotalOrders = new ArrayList<>(lstOrdered);
                 do {
+                    Menu.clear();
                     if (lstOrdered.isEmpty()) break;
 
                     System.out.println();
@@ -88,14 +94,12 @@ public class RegisterDeliveryRunUI implements UI {
                         }
                     }
 
-
-                    //TODO: Arranjar
                 } while (intOrderId != 0);
 
                 List<Order> lstOrders = new ArrayList<>(); // MUDAR ISTO PARA O NOVO METODO
 
                 for (Integer i : lstIds) {
-                    for (Order order : lstOrdered) {
+                    for (Order order : lstTotalOrders) {
                         if (i == order.getId()) lstOrders.add(order);
                     }
 
@@ -107,7 +111,7 @@ public class RegisterDeliveryRunUI implements UI {
 
                 String choice;
                 do {
-
+                    Menu.clear();
                     System.out.print("Do you wish to calculate the path by Time or Energy (T/E): ");
                     choice = sc.nextLine();
                     System.out.println();
@@ -117,7 +121,7 @@ public class RegisterDeliveryRunUI implements UI {
                 boolean timeOrEnergy = choice.equalsIgnoreCase("e");
 
                 do {
-
+                    Menu.clear();
                     System.out.print("Do you wish to use extensive backtrack? (Y/N): ");
                     choice = sc.nextLine();
                     System.out.println();

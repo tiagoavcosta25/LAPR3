@@ -2,7 +2,59 @@ ________________________________________________________________________________
 
 
 
-There is no scooter model nor drone model that can make this path!
+No drone can make this path!
+
+
+Best scooter route characteristics: 
+Best vehicle model for delivery: name->modelSuperTop, potency->4900.0 watt's, weight->29.0 kilos, max payload weight->30.0 kilos, battery efficiency->90.0, battery capacity->123, battery voltage->31.0.
+Best route for delivery: [Rua de Sa da Bandeira, Sé, Majestic, Bolhao, Rua da Trindade, Rua de Sa da Bandeira]
+Route is 2123.70 meters.
+Delivery route takes 7.80 minutes.
+Delivery route costs 0.63628 kWh.
+No need to recharge during delivery.
+
+Route characteristics: 
+
+	Path Sa da Bandeira - Batalha:
+		Path kinetic friction coefficient is 0.00.
+		Path wind speed is 1.00.
+		Path wind angle is 0.00.
+		Path is 578.47 meters.
+		Path takes 2.42 minutes.
+		Path costs 0.19707 kWh.
+
+	Path Batalha - Majestic:
+		Path kinetic friction coefficient is 0.00.
+		Path wind speed is 1.00.
+		Path wind angle is 0.00.
+		Path is 486.20 meters.
+		Path takes 1.81 minutes.
+		Path costs 0.14748 kWh.
+
+	Path Majestic - Bolhao:
+		Path kinetic friction coefficient is 0.00.
+		Path wind speed is 1.00.
+		Path wind angle is 0.00.
+		Path is 180.70 meters.
+		Path takes 0.64 minutes.
+		Path costs 0.05265 kWh.
+
+	Path Bolhao - Trindade:
+		Path kinetic friction coefficient is 0.00.
+		Path wind speed is 1.00.
+		Path wind angle is 0.00.
+		Path is 424.81 meters.
+		Path takes 1.61 minutes.
+		Path costs 0.13156 kWh.
+
+	Path Trindade - Sa da Bandeira:
+		Path kinetic friction coefficient is 0.00.
+		Path wind speed is 1.00.
+		Path wind angle is 0.00.
+		Path is 453.52 meters.
+		Path takes 1.32 minutes.
+		Path costs 0.10752 kWh.
+
 
 ______________________________________________________________________________________
 

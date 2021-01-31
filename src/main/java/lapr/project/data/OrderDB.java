@@ -249,18 +249,19 @@ public class OrderDB extends DataHandler {
 
                 if (rSet == null) {
                     flag = true;
-                }
-                while (rSet.next()) {
-                    Product product = productManager(rSet, 1);
-                    Integer intAskQuantity = rSet.getInt(6);
-                    if (intAskQuantity.equals(-1)) {
-                        updateProducts.put(product, entry.getValue());
-                        continue;
-                    } else {
-                        lstProducts.put(product, intAskQuantity);
-                        updateProducts.put(product, entry.getValue() - intAskQuantity);
+                } else{
+                    while (rSet.next()) {
+                        Product product = productManager(rSet, 1);
+                        Integer intAskQuantity = rSet.getInt(6);
+                        if (intAskQuantity.equals(-1)) {
+                            updateProducts.put(product, entry.getValue());
+                            continue;
+                        } else {
+                            lstProducts.put(product, intAskQuantity);
+                            updateProducts.put(product, entry.getValue() - intAskQuantity);
+                        }
+                        rSet.next();
                     }
-                    rSet.next();
                 }
             } catch (SQLException e) {
                 e.printStackTrace();

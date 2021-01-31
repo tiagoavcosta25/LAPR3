@@ -1,6 +1,7 @@
 package lapr.project.ui.console;
 
 import lapr.project.controller.StartDeliveryRunController;
+import lapr.project.ui.Menu;
 import lapr.project.ui.UI;
 
 import java.util.Scanner;
@@ -18,9 +19,11 @@ public class StartDeliveryRunUI implements UI {
 
             System.out.println("Do you wish to start your most recent Delivery Run?");
             System.out.println();
-            System.out.println("YES[1]");
-            System.out.println("NO[2]");
+            System.out.println("[1] YES");
+            System.out.println("[2] NO");
+            System.out.print("\n\nYour Option: ");
             input = reader.nextInt();
+            Menu.clear();
             if (input == 1) {
                 StartDeliveryRunController ctrl = new StartDeliveryRunController();
                 if (ctrl.startDeliveryRun()) {

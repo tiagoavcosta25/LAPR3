@@ -189,8 +189,8 @@ public class PharmacyService {
      * Returns the Suitable Courier.
      * @return Suitable Courier.
      */
-    public Courier getSuitableCourier() {
-        return moPharmacyDB.getSuitableCourier();
+    public Courier getSuitableCourier(Integer pharmacyId) {
+        return moPharmacyDB.getSuitableCourier(pharmacyId);
     }
 
     /**

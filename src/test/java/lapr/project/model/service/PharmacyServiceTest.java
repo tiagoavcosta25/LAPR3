@@ -181,15 +181,15 @@ class PharmacyServiceTest {
     @Test
     void getSuitableCourier() {
         System.out.println("getSuitableCourier");
-        when(mockPharmacyDB.getSuitableCourier()).thenReturn(new Courier());
-        Courier result = pharmacyService.getSuitableCourier();
+        when(mockPharmacyDB.getSuitableCourier(1)).thenReturn(new Courier());
+        Courier result = pharmacyService.getSuitableCourier(1);
         assertEquals(new Courier(), result);
     }
 
     @Test
     void testGetSuitableCourier() {
-        when (mockPharmacyDB.getSuitableCourier()).thenReturn(new Courier());
-        Courier real = pharmacyService.getSuitableCourier();
+        when (mockPharmacyDB.getSuitableCourier(1)).thenReturn(new Courier());
+        Courier real = pharmacyService.getSuitableCourier(1);
         assertEquals(new Courier(),real);
     }
 

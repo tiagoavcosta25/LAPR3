@@ -2,6 +2,7 @@ package lapr.project.ui.console;
 
 import lapr.project.controller.RegisterCourierController;
 import lapr.project.ui.FileReader;
+import lapr.project.ui.Menu;
 import lapr.project.ui.UI;
 
 import java.util.Scanner;
@@ -28,20 +29,23 @@ public class RegisterCourierUI implements UI {
                 Integer nif = Integer.parseInt(reader.nextLine());
                 System.out.print("IBAN: ");
                 String iban = reader.nextLine();
+                Menu.clear();
                 System.out.print("Pharmacy's email: ");
                 String pharmacyEmail = reader.nextLine();
+                Menu.clear();
                 System.out.print("Do you wish to create a courier with the following data?");
-                System.out.println("Name: " + name + "\nEmail: " + email + "\nNif: " + nif + "\nIban: " + iban + "\nPharmacy's Email: " + pharmacyEmail);
+                System.out.println("\n\nName: " + name + "\nEmail: " + email + "\nNif: " + nif + "\nIban: " + iban + "\nPharmacy's Email: " + pharmacyEmail);
                 System.out.println();
-                System.out.println("YES[1]");
-                System.out.println("NO[2]");
-                System.out.println("CANCEL[3]");
+                System.out.println("[1] YES");
+                System.out.println("[2] NO");
+                System.out.printf("[3] CANCEL%n%n");
+                System.out.print("Your option: ");
                 input = Integer.parseInt(reader.nextLine());
+                Menu.clear();
                 switch (input) {
                     case 1:
                         RegisterCourierController ctrl = new RegisterCourierController();
                         if (ctrl.newCourier(name, email, nif, iban, pharmacyEmail)) {
-                            LOGGER.log(Level.INFO, "Courier was created with success!");
                             if (ctrl.registersCourier()) {
                                 LOGGER.log(Level.INFO, "Courier was registered with success!");
                             } else LOGGER.log(Level.INFO, "There was a problem registering a Courier");

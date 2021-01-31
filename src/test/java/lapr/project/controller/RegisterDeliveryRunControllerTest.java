@@ -52,7 +52,7 @@ class RegisterDeliveryRunControllerTest {
     @Test
     void registerDeliveryRun() {
         ApplicationPOT.getInstance().setCurrentSession(new UserSession("", UserSession.Role.ADMIN));
-        when(m_mockPharmacyService.getSuitableCourier()).thenReturn(new Courier());
+        when(m_mockPharmacyService.getSuitableCourier(1)).thenReturn(new Courier());
         when(m_mockDeliveryRunService.newDeliveryRun(null, new ArrayList<>(), new Drone())).thenReturn(new DeliveryRun());
         List<Route> lst = new ArrayList<>();
         when(m_mockGraphService.calculateBestVehicleAndBestPath(new ArrayList<>(),true,true)).thenReturn(lst);
@@ -87,15 +87,21 @@ class RegisterDeliveryRunControllerTest {
 
         VehicleModel vm = new VehicleModel();
         vm.setVehicleType(VehicleType.SCOOTER);
-        when(m_mockGraphService.calculateBestVehicleAndBestPath(new ArrayList<>(),true,true)).thenReturn(new ArrayList<>());
+        Order o = new Order();
+        Pharmacy p = new Pharmacy();
+        p.setId(1);
+        o.setPharmacy(p);
+        List<Order> l = new ArrayList<>();
+        l.add(o);
+        when(m_mockGraphService.calculateBestVehicleAndBestPath(l,true,true)).thenReturn(new ArrayList<>());
         when(m_mockDeliveryRunService.getMostEfficientVehicleModel(new ArrayList<>())).thenReturn(vm);
         when(m_mockDeliveryRunService.getMostChargedScooter(vm)).thenReturn(new Scooter());
-        when(m_mockPharmacyService.getSuitableCourier()).thenReturn(new Courier());
+        when(m_mockPharmacyService.getSuitableCourier(1)).thenReturn(new Courier());
         when(m_mockDeliveryRunService.getMostChargedScooter(vm)).thenReturn(new Scooter());
-        when(m_mockDeliveryRunService.newDeliveryRun(new Courier(),new ArrayList<>(),new Scooter()))
+        when(m_mockDeliveryRunService.newDeliveryRun(new Courier(),l,new Scooter()))
                 .thenReturn(new DeliveryRun());
         when(m_mockDeliveryRunService.addNewDeliveryRun(new DeliveryRun())).thenReturn(true);
-        real = m_ctrl.registerDeliveryRun(new ArrayList<>(),true,true);
+        real = m_ctrl.registerDeliveryRun(l,true,true);
 
         assertTrue(real);
 
