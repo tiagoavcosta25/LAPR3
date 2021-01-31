@@ -101,11 +101,11 @@ class MakeAnOrderControllerTest {
         result = makeAnOrderController.registerOrder();
         assertFalse(result);
 
-        when(mockOrderService.registerOrder(this.expectedOrder)).thenThrow(new IllegalArgumentException());
+        when(mockNotifyAndRemoveController.notifyAndRemove(this.expectedOrder)).thenReturn(false);
         result = makeAnOrderController.registerOrder();
         assertFalse(result);
 
-        when(mockNotifyAndRemoveController.notifyAndRemove(this.expectedOrder)).thenReturn(false);
+        when(mockOrderService.registerOrder(this.expectedOrder)).thenThrow(new IllegalArgumentException());
         result = makeAnOrderController.registerOrder();
         assertFalse(result);
     }

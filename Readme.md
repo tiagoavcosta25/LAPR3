@@ -148,13 +148,27 @@ About the project, we want to mention this **6** topics:
 
 * The goal of our LAPR3 project was to develop a full functional software that supports the delivery of pharmaceutics products.
 * This software has to be capable of handling customers, pharmacies, orders, deliveries, users, products. 
-1. Client 
+
+### 2. Objectives
+
+
+### 3. Actors (Personas)
+
+- Administrator
+- Courier
+- Client
+- User
+- System
+
+### 4. Functionalities (by area)
+
+1. **Client** 
     
     1.1 A client has to be capable of registering himself.([US18_RegisterClient](docs/Iteration 3/User Management/Refinement/US18_RegisterClient/US18_RegisterClient.md)) 
 
     1.2 A client has to be capable of making an order.([US25_MakeAnOrder](docs/Iteration 3/Make An Order/Refinement/US25_MakeAnOrder/US25_MakeAnOrder.md))
 
-2. Pharmacies
+2. **Pharmacies**
 
     2.1 The Administrator should be capable of registering a pharmacy. ([US40_RegisterPharmacy](docs/Iteration%203/Pharmacy%20Management/Refinement/US40_RegisterPharmacy/US40_RegisterPharmacy.md)) 
 
@@ -168,7 +182,7 @@ About the project, we want to mention this **6** topics:
 
     2.6 The Administrator should be capable of issuing a pharmacy transfer delivery note. ([US203_IssueDeliveryNote](docs/Iteration 3/Pharmacy Management/Refinement/US203_IssueDeliveryNote/US203_IssueDeliveryNote.md))
 
-3. Orders
+3. **Orders**
    
    3.1 The system generates an invoice. ([US26_GenerateInvoice](docs/Iteration 3/Make An Order/Refinement/US26_GenerateInvoice/US26_GenerateInvoice.md))
 
@@ -176,15 +190,15 @@ About the project, we want to mention this **6** topics:
 
    3.3 Know the order associated to a courier. ([US48_KnowDelivery](docs/Iteration 3/Delivery Management/Refinement/US48_KnowDelivery/US48_KnowDelivery.md))
    
-4. Deliveries
+4. **Deliveries**
 
-   4.1 Courier
+   4.1 **Courier**
       
    - 4.1.1 An administrator should be able of register a courier. ([US19_RegisterCourier](docs/Iteration 3/Courier Management/Refinement/US19_RegisterCourier/US19_RegisterCourier.md))
    - 4.1.2 An administrator should be able of remove a courier. ([US20_RemoveCourier](docs/Iteration 3/Courier Management/Refinement/US20_RemoveCourier/US20_RemoveCourier.md))
    - 4.1.3 An administrator should be able of update a courier. ([US29_UpdateCourier](docs/Iteration 3/Courier Management/Refinement/US29_UpdateCourier/US29_UpdateCourier.md))
    
-   4.2 Vehicles
+   4.2 **Vehicles**
    
    - 4.2.1 **Scooter**
         - 4.2.1.1 An administrator should be able of register a scooter.([US21_RegisterScooter](docs/Iteration 3/Scooter Management/Refinement/US21_RegisterScooter/US21_RegisterScooter.md))
@@ -201,17 +215,17 @@ About the project, we want to mention this **6** topics:
       - 4.2.3.1 An administrator should be able of know the vehicle maximum payload. ([US55_MaxPayload](docs/Iteration 3/Delivery Management/Refinement/US55_MaxPayload/US55_MaxPayload.md))
       - 4.2.3.2 An administrator should be able of know the best vehicle for an order.([US290_SeeSuitableVehicle](docs/Iteration 3/Delivery Management/Refinement/US290_SeeSuitableVehicle/US290_SeeSuitableVehicle.md))
       
-   4.3 Delivery Run
+   4.3 **Delivery Run**
       - 4.3.1 An administrator should be able of register a Delivery Run. ([US206_RegisterDeliveryRun](docs/Iteration 3/Delivery Management/Refinement/US206_RegisterDeliveryRun/US206_RegisterDeliveryRun.md))
       - 4.3.2 A courier should be able of starting a Delivery Run. ([US205_StartDeliveryRun](docs/Iteration 3/Delivery Management/Refinement/US205_StartDeliveryRun/US205_StartDeliveryRun.md))
 
-5. Users
+5. **Users**
    
    5.1 A user has to be capable of loging in ([US67_Login](docs/Iteration 3/User Management/Refinement/US67_Login/US67_Login.md))
 
    5.2 A user has to be capable of loging out ([US68_Logout](docs/Iteration 3/User Management/Refinement/US68_Logout/US68_Logout.md))
 
-6. Products
+6. **Products**
    
    6.1 An administrator should be able of register a Product. ([US70_RegisterProduct](docs/Iteration 3/Product Management/Refinement/US70_RegisterProduct/US70_RegisterProduct.md))
 
@@ -221,18 +235,7 @@ About the project, we want to mention this **6** topics:
 
    6.4 An administrator should be able of know a Product information. ([US73_ProductInformation](docs/Iteration 3/Product Management/Refinement/US73_ProductInformation/US73_ProductInformation.md))
 
-### Objectives
-
-
-### Actors (Personas)
-
--Administrator
--Courier
--Client
--User
--System
-
-## Physics
+## Physics Report
 
 ### Drone
 
@@ -257,11 +260,11 @@ To obtain an optimum flying speed, where the parasite drag is smaller, and the l
 
 **where**
 
-- m is the total mass (drone+payload)
+- m is the total mass (drone+payload) (in kg)
 - Cd is the drag coefficient
-- A is the drone's frontal area
-- b is the drone's width
-- ρ is the air density
+- A is the drone's frontal area (in m^2)
+- b is the drone's width (in m)
+- ρ is the air density (in kg . m^-3)
 
 
 that has in count the induced drag, and the parasite drag.
@@ -272,8 +275,8 @@ that has in count the induced drag, and the parasite drag.
 
 **where**
 
-- v_wind is the wind speed
-- α is the angle formed between the wind speed and the air/drone speed pair.
+- v_wind is the wind speed (in m/s)
+- α is the angle formed between the wind speed and the air/drone speed pair. (in degrees)
 
 and then we added both speeds to know what was the effective speed.
 
@@ -285,24 +288,143 @@ With the speed calculated, we have to use the following formula:
 
 **where**
 
-- W is the total mass (drone+payload)
+- m is the total mass (drone+payload) (in kg)
 - Cd is the drag coefficient
-- A is the drone's frontal area
-- b is the drone's width
-- ρ is the air density
-- v is the total velocity calculated in the step before.
+- A is the drone's frontal area (in m^2)
+- b is the drone's width (in m)
+- ρ is the air density (in kg . m^-3)
+- v is the total velocity calculated in the step before. (in m/s)
 
 that adds the parasitic drag and the induced drag.
 
-![PowerLevantamento](PhysicFormulas/LiftingPower.svg)
+Using the energy formula:
 
+![EnergyForceDistance](PhysicFormulas/EnergyForceDistance.svg)
 
+We got the consumption of energy in the hover for the distance.
 
-![]
+In order to lift the drone, there is necessary to the thrust, air resistance and weight cancel each order. Studies have shown that the power it consumes to lift is approximately linearly proportional to the weight of the vehicle under practical assumptions. We assumed that  the power consumed during takeoff and landing is, on average, approximately equivalent to the power consumed during hover.
+The lifting power formula that we used is on "Energy Consumption in Unmanned Aerial Vehicles" (formula 22)
+
+![LiftingPower](PhysicFormulas/LiftingPower.svg)
+
+**where**
+
+- T is the thrust and is equivalent to the weight (mass x gravitic acceletration) (in N)
+- A is the drone's frontal area (in m^2)
+- ρ is the air density (in kg . m^-3)
+
+With the hover force and the lifting power, we are able to calculate the total energy consumption of the drone.
+To the lifting part of the movement, with the power formula: 
+
+![PowerEnergy](PhysicFormulas/PowerEnergy.svg)
+
+**where**
+- P is the power (in W)
+- E is the energy (in J)
+- t is the time (in s)
+
+and knowing that the speed formula is:
+
+![Speed](PhysicFormulas/Speed.svg)
+
+**where**
+- v is the velocity (in m/s)
+- d is the distance (in m)
+- t is the time (in s)
+
+assuming the lifting speed as the hover speed and the distance as the default height (150m), we have:
+
+![EnergyPowerVelocity](PhysicFormulas/EnergyPowerVelocity.svg)
+
+that translates to:
+
+![LiftingEnergy](PhysicFormulas/LiftingEnergy.svg)
+
+So, the overall drone consumption is:
+
+![TotalEnergyDrone](PhysicFormulas/TotalEnergyDrone.svg)
 
 ### Scooter
 
+In order to calculate the scooter energy consumption, we first calculated the forces that actuated in the scooter during the path.
 
+First we considered the friction force that is the interaction of the wheels material with the floor, measuring hom much energy is necessary to make the scooter move in that kind of street pavement. We used the formula: 
+
+![FrictionForce](PhysicFormulas/FrictionForce.svg)
+
+**where**
+- m is the mass of the scooter+orders+courier (in kg)
+- g is the gravitic acceleration (in m.s^-2 )
+- μ is the kinetic friction coefficient
+
+After that, we considered the overall weight, considering the inclination using the formula: 
+
+![WeightYAxis](PhysicFormulas/WeightYAxis.svg)
+
+**where**
+- m is the mass of the scooter+orders+courier (in kg)
+- g is the gravitic acceleration (in m.s^-2 )
+- α is the angle of the inclination (in degrees)
+
+For the last part we considered the air resistance and the wind, using the following formula to calculate the wind effective speed: 
+
+![WindSpeed](PhysicFormulas/WindSpeed.svg)
+
+**where**
+
+- v_wind is the wind speed (in m/s)
+- α is the angle formed between the wind speed and the air/drone speed pair. (in degrees)
+
+and then we added both speeds to know what was the effective speed.
+
+![TotalSpeed](PhysicFormulas/TotalSpeed.svg)
+
+With the total spped calculated, we calculated the air resistance force :
+
+![AirResistance](PhysicFormulas/AirResistance.svg)
+
+**where**
+- m is the total mass (scooter+courier+payload) (in kg)
+- Cd is the drag coefficient
+- A is the scooter's frontal area (in m^2)
+- ρ is the air density (in kg . m^-3)
+- v is the total velocity calculated in the step before. (in m/s)
+
+So, the overall scooter force is:
+
+![TotalForceScooter](PhysicFormulas/TotalForceScooter.svg)
+
+and using the formula 
+
+![EnergyForceDistance](PhysicFormulas/EnergyForceDistance.svg)
+
+we got the energy that the scooter spends doing the path.
+
+###Calculation considerations
+
+- In order to check if a vehicle is capable of doing the path (due to motor power), we used the following formula:
+
+![PowerForceVelocity](PhysicFormulas/PowerForceVelocity.svg)
+
+**where**
+
+- P is the motor power (in Watt)
+- F is the necessary force to the path (in N)
+- v is the total velocity (in m/s)
+
+When the vehicle wasn't able to make the path, we reduced the velocity (in a 0.01 m/s ratio in a recursive way) and calculated again the force, until the F.v fited the vehicle power, or until the velocity be 0, what made the vehicle not capable of make the path. 
+
+- The constants used were:
+
+- g: gravitic acceleration - 9.8 m.s^-2
+- ρ: air density - 1.225 kg.m^-3
+- h: default drone height - 150 m
+- A: default drone area - 0.3 m^2
+- Cd: default drag coefficient - 1.1
+- v: default scooter velocity - 8.3 m/s
+- m: default courier weight - 80 kg
+- b: default drone width - 0.2 m
 
 # Relational Model (Normalized)
 
