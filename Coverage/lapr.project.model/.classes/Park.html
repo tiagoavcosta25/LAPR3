@@ -1,0 +1,339 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: Park</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">lapr.project.model</a> ]
+</div>
+
+<h1>Coverage Summary for Class: Park (lapr.project.model)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Park</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (19/ 19)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (53/ 53)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package lapr.project.model;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import java.util.ArrayList;
+<i>4</i>&nbsp;import java.util.List;
+<i>5</i>&nbsp;import java.util.Objects;
+<i>6</i>&nbsp;
+<i>7</i>&nbsp;/**
+<i>8</i>&nbsp; * Park.
+<i>9</i>&nbsp; *
+<i>10</i>&nbsp; * Group: Team Lisa [G-021]
+<i>11</i>&nbsp; * ______________________________________________________
+<i>12</i>&nbsp; * @author António Barbosa &lt;1190404@isep.ipp.pt&gt;
+<i>13</i>&nbsp; * @author Ernesto Rodrigues &lt;1190560@isep.ipp.pt&gt;
+<i>14</i>&nbsp; * @author Jessica Alves &lt;1190682@isep.ipp.pt&gt;
+<i>15</i>&nbsp; * @author Pedro Santos &lt;1190967@isep.ipp.pt&gt;
+<i>16</i>&nbsp; * @author Rodrigo Costa &lt;1191014@isep.ipp.pt&gt;
+<i>17</i>&nbsp; * @author Tiago Costa &lt;1191460@isep.ipp.pt&gt;
+<i>18</i>&nbsp; */
+<i>19</i>&nbsp;
+<i>20</i>&nbsp;public class Park {
+<i>21</i>&nbsp;
+<i>22</i>&nbsp;    /**
+<i>23</i>&nbsp;     * Park&#39;s ID.
+<i>24</i>&nbsp;     */
+<i>25</i>&nbsp;    private int mintId;
+<i>26</i>&nbsp;
+<i>27</i>&nbsp;    /**
+<i>28</i>&nbsp;     * Park&#39;s Max Slots Number.
+<i>29</i>&nbsp;     */
+<i>30</i>&nbsp;    private int mintMaxSlotsNumber;
+<i>31</i>&nbsp;
+<i>32</i>&nbsp;    /**
+<i>33</i>&nbsp;     * Park&#39;s Total Current Output.
+<i>34</i>&nbsp;     */
+<i>35</i>&nbsp;    private Double mfltTotalOutputCurrent;
+<i>36</i>&nbsp;
+<i>37</i>&nbsp;    /**
+<i>38</i>&nbsp;     * Park&#39;s Vehicle Type.
+<i>39</i>&nbsp;     */
+<i>40</i>&nbsp;    private VehicleType menumVehicleType;
+<i>41</i>&nbsp;
+<i>42</i>&nbsp;    /**
+<i>43</i>&nbsp;     * List of Park&#39;s Charging Slots.
+<i>44</i>&nbsp;     */
+<i>45</i>&nbsp;    private List&lt;ChargingSlot&gt; mLstChargingSlots;
+<i>46</i>&nbsp;
+<i>47</i>&nbsp;    /**
+<i>48</i>&nbsp;     * List of Park&#39;s Non Charging Slots.
+<i>49</i>&nbsp;     */
+<i>50</i>&nbsp;    private List&lt;NonChargingSlot&gt; mLstNonChargingSlots;
+<i>51</i>&nbsp;
+<i>52</i>&nbsp;    /**
+<i>53</i>&nbsp;     * Park&#39;s Default ID.
+<i>54</i>&nbsp;     */
+<b class="fc"><i>55</i>&nbsp;    private static int mDEFAULTID = -1;</b>
+<i>56</i>&nbsp;
+<i>57</i>&nbsp;    /**
+<i>58</i>&nbsp;     * Park&#39;s Default Max Slots.
+<i>59</i>&nbsp;     */
+<b class="fc"><i>60</i>&nbsp;    private static int mDEFAULTMAXSLOTS = -1;</b>
+<i>61</i>&nbsp;
+<i>62</i>&nbsp;    /**
+<i>63</i>&nbsp;     * Park&#39;s Default Total Current Output.
+<i>64</i>&nbsp;     */
+<b class="fc"><i>65</i>&nbsp;    private static Double mDEFAULTTOTALOUTPUTCURRENT = -1d;</b>
+<i>66</i>&nbsp;
+<i>67</i>&nbsp;    /**
+<i>68</i>&nbsp;     * Park&#39;s Dfault Vehicle Type.
+<i>69</i>&nbsp;     */
+<b class="fc"><i>70</i>&nbsp;    private static VehicleType mDEFAULTVEHICLETYPE = VehicleType.NOTDEFINED;</b>
+<i>71</i>&nbsp;
+<i>72</i>&nbsp;    /**
+<i>73</i>&nbsp;     * Default List of Park&#39;s Charging Slots.
+<i>74</i>&nbsp;     */
+<b class="fc"><i>75</i>&nbsp;    private static List&lt;ChargingSlot&gt; mDEFAULTCHARGINGSLOTS = new ArrayList&lt;&gt;();</b>
+<i>76</i>&nbsp;
+<i>77</i>&nbsp;    /**
+<i>78</i>&nbsp;     * Default List of Park&#39;s Non Charging Slots.
+<i>79</i>&nbsp;     */
+<b class="fc"><i>80</i>&nbsp;    private static List&lt;NonChargingSlot&gt; mDEFAULTPARKINGSLOTS = new ArrayList&lt;&gt;();</b>
+<i>81</i>&nbsp;
+<i>82</i>&nbsp;    /**
+<i>83</i>&nbsp;     * Builds an instance of Park receiving Park ID, Max Slots, Total Output Current and Vehicle Type.
+<i>84</i>&nbsp;     * @param intId Park&#39;s ID.
+<i>85</i>&nbsp;     * @param intMaxSlotsNumber Park&#39;Max Slots.
+<i>86</i>&nbsp;     * @param fltTotalOutputCurrent Park&#39;s Total Output Current.
+<i>87</i>&nbsp;     * @param enumVehicleType Park&#39;s Vehicle Type.
+<i>88</i>&nbsp;     */
+<b class="fc"><i>89</i>&nbsp;    public Park(int intId, int intMaxSlotsNumber, Double fltTotalOutputCurrent, VehicleType enumVehicleType) {</b>
+<b class="fc"><i>90</i>&nbsp;        this.mintId = intId;</b>
+<b class="fc"><i>91</i>&nbsp;        this.mintMaxSlotsNumber = intMaxSlotsNumber;</b>
+<b class="fc"><i>92</i>&nbsp;        this.mfltTotalOutputCurrent = fltTotalOutputCurrent;</b>
+<b class="fc"><i>93</i>&nbsp;        this.menumVehicleType = enumVehicleType;</b>
+<b class="fc"><i>94</i>&nbsp;        this.mLstChargingSlots = mDEFAULTCHARGINGSLOTS;</b>
+<b class="fc"><i>95</i>&nbsp;        this.mLstNonChargingSlots = mDEFAULTPARKINGSLOTS;</b>
+<b class="fc"><i>96</i>&nbsp;    }</b>
+<i>97</i>&nbsp;
+<i>98</i>&nbsp;    /**
+<i>99</i>&nbsp;     * Builds an instance of Park receiving Park Max Slots, Total Output Current and Vehicle Type.
+<i>100</i>&nbsp;     * @param intMaxSlotsNumber
+<i>101</i>&nbsp;     * @param intMaxSlotsNumber Park&#39;Max Slots.
+<i>102</i>&nbsp;     * @param fltTotalOutputCurrent Park&#39;s Total Output Current.
+<i>103</i>&nbsp;     * @param enumVehicleType Park&#39;s Vehicle Type.
+<i>104</i>&nbsp;     */
+<b class="fc"><i>105</i>&nbsp;    public Park(int intMaxSlotsNumber, Double fltTotalOutputCurrent, VehicleType enumVehicleType) {</b>
+<b class="fc"><i>106</i>&nbsp;        this.mintMaxSlotsNumber = intMaxSlotsNumber;</b>
+<b class="fc"><i>107</i>&nbsp;        this.mfltTotalOutputCurrent = fltTotalOutputCurrent;</b>
+<b class="fc"><i>108</i>&nbsp;        this.menumVehicleType = enumVehicleType;</b>
+<b class="fc"><i>109</i>&nbsp;        this.mLstChargingSlots = mDEFAULTCHARGINGSLOTS;</b>
+<b class="fc"><i>110</i>&nbsp;        this.mLstNonChargingSlots = mDEFAULTPARKINGSLOTS;</b>
+<b class="fc"><i>111</i>&nbsp;    }</b>
+<i>112</i>&nbsp;
+<i>113</i>&nbsp;    /**
+<i>114</i>&nbsp;     * An empty constructor of Park.
+<i>115</i>&nbsp;     */
+<b class="fc"><i>116</i>&nbsp;    public Park() {</b>
+<b class="fc"><i>117</i>&nbsp;        this.mintId = mDEFAULTID;</b>
+<b class="fc"><i>118</i>&nbsp;        this.mintMaxSlotsNumber = mDEFAULTMAXSLOTS;</b>
+<b class="fc"><i>119</i>&nbsp;        this.mfltTotalOutputCurrent = mDEFAULTTOTALOUTPUTCURRENT;</b>
+<b class="fc"><i>120</i>&nbsp;        this.menumVehicleType = mDEFAULTVEHICLETYPE;</b>
+<b class="fc"><i>121</i>&nbsp;        this.mLstChargingSlots = mDEFAULTCHARGINGSLOTS;</b>
+<b class="fc"><i>122</i>&nbsp;        this.mLstNonChargingSlots = mDEFAULTPARKINGSLOTS;</b>
+<b class="fc"><i>123</i>&nbsp;    }</b>
+<i>124</i>&nbsp;
+<i>125</i>&nbsp;    /**
+<i>126</i>&nbsp;     * Returns Park&#39;s ID.
+<i>127</i>&nbsp;     * @return Park&#39;s ID.
+<i>128</i>&nbsp;     */
+<i>129</i>&nbsp;    public int getId() {
+<b class="fc"><i>130</i>&nbsp;        return mintId;</b>
+<i>131</i>&nbsp;    }
+<i>132</i>&nbsp;
+<i>133</i>&nbsp;    /**
+<i>134</i>&nbsp;     * Modifies Park&#39;s ID.
+<i>135</i>&nbsp;     * @param mintId Park&#39;s ID.
+<i>136</i>&nbsp;     */
+<i>137</i>&nbsp;    public void setId(int mintId) {
+<b class="fc"><i>138</i>&nbsp;        this.mintId = mintId;</b>
+<b class="fc"><i>139</i>&nbsp;    }</b>
+<i>140</i>&nbsp;
+<i>141</i>&nbsp;    /**
+<i>142</i>&nbsp;     * Returns Park&#39;s Max Slots.
+<i>143</i>&nbsp;     * @return Park&#39;s Max Slots.
+<i>144</i>&nbsp;     */
+<i>145</i>&nbsp;    public int getMaxSlotsNumber() {
+<b class="fc"><i>146</i>&nbsp;        return mintMaxSlotsNumber;</b>
+<i>147</i>&nbsp;    }
+<i>148</i>&nbsp;
+<i>149</i>&nbsp;    /**
+<i>150</i>&nbsp;     * Modifies Park&#39;s Max Slots.
+<i>151</i>&nbsp;     * @param mintMaxSlotsNumber Park&#39;s Max Slots.
+<i>152</i>&nbsp;     */
+<i>153</i>&nbsp;    public void setMaxSlotsNumber(int mintMaxSlotsNumber) {
+<b class="fc"><i>154</i>&nbsp;        this.mintMaxSlotsNumber = mintMaxSlotsNumber;</b>
+<b class="fc"><i>155</i>&nbsp;    }</b>
+<i>156</i>&nbsp;
+<i>157</i>&nbsp;    /**
+<i>158</i>&nbsp;     * Returns Park&#39;s Vehicle Type.
+<i>159</i>&nbsp;     * @return Park&#39;s Vehicle Type.
+<i>160</i>&nbsp;     */
+<i>161</i>&nbsp;    public VehicleType getVehicleType() {
+<b class="fc"><i>162</i>&nbsp;        return menumVehicleType;</b>
+<i>163</i>&nbsp;    }
+<i>164</i>&nbsp;
+<i>165</i>&nbsp;    /**
+<i>166</i>&nbsp;     * Modifies Park&#39;s Vehicle Type.
+<i>167</i>&nbsp;     * @param menumVehicleType Park&#39;s Vehicle Type.
+<i>168</i>&nbsp;     */
+<i>169</i>&nbsp;    public void setVehicleType(VehicleType menumVehicleType) {
+<b class="fc"><i>170</i>&nbsp;        this.menumVehicleType = menumVehicleType;</b>
+<b class="fc"><i>171</i>&nbsp;    }</b>
+<i>172</i>&nbsp;
+<i>173</i>&nbsp;    /**
+<i>174</i>&nbsp;     * Rerurns List of Park&#39;s Charging Slots.
+<i>175</i>&nbsp;     * @return List of Park&#39;s Charging Slots.
+<i>176</i>&nbsp;     */
+<i>177</i>&nbsp;    public List&lt;ChargingSlot&gt; getChargingSlots() {
+<b class="fc"><i>178</i>&nbsp;        return new ArrayList&lt;&gt;(mLstChargingSlots);</b>
+<i>179</i>&nbsp;    }
+<i>180</i>&nbsp;
+<i>181</i>&nbsp;    /**
+<i>182</i>&nbsp;     * Modifies List of Park&#39;s Charging Slots.
+<i>183</i>&nbsp;     * @param mlstChargingSlots List of Park&#39;s Charging Slots.
+<i>184</i>&nbsp;     */
+<i>185</i>&nbsp;    public void setChargingSlots(List&lt;ChargingSlot&gt; mlstChargingSlots) {
+<b class="fc"><i>186</i>&nbsp;        this.mLstChargingSlots = new ArrayList&lt;&gt;(mlstChargingSlots);</b>
+<b class="fc"><i>187</i>&nbsp;    }</b>
+<i>188</i>&nbsp;
+<i>189</i>&nbsp;    /**
+<i>190</i>&nbsp;     * Returns List of Park&#39;s Non Charging Slots.
+<i>191</i>&nbsp;     * @return List of Park&#39;s Non Charging Slots.
+<i>192</i>&nbsp;     */
+<i>193</i>&nbsp;    public List&lt;NonChargingSlot&gt; getParkingSlots() {
+<b class="fc"><i>194</i>&nbsp;        return new ArrayList&lt;&gt;(mLstNonChargingSlots);</b>
+<i>195</i>&nbsp;    }
+<i>196</i>&nbsp;
+<i>197</i>&nbsp;    /**
+<i>198</i>&nbsp;     * Modifeis List of Park&#39;s Non Charging Slots.
+<i>199</i>&nbsp;     * @param mlstNonChargingSlots List of Park&#39;s Non Charging Slots.
+<i>200</i>&nbsp;     */
+<i>201</i>&nbsp;    public void setParkingSlots(List&lt;NonChargingSlot&gt; mlstNonChargingSlots) {
+<b class="fc"><i>202</i>&nbsp;        this.mLstNonChargingSlots = new ArrayList&lt;&gt;(mlstNonChargingSlots);</b>
+<b class="fc"><i>203</i>&nbsp;    }</b>
+<i>204</i>&nbsp;
+<i>205</i>&nbsp;    /**
+<i>206</i>&nbsp;     * Reurns Park&#39;s Total Output Current.
+<i>207</i>&nbsp;     * @return Park&#39;s Total Output Current.
+<i>208</i>&nbsp;     */
+<i>209</i>&nbsp;    public Double getTotalOutputCurrent() {
+<b class="fc"><i>210</i>&nbsp;        return mfltTotalOutputCurrent;</b>
+<i>211</i>&nbsp;    }
+<i>212</i>&nbsp;
+<i>213</i>&nbsp;    /**
+<i>214</i>&nbsp;     * Modifies Park&#39;s Total Output Current.
+<i>215</i>&nbsp;     * @param mfltTotalOutputCurrent Park&#39;s Total Output Current.
+<i>216</i>&nbsp;     */
+<i>217</i>&nbsp;    public void setTotalOutputCurrent(Double mfltTotalOutputCurrent) {
+<b class="fc"><i>218</i>&nbsp;        this.mfltTotalOutputCurrent = mfltTotalOutputCurrent;</b>
+<b class="fc"><i>219</i>&nbsp;    }</b>
+<i>220</i>&nbsp;
+<i>221</i>&nbsp;    /**
+<i>222</i>&nbsp;     * Returns a logical value referring to the equality (or lack thereof) of the Park passed
+<i>223</i>&nbsp;     * by parameter with the instance of the Park class.
+<i>224</i>&nbsp;     * @param o Object.
+<i>225</i>&nbsp;     * @return a logical value referring to the equality (or lack thereof).
+<i>226</i>&nbsp;     */
+<i>227</i>&nbsp;    @Override
+<i>228</i>&nbsp;    public boolean equals(Object o) {
+<b class="fc"><i>229</i>&nbsp;        if (this == o) return true;</b>
+<b class="fc"><i>230</i>&nbsp;        if (o == null || getClass() != o.getClass()) return false;</b>
+<b class="fc"><i>231</i>&nbsp;        Park park = (Park) o;</b>
+<b class="fc"><i>232</i>&nbsp;        return mintId == park.mintId;</b>
+<i>233</i>&nbsp;    }
+<i>234</i>&nbsp;
+<i>235</i>&nbsp;    /**
+<i>236</i>&nbsp;     * Returns a hash code value for the object.
+<i>237</i>&nbsp;     * @return a hash code value for the object.
+<i>238</i>&nbsp;     */
+<i>239</i>&nbsp;    @Override
+<i>240</i>&nbsp;    public int hashCode() {
+<b class="fc"><i>241</i>&nbsp;        return Objects.hash(mintId);</b>
+<i>242</i>&nbsp;    }
+<i>243</i>&nbsp;
+<i>244</i>&nbsp;    /**
+<i>245</i>&nbsp;     * Returns the textual description of the Park in the format: ID and Max Slots Number.
+<i>246</i>&nbsp;     *
+<i>247</i>&nbsp;     * @return textual description of the Park.
+<i>248</i>&nbsp;     */
+<i>249</i>&nbsp;    @Override
+<i>250</i>&nbsp;    public String toString() {
+<b class="fc"><i>251</i>&nbsp;        return &quot;Park{&quot; +</b>
+<i>252</i>&nbsp;                &quot;m_intId=&quot; + mintId +
+<i>253</i>&nbsp;                &quot;, m_intMaxSlotsNumber=&quot; + mintMaxSlotsNumber +
+<i>254</i>&nbsp;                &#39;}&#39;;
+<i>255</i>&nbsp;    }
+<i>256</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2021-01-31 18:27</div>
+</div>
+</body>
+</html>

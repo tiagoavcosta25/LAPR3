@@ -1,0 +1,240 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: VehicleService</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">lapr.project.model.service</a> ]
+</div>
+
+<h1>Coverage Summary for Class: VehicleService (lapr.project.model.service)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">VehicleService</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (9/ 9)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (13/ 13)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">VehicleService$MockitoMock$194926686</td>
+  </tr>
+  <tr>
+    <td class="name">VehicleService$MockitoMock$194926686$auxiliary$AUEj2Dhy</td>
+  </tr>
+  <tr>
+    <td class="name">VehicleService$MockitoMock$194926686$auxiliary$aZ3ZrTkL</td>
+  </tr>
+  <tr>
+    <td class="name">VehicleService$MockitoMock$194926686$auxiliary$biQVkjYM</td>
+  </tr>
+  <tr>
+    <td class="name">VehicleService$MockitoMock$194926686$auxiliary$eZg8KSho</td>
+  </tr>
+  <tr>
+    <td class="name">VehicleService$MockitoMock$194926686$auxiliary$GjzqCqHI</td>
+  </tr>
+  <tr>
+    <td class="name">VehicleService$MockitoMock$194926686$auxiliary$iHvv7eo7</td>
+  </tr>
+  <tr>
+    <td class="name">VehicleService$MockitoMock$194926686$auxiliary$mI5k09Ja</td>
+  </tr>
+  <tr>
+    <td class="name">VehicleService$MockitoMock$194926686$auxiliary$PGmM2tZn</td>
+  </tr>
+  <tr>
+    <td class="name">VehicleService$MockitoMock$194926686$auxiliary$uH48Duim</td>
+  </tr>
+  <tr>
+    <td class="name">VehicleService$MockitoMock$194926686$auxiliary$Yoae7uMj</td>
+  </tr>
+<tr>
+  <td class="name"><strong>total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (9/ 9)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (13/ 13)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package lapr.project.model.service;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import lapr.project.controller.ApplicationPOT;
+<i>4</i>&nbsp;import lapr.project.data.VehicleDB;
+<i>5</i>&nbsp;import lapr.project.model.*;
+<i>6</i>&nbsp;import lapr.project.utils.QRCode;
+<i>7</i>&nbsp;import java.util.List;
+<i>8</i>&nbsp;
+<i>9</i>&nbsp;/**
+<i>10</i>&nbsp; * VehicleService.
+<i>11</i>&nbsp; *
+<i>12</i>&nbsp; * Group: Team Lisa [G-021]
+<i>13</i>&nbsp; * ______________________________________________________
+<i>14</i>&nbsp; * @author António Barbosa &lt;1190404@isep.ipp.pt&gt;
+<i>15</i>&nbsp; * @author Ernesto Rodrigues &lt;1190560@isep.ipp.pt&gt;
+<i>16</i>&nbsp; * @author Jessica Alves &lt;1190682@isep.ipp.pt&gt;
+<i>17</i>&nbsp; * @author Pedro Santos &lt;1190967@isep.ipp.pt&gt;
+<i>18</i>&nbsp; * @author Rodrigo Costa &lt;1191014@isep.ipp.pt&gt;
+<i>19</i>&nbsp; * @author Tiago Costa &lt;1191460@isep.ipp.pt&gt;
+<i>20</i>&nbsp; */
+<i>21</i>&nbsp;
+<i>22</i>&nbsp;public class VehicleService {
+<i>23</i>&nbsp;
+<i>24</i>&nbsp;    /**
+<i>25</i>&nbsp;     * Vehicle Database.
+<i>26</i>&nbsp;     */
+<i>27</i>&nbsp;    private VehicleDB moVehicleDB;
+<i>28</i>&nbsp;
+<i>29</i>&nbsp;    /**
+<i>30</i>&nbsp;     * Returns Vehicle Database.
+<i>31</i>&nbsp;     * @return Vehicle Database.
+<i>32</i>&nbsp;     */
+<i>33</i>&nbsp;    public VehicleDB getVehicleDB() {
+<b class="fc"><i>34</i>&nbsp;        return moVehicleDB;</b>
+<i>35</i>&nbsp;    }
+<i>36</i>&nbsp;
+<i>37</i>&nbsp;    /**
+<i>38</i>&nbsp;     * Modifies Vehicle Database.
+<i>39</i>&nbsp;     * @param oVehicleDB Vehicle Database.
+<i>40</i>&nbsp;     */
+<i>41</i>&nbsp;    public void setVehicleDB(VehicleDB oVehicleDB) {
+<b class="fc"><i>42</i>&nbsp;        this.moVehicleDB = oVehicleDB;</b>
+<b class="fc"><i>43</i>&nbsp;    }</b>
+<i>44</i>&nbsp;
+<i>45</i>&nbsp;    /**
+<i>46</i>&nbsp;     * An empty constructor of Vehicle Service.
+<i>47</i>&nbsp;     */
+<b class="fc"><i>48</i>&nbsp;    public VehicleService() {</b>
+<b class="fc"><i>49</i>&nbsp;        this.moVehicleDB = new VehicleDB();</b>
+<b class="fc"><i>50</i>&nbsp;    }</b>
+<i>51</i>&nbsp;
+<i>52</i>&nbsp;    /**
+<i>53</i>&nbsp;     * Returns a list of Vehicle Model&#39;s by Pharmacy.
+<i>54</i>&nbsp;     * @param strPharmacyEmail Pharmacy Email.
+<i>55</i>&nbsp;     * @return a list of Vehicle Model&#39;s by Pharmacy.
+<i>56</i>&nbsp;     */
+<i>57</i>&nbsp;    public List&lt;VehicleModel&gt; getPharmacyModel(String strPharmacyEmail) {
+<b class="fc"><i>58</i>&nbsp;        return moVehicleDB.getPharmacyModel(strPharmacyEmail);</b>
+<i>59</i>&nbsp;    }
+<i>60</i>&nbsp;
+<i>61</i>&nbsp;    /**
+<i>62</i>&nbsp;     * The method creates a new Vehicle Model.
+<i>63</i>&nbsp;     *
+<i>64</i>&nbsp;     * @param strDesignation Vehicle Model Designation
+<i>65</i>&nbsp;     * @param dblPotency Vehicle Model Potency
+<i>66</i>&nbsp;     * @param dblWeight Vehicle Model Weight
+<i>67</i>&nbsp;     * @param dblMaxPayload Vehicle Model Maximum Paylod
+<i>68</i>&nbsp;     * @param intBatteryCapacity Vehicle Model Battery Capacity
+<i>69</i>&nbsp;     * @param dblBatteryVoltage Vehicle Model Battery Voltage
+<i>70</i>&nbsp;     * @param dblEfficiency Vehicle Model Efficiency
+<i>71</i>&nbsp;     * @return Vehicle Model.
+<i>72</i>&nbsp;     */
+<i>73</i>&nbsp;    public VehicleModel newVehicleModel(String strDesignation, double dblPotency, double dblWeight, double dblMaxPayload, int intBatteryCapacity,
+<i>74</i>&nbsp;                                        double dblBatteryVoltage, double dblEfficiency, VehicleType oVehicleType) {
+<b class="fc"><i>75</i>&nbsp;            return new VehicleModel(strDesignation, dblPotency, dblWeight, dblMaxPayload, new Battery(intBatteryCapacity,</b>
+<i>76</i>&nbsp;                    dblBatteryVoltage, dblEfficiency), oVehicleType);
+<i>77</i>&nbsp;    }
+<i>78</i>&nbsp;
+<i>79</i>&nbsp;    /**
+<i>80</i>&nbsp;     * The method generates a QrCode for the vehicle.
+<i>81</i>&nbsp;     *
+<i>82</i>&nbsp;     * @param oVehicle Vehicle.
+<i>83</i>&nbsp;     * @return true if the QrCode is generated. False if otherwise.
+<i>84</i>&nbsp;     */
+<i>85</i>&nbsp;    public boolean generateQRCode(Vehicle oVehicle) {
+<b class="fc"><i>86</i>&nbsp;        return QRCode.generateQRCode(oVehicle.getModel().getVehicleType().getDesignation() + &quot;#&quot; + oVehicle.getId()</b>
+<b class="fc"><i>87</i>&nbsp;                        + &quot;_&quot; + oVehicle.getPharmacy().getEmail(), oVehicle.getModel().getVehicleType().getDesignation() + &quot;_&quot; + oVehicle.getId());</b>
+<i>88</i>&nbsp;    }
+<i>89</i>&nbsp;
+<i>90</i>&nbsp;    /**
+<i>91</i>&nbsp;     * Returns Vehicle Model by Designation.
+<i>92</i>&nbsp;     * @param strDesignation Vehicle Model Designation.
+<i>93</i>&nbsp;     * @return Vehicle Model.
+<i>94</i>&nbsp;     */
+<i>95</i>&nbsp;    public VehicleModel getVehicleModel(String strDesignation) {
+<b class="fc"><i>96</i>&nbsp;        return this.moVehicleDB.getVehicleModel(strDesignation);</b>
+<i>97</i>&nbsp;    }
+<i>98</i>&nbsp;
+<i>99</i>&nbsp;    /**
+<i>100</i>&nbsp;     * Register a new Vehicle Model.
+<i>101</i>&nbsp;     * @param moVehicleModel Vehicle Model.
+<i>102</i>&nbsp;     * @return Vehicle Model ID.
+<i>103</i>&nbsp;     */
+<i>104</i>&nbsp;    public int registerVehicleModel(VehicleModel moVehicleModel) {
+<b class="fc"><i>105</i>&nbsp;        return this.moVehicleDB.registerVehicleModel(moVehicleModel);</b>
+<i>106</i>&nbsp;    }
+<i>107</i>&nbsp;
+<i>108</i>&nbsp;    /**
+<i>109</i>&nbsp;     * Returns the Vehicle Payload by Vehicle ID.
+<i>110</i>&nbsp;     * @param vehicleId Vehicle ID.
+<i>111</i>&nbsp;     * @return the Vehicle Payload.
+<i>112</i>&nbsp;     */
+<i>113</i>&nbsp;    public double getVehiclePayload(int vehicleId){
+<b class="fc"><i>114</i>&nbsp;        return this.moVehicleDB.getVehiclePayload(vehicleId, ApplicationPOT.getInstance().getCurrentSession().getCurrentUserEmail());</b>
+<i>115</i>&nbsp;    }
+<i>116</i>&nbsp;
+<i>117</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2021-01-31 18:27</div>
+</div>
+</body>
+</html>

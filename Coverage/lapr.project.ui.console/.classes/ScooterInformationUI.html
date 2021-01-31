@@ -1,0 +1,171 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: ScooterInformationUI</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">lapr.project.ui.console</a> ]
+</div>
+
+<h1>Coverage Summary for Class: ScooterInformationUI (lapr.project.ui.console)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">ScooterInformationUI</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 50)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package lapr.project.ui.console;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import lapr.project.controller.ScooterInformationController;
+<i>4</i>&nbsp;import lapr.project.model.Battery;
+<i>5</i>&nbsp;import lapr.project.model.Pharmacy;
+<i>6</i>&nbsp;import lapr.project.model.Scooter;
+<i>7</i>&nbsp;import lapr.project.model.VehicleModel;
+<i>8</i>&nbsp;import lapr.project.ui.Menu;
+<i>9</i>&nbsp;import lapr.project.ui.UI;
+<i>10</i>&nbsp;
+<i>11</i>&nbsp;import java.util.List;
+<i>12</i>&nbsp;import java.util.Scanner;
+<i>13</i>&nbsp;import java.util.logging.Level;
+<i>14</i>&nbsp;import java.util.logging.Logger;
+<i>15</i>&nbsp;
+<b class="nc"><i>16</i>&nbsp;public class ScooterInformationUI implements UI {</b>
+<i>17</i>&nbsp;
+<b class="nc"><i>18</i>&nbsp;    private static final Logger LOGGER = Logger.getLogger(ScooterInformationUI.class.getName());</b>
+<i>19</i>&nbsp;
+<i>20</i>&nbsp;    public void run() {
+<i>21</i>&nbsp;        try {
+<b class="nc"><i>22</i>&nbsp;            Scanner sc = new Scanner(System.in);</b>
+<b class="nc"><i>23</i>&nbsp;            ScooterInformationController oCtrl = new ScooterInformationController();</b>
+<b class="nc"><i>24</i>&nbsp;            List&lt;Pharmacy&gt; lstPharmacies = oCtrl.showPharmacies();</b>
+<i>25</i>&nbsp;
+<b class="nc"><i>26</i>&nbsp;            for (Pharmacy p : lstPharmacies) {</b>
+<b class="nc"><i>27</i>&nbsp;                System.out.printf(&quot;[%d] %s\n&quot;, p.getId(), p.getName());</b>
+<b class="nc"><i>28</i>&nbsp;            }</b>
+<i>29</i>&nbsp;
+<b class="nc"><i>30</i>&nbsp;            System.out.print(&quot;\nChoose the Pharmacy&#39;s ID: &quot;);</b>
+<b class="nc"><i>31</i>&nbsp;            int intPharmacyID = Integer.parseInt(sc.nextLine());</b>
+<b class="nc"><i>32</i>&nbsp;            System.out.println();</b>
+<i>33</i>&nbsp;
+<b class="nc"><i>34</i>&nbsp;            Pharmacy oPharmacy = new Pharmacy();</b>
+<b class="nc"><i>35</i>&nbsp;            for (Pharmacy p : lstPharmacies) {</b>
+<b class="nc"><i>36</i>&nbsp;                if (p.hasId(intPharmacyID)) {</b>
+<b class="nc"><i>37</i>&nbsp;                    oPharmacy = p;</b>
+<b class="nc"><i>38</i>&nbsp;                    break;</b>
+<i>39</i>&nbsp;                }
+<b class="nc"><i>40</i>&nbsp;            }</b>
+<i>41</i>&nbsp;
+<b class="nc"><i>42</i>&nbsp;            if (oPharmacy.getName().equalsIgnoreCase(&quot;No name.&quot;)) {</b>
+<b class="nc"><i>43</i>&nbsp;                throw new Exception();</b>
+<i>44</i>&nbsp;            }
+<b class="nc"><i>45</i>&nbsp;            Menu.clear();</b>
+<i>46</i>&nbsp;
+<b class="nc"><i>47</i>&nbsp;            List&lt;Scooter&gt; lstScooters = oCtrl.showScootersList(oPharmacy.getEmail());</b>
+<b class="nc"><i>48</i>&nbsp;            for (Scooter s : lstScooters) {</b>
+<b class="nc"><i>49</i>&nbsp;                System.out.printf(&quot;[%d] %s (Battery: %.2f%%)\n&quot;, s.getId(), s.getModel().getDesignation(), s.getBatteryPerc());</b>
+<b class="nc"><i>50</i>&nbsp;            }</b>
+<i>51</i>&nbsp;
+<b class="nc"><i>52</i>&nbsp;            System.out.print(&quot;\nChoose the Scooter&#39;s ID: &quot;);</b>
+<b class="nc"><i>53</i>&nbsp;            Integer intScooterID = Integer.parseInt(sc.nextLine());</b>
+<b class="nc"><i>54</i>&nbsp;            System.out.println();</b>
+<b class="nc"><i>55</i>&nbsp;            Menu.clear();</b>
+<i>56</i>&nbsp;
+<b class="nc"><i>57</i>&nbsp;            Scooter oScooter = new Scooter();</b>
+<i>58</i>&nbsp;
+<b class="nc"><i>59</i>&nbsp;            for (Scooter s : lstScooters) {</b>
+<b class="nc"><i>60</i>&nbsp;                if (s.hasId(intScooterID)) {</b>
+<b class="nc"><i>61</i>&nbsp;                    oScooter = s;</b>
+<b class="nc"><i>62</i>&nbsp;                    break;</b>
+<i>63</i>&nbsp;                }
+<b class="nc"><i>64</i>&nbsp;            }</b>
+<i>65</i>&nbsp;
+<b class="nc"><i>66</i>&nbsp;            if (oScooter.getId() == -1) {</b>
+<b class="nc"><i>67</i>&nbsp;                throw new Exception();</b>
+<i>68</i>&nbsp;            }
+<i>69</i>&nbsp;
+<b class="nc"><i>70</i>&nbsp;            VehicleModel oVM = oScooter.getModel();</b>
+<b class="nc"><i>71</i>&nbsp;            Battery oBat = oVM.getBattery();</b>
+<i>72</i>&nbsp;
+<b class="nc"><i>73</i>&nbsp;            System.out.println(&quot;Scooter Information:\n&quot;);</b>
+<b class="nc"><i>74</i>&nbsp;            System.out.printf(&quot;-ID: %s\n-Battery Percentage: %.2f%%\n-Model ID: %d\n-Model Designation: %s\nPotency: %.2f W\n&quot; +</b>
+<i>75</i>&nbsp;                    &quot;-Weight: %.2f g\n-Max Payload: %.2f\n-Battery ID: %d\n-Battery Efficiency: %.2f%%\n-Baterry Capacity: %d\n&quot; +
+<b class="nc"><i>76</i>&nbsp;                    &quot;Battery Voltage: %.2f V&quot;, oScooter.getId(), oScooter.getBatteryPerc(), oVM.getId(), oVM.getDesignation(),</b>
+<b class="nc"><i>77</i>&nbsp;                    oVM.getPotency(), oVM.getWeight(), oVM.getMaxPayload(), oBat.getId(), oBat.getEfficiency(), oBat.getBatteryCapacity(),</b>
+<b class="nc"><i>78</i>&nbsp;                    oBat.getBatteryVoltage());</b>
+<i>79</i>&nbsp;
+<b class="nc"><i>80</i>&nbsp;            sc.nextLine();</b>
+<b class="nc"><i>81</i>&nbsp;            Menu.clear();</b>
+<i>82</i>&nbsp;
+<b class="nc"><i>83</i>&nbsp;            LOGGER.log(Level.INFO,&quot;Operation was Successfull!&quot;);</b>
+<b class="nc"><i>84</i>&nbsp;        }catch (Exception e) {</b>
+<b class="nc"><i>85</i>&nbsp;            LOGGER.log(Level.WARNING, &quot;There was a problem showing the Scooter information&quot;);</b>
+<b class="nc"><i>86</i>&nbsp;        }</b>
+<b class="nc"><i>87</i>&nbsp;    }</b>
+<i>88</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2021-01-31 18:27</div>
+</div>
+</body>
+</html>

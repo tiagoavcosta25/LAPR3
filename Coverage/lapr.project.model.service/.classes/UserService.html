@@ -1,0 +1,213 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: UserService</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">lapr.project.model.service</a> ]
+</div>
+
+<h1>Coverage Summary for Class: UserService (lapr.project.model.service)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">UserService</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (6/ 6)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (23/ 23)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">UserService$MockitoMock$1879195315</td>
+  </tr>
+  <tr>
+    <td class="name">UserService$MockitoMock$1879195315$auxiliary$IdDeymk5</td>
+  </tr>
+  <tr>
+    <td class="name">UserService$MockitoMock$1879195315$auxiliary$R3U5E744</td>
+  </tr>
+  <tr>
+    <td class="name">UserService$MockitoMock$1879195315$auxiliary$rhmhXP5G</td>
+  </tr>
+  <tr>
+    <td class="name">UserService$MockitoMock$1879195315$auxiliary$sk0vLTEq</td>
+  </tr>
+  <tr>
+    <td class="name">UserService$MockitoMock$1879195315$auxiliary$SY51MiSU</td>
+  </tr>
+  <tr>
+    <td class="name">UserService$MockitoMock$1879195315$auxiliary$teCu8hNl</td>
+  </tr>
+<tr>
+  <td class="name"><strong>total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (6/ 6)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (23/ 23)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package lapr.project.model.service;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import lapr.project.controller.ApplicationPOT;
+<i>4</i>&nbsp;import lapr.project.data.UserDB;
+<i>5</i>&nbsp;import lapr.project.model.UserSession;
+<i>6</i>&nbsp;import lapr.project.utils.EncryptPassword;
+<i>7</i>&nbsp;import lapr.project.utils.WriteFile;
+<i>8</i>&nbsp;import java.util.logging.Level;
+<i>9</i>&nbsp;import java.util.logging.Logger;
+<i>10</i>&nbsp;
+<i>11</i>&nbsp;/**
+<i>12</i>&nbsp; * User Service.
+<i>13</i>&nbsp; * &lt;p&gt;
+<i>14</i>&nbsp; * Group: Team Lisa [G-021]
+<i>15</i>&nbsp; * ______________________________________________________
+<i>16</i>&nbsp; *
+<i>17</i>&nbsp; * @author António Barbosa &lt;1190404@isep.ipp.pt&gt;
+<i>18</i>&nbsp; * @author Ernesto Rodrigues &lt;1190560@isep.ipp.pt&gt;
+<i>19</i>&nbsp; * @author Jessica Alves &lt;1190682@isep.ipp.pt&gt;
+<i>20</i>&nbsp; * @author Pedro Santos &lt;1190967@isep.ipp.pt&gt;
+<i>21</i>&nbsp; * @author Rodrigo Costa &lt;1191014@isep.ipp.pt&gt;
+<i>22</i>&nbsp; * @author Tiago Costa &lt;1191460@isep.ipp.pt&gt;
+<i>23</i>&nbsp; */
+<i>24</i>&nbsp;public class UserService {
+<i>25</i>&nbsp;
+<i>26</i>&nbsp;    /**
+<i>27</i>&nbsp;     * Logger which is used to generate warnings or information, with
+<i>28</i>&nbsp;     * a custom message
+<i>29</i>&nbsp;     */
+<b class="fc"><i>30</i>&nbsp;    private static final Logger LOGGER = Logger.getLogger(UserService.class.getName());</b>
+<i>31</i>&nbsp;
+<i>32</i>&nbsp;    /**
+<i>33</i>&nbsp;     * User Database
+<i>34</i>&nbsp;     */
+<i>35</i>&nbsp;    private UserDB moUserDB;
+<i>36</i>&nbsp;
+<i>37</i>&nbsp;    /**
+<i>38</i>&nbsp;     * Empty constructor of UserService, which instantiates a new
+<i>39</i>&nbsp;     * User Database
+<i>40</i>&nbsp;     */
+<b class="fc"><i>41</i>&nbsp;    public UserService() {</b>
+<b class="fc"><i>42</i>&nbsp;        moUserDB = new UserDB();</b>
+<b class="fc"><i>43</i>&nbsp;    }</b>
+<i>44</i>&nbsp;
+<i>45</i>&nbsp;    /**
+<i>46</i>&nbsp;     * Returns the User Database
+<i>47</i>&nbsp;     *
+<i>48</i>&nbsp;     * @return  User Database
+<i>49</i>&nbsp;     */
+<i>50</i>&nbsp;    public UserDB getUserDB() {
+<b class="fc"><i>51</i>&nbsp;        return moUserDB;</b>
+<i>52</i>&nbsp;    }
+<i>53</i>&nbsp;
+<i>54</i>&nbsp;    /**
+<i>55</i>&nbsp;     * Sets the User Database to the one given by parameter
+<i>56</i>&nbsp;     *
+<i>57</i>&nbsp;     * @param oUserDB   new User Database
+<i>58</i>&nbsp;     */
+<i>59</i>&nbsp;    public void setUserDB(UserDB oUserDB) {
+<b class="fc"><i>60</i>&nbsp;        this.moUserDB = oUserDB;</b>
+<b class="fc"><i>61</i>&nbsp;    }</b>
+<i>62</i>&nbsp;
+<i>63</i>&nbsp;    /**
+<i>64</i>&nbsp;     * Logs a User into the System, basing on the User&#39;s email and password
+<i>65</i>&nbsp;     * given by parameter
+<i>66</i>&nbsp;     *
+<i>67</i>&nbsp;     * @param email User email
+<i>68</i>&nbsp;     * @param password  User password
+<i>69</i>&nbsp;     * @return  True if the User logged in, false if otherwise
+<i>70</i>&nbsp;     */
+<i>71</i>&nbsp;    public boolean login(String email, String password){
+<i>72</i>&nbsp;        try {
+<b class="fc"><i>73</i>&nbsp;            String encryptedPassword = EncryptPassword.encryptPasswordMD5(password);</b>
+<b class="fc"><i>74</i>&nbsp;            if (moUserDB.login(email,encryptedPassword)) {</b>
+<b class="fc"><i>75</i>&nbsp;                LOGGER.log(Level.INFO,&quot;Logged In!&quot;);</b>
+<b class="fc"><i>76</i>&nbsp;                String body = String.format(&quot;You are now logged in with the following account:\n\n-Email: %s\n-Password: %s\n-Encrypted&quot; +</b>
+<i>77</i>&nbsp;                        &quot;Password: %s\n&quot;,email,password,encryptedPassword);
+<b class="fc"><i>78</i>&nbsp;                WriteFile.write(&quot;LoggedIn_&quot; + email,body);</b>
+<b class="fc"><i>79</i>&nbsp;                return true;</b>
+<b class="fc"><i>80</i>&nbsp;            }else return false;</b>
+<b class="fc"><i>81</i>&nbsp;        }catch (Exception e) {</b>
+<b class="fc"><i>82</i>&nbsp;            LOGGER.log(Level.WARNING,&quot;Encryptation Algorithm failed!&quot;);</b>
+<b class="fc"><i>83</i>&nbsp;            return false;</b>
+<i>84</i>&nbsp;        }
+<i>85</i>&nbsp;    }
+<i>86</i>&nbsp;
+<i>87</i>&nbsp;    /**
+<i>88</i>&nbsp;     * Logs the current User out of the System by creating
+<i>89</i>&nbsp;     * a new default User Session
+<i>90</i>&nbsp;     *
+<i>91</i>&nbsp;     * @return  True if the User logged out, false if otherwise
+<i>92</i>&nbsp;     */
+<i>93</i>&nbsp;    public boolean newUserSession() {
+<b class="fc"><i>94</i>&nbsp;        String body = String.format(&quot;You are now logged out of your account with the corresponding email: %s!&quot;,</b>
+<b class="fc"><i>95</i>&nbsp;                ApplicationPOT.getInstance().getCurrentSession().getCurrentUserEmail());</b>
+<b class="fc"><i>96</i>&nbsp;        WriteFile.write(&quot;LoggedOut_&quot; + ApplicationPOT.getInstance().getCurrentSession().getCurrentUserEmail(),</b>
+<i>97</i>&nbsp;                body);
+<b class="fc"><i>98</i>&nbsp;        new UserSession();</b>
+<b class="fc"><i>99</i>&nbsp;        LOGGER.log(Level.INFO,&quot;Logged Out!&quot;);</b>
+<b class="fc"><i>100</i>&nbsp;        return true;</b>
+<i>101</i>&nbsp;    }
+<i>102</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2021-01-31 18:27</div>
+</div>
+</body>
+</html>

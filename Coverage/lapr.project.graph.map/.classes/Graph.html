@@ -1,0 +1,466 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: Graph</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">lapr.project.graph.map</a> ]
+</div>
+
+<h1>Coverage Summary for Class: Graph (lapr.project.graph.map)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Graph</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (24/ 24)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    90,3%
+  </span>
+  <span class="absValue">
+    (131/ 145)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">Graph$1</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (2/ 2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (14/ 14)
+  </span>
+</td>
+  </tr>
+  <tr>
+    <td class="name">Graph$2</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (2/ 2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (2/ 2)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (28/ 28)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    91,3%
+  </span>
+  <span class="absValue">
+    (147/ 161)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package lapr.project.graph.map;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import java.util.*;
+<i>4</i>&nbsp;
+<i>5</i>&nbsp;/**
+<i>6</i>&nbsp; * @param &lt;V&gt;
+<i>7</i>&nbsp; * @param &lt;E&gt;
+<i>8</i>&nbsp; * @author DEI-ESINF
+<i>9</i>&nbsp; */
+<i>10</i>&nbsp;
+<b class="fc"><i>11</i>&nbsp;public class Graph&lt;V, E&gt; implements GraphInterface&lt;V, E&gt; {</b>
+<i>12</i>&nbsp;
+<i>13</i>&nbsp;    private final boolean isDirected;
+<i>14</i>&nbsp;    private final Map&lt;V, Vertex&lt;V, E&gt;&gt; vertices;  //all Vertices of the graph
+<i>15</i>&nbsp;    private int numVert;
+<i>16</i>&nbsp;    private int numEdge;
+<i>17</i>&nbsp;
+<i>18</i>&nbsp;    // Constructs an empty graph (either undirected or directed)
+<b class="fc"><i>19</i>&nbsp;    public Graph(boolean directed) {</b>
+<b class="fc"><i>20</i>&nbsp;        numVert = 0;</b>
+<b class="fc"><i>21</i>&nbsp;        numEdge = 0;</b>
+<b class="fc"><i>22</i>&nbsp;        isDirected = directed;</b>
+<b class="fc"><i>23</i>&nbsp;        vertices = new LinkedHashMap&lt;&gt;();</b>
+<b class="fc"><i>24</i>&nbsp;    }</b>
+<i>25</i>&nbsp;
+<i>26</i>&nbsp;    public V[] allkeyVerts() {
+<b class="fc"><i>27</i>&nbsp;        List&lt;V&gt; v = new LinkedList&lt;&gt;();</b>
+<b class="fc"><i>28</i>&nbsp;        for (V ver : vertices()) {</b>
+<b class="fc"><i>29</i>&nbsp;            v.add(ver);</b>
+<b class="fc"><i>30</i>&nbsp;        }</b>
+<b class="fc"><i>31</i>&nbsp;        return (V[]) v.toArray(new Object[]{});</b>
+<i>32</i>&nbsp;    }
+<i>33</i>&nbsp;
+<i>34</i>&nbsp;    public int numVertices() {
+<b class="fc"><i>35</i>&nbsp;        return numVert;</b>
+<i>36</i>&nbsp;    }
+<i>37</i>&nbsp;
+<i>38</i>&nbsp;    public Iterable&lt;V&gt; vertices() {
+<b class="fc"><i>39</i>&nbsp;        return vertices.keySet();</b>
+<i>40</i>&nbsp;    }
+<i>41</i>&nbsp;
+<i>42</i>&nbsp;    public boolean validVertex(V vert) {
+<i>43</i>&nbsp;
+<b class="fc"><i>44</i>&nbsp;        return vertices.get(vert) != null;</b>
+<i>45</i>&nbsp;    }
+<i>46</i>&nbsp;
+<i>47</i>&nbsp;    public int getKey(V vert) {
+<b class="fc"><i>48</i>&nbsp;        return vertices.get(vert).getKey();</b>
+<i>49</i>&nbsp;    }
+<i>50</i>&nbsp;
+<i>51</i>&nbsp;    public Iterable&lt;V&gt; adjVertices(V vert) {
+<i>52</i>&nbsp;
+<b class="fc"><i>53</i>&nbsp;        if (!validVertex(vert))</b>
+<b class="nc"><i>54</i>&nbsp;            return null;</b>
+<i>55</i>&nbsp;
+<b class="fc"><i>56</i>&nbsp;        Vertex&lt;V, E&gt; vertex = vertices.get(vert);</b>
+<i>57</i>&nbsp;
+<b class="fc"><i>58</i>&nbsp;        return vertex.getAllAdjVerts();</b>
+<i>59</i>&nbsp;    }
+<i>60</i>&nbsp;
+<i>61</i>&nbsp;
+<i>62</i>&nbsp;    public int numEdges() {
+<b class="fc"><i>63</i>&nbsp;        return numEdge;</b>
+<i>64</i>&nbsp;    }
+<i>65</i>&nbsp;
+<i>66</i>&nbsp;
+<i>67</i>&nbsp;    public Iterable&lt;Edge&lt;V, E&gt;&gt; edges() {
+<b class="fc"><i>68</i>&nbsp;        return new Iterable&lt;Edge&lt;V, E&gt;&gt;() {</b>
+<b class="fc"><i>69</i>&nbsp;            final LinkedList&lt;Edge&lt;V, E&gt;&gt; list = new LinkedList&lt;&gt;();</b>
+<i>70</i>&nbsp;
+<i>71</i>&nbsp;            @Override
+<i>72</i>&nbsp;            public Iterator&lt;Edge&lt;V, E&gt;&gt; iterator() {
+<b class="fc"><i>73</i>&nbsp;                Iterator&lt;Vertex&lt;V, E&gt;&gt; itr = vertices.values().iterator();</b>
+<b class="fc"><i>74</i>&nbsp;                while (itr.hasNext()) {</b>
+<b class="fc"><i>75</i>&nbsp;                    Vertex&lt;V, E&gt; vertex = itr.next();</b>
+<b class="fc"><i>76</i>&nbsp;                    Iterator&lt;V&gt; itrTmp = vertices.keySet().iterator();</b>
+<b class="fc"><i>77</i>&nbsp;                    while (itrTmp.hasNext()) {</b>
+<b class="fc"><i>78</i>&nbsp;                        V v = itrTmp.next();</b>
+<b class="fc"><i>79</i>&nbsp;                        Edge&lt;V, E&gt; e = vertex.getEdge(v);</b>
+<b class="fc"><i>80</i>&nbsp;                        if (e != null) {</b>
+<b class="fc"><i>81</i>&nbsp;                            list.add(vertex.getEdge(v));</b>
+<i>82</i>&nbsp;                        }
+<b class="fc"><i>83</i>&nbsp;                    }</b>
+<b class="fc"><i>84</i>&nbsp;                }</b>
+<b class="fc"><i>85</i>&nbsp;                return list.iterator();</b>
+<i>86</i>&nbsp;            }
+<i>87</i>&nbsp;        };
+<i>88</i>&nbsp;    }
+<i>89</i>&nbsp;
+<i>90</i>&nbsp;    public Edge&lt;V, E&gt; getEdge(V vOrig, V vDest) {
+<i>91</i>&nbsp;
+<b class="fc"><i>92</i>&nbsp;        if (!validVertex(vOrig) || !validVertex(vDest))</b>
+<b class="fc"><i>93</i>&nbsp;            return null;</b>
+<i>94</i>&nbsp;
+<b class="fc"><i>95</i>&nbsp;        Vertex&lt;V, E&gt; vorig = vertices.get(vOrig);</b>
+<i>96</i>&nbsp;
+<b class="fc"><i>97</i>&nbsp;        return vorig.getEdge(vDest);</b>
+<i>98</i>&nbsp;    }
+<i>99</i>&nbsp;
+<i>100</i>&nbsp;    public V[] endVertices(Edge&lt;V, E&gt; edge) {
+<i>101</i>&nbsp;
+<b class="fc"><i>102</i>&nbsp;        if (edge == null)</b>
+<b class="nc"><i>103</i>&nbsp;            return null;</b>
+<i>104</i>&nbsp;
+<b class="fc"><i>105</i>&nbsp;        if (!validVertex(edge.getVOrig()) || !validVertex(edge.getVDest()))</b>
+<b class="nc"><i>106</i>&nbsp;            return null;</b>
+<i>107</i>&nbsp;
+<b class="fc"><i>108</i>&nbsp;        Vertex&lt;V, E&gt; vorig = vertices.get(edge.getVOrig());</b>
+<i>109</i>&nbsp;
+<b class="fc"><i>110</i>&nbsp;        if (!edge.equals(vorig.getEdge(edge.getVDest())))</b>
+<b class="nc"><i>111</i>&nbsp;            return null;</b>
+<i>112</i>&nbsp;
+<b class="fc"><i>113</i>&nbsp;        return edge.getEndpoints();</b>
+<i>114</i>&nbsp;    }
+<i>115</i>&nbsp;
+<i>116</i>&nbsp;    public V opposite(V vert, Edge&lt;V, E&gt; edge) {
+<i>117</i>&nbsp;
+<b class="fc"><i>118</i>&nbsp;        if (!validVertex(vert))</b>
+<b class="nc"><i>119</i>&nbsp;            return null;</b>
+<i>120</i>&nbsp;
+<b class="fc"><i>121</i>&nbsp;        Vertex&lt;V, E&gt; vertex = vertices.get(vert);</b>
+<i>122</i>&nbsp;
+<b class="fc"><i>123</i>&nbsp;        return vertex.getAdjVert(edge);</b>
+<i>124</i>&nbsp;    }
+<i>125</i>&nbsp;
+<i>126</i>&nbsp;    public int outDegree(V vert) {
+<i>127</i>&nbsp;
+<b class="fc"><i>128</i>&nbsp;        if (!validVertex(vert))</b>
+<b class="fc"><i>129</i>&nbsp;            return -1;</b>
+<i>130</i>&nbsp;
+<b class="fc"><i>131</i>&nbsp;        Vertex&lt;V, E&gt; vertex = vertices.get(vert);</b>
+<i>132</i>&nbsp;
+<b class="fc"><i>133</i>&nbsp;        return vertex.numAdjVerts();</b>
+<i>134</i>&nbsp;    }
+<i>135</i>&nbsp;
+<i>136</i>&nbsp;    public int inDegree(V vert) {
+<i>137</i>&nbsp;
+<b class="fc"><i>138</i>&nbsp;        if (!validVertex(vert))</b>
+<b class="fc"><i>139</i>&nbsp;            return -1;</b>
+<i>140</i>&nbsp;
+<b class="fc"><i>141</i>&nbsp;        int degree = 0;</b>
+<b class="fc"><i>142</i>&nbsp;        for (V otherVert : vertices.keySet())</b>
+<b class="fc"><i>143</i>&nbsp;            if (getEdge(otherVert, vert) != null)</b>
+<b class="fc"><i>144</i>&nbsp;                degree++;</b>
+<i>145</i>&nbsp;
+<b class="fc"><i>146</i>&nbsp;        return degree;</b>
+<i>147</i>&nbsp;    }
+<i>148</i>&nbsp;
+<i>149</i>&nbsp;    public Iterable&lt;Edge&lt;V, E&gt;&gt; outgoingEdges(V vert) {
+<i>150</i>&nbsp;
+<b class="fc"><i>151</i>&nbsp;        if (!validVertex(vert))</b>
+<b class="nc"><i>152</i>&nbsp;            return null;</b>
+<i>153</i>&nbsp;
+<b class="fc"><i>154</i>&nbsp;        Vertex&lt;V, E&gt; vertex = vertices.get(vert);</b>
+<i>155</i>&nbsp;
+<b class="fc"><i>156</i>&nbsp;        return vertex.getAllOutEdges();</b>
+<i>157</i>&nbsp;    }
+<i>158</i>&nbsp;
+<i>159</i>&nbsp;    public Iterable&lt;Edge&lt;V, E&gt;&gt; incomingEdges(V vert) {
+<b class="fc"><i>160</i>&nbsp;        final List&lt;Edge&lt;V, E&gt;&gt; list = new LinkedList&lt;&gt;();</b>
+<b class="fc"><i>161</i>&nbsp;        Iterator&lt;Edge&lt;V, E&gt;&gt; edgeIterator = edges().iterator();</b>
+<b class="fc"><i>162</i>&nbsp;        while (edgeIterator.hasNext()) {</b>
+<b class="fc"><i>163</i>&nbsp;            Edge&lt;V, E&gt; edge = edgeIterator.next();</b>
+<b class="fc"><i>164</i>&nbsp;            if (edge.getVDest().equals(vert)) {</b>
+<b class="fc"><i>165</i>&nbsp;                list.add(edge);</b>
+<i>166</i>&nbsp;            }
+<b class="fc"><i>167</i>&nbsp;        }</b>
+<b class="fc"><i>168</i>&nbsp;        return new Iterable&lt;Edge&lt;V, E&gt;&gt;() {</b>
+<i>169</i>&nbsp;            @Override
+<i>170</i>&nbsp;            public Iterator&lt;Edge&lt;V, E&gt;&gt; iterator() {
+<b class="fc"><i>171</i>&nbsp;                return list.iterator();</b>
+<i>172</i>&nbsp;            }
+<i>173</i>&nbsp;        };
+<i>174</i>&nbsp;
+<i>175</i>&nbsp;    }
+<i>176</i>&nbsp;
+<i>177</i>&nbsp;    public boolean insertVertex(V vert) {
+<i>178</i>&nbsp;
+<b class="fc"><i>179</i>&nbsp;        if (validVertex(vert))</b>
+<b class="fc"><i>180</i>&nbsp;            return false;</b>
+<i>181</i>&nbsp;
+<b class="fc"><i>182</i>&nbsp;        Vertex&lt;V, E&gt; vertex = new Vertex&lt;&gt;(numVert, vert);</b>
+<b class="fc"><i>183</i>&nbsp;        vertices.put(vert, vertex);</b>
+<b class="fc"><i>184</i>&nbsp;        numVert++;</b>
+<i>185</i>&nbsp;
+<b class="fc"><i>186</i>&nbsp;        return true;</b>
+<i>187</i>&nbsp;    }
+<i>188</i>&nbsp;
+<i>189</i>&nbsp;    public boolean insertEdge(V vOrig, V vDest, E eInf, double eWeight) {
+<i>190</i>&nbsp;
+<b class="fc"><i>191</i>&nbsp;        if (getEdge(vOrig, vDest) != null)</b>
+<b class="fc"><i>192</i>&nbsp;            return false;</b>
+<i>193</i>&nbsp;
+<b class="fc"><i>194</i>&nbsp;        if (!validVertex(vOrig))</b>
+<b class="fc"><i>195</i>&nbsp;            insertVertex(vOrig);</b>
+<i>196</i>&nbsp;
+<b class="fc"><i>197</i>&nbsp;        if (!validVertex(vDest))</b>
+<b class="fc"><i>198</i>&nbsp;            insertVertex(vDest);</b>
+<i>199</i>&nbsp;
+<b class="fc"><i>200</i>&nbsp;        Vertex&lt;V, E&gt; vorig = vertices.get(vOrig);</b>
+<b class="fc"><i>201</i>&nbsp;        Vertex&lt;V, E&gt; vdest = vertices.get(vDest);</b>
+<i>202</i>&nbsp;
+<b class="fc"><i>203</i>&nbsp;        Edge&lt;V, E&gt; newEdge = new Edge&lt;&gt;(eInf, eWeight, vorig, vdest);</b>
+<b class="fc"><i>204</i>&nbsp;        vorig.addAdjVert(vDest, newEdge);</b>
+<b class="fc"><i>205</i>&nbsp;        numEdge++;</b>
+<i>206</i>&nbsp;
+<i>207</i>&nbsp;        //if graph is not direct insert other edge in the opposite direction and if vDest different vOrig
+<b class="fc"><i>208</i>&nbsp;        if (!isDirected &amp;&amp; getEdge(vDest, vOrig) == null) {</b>
+<b class="fc"><i>209</i>&nbsp;                Edge&lt;V, E&gt; otherEdge = new Edge&lt;&gt;(eInf, eWeight, vdest, vorig);</b>
+<b class="fc"><i>210</i>&nbsp;                vdest.addAdjVert(vOrig, otherEdge);</b>
+<b class="fc"><i>211</i>&nbsp;                numEdge++;</b>
+<i>212</i>&nbsp;            }
+<i>213</i>&nbsp;
+<b class="fc"><i>214</i>&nbsp;        return true;</b>
+<i>215</i>&nbsp;    }
+<i>216</i>&nbsp;
+<i>217</i>&nbsp;    public boolean removeVertex(V vert) {
+<i>218</i>&nbsp;
+<b class="fc"><i>219</i>&nbsp;        if (!validVertex(vert))</b>
+<b class="nc"><i>220</i>&nbsp;            return false;</b>
+<i>221</i>&nbsp;
+<i>222</i>&nbsp;        //remove all edges that point to vert
+<b class="fc"><i>223</i>&nbsp;        for (Edge&lt;V, E&gt; edge : incomingEdges(vert)) {</b>
+<b class="fc"><i>224</i>&nbsp;            V vadj = edge.getVOrig();</b>
+<b class="fc"><i>225</i>&nbsp;            removeEdge(vadj, vert);</b>
+<b class="fc"><i>226</i>&nbsp;        }</b>
+<i>227</i>&nbsp;
+<b class="fc"><i>228</i>&nbsp;        Vertex&lt;V, E&gt; vertex = vertices.get(vert);</b>
+<i>229</i>&nbsp;
+<i>230</i>&nbsp;        //update the keys of subsequent vertices in the map
+<b class="fc"><i>231</i>&nbsp;        for (Vertex&lt;V, E&gt; v : vertices.values()) {</b>
+<b class="fc"><i>232</i>&nbsp;            int keyVert = v.getKey();</b>
+<b class="fc"><i>233</i>&nbsp;            if (keyVert &gt; vertex.getKey()) {</b>
+<b class="fc"><i>234</i>&nbsp;                keyVert = keyVert - 1;</b>
+<b class="fc"><i>235</i>&nbsp;                v.setKey(keyVert);</b>
+<i>236</i>&nbsp;            }
+<b class="fc"><i>237</i>&nbsp;        }</b>
+<i>238</i>&nbsp;        //The edges that live from vert are removed with the vertex    
+<b class="fc"><i>239</i>&nbsp;        vertices.remove(vert);</b>
+<i>240</i>&nbsp;
+<b class="fc"><i>241</i>&nbsp;        numVert--;</b>
+<i>242</i>&nbsp;
+<b class="fc"><i>243</i>&nbsp;        return true;</b>
+<i>244</i>&nbsp;    }
+<i>245</i>&nbsp;
+<i>246</i>&nbsp;    public boolean removeEdge(V vOrig, V vDest) {
+<i>247</i>&nbsp;
+<b class="fc"><i>248</i>&nbsp;        if (!validVertex(vOrig) || !validVertex(vDest))</b>
+<b class="nc"><i>249</i>&nbsp;            return false;</b>
+<i>250</i>&nbsp;
+<b class="fc"><i>251</i>&nbsp;        Edge&lt;V, E&gt; edge = getEdge(vOrig, vDest);</b>
+<i>252</i>&nbsp;
+<b class="fc"><i>253</i>&nbsp;        if (edge == null)</b>
+<b class="nc"><i>254</i>&nbsp;            return false;</b>
+<i>255</i>&nbsp;
+<b class="fc"><i>256</i>&nbsp;        Vertex&lt;V, E&gt; vorig = vertices.get(vOrig);</b>
+<i>257</i>&nbsp;
+<b class="fc"><i>258</i>&nbsp;        vorig.remAdjVert(vDest);</b>
+<b class="fc"><i>259</i>&nbsp;        numEdge--;</b>
+<i>260</i>&nbsp;
+<i>261</i>&nbsp;        //if graph is not direct 
+<b class="fc"><i>262</i>&nbsp;        if (!isDirected) {</b>
+<b class="fc"><i>263</i>&nbsp;            edge = getEdge(vDest, vOrig);</b>
+<b class="fc"><i>264</i>&nbsp;            if (edge != null) {</b>
+<b class="fc"><i>265</i>&nbsp;                Vertex&lt;V, E&gt; vdest = vertices.get(vDest);</b>
+<b class="fc"><i>266</i>&nbsp;                vdest.remAdjVert(vOrig);</b>
+<b class="fc"><i>267</i>&nbsp;                numEdge--;</b>
+<i>268</i>&nbsp;            }
+<i>269</i>&nbsp;        }
+<b class="fc"><i>270</i>&nbsp;        return true;</b>
+<i>271</i>&nbsp;    }
+<i>272</i>&nbsp;
+<i>273</i>&nbsp;
+<i>274</i>&nbsp;    //Returns a clone of the graph 
+<i>275</i>&nbsp;    public Graph&lt;V, E&gt; clone() {
+<i>276</i>&nbsp;
+<b class="fc"><i>277</i>&nbsp;        Graph&lt;V, E&gt; newObject = new Graph&lt;&gt;(this.isDirected);</b>
+<i>278</i>&nbsp;
+<i>279</i>&nbsp;        //insert all vertices
+<b class="fc"><i>280</i>&nbsp;        for (V vert : vertices.keySet())</b>
+<b class="fc"><i>281</i>&nbsp;            newObject.insertVertex(vert);</b>
+<i>282</i>&nbsp;
+<i>283</i>&nbsp;        //insert all edges
+<b class="fc"><i>284</i>&nbsp;        for (V vert1 : vertices.keySet())</b>
+<b class="fc"><i>285</i>&nbsp;            for (Edge&lt;V, E&gt; e : this.outgoingEdges(vert1))</b>
+<b class="fc"><i>286</i>&nbsp;                if (e != null) {</b>
+<b class="fc"><i>287</i>&nbsp;                    V vert2 = this.opposite(vert1, e);</b>
+<b class="fc"><i>288</i>&nbsp;                    newObject.insertEdge(vert1, vert2, e.getElement(), e.getWeight());</b>
+<i>289</i>&nbsp;                }
+<i>290</i>&nbsp;
+<b class="fc"><i>291</i>&nbsp;        return newObject;</b>
+<i>292</i>&nbsp;    }
+<i>293</i>&nbsp;
+<i>294</i>&nbsp;    /* equals implementation
+<i>295</i>&nbsp;     * @param the other graph to test for equality
+<i>296</i>&nbsp;     * @return true if both objects represent the same graph
+<i>297</i>&nbsp;     */
+<i>298</i>&nbsp;    public boolean equals(Object otherObj) {
+<i>299</i>&nbsp;
+<b class="fc"><i>300</i>&nbsp;        if (this == otherObj)</b>
+<b class="fc"><i>301</i>&nbsp;            return true;</b>
+<i>302</i>&nbsp;
+<b class="fc"><i>303</i>&nbsp;        if (otherObj == null || this.getClass() != otherObj.getClass())</b>
+<b class="nc"><i>304</i>&nbsp;            return false;</b>
+<i>305</i>&nbsp;
+<b class="fc"><i>306</i>&nbsp;        Graph&lt;V, E&gt; otherGraph = (Graph&lt;V, E&gt;) otherObj;</b>
+<i>307</i>&nbsp;
+<b class="fc"><i>308</i>&nbsp;        if (numVert != otherGraph.numVertices() || numEdge != otherGraph.numEdges())</b>
+<b class="fc"><i>309</i>&nbsp;            return false;</b>
+<i>310</i>&nbsp;
+<i>311</i>&nbsp;        //graph must have same vertices
+<i>312</i>&nbsp;        boolean eqvertex;
+<b class="fc"><i>313</i>&nbsp;        for (V v1 : this.vertices()) {</b>
+<b class="fc"><i>314</i>&nbsp;            eqvertex = false;</b>
+<b class="fc"><i>315</i>&nbsp;            for (V v2 : otherGraph.vertices())</b>
+<b class="fc"><i>316</i>&nbsp;                if (v1.equals(v2))</b>
+<b class="fc"><i>317</i>&nbsp;                    eqvertex = true;</b>
+<i>318</i>&nbsp;
+<b class="fc"><i>319</i>&nbsp;            if (!eqvertex)</b>
+<b class="nc"><i>320</i>&nbsp;                return false;</b>
+<b class="fc"><i>321</i>&nbsp;        }</b>
+<b class="fc"><i>322</i>&nbsp;        return true;</b>
+<i>323</i>&nbsp;    }
+<i>324</i>&nbsp;
+<i>325</i>&nbsp;    //string representation
+<i>326</i>&nbsp;    @Override
+<i>327</i>&nbsp;    public String toString() {
+<i>328</i>&nbsp;        StringBuilder s;
+<b class="fc"><i>329</i>&nbsp;        if (numVert == 0) {</b>
+<b class="fc"><i>330</i>&nbsp;            s = new StringBuilder(&quot;\nGraph not defined!!&quot;);</b>
+<i>331</i>&nbsp;        } else {
+<b class="nc"><i>332</i>&nbsp;            s = new StringBuilder(&quot;Graph: &quot; + numVert + &quot; vertices, &quot; + numEdge + &quot; edges\n&quot;);</b>
+<b class="nc"><i>333</i>&nbsp;            for (Vertex&lt;V, E&gt; vert : vertices.values())</b>
+<b class="nc"><i>334</i>&nbsp;                s.append(vert).append(&quot;\n&quot;);</b>
+<i>335</i>&nbsp;        }
+<b class="fc"><i>336</i>&nbsp;        return s.toString();</b>
+<i>337</i>&nbsp;    }
+<i>338</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2021-01-31 18:27</div>
+</div>
+</body>
+</html>

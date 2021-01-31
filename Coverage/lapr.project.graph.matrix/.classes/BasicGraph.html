@@ -1,0 +1,169 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: BasicGraph</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">lapr.project.graph.matrix</a> ]
+</div>
+
+<h1>Coverage Summary for Class: BasicGraph (lapr.project.graph.matrix)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+</tr>
+<tr>
+  <td class="name">BasicGraph</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;
+<i>2</i>&nbsp;package lapr.project.graph.matrix;
+<i>3</i>&nbsp;
+<i>4</i>&nbsp;/**
+<i>5</i>&nbsp; * @author DEI-ESINF
+<i>6</i>&nbsp; */
+<i>7</i>&nbsp;public interface BasicGraph&lt;V, E&gt; {
+<i>8</i>&nbsp;
+<i>9</i>&nbsp;    /**
+<i>10</i>&nbsp;     * Returns the number of vertices in the model.graph
+<i>11</i>&nbsp;     *
+<i>12</i>&nbsp;     * @return number of vertices of the model.graph
+<i>13</i>&nbsp;     */
+<i>14</i>&nbsp;    int numVertices();
+<i>15</i>&nbsp;
+<i>16</i>&nbsp;    /**
+<i>17</i>&nbsp;     * Returns the number of edges in the model.graph
+<i>18</i>&nbsp;     *
+<i>19</i>&nbsp;     * @return number of edges of the model.graph
+<i>20</i>&nbsp;     */
+<i>21</i>&nbsp;    int numEdges();
+<i>22</i>&nbsp;
+<i>23</i>&nbsp;    /**
+<i>24</i>&nbsp;     * Returns the actual vertices of the model.graph
+<i>25</i>&nbsp;     *
+<i>26</i>&nbsp;     * @return an iterable collection of vertices
+<i>27</i>&nbsp;     */
+<i>28</i>&nbsp;    Iterable&lt;V&gt; vertices();
+<i>29</i>&nbsp;
+<i>30</i>&nbsp;    /**
+<i>31</i>&nbsp;     * Returns the actual edges of the model.graph
+<i>32</i>&nbsp;     *
+<i>33</i>&nbsp;     * @return an iterable collection of all edges
+<i>34</i>&nbsp;     */
+<i>35</i>&nbsp;    Iterable&lt;E&gt; edges();
+<i>36</i>&nbsp;
+<i>37</i>&nbsp;    /**
+<i>38</i>&nbsp;     * Returns the number of edges leaving vertex
+<i>39</i>&nbsp;     * This is the same result returned by inDegree
+<i>40</i>&nbsp;     *
+<i>41</i>&nbsp;     * @param the vertex
+<i>42</i>&nbsp;     * @return number of edges leaving vertex v, -1 if vertex does not exist in the model.graph
+<i>43</i>&nbsp;     */
+<i>44</i>&nbsp;    int outDegree(V vertex);
+<i>45</i>&nbsp;
+<i>46</i>&nbsp;    /**
+<i>47</i>&nbsp;     * Returns the number of edges reaching vertex
+<i>48</i>&nbsp;     * This is the same result returned by outDegree
+<i>49</i>&nbsp;     *
+<i>50</i>&nbsp;     * @param the vertex
+<i>51</i>&nbsp;     * @return number of edges reaching vertex v, -1 if vertex does not exist in the model.graph
+<i>52</i>&nbsp;     */
+<i>53</i>&nbsp;    int inDegree(V vertex);
+<i>54</i>&nbsp;
+<i>55</i>&nbsp;    /**
+<i>56</i>&nbsp;     * Returns an iterable collection of edges for which vertex is the origin.
+<i>57</i>&nbsp;     * This is the same result as returned by incomingEdges.
+<i>58</i>&nbsp;     *
+<i>59</i>&nbsp;     * @param the vertex
+<i>60</i>&nbsp;     * @return collection of edges leaving vertex, null if vertex does not exist in the model.graph
+<i>61</i>&nbsp;     */
+<i>62</i>&nbsp;    Iterable&lt;E&gt; outgoingEdges(V vertex);
+<i>63</i>&nbsp;
+<i>64</i>&nbsp;    /**
+<i>65</i>&nbsp;     * Returns an iterable collection of edges for which vertex v is the destination.
+<i>66</i>&nbsp;     * This is the same result as returned by incomingEdges.
+<i>67</i>&nbsp;     *
+<i>68</i>&nbsp;     * @param the vertex
+<i>69</i>&nbsp;     * @return collection of edges reaching vertex, null if vertex does not exist in the model.graph
+<i>70</i>&nbsp;     */
+<i>71</i>&nbsp;    Iterable&lt;E&gt; incomingEdges(V vertex);
+<i>72</i>&nbsp;
+<i>73</i>&nbsp;    /**
+<i>74</i>&nbsp;     * Returns the edge between two vertices
+<i>75</i>&nbsp;     *
+<i>76</i>&nbsp;     * @param the two vertices
+<i>77</i>&nbsp;     * @return the edge or null if source and dest are not adjacent or do not exist in the model.graph.
+<i>78</i>&nbsp;     */
+<i>79</i>&nbsp;    E getEdge(V va, V vb);
+<i>80</i>&nbsp;
+<i>81</i>&nbsp;    /**
+<i>82</i>&nbsp;     * Returns the vertices of edge as an array of length two.
+<i>83</i>&nbsp;     *
+<i>84</i>&nbsp;     * @param the edge
+<i>85</i>&nbsp;     * @return array of two vertices or null if edge does not exist in the model.graph.
+<i>86</i>&nbsp;     */
+<i>87</i>&nbsp;    V[] endVertices(E edge);
+<i>88</i>&nbsp;
+<i>89</i>&nbsp;    /**
+<i>90</i>&nbsp;     * Inserts a new vertex with the given element.
+<i>91</i>&nbsp;     *
+<i>92</i>&nbsp;     * @param the vertex contents
+<i>93</i>&nbsp;     * @return false if vertex exists
+<i>94</i>&nbsp;     */
+<i>95</i>&nbsp;    boolean insertVertex(V newVertex);
+<i>96</i>&nbsp;
+<i>97</i>&nbsp;    /**
+<i>98</i>&nbsp;     * Inserts a new edge between two vertices
+<i>99</i>&nbsp;     *
+<i>100</i>&nbsp;     * @param the two vertices and the new edge contents
+<i>101</i>&nbsp;     * @return false if either vertices are not in the model.graph or an edge already exists between the two.
+<i>102</i>&nbsp;     */
+<i>103</i>&nbsp;    boolean insertEdge(V va, V vb, E newEdge);
+<i>104</i>&nbsp;
+<i>105</i>&nbsp;    /**
+<i>106</i>&nbsp;     * Removes a vertex and all its incoming/outgoing edges from the model.graph.
+<i>107</i>&nbsp;     *
+<i>108</i>&nbsp;     * @param the vertex
+<i>109</i>&nbsp;     * @return false if vertex does not exist in the model.graph
+<i>110</i>&nbsp;     */
+<i>111</i>&nbsp;    boolean removeVertex(V vertex);
+<i>112</i>&nbsp;
+<i>113</i>&nbsp;    /**
+<i>114</i>&nbsp;     * Removes the edge between two vertices
+<i>115</i>&nbsp;     *
+<i>116</i>&nbsp;     * @param the two vertices
+<i>117</i>&nbsp;     * @return the edge or null if vertices are not in the model.graph or not connected
+<i>118</i>&nbsp;     */
+<i>119</i>&nbsp;    E removeEdge(V va, V vb);
+<i>120</i>&nbsp;
+<i>121</i>&nbsp;}
+<i>122</i>&nbsp;
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2021-01-31 18:27</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,192 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: QRCode</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">lapr.project.utils</a> ]
+</div>
+
+<h1>Coverage Summary for Class: QRCode (lapr.project.utils)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">QRCode</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    75%
+  </span>
+  <span class="absValue">
+    (3/ 4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    91,3%
+  </span>
+  <span class="absValue">
+    (21/ 23)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package lapr.project.utils;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import com.google.zxing.*;
+<i>4</i>&nbsp;import com.google.zxing.client.j2se.BufferedImageLuminanceSource;
+<i>5</i>&nbsp;import com.google.zxing.client.j2se.MatrixToImageWriter;
+<i>6</i>&nbsp;import com.google.zxing.common.BitMatrix;
+<i>7</i>&nbsp;import com.google.zxing.common.HybridBinarizer;
+<i>8</i>&nbsp;import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
+<i>9</i>&nbsp;
+<i>10</i>&nbsp;import javax.imageio.ImageIO;
+<i>11</i>&nbsp;import java.io.FileInputStream;
+<i>12</i>&nbsp;import java.nio.file.Paths;
+<i>13</i>&nbsp;import java.util.HashMap;
+<i>14</i>&nbsp;import java.util.Map;
+<i>15</i>&nbsp;
+<i>16</i>&nbsp;/**
+<i>17</i>&nbsp; * QRCode.
+<i>18</i>&nbsp; *
+<i>19</i>&nbsp; * Group: Team Lisa [G-021]
+<i>20</i>&nbsp; * ______________________________________________________
+<i>21</i>&nbsp; * @author António Barbosa &lt;1190404@isep.ipp.pt&gt;
+<i>22</i>&nbsp; * @author Ernesto Rodrigues &lt;1190560@isep.ipp.pt&gt;
+<i>23</i>&nbsp; * @author Jessica Alves &lt;1190682@isep.ipp.pt&gt;
+<i>24</i>&nbsp; * @author Pedro Santos &lt;1190967@isep.ipp.pt&gt;
+<i>25</i>&nbsp; * @author Rodrigo Costa &lt;1191014@isep.ipp.pt&gt;
+<i>26</i>&nbsp; * @author Tiago Costa &lt;1191460@isep.ipp.pt&gt;
+<i>27</i>&nbsp; */
+<i>28</i>&nbsp;public class QRCode {
+<i>29</i>&nbsp;
+<i>30</i>&nbsp;    /**
+<i>31</i>&nbsp;     * Private Construtor.
+<i>32</i>&nbsp;     */
+<b class="nc"><i>33</i>&nbsp;    private QRCode() {</b>
+<b class="nc"><i>34</i>&nbsp;    }</b>
+<i>35</i>&nbsp;
+<i>36</i>&nbsp;    /**
+<i>37</i>&nbsp;     * Charset.
+<i>38</i>&nbsp;     */
+<b class="fc"><i>39</i>&nbsp;    private static String mCHARSET = &quot;UTF-8&quot;;</b>
+<i>40</i>&nbsp;
+<i>41</i>&nbsp;    /**
+<i>42</i>&nbsp;     * Format.
+<i>43</i>&nbsp;     */
+<b class="fc"><i>44</i>&nbsp;    private static String mFORMAT = &quot;.png&quot;;</b>
+<i>45</i>&nbsp;
+<i>46</i>&nbsp;    /**
+<i>47</i>&nbsp;     * Path.
+<i>48</i>&nbsp;     */
+<b class="fc"><i>49</i>&nbsp;    private static String mPATH = &quot;src/main/resources/imgs/&quot;;</b>
+<i>50</i>&nbsp;
+<i>51</i>&nbsp;    /**
+<i>52</i>&nbsp;     * Height of the Qr Code.
+<i>53</i>&nbsp;     */
+<b class="fc"><i>54</i>&nbsp;    private static int mHEIGHT = 200;</b>
+<i>55</i>&nbsp;
+<i>56</i>&nbsp;    /**
+<i>57</i>&nbsp;     * Width of the Qr Code.
+<i>58</i>&nbsp;     */
+<b class="fc"><i>59</i>&nbsp;    private static int mWIDTH = 200;</b>
+<i>60</i>&nbsp;
+<i>61</i>&nbsp;    /**
+<i>62</i>&nbsp;     * Generates a QR Code based on a string with a fileName.png
+<i>63</i>&nbsp;     * @param data string to generate the Qr Code.
+<i>64</i>&nbsp;     * @param fileName file name.
+<i>65</i>&nbsp;     * @return true if everything works out, false if it doesn&#39;t.
+<i>66</i>&nbsp;     */
+<i>67</i>&nbsp;    public static boolean generateQRCode(String data, String fileName) {
+<i>68</i>&nbsp;
+<i>69</i>&nbsp;        try{
+<b class="fc"><i>70</i>&nbsp;            Map&lt;EncodeHintType, ErrorCorrectionLevel&gt; hashMap = new HashMap&lt;&gt;();</b>
+<i>71</i>&nbsp;
+<b class="fc"><i>72</i>&nbsp;            hashMap.put(EncodeHintType.ERROR_CORRECTION,</b>
+<i>73</i>&nbsp;                    ErrorCorrectionLevel.L);
+<i>74</i>&nbsp;
+<b class="fc"><i>75</i>&nbsp;            BitMatrix matrix = new MultiFormatWriter().encode(</b>
+<b class="fc"><i>76</i>&nbsp;                    new String(data.getBytes(mCHARSET), mCHARSET),</b>
+<i>77</i>&nbsp;                    BarcodeFormat.QR_CODE, mHEIGHT, mWIDTH);
+<i>78</i>&nbsp;
+<b class="fc"><i>79</i>&nbsp;            String path = mPATH + fileName + mFORMAT;</b>
+<i>80</i>&nbsp;
+<b class="fc"><i>81</i>&nbsp;            MatrixToImageWriter.writeToPath(matrix, path.substring(path.lastIndexOf(&#39;.&#39;) + 1), Paths.get(path));</b>
+<b class="fc"><i>82</i>&nbsp;            return true;</b>
+<b class="fc"><i>83</i>&nbsp;        } catch (Exception e){</b>
+<b class="fc"><i>84</i>&nbsp;            return false;</b>
+<i>85</i>&nbsp;        }
+<i>86</i>&nbsp;    }
+<i>87</i>&nbsp;
+<i>88</i>&nbsp;    /**
+<i>89</i>&nbsp;     * Reads a certain Qr Code.
+<i>90</i>&nbsp;     * @param fileName file name.
+<i>91</i>&nbsp;     * @return the information of the Qr Code.
+<i>92</i>&nbsp;     */
+<i>93</i>&nbsp;    public static String readQRCode(String fileName){
+<i>94</i>&nbsp;        try{
+<b class="fc"><i>95</i>&nbsp;            BinaryBitmap binaryBitmap</b>
+<i>96</i>&nbsp;                    = new BinaryBitmap(new HybridBinarizer(
+<i>97</i>&nbsp;                    new BufferedImageLuminanceSource(
+<b class="fc"><i>98</i>&nbsp;                            ImageIO.read(</b>
+<i>99</i>&nbsp;                                    new FileInputStream(mPATH + fileName + mFORMAT)))));
+<i>100</i>&nbsp;
+<b class="fc"><i>101</i>&nbsp;            Result result</b>
+<b class="fc"><i>102</i>&nbsp;                    = new MultiFormatReader().decode(binaryBitmap);</b>
+<i>103</i>&nbsp;
+<b class="fc"><i>104</i>&nbsp;            return result.getText();</b>
+<b class="fc"><i>105</i>&nbsp;        } catch (Exception e){</b>
+<b class="fc"><i>106</i>&nbsp;            return null;</b>
+<i>107</i>&nbsp;        }
+<i>108</i>&nbsp;    }
+<i>109</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2021-01-31 18:27</div>
+</div>
+</body>
+</html>
