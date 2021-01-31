@@ -111,7 +111,8 @@ public class EnergyCalculatorTest {
     void testSetVelocityByPower() {
         EnergyCalculator.setVelocityByPower(Constants.DEFAULT_VELOCITY);
         double result = EnergyCalculator.getVelocityByPower();
-        assertEquals(Constants.DEFAULT_VELOCITY, result);
+        double expResult = Constants.DEFAULT_VELOCITY;
+        assertEquals(expResult, result);
     }
 
     @Test
@@ -125,7 +126,8 @@ public class EnergyCalculatorTest {
     void testSetDroneVelocityByPower() {
         EnergyCalculator.setDroneVelocityByPower(0.0);
         double result = EnergyCalculator.getDroneVelocityByPower();
-        assertEquals(0.0, result);
+        double expResult = 0.0;
+        assertEquals(expResult, result);
     }
 
 
