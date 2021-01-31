@@ -56,7 +56,7 @@ public class EmailSender {
 
                     @Override
                     protected PasswordAuthentication getPasswordAuthentication() {
-                        return new PasswordAuthentication("pharmacyservice.g21@gmail.com", "g21rumoAo20");
+                        return new PasswordAuthentication("g21.teamlisa@gmail.com", "g21rumoAo20");
                     }
                 });
         try {
