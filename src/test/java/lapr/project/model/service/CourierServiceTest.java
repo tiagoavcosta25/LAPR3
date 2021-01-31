@@ -197,7 +197,7 @@ class CourierServiceTest {
         assertNotEquals(expResult, courierService.getMoScooterDB());
         assertNotNull(courierService.getMoScooterDB());
     }
-    
+
     @Test
     void parkScooter() {
         when(mockCourierDB.checkIfScooterAndCourierFromSamePh(1, "email@gmail.com")).thenReturn(true);
@@ -211,18 +211,18 @@ class CourierServiceTest {
         List<Pair<String, Scooter>> list = new ArrayList<>();
         list.add(pair1);
         when(mockScooterDB.getEmailPerChargingScooter(1)).thenReturn(list);
-        when(mockScooterDB.getEmailPerChargingScooter(1)).thenReturn(list);
         when(mockCourierDB.parkScooterDirectory(1)).thenReturn(true);
         when(mockCourierDB.parkScooter(1, 1)).thenReturn(true);
         assertTrue(courierService.parkScooter(1, "email@gmail.com"));
         when(mockCourierDB.checkIfScooterAndCourierFromSamePh(1, "email@gmail.com")).thenReturn(false);
         assertFalse(courierService.parkScooter(1, "email@gmail.com"));
+        when(mockCourierDB.checkIfScooterAndCourierFromSamePh(1, "email@gmail.com")).thenReturn(true);
         when(mockCourierDB.checkIfChargingSlot(1)).thenReturn(false);
         assertFalse(courierService.parkScooter(1, "email@gmail.com"));
+        when(mockCourierDB.checkIfChargingSlot(1)).thenReturn(true);
         when(mockCourierDB.parkScooterDirectory(1)).thenReturn(false);
         assertFalse(courierService.parkScooter(1, "email@gmail.com"));
-        when(mockCourierDB.parkScooterDirectory(1)).thenReturn(false);
-        assertFalse(courierService.parkScooter(1, "email@gmail.com"));
+        when(mockCourierDB.parkScooterDirectory(1)).thenReturn(true);
         when(mockCourierDB.parkScooter(1, 1)).thenReturn(false);
         assertFalse(courierService.parkScooter(1, "email@gmail.com"));
     }

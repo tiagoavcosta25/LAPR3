@@ -75,7 +75,7 @@ public class Route {
     public Route(VehicleType vehicleType, List<Address> addressList) {
         this.vehicleType = vehicleType;
         this.vehicleModel = null;
-        this.addressList = addressList;
+        this.addressList = new ArrayList<>(addressList);
         this.pathList = new ArrayList<>();
         this.energyList = new ArrayList<>();
         this.timeList = new ArrayList<>();
@@ -119,7 +119,7 @@ public class Route {
      * @return Address List.
      */
     public List<Address> getAddressList() {
-        return addressList;
+        return new ArrayList<>(addressList);
     }
 
     /**
@@ -127,7 +127,7 @@ public class Route {
      * @param addressList Address List.
      */
     public void setAddressList(List<Address> addressList) {
-        this.addressList = addressList;
+        this.addressList = new ArrayList<>(addressList);
     }
 
     /**
@@ -135,7 +135,7 @@ public class Route {
      * @return Path List.
      */
     public List<Path> getPathList() {
-        return pathList;
+        return new ArrayList<>(pathList);
     }
 
     /**
@@ -143,7 +143,7 @@ public class Route {
      * @param pathList Path List.
      */
     public void setPathList(List<Path> pathList) {
-        this.pathList = pathList;
+        this.pathList = new ArrayList<>(pathList);
     }
 
     /**
@@ -151,7 +151,7 @@ public class Route {
      * @return Energy List.
      */
     public List<Double> getEnergyList() {
-        return energyList;
+        return new ArrayList<>(energyList);
     }
 
     /**
@@ -159,7 +159,7 @@ public class Route {
      * @param energyList Energy List.
      */
     public void setEnergyList(List<Double> energyList) {
-        this.energyList = energyList;
+        this.energyList = new ArrayList<>(energyList);
     }
 
     /**
@@ -167,7 +167,7 @@ public class Route {
      * @return Time List.
      */
     public List<Double> getTimeList() {
-        return timeList;
+        return new ArrayList<>(timeList);
     }
 
     /**
@@ -175,7 +175,7 @@ public class Route {
      * @param timeList Time List.
      */
     public void setTimeList(List<Double> timeList) {
-        this.timeList = timeList;
+        this.timeList = new ArrayList<>(timeList);
     }
 
     /**
@@ -183,7 +183,7 @@ public class Route {
      * @return Charge Stops List.
      */
     public List<Address> getChargeStops() {
-        return chargeStops;
+        return new ArrayList<>(chargeStops);
     }
 
     /**
@@ -191,7 +191,7 @@ public class Route {
      * @param chargeStops Charge Stops List.
      */
     public void setChargeStops(List<Address> chargeStops) {
-        this.chargeStops = chargeStops;
+        this.chargeStops = new ArrayList<>(chargeStops);
     }
 
     /**
