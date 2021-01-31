@@ -60,6 +60,8 @@ public class EmailSender {
                     }
                 });
         try {
+            if(body.isEmpty()){throw new MessagingException();}
+
             String strBody = String.format("______________________________________________________________________________________\n" +
                     "%s\n\n______________________________________________________________________________________\n\n" +
                     "Thank you for choosing us.\nKing regards,\nPharmacy Service G21.",body);

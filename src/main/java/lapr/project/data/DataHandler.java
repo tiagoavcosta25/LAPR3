@@ -42,7 +42,7 @@ public class DataHandler {
     /**
      * Database Connection.
      */
-    private Connection connection;
+    private static Connection connection;
 
     /**
      * "Stored Procedures" Invocation.
