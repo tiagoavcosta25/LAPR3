@@ -19,7 +19,7 @@ C -> UI : Inserts the required infromation
 activate UI
 
 
-UI -> CTRL : finishDeliveryRun()
+UI -> CTRL : finishDeliveryRun(deliveryRunID, batteryPercentage)
 activate CTRL
 CTRL -> DRS : create()
 activate DRS

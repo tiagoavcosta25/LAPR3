@@ -8,7 +8,7 @@ class FinishDeliveryRunUI {
 }
 package "Controller" #DDDDDD {
 class FinishDeliveryRunController{
-+finishDeliveryRun()
++finishDeliveryRun(deliveryRunID, batteryPercentage)
 }
 
 
@@ -83,22 +83,23 @@ class DeliveryRunDB{
   }
 
 }
-database database{
 
+database Database {
 }
+
 class DeliveryRunDB extends DataHandler
 
 FinishDeliveryRunController ..> ApplicationPOT
 FinishDeliveryRunUI ..> FinishDeliveryRunController
 FinishDeliveryRunController ..> DeliveryRunService : has
 DeliveryRunService ..> DeliveryRunDB : has
-DeliveryRunDB --> database : manages
+DeliveryRunDB --> Database : manages
 
 Courier "1" -- "1" User : acts as >
 Courier "1" -- "1" DeliveryRun : does a >
 Vehicle "1" -- "1" Battery : has a >
 DeliveryRun "1" -- "1" Vehicle :  has a >
-database "1" -- "*" Courier : has registered
-database "1" -- "*" DeliveryRun : has registered
+Database "1" -- "*" Courier : has registered
+Database "1" -- "*" DeliveryRun : has registered
 
 @enduml
