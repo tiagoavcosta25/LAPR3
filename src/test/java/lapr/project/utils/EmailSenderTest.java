@@ -11,17 +11,17 @@ class EmailSenderTest {
 
     @Test
     void emailSender() {
-        /*boolean result = EmailSender.sendEmail("", "Test", "Test");
+        boolean result = EmailSender.sendEmail("", "Test", "Test");
         assertFalse(result);
 
         result = EmailSender.sendEmail("g21@trash-mail.com", "Test", "");
-        assertTrue(result);
+        assertFalse(result);
 
         result = EmailSender.sendEmail("g21@trash-mail.com", "", "Test");
         assertFalse(result);
 
-        result = EmailSender.sendEmail("g21@trash-mail.com", "Test", "");
-        assertTrue(result);*/
+        result = EmailSender.sendEmail("g21@trash-mail.com", "Test", "asdas");
+        assertTrue(result);
     }
 
 }

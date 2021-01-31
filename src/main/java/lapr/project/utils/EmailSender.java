@@ -64,7 +64,7 @@ public class EmailSender {
                     "%s\n\n______________________________________________________________________________________\n\n" +
                     "Thank you for choosing us.\nKing regards,\nPharmacy Service G21.",body);
             String strHtmlBody = htmlBody(strBody);
-            if(emailToFoward.equals("") || strHtmlBody.equals("") || subject.equals("")) {
+            if(emailToFoward.equals("") || strHtmlBody.equals("") || subject.equals("") || body.equals("")) {
                 throw new MessagingException();
             }
             Message message = new MimeMessage(session);
