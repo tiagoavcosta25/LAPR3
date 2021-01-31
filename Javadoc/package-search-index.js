@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"lapr.project.controller"},{"l":"lapr.project.data"},{"l":"lapr.project.graph.map"},{"l":"lapr.project.graph.matrix"},{"l":"lapr.project.model"},{"l":"lapr.project.model.service"},{"l":"lapr.project.ui"},{"l":"lapr.project.ui.console"},{"l":"lapr.project.utils"}];updateSearchResults();
