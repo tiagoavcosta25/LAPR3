@@ -438,11 +438,11 @@ We used the final energy in kWh but during the calculation we use Joules. We jus
 
 # Relational Model (Normalized)
 
-![RelationalModel](docs/Iteration 3/RelationalModel.svg=100x20)
+![RelationalModel](docs/Iteration 3/RelationalModel.svg=20x20)
 
 # Domain Model
 
-![DomainModel](docs/Iteration 3/DomainModel.svg=100x20)
+![DomainModel](docs/Iteration 3/DomainModel.svg=20x20)
 
 #Bibliography
 
