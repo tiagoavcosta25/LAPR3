@@ -2,13 +2,13 @@
 skinparam classAttributeIconSize 0
 
 package "UI" #DDDDDD{
-class StartDeliveryRunUI {
+class FinishDeliveryRunUI {
 
 }
 }
 package "Controller" #DDDDDD {
-class StartDeliveryRunController{
-+startDeliveryRun()
+class FinishDeliveryRunController{
++finishDeliveryRun()
 }
 
 
@@ -24,8 +24,7 @@ class ApplicationPOT
 package "Model" #DDDDDD {
 package "Service" #DDDDDD {
    class DeliveryRunService{
-          +updateDeliveryRun(email)
-          +sendsEmail(deliveryRun)
+          +finishDeliveryRun(deliveryRunID, batteryPercentage, email)
 
       }
 
@@ -79,21 +78,21 @@ class DataHandler{
     +closeAll()
 }
 
-class DeliveryDB{
- +updateDeliveryRun(email)
+class DeliveryRunDB{
+ +finishDeliveryRun(deliveryRunID, batteryPercentage, email)
   }
 
 }
 database database{
 
 }
-class DeliveryDB extends DataHandler
+class DeliveryRunDB extends DataHandler
 
-StartDeliveryRunController ..> ApplicationPOT
-StartDeliveryRunUI ..> StartDeliveryRunController
-StartDeliveryRunController ..> DeliveryRunService : has
-DeliveryRunService ..> DeliveryDB : has
-DeliveryDB --> database : manages
+FinishDeliveryRunController ..> ApplicationPOT
+FinishDeliveryRunUI ..> FinishDeliveryRunController
+FinishDeliveryRunController ..> DeliveryRunService : has
+DeliveryRunService ..> DeliveryRunDB : has
+DeliveryRunDB --> database : manages
 
 Courier "1" -- "1" User : acts as >
 Courier "1" -- "1" DeliveryRun : does a >
