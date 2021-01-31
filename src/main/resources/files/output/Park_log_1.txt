@@ -1,7 +1,7 @@
 ______________________________________________________________________________________
 Scooter parking automated response.
 
-Scooter with id 1 was not locked successfully!
+Scooter with id 1 was parked successfully on a non charging parking spot!
 
 ______________________________________________________________________________________
 
