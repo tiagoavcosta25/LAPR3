@@ -327,4 +327,24 @@ public class DeliveryRunDB extends DataHandler {
         throw new IllegalArgumentException("No Scooters Avaliable.");
     }
 
+    /**
+     * Finshes a Delivery Run.
+     * @param intID ID.
+     * @param intBatteryPerc Battery Percentage.
+     * @param strCurrentUserEmail Courier's Email.
+     * @return true if it finishes a delivery run, false otherwise.
+     */
+    public boolean finishDeliveryRun(int intID, int intBatteryPerc, String strCurrentUserEmail) {
+        try (CallableStatement callStmt = getConnection().prepareCall("{ call finishDeliveryRun(?,?,?) }");) {
+            callStmt.setInt(1, intID);
+            callStmt.setInt(2, intBatteryPerc);
+            callStmt.setString(3, strCurrentUserEmail);
+            callStmt.execute();
+            return true;
+        } catch (SQLException e) {
+            return false;
+        } finally {
+            closeAll();
+        }
+    }
 }

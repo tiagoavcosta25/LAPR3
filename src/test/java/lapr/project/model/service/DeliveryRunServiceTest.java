@@ -220,4 +220,15 @@ class DeliveryRunServiceTest {
         DeliveryRunDB real = m_oDeliveryRunService.getDeliveryRunDB();
         assertEquals(expected,real);
     }
+
+    @Test
+    void finishDeliveryRun() {
+        when(m_oDeliveryRunDB.finishDeliveryRun(1,1,"")).thenReturn(true);
+        boolean real = m_oDeliveryRunService.finishDeliveryRun(1,1,"");
+        assertTrue(real);
+
+        when(m_oDeliveryRunDB.finishDeliveryRun(1,1,"")).thenReturn(false);
+        real = m_oDeliveryRunService.finishDeliveryRun(1,1,"");
+        assertFalse(real);
+    }
 }
