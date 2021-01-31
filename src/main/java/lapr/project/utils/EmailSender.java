@@ -56,7 +56,7 @@ public class EmailSender {
 
                     @Override
                     protected PasswordAuthentication getPasswordAuthentication() {
-                        return new PasswordAuthentication("pharmacyservice.g21@gmail.com", "g21rumoAo20");
+                        return new PasswordAuthentication("info.teamlisa@gmail.com", "g21rumoAo20");
                     }
                 });
         try {
@@ -72,7 +72,7 @@ public class EmailSender {
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(emailToFoward));
             message.setSubject(subject);
             message.setContent(strHtmlBody, Constants.EMAIL_BODY_TYPE);
-            //Transport.send(message);
+            Transport.send(message);
             LOGGER.log(Level.INFO, "Email Sent!");
             return true;
         } catch (MessagingException e) {
