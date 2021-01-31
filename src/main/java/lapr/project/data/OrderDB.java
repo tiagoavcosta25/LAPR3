@@ -59,7 +59,7 @@ public class OrderDB extends DataHandler {
                 return oOrder;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            // Do Nothing
         } finally {
             closeAll();
         }
@@ -113,7 +113,6 @@ public class OrderDB extends DataHandler {
 
             return intId;
         } catch (SQLException e) {
-            e.printStackTrace();
             return -1;
         } finally {
             closeAll();
@@ -136,7 +135,6 @@ public class OrderDB extends DataHandler {
 
             return true;
         } catch (SQLException e) {
-            e.printStackTrace();
             return false;
         } finally {
             closeAll();
@@ -188,7 +186,7 @@ public class OrderDB extends DataHandler {
                 return oOrder;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            // Do Nothing
         } finally {
             closeAll();
         }
@@ -216,7 +214,6 @@ public class OrderDB extends DataHandler {
                 return orderManager(rSet, 1);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
             return null;
         } finally {
             closeAll();
@@ -264,7 +261,6 @@ public class OrderDB extends DataHandler {
                     }
                 }
             } catch (SQLException e) {
-                e.printStackTrace();
             } finally {
                 closeAll();
             }
@@ -276,7 +272,6 @@ public class OrderDB extends DataHandler {
                 callStmt.execute();
 
             } catch (SQLException e) {
-                e.printStackTrace();
             } finally {
                 closeAll();
             }
@@ -293,7 +288,7 @@ public class OrderDB extends DataHandler {
                     callStmt.execute();
 
                 } catch (SQLException e) {
-                    e.printStackTrace();
+                    // Do Nothing
                 } finally {
                     closeAll();
                 }

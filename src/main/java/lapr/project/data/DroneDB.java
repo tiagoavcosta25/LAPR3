@@ -43,7 +43,7 @@ public class DroneDB extends DataHandler {
                 return droneManager(rSet,1);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            // Do Nothing
         } finally {
             closeAll();
         }
@@ -115,7 +115,6 @@ public class DroneDB extends DataHandler {
             return (int) callStmt.getObject(1);
 
         } catch (SQLException e) {
-            e.printStackTrace();
             return -1;
         } finally {
             closeAll();
@@ -141,7 +140,6 @@ public class DroneDB extends DataHandler {
                 lstDrone.add(droneManager(rSet,1));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
             throw new IllegalArgumentException("No Drones Avaliable.");
         } finally {
             closeAll();
@@ -161,7 +159,6 @@ public class DroneDB extends DataHandler {
             callStmt.execute();
 
         } catch (SQLException e) {
-            e.printStackTrace();
             return false;
         } finally {
             closeAll();
@@ -188,7 +185,7 @@ public class DroneDB extends DataHandler {
             }
             return payload;
         } catch (SQLException e) {
-            e.printStackTrace();
+            // Do Nothing
         } finally {
             closeAll();
         }

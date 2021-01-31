@@ -114,7 +114,7 @@ public class ClientDB extends DataHandler {
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            // Do Nothing
         } finally {
             closeAll();
         }
@@ -163,7 +163,7 @@ public class ClientDB extends DataHandler {
             callStmt.execute();
             return true;
         } catch (SQLException e) {
-            e.printStackTrace();
+            // Do Nothing
         } finally {
             closeAll();
         }

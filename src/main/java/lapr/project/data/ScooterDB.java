@@ -50,7 +50,7 @@ public class ScooterDB extends DataHandler {
                 return scooterManager(rSet,1);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            // Do Nothing
         } finally {
             closeAll();
         }
@@ -75,7 +75,6 @@ public class ScooterDB extends DataHandler {
             return (int) callStmt.getObject(1);
 
         } catch (SQLException e) {
-            e.printStackTrace();
             return -1;
         } finally {
             closeAll();
@@ -139,7 +138,6 @@ public class ScooterDB extends DataHandler {
                 lstScooter.add(scooterManager(rSet,1));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
             throw new IllegalArgumentException(NOSCOOTERAVAIABLE);
         } finally {
             closeAll();
@@ -160,7 +158,6 @@ public class ScooterDB extends DataHandler {
             callStmt.execute();
 
         } catch (SQLException e) {
-            e.printStackTrace();
             return false;
         } finally {
             closeAll();
@@ -197,7 +194,6 @@ public class ScooterDB extends DataHandler {
                 lstPairs.add(new Pair<>(strEmail, oScooter));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
             throw new IllegalArgumentException(NOSCOOTERAVAIABLE);
         } finally {
             closeAll();
@@ -217,11 +213,8 @@ public class ScooterDB extends DataHandler {
             callStmt.setInt(2, intParkId);
             callStmt.execute();
 
-
-
             return callStmt.getDouble(1);
         } catch (SQLException e) {
-            e.printStackTrace();
             throw new IllegalArgumentException(NOSCOOTERAVAIABLE);
         } finally {
             closeAll();

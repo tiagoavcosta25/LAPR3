@@ -58,10 +58,10 @@
 </td>
 <td class="coverageStat">
   <span class="percent">
-    7,9%
+    8%
   </span>
   <span class="absValue">
-    (17/ 215)
+    (17/ 213)
   </span>
 </td>
 </tr>
@@ -166,489 +166,487 @@
 <b class="fc"><i>92</i>&nbsp;            System.setProperties(properties);</b>
 <i>93</i>&nbsp;
 <b class="nc"><i>94</i>&nbsp;        } catch (IOException e) {</b>
-<b class="nc"><i>95</i>&nbsp;            e.printStackTrace();</b>
-<b class="fc"><i>96</i>&nbsp;        }</b>
-<i>97</i>&nbsp;
-<b class="fc"><i>98</i>&nbsp;        this.jdbcUrl = System.getProperty(&quot;database.url&quot;);</b>
-<b class="fc"><i>99</i>&nbsp;        this.username = System.getProperty(&quot;database.username&quot;);</b>
-<b class="fc"><i>100</i>&nbsp;        this.password = System.getProperty(&quot;database.password&quot;);</b>
-<b class="fc"><i>101</i>&nbsp;    }</b>
-<i>102</i>&nbsp;
-<i>103</i>&nbsp;    /**
-<i>104</i>&nbsp;     * Creates a DataHandler instance reciving Database URL, User Name and Password.
-<i>105</i>&nbsp;     *
-<i>106</i>&nbsp;     * @param jdbcUrl  Database URL.
-<i>107</i>&nbsp;     * @param username User Name.
-<i>108</i>&nbsp;     * @param password User Password.
-<i>109</i>&nbsp;     */
-<b class="nc"><i>110</i>&nbsp;    public DataHandler(String jdbcUrl, String username, String password) {</b>
-<b class="nc"><i>111</i>&nbsp;        this.jdbcUrl = jdbcUrl;</b>
-<b class="nc"><i>112</i>&nbsp;        this.username = username;</b>
-<b class="nc"><i>113</i>&nbsp;        this.password = password;</b>
-<b class="nc"><i>114</i>&nbsp;        connection = null;</b>
-<b class="nc"><i>115</i>&nbsp;        callStmt = null;</b>
-<b class="nc"><i>116</i>&nbsp;        rSet = null;</b>
-<b class="nc"><i>117</i>&nbsp;    }</b>
-<i>118</i>&nbsp;
-<i>119</i>&nbsp;    /**
-<i>120</i>&nbsp;     * Open a Connection the the DataBase.
-<i>121</i>&nbsp;     */
-<i>122</i>&nbsp;    protected void openConnection() {
-<i>123</i>&nbsp;        try {
-<b class="nc"><i>124</i>&nbsp;            connection = DriverManager.getConnection(</b>
-<i>125</i>&nbsp;                    jdbcUrl, username, password);
-<b class="nc"><i>126</i>&nbsp;        } catch (SQLException e) {</b>
-<b class="nc"><i>127</i>&nbsp;            e.printStackTrace();</b>
-<b class="nc"><i>128</i>&nbsp;        }</b>
-<b class="nc"><i>129</i>&nbsp;    }</b>
-<i>130</i>&nbsp;
-<i>131</i>&nbsp;    /**
-<i>132</i>&nbsp;     * Close the ResultSet, CallableStatement e Connection, and returns an error message if anything goes wrong.
-<i>133</i>&nbsp;     * Otherwise returns an empty String.
-<i>134</i>&nbsp;     */
-<i>135</i>&nbsp;    protected String closeAll() {
+<b class="fc"><i>95</i>&nbsp;        }</b>
+<i>96</i>&nbsp;
+<b class="fc"><i>97</i>&nbsp;        this.jdbcUrl = System.getProperty(&quot;database.url&quot;);</b>
+<b class="fc"><i>98</i>&nbsp;        this.username = System.getProperty(&quot;database.username&quot;);</b>
+<b class="fc"><i>99</i>&nbsp;        this.password = System.getProperty(&quot;database.password&quot;);</b>
+<b class="fc"><i>100</i>&nbsp;    }</b>
+<i>101</i>&nbsp;
+<i>102</i>&nbsp;    /**
+<i>103</i>&nbsp;     * Creates a DataHandler instance reciving Database URL, User Name and Password.
+<i>104</i>&nbsp;     *
+<i>105</i>&nbsp;     * @param jdbcUrl  Database URL.
+<i>106</i>&nbsp;     * @param username User Name.
+<i>107</i>&nbsp;     * @param password User Password.
+<i>108</i>&nbsp;     */
+<b class="nc"><i>109</i>&nbsp;    public DataHandler(String jdbcUrl, String username, String password) {</b>
+<b class="nc"><i>110</i>&nbsp;        this.jdbcUrl = jdbcUrl;</b>
+<b class="nc"><i>111</i>&nbsp;        this.username = username;</b>
+<b class="nc"><i>112</i>&nbsp;        this.password = password;</b>
+<b class="nc"><i>113</i>&nbsp;        connection = null;</b>
+<b class="nc"><i>114</i>&nbsp;        callStmt = null;</b>
+<b class="nc"><i>115</i>&nbsp;        rSet = null;</b>
+<b class="nc"><i>116</i>&nbsp;    }</b>
+<i>117</i>&nbsp;
+<i>118</i>&nbsp;    /**
+<i>119</i>&nbsp;     * Open a Connection the the DataBase.
+<i>120</i>&nbsp;     */
+<i>121</i>&nbsp;    protected void openConnection() {
+<i>122</i>&nbsp;        try {
+<b class="nc"><i>123</i>&nbsp;            connection = DriverManager.getConnection(</b>
+<i>124</i>&nbsp;                    jdbcUrl, username, password);
+<b class="nc"><i>125</i>&nbsp;        } catch (SQLException e) {</b>
+<b class="nc"><i>126</i>&nbsp;        }</b>
+<b class="nc"><i>127</i>&nbsp;    }</b>
+<i>128</i>&nbsp;
+<i>129</i>&nbsp;    /**
+<i>130</i>&nbsp;     * Close the ResultSet, CallableStatement e Connection, and returns an error message if anything goes wrong.
+<i>131</i>&nbsp;     * Otherwise returns an empty String.
+<i>132</i>&nbsp;     */
+<i>133</i>&nbsp;    protected String closeAll() {
+<i>134</i>&nbsp;
+<b class="nc"><i>135</i>&nbsp;        StringBuilder message = new StringBuilder();</b>
 <i>136</i>&nbsp;
-<b class="nc"><i>137</i>&nbsp;        StringBuilder message = new StringBuilder();</b>
-<i>138</i>&nbsp;
-<b class="nc"><i>139</i>&nbsp;        if (rSet != null) {</b>
-<i>140</i>&nbsp;            try {
-<b class="nc"><i>141</i>&nbsp;                rSet.close();</b>
-<b class="nc"><i>142</i>&nbsp;            } catch (SQLException ex) {</b>
-<b class="nc"><i>143</i>&nbsp;                message.append(ex.getMessage());</b>
-<b class="nc"><i>144</i>&nbsp;                message.append(&quot;\n&quot;);</b>
-<b class="nc"><i>145</i>&nbsp;            }</b>
-<b class="nc"><i>146</i>&nbsp;            rSet = null;</b>
-<i>147</i>&nbsp;        }
-<i>148</i>&nbsp;
-<b class="nc"><i>149</i>&nbsp;        if (callStmt != null) {</b>
-<i>150</i>&nbsp;            try {
-<b class="nc"><i>151</i>&nbsp;                callStmt.close();</b>
-<b class="nc"><i>152</i>&nbsp;            } catch (SQLException ex) {</b>
-<b class="nc"><i>153</i>&nbsp;                message.append(ex.getMessage());</b>
-<b class="nc"><i>154</i>&nbsp;                message.append(&quot;\n&quot;);</b>
-<b class="nc"><i>155</i>&nbsp;            }</b>
-<b class="nc"><i>156</i>&nbsp;            callStmt = null;</b>
-<i>157</i>&nbsp;        }
-<i>158</i>&nbsp;
-<b class="nc"><i>159</i>&nbsp;        if (connection != null) {</b>
-<i>160</i>&nbsp;            try {
-<b class="nc"><i>161</i>&nbsp;                connection.close();</b>
-<b class="nc"><i>162</i>&nbsp;            } catch (SQLException ex) {</b>
-<b class="nc"><i>163</i>&nbsp;                message.append(ex.getMessage());</b>
-<b class="nc"><i>164</i>&nbsp;                message.append(&quot;\n&quot;);</b>
-<b class="nc"><i>165</i>&nbsp;            }</b>
-<b class="nc"><i>166</i>&nbsp;            connection = null;</b>
-<i>167</i>&nbsp;        }
-<b class="nc"><i>168</i>&nbsp;        return message.toString();</b>
-<i>169</i>&nbsp;    }
-<i>170</i>&nbsp;
-<i>171</i>&nbsp;    /**
-<i>172</i>&nbsp;     * Returns the Database Connection.
-<i>173</i>&nbsp;     * @return the Database Connection.
-<i>174</i>&nbsp;     */
-<i>175</i>&nbsp;    protected Connection getConnection() {
-<b class="nc"><i>176</i>&nbsp;        if (connection == null)</b>
-<b class="nc"><i>177</i>&nbsp;            openConnection();</b>
-<b class="nc"><i>178</i>&nbsp;        return connection;</b>
-<i>179</i>&nbsp;    }
-<i>180</i>&nbsp;
-<i>181</i>&nbsp;    /**
-<i>182</i>&nbsp;     * Generic method that converts Data in a ResultSet from the Database to a Java Object related to an Address.
-<i>183</i>&nbsp;     * @param rSet ResultSet.
-<i>184</i>&nbsp;     * @param firstColumn Column that the Data starts.
-<i>185</i>&nbsp;     * @return Address.
-<i>186</i>&nbsp;     * @throws SQLException SQLException.
-<i>187</i>&nbsp;     */
-<i>188</i>&nbsp;    protected Address addressManager(ResultSet rSet, int firstColumn) throws SQLException { // column number +8
-<b class="nc"><i>189</i>&nbsp;        Double latitude = rSet.getDouble(firstColumn);</b>
+<b class="nc"><i>137</i>&nbsp;        if (rSet != null) {</b>
+<i>138</i>&nbsp;            try {
+<b class="nc"><i>139</i>&nbsp;                rSet.close();</b>
+<b class="nc"><i>140</i>&nbsp;            } catch (SQLException ex) {</b>
+<b class="nc"><i>141</i>&nbsp;                message.append(ex.getMessage());</b>
+<b class="nc"><i>142</i>&nbsp;                message.append(&quot;\n&quot;);</b>
+<b class="nc"><i>143</i>&nbsp;            }</b>
+<b class="nc"><i>144</i>&nbsp;            rSet = null;</b>
+<i>145</i>&nbsp;        }
+<i>146</i>&nbsp;
+<b class="nc"><i>147</i>&nbsp;        if (callStmt != null) {</b>
+<i>148</i>&nbsp;            try {
+<b class="nc"><i>149</i>&nbsp;                callStmt.close();</b>
+<b class="nc"><i>150</i>&nbsp;            } catch (SQLException ex) {</b>
+<b class="nc"><i>151</i>&nbsp;                message.append(ex.getMessage());</b>
+<b class="nc"><i>152</i>&nbsp;                message.append(&quot;\n&quot;);</b>
+<b class="nc"><i>153</i>&nbsp;            }</b>
+<b class="nc"><i>154</i>&nbsp;            callStmt = null;</b>
+<i>155</i>&nbsp;        }
+<i>156</i>&nbsp;
+<b class="nc"><i>157</i>&nbsp;        if (connection != null) {</b>
+<i>158</i>&nbsp;            try {
+<b class="nc"><i>159</i>&nbsp;                connection.close();</b>
+<b class="nc"><i>160</i>&nbsp;            } catch (SQLException ex) {</b>
+<b class="nc"><i>161</i>&nbsp;                message.append(ex.getMessage());</b>
+<b class="nc"><i>162</i>&nbsp;                message.append(&quot;\n&quot;);</b>
+<b class="nc"><i>163</i>&nbsp;            }</b>
+<b class="nc"><i>164</i>&nbsp;            connection = null;</b>
+<i>165</i>&nbsp;        }
+<b class="nc"><i>166</i>&nbsp;        return message.toString();</b>
+<i>167</i>&nbsp;    }
+<i>168</i>&nbsp;
+<i>169</i>&nbsp;    /**
+<i>170</i>&nbsp;     * Returns the Database Connection.
+<i>171</i>&nbsp;     * @return the Database Connection.
+<i>172</i>&nbsp;     */
+<i>173</i>&nbsp;    protected Connection getConnection() {
+<b class="nc"><i>174</i>&nbsp;        if (connection == null)</b>
+<b class="nc"><i>175</i>&nbsp;            openConnection();</b>
+<b class="nc"><i>176</i>&nbsp;        return connection;</b>
+<i>177</i>&nbsp;    }
+<i>178</i>&nbsp;
+<i>179</i>&nbsp;    /**
+<i>180</i>&nbsp;     * Generic method that converts Data in a ResultSet from the Database to a Java Object related to an Address.
+<i>181</i>&nbsp;     * @param rSet ResultSet.
+<i>182</i>&nbsp;     * @param firstColumn Column that the Data starts.
+<i>183</i>&nbsp;     * @return Address.
+<i>184</i>&nbsp;     * @throws SQLException SQLException.
+<i>185</i>&nbsp;     */
+<i>186</i>&nbsp;    protected Address addressManager(ResultSet rSet, int firstColumn) throws SQLException { // column number +8
+<b class="nc"><i>187</i>&nbsp;        Double latitude = rSet.getDouble(firstColumn);</b>
+<b class="nc"><i>188</i>&nbsp;        firstColumn++;</b>
+<b class="nc"><i>189</i>&nbsp;        Double longitude = rSet.getDouble(firstColumn);</b>
 <b class="nc"><i>190</i>&nbsp;        firstColumn++;</b>
-<b class="nc"><i>191</i>&nbsp;        Double longitude = rSet.getDouble(firstColumn);</b>
+<b class="nc"><i>191</i>&nbsp;        Double altitude = rSet.getDouble(firstColumn);</b>
 <b class="nc"><i>192</i>&nbsp;        firstColumn++;</b>
-<b class="nc"><i>193</i>&nbsp;        Double altitude = rSet.getDouble(firstColumn);</b>
+<b class="nc"><i>193</i>&nbsp;        String doorNumber = rSet.getString(firstColumn);</b>
 <b class="nc"><i>194</i>&nbsp;        firstColumn++;</b>
-<b class="nc"><i>195</i>&nbsp;        String doorNumber = rSet.getString(firstColumn);</b>
+<b class="nc"><i>195</i>&nbsp;        String streetName = rSet.getString(firstColumn);</b>
 <b class="nc"><i>196</i>&nbsp;        firstColumn++;</b>
-<b class="nc"><i>197</i>&nbsp;        String streetName = rSet.getString(firstColumn);</b>
+<b class="nc"><i>197</i>&nbsp;        String postalCode = rSet.getString(firstColumn);</b>
 <b class="nc"><i>198</i>&nbsp;        firstColumn++;</b>
-<b class="nc"><i>199</i>&nbsp;        String postalCode = rSet.getString(firstColumn);</b>
+<b class="nc"><i>199</i>&nbsp;        String locality = rSet.getString(firstColumn);</b>
 <b class="nc"><i>200</i>&nbsp;        firstColumn++;</b>
-<b class="nc"><i>201</i>&nbsp;        String locality = rSet.getString(firstColumn);</b>
-<b class="nc"><i>202</i>&nbsp;        firstColumn++;</b>
-<b class="nc"><i>203</i>&nbsp;        String country = rSet.getString(firstColumn);</b>
-<b class="nc"><i>204</i>&nbsp;        return new Address(latitude, longitude, altitude, streetName, doorNumber, postalCode, locality, country);</b>
-<i>205</i>&nbsp;    }
-<i>206</i>&nbsp;
-<i>207</i>&nbsp;    /**
-<i>208</i>&nbsp;     * Generic method that converts Data in a ResultSet from the Database to a Java Object related to a Credit Card.
-<i>209</i>&nbsp;     * @param rSet ResultSet.
-<i>210</i>&nbsp;     * @param firstColumn Column that the Data starts.
-<i>211</i>&nbsp;     * @return Credit Card.
-<i>212</i>&nbsp;     * @throws SQLException SQLException.
-<i>213</i>&nbsp;     */
-<i>214</i>&nbsp;    protected CreditCard creditCardManager(ResultSet rSet, int firstColumn) throws SQLException { // column number +3
-<b class="nc"><i>215</i>&nbsp;        long dblCreditCardNr = rSet.getLong(firstColumn);</b>
-<b class="nc"><i>216</i>&nbsp;        firstColumn++;</b>
-<b class="nc"><i>217</i>&nbsp;        java.sql.Date sqlStartDate = rSet.getDate(firstColumn);</b>
-<b class="nc"><i>218</i>&nbsp;        java.util.Date utilStartDate = new java.util.Date(sqlStartDate.getTime());</b>
-<b class="nc"><i>219</i>&nbsp;        firstColumn++;</b>
-<b class="nc"><i>220</i>&nbsp;        Integer strCCV = rSet.getInt(firstColumn);</b>
-<b class="nc"><i>221</i>&nbsp;        return new CreditCard(dblCreditCardNr, utilStartDate, strCCV);</b>
-<i>222</i>&nbsp;    }
-<i>223</i>&nbsp;
-<i>224</i>&nbsp;    /**
-<i>225</i>&nbsp;     * Generic method that converts Data in a ResultSet from the Database to a Java Object related to a Pharmacy.
-<i>226</i>&nbsp;     * @param rSet ResultSet.
-<i>227</i>&nbsp;     * @param firstColumn Column that the Data starts.
-<i>228</i>&nbsp;     * @return Pharmacy.
-<i>229</i>&nbsp;     * @throws SQLException SQLException.
-<i>230</i>&nbsp;     */
-<i>231</i>&nbsp;    protected Pharmacy pharmacyManager(ResultSet rSet, int firstColumn) throws SQLException { // column number +11
-<i>232</i>&nbsp;
-<b class="nc"><i>233</i>&nbsp;        Integer pharmacyID = rSet.getInt(firstColumn);</b>
+<b class="nc"><i>201</i>&nbsp;        String country = rSet.getString(firstColumn);</b>
+<b class="nc"><i>202</i>&nbsp;        return new Address(latitude, longitude, altitude, streetName, doorNumber, postalCode, locality, country);</b>
+<i>203</i>&nbsp;    }
+<i>204</i>&nbsp;
+<i>205</i>&nbsp;    /**
+<i>206</i>&nbsp;     * Generic method that converts Data in a ResultSet from the Database to a Java Object related to a Credit Card.
+<i>207</i>&nbsp;     * @param rSet ResultSet.
+<i>208</i>&nbsp;     * @param firstColumn Column that the Data starts.
+<i>209</i>&nbsp;     * @return Credit Card.
+<i>210</i>&nbsp;     * @throws SQLException SQLException.
+<i>211</i>&nbsp;     */
+<i>212</i>&nbsp;    protected CreditCard creditCardManager(ResultSet rSet, int firstColumn) throws SQLException { // column number +3
+<b class="nc"><i>213</i>&nbsp;        long dblCreditCardNr = rSet.getLong(firstColumn);</b>
+<b class="nc"><i>214</i>&nbsp;        firstColumn++;</b>
+<b class="nc"><i>215</i>&nbsp;        java.sql.Date sqlStartDate = rSet.getDate(firstColumn);</b>
+<b class="nc"><i>216</i>&nbsp;        java.util.Date utilStartDate = new java.util.Date(sqlStartDate.getTime());</b>
+<b class="nc"><i>217</i>&nbsp;        firstColumn++;</b>
+<b class="nc"><i>218</i>&nbsp;        Integer strCCV = rSet.getInt(firstColumn);</b>
+<b class="nc"><i>219</i>&nbsp;        return new CreditCard(dblCreditCardNr, utilStartDate, strCCV);</b>
+<i>220</i>&nbsp;    }
+<i>221</i>&nbsp;
+<i>222</i>&nbsp;    /**
+<i>223</i>&nbsp;     * Generic method that converts Data in a ResultSet from the Database to a Java Object related to a Pharmacy.
+<i>224</i>&nbsp;     * @param rSet ResultSet.
+<i>225</i>&nbsp;     * @param firstColumn Column that the Data starts.
+<i>226</i>&nbsp;     * @return Pharmacy.
+<i>227</i>&nbsp;     * @throws SQLException SQLException.
+<i>228</i>&nbsp;     */
+<i>229</i>&nbsp;    protected Pharmacy pharmacyManager(ResultSet rSet, int firstColumn) throws SQLException { // column number +11
+<i>230</i>&nbsp;
+<b class="nc"><i>231</i>&nbsp;        Integer pharmacyID = rSet.getInt(firstColumn);</b>
+<b class="nc"><i>232</i>&nbsp;        firstColumn++;</b>
+<b class="nc"><i>233</i>&nbsp;        String pharmacyName = rSet.getString(firstColumn);</b>
 <b class="nc"><i>234</i>&nbsp;        firstColumn++;</b>
-<b class="nc"><i>235</i>&nbsp;        String pharmacyName = rSet.getString(firstColumn);</b>
+<b class="nc"><i>235</i>&nbsp;        String strEmail = rSet.getString(firstColumn);</b>
 <b class="nc"><i>236</i>&nbsp;        firstColumn++;</b>
-<b class="nc"><i>237</i>&nbsp;        String strEmail = rSet.getString(firstColumn);</b>
-<b class="nc"><i>238</i>&nbsp;        firstColumn++;</b>
-<b class="nc"><i>239</i>&nbsp;        Address oAddress = addressManager(rSet, firstColumn);</b>
-<i>240</i>&nbsp;
-<b class="nc"><i>241</i>&nbsp;        return new Pharmacy(pharmacyID, pharmacyName, strEmail, oAddress);</b>
-<i>242</i>&nbsp;    }
-<i>243</i>&nbsp;
-<i>244</i>&nbsp;    /**
-<i>245</i>&nbsp;     * Generic method that converts Data in a ResultSet from the Database to a Java Object related to a Client.
-<i>246</i>&nbsp;     * @param rSet ResultSet.
-<i>247</i>&nbsp;     * @param firstColumn Column that the Data starts.
-<i>248</i>&nbsp;     * @return Client.
-<i>249</i>&nbsp;     * @throws SQLException SQLException.
-<i>250</i>&nbsp;     */
-<i>251</i>&nbsp;    protected Client clientManager(ResultSet rSet, int firstColumn) throws SQLException { // column number +14
-<i>252</i>&nbsp;
-<b class="nc"><i>253</i>&nbsp;        int intId = rSet.getInt(firstColumn);</b>
+<b class="nc"><i>237</i>&nbsp;        Address oAddress = addressManager(rSet, firstColumn);</b>
+<i>238</i>&nbsp;
+<b class="nc"><i>239</i>&nbsp;        return new Pharmacy(pharmacyID, pharmacyName, strEmail, oAddress);</b>
+<i>240</i>&nbsp;    }
+<i>241</i>&nbsp;
+<i>242</i>&nbsp;    /**
+<i>243</i>&nbsp;     * Generic method that converts Data in a ResultSet from the Database to a Java Object related to a Client.
+<i>244</i>&nbsp;     * @param rSet ResultSet.
+<i>245</i>&nbsp;     * @param firstColumn Column that the Data starts.
+<i>246</i>&nbsp;     * @return Client.
+<i>247</i>&nbsp;     * @throws SQLException SQLException.
+<i>248</i>&nbsp;     */
+<i>249</i>&nbsp;    protected Client clientManager(ResultSet rSet, int firstColumn) throws SQLException { // column number +14
+<i>250</i>&nbsp;
+<b class="nc"><i>251</i>&nbsp;        int intId = rSet.getInt(firstColumn);</b>
+<b class="nc"><i>252</i>&nbsp;        firstColumn++;</b>
+<b class="nc"><i>253</i>&nbsp;        String strEmail = rSet.getString(firstColumn);</b>
 <b class="nc"><i>254</i>&nbsp;        firstColumn++;</b>
-<b class="nc"><i>255</i>&nbsp;        String strEmail = rSet.getString(firstColumn);</b>
+<b class="nc"><i>255</i>&nbsp;        String strPassword = rSet.getString(firstColumn);</b>
 <b class="nc"><i>256</i>&nbsp;        firstColumn++;</b>
-<b class="nc"><i>257</i>&nbsp;        String strPassword = rSet.getString(firstColumn);</b>
+<b class="nc"><i>257</i>&nbsp;        Integer strNif = rSet.getInt(firstColumn);</b>
 <b class="nc"><i>258</i>&nbsp;        firstColumn++;</b>
-<b class="nc"><i>259</i>&nbsp;        Integer strNif = rSet.getInt(firstColumn);</b>
+<b class="nc"><i>259</i>&nbsp;        String strName = rSet.getString(firstColumn);</b>
 <b class="nc"><i>260</i>&nbsp;        firstColumn++;</b>
-<b class="nc"><i>261</i>&nbsp;        String strName = rSet.getString(firstColumn);</b>
+<b class="nc"><i>261</i>&nbsp;        Integer intCredits = rSet.getInt(firstColumn);</b>
 <b class="nc"><i>262</i>&nbsp;        firstColumn++;</b>
-<b class="nc"><i>263</i>&nbsp;        Integer intCredits = rSet.getInt(firstColumn);</b>
-<b class="nc"><i>264</i>&nbsp;        firstColumn++;</b>
-<b class="nc"><i>265</i>&nbsp;        Address oClientAddress = addressManager(rSet, firstColumn);</b>
-<i>266</i>&nbsp;
-<b class="nc"><i>267</i>&nbsp;        return new Client(intId, strName, strNif, strEmail, strPassword, intCredits, oClientAddress, new ArrayList&lt;&gt;());</b>
-<i>268</i>&nbsp;    }
-<i>269</i>&nbsp;
-<i>270</i>&nbsp;    /**
-<i>271</i>&nbsp;     * Generic method that converts Data in a ResultSet from the Database to a Java Object related to an Order.
-<i>272</i>&nbsp;     * @param rSet ResultSet.
-<i>273</i>&nbsp;     * @param firstColumn Column that the Data starts.
-<i>274</i>&nbsp;     * @return Order.
-<i>275</i>&nbsp;     * @throws SQLException SQLException.
-<i>276</i>&nbsp;     */
-<i>277</i>&nbsp;    protected Order orderManager(ResultSet rSet, int firstColumn) throws SQLException { // column number +37
-<i>278</i>&nbsp;
-<b class="nc"><i>279</i>&nbsp;        int intId = rSet.getInt(firstColumn);</b>
+<b class="nc"><i>263</i>&nbsp;        Address oClientAddress = addressManager(rSet, firstColumn);</b>
+<i>264</i>&nbsp;
+<b class="nc"><i>265</i>&nbsp;        return new Client(intId, strName, strNif, strEmail, strPassword, intCredits, oClientAddress, new ArrayList&lt;&gt;());</b>
+<i>266</i>&nbsp;    }
+<i>267</i>&nbsp;
+<i>268</i>&nbsp;    /**
+<i>269</i>&nbsp;     * Generic method that converts Data in a ResultSet from the Database to a Java Object related to an Order.
+<i>270</i>&nbsp;     * @param rSet ResultSet.
+<i>271</i>&nbsp;     * @param firstColumn Column that the Data starts.
+<i>272</i>&nbsp;     * @return Order.
+<i>273</i>&nbsp;     * @throws SQLException SQLException.
+<i>274</i>&nbsp;     */
+<i>275</i>&nbsp;    protected Order orderManager(ResultSet rSet, int firstColumn) throws SQLException { // column number +37
+<i>276</i>&nbsp;
+<b class="nc"><i>277</i>&nbsp;        int intId = rSet.getInt(firstColumn);</b>
+<b class="nc"><i>278</i>&nbsp;        firstColumn++;</b>
+<b class="nc"><i>279</i>&nbsp;        String strDescription = rSet.getString(firstColumn);</b>
 <b class="nc"><i>280</i>&nbsp;        firstColumn++;</b>
-<b class="nc"><i>281</i>&nbsp;        String strDescription = rSet.getString(firstColumn);</b>
+<b class="nc"><i>281</i>&nbsp;        String strStatus = rSet.getString(firstColumn);</b>
 <b class="nc"><i>282</i>&nbsp;        firstColumn++;</b>
-<b class="nc"><i>283</i>&nbsp;        String strStatus = rSet.getString(firstColumn);</b>
+<b class="nc"><i>283</i>&nbsp;        Date dtOrderDate = rSet.getDate(firstColumn);</b>
 <b class="nc"><i>284</i>&nbsp;        firstColumn++;</b>
-<b class="nc"><i>285</i>&nbsp;        Date dtOrderDate = rSet.getDate(firstColumn);</b>
+<b class="nc"><i>285</i>&nbsp;        double dblTotalWeight = rSet.getDouble(firstColumn);</b>
 <b class="nc"><i>286</i>&nbsp;        firstColumn++;</b>
-<b class="nc"><i>287</i>&nbsp;        double dblTotalWeight = rSet.getDouble(firstColumn);</b>
+<b class="nc"><i>287</i>&nbsp;        double dblAmount = rSet.getDouble(firstColumn);</b>
 <b class="nc"><i>288</i>&nbsp;        firstColumn++;</b>
-<b class="nc"><i>289</i>&nbsp;        double dblAmount = rSet.getDouble(firstColumn);</b>
+<b class="nc"><i>289</i>&nbsp;        double dblAdditionalFee = rSet.getDouble(firstColumn);</b>
 <b class="nc"><i>290</i>&nbsp;        firstColumn++;</b>
-<b class="nc"><i>291</i>&nbsp;        double dblAdditionalFee = rSet.getDouble(firstColumn);</b>
+<b class="nc"><i>291</i>&nbsp;        boolean blIsHomeDelivery = rSet.getBoolean(firstColumn);</b>
 <b class="nc"><i>292</i>&nbsp;        firstColumn++;</b>
-<b class="nc"><i>293</i>&nbsp;        boolean blIsHomeDelivery = rSet.getBoolean(firstColumn);</b>
-<b class="nc"><i>294</i>&nbsp;        firstColumn++;</b>
-<b class="nc"><i>295</i>&nbsp;        Client oClient = clientManager(rSet, firstColumn);</b>
-<b class="nc"><i>296</i>&nbsp;        firstColumn+= mCOLUMNSADDEDCLIENT;</b>
-<b class="nc"><i>297</i>&nbsp;        Pharmacy oPharmacy = pharmacyManager(rSet, firstColumn);</b>
-<i>298</i>&nbsp;
-<i>299</i>&nbsp;
-<b class="nc"><i>300</i>&nbsp;        return new Order(intId, dblAmount, dblTotalWeight, dblAdditionalFee, dtOrderDate, strDescription,</b>
-<i>301</i>&nbsp;                strStatus, blIsHomeDelivery, oClient, oPharmacy, new TreeMap&lt;&gt;());
-<i>302</i>&nbsp;    }
-<i>303</i>&nbsp;
-<i>304</i>&nbsp;
-<i>305</i>&nbsp;    /**
-<i>306</i>&nbsp;     * Generic method that converts Data in a ResultSet from the Database to a Java Object related to an Invoice.
-<i>307</i>&nbsp;     * @param rSet ResultSet.
-<i>308</i>&nbsp;     * @param firstColumn Column that the Data starts.
-<i>309</i>&nbsp;     * @return Invoice.
-<i>310</i>&nbsp;     * @throws SQLException SQLException.
-<i>311</i>&nbsp;     */
-<i>312</i>&nbsp;    protected Invoice invoiceManager(ResultSet rSet, int firstColumn) throws SQLException { // column number +47
-<i>313</i>&nbsp;
-<b class="nc"><i>314</i>&nbsp;        Order oOrder = orderManager(rSet, firstColumn);</b>
-<b class="nc"><i>315</i>&nbsp;        firstColumn+= mCOLUMNSADDEDORDER;</b>
-<b class="nc"><i>316</i>&nbsp;        int intInvoiceId = rSet.getInt(firstColumn);</b>
+<b class="nc"><i>293</i>&nbsp;        Client oClient = clientManager(rSet, firstColumn);</b>
+<b class="nc"><i>294</i>&nbsp;        firstColumn+= mCOLUMNSADDEDCLIENT;</b>
+<b class="nc"><i>295</i>&nbsp;        Pharmacy oPharmacy = pharmacyManager(rSet, firstColumn);</b>
+<i>296</i>&nbsp;
+<i>297</i>&nbsp;
+<b class="nc"><i>298</i>&nbsp;        return new Order(intId, dblAmount, dblTotalWeight, dblAdditionalFee, dtOrderDate, strDescription,</b>
+<i>299</i>&nbsp;                strStatus, blIsHomeDelivery, oClient, oPharmacy, new TreeMap&lt;&gt;());
+<i>300</i>&nbsp;    }
+<i>301</i>&nbsp;
+<i>302</i>&nbsp;
+<i>303</i>&nbsp;    /**
+<i>304</i>&nbsp;     * Generic method that converts Data in a ResultSet from the Database to a Java Object related to an Invoice.
+<i>305</i>&nbsp;     * @param rSet ResultSet.
+<i>306</i>&nbsp;     * @param firstColumn Column that the Data starts.
+<i>307</i>&nbsp;     * @return Invoice.
+<i>308</i>&nbsp;     * @throws SQLException SQLException.
+<i>309</i>&nbsp;     */
+<i>310</i>&nbsp;    protected Invoice invoiceManager(ResultSet rSet, int firstColumn) throws SQLException { // column number +47
+<i>311</i>&nbsp;
+<b class="nc"><i>312</i>&nbsp;        Order oOrder = orderManager(rSet, firstColumn);</b>
+<b class="nc"><i>313</i>&nbsp;        firstColumn+= mCOLUMNSADDEDORDER;</b>
+<b class="nc"><i>314</i>&nbsp;        int intInvoiceId = rSet.getInt(firstColumn);</b>
+<b class="nc"><i>315</i>&nbsp;        firstColumn++;</b>
+<b class="nc"><i>316</i>&nbsp;        Date dtInvoiceDate = rSet.getDate(firstColumn);</b>
 <b class="nc"><i>317</i>&nbsp;        firstColumn++;</b>
-<b class="nc"><i>318</i>&nbsp;        Date dtInvoiceDate = rSet.getDate(firstColumn);</b>
-<b class="nc"><i>319</i>&nbsp;        firstColumn++;</b>
-<b class="nc"><i>320</i>&nbsp;        double dblTotalPrice = rSet.getDouble(firstColumn);</b>
-<i>321</i>&nbsp;
-<i>322</i>&nbsp;
-<b class="nc"><i>323</i>&nbsp;        return new Invoice(intInvoiceId, dtInvoiceDate, dblTotalPrice, oOrder);</b>
-<i>324</i>&nbsp;    }
-<i>325</i>&nbsp;
-<i>326</i>&nbsp;
-<i>327</i>&nbsp;    /**
-<i>328</i>&nbsp;     * Generic method that converts Data in a ResultSet from the Database to a Java Object related to a Product.
-<i>329</i>&nbsp;     * @param rSet ResultSet.
-<i>330</i>&nbsp;     * @param firstColumn Column that the Data starts.
-<i>331</i>&nbsp;     * @return Product.
-<i>332</i>&nbsp;     * @throws SQLException SQLException.
-<i>333</i>&nbsp;     */
-<i>334</i>&nbsp;    protected Product productManager(ResultSet rSet, int firstColumn) throws SQLException { // column number +5
-<i>335</i>&nbsp;
-<b class="nc"><i>336</i>&nbsp;        int intID = rSet.getInt(firstColumn);</b>
+<b class="nc"><i>318</i>&nbsp;        double dblTotalPrice = rSet.getDouble(firstColumn);</b>
+<i>319</i>&nbsp;
+<i>320</i>&nbsp;
+<b class="nc"><i>321</i>&nbsp;        return new Invoice(intInvoiceId, dtInvoiceDate, dblTotalPrice, oOrder);</b>
+<i>322</i>&nbsp;    }
+<i>323</i>&nbsp;
+<i>324</i>&nbsp;
+<i>325</i>&nbsp;    /**
+<i>326</i>&nbsp;     * Generic method that converts Data in a ResultSet from the Database to a Java Object related to a Product.
+<i>327</i>&nbsp;     * @param rSet ResultSet.
+<i>328</i>&nbsp;     * @param firstColumn Column that the Data starts.
+<i>329</i>&nbsp;     * @return Product.
+<i>330</i>&nbsp;     * @throws SQLException SQLException.
+<i>331</i>&nbsp;     */
+<i>332</i>&nbsp;    protected Product productManager(ResultSet rSet, int firstColumn) throws SQLException { // column number +5
+<i>333</i>&nbsp;
+<b class="nc"><i>334</i>&nbsp;        int intID = rSet.getInt(firstColumn);</b>
+<b class="nc"><i>335</i>&nbsp;        firstColumn++;</b>
+<b class="nc"><i>336</i>&nbsp;        String strName = rSet.getString(firstColumn);</b>
 <b class="nc"><i>337</i>&nbsp;        firstColumn++;</b>
-<b class="nc"><i>338</i>&nbsp;        String strName = rSet.getString(firstColumn);</b>
+<b class="nc"><i>338</i>&nbsp;        String strDescription = rSet.getString(firstColumn);</b>
 <b class="nc"><i>339</i>&nbsp;        firstColumn++;</b>
-<b class="nc"><i>340</i>&nbsp;        String strDescription = rSet.getString(firstColumn);</b>
+<b class="nc"><i>340</i>&nbsp;        Double dblUnitaryPrice = rSet.getDouble(firstColumn);</b>
 <b class="nc"><i>341</i>&nbsp;        firstColumn++;</b>
-<b class="nc"><i>342</i>&nbsp;        Double dblUnitaryPrice = rSet.getDouble(firstColumn);</b>
-<b class="nc"><i>343</i>&nbsp;        firstColumn++;</b>
-<b class="nc"><i>344</i>&nbsp;        Double dblUnitaryWeight = rSet.getDouble(firstColumn);</b>
-<i>345</i>&nbsp;
-<i>346</i>&nbsp;
-<b class="nc"><i>347</i>&nbsp;        return new Product(intID, strName, strDescription, dblUnitaryPrice, dblUnitaryWeight);</b>
-<i>348</i>&nbsp;    }
-<i>349</i>&nbsp;
-<i>350</i>&nbsp;    /**
-<i>351</i>&nbsp;     * Generic method that adds Stock from Data in a ResultSet from the Database to a Java Object
-<i>352</i>&nbsp;     * related to a Pharmacy.
-<i>353</i>&nbsp;     * @param rSet ResultSet.
-<i>354</i>&nbsp;     * @param firstColumn Column that the Data starts.
-<i>355</i>&nbsp;     * @param oPharmacy Pharmacy.
-<i>356</i>&nbsp;     * @return Pharmacy.
-<i>357</i>&nbsp;     * @throws SQLException SQLException.
-<i>358</i>&nbsp;     */
-<i>359</i>&nbsp;    protected Pharmacy pharmacyProductManager(ResultSet rSet, int firstColumn, Pharmacy oPharmacy) throws SQLException { // column number +6
-<i>360</i>&nbsp;
-<b class="nc"><i>361</i>&nbsp;        int intStock = rSet.getInt(firstColumn);</b>
-<b class="nc"><i>362</i>&nbsp;        firstColumn++;</b>
-<b class="nc"><i>363</i>&nbsp;        Product oProduct = productManager(rSet, firstColumn);</b>
+<b class="nc"><i>342</i>&nbsp;        Double dblUnitaryWeight = rSet.getDouble(firstColumn);</b>
+<i>343</i>&nbsp;
+<i>344</i>&nbsp;
+<b class="nc"><i>345</i>&nbsp;        return new Product(intID, strName, strDescription, dblUnitaryPrice, dblUnitaryWeight);</b>
+<i>346</i>&nbsp;    }
+<i>347</i>&nbsp;
+<i>348</i>&nbsp;    /**
+<i>349</i>&nbsp;     * Generic method that adds Stock from Data in a ResultSet from the Database to a Java Object
+<i>350</i>&nbsp;     * related to a Pharmacy.
+<i>351</i>&nbsp;     * @param rSet ResultSet.
+<i>352</i>&nbsp;     * @param firstColumn Column that the Data starts.
+<i>353</i>&nbsp;     * @param oPharmacy Pharmacy.
+<i>354</i>&nbsp;     * @return Pharmacy.
+<i>355</i>&nbsp;     * @throws SQLException SQLException.
+<i>356</i>&nbsp;     */
+<i>357</i>&nbsp;    protected Pharmacy pharmacyProductManager(ResultSet rSet, int firstColumn, Pharmacy oPharmacy) throws SQLException { // column number +6
+<i>358</i>&nbsp;
+<b class="nc"><i>359</i>&nbsp;        int intStock = rSet.getInt(firstColumn);</b>
+<b class="nc"><i>360</i>&nbsp;        firstColumn++;</b>
+<b class="nc"><i>361</i>&nbsp;        Product oProduct = productManager(rSet, firstColumn);</b>
+<i>362</i>&nbsp;
+<b class="nc"><i>363</i>&nbsp;        oPharmacy.getStock().put(oProduct, intStock);</b>
 <i>364</i>&nbsp;
-<b class="nc"><i>365</i>&nbsp;        oPharmacy.getStock().put(oProduct, intStock);</b>
-<i>366</i>&nbsp;
-<b class="nc"><i>367</i>&nbsp;        return oPharmacy;</b>
-<i>368</i>&nbsp;    }
-<i>369</i>&nbsp;
-<i>370</i>&nbsp;    /**
-<i>371</i>&nbsp;     * Generic method that adds a Produtc from Data in a ResultSet from the Database to a Java Object
-<i>372</i>&nbsp;     * related to an Order.
-<i>373</i>&nbsp;     * @param rSet ResultSet.
-<i>374</i>&nbsp;     * @param firstColumn Column that the Data starts.
-<i>375</i>&nbsp;     * @param oOrder Order.
-<i>376</i>&nbsp;     * @return Order.
-<i>377</i>&nbsp;     * @throws SQLException SQLException.
-<i>378</i>&nbsp;     */
-<i>379</i>&nbsp;    protected Order orderProductManager(ResultSet rSet, int firstColumn, Order oOrder) throws SQLException { // column number +6
-<i>380</i>&nbsp;
-<b class="nc"><i>381</i>&nbsp;        int intQuantity = rSet.getInt(firstColumn);</b>
-<b class="nc"><i>382</i>&nbsp;        firstColumn++;</b>
-<b class="nc"><i>383</i>&nbsp;        Product oProduct = productManager(rSet, firstColumn);</b>
+<b class="nc"><i>365</i>&nbsp;        return oPharmacy;</b>
+<i>366</i>&nbsp;    }
+<i>367</i>&nbsp;
+<i>368</i>&nbsp;    /**
+<i>369</i>&nbsp;     * Generic method that adds a Produtc from Data in a ResultSet from the Database to a Java Object
+<i>370</i>&nbsp;     * related to an Order.
+<i>371</i>&nbsp;     * @param rSet ResultSet.
+<i>372</i>&nbsp;     * @param firstColumn Column that the Data starts.
+<i>373</i>&nbsp;     * @param oOrder Order.
+<i>374</i>&nbsp;     * @return Order.
+<i>375</i>&nbsp;     * @throws SQLException SQLException.
+<i>376</i>&nbsp;     */
+<i>377</i>&nbsp;    protected Order orderProductManager(ResultSet rSet, int firstColumn, Order oOrder) throws SQLException { // column number +6
+<i>378</i>&nbsp;
+<b class="nc"><i>379</i>&nbsp;        int intQuantity = rSet.getInt(firstColumn);</b>
+<b class="nc"><i>380</i>&nbsp;        firstColumn++;</b>
+<b class="nc"><i>381</i>&nbsp;        Product oProduct = productManager(rSet, firstColumn);</b>
+<i>382</i>&nbsp;
+<b class="nc"><i>383</i>&nbsp;        oOrder.getProducts().put(oProduct, intQuantity);</b>
 <i>384</i>&nbsp;
-<b class="nc"><i>385</i>&nbsp;        oOrder.getProducts().put(oProduct, intQuantity);</b>
-<i>386</i>&nbsp;
-<b class="nc"><i>387</i>&nbsp;        return oOrder;</b>
-<i>388</i>&nbsp;    }
-<i>389</i>&nbsp;
-<i>390</i>&nbsp;    /**
-<i>391</i>&nbsp;     * Generic method that adds Product fromm Data in a ResultSet from the Database to a Java Object
-<i>392</i>&nbsp;     * related to an Invoice.
-<i>393</i>&nbsp;     * @param rSet ResultSet.
-<i>394</i>&nbsp;     * @param firstColumn Column that the Data starts.
-<i>395</i>&nbsp;     * @param oInvoice Invoice.
-<i>396</i>&nbsp;     * @return Invoice.
-<i>397</i>&nbsp;     * @throws SQLException SQLException.
-<i>398</i>&nbsp;     */
-<i>399</i>&nbsp;    protected Invoice invoiceProductManager(ResultSet rSet, int firstColumn, Invoice oInvoice) throws SQLException { // column number +6
-<i>400</i>&nbsp;
-<b class="nc"><i>401</i>&nbsp;        double intValue = rSet.getDouble(firstColumn);</b>
-<b class="nc"><i>402</i>&nbsp;        firstColumn++;</b>
-<b class="nc"><i>403</i>&nbsp;        CreditCard oCreditCard = creditCardManager(rSet, firstColumn);</b>
+<b class="nc"><i>385</i>&nbsp;        return oOrder;</b>
+<i>386</i>&nbsp;    }
+<i>387</i>&nbsp;
+<i>388</i>&nbsp;    /**
+<i>389</i>&nbsp;     * Generic method that adds Product fromm Data in a ResultSet from the Database to a Java Object
+<i>390</i>&nbsp;     * related to an Invoice.
+<i>391</i>&nbsp;     * @param rSet ResultSet.
+<i>392</i>&nbsp;     * @param firstColumn Column that the Data starts.
+<i>393</i>&nbsp;     * @param oInvoice Invoice.
+<i>394</i>&nbsp;     * @return Invoice.
+<i>395</i>&nbsp;     * @throws SQLException SQLException.
+<i>396</i>&nbsp;     */
+<i>397</i>&nbsp;    protected Invoice invoiceProductManager(ResultSet rSet, int firstColumn, Invoice oInvoice) throws SQLException { // column number +6
+<i>398</i>&nbsp;
+<b class="nc"><i>399</i>&nbsp;        double intValue = rSet.getDouble(firstColumn);</b>
+<b class="nc"><i>400</i>&nbsp;        firstColumn++;</b>
+<b class="nc"><i>401</i>&nbsp;        CreditCard oCreditCard = creditCardManager(rSet, firstColumn);</b>
+<i>402</i>&nbsp;
+<b class="nc"><i>403</i>&nbsp;        oInvoice.getPayments().put(oCreditCard, intValue);</b>
 <i>404</i>&nbsp;
-<b class="nc"><i>405</i>&nbsp;        oInvoice.getPayments().put(oCreditCard, intValue);</b>
-<i>406</i>&nbsp;
-<b class="nc"><i>407</i>&nbsp;        return oInvoice;</b>
-<i>408</i>&nbsp;    }
-<i>409</i>&nbsp;
-<i>410</i>&nbsp;
-<i>411</i>&nbsp;    /**
-<i>412</i>&nbsp;     * Generic method that converts Data in a ResultSet from the Database to a Java Object related to a Scooter.
-<i>413</i>&nbsp;     * @param rSet ResultSet.
-<i>414</i>&nbsp;     * @param firstColumn Column that the Data starts.
-<i>415</i>&nbsp;     * @return Scooter.
-<i>416</i>&nbsp;     * @throws SQLException SQLException.
-<i>417</i>&nbsp;     */
-<i>418</i>&nbsp;    protected Scooter scooterManager(ResultSet rSet, int firstColumn) throws SQLException { // column number +23
-<i>419</i>&nbsp;
-<b class="nc"><i>420</i>&nbsp;        int intId = rSet.getInt(firstColumn);</b>
+<b class="nc"><i>405</i>&nbsp;        return oInvoice;</b>
+<i>406</i>&nbsp;    }
+<i>407</i>&nbsp;
+<i>408</i>&nbsp;
+<i>409</i>&nbsp;    /**
+<i>410</i>&nbsp;     * Generic method that converts Data in a ResultSet from the Database to a Java Object related to a Scooter.
+<i>411</i>&nbsp;     * @param rSet ResultSet.
+<i>412</i>&nbsp;     * @param firstColumn Column that the Data starts.
+<i>413</i>&nbsp;     * @return Scooter.
+<i>414</i>&nbsp;     * @throws SQLException SQLException.
+<i>415</i>&nbsp;     */
+<i>416</i>&nbsp;    protected Scooter scooterManager(ResultSet rSet, int firstColumn) throws SQLException { // column number +23
+<i>417</i>&nbsp;
+<b class="nc"><i>418</i>&nbsp;        int intId = rSet.getInt(firstColumn);</b>
+<b class="nc"><i>419</i>&nbsp;        firstColumn++;</b>
+<b class="nc"><i>420</i>&nbsp;        double dblBatteryPerc = rSet.getDouble(firstColumn);</b>
 <b class="nc"><i>421</i>&nbsp;        firstColumn++;</b>
-<b class="nc"><i>422</i>&nbsp;        double dblBatteryPerc = rSet.getDouble(firstColumn);</b>
-<b class="nc"><i>423</i>&nbsp;        firstColumn++;</b>
-<b class="nc"><i>424</i>&nbsp;        VehicleModel oVehicleModel = vehicleModelManager(rSet,firstColumn);</b>
-<b class="nc"><i>425</i>&nbsp;        firstColumn+= mCOLUMNSADDEDVEHICLEMODEL;</b>
-<b class="nc"><i>426</i>&nbsp;        Pharmacy oPharmacy = pharmacyManager(rSet,firstColumn);</b>
-<i>427</i>&nbsp;
-<b class="nc"><i>428</i>&nbsp;        return new Scooter(intId, dblBatteryPerc, oVehicleModel, oPharmacy);</b>
-<i>429</i>&nbsp;    }
-<i>430</i>&nbsp;
-<i>431</i>&nbsp;
-<i>432</i>&nbsp;    /**
-<i>433</i>&nbsp;     * Generic method that converts Data in a ResultSet from the Database to a Java Object related to a Drone.
-<i>434</i>&nbsp;     * @param rSet ResultSet.
-<i>435</i>&nbsp;     * @param firstColumn Column that the Data starts.
-<i>436</i>&nbsp;     * @return Drone.
-<i>437</i>&nbsp;     * @throws SQLException SQLException.
-<i>438</i>&nbsp;     */
-<i>439</i>&nbsp;    protected Drone droneManager(ResultSet rSet, int firstColumn) throws SQLException { // column number +23
-<i>440</i>&nbsp;
-<b class="nc"><i>441</i>&nbsp;        int intId = rSet.getInt(firstColumn);</b>
+<b class="nc"><i>422</i>&nbsp;        VehicleModel oVehicleModel = vehicleModelManager(rSet,firstColumn);</b>
+<b class="nc"><i>423</i>&nbsp;        firstColumn+= mCOLUMNSADDEDVEHICLEMODEL;</b>
+<b class="nc"><i>424</i>&nbsp;        Pharmacy oPharmacy = pharmacyManager(rSet,firstColumn);</b>
+<i>425</i>&nbsp;
+<b class="nc"><i>426</i>&nbsp;        return new Scooter(intId, dblBatteryPerc, oVehicleModel, oPharmacy);</b>
+<i>427</i>&nbsp;    }
+<i>428</i>&nbsp;
+<i>429</i>&nbsp;
+<i>430</i>&nbsp;    /**
+<i>431</i>&nbsp;     * Generic method that converts Data in a ResultSet from the Database to a Java Object related to a Drone.
+<i>432</i>&nbsp;     * @param rSet ResultSet.
+<i>433</i>&nbsp;     * @param firstColumn Column that the Data starts.
+<i>434</i>&nbsp;     * @return Drone.
+<i>435</i>&nbsp;     * @throws SQLException SQLException.
+<i>436</i>&nbsp;     */
+<i>437</i>&nbsp;    protected Drone droneManager(ResultSet rSet, int firstColumn) throws SQLException { // column number +23
+<i>438</i>&nbsp;
+<b class="nc"><i>439</i>&nbsp;        int intId = rSet.getInt(firstColumn);</b>
+<b class="nc"><i>440</i>&nbsp;        firstColumn++;</b>
+<b class="nc"><i>441</i>&nbsp;        double dblBatteryPerc = rSet.getDouble(firstColumn);</b>
 <b class="nc"><i>442</i>&nbsp;        firstColumn++;</b>
-<b class="nc"><i>443</i>&nbsp;        double dblBatteryPerc = rSet.getDouble(firstColumn);</b>
-<b class="nc"><i>444</i>&nbsp;        firstColumn++;</b>
-<b class="nc"><i>445</i>&nbsp;        VehicleModel oVehicleModel = vehicleModelManager(rSet,firstColumn);</b>
-<b class="nc"><i>446</i>&nbsp;        firstColumn+= mCOLUMNSADDEDVEHICLEMODEL;</b>
-<b class="nc"><i>447</i>&nbsp;        Pharmacy oPharmacy = pharmacyManager(rSet,firstColumn);</b>
-<i>448</i>&nbsp;
-<b class="nc"><i>449</i>&nbsp;        return new Drone(intId, dblBatteryPerc, oVehicleModel, oPharmacy);</b>
-<i>450</i>&nbsp;    }
-<i>451</i>&nbsp;
-<i>452</i>&nbsp;
-<i>453</i>&nbsp;    /**
-<i>454</i>&nbsp;     * Generic method that converts Data in a ResultSet from the Database to a Java Object related to a Vehicle Model.
-<i>455</i>&nbsp;     * @param rSet ResultSet.
-<i>456</i>&nbsp;     * @param firstColumn Column that the Data starts.
-<i>457</i>&nbsp;     * @return Vehicle Model.
-<i>458</i>&nbsp;     * @throws SQLException SQLException.
-<i>459</i>&nbsp;     */
-<i>460</i>&nbsp;    protected VehicleModel vehicleModelManager(ResultSet rSet, int firstColumn) throws SQLException { // column number +10
-<i>461</i>&nbsp;
-<b class="nc"><i>462</i>&nbsp;        int intId = rSet.getInt(firstColumn);</b>
+<b class="nc"><i>443</i>&nbsp;        VehicleModel oVehicleModel = vehicleModelManager(rSet,firstColumn);</b>
+<b class="nc"><i>444</i>&nbsp;        firstColumn+= mCOLUMNSADDEDVEHICLEMODEL;</b>
+<b class="nc"><i>445</i>&nbsp;        Pharmacy oPharmacy = pharmacyManager(rSet,firstColumn);</b>
+<i>446</i>&nbsp;
+<b class="nc"><i>447</i>&nbsp;        return new Drone(intId, dblBatteryPerc, oVehicleModel, oPharmacy);</b>
+<i>448</i>&nbsp;    }
+<i>449</i>&nbsp;
+<i>450</i>&nbsp;
+<i>451</i>&nbsp;    /**
+<i>452</i>&nbsp;     * Generic method that converts Data in a ResultSet from the Database to a Java Object related to a Vehicle Model.
+<i>453</i>&nbsp;     * @param rSet ResultSet.
+<i>454</i>&nbsp;     * @param firstColumn Column that the Data starts.
+<i>455</i>&nbsp;     * @return Vehicle Model.
+<i>456</i>&nbsp;     * @throws SQLException SQLException.
+<i>457</i>&nbsp;     */
+<i>458</i>&nbsp;    protected VehicleModel vehicleModelManager(ResultSet rSet, int firstColumn) throws SQLException { // column number +10
+<i>459</i>&nbsp;
+<b class="nc"><i>460</i>&nbsp;        int intId = rSet.getInt(firstColumn);</b>
+<b class="nc"><i>461</i>&nbsp;        firstColumn++;</b>
+<b class="nc"><i>462</i>&nbsp;        String strDesignation = rSet.getString(firstColumn);</b>
 <b class="nc"><i>463</i>&nbsp;        firstColumn++;</b>
-<b class="nc"><i>464</i>&nbsp;        String strDesignation = rSet.getString(firstColumn);</b>
+<b class="nc"><i>464</i>&nbsp;        double dblPotency = rSet.getDouble(firstColumn);</b>
 <b class="nc"><i>465</i>&nbsp;        firstColumn++;</b>
-<b class="nc"><i>466</i>&nbsp;        double dblPotency = rSet.getDouble(firstColumn);</b>
+<b class="nc"><i>466</i>&nbsp;        double dblWeight = rSet.getDouble(firstColumn);</b>
 <b class="nc"><i>467</i>&nbsp;        firstColumn++;</b>
-<b class="nc"><i>468</i>&nbsp;        double dblWeight = rSet.getDouble(firstColumn);</b>
+<b class="nc"><i>468</i>&nbsp;        double dblMaxPayload = rSet.getDouble(firstColumn);</b>
 <b class="nc"><i>469</i>&nbsp;        firstColumn++;</b>
-<b class="nc"><i>470</i>&nbsp;        double dblMaxPayload = rSet.getDouble(firstColumn);</b>
+<b class="nc"><i>470</i>&nbsp;        VehicleType oVehicleType = VehicleType.getTypeByDesignation(rSet.getString(firstColumn));</b>
 <b class="nc"><i>471</i>&nbsp;        firstColumn++;</b>
-<b class="nc"><i>472</i>&nbsp;        VehicleType oVehicleType = VehicleType.getTypeByDesignation(rSet.getString(firstColumn));</b>
-<b class="nc"><i>473</i>&nbsp;        firstColumn++;</b>
-<b class="nc"><i>474</i>&nbsp;        Battery oBattery = batteryManager(rSet,firstColumn);</b>
-<i>475</i>&nbsp;
-<b class="nc"><i>476</i>&nbsp;        return new VehicleModel(intId, strDesignation, dblPotency, dblWeight, dblMaxPayload, oBattery, oVehicleType);</b>
-<i>477</i>&nbsp;    }
-<i>478</i>&nbsp;
-<i>479</i>&nbsp;
-<i>480</i>&nbsp;    /**
-<i>481</i>&nbsp;     * Generic method that converts Data in a ResultSet from the Database to a Java Object related to a Battery.
-<i>482</i>&nbsp;     * @param rSet ResultSet.
-<i>483</i>&nbsp;     * @param firstColumn Column that the Data starts.
-<i>484</i>&nbsp;     * @return Battery.
-<i>485</i>&nbsp;     * @throws SQLException SQLException.
-<i>486</i>&nbsp;     */
-<i>487</i>&nbsp;    protected Battery batteryManager(ResultSet rSet, int firstColumn) throws SQLException { // column number +4
-<i>488</i>&nbsp;
-<b class="nc"><i>489</i>&nbsp;        int intBatteryId = rSet.getInt(firstColumn);</b>
+<b class="nc"><i>472</i>&nbsp;        Battery oBattery = batteryManager(rSet,firstColumn);</b>
+<i>473</i>&nbsp;
+<b class="nc"><i>474</i>&nbsp;        return new VehicleModel(intId, strDesignation, dblPotency, dblWeight, dblMaxPayload, oBattery, oVehicleType);</b>
+<i>475</i>&nbsp;    }
+<i>476</i>&nbsp;
+<i>477</i>&nbsp;
+<i>478</i>&nbsp;    /**
+<i>479</i>&nbsp;     * Generic method that converts Data in a ResultSet from the Database to a Java Object related to a Battery.
+<i>480</i>&nbsp;     * @param rSet ResultSet.
+<i>481</i>&nbsp;     * @param firstColumn Column that the Data starts.
+<i>482</i>&nbsp;     * @return Battery.
+<i>483</i>&nbsp;     * @throws SQLException SQLException.
+<i>484</i>&nbsp;     */
+<i>485</i>&nbsp;    protected Battery batteryManager(ResultSet rSet, int firstColumn) throws SQLException { // column number +4
+<i>486</i>&nbsp;
+<b class="nc"><i>487</i>&nbsp;        int intBatteryId = rSet.getInt(firstColumn);</b>
+<b class="nc"><i>488</i>&nbsp;        firstColumn++;</b>
+<b class="nc"><i>489</i>&nbsp;        double dblEfficiency = rSet.getDouble(firstColumn);</b>
 <b class="nc"><i>490</i>&nbsp;        firstColumn++;</b>
-<b class="nc"><i>491</i>&nbsp;        double dblEfficiency = rSet.getDouble(firstColumn);</b>
+<b class="nc"><i>491</i>&nbsp;        int intBatteryCapacity = rSet.getInt(firstColumn);</b>
 <b class="nc"><i>492</i>&nbsp;        firstColumn++;</b>
-<b class="nc"><i>493</i>&nbsp;        int intBatteryCapacity = rSet.getInt(firstColumn);</b>
-<b class="nc"><i>494</i>&nbsp;        firstColumn++;</b>
-<b class="nc"><i>495</i>&nbsp;        double dblBatteryVoltage = rSet.getDouble(firstColumn);</b>
-<i>496</i>&nbsp;
-<b class="nc"><i>497</i>&nbsp;        return new Battery(intBatteryId, intBatteryCapacity, dblBatteryVoltage, dblEfficiency);</b>
-<i>498</i>&nbsp;    }
-<i>499</i>&nbsp;
-<i>500</i>&nbsp;    /**
-<i>501</i>&nbsp;     * Generic method that converts Data in a ResultSet from the Database to a Java Object related to a Pharmacy Transfer.
-<i>502</i>&nbsp;     * @param rSet ResultSet.
-<i>503</i>&nbsp;     * @param firstColumn Column that the Data starts.
-<i>504</i>&nbsp;     * @return Pharmacy Transfer.
-<i>505</i>&nbsp;     * @throws SQLException SQLException.
-<i>506</i>&nbsp;     */
-<i>507</i>&nbsp;    protected PharmacyTransfer pharmacyTransferManager(ResultSet rSet, int firstColumn) throws SQLException { // column number +4
-<i>508</i>&nbsp;
-<b class="nc"><i>509</i>&nbsp;        int intId = rSet.getInt(firstColumn);</b>
+<b class="nc"><i>493</i>&nbsp;        double dblBatteryVoltage = rSet.getDouble(firstColumn);</b>
+<i>494</i>&nbsp;
+<b class="nc"><i>495</i>&nbsp;        return new Battery(intBatteryId, intBatteryCapacity, dblBatteryVoltage, dblEfficiency);</b>
+<i>496</i>&nbsp;    }
+<i>497</i>&nbsp;
+<i>498</i>&nbsp;    /**
+<i>499</i>&nbsp;     * Generic method that converts Data in a ResultSet from the Database to a Java Object related to a Pharmacy Transfer.
+<i>500</i>&nbsp;     * @param rSet ResultSet.
+<i>501</i>&nbsp;     * @param firstColumn Column that the Data starts.
+<i>502</i>&nbsp;     * @return Pharmacy Transfer.
+<i>503</i>&nbsp;     * @throws SQLException SQLException.
+<i>504</i>&nbsp;     */
+<i>505</i>&nbsp;    protected PharmacyTransfer pharmacyTransferManager(ResultSet rSet, int firstColumn) throws SQLException { // column number +4
+<i>506</i>&nbsp;
+<b class="nc"><i>507</i>&nbsp;        int intId = rSet.getInt(firstColumn);</b>
+<b class="nc"><i>508</i>&nbsp;        firstColumn++;</b>
+<b class="nc"><i>509</i>&nbsp;        Date dtDate = rSet.getDate(firstColumn);</b>
 <b class="nc"><i>510</i>&nbsp;        firstColumn++;</b>
-<b class="nc"><i>511</i>&nbsp;        Date dtDate = rSet.getDate(firstColumn);</b>
+<b class="nc"><i>511</i>&nbsp;        int intQuantity = rSet.getInt(firstColumn);</b>
 <b class="nc"><i>512</i>&nbsp;        firstColumn++;</b>
-<b class="nc"><i>513</i>&nbsp;        int intQuantity = rSet.getInt(firstColumn);</b>
-<b class="nc"><i>514</i>&nbsp;        firstColumn++;</b>
-<b class="nc"><i>515</i>&nbsp;        Product oProduct = productManager(rSet, firstColumn);</b>
-<b class="nc"><i>516</i>&nbsp;        firstColumn += mCOLUMNSADDEDPRODUCT;</b>
-<b class="nc"><i>517</i>&nbsp;        Pharmacy oNearbyPharmacy = pharmacyManager(rSet, firstColumn);</b>
-<b class="nc"><i>518</i>&nbsp;        firstColumn += mCOLUMNSADDEDPHARMACY;</b>
-<b class="nc"><i>519</i>&nbsp;        Order oOrder = orderManager(rSet, firstColumn);</b>
-<i>520</i>&nbsp;
-<b class="nc"><i>521</i>&nbsp;        return new PharmacyTransfer(intId, dtDate, oOrder, oProduct, intQuantity, oNearbyPharmacy);</b>
-<i>522</i>&nbsp;    }
-<i>523</i>&nbsp;
-<i>524</i>&nbsp;    /**
-<i>525</i>&nbsp;     * Returns the Database URL.
-<i>526</i>&nbsp;     * @return the Database URL.
-<i>527</i>&nbsp;     */
-<i>528</i>&nbsp;    public String getJdbcUrl() {
-<b class="nc"><i>529</i>&nbsp;        return jdbcUrl;</b>
-<i>530</i>&nbsp;    }
-<i>531</i>&nbsp;
-<i>532</i>&nbsp;    /**
-<i>533</i>&nbsp;     * Modifies the Database URL.
-<i>534</i>&nbsp;     * @param jdbcUrl the Database URL.
-<i>535</i>&nbsp;     */
-<i>536</i>&nbsp;    public void setJdbcUrl(String jdbcUrl) {
-<b class="nc"><i>537</i>&nbsp;        this.jdbcUrl = jdbcUrl;</b>
-<b class="nc"><i>538</i>&nbsp;    }</b>
-<i>539</i>&nbsp;
-<i>540</i>&nbsp;    /**
-<i>541</i>&nbsp;     * Returns the Database Username.
-<i>542</i>&nbsp;     * @return the Database Username.
-<i>543</i>&nbsp;     */
-<i>544</i>&nbsp;    public String getUsername() {
-<b class="nc"><i>545</i>&nbsp;        return username;</b>
-<i>546</i>&nbsp;    }
-<i>547</i>&nbsp;
-<i>548</i>&nbsp;    /**
-<i>549</i>&nbsp;     * Modifies the Database Username.
-<i>550</i>&nbsp;     * @param username the Database Username.
-<i>551</i>&nbsp;     */
-<i>552</i>&nbsp;    public void setUsername(String username) {
-<b class="nc"><i>553</i>&nbsp;        this.username = username;</b>
-<b class="nc"><i>554</i>&nbsp;    }</b>
-<i>555</i>&nbsp;
-<i>556</i>&nbsp;    /**
-<i>557</i>&nbsp;     * Returns the Database Password.
-<i>558</i>&nbsp;     * @return the Database Password.
-<i>559</i>&nbsp;     */
-<i>560</i>&nbsp;    public String getPassword() {
-<b class="nc"><i>561</i>&nbsp;        return password;</b>
-<i>562</i>&nbsp;    }
-<i>563</i>&nbsp;
-<i>564</i>&nbsp;    /**
-<i>565</i>&nbsp;     * Modifies the Database Password.
-<i>566</i>&nbsp;     * @param password the Database Password.
-<i>567</i>&nbsp;     */
-<i>568</i>&nbsp;    public void setPassword(String password) {
-<b class="nc"><i>569</i>&nbsp;        this.password = password;</b>
-<b class="nc"><i>570</i>&nbsp;    }</b>
-<i>571</i>&nbsp;}
+<b class="nc"><i>513</i>&nbsp;        Product oProduct = productManager(rSet, firstColumn);</b>
+<b class="nc"><i>514</i>&nbsp;        firstColumn += mCOLUMNSADDEDPRODUCT;</b>
+<b class="nc"><i>515</i>&nbsp;        Pharmacy oNearbyPharmacy = pharmacyManager(rSet, firstColumn);</b>
+<b class="nc"><i>516</i>&nbsp;        firstColumn += mCOLUMNSADDEDPHARMACY;</b>
+<b class="nc"><i>517</i>&nbsp;        Order oOrder = orderManager(rSet, firstColumn);</b>
+<i>518</i>&nbsp;
+<b class="nc"><i>519</i>&nbsp;        return new PharmacyTransfer(intId, dtDate, oOrder, oProduct, intQuantity, oNearbyPharmacy);</b>
+<i>520</i>&nbsp;    }
+<i>521</i>&nbsp;
+<i>522</i>&nbsp;    /**
+<i>523</i>&nbsp;     * Returns the Database URL.
+<i>524</i>&nbsp;     * @return the Database URL.
+<i>525</i>&nbsp;     */
+<i>526</i>&nbsp;    public String getJdbcUrl() {
+<b class="nc"><i>527</i>&nbsp;        return jdbcUrl;</b>
+<i>528</i>&nbsp;    }
+<i>529</i>&nbsp;
+<i>530</i>&nbsp;    /**
+<i>531</i>&nbsp;     * Modifies the Database URL.
+<i>532</i>&nbsp;     * @param jdbcUrl the Database URL.
+<i>533</i>&nbsp;     */
+<i>534</i>&nbsp;    public void setJdbcUrl(String jdbcUrl) {
+<b class="nc"><i>535</i>&nbsp;        this.jdbcUrl = jdbcUrl;</b>
+<b class="nc"><i>536</i>&nbsp;    }</b>
+<i>537</i>&nbsp;
+<i>538</i>&nbsp;    /**
+<i>539</i>&nbsp;     * Returns the Database Username.
+<i>540</i>&nbsp;     * @return the Database Username.
+<i>541</i>&nbsp;     */
+<i>542</i>&nbsp;    public String getUsername() {
+<b class="nc"><i>543</i>&nbsp;        return username;</b>
+<i>544</i>&nbsp;    }
+<i>545</i>&nbsp;
+<i>546</i>&nbsp;    /**
+<i>547</i>&nbsp;     * Modifies the Database Username.
+<i>548</i>&nbsp;     * @param username the Database Username.
+<i>549</i>&nbsp;     */
+<i>550</i>&nbsp;    public void setUsername(String username) {
+<b class="nc"><i>551</i>&nbsp;        this.username = username;</b>
+<b class="nc"><i>552</i>&nbsp;    }</b>
+<i>553</i>&nbsp;
+<i>554</i>&nbsp;    /**
+<i>555</i>&nbsp;     * Returns the Database Password.
+<i>556</i>&nbsp;     * @return the Database Password.
+<i>557</i>&nbsp;     */
+<i>558</i>&nbsp;    public String getPassword() {
+<b class="nc"><i>559</i>&nbsp;        return password;</b>
+<i>560</i>&nbsp;    }
+<i>561</i>&nbsp;
+<i>562</i>&nbsp;    /**
+<i>563</i>&nbsp;     * Modifies the Database Password.
+<i>564</i>&nbsp;     * @param password the Database Password.
+<i>565</i>&nbsp;     */
+<i>566</i>&nbsp;    public void setPassword(String password) {
+<b class="nc"><i>567</i>&nbsp;        this.password = password;</b>
+<b class="nc"><i>568</i>&nbsp;    }</b>
+<i>569</i>&nbsp;}
 </div>
 </div>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2021-01-31 18:27</div>
+    <div style="float:right;">generated on 2021-01-31 20:04</div>
 </div>
 </body>
 </html>

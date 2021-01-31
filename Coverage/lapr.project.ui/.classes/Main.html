@@ -61,7 +61,7 @@
     0%
   </span>
   <span class="absValue">
-    (0/ 24)
+    (0/ 30)
   </span>
 </td>
 </tr>
@@ -88,49 +88,58 @@
 <i>14</i>&nbsp;    public static void main(String[] args) {
 <i>15</i>&nbsp;        try{
 <b class="nc"><i>16</i>&nbsp;            Scanner sc = new Scanner(System.in);</b>
-<b class="nc"><i>17</i>&nbsp;            LOGGER.log(Level.INFO, &quot;Importing Data to the Database...&quot;);</b>
-<i>18</i>&nbsp;            //FileReader.readFiles();
-<b class="nc"><i>19</i>&nbsp;            LOGGER.log(Level.INFO, &quot;Data Imported.&quot;);</b>
-<b class="nc"><i>20</i>&nbsp;            ApplicationPOT.getInstance().getWorldMap().createGraph();</b>
-<i>21</i>&nbsp;
-<i>22</i>&nbsp;            int intOp;
+<i>17</i>&nbsp;
+<b class="nc"><i>18</i>&nbsp;            Menu.displayHomeScreen();</b>
+<i>19</i>&nbsp;
+<b class="nc"><i>20</i>&nbsp;            System.out.println(&quot;Do you want to import data from textfiles to the database? (Y/N)\n&quot;);</b>
+<b class="nc"><i>21</i>&nbsp;            System.out.print(&quot;Your Option: &quot;);</b>
+<b class="nc"><i>22</i>&nbsp;            String strImport = sc.nextLine();</b>
 <i>23</i>&nbsp;
-<i>24</i>&nbsp;            do{
-<b class="nc"><i>25</i>&nbsp;                Menu.sleep();</b>
-<b class="nc"><i>26</i>&nbsp;                Menu.clear();</b>
-<b class="nc"><i>27</i>&nbsp;                Menu.displayMenu(&quot;MENU&quot;, &quot;[1] Login\n[2] Register Client Account\n\n[0] Exit The Program&quot;);</b>
-<b class="nc"><i>28</i>&nbsp;                intOp = sc.nextInt();</b>
-<b class="nc"><i>29</i>&nbsp;                Menu.clear();</b>
+<b class="nc"><i>24</i>&nbsp;            if(strImport.equalsIgnoreCase(&quot;Y&quot;)){</b>
+<b class="nc"><i>25</i>&nbsp;                LOGGER.log(Level.INFO, &quot;Importing Data to the Database...&quot;);</b>
+<b class="nc"><i>26</i>&nbsp;                FileReader.readFiles();</b>
+<b class="nc"><i>27</i>&nbsp;                LOGGER.log(Level.INFO, &quot;Data Imported.&quot;);</b>
+<i>28</i>&nbsp;            }
+<b class="nc"><i>29</i>&nbsp;            ApplicationPOT.getInstance().getWorldMap().createGraph();</b>
 <i>30</i>&nbsp;
-<b class="nc"><i>31</i>&nbsp;                switch(intOp){</b>
-<i>32</i>&nbsp;                    case 1:
-<b class="nc"><i>33</i>&nbsp;                        Menu.runUI(new LoginUI());</b>
-<b class="nc"><i>34</i>&nbsp;                        break;</b>
-<i>35</i>&nbsp;
-<i>36</i>&nbsp;                    case 2:
-<b class="nc"><i>37</i>&nbsp;                        Menu.runUI(new RegisterClientUI());</b>
-<b class="nc"><i>38</i>&nbsp;                        break;</b>
+<i>31</i>&nbsp;            int intOp;
+<i>32</i>&nbsp;
+<i>33</i>&nbsp;            do{
+<b class="nc"><i>34</i>&nbsp;                Menu.sleep();</b>
+<b class="nc"><i>35</i>&nbsp;                Menu.clear();</b>
+<b class="nc"><i>36</i>&nbsp;                Menu.displayMenu(&quot;MENU&quot;, &quot;[1] Login\n[2] Register Client Account\n\n[0] Exit The Program&quot;);</b>
+<b class="nc"><i>37</i>&nbsp;                intOp = sc.nextInt();</b>
+<b class="nc"><i>38</i>&nbsp;                Menu.clear();</b>
 <i>39</i>&nbsp;
-<i>40</i>&nbsp;                    case 0:
-<b class="nc"><i>41</i>&nbsp;                        LOGGER.log(Level.INFO, &quot;Thank You For Using Our Application.&quot;);</b>
-<b class="nc"><i>42</i>&nbsp;                        break;</b>
-<i>43</i>&nbsp;
-<i>44</i>&nbsp;                    default:
-<b class="nc"><i>45</i>&nbsp;                        LOGGER.log(Level.WARNING, &quot;Choose a valid option.&quot;);</b>
-<i>46</i>&nbsp;                        break;
-<i>47</i>&nbsp;                }
-<b class="nc"><i>48</i>&nbsp;            } while (intOp != 0);</b>
-<b class="nc"><i>49</i>&nbsp;        } catch (Exception e){</b>
-<b class="nc"><i>50</i>&nbsp;            LOGGER.log(Level.WARNING, &quot;There was an error.&quot;);</b>
-<b class="nc"><i>51</i>&nbsp;        }</b>
-<b class="nc"><i>52</i>&nbsp;    }</b>
-<i>53</i>&nbsp;}
+<b class="nc"><i>40</i>&nbsp;                switch(intOp){</b>
+<i>41</i>&nbsp;                    case 1:
+<b class="nc"><i>42</i>&nbsp;                        Menu.runUI(new LoginUI());</b>
+<b class="nc"><i>43</i>&nbsp;                        break;</b>
+<i>44</i>&nbsp;
+<i>45</i>&nbsp;                    case 2:
+<b class="nc"><i>46</i>&nbsp;                        Menu.runUI(new RegisterClientUI());</b>
+<b class="nc"><i>47</i>&nbsp;                        break;</b>
+<i>48</i>&nbsp;
+<i>49</i>&nbsp;                    case 0:
+<b class="nc"><i>50</i>&nbsp;                        LOGGER.log(Level.INFO, &quot;Thank You For Using Our Application.&quot;);</b>
+<b class="nc"><i>51</i>&nbsp;                        break;</b>
+<i>52</i>&nbsp;
+<i>53</i>&nbsp;                    default:
+<b class="nc"><i>54</i>&nbsp;                        LOGGER.log(Level.WARNING, &quot;Choose a valid option.&quot;);</b>
+<i>55</i>&nbsp;                        break;
+<i>56</i>&nbsp;                }
+<b class="nc"><i>57</i>&nbsp;            } while (intOp != 0);</b>
+<b class="nc"><i>58</i>&nbsp;        } catch (Exception e){</b>
+<b class="nc"><i>59</i>&nbsp;            LOGGER.log(Level.WARNING, &quot;There was an error.&quot;);</b>
+<b class="nc"><i>60</i>&nbsp;        }</b>
+<b class="nc"><i>61</i>&nbsp;    }</b>
+<i>62</i>&nbsp;}
 </div>
 </div>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2021-01-31 18:27</div>
+    <div style="float:right;">generated on 2021-01-31 20:04</div>
 </div>
 </body>
 </html>

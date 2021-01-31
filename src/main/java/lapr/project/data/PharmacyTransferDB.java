@@ -41,7 +41,7 @@ public class PharmacyTransferDB extends DataHandler {
                 return pharmacyTransferManager(rSet, 1);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            // Do Nothing
         } finally {
             closeAll();
         }
@@ -69,7 +69,6 @@ public class PharmacyTransferDB extends DataHandler {
 
             return true;
         } catch (SQLException e) {
-            e.printStackTrace();
             return false;
         } finally {
             closeAll();
@@ -91,7 +90,6 @@ public class PharmacyTransferDB extends DataHandler {
 
             return true;
         } catch (SQLException e) {
-            e.printStackTrace();
             return false;
         } finally {
             closeAll();
@@ -122,7 +120,6 @@ public class PharmacyTransferDB extends DataHandler {
 
             return true;
         } catch (SQLException e) {
-            e.printStackTrace();
             return false;
         } finally {
             closeAll();

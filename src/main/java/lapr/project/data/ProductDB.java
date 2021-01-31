@@ -42,7 +42,7 @@ public class ProductDB extends DataHandler {
             rSet.next();
             return productManager(rSet, 1);
         } catch (SQLException e) {
-            e.printStackTrace();
+            // Do Nothing
         } finally {
             closeAll();
         }

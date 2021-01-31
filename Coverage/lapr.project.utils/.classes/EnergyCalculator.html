@@ -50,18 +50,18 @@
 </td>
 <td class="coverageStat">
   <span class="percent">
-    75%
+    87,5%
   </span>
   <span class="absValue">
-    (3/ 4)
+    (7/ 8)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    90,9%
+    92%
   </span>
   <span class="absValue">
-    (40/ 44)
+    (46/ 50)
   </span>
 </td>
 </tr>
@@ -304,13 +304,29 @@
 <i>230</i>&nbsp;
 <b class="fc"><i>231</i>&nbsp;        return new Pair&lt;&gt;(totalEnergy / Constants.KILOWATTHOUR, time);</b>
 <i>232</i>&nbsp;    }
-<i>233</i>&nbsp;}
+<i>233</i>&nbsp;
+<i>234</i>&nbsp;    public static double getVelocityByPower() {
+<b class="fc"><i>235</i>&nbsp;        return velocityByPower;</b>
+<i>236</i>&nbsp;    }
+<i>237</i>&nbsp;
+<i>238</i>&nbsp;    public static void setVelocityByPower(double velocityByPower) {
+<b class="fc"><i>239</i>&nbsp;        EnergyCalculator.velocityByPower = velocityByPower;</b>
+<b class="fc"><i>240</i>&nbsp;    }</b>
+<i>241</i>&nbsp;
+<i>242</i>&nbsp;    public static double getDroneVelocityByPower() {
+<b class="fc"><i>243</i>&nbsp;        return droneVelocityByPower;</b>
+<i>244</i>&nbsp;    }
+<i>245</i>&nbsp;
+<i>246</i>&nbsp;    public static void setDroneVelocityByPower(double droneVelocityByPower) {
+<b class="fc"><i>247</i>&nbsp;        EnergyCalculator.droneVelocityByPower = droneVelocityByPower;</b>
+<b class="fc"><i>248</i>&nbsp;    }</b>
+<i>249</i>&nbsp;}
 </div>
 </div>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2021-01-31 18:27</div>
+    <div style="float:right;">generated on 2021-01-31 20:04</div>
 </div>
 </body>
 </html>

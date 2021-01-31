@@ -14,9 +14,18 @@ class Main {
     public static void main(String[] args) {
         try{
             Scanner sc = new Scanner(System.in);
-            LOGGER.log(Level.INFO, "Importing Data to the Database...");
-            //FileReader.readFiles();
-            LOGGER.log(Level.INFO, "Data Imported.");
+
+            Menu.displayHomeScreen();
+
+            System.out.println("Do you want to import data from textfiles to the database? (Y/N)\n");
+            System.out.print("Your Option: ");
+            String strImport = sc.nextLine();
+
+            if(strImport.equalsIgnoreCase("Y")){
+                LOGGER.log(Level.INFO, "Importing Data to the Database...");
+                FileReader.readFiles();
+                LOGGER.log(Level.INFO, "Data Imported.");
+            }
             ApplicationPOT.getInstance().getWorldMap().createGraph();
 
             int intOp;

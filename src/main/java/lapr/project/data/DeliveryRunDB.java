@@ -70,7 +70,6 @@ public class DeliveryRunDB extends DataHandler {
 
         } catch (SQLException e) {
             flag = false;
-            e.printStackTrace();
         } finally {
             closeAll();
         }
@@ -109,7 +108,7 @@ public class DeliveryRunDB extends DataHandler {
             }
             return lstPaths;
         } catch (SQLException e) {
-            e.printStackTrace();
+            // Do Nothing
         } finally {
             closeAll();
         }
@@ -133,7 +132,6 @@ public class DeliveryRunDB extends DataHandler {
             }
             return lstAddress;
         } catch (SQLException e) {
-            e.printStackTrace();
         } finally {
             closeAll();
         }
@@ -289,7 +287,7 @@ public class DeliveryRunDB extends DataHandler {
             return list;
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            // Do Nothing
         } finally {
             closeAll();
         }
@@ -320,7 +318,7 @@ public class DeliveryRunDB extends DataHandler {
             }
             return lstClients;
         } catch (SQLException e) {
-            e.printStackTrace();
+            // Do Nothing
         } finally {
             closeAll();
         }

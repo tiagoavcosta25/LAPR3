@@ -4,7 +4,7 @@ Delivery Run Information
 Responsible Courier: No Name
 Status: DeliveryStatus{m_strDesignation='Idle'}
 Vehicle: as, id-1
-Order ID List: 
+Order ID List: -1
 
 ______________________________________________________________________________________
 

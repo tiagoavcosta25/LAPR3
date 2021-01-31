@@ -47,57 +47,57 @@
 </td>
 <td class="coverageStat">
   <span class="percent">
-    95,3%
+    100%
   </span>
   <span class="absValue">
-    (41/ 43)
+    (44/ 44)
   </span>
 </td>
 </tr>
   <tr>
-    <td class="name">DeliveryRunService$MockitoMock$1176249922</td>
+    <td class="name">DeliveryRunService$MockitoMock$468693964</td>
   </tr>
   <tr>
-    <td class="name">DeliveryRunService$MockitoMock$1176249922$auxiliary$0ApIsWxb</td>
+    <td class="name">DeliveryRunService$MockitoMock$468693964$auxiliary$8vLzTmIq</td>
   </tr>
   <tr>
-    <td class="name">DeliveryRunService$MockitoMock$1176249922$auxiliary$6cllxsht</td>
+    <td class="name">DeliveryRunService$MockitoMock$468693964$auxiliary$ALtZz3tt</td>
   </tr>
   <tr>
-    <td class="name">DeliveryRunService$MockitoMock$1176249922$auxiliary$7EjcJXOI</td>
+    <td class="name">DeliveryRunService$MockitoMock$468693964$auxiliary$bjfSWo62</td>
   </tr>
   <tr>
-    <td class="name">DeliveryRunService$MockitoMock$1176249922$auxiliary$Ar3IVwI4</td>
+    <td class="name">DeliveryRunService$MockitoMock$468693964$auxiliary$CaEPivGh</td>
   </tr>
   <tr>
-    <td class="name">DeliveryRunService$MockitoMock$1176249922$auxiliary$bP844Q1t</td>
+    <td class="name">DeliveryRunService$MockitoMock$468693964$auxiliary$dnPPkh72</td>
   </tr>
   <tr>
-    <td class="name">DeliveryRunService$MockitoMock$1176249922$auxiliary$efUIj1e4</td>
+    <td class="name">DeliveryRunService$MockitoMock$468693964$auxiliary$DSn8zYwn</td>
   </tr>
   <tr>
-    <td class="name">DeliveryRunService$MockitoMock$1176249922$auxiliary$FmlHnK0i</td>
+    <td class="name">DeliveryRunService$MockitoMock$468693964$auxiliary$DWrgWzlM</td>
   </tr>
   <tr>
-    <td class="name">DeliveryRunService$MockitoMock$1176249922$auxiliary$fvAvr53P</td>
+    <td class="name">DeliveryRunService$MockitoMock$468693964$auxiliary$fHqicA4j</td>
   </tr>
   <tr>
-    <td class="name">DeliveryRunService$MockitoMock$1176249922$auxiliary$GquvyCdX</td>
+    <td class="name">DeliveryRunService$MockitoMock$468693964$auxiliary$GJCW4E6t</td>
   </tr>
   <tr>
-    <td class="name">DeliveryRunService$MockitoMock$1176249922$auxiliary$IeSVLlxn</td>
+    <td class="name">DeliveryRunService$MockitoMock$468693964$auxiliary$GRPiAotn</td>
   </tr>
   <tr>
-    <td class="name">DeliveryRunService$MockitoMock$1176249922$auxiliary$nevQhbJZ</td>
+    <td class="name">DeliveryRunService$MockitoMock$468693964$auxiliary$kco5HLJT</td>
   </tr>
   <tr>
-    <td class="name">DeliveryRunService$MockitoMock$1176249922$auxiliary$RF6ttMBZ</td>
+    <td class="name">DeliveryRunService$MockitoMock$468693964$auxiliary$LRJWSqKJ</td>
   </tr>
   <tr>
-    <td class="name">DeliveryRunService$MockitoMock$1176249922$auxiliary$VAzQtjcC</td>
+    <td class="name">DeliveryRunService$MockitoMock$468693964$auxiliary$nVG6HY8I</td>
   </tr>
   <tr>
-    <td class="name">DeliveryRunService$MockitoMock$1176249922$auxiliary$xxyuje4j</td>
+    <td class="name">DeliveryRunService$MockitoMock$468693964$auxiliary$V6lSQzcM</td>
   </tr>
 <tr>
   <td class="name"><strong>total</strong></td>
@@ -111,10 +111,10 @@
 </td>
 <td class="coverageStat">
   <span class="percent">
-    95,3%
+    100%
   </span>
   <span class="absValue">
-    (41/ 43)
+    (44/ 44)
   </span>
 </td>
 </tr>
@@ -245,8 +245,8 @@
 <b class="fc"><i>119</i>&nbsp;        if (moDeliveryRunDB.addNewDeliveryRun(oDeliveryRun)) {</b>
 <b class="fc"><i>120</i>&nbsp;            String body = &quot;&quot;;</b>
 <b class="fc"><i>121</i>&nbsp;            for (Order o : oDeliveryRun.getOrderList()) {</b>
-<b class="nc"><i>122</i>&nbsp;                body += (o.getId() + &quot; - &quot;);</b>
-<b class="nc"><i>123</i>&nbsp;            }</b>
+<b class="fc"><i>122</i>&nbsp;                body += (o.getId() + &quot; - &quot;);</b>
+<b class="fc"><i>123</i>&nbsp;            }</b>
 <b class="fc"><i>124</i>&nbsp;            if (body.length()!=0) body = body.substring(0,body.length()-3);</b>
 <b class="fc"><i>125</i>&nbsp;            return WriteFile.write(&quot;DeliveryRunRegistration_&quot; + oDeliveryRun.getCourier().getName(),</b>
 <b class="fc"><i>126</i>&nbsp;                    String.format(&quot;Delivery Run Information\n\nResponsible Courier: %s\nStatus: %s\n&quot; +</b>
@@ -287,59 +287,61 @@
 <b class="fc"><i>161</i>&nbsp;        } else if (lst.get(1) == null) {</b>
 <b class="fc"><i>162</i>&nbsp;            return lst.get(0).getVehicleModel();</b>
 <i>163</i>&nbsp;        } else {
-<b class="fc"><i>164</i>&nbsp;            if (lst.get(0).getTotalEnergy() &lt; lst.get(1).getTotalEnergy()) return lst.get(0).getVehicleModel();</b>
-<b class="fc"><i>165</i>&nbsp;            else return lst.get(1).getVehicleModel();</b>
-<i>166</i>&nbsp;        }
-<i>167</i>&nbsp;    }
-<i>168</i>&nbsp;
-<i>169</i>&nbsp;    /**
-<i>170</i>&nbsp;     * Starts a new Delivery Run basing on the Courier&#39;s email
-<i>171</i>&nbsp;     *
-<i>172</i>&nbsp;     * @param currentUserEmail Current User&#39;s email (Courier)
-<i>173</i>&nbsp;     * @return Map of Strings
-<i>174</i>&nbsp;     */
-<i>175</i>&nbsp;    public Map&lt;String, String&gt; startDeliveryRun(String currentUserEmail) {
-<b class="fc"><i>176</i>&nbsp;        return moDeliveryRunDB.startDeliveryRun(currentUserEmail);</b>
-<i>177</i>&nbsp;    }
-<i>178</i>&nbsp;
-<i>179</i>&nbsp;    /**
-<i>180</i>&nbsp;     * Sends an email to the Clients regarding the start
-<i>181</i>&nbsp;     * of the DeliveryRun
-<i>182</i>&nbsp;     *
-<i>183</i>&nbsp;     * @param lstClients List of Clients that will be notified
-<i>184</i>&nbsp;     * @return True if the email was sent, false if otherwise
-<i>185</i>&nbsp;     */
-<i>186</i>&nbsp;    public boolean sendsEmail(Map&lt;String,String&gt; lstClients) {
-<b class="fc"><i>187</i>&nbsp;        boolean flag = true;</b>
-<i>188</i>&nbsp;        try {
-<b class="fc"><i>189</i>&nbsp;            for(Map.Entry&lt;String,String&gt; e : lstClients.entrySet()){</b>
-<b class="fc"><i>190</i>&nbsp;                EmailSender.sendEmail(e.getKey(), &quot;Order Status&quot;,</b>
-<b class="fc"><i>191</i>&nbsp;                        &quot;Your order has been dispatched!\n&quot; + e.getValue());</b>
-<b class="fc"><i>192</i>&nbsp;                WriteFile.write(&quot;OrderDispatched_&quot; + e.getKey(), &quot;Your order has been dispatched!\n&quot; + e.getValue());</b>
-<b class="fc"><i>193</i>&nbsp;            }</b>
-<b class="fc"><i>194</i>&nbsp;        } catch (Exception e) {</b>
-<b class="fc"><i>195</i>&nbsp;            flag = false;</b>
-<b class="fc"><i>196</i>&nbsp;        }</b>
-<b class="fc"><i>197</i>&nbsp;        return flag;</b>
-<i>198</i>&nbsp;    }
-<i>199</i>&nbsp;
-<i>200</i>&nbsp;    /**
-<i>201</i>&nbsp;     * Finshes a Delivery Run.
-<i>202</i>&nbsp;     * @param intID ID:
-<i>203</i>&nbsp;     * @param intBatteryPerc Battery Percentage.
-<i>204</i>&nbsp;     * @param strCurrentUserEmail Courier&#39;s Email.
-<i>205</i>&nbsp;     * @return true if it finishes a delivery run, false otherwise.
-<i>206</i>&nbsp;     */
-<i>207</i>&nbsp;    public boolean finishDeliveryRun(int intID, int intBatteryPerc, String strCurrentUserEmail) {
-<b class="fc"><i>208</i>&nbsp;        return this.moDeliveryRunDB.finishDeliveryRun(intID, intBatteryPerc, strCurrentUserEmail);</b>
-<i>209</i>&nbsp;    }
-<i>210</i>&nbsp;}
+<b class="fc"><i>164</i>&nbsp;            if (lst.get(0).getTotalEnergy() &lt; lst.get(1).getTotalEnergy()){</b>
+<b class="fc"><i>165</i>&nbsp;                return lst.get(0).getVehicleModel();</b>
+<i>166</i>&nbsp;            }
+<b class="fc"><i>167</i>&nbsp;            else return lst.get(1).getVehicleModel();</b>
+<i>168</i>&nbsp;        }
+<i>169</i>&nbsp;    }
+<i>170</i>&nbsp;
+<i>171</i>&nbsp;    /**
+<i>172</i>&nbsp;     * Starts a new Delivery Run basing on the Courier&#39;s email
+<i>173</i>&nbsp;     *
+<i>174</i>&nbsp;     * @param currentUserEmail Current User&#39;s email (Courier)
+<i>175</i>&nbsp;     * @return Map of Strings
+<i>176</i>&nbsp;     */
+<i>177</i>&nbsp;    public Map&lt;String, String&gt; startDeliveryRun(String currentUserEmail) {
+<b class="fc"><i>178</i>&nbsp;        return moDeliveryRunDB.startDeliveryRun(currentUserEmail);</b>
+<i>179</i>&nbsp;    }
+<i>180</i>&nbsp;
+<i>181</i>&nbsp;    /**
+<i>182</i>&nbsp;     * Sends an email to the Clients regarding the start
+<i>183</i>&nbsp;     * of the DeliveryRun
+<i>184</i>&nbsp;     *
+<i>185</i>&nbsp;     * @param lstClients List of Clients that will be notified
+<i>186</i>&nbsp;     * @return True if the email was sent, false if otherwise
+<i>187</i>&nbsp;     */
+<i>188</i>&nbsp;    public boolean sendsEmail(Map&lt;String,String&gt; lstClients) {
+<b class="fc"><i>189</i>&nbsp;        boolean flag = true;</b>
+<i>190</i>&nbsp;        try {
+<b class="fc"><i>191</i>&nbsp;            for(Map.Entry&lt;String,String&gt; e : lstClients.entrySet()){</b>
+<b class="fc"><i>192</i>&nbsp;                EmailSender.sendEmail(e.getKey(), &quot;Order Status&quot;,</b>
+<b class="fc"><i>193</i>&nbsp;                        &quot;Your order has been dispatched!\n&quot; + e.getValue());</b>
+<b class="fc"><i>194</i>&nbsp;                WriteFile.write(&quot;OrderDispatched_&quot; + e.getKey(), &quot;Your order has been dispatched!\n&quot; + e.getValue());</b>
+<b class="fc"><i>195</i>&nbsp;            }</b>
+<b class="fc"><i>196</i>&nbsp;        } catch (Exception e) {</b>
+<b class="fc"><i>197</i>&nbsp;            flag = false;</b>
+<b class="fc"><i>198</i>&nbsp;        }</b>
+<b class="fc"><i>199</i>&nbsp;        return flag;</b>
+<i>200</i>&nbsp;    }
+<i>201</i>&nbsp;
+<i>202</i>&nbsp;    /**
+<i>203</i>&nbsp;     * Finshes a Delivery Run.
+<i>204</i>&nbsp;     * @param intID ID:
+<i>205</i>&nbsp;     * @param intBatteryPerc Battery Percentage.
+<i>206</i>&nbsp;     * @param strCurrentUserEmail Courier&#39;s Email.
+<i>207</i>&nbsp;     * @return true if it finishes a delivery run, false otherwise.
+<i>208</i>&nbsp;     */
+<i>209</i>&nbsp;    public boolean finishDeliveryRun(int intID, int intBatteryPerc, String strCurrentUserEmail) {
+<b class="fc"><i>210</i>&nbsp;        return this.moDeliveryRunDB.finishDeliveryRun(intID, intBatteryPerc, strCurrentUserEmail);</b>
+<i>211</i>&nbsp;    }
+<i>212</i>&nbsp;}
 </div>
 </div>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2021-01-31 18:27</div>
+    <div style="float:right;">generated on 2021-01-31 20:04</div>
 </div>
 </body>
 </html>

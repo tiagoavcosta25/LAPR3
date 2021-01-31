@@ -63,7 +63,6 @@ public class CourierDB extends DataHandler {
 
         } catch (SQLException e) {
             flag = false;
-            e.printStackTrace();
         } finally {
             closeAll();
         }
@@ -85,7 +84,6 @@ public class CourierDB extends DataHandler {
 
         } catch (SQLException e) {
             flag = false;
-            e.printStackTrace();
         }
         finally {
             closeAll();
@@ -114,7 +112,6 @@ public class CourierDB extends DataHandler {
 
         } catch (SQLException e) {
             flag = false;
-            e.printStackTrace();
         } finally {
             closeAll();
         }
@@ -146,7 +143,6 @@ public class CourierDB extends DataHandler {
                 return new Courier(courierID, courierName, courierEmail, password, strNIF, strIban, oPharmacy);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
             return null;
         } finally {
             closeAll();

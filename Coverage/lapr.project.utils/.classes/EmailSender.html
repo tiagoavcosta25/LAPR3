@@ -47,10 +47,10 @@
 </td>
 <td class="coverageStat">
   <span class="percent">
-    91,7%
+    92%
   </span>
   <span class="absValue">
-    (22/ 24)
+    (23/ 25)
   </span>
 </td>
 </tr>
@@ -58,46 +58,46 @@
     <td class="name">EmailSender$1</td>
 <td class="coverageStat">
   <span class="percent">
-    50%
+    100%
   </span>
   <span class="absValue">
-    (1/ 2)
+    (2/ 2)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    50%
+    100%
   </span>
   <span class="absValue">
-    (1/ 2)
+    (2/ 2)
   </span>
 </td>
   </tr>
   <tr>
-    <td class="name">EmailSender$MockitoMock$1859553298</td>
+    <td class="name">EmailSender$MockitoMock$194467257</td>
   </tr>
   <tr>
-    <td class="name">EmailSender$MockitoMock$1859553298$auxiliary$KqkZi0n0</td>
+    <td class="name">EmailSender$MockitoMock$194467257$auxiliary$oAhuaPen</td>
   </tr>
   <tr>
-    <td class="name">EmailSender$MockitoMock$1859553298$auxiliary$u6bVp091</td>
+    <td class="name">EmailSender$MockitoMock$194467257$auxiliary$PlcTldsZ</td>
   </tr>
 <tr>
   <td class="name"><strong>total</strong></td>
 <td class="coverageStat">
   <span class="percent">
-    66,7%
+    83,3%
   </span>
   <span class="absValue">
-    (4/ 6)
+    (5/ 6)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    88,5%
+    92,6%
   </span>
   <span class="absValue">
-    (23/ 26)
+    (25/ 27)
   </span>
 </td>
 </tr>
@@ -165,7 +165,7 @@
 <i>56</i>&nbsp;
 <i>57</i>&nbsp;                    @Override
 <i>58</i>&nbsp;                    protected PasswordAuthentication getPasswordAuthentication() {
-<b class="nc"><i>59</i>&nbsp;                        return new PasswordAuthentication(&quot;info.teamlisa@gmail.com&quot;, &quot;g21rumoAo20&quot;);</b>
+<b class="fc"><i>59</i>&nbsp;                        return new PasswordAuthentication(&quot;info.teamlisa@gmail.com&quot;, &quot;g21rumoAo20&quot;);</b>
 <i>60</i>&nbsp;                    }
 <i>61</i>&nbsp;                });
 <i>62</i>&nbsp;        try {
@@ -181,7 +181,7 @@
 <b class="fc"><i>72</i>&nbsp;            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(emailToFoward));</b>
 <b class="fc"><i>73</i>&nbsp;            message.setSubject(subject);</b>
 <b class="fc"><i>74</i>&nbsp;            message.setContent(strHtmlBody, Constants.EMAIL_BODY_TYPE);</b>
-<i>75</i>&nbsp;            //Transport.send(message);
+<b class="fc"><i>75</i>&nbsp;            Transport.send(message);</b>
 <b class="fc"><i>76</i>&nbsp;            LOGGER.log(Level.INFO, &quot;Email Sent!&quot;);</b>
 <b class="fc"><i>77</i>&nbsp;            return true;</b>
 <b class="fc"><i>78</i>&nbsp;        } catch (MessagingException e) {</b>
@@ -204,7 +204,7 @@
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2021-01-31 18:27</div>
+    <div style="float:right;">generated on 2021-01-31 20:04</div>
 </div>
 </body>
 </html>

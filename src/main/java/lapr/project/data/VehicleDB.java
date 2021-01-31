@@ -61,7 +61,7 @@ public class VehicleDB extends DataHandler {
             }
             return lstModels;
         } catch (SQLException e) {
-            e.printStackTrace();
+            // Do Nothing
         } finally {
             closeAll();
         }
@@ -88,7 +88,6 @@ public class VehicleDB extends DataHandler {
                 return vehicleModelManager(rSet, 1);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
         } finally {
             closeAll();
         }
@@ -131,7 +130,6 @@ public class VehicleDB extends DataHandler {
             return (int) callStmt.getObject(1);
 
         } catch (SQLException e) {
-            e.printStackTrace();
             return -1;
         } finally {
             closeAll();

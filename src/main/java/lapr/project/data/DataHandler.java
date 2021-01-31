@@ -92,7 +92,6 @@ public class DataHandler {
             System.setProperties(properties);
 
         } catch (IOException e) {
-            e.printStackTrace();
         }
 
         this.jdbcUrl = System.getProperty("database.url");
@@ -124,7 +123,7 @@ public class DataHandler {
             connection = DriverManager.getConnection(
                     jdbcUrl, username, password);
         } catch (SQLException e) {
-            e.printStackTrace();
+            // Do Nothing
         }
     }
 

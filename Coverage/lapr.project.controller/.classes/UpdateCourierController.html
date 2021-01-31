@@ -61,7 +61,7 @@
     100%
   </span>
   <span class="absValue">
-    (35/ 35)
+    (34/ 34)
   </span>
 </td>
 </tr>
@@ -132,148 +132,149 @@
 <b class="fc"><i>58</i>&nbsp;            if (validateInput(email)) {</b>
 <b class="fc"><i>59</i>&nbsp;                this.moCourier = moCourierService.getCourierByEmail(email);</b>
 <b class="fc"><i>60</i>&nbsp;                return moCourier;</b>
-<i>61</i>&nbsp;            }
-<b class="fc"><i>62</i>&nbsp;        } catch (Exception ex) {</b>
-<b class="fc"><i>63</i>&nbsp;            this.moCourier = null;</b>
-<b class="fc"><i>64</i>&nbsp;        }</b>
-<b class="fc"><i>65</i>&nbsp;        return this.moCourier;</b>
-<i>66</i>&nbsp;    }
-<i>67</i>&nbsp;
-<i>68</i>&nbsp;    /**
-<i>69</i>&nbsp;     * The method recieves the Courier&#39;s instance, name, email, nif, iban, Courier&#39;s pharmacy email,
-<i>70</i>&nbsp;     * validates and updates the values.
-<i>71</i>&nbsp;     *
-<i>72</i>&nbsp;     * @param courier       Courier&#39;s instance
-<i>73</i>&nbsp;     * @param strName       Courier&#39;s name
-<i>74</i>&nbsp;     * @param strEmail      Courier&#39;s email
-<i>75</i>&nbsp;     * @param intNif        Courier&#39;s nif
-<i>76</i>&nbsp;     * @param strIban       Courier&#39;s iban
-<i>77</i>&nbsp;     * @param pharmacyEmail Courier&#39;s pharmacy  email
-<i>78</i>&nbsp;     * @return the Courier&#39;s instance
-<i>79</i>&nbsp;     */
-<i>80</i>&nbsp;    public Courier updateCourier(Courier courier, String strName, String strEmail, Integer intNif, String strIban, String pharmacyEmail) {
-<i>81</i>&nbsp;        try {
-<b class="fc"><i>82</i>&nbsp;            validateInput(strName, strEmail, intNif, strIban);</b>
-<b class="fc"><i>83</i>&nbsp;            moPharmacy = this.moPharmacyService.getPharmacy(pharmacyEmail);</b>
-<b class="fc"><i>84</i>&nbsp;            moCourier = this.moCourierService.updateCourier(courier, strName, strEmail, intNif, strIban, moPharmacy);</b>
-<b class="fc"><i>85</i>&nbsp;            return this.moCourier;</b>
-<b class="fc"><i>86</i>&nbsp;        } catch (Exception ex) {</b>
-<b class="fc"><i>87</i>&nbsp;            this.moCourier = null;</b>
-<i>88</i>&nbsp;        }
-<b class="fc"><i>89</i>&nbsp;        return null;</b>
-<i>90</i>&nbsp;    }
-<i>91</i>&nbsp;
-<i>92</i>&nbsp;    /**
-<i>93</i>&nbsp;     * Uses the Courier&#39;s instance and update&#39;s it on the Database.
-<i>94</i>&nbsp;     *
-<i>95</i>&nbsp;     * @return true if the Courier is updated on the Database. False otherwise.
-<i>96</i>&nbsp;     */
-<i>97</i>&nbsp;    public boolean updateCourierDB() {
-<b class="fc"><i>98</i>&nbsp;        return moCourierService.updateCourierDB(moCourier);</b>
-<i>99</i>&nbsp;    }
-<i>100</i>&nbsp;
-<i>101</i>&nbsp;    /**
-<i>102</i>&nbsp;     * The method sets the courier.
-<i>103</i>&nbsp;     */
-<i>104</i>&nbsp;    public void setCourier(Courier oCourier) {
-<b class="fc"><i>105</i>&nbsp;        this.moCourier = oCourier;</b>
-<b class="fc"><i>106</i>&nbsp;    }</b>
-<i>107</i>&nbsp;
+<i>61</i>&nbsp;            }else{
+<b class="fc"><i>62</i>&nbsp;                throw new Exception();</b>
+<i>63</i>&nbsp;            }
+<b class="fc"><i>64</i>&nbsp;        } catch (Exception ex) {</b>
+<b class="fc"><i>65</i>&nbsp;            return null;</b>
+<i>66</i>&nbsp;        }
+<i>67</i>&nbsp;    }
+<i>68</i>&nbsp;
+<i>69</i>&nbsp;    /**
+<i>70</i>&nbsp;     * The method recieves the Courier&#39;s instance, name, email, nif, iban, Courier&#39;s pharmacy email,
+<i>71</i>&nbsp;     * validates and updates the values.
+<i>72</i>&nbsp;     *
+<i>73</i>&nbsp;     * @param courier       Courier&#39;s instance
+<i>74</i>&nbsp;     * @param strName       Courier&#39;s name
+<i>75</i>&nbsp;     * @param strEmail      Courier&#39;s email
+<i>76</i>&nbsp;     * @param intNif        Courier&#39;s nif
+<i>77</i>&nbsp;     * @param strIban       Courier&#39;s iban
+<i>78</i>&nbsp;     * @param pharmacyEmail Courier&#39;s pharmacy  email
+<i>79</i>&nbsp;     * @return the Courier&#39;s instance
+<i>80</i>&nbsp;     */
+<i>81</i>&nbsp;    public Courier updateCourier(Courier courier, String strName, String strEmail, Integer intNif, String strIban, String pharmacyEmail) {
+<i>82</i>&nbsp;        try {
+<b class="fc"><i>83</i>&nbsp;            validateInput(strName, strEmail, intNif, strIban);</b>
+<b class="fc"><i>84</i>&nbsp;            moPharmacy = this.moPharmacyService.getPharmacy(pharmacyEmail);</b>
+<b class="fc"><i>85</i>&nbsp;            moCourier = this.moCourierService.updateCourier(courier, strName, strEmail, intNif, strIban, moPharmacy);</b>
+<b class="fc"><i>86</i>&nbsp;            return this.moCourier;</b>
+<b class="fc"><i>87</i>&nbsp;        } catch (Exception ex) {</b>
+<b class="fc"><i>88</i>&nbsp;            this.moCourier = null;</b>
+<i>89</i>&nbsp;        }
+<b class="fc"><i>90</i>&nbsp;        return null;</b>
+<i>91</i>&nbsp;    }
+<i>92</i>&nbsp;
+<i>93</i>&nbsp;    /**
+<i>94</i>&nbsp;     * Uses the Courier&#39;s instance and update&#39;s it on the Database.
+<i>95</i>&nbsp;     *
+<i>96</i>&nbsp;     * @return true if the Courier is updated on the Database. False otherwise.
+<i>97</i>&nbsp;     */
+<i>98</i>&nbsp;    public boolean updateCourierDB() {
+<b class="fc"><i>99</i>&nbsp;        return moCourierService.updateCourierDB(moCourier);</b>
+<i>100</i>&nbsp;    }
+<i>101</i>&nbsp;
+<i>102</i>&nbsp;    /**
+<i>103</i>&nbsp;     * The method sets the courier.
+<i>104</i>&nbsp;     */
+<i>105</i>&nbsp;    public void setCourier(Courier oCourier) {
+<b class="fc"><i>106</i>&nbsp;        this.moCourier = oCourier;</b>
+<b class="fc"><i>107</i>&nbsp;    }</b>
 <i>108</i>&nbsp;
-<i>109</i>&nbsp;    /**
-<i>110</i>&nbsp;     * Validates the input information regarding
-<i>111</i>&nbsp;     * a Courier
-<i>112</i>&nbsp;     *
-<i>113</i>&nbsp;     * @param strName  Courier&#39;s name.
-<i>114</i>&nbsp;     * @param strEmail Courier&#39;s email.
-<i>115</i>&nbsp;     * @param intNIF   Courier&#39;s nif.
-<i>116</i>&nbsp;     * @param strIBAN  Courier&#39;s iban.
-<i>117</i>&nbsp;     * @return True if input is valid, false if otherwise
-<i>118</i>&nbsp;     */
-<i>119</i>&nbsp;    public boolean validateInput(String strName, String strEmail, Integer intNIF, String strIBAN) {
-<i>120</i>&nbsp;
-<b class="fc"><i>121</i>&nbsp;        if (strName.isEmpty() || intNIF &lt; 0 || strEmail.isEmpty() || strIBAN.isEmpty()) return false;</b>
-<i>122</i>&nbsp;
-<b class="fc"><i>123</i>&nbsp;        if (!strEmail.contains(&quot;@&quot;)) return false;</b>
-<i>124</i>&nbsp;
-<b class="fc"><i>125</i>&nbsp;        return (strIBAN.trim().length() == 25)</b>
-<b class="fc"><i>126</i>&nbsp;                &amp;&amp; (int) (Math.log10(intNIF) + 1) == 9;</b>
-<i>127</i>&nbsp;    }
-<i>128</i>&nbsp;
-<i>129</i>&nbsp;    /**
-<i>130</i>&nbsp;     * Validates the input information regarding
-<i>131</i>&nbsp;     * a Courier
-<i>132</i>&nbsp;     *
-<i>133</i>&nbsp;     * @param email Courier&#39;s email.
-<i>134</i>&nbsp;     * @return True if input is valid, false if otherwise
-<i>135</i>&nbsp;     */
-<i>136</i>&nbsp;    public boolean validateInput(String email) {
-<i>137</i>&nbsp;
-<b class="fc"><i>138</i>&nbsp;        return (!(email == null || email.isEmpty() || !email.contains(&quot;@&quot;)));</b>
-<i>139</i>&nbsp;
-<i>140</i>&nbsp;    }
-<i>141</i>&nbsp;
-<i>142</i>&nbsp;    /**
-<i>143</i>&nbsp;     * The method returns the Courier Service
-<i>144</i>&nbsp;     *
-<i>145</i>&nbsp;     * @return the Courier&#39;s Service
-<i>146</i>&nbsp;     */
-<i>147</i>&nbsp;    public CourierService getMoCourierService() {
-<b class="fc"><i>148</i>&nbsp;        return moCourierService;</b>
-<i>149</i>&nbsp;    }
-<i>150</i>&nbsp;
-<i>151</i>&nbsp;    /**
-<i>152</i>&nbsp;     * The methods sets the Courier Service
-<i>153</i>&nbsp;     *
-<i>154</i>&nbsp;     * @param moCourierService Courier Service class
-<i>155</i>&nbsp;     */
-<i>156</i>&nbsp;    public void setMoCourierService(CourierService moCourierService) {
-<b class="fc"><i>157</i>&nbsp;        this.moCourierService = moCourierService;</b>
-<b class="fc"><i>158</i>&nbsp;    }</b>
-<i>159</i>&nbsp;
-<i>160</i>&nbsp;    /**
-<i>161</i>&nbsp;     * The method returns the Pharmacy Service
-<i>162</i>&nbsp;     *
-<i>163</i>&nbsp;     * @return the Pharmacies&#39;s Service
-<i>164</i>&nbsp;     */
-<i>165</i>&nbsp;    public PharmacyService getMoPharmacyService() {
-<b class="fc"><i>166</i>&nbsp;        return moPharmacyService;</b>
-<i>167</i>&nbsp;    }
-<i>168</i>&nbsp;
-<i>169</i>&nbsp;    /**
-<i>170</i>&nbsp;     * The methods sets the Pharmacy Service
-<i>171</i>&nbsp;     *
-<i>172</i>&nbsp;     * @param moPharmacyService Pharmacy Service class
-<i>173</i>&nbsp;     */
-<i>174</i>&nbsp;    public void setMoPharmacyService(PharmacyService moPharmacyService) {
-<b class="fc"><i>175</i>&nbsp;        this.moPharmacyService = moPharmacyService;</b>
-<b class="fc"><i>176</i>&nbsp;    }</b>
-<i>177</i>&nbsp;
-<i>178</i>&nbsp;    /**
-<i>179</i>&nbsp;     * Returns the Pharmacy instance
-<i>180</i>&nbsp;     *
-<i>181</i>&nbsp;     * @return Pharmacy instance
-<i>182</i>&nbsp;     */
-<i>183</i>&nbsp;    public Pharmacy getMoPharmacy() {
-<b class="fc"><i>184</i>&nbsp;        return moPharmacy;</b>
-<i>185</i>&nbsp;    }
-<i>186</i>&nbsp;
-<i>187</i>&nbsp;    /**
-<i>188</i>&nbsp;     * Recieves a Pharmacy instance and sets it.
-<i>189</i>&nbsp;     *
-<i>190</i>&nbsp;     * @param moPharmacy Pharamcy instance
-<i>191</i>&nbsp;     */
-<i>192</i>&nbsp;    public void setMoPharmacy(Pharmacy moPharmacy) {
-<b class="fc"><i>193</i>&nbsp;        this.moPharmacy = moPharmacy;</b>
-<b class="fc"><i>194</i>&nbsp;    }</b>
-<i>195</i>&nbsp;}
-<i>196</i>&nbsp;
+<i>109</i>&nbsp;
+<i>110</i>&nbsp;    /**
+<i>111</i>&nbsp;     * Validates the input information regarding
+<i>112</i>&nbsp;     * a Courier
+<i>113</i>&nbsp;     *
+<i>114</i>&nbsp;     * @param strName  Courier&#39;s name.
+<i>115</i>&nbsp;     * @param strEmail Courier&#39;s email.
+<i>116</i>&nbsp;     * @param intNIF   Courier&#39;s nif.
+<i>117</i>&nbsp;     * @param strIBAN  Courier&#39;s iban.
+<i>118</i>&nbsp;     * @return True if input is valid, false if otherwise
+<i>119</i>&nbsp;     */
+<i>120</i>&nbsp;    public boolean validateInput(String strName, String strEmail, Integer intNIF, String strIBAN) {
+<i>121</i>&nbsp;
+<b class="fc"><i>122</i>&nbsp;        if (strName.isEmpty() || intNIF &lt; 0 || strEmail.isEmpty() || strIBAN.isEmpty()) return false;</b>
+<i>123</i>&nbsp;
+<b class="fc"><i>124</i>&nbsp;        if (!strEmail.contains(&quot;@&quot;)) return false;</b>
+<i>125</i>&nbsp;
+<b class="fc"><i>126</i>&nbsp;        return (strIBAN.trim().length() == 25)</b>
+<b class="fc"><i>127</i>&nbsp;                &amp;&amp; (int) (Math.log10(intNIF) + 1) == 9;</b>
+<i>128</i>&nbsp;    }
+<i>129</i>&nbsp;
+<i>130</i>&nbsp;    /**
+<i>131</i>&nbsp;     * Validates the input information regarding
+<i>132</i>&nbsp;     * a Courier
+<i>133</i>&nbsp;     *
+<i>134</i>&nbsp;     * @param email Courier&#39;s email.
+<i>135</i>&nbsp;     * @return True if input is valid, false if otherwise
+<i>136</i>&nbsp;     */
+<i>137</i>&nbsp;    public boolean validateInput(String email) {
+<i>138</i>&nbsp;
+<b class="fc"><i>139</i>&nbsp;        return (!(email == null || email.isEmpty() || !email.contains(&quot;@&quot;)));</b>
+<i>140</i>&nbsp;
+<i>141</i>&nbsp;    }
+<i>142</i>&nbsp;
+<i>143</i>&nbsp;    /**
+<i>144</i>&nbsp;     * The method returns the Courier Service
+<i>145</i>&nbsp;     *
+<i>146</i>&nbsp;     * @return the Courier&#39;s Service
+<i>147</i>&nbsp;     */
+<i>148</i>&nbsp;    public CourierService getMoCourierService() {
+<b class="fc"><i>149</i>&nbsp;        return moCourierService;</b>
+<i>150</i>&nbsp;    }
+<i>151</i>&nbsp;
+<i>152</i>&nbsp;    /**
+<i>153</i>&nbsp;     * The methods sets the Courier Service
+<i>154</i>&nbsp;     *
+<i>155</i>&nbsp;     * @param moCourierService Courier Service class
+<i>156</i>&nbsp;     */
+<i>157</i>&nbsp;    public void setMoCourierService(CourierService moCourierService) {
+<b class="fc"><i>158</i>&nbsp;        this.moCourierService = moCourierService;</b>
+<b class="fc"><i>159</i>&nbsp;    }</b>
+<i>160</i>&nbsp;
+<i>161</i>&nbsp;    /**
+<i>162</i>&nbsp;     * The method returns the Pharmacy Service
+<i>163</i>&nbsp;     *
+<i>164</i>&nbsp;     * @return the Pharmacies&#39;s Service
+<i>165</i>&nbsp;     */
+<i>166</i>&nbsp;    public PharmacyService getMoPharmacyService() {
+<b class="fc"><i>167</i>&nbsp;        return moPharmacyService;</b>
+<i>168</i>&nbsp;    }
+<i>169</i>&nbsp;
+<i>170</i>&nbsp;    /**
+<i>171</i>&nbsp;     * The methods sets the Pharmacy Service
+<i>172</i>&nbsp;     *
+<i>173</i>&nbsp;     * @param moPharmacyService Pharmacy Service class
+<i>174</i>&nbsp;     */
+<i>175</i>&nbsp;    public void setMoPharmacyService(PharmacyService moPharmacyService) {
+<b class="fc"><i>176</i>&nbsp;        this.moPharmacyService = moPharmacyService;</b>
+<b class="fc"><i>177</i>&nbsp;    }</b>
+<i>178</i>&nbsp;
+<i>179</i>&nbsp;    /**
+<i>180</i>&nbsp;     * Returns the Pharmacy instance
+<i>181</i>&nbsp;     *
+<i>182</i>&nbsp;     * @return Pharmacy instance
+<i>183</i>&nbsp;     */
+<i>184</i>&nbsp;    public Pharmacy getMoPharmacy() {
+<b class="fc"><i>185</i>&nbsp;        return moPharmacy;</b>
+<i>186</i>&nbsp;    }
+<i>187</i>&nbsp;
+<i>188</i>&nbsp;    /**
+<i>189</i>&nbsp;     * Recieves a Pharmacy instance and sets it.
+<i>190</i>&nbsp;     *
+<i>191</i>&nbsp;     * @param moPharmacy Pharamcy instance
+<i>192</i>&nbsp;     */
+<i>193</i>&nbsp;    public void setMoPharmacy(Pharmacy moPharmacy) {
+<b class="fc"><i>194</i>&nbsp;        this.moPharmacy = moPharmacy;</b>
+<b class="fc"><i>195</i>&nbsp;    }</b>
+<i>196</i>&nbsp;}
+<i>197</i>&nbsp;
 </div>
 </div>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2021-01-31 18:27</div>
+    <div style="float:right;">generated on 2021-01-31 20:04</div>
 </div>
 </body>
 </html>

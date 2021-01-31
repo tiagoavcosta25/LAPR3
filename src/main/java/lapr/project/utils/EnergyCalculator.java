@@ -17,8 +17,8 @@ import javafx.util.Pair;
  */
 public class EnergyCalculator {
 
-    public static double velocityByPower = Constants.DEFAULT_VELOCITY;
-    public static double droneVelocityByPower = 0.0;
+    private static double velocityByPower = Constants.DEFAULT_VELOCITY;
+    private static double droneVelocityByPower = 0.0;
 
     private EnergyCalculator() {
     }

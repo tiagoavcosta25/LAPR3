@@ -44,7 +44,7 @@ public class InvoiceDB extends DataHandler {
                 return invoiceManager(rSet, 1);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            // Do Nothing
         } finally {
             closeAll();
         }
@@ -96,7 +96,6 @@ public class InvoiceDB extends DataHandler {
             }
             return intInvoiceId;
         } catch (SQLException e) {
-            e.printStackTrace();
             return -1;
         } finally {
             closeAll();
@@ -117,7 +116,6 @@ public class InvoiceDB extends DataHandler {
 
             return true;
         } catch (SQLException e) {
-            e.printStackTrace();
             return false;
         } finally {
             closeAll();

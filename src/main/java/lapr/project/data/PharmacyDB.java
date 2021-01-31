@@ -64,7 +64,7 @@ public class PharmacyDB extends DataHandler {
                 return oPharmacy;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            // Do Nothing
         } finally {
             closeAll();
         }
@@ -187,7 +187,7 @@ public class PharmacyDB extends DataHandler {
             }
             return lstPharmacies;
         } catch (SQLException e) {
-            e.printStackTrace();
+            // Do Nothing
         } finally {
             closeAll();
         }
@@ -274,7 +274,7 @@ public class PharmacyDB extends DataHandler {
             }
             return lstPharmacies;
         } catch (SQLException e) {
-            e.printStackTrace();
+            // Do Nothing
         } finally {
             closeAll();
         }
@@ -307,7 +307,6 @@ public class PharmacyDB extends DataHandler {
             }
             return oResult;
         } catch (SQLException e) {
-            e.printStackTrace();
             return null;
         } finally {
             closeAll();
