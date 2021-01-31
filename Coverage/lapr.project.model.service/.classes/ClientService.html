@@ -1,0 +1,310 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: ClientService</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">lapr.project.model.service</a> ]
+</div>
+
+<h1>Coverage Summary for Class: ClientService (lapr.project.model.service)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">ClientService</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (10/ 10)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (34/ 34)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">ClientService$MockitoMock$1412396983</td>
+  </tr>
+  <tr>
+    <td class="name">ClientService$MockitoMock$1412396983$auxiliary$15H2YYqH</td>
+  </tr>
+  <tr>
+    <td class="name">ClientService$MockitoMock$1412396983$auxiliary$ahUe9ZcO</td>
+  </tr>
+  <tr>
+    <td class="name">ClientService$MockitoMock$1412396983$auxiliary$C37Pqv61</td>
+  </tr>
+  <tr>
+    <td class="name">ClientService$MockitoMock$1412396983$auxiliary$FzYwehE1</td>
+  </tr>
+  <tr>
+    <td class="name">ClientService$MockitoMock$1412396983$auxiliary$Gi8ildBe</td>
+  </tr>
+  <tr>
+    <td class="name">ClientService$MockitoMock$1412396983$auxiliary$GYjrLRJB</td>
+  </tr>
+  <tr>
+    <td class="name">ClientService$MockitoMock$1412396983$auxiliary$N9yZlfID</td>
+  </tr>
+  <tr>
+    <td class="name">ClientService$MockitoMock$1412396983$auxiliary$PO5Wvqw0</td>
+  </tr>
+  <tr>
+    <td class="name">ClientService$MockitoMock$1412396983$auxiliary$tpMSbZ3S</td>
+  </tr>
+  <tr>
+    <td class="name">ClientService$MockitoMock$1412396983$auxiliary$ZhFK4mVl</td>
+  </tr>
+<tr>
+  <td class="name"><strong>total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (10/ 10)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (34/ 34)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package lapr.project.model.service;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import lapr.project.data.ClientDB;
+<i>4</i>&nbsp;import lapr.project.model.Client;
+<i>5</i>&nbsp;import lapr.project.model.CreditCard;
+<i>6</i>&nbsp;import lapr.project.utils.EmailSender;
+<i>7</i>&nbsp;import lapr.project.utils.WriteFile;
+<i>8</i>&nbsp;
+<i>9</i>&nbsp;import java.security.NoSuchAlgorithmException;
+<i>10</i>&nbsp;import java.util.List;
+<i>11</i>&nbsp;import java.util.logging.Level;
+<i>12</i>&nbsp;import java.util.logging.Logger;
+<i>13</i>&nbsp;
+<i>14</i>&nbsp;/**
+<i>15</i>&nbsp; * Client Service.
+<i>16</i>&nbsp; * &lt;p&gt;
+<i>17</i>&nbsp; * Group: Team Lisa [G-021]
+<i>18</i>&nbsp; * ______________________________________________________
+<i>19</i>&nbsp; *
+<i>20</i>&nbsp; * @author António Barbosa &lt;1190404@isep.ipp.pt&gt;
+<i>21</i>&nbsp; * @author Ernesto Rodrigues &lt;1190560@isep.ipp.pt&gt;
+<i>22</i>&nbsp; * @author Jessica Alves &lt;1190682@isep.ipp.pt&gt;
+<i>23</i>&nbsp; * @author Pedro Santos &lt;1190967@isep.ipp.pt&gt;
+<i>24</i>&nbsp; * @author Rodrigo Costa &lt;1191014@isep.ipp.pt&gt;
+<i>25</i>&nbsp; * @author Tiago Costa &lt;1191460@isep.ipp.pt&gt;
+<i>26</i>&nbsp; */
+<i>27</i>&nbsp;public class ClientService {
+<i>28</i>&nbsp;
+<i>29</i>&nbsp;    /**
+<i>30</i>&nbsp;     * Logger which is used to generate warnings or information, with
+<i>31</i>&nbsp;     * a custom message
+<i>32</i>&nbsp;     */
+<b class="fc"><i>33</i>&nbsp;    private static final Logger LOGGER = Logger.getLogger(ClientService.class.getName());</b>
+<i>34</i>&nbsp;
+<i>35</i>&nbsp;    /**
+<i>36</i>&nbsp;     * Client Database
+<i>37</i>&nbsp;     */
+<i>38</i>&nbsp;    private ClientDB moClientDB;
+<i>39</i>&nbsp;
+<i>40</i>&nbsp;    /**
+<i>41</i>&nbsp;     * Empty Constructor of ClientService, which instantiates a new
+<i>42</i>&nbsp;     * Client Database
+<i>43</i>&nbsp;     */
+<b class="fc"><i>44</i>&nbsp;    public ClientService() {</b>
+<b class="fc"><i>45</i>&nbsp;        moClientDB = new ClientDB();</b>
+<b class="fc"><i>46</i>&nbsp;    }</b>
+<i>47</i>&nbsp;
+<i>48</i>&nbsp;    /**
+<i>49</i>&nbsp;     * Returns the Client Database
+<i>50</i>&nbsp;     *
+<i>51</i>&nbsp;     * @return Client Database
+<i>52</i>&nbsp;     */
+<i>53</i>&nbsp;    public ClientDB getClientDB() {
+<b class="fc"><i>54</i>&nbsp;        return moClientDB;</b>
+<i>55</i>&nbsp;    }
+<i>56</i>&nbsp;
+<i>57</i>&nbsp;    /**
+<i>58</i>&nbsp;     * Sets the Client Database to the one given by parameter
+<i>59</i>&nbsp;     *
+<i>60</i>&nbsp;     * @param oClientDB new Client Database
+<i>61</i>&nbsp;     */
+<i>62</i>&nbsp;    public void setClientDB(ClientDB oClientDB) {
+<b class="fc"><i>63</i>&nbsp;        this.moClientDB = oClientDB;</b>
+<b class="fc"><i>64</i>&nbsp;    }</b>
+<i>65</i>&nbsp;
+<i>66</i>&nbsp;    /**
+<i>67</i>&nbsp;     * Validates the input information regarding
+<i>68</i>&nbsp;     * a Client
+<i>69</i>&nbsp;     *
+<i>70</i>&nbsp;     * @param name          Client&#39;s name
+<i>71</i>&nbsp;     * @param email         Client&#39;s email
+<i>72</i>&nbsp;     * @param password      Client&#39;s password
+<i>73</i>&nbsp;     * @param latitude      Client&#39;s latitude
+<i>74</i>&nbsp;     * @param longitude     Client&#39;s longitude
+<i>75</i>&nbsp;     * @param streetName    Client&#39;s street name
+<i>76</i>&nbsp;     * @param doorNumber    Client&#39;s door number
+<i>77</i>&nbsp;     * @param postalCode    Client&#39;s postal code
+<i>78</i>&nbsp;     * @param locality      Client&#39;s locality
+<i>79</i>&nbsp;     * @param country       Client&#39;s country
+<i>80</i>&nbsp;     * @param lstCreditCard Client&#39;s credit card list
+<i>81</i>&nbsp;     * @return True if input is valid, false if otherwise
+<i>82</i>&nbsp;     */
+<i>83</i>&nbsp;    public boolean validateInput(String name, Integer nif, String email, String password, Double latitude, Double longitude,
+<i>84</i>&nbsp;                                 Double altitude, String streetName, String doorNumber, String postalCode, String locality,
+<i>85</i>&nbsp;                                 String country, List&lt;CreditCard&gt; lstCreditCard) {
+<i>86</i>&nbsp;
+<b class="fc"><i>87</i>&nbsp;        if (name.isEmpty() || nif &lt;= 0 || email.isEmpty() || password.isEmpty() || streetName.isEmpty() || postalCode.isEmpty()</b>
+<b class="fc"><i>88</i>&nbsp;                || locality.isEmpty() || country.isEmpty() || doorNumber.isEmpty() || latitude == 0 || longitude == 0 || altitude &lt;= 0</b>
+<b class="fc"><i>89</i>&nbsp;                || lstCreditCard.isEmpty()) return false;</b>
+<i>90</i>&nbsp;
+<i>91</i>&nbsp;
+<b class="fc"><i>92</i>&nbsp;        if (!email.contains(&quot;@&quot;)) return false;</b>
+<i>93</i>&nbsp;
+<b class="fc"><i>94</i>&nbsp;        if ((int) (Math.log10(nif) + 1) != 9) return false;</b>
+<i>95</i>&nbsp;
+<b class="fc"><i>96</i>&nbsp;        for (CreditCard cc : lstCreditCard) {</b>
+<b class="fc"><i>97</i>&nbsp;            if ((int) (Math.log10(cc.getCCV()) + 1) != 3) return false;</b>
+<b class="fc"><i>98</i>&nbsp;        }</b>
+<i>99</i>&nbsp;
+<i>100</i>&nbsp;
+<b class="fc"><i>101</i>&nbsp;        return password.length() &gt;= 6;</b>
+<i>102</i>&nbsp;    }
+<i>103</i>&nbsp;
+<i>104</i>&nbsp;    /**
+<i>105</i>&nbsp;     * Creates a new Client basing on the atributes given by parameter
+<i>106</i>&nbsp;     *
+<i>107</i>&nbsp;     * @param name          Client name
+<i>108</i>&nbsp;     * @param nif           Client NIF
+<i>109</i>&nbsp;     * @param email         Client email
+<i>110</i>&nbsp;     * @param password      Client password
+<i>111</i>&nbsp;     * @param latitude      Client´s Address latitude
+<i>112</i>&nbsp;     * @param longitude     Client&#39;s Address longitude
+<i>113</i>&nbsp;     * @param altitude      Client&#39;s Address altitude
+<i>114</i>&nbsp;     * @param streetName    Client&#39;s Address street name
+<i>115</i>&nbsp;     * @param doorNumber    Client&#39;s Address door number
+<i>116</i>&nbsp;     * @param postalCode    Client&#39;s Address postal code
+<i>117</i>&nbsp;     * @param locality      Client&#39;s Address locality
+<i>118</i>&nbsp;     * @param country       Client&#39;s Address country
+<i>119</i>&nbsp;     * @param lstCreditCard Client&#39;s List of Credit Cards
+<i>120</i>&nbsp;     * @return Client containing the atributes given by parameter
+<i>121</i>&nbsp;     * @throws NoSuchAlgorithmException Exception raised when the encryptation of the password
+<i>122</i>&nbsp;     *                                  doesn&#39;t find an algorithm
+<i>123</i>&nbsp;     */
+<i>124</i>&nbsp;    public Client newClient(String name, Integer nif, String email, String password, Double latitude, Double longitude, Double altitude,
+<i>125</i>&nbsp;                            String streetName, String doorNumber, String postalCode, String locality, String country,
+<i>126</i>&nbsp;                            List&lt;CreditCard&gt; lstCreditCard) throws NoSuchAlgorithmException {
+<b class="fc"><i>127</i>&nbsp;        return new Client(name, nif, email, password, latitude, longitude, altitude, streetName, doorNumber, postalCode, locality, country,</b>
+<i>128</i>&nbsp;                lstCreditCard);
+<i>129</i>&nbsp;    }
+<i>130</i>&nbsp;
+<i>131</i>&nbsp;    /**
+<i>132</i>&nbsp;     * Registers a new Client, which is given by parameter
+<i>133</i>&nbsp;     *
+<i>134</i>&nbsp;     * @param c Client to be registered
+<i>135</i>&nbsp;     * @return True if the Client was registered, false if otherwise
+<i>136</i>&nbsp;     */
+<i>137</i>&nbsp;    public boolean registerNewClient(Client c) {
+<b class="fc"><i>138</i>&nbsp;        if (moClientDB.addClientToDB(c)) {</b>
+<b class="fc"><i>139</i>&nbsp;            LOGGER.log(Level.INFO, &quot;Successfully registered!&quot;);</b>
+<b class="fc"><i>140</i>&nbsp;            StringBuilder creditCardBody = new StringBuilder();</b>
+<b class="fc"><i>141</i>&nbsp;            for (CreditCard cc : c.getLstCreditCard()) {</b>
+<b class="fc"><i>142</i>&nbsp;                creditCardBody.append(cc.getCreditCardNr()).append(&quot;, &quot;);</b>
+<b class="fc"><i>143</i>&nbsp;            }</b>
+<b class="fc"><i>144</i>&nbsp;            creditCardBody = new StringBuilder(creditCardBody.substring(0, creditCardBody.length() - 2));</b>
+<b class="fc"><i>145</i>&nbsp;            String body = String.format(&quot;Account Information:%n%nName: %s%nNIF: %s%nAddress: %s, %s, %s, %s%nCredit Card(/s): %s%n%n&quot;</b>
+<b class="fc"><i>146</i>&nbsp;                    , c.getName(), c.getNif(), c.getAddress().getStreetName(),</b>
+<b class="fc"><i>147</i>&nbsp;                    c.getAddress().getDoorNumber(), c.getAddress().getLocality(), c.getAddress().getCountry(), creditCardBody.toString());</b>
+<b class="fc"><i>148</i>&nbsp;            EmailSender.sendEmail(c.getEmail(), &quot;Account Creation&quot;, body</b>
+<i>149</i>&nbsp;            );
+<b class="fc"><i>150</i>&nbsp;            WriteFile.write(&quot;ClientRegistration_&quot; + c.getEmail(), body);</b>
+<b class="fc"><i>151</i>&nbsp;            return true;</b>
+<b class="fc"><i>152</i>&nbsp;        } else return false;</b>
+<i>153</i>&nbsp;    }
+<i>154</i>&nbsp;
+<i>155</i>&nbsp;    /**
+<i>156</i>&nbsp;     * Returns the Client containing the email given by parameter
+<i>157</i>&nbsp;     *
+<i>158</i>&nbsp;     * @param strEmail Client email
+<i>159</i>&nbsp;     * @return Client containing the email given by parameter
+<i>160</i>&nbsp;     */
+<i>161</i>&nbsp;    public Client getClientByEmail(String strEmail) {
+<b class="fc"><i>162</i>&nbsp;        return moClientDB.getClientByEmail(strEmail);</b>
+<i>163</i>&nbsp;    }
+<i>164</i>&nbsp;
+<i>165</i>&nbsp;    /**
+<i>166</i>&nbsp;     * Returns the List of Credit Cards of the Client containing
+<i>167</i>&nbsp;     * the email given by parameter
+<i>168</i>&nbsp;     *
+<i>169</i>&nbsp;     * @param strEmail Client&#39;s email
+<i>170</i>&nbsp;     * @return List of Credit Cards regarding the Client
+<i>171</i>&nbsp;     */
+<i>172</i>&nbsp;    public List&lt;CreditCard&gt; getCreditCardsByClient(String strEmail) {
+<b class="fc"><i>173</i>&nbsp;        return this.moClientDB.getCreditCardsByClient(strEmail);</b>
+<i>174</i>&nbsp;    }
+<i>175</i>&nbsp;
+<i>176</i>&nbsp;    /**
+<i>177</i>&nbsp;     * Updates a Client&#39;s Credits, basing on the Client&#39;s email and the
+<i>178</i>&nbsp;     * amount of Credits to be added
+<i>179</i>&nbsp;     *
+<i>180</i>&nbsp;     * @param strEmail   Client&#39;s email
+<i>181</i>&nbsp;     * @param intCredits Client&#39;s new credits
+<i>182</i>&nbsp;     * @return True if the Client&#39;s Credits were updated, false if otherwise
+<i>183</i>&nbsp;     */
+<i>184</i>&nbsp;    public boolean updateClientCredits(String strEmail, Integer intCredits) {
+<b class="fc"><i>185</i>&nbsp;        return this.moClientDB.updateClientCredits(strEmail, intCredits);</b>
+<i>186</i>&nbsp;    }
+<i>187</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2021-01-31 18:27</div>
+</div>
+</body>
+</html>

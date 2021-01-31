@@ -52,6 +52,14 @@ class DeliveryRunServiceTest {
         boolean real = m_oDeliveryRunService.addNewDeliveryRun(deliveryRun);
         assertTrue(real);
 
+        List<Order> lst = new ArrayList<>();
+        lst.add(new Order());
+        deliveryRun.setDeliveryList(lst);
+        when(m_oDeliveryRunDB.addNewDeliveryRun(deliveryRun)).thenReturn(true);
+        real = m_oDeliveryRunService.addNewDeliveryRun(deliveryRun);
+        assertTrue(real);
+
+
         when(m_oDeliveryRunDB.addNewDeliveryRun(new DeliveryRun())).thenReturn(false);
         real = m_oDeliveryRunService.addNewDeliveryRun(new DeliveryRun());
         assertFalse(real);
@@ -107,16 +115,6 @@ class DeliveryRunServiceTest {
 
 
     }
-
-    /*
-    @Test
-    void calculateMostEfficientPath() {
-        ApplicationPOT.getInstance().getWorldMap().setGraph(new Graph<>(true));
-        when (m_oWorldMap.calculateMostEfficientPath(new Address(),new Address(),new ArrayList<>())).thenReturn(new LinkedList<>());
-        LinkedList<Address> real = m_oDeliveryRunService.calculateMostEfficientPath(new Address(),new Address(),new LinkedList<>());
-        assertEquals(new LinkedList<>(),real);
-    }
-     */
 
     @Test
     void testSendsEmail() {

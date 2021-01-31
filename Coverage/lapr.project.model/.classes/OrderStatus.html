@@ -1,0 +1,141 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: OrderStatus</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">lapr.project.model</a> ]
+</div>
+
+<h1>Coverage Summary for Class: OrderStatus (lapr.project.model)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">OrderStatus</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (5/ 5)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (11/ 11)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package lapr.project.model;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;/**
+<i>4</i>&nbsp; * Order Status.
+<i>5</i>&nbsp; *
+<i>6</i>&nbsp; * Group: Team Lisa [G-021]
+<i>7</i>&nbsp; * ______________________________________________________
+<i>8</i>&nbsp; * @author António Barbosa &lt;1190404@isep.ipp.pt&gt;
+<i>9</i>&nbsp; * @author Ernesto Rodrigues &lt;1190560@isep.ipp.pt&gt;
+<i>10</i>&nbsp; * @author Jessica Alves &lt;1190682@isep.ipp.pt&gt;
+<i>11</i>&nbsp; * @author Pedro Santos &lt;1190967@isep.ipp.pt&gt;
+<i>12</i>&nbsp; * @author Rodrigo Costa &lt;1191014@isep.ipp.pt&gt;
+<i>13</i>&nbsp; * @author Tiago Costa &lt;1191460@isep.ipp.pt&gt;
+<i>14</i>&nbsp; */
+<b class="fc"><i>15</i>&nbsp;public enum OrderStatus {</b>
+<i>16</i>&nbsp;
+<i>17</i>&nbsp;    /**
+<i>18</i>&nbsp;     * Order Status.
+<i>19</i>&nbsp;     */
+<i>20</i>&nbsp;
+<b class="fc"><i>21</i>&nbsp;    TRANFERINGPRODUCTS(&quot;Transfering Products&quot;),</b>
+<b class="fc"><i>22</i>&nbsp;    CANCELLED(&quot;Cancelled&quot;),</b>
+<b class="fc"><i>23</i>&nbsp;    ORDERED(&quot;Ordered&quot;),</b>
+<b class="fc"><i>24</i>&nbsp;    DELIVERING(&quot;Delivering&quot;),</b>
+<b class="fc"><i>25</i>&nbsp;    DELIVERED(&quot;Delivered&quot;);</b>
+<i>26</i>&nbsp;
+<i>27</i>&nbsp;    /**
+<i>28</i>&nbsp;     * Designation.
+<i>29</i>&nbsp;     */
+<i>30</i>&nbsp;    private String mstrDesignation;
+<i>31</i>&nbsp;
+<i>32</i>&nbsp;    /**
+<i>33</i>&nbsp;     * Contructor.
+<i>34</i>&nbsp;     * @param designation designation.
+<i>35</i>&nbsp;     */
+<b class="fc"><i>36</i>&nbsp;    OrderStatus(String designation) {</b>
+<b class="fc"><i>37</i>&nbsp;        this.mstrDesignation = designation;</b>
+<b class="fc"><i>38</i>&nbsp;    }</b>
+<i>39</i>&nbsp;
+<i>40</i>&nbsp;    /**
+<i>41</i>&nbsp;     * Getter for the desingation.
+<i>42</i>&nbsp;     * @return desingation.
+<i>43</i>&nbsp;     */
+<i>44</i>&nbsp;    public String getDesignation() {
+<b class="fc"><i>45</i>&nbsp;        return mstrDesignation;</b>
+<i>46</i>&nbsp;    }
+<i>47</i>&nbsp;
+<i>48</i>&nbsp;    /**
+<i>49</i>&nbsp;     * Order Status to String Override.
+<i>50</i>&nbsp;     * @return Order Status Info.
+<i>51</i>&nbsp;     */
+<i>52</i>&nbsp;    @Override
+<i>53</i>&nbsp;    public String toString() {
+<b class="fc"><i>54</i>&nbsp;        return &quot;OrderStatus{&quot; +</b>
+<i>55</i>&nbsp;                &quot;m_strDesignation=&#39;&quot; + mstrDesignation + &#39;\&#39;&#39; +
+<i>56</i>&nbsp;                &#39;}&#39;;
+<i>57</i>&nbsp;    }
+<i>58</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2021-01-31 18:27</div>
+</div>
+</body>
+</html>

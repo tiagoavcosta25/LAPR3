@@ -1,0 +1,135 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: LoginUI</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">lapr.project.ui.console</a> ]
+</div>
+
+<h1>Coverage Summary for Class: LoginUI (lapr.project.ui.console)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">LoginUI</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 27)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package lapr.project.ui.console;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import lapr.project.controller.ApplicationPOT;
+<i>4</i>&nbsp;import lapr.project.controller.LoginController;
+<i>5</i>&nbsp;import lapr.project.ui.Menu;
+<i>6</i>&nbsp;import lapr.project.ui.UI;
+<i>7</i>&nbsp;
+<i>8</i>&nbsp;import java.util.Scanner;
+<i>9</i>&nbsp;import java.util.logging.Level;
+<i>10</i>&nbsp;import java.util.logging.Logger;
+<i>11</i>&nbsp;
+<b class="nc"><i>12</i>&nbsp;public class LoginUI implements UI {</b>
+<b class="nc"><i>13</i>&nbsp;    private static final Logger LOGGER = Logger.getLogger(LoginUI.class.getName());</b>
+<i>14</i>&nbsp;
+<i>15</i>&nbsp;    public void run() {
+<i>16</i>&nbsp;        try {
+<b class="nc"><i>17</i>&nbsp;            LoginController oCtrl = new LoginController();</b>
+<b class="nc"><i>18</i>&nbsp;            Scanner sc = new Scanner(System.in);</b>
+<i>19</i>&nbsp;
+<b class="nc"><i>20</i>&nbsp;            System.out.print(&quot;Login:\n\nEmail: &quot;);</b>
+<b class="nc"><i>21</i>&nbsp;            String strEmail = sc.nextLine();</b>
+<b class="nc"><i>22</i>&nbsp;            System.out.print(&quot;Password: &quot;);</b>
+<b class="nc"><i>23</i>&nbsp;            String strPassword = sc.nextLine();</b>
+<b class="nc"><i>24</i>&nbsp;            Menu.clear();</b>
+<i>25</i>&nbsp;
+<b class="nc"><i>26</i>&nbsp;            if (!oCtrl.login(strEmail, strPassword)) {</b>
+<b class="nc"><i>27</i>&nbsp;                throw new Exception();</b>
+<i>28</i>&nbsp;            }
+<i>29</i>&nbsp;
+<b class="nc"><i>30</i>&nbsp;            String strRole = ApplicationPOT.getInstance().getCurrentSession().getRole().getRole();</b>
+<i>31</i>&nbsp;
+<b class="nc"><i>32</i>&nbsp;            switch (strRole) {</b>
+<i>33</i>&nbsp;                case &quot;Administrator&quot;:
+<b class="nc"><i>34</i>&nbsp;                    AdministratorUI admUI = new AdministratorUI();</b>
+<b class="nc"><i>35</i>&nbsp;                    admUI.run();</b>
+<b class="nc"><i>36</i>&nbsp;                    break;</b>
+<i>37</i>&nbsp;                case &quot;Courier&quot;:
+<b class="nc"><i>38</i>&nbsp;                    CourierUI couUI = new CourierUI();</b>
+<b class="nc"><i>39</i>&nbsp;                    couUI.run();</b>
+<b class="nc"><i>40</i>&nbsp;                    break;</b>
+<i>41</i>&nbsp;                case &quot;Client&quot;:
+<b class="nc"><i>42</i>&nbsp;                    ClientUI clnUI = new ClientUI();</b>
+<b class="nc"><i>43</i>&nbsp;                    clnUI.run();</b>
+<b class="nc"><i>44</i>&nbsp;                    break;</b>
+<i>45</i>&nbsp;                default:
+<b class="nc"><i>46</i>&nbsp;                    throw new Exception();</b>
+<i>47</i>&nbsp;            }
+<b class="nc"><i>48</i>&nbsp;        } catch (Exception e) {</b>
+<b class="nc"><i>49</i>&nbsp;            LOGGER.log(Level.WARNING, &quot;Error Loggin In.&quot;);</b>
+<b class="nc"><i>50</i>&nbsp;        }</b>
+<b class="nc"><i>51</i>&nbsp;    }</b>
+<i>52</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2021-01-31 18:27</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,157 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: GraphInterface</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">lapr.project.graph.map</a> ]
+</div>
+
+<h1>Coverage Summary for Class: GraphInterface (lapr.project.graph.map)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+</tr>
+<tr>
+  <td class="name">GraphInterface</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;
+<i>2</i>&nbsp;package lapr.project.graph.map;
+<i>3</i>&nbsp;
+<i>4</i>&nbsp;/**
+<i>5</i>&nbsp; * @param &lt;V&gt;
+<i>6</i>&nbsp; * @param &lt;E&gt;
+<i>7</i>&nbsp; * @author DEI-ESINF
+<i>8</i>&nbsp; */
+<i>9</i>&nbsp;public interface GraphInterface&lt;V, E&gt; {
+<i>10</i>&nbsp;
+<i>11</i>&nbsp;    // Returns the number of vertices of the graph
+<i>12</i>&nbsp;    int numVertices();
+<i>13</i>&nbsp;
+<i>14</i>&nbsp;    // Returns all the vertices of the graph as an iterable collection
+<i>15</i>&nbsp;    Iterable&lt;V&gt; vertices();
+<i>16</i>&nbsp;
+<i>17</i>&nbsp;    // Returns the number of edges of the graph
+<i>18</i>&nbsp;    int numEdges();
+<i>19</i>&nbsp;
+<i>20</i>&nbsp;    // Returns the information of all the edges of the graph as an iterable collection
+<i>21</i>&nbsp;    Iterable&lt;Edge&lt;V, E&gt;&gt; edges();
+<i>22</i>&nbsp;
+<i>23</i>&nbsp;    /* Returns the edge from vorig to vdest, or null if vertices are not adjacent
+<i>24</i>&nbsp;     * @param vorig
+<i>25</i>&nbsp;     * @param vdest
+<i>26</i>&nbsp;     * @return the edge or null if vertices are not adjacent or don&#39;t exist
+<i>27</i>&nbsp;     */
+<i>28</i>&nbsp;    Edge&lt;V, E&gt; getEdge(V vOrig, V vDest);
+<i>29</i>&nbsp;
+<i>30</i>&nbsp;    /* Returns the vertices of edge e as an array of length two
+<i>31</i>&nbsp;     * If the graph is directed, the first vertex is the origin, and
+<i>32</i>&nbsp;     * the second is the destination.  If the graph is undirected, the
+<i>33</i>&nbsp;     * order is arbitrary.
+<i>34</i>&nbsp;     * @param e
+<i>35</i>&nbsp;     * @return array of two vertices or null if edge doesn&#39;t exist
+<i>36</i>&nbsp;     */
+<i>37</i>&nbsp;    V[] endVertices(Edge&lt;V, E&gt; edge);
+<i>38</i>&nbsp;
+<i>39</i>&nbsp;    /* Returns the vertex that is opposite vertex v on edge e.
+<i>40</i>&nbsp;     * @param v
+<i>41</i>&nbsp;     * @param e
+<i>42</i>&nbsp;     * @return opposite vertex, or null if vertex or edge don&#39;t exist
+<i>43</i>&nbsp;     */
+<i>44</i>&nbsp;    V opposite(V vert, Edge&lt;V, E&gt; edge);
+<i>45</i>&nbsp;
+<i>46</i>&nbsp;    /**
+<i>47</i>&nbsp;     * Returns the number of edges leaving vertex v
+<i>48</i>&nbsp;     * For an undirected graph, this is the same result returned by inDegree
+<i>49</i>&nbsp;     *
+<i>50</i>&nbsp;     * @param vert
+<i>51</i>&nbsp;     * @return number of edges leaving vertex v, -1 if vertex doesn&#39;t exist
+<i>52</i>&nbsp;     */
+<i>53</i>&nbsp;    int outDegree(V vert);
+<i>54</i>&nbsp;
+<i>55</i>&nbsp;    /**
+<i>56</i>&nbsp;     * Returns the number of edges for which vertex v is the destination
+<i>57</i>&nbsp;     * For an undirected graph, this is the same result returned by outDegree
+<i>58</i>&nbsp;     *
+<i>59</i>&nbsp;     * @param vert
+<i>60</i>&nbsp;     * @return number of edges leaving vertex v, -1 if vertex doesn&#39;t exist
+<i>61</i>&nbsp;     */
+<i>62</i>&nbsp;    int inDegree(V vert);
+<i>63</i>&nbsp;
+<i>64</i>&nbsp;    /* Returns an iterable collection of edges for which vertex v is the origin
+<i>65</i>&nbsp;     * for an undirected graph, this is the same result returned by incomingEdges
+<i>66</i>&nbsp;     * @param v
+<i>67</i>&nbsp;     * @return iterable collection of edges, null if vertex doesn&#39;t exist
+<i>68</i>&nbsp;     */
+<i>69</i>&nbsp;    Iterable&lt;Edge&lt;V, E&gt;&gt; outgoingEdges(V vert);
+<i>70</i>&nbsp;
+<i>71</i>&nbsp;    /* Returns an iterable collection of edges for which vertex v is the destination
+<i>72</i>&nbsp;     * For an undirected graph this is the same result as returned by incomingEdges
+<i>73</i>&nbsp;     * @param v
+<i>74</i>&nbsp;     * @return iterable collection of edges reaching vertex, null if vertex doesn&#39;t exist
+<i>75</i>&nbsp;     */
+<i>76</i>&nbsp;    Iterable&lt;Edge&lt;V, E&gt;&gt; incomingEdges(V vert);
+<i>77</i>&nbsp;
+<i>78</i>&nbsp;    /* Inserts a new vertex with some specific comparable type
+<i>79</i>&nbsp;     * @param element the vertex contents
+<i>80</i>&nbsp;     * @return a true if insertion suceeds, false otherwise
+<i>81</i>&nbsp;     */
+<i>82</i>&nbsp;    boolean insertVertex(V newVert);
+<i>83</i>&nbsp;
+<i>84</i>&nbsp;    /* Adds a new edge between vertices u and v, with some
+<i>85</i>&nbsp;     * specific comparable type. If vertices u, v don&#39;t exist in the graph they
+<i>86</i>&nbsp;     * are inserted
+<i>87</i>&nbsp;     * @param vorigInf Information of vertex source
+<i>88</i>&nbsp;     * @param vdestInf Information of vertex destination
+<i>89</i>&nbsp;     * @param eInf edge information
+<i>90</i>&nbsp;     * @param eWeight edge weight
+<i>91</i>&nbsp;     * @return true if suceeds, or false if an edge already exists between the two verts.
+<i>92</i>&nbsp;     */
+<i>93</i>&nbsp;    boolean insertEdge(V vOrig, V vDest, E edge, double eWeight);
+<i>94</i>&nbsp;
+<i>95</i>&nbsp;
+<i>96</i>&nbsp;    /* Removes a vertex and all its incident edges from the graph
+<i>97</i>&nbsp;     * @param vInf Information of vertex source
+<i>98</i>&nbsp;     */
+<i>99</i>&nbsp;    boolean removeVertex(V vert);
+<i>100</i>&nbsp;
+<i>101</i>&nbsp;    /* Removes the edge between two vertices
+<i>102</i>&nbsp;     *
+<i>103</i>&nbsp;     * @param vA Information of vertex source
+<i>104</i>&nbsp;     * @param vB Information of vertex destination
+<i>105</i>&nbsp;     */
+<i>106</i>&nbsp;    boolean removeEdge(V vOrig, V vDest);
+<i>107</i>&nbsp;
+<i>108</i>&nbsp;}
+<i>109</i>&nbsp;    
+<i>110</i>&nbsp; 
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2021-01-31 18:27</div>
+</div>
+</body>
+</html>

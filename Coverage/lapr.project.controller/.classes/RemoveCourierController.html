@@ -1,0 +1,146 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: RemoveCourierController</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">lapr.project.controller</a> ]
+</div>
+
+<h1>Coverage Summary for Class: RemoveCourierController (lapr.project.controller)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">RemoveCourierController</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (4/ 4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (6/ 6)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package lapr.project.controller;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import lapr.project.model.service.CourierService;
+<i>4</i>&nbsp;
+<i>5</i>&nbsp;
+<i>6</i>&nbsp;/**
+<i>7</i>&nbsp; * Remove Courier Controller.
+<i>8</i>&nbsp; *
+<i>9</i>&nbsp; * Group: Team Lisa [G-021]
+<i>10</i>&nbsp; * ______________________________________________________
+<i>11</i>&nbsp; * @author António Barbosa &lt;1190404@isep.ipp.pt&gt;
+<i>12</i>&nbsp; * @author Ernesto Rodrigues &lt;1190560@isep.ipp.pt&gt;
+<i>13</i>&nbsp; * @author Jessica Alves &lt;1190682@isep.ipp.pt&gt;
+<i>14</i>&nbsp; * @author Pedro Santos &lt;1190967@isep.ipp.pt&gt;
+<i>15</i>&nbsp; * @author Rodrigo Costa &lt;1191014@isep.ipp.pt&gt;
+<i>16</i>&nbsp; * @author Tiago Costa &lt;1191460@isep.ipp.pt&gt;
+<i>17</i>&nbsp; */
+<i>18</i>&nbsp;public class RemoveCourierController {
+<i>19</i>&nbsp;
+<i>20</i>&nbsp;    /**
+<i>21</i>&nbsp;     * Courier Service class
+<i>22</i>&nbsp;     */
+<i>23</i>&nbsp;    private CourierService moCourierService;
+<i>24</i>&nbsp;
+<i>25</i>&nbsp;    /**
+<i>26</i>&nbsp;     * A constructor of UpdateCourierController that initiates the Courier Service.
+<i>27</i>&nbsp;     */
+<b class="fc"><i>28</i>&nbsp;    public RemoveCourierController() {</b>
+<b class="fc"><i>29</i>&nbsp;        this.moCourierService = new CourierService();</b>
+<b class="fc"><i>30</i>&nbsp;    }</b>
+<i>31</i>&nbsp;
+<i>32</i>&nbsp;    /**
+<i>33</i>&nbsp;     * The method receives Courier&#39;s nameemail.
+<i>34</i>&nbsp;     * The method returns the validation of that Courier&#39;s email. True if the data is correct and false if
+<i>35</i>&nbsp;     * it doesn&#39;t.
+<i>36</i>&nbsp;     */
+<i>37</i>&nbsp;    public boolean validateCourier(String email) {
+<b class="fc"><i>38</i>&nbsp;        return validateInput(email);</b>
+<i>39</i>&nbsp;    }
+<i>40</i>&nbsp;
+<i>41</i>&nbsp;    /**
+<i>42</i>&nbsp;     * Recieves the Courier&#39;s email and removes it from the Database.
+<i>43</i>&nbsp;     * @param email Courier&#39;s email
+<i>44</i>&nbsp;     * @return true if the Courier is removed. False if otherwise.
+<i>45</i>&nbsp;     */
+<i>46</i>&nbsp;    public boolean removeCourier(String email) {
+<b class="fc"><i>47</i>&nbsp;        return this.moCourierService.removeCourier(email);</b>
+<i>48</i>&nbsp;    }
+<i>49</i>&nbsp;
+<i>50</i>&nbsp;
+<i>51</i>&nbsp;    /**
+<i>52</i>&nbsp;     * Validates the input information regarding
+<i>53</i>&nbsp;     * a Courier&#39;s email
+<i>54</i>&nbsp;     *
+<i>55</i>&nbsp;     * @param email Courier&#39;s email.
+<i>56</i>&nbsp;     * @return True if input is valid, false if otherwise
+<i>57</i>&nbsp;     */
+<i>58</i>&nbsp;    public boolean validateInput(String email) {
+<i>59</i>&nbsp;
+<b class="fc"><i>60</i>&nbsp;        return email != null &amp;&amp; !email.isEmpty() &amp;&amp; email.contains(&quot;@&quot;);</b>
+<i>61</i>&nbsp;    }
+<i>62</i>&nbsp;}
+<i>63</i>&nbsp;
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2021-01-31 18:27</div>
+</div>
+</body>
+</html>

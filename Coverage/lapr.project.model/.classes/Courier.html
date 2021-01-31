@@ -1,0 +1,206 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: Courier</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">lapr.project.model</a> ]
+</div>
+
+<h1>Coverage Summary for Class: Courier (lapr.project.model)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Courier</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (8/ 8)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (23/ 23)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package lapr.project.model;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import java.security.NoSuchAlgorithmException;
+<i>4</i>&nbsp;import java.util.Objects;
+<i>5</i>&nbsp;/**
+<i>6</i>&nbsp; * Courier class.
+<i>7</i>&nbsp; * &lt;p&gt;
+<i>8</i>&nbsp; * Group: Team Lisa [G-021]
+<i>9</i>&nbsp; * ______________________________________________________
+<i>10</i>&nbsp; *
+<i>11</i>&nbsp; * @author António Barbosa &lt;1190404@isep.ipp.pt&gt;
+<i>12</i>&nbsp; * @author Ernesto Rodrigues &lt;1190560@isep.ipp.pt&gt;
+<i>13</i>&nbsp; * @author Jessica Alves &lt;1190682@isep.ipp.pt&gt;
+<i>14</i>&nbsp; * @author Pedro Santos &lt;1190967@isep.ipp.pt&gt;
+<i>15</i>&nbsp; * @author Rodrigo Costa &lt;1191014@isep.ipp.pt&gt;
+<i>16</i>&nbsp; * @author Tiago Costa &lt;1191460@isep.ipp.pt&gt;
+<i>17</i>&nbsp; */
+<i>18</i>&nbsp;public class Courier extends User {
+<i>19</i>&nbsp;
+<i>20</i>&nbsp;    /**
+<i>21</i>&nbsp;     * Courier&#39;s Iban
+<i>22</i>&nbsp;     */
+<i>23</i>&nbsp;    private String mIban;
+<i>24</i>&nbsp;    /**
+<i>25</i>&nbsp;     * Courier&#39;s pharmacy
+<i>26</i>&nbsp;     */
+<i>27</i>&nbsp;    private Pharmacy mPharmacy;
+<i>28</i>&nbsp;
+<i>29</i>&nbsp;    /**
+<i>30</i>&nbsp;     * Courier constructor initilized with all default attributes.
+<i>31</i>&nbsp;     */
+<i>32</i>&nbsp;    public Courier() {
+<b class="fc"><i>33</i>&nbsp;        super();</b>
+<b class="fc"><i>34</i>&nbsp;        this.setIban(&quot;No Iban&quot;);</b>
+<b class="fc"><i>35</i>&nbsp;        this.setPharmacy(new Pharmacy());</b>
+<b class="fc"><i>36</i>&nbsp;    }</b>
+<i>37</i>&nbsp;
+<i>38</i>&nbsp;    /**
+<i>39</i>&nbsp;     * Courier constructor recieves the Courier&#39;s id, name, email password, nif, iban and Pharmacy&#39;s instance
+<i>40</i>&nbsp;     *
+<i>41</i>&nbsp;     * @param intId       Courier&#39;s Id
+<i>42</i>&nbsp;     * @param strName     Courier&#39;s name
+<i>43</i>&nbsp;     * @param strEmail    Courier&#39;s email
+<i>44</i>&nbsp;     * @param strPassword Courier&#39;s password
+<i>45</i>&nbsp;     * @param strNif      Courier&#39;s nif
+<i>46</i>&nbsp;     * @param strIban     Courier&#39;s Iban
+<i>47</i>&nbsp;     * @param oPharmacy   Courier&#39;s pharmacy
+<i>48</i>&nbsp;     */
+<i>49</i>&nbsp;    public Courier(int intId, String strName, String strEmail, String strPassword, Integer strNif, String strIban, Pharmacy oPharmacy) {
+<b class="fc"><i>50</i>&nbsp;        super(intId, strEmail, strPassword, strNif, strName);</b>
+<b class="fc"><i>51</i>&nbsp;        this.setIban(strIban);</b>
+<b class="fc"><i>52</i>&nbsp;        this.setPharmacy(oPharmacy);</b>
+<b class="fc"><i>53</i>&nbsp;    }</b>
+<i>54</i>&nbsp;
+<i>55</i>&nbsp;    /**
+<i>56</i>&nbsp;     * Courier constructor recieves the Courier&#39;s , name, email password, nif, iban and Pharmacy&#39;s instance
+<i>57</i>&nbsp;     *
+<i>58</i>&nbsp;     * @param strName     Courier&#39;s name
+<i>59</i>&nbsp;     * @param strEmail    Courier&#39;s email
+<i>60</i>&nbsp;     * @param strPassword Courier&#39;s password
+<i>61</i>&nbsp;     * @param strNif      Courier&#39;s nif
+<i>62</i>&nbsp;     * @param strIban     Courier&#39;s Iban
+<i>63</i>&nbsp;     * @param oPharmacy   Courier&#39;s pharmacy
+<i>64</i>&nbsp;     * @throws NoSuchAlgorithmException
+<i>65</i>&nbsp;     */
+<i>66</i>&nbsp;    public Courier(String strName, String strEmail, String strPassword, Integer strNif, String strIban, Pharmacy oPharmacy) throws NoSuchAlgorithmException {
+<b class="fc"><i>67</i>&nbsp;        super(strEmail, strPassword, strNif, strName);</b>
+<b class="fc"><i>68</i>&nbsp;        this.setPharmacy(oPharmacy);</b>
+<b class="fc"><i>69</i>&nbsp;        this.setIban(strIban);</b>
+<b class="fc"><i>70</i>&nbsp;    }</b>
+<i>71</i>&nbsp;
+<i>72</i>&nbsp;    /**
+<i>73</i>&nbsp;     * The method compares two instances of Courier by their Iban&#39;s.
+<i>74</i>&nbsp;     *
+<i>75</i>&nbsp;     * @param o the other Object which we want to compare to
+<i>76</i>&nbsp;     * @return true if the Iban is the same, false otherwise.
+<i>77</i>&nbsp;     */
+<i>78</i>&nbsp;    @Override
+<i>79</i>&nbsp;    public boolean equals(Object o) {
+<b class="fc"><i>80</i>&nbsp;        if (this == o) return true;</b>
+<b class="fc"><i>81</i>&nbsp;        if (o == null || getClass() != o.getClass()) return false;</b>
+<b class="fc"><i>82</i>&nbsp;        if (!super.equals(o)) return false;</b>
+<b class="fc"><i>83</i>&nbsp;        Courier courier = (Courier) o;</b>
+<b class="fc"><i>84</i>&nbsp;        return Objects.equals(mIban, courier.mIban);</b>
+<i>85</i>&nbsp;    }
+<i>86</i>&nbsp;
+<i>87</i>&nbsp;    /**
+<i>88</i>&nbsp;     * Returns the Courier&#39;s Iban
+<i>89</i>&nbsp;     *
+<i>90</i>&nbsp;     * @return Courier&#39;s Iban
+<i>91</i>&nbsp;     */
+<i>92</i>&nbsp;    public String getIban() {
+<b class="fc"><i>93</i>&nbsp;        return mIban;</b>
+<i>94</i>&nbsp;    }
+<i>95</i>&nbsp;
+<i>96</i>&nbsp;    /**
+<i>97</i>&nbsp;     * Sets the Courier&#39;s Iban
+<i>98</i>&nbsp;     *
+<i>99</i>&nbsp;     * @param strIban Courier&#39;s Iban
+<i>100</i>&nbsp;     */
+<i>101</i>&nbsp;    public void setIban(String strIban) {
+<b class="fc"><i>102</i>&nbsp;        this.mIban = strIban;</b>
+<b class="fc"><i>103</i>&nbsp;    }</b>
+<i>104</i>&nbsp;
+<i>105</i>&nbsp;    /**
+<i>106</i>&nbsp;     * Returns the Courier&#39;s pharmacy
+<i>107</i>&nbsp;     *
+<i>108</i>&nbsp;     * @return Courier&#39;s pharmacy
+<i>109</i>&nbsp;     */
+<i>110</i>&nbsp;    public Pharmacy getPharmacy() {
+<b class="fc"><i>111</i>&nbsp;        return mPharmacy;</b>
+<i>112</i>&nbsp;    }
+<i>113</i>&nbsp;
+<i>114</i>&nbsp;    /**
+<i>115</i>&nbsp;     * Sets the Courier&#39;s pharmacy
+<i>116</i>&nbsp;     *
+<i>117</i>&nbsp;     * @param oPharmacy Courier&#39;s pharmacy
+<i>118</i>&nbsp;     */
+<i>119</i>&nbsp;    public void setPharmacy(Pharmacy oPharmacy) {
+<b class="fc"><i>120</i>&nbsp;        this.mPharmacy = oPharmacy;</b>
+<b class="fc"><i>121</i>&nbsp;    }</b>
+<i>122</i>&nbsp;}
+<i>123</i>&nbsp;
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2021-01-31 18:27</div>
+</div>
+</body>
+</html>

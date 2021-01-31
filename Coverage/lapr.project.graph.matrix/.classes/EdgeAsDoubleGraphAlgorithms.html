@@ -1,0 +1,196 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: EdgeAsDoubleGraphAlgorithms</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">lapr.project.graph.matrix</a> ]
+</div>
+
+<h1>Coverage Summary for Class: EdgeAsDoubleGraphAlgorithms (lapr.project.graph.matrix)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">EdgeAsDoubleGraphAlgorithms</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    75%
+  </span>
+  <span class="absValue">
+    (3/ 4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    95,8%
+  </span>
+  <span class="absValue">
+    (46/ 48)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;
+<i>2</i>&nbsp;package lapr.project.graph.matrix;
+<i>3</i>&nbsp;
+<i>4</i>&nbsp;import java.util.LinkedList;
+<i>5</i>&nbsp;
+<i>6</i>&nbsp;/**
+<i>7</i>&nbsp; * @author DEI-ESINF
+<i>8</i>&nbsp; */
+<b class="nc"><i>9</i>&nbsp;public class EdgeAsDoubleGraphAlgorithms {</b>
+<i>10</i>&nbsp;
+<i>11</i>&nbsp;    /**
+<i>12</i>&nbsp;     * Determine the shortest path to all vertices from a vertex using Dijkstra&#39;s algorithm
+<i>13</i>&nbsp;     * To be called by public short method
+<i>14</i>&nbsp;     *
+<i>15</i>&nbsp;     * @param graph         Graph object
+<i>16</i>&nbsp;     * @param sourceIdx     Source vertex
+<i>17</i>&nbsp;     * @param knownVertices previously discovered vertices
+<i>18</i>&nbsp;     * @param verticesIndex index of vertices in the minimum path
+<i>19</i>&nbsp;     * @param minDist       minimum distances in the path
+<i>20</i>&nbsp;     */
+<i>21</i>&nbsp;    private static &lt;V&gt; void shortestPath(AdjacencyMatrixGraph&lt;V, Double&gt; graph, int sourceIdx, boolean[] knownVertices, int[] verticesIndex, double[] minDist) {
+<b class="fc"><i>22</i>&nbsp;        minDist[sourceIdx] = 0;</b>
+<b class="fc"><i>23</i>&nbsp;        while (sourceIdx != -1) {</b>
+<b class="fc"><i>24</i>&nbsp;            V vOrig = graph.vertices.get(sourceIdx);</b>
+<b class="fc"><i>25</i>&nbsp;            knownVertices[sourceIdx] = true;</b>
+<b class="fc"><i>26</i>&nbsp;            for (V vAdj : graph.adjVertices(vOrig)) {</b>
+<b class="fc"><i>27</i>&nbsp;                int vkeyAdj = graph.toIndex(vAdj);</b>
+<b class="fc"><i>28</i>&nbsp;                Double edge = graph.getEdge(vOrig, vAdj);</b>
+<b class="fc"><i>29</i>&nbsp;                if (!knownVertices[vkeyAdj] &amp;&amp; minDist[vkeyAdj] &gt; minDist[sourceIdx] + edge) {</b>
+<b class="fc"><i>30</i>&nbsp;                    minDist[vkeyAdj] = minDist[sourceIdx] + edge;</b>
+<b class="fc"><i>31</i>&nbsp;                    verticesIndex[vkeyAdj] = sourceIdx;</b>
+<i>32</i>&nbsp;                }
+<b class="fc"><i>33</i>&nbsp;            }</b>
+<b class="fc"><i>34</i>&nbsp;            double mDist = Double.MAX_VALUE;</b>
+<b class="fc"><i>35</i>&nbsp;            sourceIdx = -1;</b>
+<b class="fc"><i>36</i>&nbsp;            for (int i = 0; i &lt; graph.numVertices(); i++) {</b>
+<b class="fc"><i>37</i>&nbsp;                if (!knownVertices[i] &amp;&amp; minDist[i] &lt; mDist) {</b>
+<b class="fc"><i>38</i>&nbsp;                    mDist = minDist[i];</b>
+<b class="fc"><i>39</i>&nbsp;                    sourceIdx = i;</b>
+<i>40</i>&nbsp;                }
+<i>41</i>&nbsp;            }
+<b class="fc"><i>42</i>&nbsp;        }</b>
+<b class="fc"><i>43</i>&nbsp;    }</b>
+<i>44</i>&nbsp;
+<i>45</i>&nbsp;    /**
+<i>46</i>&nbsp;     * Determine the shortest path between two vertices using Dijkstra&#39;s algorithm
+<i>47</i>&nbsp;     *
+<i>48</i>&nbsp;     * @param graph  Graph object
+<i>49</i>&nbsp;     * @param source Source vertex
+<i>50</i>&nbsp;     * @param dest   Destination vertices
+<i>51</i>&nbsp;     * @param path   Returns the vertices in the path (empty if no path)
+<i>52</i>&nbsp;     * @return minimum distance, -1 if vertices not in model.graph or no path
+<i>53</i>&nbsp;     */
+<i>54</i>&nbsp;    public static &lt;V&gt; double shortestPath(AdjacencyMatrixGraph&lt;V, Double&gt; graph, V source, V dest, LinkedList&lt;V&gt; path) {
+<i>55</i>&nbsp;
+<b class="fc"><i>56</i>&nbsp;        int sourceIdx = graph.toIndex(source);</b>
+<b class="fc"><i>57</i>&nbsp;        if (sourceIdx == -1)</b>
+<b class="nc"><i>58</i>&nbsp;            return -1;</b>
+<i>59</i>&nbsp;
+<b class="fc"><i>60</i>&nbsp;        int destIdx = graph.toIndex(dest);</b>
+<b class="fc"><i>61</i>&nbsp;        if (destIdx == -1)</b>
+<b class="fc"><i>62</i>&nbsp;            return -1;</b>
+<i>63</i>&nbsp;
+<b class="fc"><i>64</i>&nbsp;        path.clear();</b>
+<i>65</i>&nbsp;
+<b class="fc"><i>66</i>&nbsp;        boolean[] knownVertices = new boolean[graph.numVertices];</b>
+<b class="fc"><i>67</i>&nbsp;        int[] verticesIndex = new int[graph.numVertices];</b>
+<b class="fc"><i>68</i>&nbsp;        double[] minDist = new double[graph.numVertices];</b>
+<i>69</i>&nbsp;
+<b class="fc"><i>70</i>&nbsp;        for (int i = 0; i &lt; graph.numVertices; i++) {</b>
+<b class="fc"><i>71</i>&nbsp;            minDist[i] = Double.MAX_VALUE;</b>
+<b class="fc"><i>72</i>&nbsp;            verticesIndex[i] = -1;</b>
+<i>73</i>&nbsp;        }
+<i>74</i>&nbsp;
+<b class="fc"><i>75</i>&nbsp;        shortestPath(graph, sourceIdx, knownVertices, verticesIndex, minDist);</b>
+<b class="fc"><i>76</i>&nbsp;        if (knownVertices[destIdx] == false)</b>
+<b class="fc"><i>77</i>&nbsp;            return -1;</b>
+<i>78</i>&nbsp;
+<b class="fc"><i>79</i>&nbsp;        recreatePath(graph, sourceIdx, destIdx, verticesIndex, path);</b>
+<i>80</i>&nbsp;
+<i>81</i>&nbsp;        // recreatePath builds path in reverse order, so reverse
+<b class="fc"><i>82</i>&nbsp;        LinkedList&lt;V&gt; stack = new LinkedList&lt;V&gt;();  //create a stack</b>
+<b class="fc"><i>83</i>&nbsp;        while (!path.isEmpty())</b>
+<b class="fc"><i>84</i>&nbsp;            stack.push(path.remove());</b>
+<i>85</i>&nbsp;
+<b class="fc"><i>86</i>&nbsp;        while (!stack.isEmpty())</b>
+<b class="fc"><i>87</i>&nbsp;            path.add(stack.pop());</b>
+<i>88</i>&nbsp;
+<b class="fc"><i>89</i>&nbsp;        return minDist[destIdx];</b>
+<i>90</i>&nbsp;    }
+<i>91</i>&nbsp;
+<i>92</i>&nbsp;
+<i>93</i>&nbsp;    /**
+<i>94</i>&nbsp;     * Recreates the minimum path between two vertex, from the result of Dikstra&#39;s algorithm
+<i>95</i>&nbsp;     *
+<i>96</i>&nbsp;     * @param graph         Graph object
+<i>97</i>&nbsp;     * @param sourceIdx     Source vertex
+<i>98</i>&nbsp;     * @param destIdx       Destination vertices
+<i>99</i>&nbsp;     * @param verticesIndex index of vertices in the minimum path
+<i>100</i>&nbsp;     * @param path          Vertices in the path (empty if no path)
+<i>101</i>&nbsp;     */
+<i>102</i>&nbsp;    private static &lt;V&gt; void recreatePath(AdjacencyMatrixGraph&lt;V, Double&gt; graph, int sourceIdx,
+<i>103</i>&nbsp;                                         int destIdx, int[] verticesIndex, LinkedList&lt;V&gt; path) {
+<i>104</i>&nbsp;
+<b class="fc"><i>105</i>&nbsp;        path.add(graph.vertices.get(destIdx));</b>
+<b class="fc"><i>106</i>&nbsp;        if (sourceIdx != destIdx) {</b>
+<b class="fc"><i>107</i>&nbsp;            destIdx = verticesIndex[destIdx];</b>
+<b class="fc"><i>108</i>&nbsp;            recreatePath(graph, sourceIdx, destIdx, verticesIndex, path);</b>
+<i>109</i>&nbsp;        }
+<b class="fc"><i>110</i>&nbsp;    }</b>
+<i>111</i>&nbsp;
+<i>112</i>&nbsp;
+<i>113</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2021-01-31 18:27</div>
+</div>
+</body>
+</html>

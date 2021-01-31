@@ -1,0 +1,110 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: ProductInformationUI</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">lapr.project.ui.console</a> ]
+</div>
+
+<h1>Coverage Summary for Class: ProductInformationUI (lapr.project.ui.console)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">ProductInformationUI</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 12)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package lapr.project.ui.console;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import lapr.project.controller.ProductInformationController;
+<i>4</i>&nbsp;import lapr.project.model.Product;
+<i>5</i>&nbsp;import lapr.project.ui.UI;
+<i>6</i>&nbsp;
+<i>7</i>&nbsp;import java.util.Scanner;
+<i>8</i>&nbsp;import java.util.logging.Level;
+<i>9</i>&nbsp;import java.util.logging.Logger;
+<i>10</i>&nbsp;
+<b class="nc"><i>11</i>&nbsp;public class ProductInformationUI implements UI {</b>
+<i>12</i>&nbsp;
+<b class="nc"><i>13</i>&nbsp;    private static final Logger LOGGER = Logger.getLogger(ProductInformationUI.class.getName());</b>
+<i>14</i>&nbsp;
+<i>15</i>&nbsp;    public void run() {
+<b class="nc"><i>16</i>&nbsp;        ProductInformationController oCtrl = new ProductInformationController();</b>
+<b class="nc"><i>17</i>&nbsp;        Scanner sc = new Scanner(System.in);</b>
+<i>18</i>&nbsp;        try {
+<b class="nc"><i>19</i>&nbsp;            System.out.print(&quot;Product Information:\n\nName: &quot;);</b>
+<b class="nc"><i>20</i>&nbsp;            String strName = sc.nextLine();</b>
+<b class="nc"><i>21</i>&nbsp;            Product oProduct = oCtrl.getProduct(strName);</b>
+<b class="nc"><i>22</i>&nbsp;            System.out.printf(&quot;Product \&quot;%s\&quot; information: %s%n&quot;,strName,oProduct.toString());</b>
+<b class="nc"><i>23</i>&nbsp;        } catch (Exception e) {</b>
+<b class="nc"><i>24</i>&nbsp;            LOGGER.log(Level.WARNING, &quot;The input may not be in the correct format&quot;);</b>
+<b class="nc"><i>25</i>&nbsp;        }</b>
+<b class="nc"><i>26</i>&nbsp;    }</b>
+<i>27</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2021-01-31 18:27</div>
+</div>
+</body>
+</html>

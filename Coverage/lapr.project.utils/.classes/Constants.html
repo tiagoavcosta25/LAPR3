@@ -1,0 +1,196 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: Constants</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">lapr.project.utils</a> ]
+</div>
+
+<h1>Coverage Summary for Class: Constants (lapr.project.utils)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Constants</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 2)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package lapr.project.utils;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;/**
+<i>4</i>&nbsp; * Constants.
+<i>5</i>&nbsp; *
+<i>6</i>&nbsp; * Group: Team Lisa [G-021]
+<i>7</i>&nbsp; * ______________________________________________________
+<i>8</i>&nbsp; * @author António Barbosa &lt;1190404@isep.ipp.pt&gt;
+<i>9</i>&nbsp; * @author Ernesto Rodrigues &lt;1190560@isep.ipp.pt&gt;
+<i>10</i>&nbsp; * @author Jessica Alves &lt;1190682@isep.ipp.pt&gt;
+<i>11</i>&nbsp; * @author Pedro Santos &lt;1190967@isep.ipp.pt&gt;
+<i>12</i>&nbsp; * @author Rodrigo Costa &lt;1191014@isep.ipp.pt&gt;
+<i>13</i>&nbsp; * @author Tiago Costa &lt;1191460@isep.ipp.pt&gt;
+<i>14</i>&nbsp; */
+<i>15</i>&nbsp;
+<i>16</i>&nbsp;public class Constants {
+<i>17</i>&nbsp;    /**
+<i>18</i>&nbsp;     * An empty constructor of Constants.
+<i>19</i>&nbsp;     */
+<b class="nc"><i>20</i>&nbsp;    private Constants() {</b>
+<b class="nc"><i>21</i>&nbsp;    }</b>
+<i>22</i>&nbsp;
+<i>23</i>&nbsp;    /**
+<i>24</i>&nbsp;     * Sleep Time.
+<i>25</i>&nbsp;     */
+<i>26</i>&nbsp;    public static final int SLEEP_TIME = 5000;
+<i>27</i>&nbsp;
+<i>28</i>&nbsp;    /**
+<i>29</i>&nbsp;     * Gravitic Acceleration.
+<i>30</i>&nbsp;     */
+<i>31</i>&nbsp;    public static final double GRAVITIC_ACCELERATION = 9.8;             //  m.s^-2
+<i>32</i>&nbsp;
+<i>33</i>&nbsp;    /**
+<i>34</i>&nbsp;     * Default Height.
+<i>35</i>&nbsp;     */
+<i>36</i>&nbsp;    public static final double DEFAULT_HEIGHT = 150;                    //  m
+<i>37</i>&nbsp;
+<i>38</i>&nbsp;    /**
+<i>39</i>&nbsp;     * Air Density.
+<i>40</i>&nbsp;     */
+<i>41</i>&nbsp;    public static final double AIR_DENSITY = 1.225;                     //  kg.m^-3
+<i>42</i>&nbsp;
+<i>43</i>&nbsp;    /**
+<i>44</i>&nbsp;     * Default Drone Area.
+<i>45</i>&nbsp;     */
+<i>46</i>&nbsp;    public static final double DEFAULT_DRONE_AREA = 0.3;                //  m^2 (0.2 m radius rotor, PI*r^2*4)
+<i>47</i>&nbsp;
+<i>48</i>&nbsp;    /**
+<i>49</i>&nbsp;     * KiloWatt/Hour.
+<i>50</i>&nbsp;     */
+<i>51</i>&nbsp;    public static final double KILOWATTHOUR = 3600000.0;
+<i>52</i>&nbsp;
+<i>53</i>&nbsp;    /**
+<i>54</i>&nbsp;     * Drag Coefficient.
+<i>55</i>&nbsp;     */
+<i>56</i>&nbsp;    public static final double DRAG_COEFFICIENT = 1.1;
+<i>57</i>&nbsp;
+<i>58</i>&nbsp;    /**
+<i>59</i>&nbsp;     * Default Velocity.
+<i>60</i>&nbsp;     */
+<i>61</i>&nbsp;    public static final double DEFAULT_VELOCITY = 8.3;                   //  m/s
+<i>62</i>&nbsp;
+<i>63</i>&nbsp;    /**
+<i>64</i>&nbsp;     * Default Courier Weight.
+<i>65</i>&nbsp;     */
+<i>66</i>&nbsp;    public static final double DEFAULT_COURIER_WEIGHT = 80;
+<i>67</i>&nbsp;
+<i>68</i>&nbsp;    /**
+<i>69</i>&nbsp;     * Max Drone Power.
+<i>70</i>&nbsp;     */
+<i>71</i>&nbsp;    public static final double MAX_DRONE_POWER = 3000;
+<i>72</i>&nbsp;
+<i>73</i>&nbsp;    /**
+<i>74</i>&nbsp;     * Kinetic Friction Coefficient.
+<i>75</i>&nbsp;     */
+<i>76</i>&nbsp;    public static final double KINETIC_FRICTION_COEFFICIENT = 0.8;
+<i>77</i>&nbsp;
+<i>78</i>&nbsp;    /**
+<i>79</i>&nbsp;     * Default Scooter Area.
+<i>80</i>&nbsp;     */
+<i>81</i>&nbsp;    public static final double DEFAULT_SCOOTER_AREA = 0.3;                // m^2
+<i>82</i>&nbsp;
+<i>83</i>&nbsp;    /**
+<i>84</i>&nbsp;     * Scooter Total Weight.
+<i>85</i>&nbsp;     */
+<i>86</i>&nbsp;    public static final double SCOOTER_TOTAL_WEIGHT = 10;
+<i>87</i>&nbsp;
+<i>88</i>&nbsp;    /**
+<i>89</i>&nbsp;     * Drone Width.
+<i>90</i>&nbsp;     */
+<i>91</i>&nbsp;    public static final double DRONE_WIDTH = 0.2;
+<i>92</i>&nbsp;
+<i>93</i>&nbsp;    /**
+<i>94</i>&nbsp;     * Estimate File Path.
+<i>95</i>&nbsp;     */
+<i>96</i>&nbsp;    public static final String ESTIMATE_FILE_PATH = &quot;src-C/estimate_files/&quot;;
+<i>97</i>&nbsp;
+<i>98</i>&nbsp;    /**
+<i>99</i>&nbsp;     * Lock File Path.
+<i>100</i>&nbsp;     */
+<i>101</i>&nbsp;    public static final String LOCK_FILE_PATH = &quot;src-C/lock_files/&quot;;
+<i>102</i>&nbsp;
+<i>103</i>&nbsp;    /**
+<i>104</i>&nbsp;     * Filter.
+<i>105</i>&nbsp;     */
+<i>106</i>&nbsp;    public static final String FILTER = &quot;.flag&quot;;
+<i>107</i>&nbsp;
+<i>108</i>&nbsp;    /**
+<i>109</i>&nbsp;     * Email Body Type.
+<i>110</i>&nbsp;     */
+<i>111</i>&nbsp;    public static final String EMAIL_BODY_TYPE = &quot;text/html; charset=utf-8&quot;;
+<i>112</i>&nbsp;
+<i>113</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2021-01-31 18:27</div>
+</div>
+</body>
+</html>

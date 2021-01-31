@@ -1,0 +1,227 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: RegisterCourierController</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">lapr.project.controller</a> ]
+</div>
+
+<h1>Coverage Summary for Class: RegisterCourierController (lapr.project.controller)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">RegisterCourierController</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (9/ 9)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (25/ 25)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package lapr.project.controller;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import lapr.project.model.Courier;
+<i>4</i>&nbsp;import lapr.project.model.Pharmacy;
+<i>5</i>&nbsp;import lapr.project.model.service.CourierService;
+<i>6</i>&nbsp;import lapr.project.model.service.PharmacyService;
+<i>7</i>&nbsp;
+<i>8</i>&nbsp;
+<i>9</i>&nbsp;/**
+<i>10</i>&nbsp; * Register Courier Controller.
+<i>11</i>&nbsp; *
+<i>12</i>&nbsp; * Group: Team Lisa [G-021]
+<i>13</i>&nbsp; * ______________________________________________________
+<i>14</i>&nbsp; * @author António Barbosa &lt;1190404@isep.ipp.pt&gt;
+<i>15</i>&nbsp; * @author Ernesto Rodrigues &lt;1190560@isep.ipp.pt&gt;
+<i>16</i>&nbsp; * @author Jessica Alves &lt;1190682@isep.ipp.pt&gt;
+<i>17</i>&nbsp; * @author Pedro Santos &lt;1190967@isep.ipp.pt&gt;
+<i>18</i>&nbsp; * @author Rodrigo Costa &lt;1191014@isep.ipp.pt&gt;
+<i>19</i>&nbsp; * @author Tiago Costa &lt;1191460@isep.ipp.pt&gt;
+<i>20</i>&nbsp; */
+<i>21</i>&nbsp;public class RegisterCourierController {
+<i>22</i>&nbsp;    /**
+<i>23</i>&nbsp;     * Courier class instance
+<i>24</i>&nbsp;     */
+<i>25</i>&nbsp;    private Courier moCourier;
+<i>26</i>&nbsp;
+<i>27</i>&nbsp;    /**
+<i>28</i>&nbsp;     * Courier Service class
+<i>29</i>&nbsp;     */
+<i>30</i>&nbsp;    private CourierService moCourierService;
+<i>31</i>&nbsp;
+<i>32</i>&nbsp;    /**
+<i>33</i>&nbsp;     * Pharmacy Service class
+<i>34</i>&nbsp;     */
+<i>35</i>&nbsp;    private PharmacyService moPharmacyService;
+<i>36</i>&nbsp;
+<i>37</i>&nbsp;    /**
+<i>38</i>&nbsp;     * Pharmacy class instance
+<i>39</i>&nbsp;     */
+<i>40</i>&nbsp;    private Pharmacy moPharmacy;
+<i>41</i>&nbsp;
+<i>42</i>&nbsp;    /**
+<i>43</i>&nbsp;     * A constructor of UpdateCourierController that initiates the Courier Service and Pharmacy Service.
+<i>44</i>&nbsp;     */
+<b class="fc"><i>45</i>&nbsp;    public RegisterCourierController() {</b>
+<b class="fc"><i>46</i>&nbsp;        this.moCourierService = new CourierService();</b>
+<b class="fc"><i>47</i>&nbsp;        this.moPharmacyService = new PharmacyService();</b>
+<b class="fc"><i>48</i>&nbsp;    }</b>
+<i>49</i>&nbsp;
+<i>50</i>&nbsp;    /**
+<i>51</i>&nbsp;     * The method receives Courier&#39;s name, email, nif, iban and pharmacy&#39;s email.
+<i>52</i>&nbsp;     * Validates the input recieved and gets the Pharmacy through the email provided and creates a new Courier&#39;s instance.
+<i>53</i>&nbsp;     * The method returns the validation of the operation. True if the data is correct
+<i>54</i>&nbsp;     * and created and false if it&#39;s not.
+<i>55</i>&nbsp;     *
+<i>56</i>&nbsp;     * @param strName  Courier&#39;s name.
+<i>57</i>&nbsp;     * @param strEmail Courier&#39;s email.
+<i>58</i>&nbsp;     * @param intNIF   Courier&#39;s nif.
+<i>59</i>&nbsp;     * @param strIBAN  Courier&#39;s iban.
+<i>60</i>&nbsp;     * @param strPharmacyEmail  Pharmacy&#39;s email that the Courier belongs to.
+<i>61</i>&nbsp;     */
+<i>62</i>&nbsp;    public boolean newCourier(String strName, String strEmail, Integer intNIF, String strIBAN, String strPharmacyEmail) {
+<i>63</i>&nbsp;        try {
+<b class="fc"><i>64</i>&nbsp;            this.moPharmacy = moPharmacyService.getPharmacy(strPharmacyEmail);</b>
+<b class="fc"><i>65</i>&nbsp;            if (validateInput(strName, strEmail, intNIF, strIBAN,strPharmacyEmail)) {</b>
+<b class="fc"><i>66</i>&nbsp;                this.moCourier = moCourierService.newCourier(strName, strEmail, intNIF, strIBAN, this.moPharmacy);</b>
+<b class="fc"><i>67</i>&nbsp;                return true;</b>
+<i>68</i>&nbsp;            }
+<b class="fc"><i>69</i>&nbsp;        } catch (Exception ex) {</b>
+<b class="fc"><i>70</i>&nbsp;            this.moCourier = null;</b>
+<b class="fc"><i>71</i>&nbsp;        }</b>
+<b class="fc"><i>72</i>&nbsp;        return false;</b>
+<i>73</i>&nbsp;    }
+<i>74</i>&nbsp;
+<i>75</i>&nbsp;    /**
+<i>76</i>&nbsp;     * The method adds the instance of Courier to the DataBase.
+<i>77</i>&nbsp;     */
+<i>78</i>&nbsp;    public boolean registersCourier() {
+<b class="fc"><i>79</i>&nbsp;        return this.moCourierService.registersCourier(this.moCourier);</b>
+<i>80</i>&nbsp;    }
+<i>81</i>&nbsp;
+<i>82</i>&nbsp;    /**
+<i>83</i>&nbsp;     * Recieves the Courier&#39;s instance and sets it.
+<i>84</i>&nbsp;     * @param oCourier Courier&#39;s instance
+<i>85</i>&nbsp;     */
+<i>86</i>&nbsp;    public void setCourier(Courier oCourier) {
+<b class="fc"><i>87</i>&nbsp;        this.moCourier = oCourier;</b>
+<b class="fc"><i>88</i>&nbsp;    }</b>
+<i>89</i>&nbsp;
+<i>90</i>&nbsp;
+<i>91</i>&nbsp;    /**
+<i>92</i>&nbsp;     * Validates the input information regarding a Courier
+<i>93</i>&nbsp;     *
+<i>94</i>&nbsp;     * @param strName  Courier&#39;s name.
+<i>95</i>&nbsp;     * @param strEmail Courier&#39;s email.
+<i>96</i>&nbsp;     * @param intNIF   Courier&#39;s nif.
+<i>97</i>&nbsp;     * @param strIBAN  Courier&#39;s iban.
+<i>98</i>&nbsp;     * @param strPharmacyEmail  Pharmacy&#39;s email that the Courier belongs to.
+<i>99</i>&nbsp;     * @return True if input is valid, false if otherwise.
+<i>100</i>&nbsp;     */
+<i>101</i>&nbsp;    public boolean validateInput(String strName, String strEmail, Integer intNIF, String strIBAN, String strPharmacyEmail) {
+<i>102</i>&nbsp;
+<b class="fc"><i>103</i>&nbsp;        if (strName.isEmpty() || intNIF &lt;= 0 || strEmail.isEmpty() || strIBAN.isEmpty() || strPharmacyEmail.isEmpty()) return false;</b>
+<i>104</i>&nbsp;
+<b class="fc"><i>105</i>&nbsp;        if (!strEmail.contains(&quot;@&quot;) || !strPharmacyEmail.contains(&quot;@&quot;)) return false;</b>
+<i>106</i>&nbsp;
+<b class="fc"><i>107</i>&nbsp;        return (strIBAN.trim().length() == 25)</b>
+<b class="fc"><i>108</i>&nbsp;                &amp;&amp; (int) (Math.log10(intNIF) + 1) == 9;</b>
+<i>109</i>&nbsp;    }
+<i>110</i>&nbsp;
+<i>111</i>&nbsp;    /**
+<i>112</i>&nbsp;     * The method returns the Courier Service
+<i>113</i>&nbsp;     * @return the Courier&#39;s Service
+<i>114</i>&nbsp;     */
+<i>115</i>&nbsp;    public CourierService getCourierService() {
+<b class="fc"><i>116</i>&nbsp;        return moCourierService;</b>
+<i>117</i>&nbsp;    }
+<i>118</i>&nbsp;
+<i>119</i>&nbsp;    /**
+<i>120</i>&nbsp;     * The methods sets the Courier Service
+<i>121</i>&nbsp;     * @param oCourierService Courier Service class
+<i>122</i>&nbsp;     */
+<i>123</i>&nbsp;    public void setCourierService(CourierService oCourierService) {
+<b class="fc"><i>124</i>&nbsp;        this.moCourierService = oCourierService;</b>
+<b class="fc"><i>125</i>&nbsp;    }</b>
+<i>126</i>&nbsp;
+<i>127</i>&nbsp;    /**
+<i>128</i>&nbsp;     * The method returns the Pharmacy Service
+<i>129</i>&nbsp;     * @return the Pharmacies&#39;s Service
+<i>130</i>&nbsp;     */
+<i>131</i>&nbsp;    public PharmacyService getPharmacyService() {
+<b class="fc"><i>132</i>&nbsp;        return moPharmacyService;</b>
+<i>133</i>&nbsp;    }
+<i>134</i>&nbsp;
+<i>135</i>&nbsp;    /**
+<i>136</i>&nbsp;     * The methods sets the Pharmacy Service
+<i>137</i>&nbsp;     * @param oPharmacyService Pharmacy Service class
+<i>138</i>&nbsp;     */
+<i>139</i>&nbsp;    public void setPharmacyService(PharmacyService oPharmacyService) {
+<b class="fc"><i>140</i>&nbsp;        this.moPharmacyService = oPharmacyService;</b>
+<b class="fc"><i>141</i>&nbsp;    }</b>
+<i>142</i>&nbsp;
+<i>143</i>&nbsp;}
+<i>144</i>&nbsp;
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2021-01-31 18:27</div>
+</div>
+</body>
+</html>

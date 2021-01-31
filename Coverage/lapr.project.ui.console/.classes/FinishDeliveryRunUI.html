@@ -1,0 +1,125 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: FinishDeliveryRunUI</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">lapr.project.ui.console</a> ]
+</div>
+
+<h1>Coverage Summary for Class: FinishDeliveryRunUI (lapr.project.ui.console)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">FinishDeliveryRunUI</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 19)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package lapr.project.ui.console;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import lapr.project.controller.FinishDeliveryRunController;
+<i>4</i>&nbsp;import lapr.project.controller.VehiclePayloadController;
+<i>5</i>&nbsp;import lapr.project.ui.Menu;
+<i>6</i>&nbsp;import lapr.project.ui.UI;
+<i>7</i>&nbsp;
+<i>8</i>&nbsp;import java.util.Scanner;
+<i>9</i>&nbsp;import java.util.logging.Level;
+<i>10</i>&nbsp;import java.util.logging.Logger;
+<i>11</i>&nbsp;
+<b class="nc"><i>12</i>&nbsp;public class FinishDeliveryRunUI implements UI {</b>
+<i>13</i>&nbsp;
+<b class="nc"><i>14</i>&nbsp;    public static final Logger LOGGER = Logger.getLogger(FinishDeliveryRunUI.class.getName());</b>
+<i>15</i>&nbsp;
+<i>16</i>&nbsp;    public void run() {
+<b class="nc"><i>17</i>&nbsp;        FinishDeliveryRunController oCtrl = new FinishDeliveryRunController();</b>
+<b class="nc"><i>18</i>&nbsp;        Scanner sc = new Scanner(System.in);</b>
+<i>19</i>&nbsp;
+<i>20</i>&nbsp;            try {
+<b class="nc"><i>21</i>&nbsp;                System.out.print(&quot;Finish Delivery Run:\n\nDelivery Run&#39; ID: &quot;);</b>
+<b class="nc"><i>22</i>&nbsp;                int intId = Integer.parseInt(sc.nextLine());</b>
+<b class="nc"><i>23</i>&nbsp;                System.out.print(&quot;Vehicle&#39;s Current Battery Percentage: &quot;);</b>
+<b class="nc"><i>24</i>&nbsp;                int intBatteryPerc = Integer.parseInt(sc.nextLine());</b>
+<b class="nc"><i>25</i>&nbsp;                Menu.clear();</b>
+<i>26</i>&nbsp;
+<b class="nc"><i>27</i>&nbsp;                if(intBatteryPerc &lt; 0 || intBatteryPerc &gt; 100){</b>
+<b class="nc"><i>28</i>&nbsp;                    throw new Exception();</b>
+<i>29</i>&nbsp;                }
+<i>30</i>&nbsp;
+<b class="nc"><i>31</i>&nbsp;                if(oCtrl.finishDeliveryRun(intId, intBatteryPerc)){</b>
+<b class="nc"><i>32</i>&nbsp;                    LOGGER.log(Level.INFO, &quot;Delivery Run Finished. Thank you for your service.&quot;);</b>
+<i>33</i>&nbsp;                }else{
+<b class="nc"><i>34</i>&nbsp;                    throw new Exception();</b>
+<i>35</i>&nbsp;                }
+<b class="nc"><i>36</i>&nbsp;                Menu.sleep();</b>
+<b class="nc"><i>37</i>&nbsp;            } catch (Exception e) {</b>
+<b class="nc"><i>38</i>&nbsp;                LOGGER.log(Level.WARNING, &quot;There was an error finishing your delivery run.&quot;);</b>
+<b class="nc"><i>39</i>&nbsp;            }</b>
+<b class="nc"><i>40</i>&nbsp;    }</b>
+<i>41</i>&nbsp;
+<i>42</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2021-01-31 18:27</div>
+</div>
+</body>
+</html>

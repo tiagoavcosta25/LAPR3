@@ -1,0 +1,261 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: CreditCard</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">lapr.project.model</a> ]
+</div>
+
+<h1>Coverage Summary for Class: CreditCard (lapr.project.model)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">CreditCard</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (13/ 13)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (32/ 32)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package lapr.project.model;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import java.util.Date;
+<i>4</i>&nbsp;import java.util.Objects;
+<i>5</i>&nbsp;
+<i>6</i>&nbsp;/**
+<i>7</i>&nbsp; * CreditCard.
+<i>8</i>&nbsp; * &lt;p&gt;
+<i>9</i>&nbsp; * Group: Team Lisa [G-021]
+<i>10</i>&nbsp; * ______________________________________________________
+<i>11</i>&nbsp; *
+<i>12</i>&nbsp; * @author António Barbosa &lt;1190404@isep.ipp.pt&gt;
+<i>13</i>&nbsp; * @author Ernesto Rodrigues &lt;1190560@isep.ipp.pt&gt;
+<i>14</i>&nbsp; * @author Jessica Alves &lt;1190682@isep.ipp.pt&gt;
+<i>15</i>&nbsp; * @author Pedro Santos &lt;1190967@isep.ipp.pt&gt;
+<i>16</i>&nbsp; * @author Rodrigo Costa &lt;1191014@isep.ipp.pt&gt;
+<i>17</i>&nbsp; * @author Tiago Costa &lt;1191460@isep.ipp.pt&gt;
+<i>18</i>&nbsp; */
+<i>19</i>&nbsp;public class CreditCard implements Comparable{
+<i>20</i>&nbsp;
+<i>21</i>&nbsp;    /**
+<i>22</i>&nbsp;     * Credit Card Number
+<i>23</i>&nbsp;     */
+<i>24</i>&nbsp;    private Long mlCreditCardNr;
+<i>25</i>&nbsp;
+<i>26</i>&nbsp;    /**
+<i>27</i>&nbsp;     * Credit Card Validity Date
+<i>28</i>&nbsp;     */
+<i>29</i>&nbsp;    private Date mdtValidityDate;
+<i>30</i>&nbsp;
+<i>31</i>&nbsp;    /**
+<i>32</i>&nbsp;     * Credit Card CCV
+<i>33</i>&nbsp;     */
+<i>34</i>&nbsp;    private Integer mintCCV;
+<i>35</i>&nbsp;
+<i>36</i>&nbsp;    /**
+<i>37</i>&nbsp;     * Empty constructor of CreditCard, which sets all the atributes
+<i>38</i>&nbsp;     * to default values
+<i>39</i>&nbsp;     */
+<b class="fc"><i>40</i>&nbsp;    public CreditCard() {</b>
+<b class="fc"><i>41</i>&nbsp;        this.mlCreditCardNr = -1L;</b>
+<b class="fc"><i>42</i>&nbsp;        this.mdtValidityDate = new Date();</b>
+<b class="fc"><i>43</i>&nbsp;        this.mintCCV = -1;</b>
+<b class="fc"><i>44</i>&nbsp;    }</b>
+<i>45</i>&nbsp;
+<i>46</i>&nbsp;    /**
+<i>47</i>&nbsp;     * Constructor of CreditCard, which sets all the atributes to the ones
+<i>48</i>&nbsp;     * given by parameter
+<i>49</i>&nbsp;     *
+<i>50</i>&nbsp;     * @param creditCardNr  Credit Card Number
+<i>51</i>&nbsp;     * @param validityDate  Credit Card Validity Date
+<i>52</i>&nbsp;     * @param ccv           Credit Card CCV
+<i>53</i>&nbsp;     */
+<b class="fc"><i>54</i>&nbsp;    public CreditCard(long creditCardNr, Date validityDate, Integer ccv) {</b>
+<b class="fc"><i>55</i>&nbsp;        this.mlCreditCardNr = creditCardNr;</b>
+<b class="fc"><i>56</i>&nbsp;        this.mdtValidityDate = (Date) validityDate.clone();</b>
+<b class="fc"><i>57</i>&nbsp;        this.mintCCV = ccv;</b>
+<b class="fc"><i>58</i>&nbsp;    }</b>
+<i>59</i>&nbsp;
+<i>60</i>&nbsp;    /**
+<i>61</i>&nbsp;     * Returns the Credit Card Number
+<i>62</i>&nbsp;     *
+<i>63</i>&nbsp;     * @return  Credit Card Number
+<i>64</i>&nbsp;     */
+<i>65</i>&nbsp;    public Long getCreditCardNr() {
+<b class="fc"><i>66</i>&nbsp;        return mlCreditCardNr;</b>
+<i>67</i>&nbsp;    }
+<i>68</i>&nbsp;
+<i>69</i>&nbsp;    /**
+<i>70</i>&nbsp;     * Sets the Credit Card Number to the one given by parameter
+<i>71</i>&nbsp;     *
+<i>72</i>&nbsp;     * @param lCreditCardNr new Credit Card Number
+<i>73</i>&nbsp;     */
+<i>74</i>&nbsp;    public void setCreditCardNr(Long lCreditCardNr) {
+<b class="fc"><i>75</i>&nbsp;        this.mlCreditCardNr = lCreditCardNr;</b>
+<b class="fc"><i>76</i>&nbsp;    }</b>
+<i>77</i>&nbsp;
+<i>78</i>&nbsp;    /**
+<i>79</i>&nbsp;     * Checks if a Credit Card has a certain number, given by parameter
+<i>80</i>&nbsp;     *
+<i>81</i>&nbsp;     * @param intNum    Credit Card Number
+<i>82</i>&nbsp;     * @return  True if the Credit Card has the Number given by parameter, false if otherwise
+<i>83</i>&nbsp;     */
+<b class="fc"><i>84</i>&nbsp;    public boolean hasNumber(Long intNum) {return this.mlCreditCardNr.equals(intNum);}</b>
+<i>85</i>&nbsp;
+<i>86</i>&nbsp;    /**
+<i>87</i>&nbsp;     * Returns the Credit Card Validity Date
+<i>88</i>&nbsp;     *
+<i>89</i>&nbsp;     * @return  Credit Card Validity Date
+<i>90</i>&nbsp;     */
+<i>91</i>&nbsp;    public Date getValidityDate() {
+<b class="fc"><i>92</i>&nbsp;        return (Date) mdtValidityDate.clone();</b>
+<i>93</i>&nbsp;    }
+<i>94</i>&nbsp;
+<i>95</i>&nbsp;    /**
+<i>96</i>&nbsp;     * Sets the Validity Date to the one given by parameter
+<i>97</i>&nbsp;     *
+<i>98</i>&nbsp;     * @param oValidityDate new Validity Date
+<i>99</i>&nbsp;     */
+<i>100</i>&nbsp;    public void setValidityDate(Date oValidityDate) {
+<b class="fc"><i>101</i>&nbsp;        this.mdtValidityDate = (Date) oValidityDate.clone();</b>
+<b class="fc"><i>102</i>&nbsp;    }</b>
+<i>103</i>&nbsp;
+<i>104</i>&nbsp;    /**
+<i>105</i>&nbsp;     * Returns the Credit Card CCV
+<i>106</i>&nbsp;     *
+<i>107</i>&nbsp;     * @return  Credit Card CCV
+<i>108</i>&nbsp;     */
+<i>109</i>&nbsp;    public Integer getCCV() {
+<b class="fc"><i>110</i>&nbsp;        return mintCCV;</b>
+<i>111</i>&nbsp;    }
+<i>112</i>&nbsp;
+<i>113</i>&nbsp;    /**
+<i>114</i>&nbsp;     * Sets the CCV to the one ggiven by parameter
+<i>115</i>&nbsp;     *
+<i>116</i>&nbsp;     * @param intCCV   new Credit Card CCV
+<i>117</i>&nbsp;     */
+<i>118</i>&nbsp;    public void setCCV(Integer intCCV) {
+<b class="fc"><i>119</i>&nbsp;        this.mintCCV = intCCV;</b>
+<b class="fc"><i>120</i>&nbsp;    }</b>
+<i>121</i>&nbsp;
+<i>122</i>&nbsp;    /**
+<i>123</i>&nbsp;     * Compares two Credit Card objects
+<i>124</i>&nbsp;     *
+<i>125</i>&nbsp;     * @param o Other Object
+<i>126</i>&nbsp;     * @return  0 if the objects are the same, 1 if the first is greater
+<i>127</i>&nbsp;     *          than the second or -1 if otherwise
+<i>128</i>&nbsp;     */
+<i>129</i>&nbsp;    @Override
+<i>130</i>&nbsp;    public int compareTo(Object o) {
+<b class="fc"><i>131</i>&nbsp;        CreditCard c = (CreditCard) o;</b>
+<b class="fc"><i>132</i>&nbsp;        if(this.mlCreditCardNr &lt; c.getCreditCardNr()){</b>
+<b class="fc"><i>133</i>&nbsp;            return -1;</b>
+<b class="fc"><i>134</i>&nbsp;        } else if(this.mlCreditCardNr == c.getCreditCardNr()){</b>
+<b class="fc"><i>135</i>&nbsp;            return 0;</b>
+<i>136</i>&nbsp;        }
+<b class="fc"><i>137</i>&nbsp;        return 1;</b>
+<i>138</i>&nbsp;    }
+<i>139</i>&nbsp;
+<i>140</i>&nbsp;    /**
+<i>141</i>&nbsp;     * Equals method, which compares two Credit Cards
+<i>142</i>&nbsp;     *
+<i>143</i>&nbsp;     * @param o Other Object
+<i>144</i>&nbsp;     * @return  True if both Credit Cards are equal, false if otherwise
+<i>145</i>&nbsp;     */
+<i>146</i>&nbsp;    @Override
+<i>147</i>&nbsp;    public boolean equals(Object o) {
+<b class="fc"><i>148</i>&nbsp;        if (this == o) return true;</b>
+<b class="fc"><i>149</i>&nbsp;        if (o == null || getClass() != o.getClass()) return false;</b>
+<b class="fc"><i>150</i>&nbsp;        CreditCard that = (CreditCard) o;</b>
+<b class="fc"><i>151</i>&nbsp;        return Objects.equals(mlCreditCardNr, that.mlCreditCardNr);</b>
+<i>152</i>&nbsp;    }
+<i>153</i>&nbsp;
+<i>154</i>&nbsp;    /**
+<i>155</i>&nbsp;     * HashCode
+<i>156</i>&nbsp;     *
+<i>157</i>&nbsp;     * @return  Integer hash
+<i>158</i>&nbsp;     */
+<i>159</i>&nbsp;    @Override
+<i>160</i>&nbsp;    public int hashCode() {
+<b class="fc"><i>161</i>&nbsp;        return Objects.hash(mlCreditCardNr);</b>
+<i>162</i>&nbsp;    }
+<i>163</i>&nbsp;
+<i>164</i>&nbsp;    /**
+<i>165</i>&nbsp;     * ToString method, which formats a string to
+<i>166</i>&nbsp;     * print a formatted message
+<i>167</i>&nbsp;     *
+<i>168</i>&nbsp;     * @return formatted String
+<i>169</i>&nbsp;     */
+<i>170</i>&nbsp;    @Override
+<i>171</i>&nbsp;    public String toString() {
+<b class="fc"><i>172</i>&nbsp;        return &quot;CreditCard{&quot; +</b>
+<i>173</i>&nbsp;                &quot;m_creditCardNr=&quot; + mlCreditCardNr +
+<i>174</i>&nbsp;                &quot;, m_validityDate=&quot; + mdtValidityDate +
+<i>175</i>&nbsp;                &quot;, m_CCV=&quot; + mintCCV +
+<i>176</i>&nbsp;                &#39;}&#39;;
+<i>177</i>&nbsp;    }
+<i>178</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2021-01-31 18:27</div>
+</div>
+</body>
+</html>

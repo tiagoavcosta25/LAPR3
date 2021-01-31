@@ -1,0 +1,245 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: MakeAnOrderUI</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">lapr.project.ui.console</a> ]
+</div>
+
+<h1>Coverage Summary for Class: MakeAnOrderUI (lapr.project.ui.console)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">MakeAnOrderUI</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 6)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 95)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package lapr.project.ui.console;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import lapr.project.controller.MakeAnOrderController;
+<i>4</i>&nbsp;import lapr.project.model.*;
+<i>5</i>&nbsp;import lapr.project.ui.Menu;
+<i>6</i>&nbsp;import lapr.project.ui.UI;
+<i>7</i>&nbsp;
+<i>8</i>&nbsp;import java.util.List;
+<i>9</i>&nbsp;import java.util.Scanner;
+<i>10</i>&nbsp;import java.util.logging.Level;
+<i>11</i>&nbsp;import java.util.logging.Logger;
+<i>12</i>&nbsp;
+<b class="nc"><i>13</i>&nbsp;public class MakeAnOrderUI implements UI {</b>
+<i>14</i>&nbsp;
+<b class="nc"><i>15</i>&nbsp;    private static final Logger LOGGER = Logger.getLogger(MakeAnOrderUI.class.getName());</b>
+<b class="nc"><i>16</i>&nbsp;    private static Scanner sc = new Scanner(System.in);</b>
+<i>17</i>&nbsp;
+<i>18</i>&nbsp;    public void run(){
+<i>19</i>&nbsp;        try{
+<b class="nc"><i>20</i>&nbsp;            MakeAnOrderController oCtrl = new MakeAnOrderController();</b>
+<i>21</i>&nbsp;            boolean flag;
+<i>22</i>&nbsp;            boolean blnHomeDelivery;
+<i>23</i>&nbsp;
+<i>24</i>&nbsp;            do{
+<i>25</i>&nbsp;
+<b class="nc"><i>26</i>&nbsp;                chooseProducts(oCtrl);</b>
+<b class="nc"><i>27</i>&nbsp;                Menu.clear();</b>
+<i>28</i>&nbsp;
+<b class="nc"><i>29</i>&nbsp;                if(oCtrl.getMapProducts().isEmpty()){throw new Exception();}</b>
+<i>30</i>&nbsp;
+<b class="nc"><i>31</i>&nbsp;                System.out.print(&quot;Order´s Description: &quot;);</b>
+<b class="nc"><i>32</i>&nbsp;                String strDescription = sc.nextLine();</b>
+<b class="nc"><i>33</i>&nbsp;                Menu.clear();</b>
+<i>34</i>&nbsp;
+<b class="nc"><i>35</i>&nbsp;                System.out.print(&quot;Do you want the order delivered to your home with an additional fee? (Y/N): &quot;);</b>
+<b class="nc"><i>36</i>&nbsp;                String strCheck = sc.nextLine();</b>
+<b class="nc"><i>37</i>&nbsp;                Menu.clear();</b>
+<i>38</i>&nbsp;
+<b class="nc"><i>39</i>&nbsp;                if(strCheck.equalsIgnoreCase(&quot;Y&quot;)){</b>
+<b class="nc"><i>40</i>&nbsp;                    blnHomeDelivery = true;</b>
+<i>41</i>&nbsp;                } else{
+<b class="nc"><i>42</i>&nbsp;                    blnHomeDelivery = false;</b>
+<i>43</i>&nbsp;                }
+<i>44</i>&nbsp;
+<b class="nc"><i>45</i>&nbsp;                Order oOrder = oCtrl.newOrder(strDescription, blnHomeDelivery);</b>
+<b class="nc"><i>46</i>&nbsp;                strCheck = confirmOrder(oOrder);</b>
+<i>47</i>&nbsp;
+<b class="nc"><i>48</i>&nbsp;                if(strCheck.equalsIgnoreCase(&quot;Y&quot;)){</b>
+<b class="nc"><i>49</i>&nbsp;                    chooseCC(oCtrl);</b>
+<b class="nc"><i>50</i>&nbsp;                    Menu.clear();</b>
+<b class="nc"><i>51</i>&nbsp;                    if(oCtrl.getMapPayments().isEmpty()){throw new Exception();}</b>
+<i>52</i>&nbsp;
+<b class="nc"><i>53</i>&nbsp;                    if(oCtrl.registerOrder()){</b>
+<b class="nc"><i>54</i>&nbsp;                        LOGGER.log(Level.INFO, &quot;Order Registered with success.&quot;);</b>
+<b class="nc"><i>55</i>&nbsp;                        flag = true;</b>
+<i>56</i>&nbsp;                    } else {
+<b class="nc"><i>57</i>&nbsp;                        LOGGER.log(Level.WARNING,&quot;Something went wrong, try again. Order not Registered. If you need any help, please contact us using help@teamlisa.com.&quot;);</b>
+<b class="nc"><i>58</i>&nbsp;                        flag = false;</b>
+<i>59</i>&nbsp;                    }
+<i>60</i>&nbsp;                } else{
+<b class="nc"><i>61</i>&nbsp;                    flag = true;</b>
+<i>62</i>&nbsp;                }
+<b class="nc"><i>63</i>&nbsp;            } while(!flag);</b>
+<i>64</i>&nbsp;
+<b class="nc"><i>65</i>&nbsp;        } catch (Exception e){</b>
+<b class="nc"><i>66</i>&nbsp;            LOGGER.log(Level.WARNING,&quot;Something went wrong, try again. Order not Registered. If you need any help, please contact us using help@teamlisa.com.&quot;);</b>
+<b class="nc"><i>67</i>&nbsp;        }</b>
+<b class="nc"><i>68</i>&nbsp;    }</b>
+<i>69</i>&nbsp;
+<i>70</i>&nbsp;    private String confirmOrder(Order oOrder) {
+<i>71</i>&nbsp;
+<b class="nc"><i>72</i>&nbsp;        System.out.printf(&quot;Order:%n%n-Pharmacy: %s%n-Description: %s%n-Total: %.2f€&quot;, oOrder.getPharmacy().getName(),</b>
+<b class="nc"><i>73</i>&nbsp;                oOrder.getDescription(), oOrder.getAmount() + oOrder.getAdditionalFee());</b>
+<i>74</i>&nbsp;
+<b class="nc"><i>75</i>&nbsp;        System.out.print(&quot;\n\nDo you want to confirm this order? (Y/N): &quot;);</b>
+<b class="nc"><i>76</i>&nbsp;        String strCheck = sc.nextLine();</b>
+<b class="nc"><i>77</i>&nbsp;        Menu.clear();</b>
+<b class="nc"><i>78</i>&nbsp;        return strCheck;</b>
+<i>79</i>&nbsp;    }
+<i>80</i>&nbsp;
+<i>81</i>&nbsp;    public static void chooseProducts(MakeAnOrderController oCtrl){
+<i>82</i>&nbsp;        Integer intProductId;
+<b class="nc"><i>83</i>&nbsp;        List&lt;Product&gt; lstProducts = oCtrl.getAvailableProducts();</b>
+<i>84</i>&nbsp;        do{
+<b class="nc"><i>85</i>&nbsp;            if(lstProducts.isEmpty()){break;}</b>
+<b class="nc"><i>86</i>&nbsp;            for(Product p : lstProducts){</b>
+<b class="nc"><i>87</i>&nbsp;                System.out.printf(&quot;[%d] %s (%.2f€)%n&quot;, p.getId(), p.getName(), p.getUnitaryPrice());</b>
+<b class="nc"><i>88</i>&nbsp;            }</b>
+<b class="nc"><i>89</i>&nbsp;            System.out.println(&quot;\n[0] to stop the product insertion&quot;);</b>
+<i>90</i>&nbsp;
+<b class="nc"><i>91</i>&nbsp;            System.out.print(&quot;\nChoose the Product&#39;s Id: &quot;);</b>
+<b class="nc"><i>92</i>&nbsp;            intProductId = Integer.parseInt(sc.nextLine());</b>
+<b class="nc"><i>93</i>&nbsp;            System.out.println();</b>
+<i>94</i>&nbsp;
+<b class="nc"><i>95</i>&nbsp;            if(intProductId != 0){</b>
+<b class="nc"><i>96</i>&nbsp;                Product oProduct = new Product();</b>
+<b class="nc"><i>97</i>&nbsp;                Integer intQuantity = 0;</b>
+<b class="nc"><i>98</i>&nbsp;                for(Product p : lstProducts){</b>
+<b class="nc"><i>99</i>&nbsp;                    if (p.hasId(intProductId)){</b>
+<b class="nc"><i>100</i>&nbsp;                        oProduct = p;</b>
+<b class="nc"><i>101</i>&nbsp;                        break;</b>
+<i>102</i>&nbsp;                    }
+<b class="nc"><i>103</i>&nbsp;                }</b>
+<i>104</i>&nbsp;
+<b class="nc"><i>105</i>&nbsp;                System.out.print(&quot;\nChoose the Product&#39;s Quantity: &quot;);</b>
+<b class="nc"><i>106</i>&nbsp;                intQuantity = Integer.parseInt(sc.nextLine());</b>
+<b class="nc"><i>107</i>&nbsp;                System.out.println();</b>
+<i>108</i>&nbsp;
+<b class="nc"><i>109</i>&nbsp;                if(!oProduct.getName().equalsIgnoreCase(&quot;&quot;) &amp;&amp; intQuantity &gt; 0){</b>
+<b class="nc"><i>110</i>&nbsp;                    oCtrl.addProductToOrder(oProduct, intQuantity);</b>
+<b class="nc"><i>111</i>&nbsp;                    lstProducts.remove(oProduct);</b>
+<i>112</i>&nbsp;                }
+<b class="nc"><i>113</i>&nbsp;                Menu.clear();</b>
+<i>114</i>&nbsp;            }
+<b class="nc"><i>115</i>&nbsp;        }while(intProductId != 0);</b>
+<b class="nc"><i>116</i>&nbsp;    }</b>
+<i>117</i>&nbsp;
+<i>118</i>&nbsp;    public static void chooseCC(MakeAnOrderController oCtrl){
+<b class="nc"><i>119</i>&nbsp;        List&lt;CreditCard&gt; lstCC = oCtrl.getCreditCardsByClient();</b>
+<i>120</i>&nbsp;        Long intCCNum;
+<b class="nc"><i>121</i>&nbsp;        int blnPaymentFlag = -1;</b>
+<i>122</i>&nbsp;
+<i>123</i>&nbsp;        do{
+<b class="nc"><i>124</i>&nbsp;            System.out.printf(&quot;Total Amount to Pay: %.2f€%nTotal Left To Pay: %.2f€%n-----------------------------------------------------%n%nCredit Cards:%n&quot;,</b>
+<b class="nc"><i>125</i>&nbsp;                    oCtrl.getExpectedPayment(), oCtrl.getExpectedPayment() - oCtrl.getCurrentPayment());</b>
+<b class="nc"><i>126</i>&nbsp;            for(CreditCard c : lstCC){</b>
+<b class="nc"><i>127</i>&nbsp;                System.out.printf(&quot;[%d]%n&quot;, c.getCreditCardNr());</b>
+<b class="nc"><i>128</i>&nbsp;            }</b>
+<b class="nc"><i>129</i>&nbsp;            System.out.println(&quot;\n[0] to stop the credit card insertion&quot;);</b>
+<i>130</i>&nbsp;
+<b class="nc"><i>131</i>&nbsp;            System.out.print(&quot;\nChoose the Credit Cards&#39;s Number: &quot;);</b>
+<b class="nc"><i>132</i>&nbsp;            intCCNum = Long.parseLong(sc.nextLine());</b>
+<b class="nc"><i>133</i>&nbsp;            System.out.println();</b>
+<i>134</i>&nbsp;
+<b class="nc"><i>135</i>&nbsp;            CreditCard oCreditCard = new CreditCard();</b>
+<i>136</i>&nbsp;            double intAmount;
+<b class="nc"><i>137</i>&nbsp;            for(CreditCard c : lstCC){</b>
+<b class="nc"><i>138</i>&nbsp;                if (c.hasNumber(intCCNum)){</b>
+<b class="nc"><i>139</i>&nbsp;                    oCreditCard = c;</b>
+<b class="nc"><i>140</i>&nbsp;                    break;</b>
+<i>141</i>&nbsp;                }
+<b class="nc"><i>142</i>&nbsp;            }</b>
+<i>143</i>&nbsp;
+<b class="nc"><i>144</i>&nbsp;            System.out.print(&quot;\nChoose the amount of money you want to pay using that card: &quot;);</b>
+<b class="nc"><i>145</i>&nbsp;            intAmount = Integer.parseInt(sc.nextLine());</b>
+<b class="nc"><i>146</i>&nbsp;            System.out.println();</b>
+<i>147</i>&nbsp;
+<b class="nc"><i>148</i>&nbsp;            if(oCreditCard.getCreditCardNr() != -1l &amp;&amp; intAmount &gt; 0f){</b>
+<b class="nc"><i>149</i>&nbsp;                blnPaymentFlag = oCtrl.addPayment(oCreditCard, intAmount);</b>
+<i>150</i>&nbsp;
+<b class="nc"><i>151</i>&nbsp;                if (blnPaymentFlag == 1){</b>
+<b class="nc"><i>152</i>&nbsp;                    break;</b>
+<b class="nc"><i>153</i>&nbsp;                } else if(blnPaymentFlag == 0){</b>
+<b class="nc"><i>154</i>&nbsp;                    lstCC.remove(oCreditCard);</b>
+<i>155</i>&nbsp;                } else{
+<b class="nc"><i>156</i>&nbsp;                    LOGGER.log(Level.WARNING,&quot;The Amount you tried to pay was more than the amount owed. Try again.&quot;);</b>
+<i>157</i>&nbsp;                }
+<i>158</i>&nbsp;            }
+<b class="nc"><i>159</i>&nbsp;            Menu.clear();</b>
+<b class="nc"><i>160</i>&nbsp;        }while(blnPaymentFlag != 1);</b>
+<b class="nc"><i>161</i>&nbsp;    }</b>
+<i>162</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2021-01-31 18:27</div>
+</div>
+</body>
+</html>

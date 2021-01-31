@@ -1,0 +1,237 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: Vertex</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">lapr.project.graph.map</a> ]
+</div>
+
+<h1>Coverage Summary for Class: Vertex (lapr.project.graph.map)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Vertex</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (17/ 17)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    93,2%
+  </span>
+  <span class="absValue">
+    (68/ 73)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package lapr.project.graph.map;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import java.util.Iterator;
+<i>4</i>&nbsp;import java.util.LinkedHashMap;
+<i>5</i>&nbsp;import java.util.Map;
+<i>6</i>&nbsp;
+<i>7</i>&nbsp;/**
+<i>8</i>&nbsp; * @param &lt;V&gt;
+<i>9</i>&nbsp; * @param &lt;E&gt;
+<i>10</i>&nbsp; * @author DEI-ESINF
+<i>11</i>&nbsp; */
+<i>12</i>&nbsp;
+<i>13</i>&nbsp;public class Vertex&lt;V, E&gt; {
+<i>14</i>&nbsp;
+<i>15</i>&nbsp;    private final Map&lt;V, Edge&lt;V, E&gt;&gt; outVerts; //adjacent vertices
+<i>16</i>&nbsp;    private int key;                     //Vertex key number
+<i>17</i>&nbsp;    private V element;                 //Vertex information
+<i>18</i>&nbsp;
+<b class="fc"><i>19</i>&nbsp;    public Vertex() {</b>
+<b class="fc"><i>20</i>&nbsp;        key = -1;</b>
+<b class="fc"><i>21</i>&nbsp;        element = null;</b>
+<b class="fc"><i>22</i>&nbsp;        outVerts = new LinkedHashMap&lt;&gt;();</b>
+<b class="fc"><i>23</i>&nbsp;    }</b>
+<i>24</i>&nbsp;
+<b class="fc"><i>25</i>&nbsp;    public Vertex(int k, V vInf) {</b>
+<b class="fc"><i>26</i>&nbsp;        key = k;</b>
+<b class="fc"><i>27</i>&nbsp;        element = vInf;</b>
+<b class="fc"><i>28</i>&nbsp;        outVerts = new LinkedHashMap&lt;&gt;();</b>
+<b class="fc"><i>29</i>&nbsp;    }</b>
+<i>30</i>&nbsp;
+<b class="fc"><i>31</i>&nbsp;    public Vertex(Vertex&lt;V, E&gt; v) {</b>
+<b class="fc"><i>32</i>&nbsp;        key = v.getKey();</b>
+<b class="fc"><i>33</i>&nbsp;        element = v.getElement();</b>
+<b class="fc"><i>34</i>&nbsp;        outVerts = new LinkedHashMap&lt;&gt;();</b>
+<b class="fc"><i>35</i>&nbsp;        for (V vert : v.outVerts.keySet()) {</b>
+<b class="nc"><i>36</i>&nbsp;            Edge&lt;V, E&gt; edge = v.outVerts.get(vert);</b>
+<b class="nc"><i>37</i>&nbsp;            outVerts.put(vert, edge);</b>
+<b class="nc"><i>38</i>&nbsp;        }</b>
+<b class="fc"><i>39</i>&nbsp;    }</b>
+<i>40</i>&nbsp;
+<i>41</i>&nbsp;    public int getKey() {
+<b class="fc"><i>42</i>&nbsp;        return key;</b>
+<i>43</i>&nbsp;    }
+<i>44</i>&nbsp;
+<i>45</i>&nbsp;    public void setKey(int k) {
+<b class="fc"><i>46</i>&nbsp;        key = k;</b>
+<b class="fc"><i>47</i>&nbsp;    }</b>
+<i>48</i>&nbsp;
+<i>49</i>&nbsp;    public V getElement() {
+<b class="fc"><i>50</i>&nbsp;        return element;</b>
+<i>51</i>&nbsp;    }
+<i>52</i>&nbsp;
+<i>53</i>&nbsp;    public void setElement(V vInf) {
+<b class="fc"><i>54</i>&nbsp;        element = vInf;</b>
+<b class="fc"><i>55</i>&nbsp;    }</b>
+<i>56</i>&nbsp;
+<i>57</i>&nbsp;    public void addAdjVert(V vAdj, Edge&lt;V, E&gt; edge) {
+<b class="fc"><i>58</i>&nbsp;        outVerts.put(vAdj, edge);</b>
+<b class="fc"><i>59</i>&nbsp;    }</b>
+<i>60</i>&nbsp;
+<i>61</i>&nbsp;    public V getAdjVert(Edge&lt;V, E&gt; edge) {
+<i>62</i>&nbsp;
+<b class="fc"><i>63</i>&nbsp;        for (V vert : outVerts.keySet())</b>
+<b class="fc"><i>64</i>&nbsp;            if (edge.equals(outVerts.get(vert)))</b>
+<b class="fc"><i>65</i>&nbsp;                return vert;</b>
+<i>66</i>&nbsp;
+<b class="fc"><i>67</i>&nbsp;        return null;</b>
+<i>68</i>&nbsp;    }
+<i>69</i>&nbsp;
+<i>70</i>&nbsp;    public void remAdjVert(V vAdj) {
+<b class="fc"><i>71</i>&nbsp;        outVerts.remove(vAdj);</b>
+<b class="fc"><i>72</i>&nbsp;    }</b>
+<i>73</i>&nbsp;
+<i>74</i>&nbsp;    public Edge&lt;V, E&gt; getEdge(V vAdj) {
+<b class="fc"><i>75</i>&nbsp;        return outVerts.get(vAdj);</b>
+<i>76</i>&nbsp;    }
+<i>77</i>&nbsp;
+<i>78</i>&nbsp;    public int numAdjVerts() {
+<b class="fc"><i>79</i>&nbsp;        return outVerts.size();</b>
+<i>80</i>&nbsp;    }
+<i>81</i>&nbsp;
+<i>82</i>&nbsp;    public Iterable&lt;V&gt; getAllAdjVerts() {
+<b class="fc"><i>83</i>&nbsp;        return outVerts.keySet();</b>
+<i>84</i>&nbsp;    }
+<i>85</i>&nbsp;
+<i>86</i>&nbsp;    public Iterable&lt;Edge&lt;V, E&gt;&gt; getAllOutEdges() {
+<b class="fc"><i>87</i>&nbsp;        return outVerts.values();</b>
+<i>88</i>&nbsp;    }
+<i>89</i>&nbsp;
+<i>90</i>&nbsp;    @Override
+<i>91</i>&nbsp;    public boolean equals(Object otherObj) {
+<i>92</i>&nbsp;
+<b class="fc"><i>93</i>&nbsp;        if (this == otherObj) {</b>
+<b class="fc"><i>94</i>&nbsp;            return true;</b>
+<i>95</i>&nbsp;        }
+<i>96</i>&nbsp;
+<b class="fc"><i>97</i>&nbsp;        if (otherObj == null || this.getClass() != otherObj.getClass())</b>
+<b class="fc"><i>98</i>&nbsp;            return false;</b>
+<i>99</i>&nbsp;
+<b class="fc"><i>100</i>&nbsp;        Vertex&lt;V, E&gt; otherVertex = (Vertex&lt;V, E&gt;) otherObj;</b>
+<i>101</i>&nbsp;
+<b class="fc"><i>102</i>&nbsp;        if (this.key != otherVertex.key)</b>
+<b class="fc"><i>103</i>&nbsp;            return false;</b>
+<i>104</i>&nbsp;
+<b class="fc"><i>105</i>&nbsp;        if (this.element != null &amp;&amp; otherVertex.element != null &amp;&amp;</b>
+<b class="fc"><i>106</i>&nbsp;                !this.element.equals(otherVertex.element))</b>
+<b class="nc"><i>107</i>&nbsp;            return false;</b>
+<i>108</i>&nbsp;
+<i>109</i>&nbsp;        //adjacency vertices should be equal
+<b class="fc"><i>110</i>&nbsp;        if (this.numAdjVerts() != otherVertex.numAdjVerts())</b>
+<b class="fc"><i>111</i>&nbsp;            return false;</b>
+<i>112</i>&nbsp;
+<i>113</i>&nbsp;        //and edges also
+<b class="fc"><i>114</i>&nbsp;        Iterator&lt;Edge&lt;V, E&gt;&gt; it1 = this.getAllOutEdges().iterator();</b>
+<b class="fc"><i>115</i>&nbsp;        while (it1.hasNext()) {</b>
+<b class="fc"><i>116</i>&nbsp;            Iterator&lt;Edge&lt;V, E&gt;&gt; it2 = otherVertex.getAllOutEdges().iterator();</b>
+<b class="fc"><i>117</i>&nbsp;            boolean exists = false;</b>
+<b class="fc"><i>118</i>&nbsp;            while (it2.hasNext()) {</b>
+<b class="fc"><i>119</i>&nbsp;                if (it1.next().equals(it2.next()))</b>
+<b class="fc"><i>120</i>&nbsp;                    exists = true;</b>
+<i>121</i>&nbsp;            }
+<b class="fc"><i>122</i>&nbsp;            if (!exists)</b>
+<b class="nc"><i>123</i>&nbsp;                return false;</b>
+<b class="fc"><i>124</i>&nbsp;        }</b>
+<b class="fc"><i>125</i>&nbsp;        return true;</b>
+<i>126</i>&nbsp;    }
+<i>127</i>&nbsp;
+<i>128</i>&nbsp;    @Override
+<i>129</i>&nbsp;    public Vertex&lt;V, E&gt; clone() {
+<i>130</i>&nbsp;
+<b class="fc"><i>131</i>&nbsp;        Vertex&lt;V, E&gt; newVertex = new Vertex&lt;&gt;();</b>
+<i>132</i>&nbsp;
+<b class="fc"><i>133</i>&nbsp;        newVertex.setKey(key);</b>
+<b class="fc"><i>134</i>&nbsp;        newVertex.setElement(element);</b>
+<i>135</i>&nbsp;
+<b class="fc"><i>136</i>&nbsp;        for (V vert : outVerts.keySet())</b>
+<b class="fc"><i>137</i>&nbsp;            newVertex.addAdjVert(vert, this.getEdge(vert));</b>
+<i>138</i>&nbsp;
+<b class="fc"><i>139</i>&nbsp;        return newVertex;</b>
+<i>140</i>&nbsp;    }
+<i>141</i>&nbsp;
+<i>142</i>&nbsp;    @Override
+<i>143</i>&nbsp;    public String toString() {
+<b class="fc"><i>144</i>&nbsp;        String st = &quot;&quot;;</b>
+<b class="fc"><i>145</i>&nbsp;        if (element != null)</b>
+<b class="fc"><i>146</i>&nbsp;            st = element + &quot; (&quot; + key + &quot;): \n&quot;;</b>
+<b class="fc"><i>147</i>&nbsp;        if (!outVerts.isEmpty())</b>
+<b class="fc"><i>148</i>&nbsp;            for (V vert : outVerts.keySet())</b>
+<b class="fc"><i>149</i>&nbsp;                st += outVerts.get(vert);</b>
+<i>150</i>&nbsp;
+<b class="fc"><i>151</i>&nbsp;        return st;</b>
+<i>152</i>&nbsp;    }
+<i>153</i>&nbsp;
+<i>154</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2021-01-31 18:27</div>
+</div>
+</body>
+</html>

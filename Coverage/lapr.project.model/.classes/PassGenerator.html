@@ -1,0 +1,132 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: PassGenerator</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">lapr.project.model</a> ]
+</div>
+
+<h1>Coverage Summary for Class: PassGenerator (lapr.project.model)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">PassGenerator</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (2/ 2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (7/ 7)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package lapr.project.model;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import lapr.project.utils.GeneratePassword;
+<i>4</i>&nbsp;
+<i>5</i>&nbsp;/**
+<i>6</i>&nbsp; * Password Generator Method.
+<i>7</i>&nbsp; *
+<i>8</i>&nbsp; * Group: Team Lisa [G-037]
+<i>9</i>&nbsp; * ______________________________________________________
+<i>10</i>&nbsp; *
+<i>11</i>&nbsp; * @author Ernesto Rodrigues &lt;1190560@isep.ipp.pt&gt;
+<i>12</i>&nbsp; * @author Jessica Alves &lt;1190682@isep.ipp.pt&gt;
+<i>13</i>&nbsp; * @author Pedro Santos &lt;1190967@isep.ipp.pt&gt;
+<i>14</i>&nbsp; * @author Rodrigo Costa &lt;1191014@isep.ipp.pt&gt;
+<i>15</i>&nbsp; */
+<i>16</i>&nbsp;public class PassGenerator implements GeneratePassword {
+<i>17</i>&nbsp;
+<i>18</i>&nbsp;    /**
+<i>19</i>&nbsp;     * Password Length.
+<i>20</i>&nbsp;     */
+<i>21</i>&nbsp;    private static final int PASSWORDLENGTH = 7;
+<i>22</i>&nbsp;
+<i>23</i>&nbsp;    /**
+<i>24</i>&nbsp;     * An empty constructor of PassGenerator that initiates/creates the Password.
+<i>25</i>&nbsp;     */
+<b class="fc"><i>26</i>&nbsp;    public PassGenerator(){}</b>
+<i>27</i>&nbsp;
+<i>28</i>&nbsp;    /**
+<i>29</i>&nbsp;     * Generates a random password for a User
+<i>30</i>&nbsp;     *
+<i>31</i>&nbsp;     * @return the generated Password
+<i>32</i>&nbsp;     */
+<i>33</i>&nbsp;    @Override
+<i>34</i>&nbsp;    public String generatePassword() {
+<b class="fc"><i>35</i>&nbsp;        String str = &quot;ABCDEFGHIJKLMNOPQRSTUVWXYZ&quot;</b>
+<i>36</i>&nbsp;                + &quot;0123456789&quot;
+<i>37</i>&nbsp;                + &quot;abcdefghijklmnopqrstuvxyz&quot;;
+<i>38</i>&nbsp;
+<b class="fc"><i>39</i>&nbsp;        StringBuilder sb = new StringBuilder(PASSWORDLENGTH);</b>
+<i>40</i>&nbsp;
+<b class="fc"><i>41</i>&nbsp;        for (int i = 0; i &lt; PASSWORDLENGTH; i++) {</b>
+<i>42</i>&nbsp;
+<b class="fc"><i>43</i>&nbsp;            int c = (int)(str.length() * Math.random());</b>
+<i>44</i>&nbsp;
+<b class="fc"><i>45</i>&nbsp;            sb.append(str.charAt(c));</b>
+<i>46</i>&nbsp;        }
+<b class="fc"><i>47</i>&nbsp;        return sb.toString();</b>
+<i>48</i>&nbsp;    }
+<i>49</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2021-01-31 18:27</div>
+</div>
+</body>
+</html>

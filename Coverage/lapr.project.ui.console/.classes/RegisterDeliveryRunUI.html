@@ -1,0 +1,229 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: RegisterDeliveryRunUI</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">lapr.project.ui.console</a> ]
+</div>
+
+<h1>Coverage Summary for Class: RegisterDeliveryRunUI (lapr.project.ui.console)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">RegisterDeliveryRunUI</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 84)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package lapr.project.ui.console;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import lapr.project.controller.RegisterDeliveryRunController;
+<i>4</i>&nbsp;import lapr.project.model.Order;
+<i>5</i>&nbsp;import lapr.project.model.OrderStatus;
+<i>6</i>&nbsp;import lapr.project.model.Pharmacy;
+<i>7</i>&nbsp;import lapr.project.model.service.OrderService;
+<i>8</i>&nbsp;import lapr.project.model.service.PharmacyService;
+<i>9</i>&nbsp;import lapr.project.ui.Menu;
+<i>10</i>&nbsp;import lapr.project.ui.UI;
+<i>11</i>&nbsp;
+<i>12</i>&nbsp;import java.util.ArrayList;
+<i>13</i>&nbsp;import java.util.List;
+<i>14</i>&nbsp;import java.util.Scanner;
+<i>15</i>&nbsp;import java.util.logging.Level;
+<i>16</i>&nbsp;import java.util.logging.Logger;
+<i>17</i>&nbsp;
+<b class="nc"><i>18</i>&nbsp;public class RegisterDeliveryRunUI implements UI {</b>
+<i>19</i>&nbsp;
+<b class="nc"><i>20</i>&nbsp;    private static final Logger LOGGER = Logger.getLogger(RegisterDeliveryRunUI.class.getName());</b>
+<i>21</i>&nbsp;
+<i>22</i>&nbsp;    public void run() {
+<i>23</i>&nbsp;        try {
+<b class="nc"><i>24</i>&nbsp;            Scanner sc = new Scanner(System.in);</b>
+<b class="nc"><i>25</i>&nbsp;            RegisterDeliveryRunController oCtrl = new RegisterDeliveryRunController();</b>
+<b class="nc"><i>26</i>&nbsp;            PharmacyService oPharmacyService = new PharmacyService();</b>
+<i>27</i>&nbsp;
+<i>28</i>&nbsp;            boolean flag;
+<i>29</i>&nbsp;
+<i>30</i>&nbsp;            do {
+<b class="nc"><i>31</i>&nbsp;                Menu.clear();</b>
+<b class="nc"><i>32</i>&nbsp;                List&lt;Integer&gt; lstIds = new ArrayList&lt;&gt;();</b>
+<i>33</i>&nbsp;                String strPharmacyEmail;
+<i>34</i>&nbsp;                Integer intOrderId;
+<b class="nc"><i>35</i>&nbsp;                Double dblTotalWeight = 0.0;</b>
+<i>36</i>&nbsp;
+<b class="nc"><i>37</i>&nbsp;                List&lt;Pharmacy&gt; lstPhar = oPharmacyService.getPharmacies();</b>
+<b class="nc"><i>38</i>&nbsp;                System.out.println(&quot;Delivery Run:\n&quot;);</b>
+<b class="nc"><i>39</i>&nbsp;                for (Pharmacy p : lstPhar) {</b>
+<b class="nc"><i>40</i>&nbsp;                    System.out.println(String.format(&quot;Pharmacy Name: %s || Email: %s || Address: %s || Stock: %s&quot;,</b>
+<b class="nc"><i>41</i>&nbsp;                            p.getName(), p.getEmail(), p.getAddress().getStreetName(), p.getStock().keySet()));</b>
+<b class="nc"><i>42</i>&nbsp;                }</b>
+<b class="nc"><i>43</i>&nbsp;                System.out.println();</b>
+<b class="nc"><i>44</i>&nbsp;                System.out.print(&quot;Choose a Pharmacy (by email) that refers to your new Delivery Run: &quot;);</b>
+<i>45</i>&nbsp;
+<b class="nc"><i>46</i>&nbsp;                strPharmacyEmail = sc.nextLine();</b>
+<b class="nc"><i>47</i>&nbsp;                Menu.clear();</b>
+<b class="nc"><i>48</i>&nbsp;                List&lt;Order&gt; lstOrdersByPharmacy = oCtrl.getOrdersList(strPharmacyEmail);</b>
+<b class="nc"><i>49</i>&nbsp;                List&lt;Order&gt; lstOrdered = new ArrayList&lt;&gt;();</b>
+<b class="nc"><i>50</i>&nbsp;                for (Order ord : lstOrdersByPharmacy) {</b>
+<b class="nc"><i>51</i>&nbsp;                    if (ord.getStatus().equalsIgnoreCase(OrderStatus.ORDERED.getDesignation()) &amp;&amp; ord.isHomeDelivery()) {</b>
+<b class="nc"><i>52</i>&nbsp;                        lstOrdered.add(ord);</b>
+<i>53</i>&nbsp;                    }
+<b class="nc"><i>54</i>&nbsp;                }</b>
+<i>55</i>&nbsp;
+<b class="nc"><i>56</i>&nbsp;                if(lstOrdered.isEmpty()){throw new Exception();}</b>
+<i>57</i>&nbsp;
+<b class="nc"><i>58</i>&nbsp;                List&lt;Order&gt; lstTotalOrders = new ArrayList&lt;&gt;(lstOrdered);</b>
+<i>59</i>&nbsp;                do {
+<b class="nc"><i>60</i>&nbsp;                    Menu.clear();</b>
+<b class="nc"><i>61</i>&nbsp;                    if (lstOrdered.isEmpty()) break;</b>
+<i>62</i>&nbsp;
+<b class="nc"><i>63</i>&nbsp;                    System.out.println();</b>
+<b class="nc"><i>64</i>&nbsp;                    for (Order o : lstOrdered) {</b>
+<b class="nc"><i>65</i>&nbsp;                        System.out.println(String.format(&quot;Order ID: %d || Client: %s || Date: %s || Description: %s || Weight: %.2f kg&quot;, o.getId(),</b>
+<b class="nc"><i>66</i>&nbsp;                                o.getClient().getName(), o.getOrderDate(), o.getDescription(), o.getTotalWeight()));</b>
+<b class="nc"><i>67</i>&nbsp;                    }</b>
+<b class="nc"><i>68</i>&nbsp;                    System.out.println();</b>
+<b class="nc"><i>69</i>&nbsp;                    System.out.println(&quot;Current Orders: &quot; + lstIds);</b>
+<b class="nc"><i>70</i>&nbsp;                    System.out.println(String.format(&quot;Current Order Total Weight: %.2f kg&quot;, dblTotalWeight));</b>
+<b class="nc"><i>71</i>&nbsp;                    System.out.println();</b>
+<b class="nc"><i>72</i>&nbsp;                    System.out.print(&quot;Choose an Order&#39;s Id to add to this Delivery Run (Type 0 to end the insertion): &quot;);</b>
+<i>73</i>&nbsp;
+<b class="nc"><i>74</i>&nbsp;                    intOrderId = Integer.parseInt(sc.nextLine());</b>
+<b class="nc"><i>75</i>&nbsp;                    System.out.println();</b>
+<i>76</i>&nbsp;
+<b class="nc"><i>77</i>&nbsp;                    if (intOrderId == 0) {</b>
+<b class="nc"><i>78</i>&nbsp;                        break;</b>
+<i>79</i>&nbsp;                    }
+<i>80</i>&nbsp;
+<i>81</i>&nbsp;
+<b class="nc"><i>82</i>&nbsp;                    if (!lstIds.contains(intOrderId)) {</b>
+<b class="nc"><i>83</i>&nbsp;                        boolean addFlag = false;</b>
+<b class="nc"><i>84</i>&nbsp;                        for (Order order : lstOrdered) {</b>
+<b class="nc"><i>85</i>&nbsp;                            if (order.getId() == intOrderId) {</b>
+<b class="nc"><i>86</i>&nbsp;                                dblTotalWeight += order.getTotalWeight();</b>
+<b class="nc"><i>87</i>&nbsp;                                addFlag = true;</b>
+<b class="nc"><i>88</i>&nbsp;                                lstOrdered.remove(order);</b>
+<b class="nc"><i>89</i>&nbsp;                                break;</b>
+<i>90</i>&nbsp;                            }
+<b class="nc"><i>91</i>&nbsp;                        }</b>
+<b class="nc"><i>92</i>&nbsp;                        if (addFlag) {</b>
+<b class="nc"><i>93</i>&nbsp;                            lstIds.add(intOrderId);</b>
+<i>94</i>&nbsp;                        }
+<i>95</i>&nbsp;                    }
+<i>96</i>&nbsp;
+<b class="nc"><i>97</i>&nbsp;                } while (intOrderId != 0);</b>
+<i>98</i>&nbsp;
+<b class="nc"><i>99</i>&nbsp;                List&lt;Order&gt; lstOrders = new ArrayList&lt;&gt;(); // MUDAR ISTO PARA O NOVO METODO</b>
+<i>100</i>&nbsp;
+<b class="nc"><i>101</i>&nbsp;                for (Integer i : lstIds) {</b>
+<b class="nc"><i>102</i>&nbsp;                    for (Order order : lstTotalOrders) {</b>
+<b class="nc"><i>103</i>&nbsp;                        if (i == order.getId()) lstOrders.add(order);</b>
+<b class="nc"><i>104</i>&nbsp;                    }</b>
+<i>105</i>&nbsp;
+<b class="nc"><i>106</i>&nbsp;                }</b>
+<i>107</i>&nbsp;
+<b class="nc"><i>108</i>&nbsp;                if (lstOrders == null) {</b>
+<b class="nc"><i>109</i>&nbsp;                    LOGGER.log(Level.WARNING, &quot;The Orders Must be from the same pharmacy&quot;);</b>
+<i>110</i>&nbsp;                }
+<i>111</i>&nbsp;
+<i>112</i>&nbsp;                String choice;
+<i>113</i>&nbsp;                do {
+<b class="nc"><i>114</i>&nbsp;                    Menu.clear();</b>
+<b class="nc"><i>115</i>&nbsp;                    System.out.print(&quot;Do you wish to calculate the path by Time or Energy (T/E): &quot;);</b>
+<b class="nc"><i>116</i>&nbsp;                    choice = sc.nextLine();</b>
+<b class="nc"><i>117</i>&nbsp;                    System.out.println();</b>
+<i>118</i>&nbsp;
+<b class="nc"><i>119</i>&nbsp;                } while (!choice.equalsIgnoreCase(&quot;t&quot;) &amp;&amp; !choice.equalsIgnoreCase(&quot;e&quot;));</b>
+<i>120</i>&nbsp;
+<b class="nc"><i>121</i>&nbsp;                boolean timeOrEnergy = choice.equalsIgnoreCase(&quot;e&quot;);</b>
+<i>122</i>&nbsp;
+<i>123</i>&nbsp;                do {
+<b class="nc"><i>124</i>&nbsp;                    Menu.clear();</b>
+<b class="nc"><i>125</i>&nbsp;                    System.out.print(&quot;Do you wish to use extensive backtrack? (Y/N): &quot;);</b>
+<b class="nc"><i>126</i>&nbsp;                    choice = sc.nextLine();</b>
+<b class="nc"><i>127</i>&nbsp;                    System.out.println();</b>
+<i>128</i>&nbsp;
+<b class="nc"><i>129</i>&nbsp;                } while (!choice.equalsIgnoreCase(&quot;y&quot;) &amp;&amp; !choice.equalsIgnoreCase(&quot;n&quot;));</b>
+<i>130</i>&nbsp;
+<b class="nc"><i>131</i>&nbsp;                boolean extensiveBacktrack = choice.equalsIgnoreCase(&quot;y&quot;);</b>
+<i>132</i>&nbsp;
+<b class="nc"><i>133</i>&nbsp;                if (oCtrl.registerDeliveryRun(lstOrders, timeOrEnergy, extensiveBacktrack)) {</b>
+<b class="nc"><i>134</i>&nbsp;                    LOGGER.log(Level.INFO, &quot;Delivery Run Registered with success.&quot;);</b>
+<b class="nc"><i>135</i>&nbsp;                    flag = true;</b>
+<i>136</i>&nbsp;                } else {
+<b class="nc"><i>137</i>&nbsp;                    LOGGER.log(Level.INFO, &quot;Something went wrong, try again. Delivery Run not Registered. If you need any help, please contact us using help@teamlisa.com.&quot;);</b>
+<b class="nc"><i>138</i>&nbsp;                    flag = false;</b>
+<i>139</i>&nbsp;                }
+<b class="nc"><i>140</i>&nbsp;            } while (!flag);</b>
+<i>141</i>&nbsp;
+<b class="nc"><i>142</i>&nbsp;        } catch (Exception e) {</b>
+<b class="nc"><i>143</i>&nbsp;            LOGGER.log(Level.INFO, &quot;Something went wrong, try again. Delivery Run not Registered. If you need any help, please contact us using help@teamlisa.com.&quot;);</b>
+<b class="nc"><i>144</i>&nbsp;        }</b>
+<b class="nc"><i>145</i>&nbsp;    }</b>
+<i>146</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2021-01-31 18:27</div>
+</div>
+</body>
+</html>

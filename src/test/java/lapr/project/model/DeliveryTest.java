@@ -7,7 +7,7 @@ import java.util.TreeMap;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class DeliveryTest {
+class  DeliveryTest {
 
     private Delivery m_delivery;
     private Delivery m_emptyDelivery;

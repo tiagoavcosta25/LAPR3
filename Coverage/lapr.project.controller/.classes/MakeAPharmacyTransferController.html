@@ -1,0 +1,245 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: MakeAPharmacyTransferController</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">lapr.project.controller</a> ]
+</div>
+
+<h1>Coverage Summary for Class: MakeAPharmacyTransferController (lapr.project.controller)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">MakeAPharmacyTransferController</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (9/ 9)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (22/ 22)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">MakeAPharmacyTransferController$MockitoMock$365561465</td>
+  </tr>
+  <tr>
+    <td class="name">MakeAPharmacyTransferController$MockitoMock$365561465$auxiliary$2dkGgnyW</td>
+  </tr>
+  <tr>
+    <td class="name">MakeAPharmacyTransferController$MockitoMock$365561465$auxiliary$3t7Hw4Xy</td>
+  </tr>
+  <tr>
+    <td class="name">MakeAPharmacyTransferController$MockitoMock$365561465$auxiliary$4XqX7kbm</td>
+  </tr>
+  <tr>
+    <td class="name">MakeAPharmacyTransferController$MockitoMock$365561465$auxiliary$5F3GMUE5</td>
+  </tr>
+  <tr>
+    <td class="name">MakeAPharmacyTransferController$MockitoMock$365561465$auxiliary$92mi5xM8</td>
+  </tr>
+  <tr>
+    <td class="name">MakeAPharmacyTransferController$MockitoMock$365561465$auxiliary$dTWvyd54</td>
+  </tr>
+  <tr>
+    <td class="name">MakeAPharmacyTransferController$MockitoMock$365561465$auxiliary$i1VhqWzU</td>
+  </tr>
+  <tr>
+    <td class="name">MakeAPharmacyTransferController$MockitoMock$365561465$auxiliary$sCC0JpFt</td>
+  </tr>
+  <tr>
+    <td class="name">MakeAPharmacyTransferController$MockitoMock$365561465$auxiliary$se079kbR</td>
+  </tr>
+  <tr>
+    <td class="name">MakeAPharmacyTransferController$MockitoMock$365561465$auxiliary$zHBB6CCY</td>
+  </tr>
+<tr>
+  <td class="name"><strong>total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (9/ 9)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (22/ 22)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package lapr.project.controller;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import lapr.project.model.*;
+<i>4</i>&nbsp;import lapr.project.model.service.*;
+<i>5</i>&nbsp;
+<i>6</i>&nbsp;/**
+<i>7</i>&nbsp; * Make A Pharmacy Tranfer Controller.
+<i>8</i>&nbsp; *
+<i>9</i>&nbsp; * Group: Team Lisa [G-021]
+<i>10</i>&nbsp; * ______________________________________________________
+<i>11</i>&nbsp; * @author António Barbosa &lt;1190404@isep.ipp.pt&gt;
+<i>12</i>&nbsp; * @author Ernesto Rodrigues &lt;1190560@isep.ipp.pt&gt;
+<i>13</i>&nbsp; * @author Jessica Alves &lt;1190682@isep.ipp.pt&gt;
+<i>14</i>&nbsp; * @author Pedro Santos &lt;1190967@isep.ipp.pt&gt;
+<i>15</i>&nbsp; * @author Rodrigo Costa &lt;1191014@isep.ipp.pt&gt;
+<i>16</i>&nbsp; * @author Tiago Costa &lt;1191460@isep.ipp.pt&gt;
+<i>17</i>&nbsp; */
+<i>18</i>&nbsp;public class MakeAPharmacyTransferController {
+<i>19</i>&nbsp;
+<i>20</i>&nbsp;    /**
+<i>21</i>&nbsp;     * Pharmacy Management class.
+<i>22</i>&nbsp;     */
+<i>23</i>&nbsp;    private PharmacyService moPharmacyService;
+<i>24</i>&nbsp;
+<i>25</i>&nbsp;    /**
+<i>26</i>&nbsp;     * Pharmacy Transfer Management class.
+<i>27</i>&nbsp;     */
+<i>28</i>&nbsp;    private PharmacyTransferService moPharmacyTransferService;
+<i>29</i>&nbsp;
+<i>30</i>&nbsp;    /**
+<i>31</i>&nbsp;     * Controller to Issue a Transfer Note.
+<i>32</i>&nbsp;     */
+<i>33</i>&nbsp;    private IssueTransferNoteController moIssueTransferNoteController;
+<i>34</i>&nbsp;
+<i>35</i>&nbsp;    /**
+<i>36</i>&nbsp;     * Pharmacy.
+<i>37</i>&nbsp;     */
+<i>38</i>&nbsp;    private Pharmacy moPharmacy;
+<i>39</i>&nbsp;
+<i>40</i>&nbsp;    /**
+<i>41</i>&nbsp;     * An empty constructor of MakeAPharmacyTransferController.
+<i>42</i>&nbsp;     */
+<b class="fc"><i>43</i>&nbsp;    public MakeAPharmacyTransferController() {</b>
+<b class="fc"><i>44</i>&nbsp;        this.moPharmacyService = new PharmacyService();</b>
+<b class="fc"><i>45</i>&nbsp;        this.moPharmacyTransferService = new PharmacyTransferService();</b>
+<b class="fc"><i>46</i>&nbsp;        this.moIssueTransferNoteController = new IssueTransferNoteController();</b>
+<b class="fc"><i>47</i>&nbsp;    }</b>
+<i>48</i>&nbsp;
+<i>49</i>&nbsp;    /**
+<i>50</i>&nbsp;     * The method registers a new Pharmacy Transfer.
+<i>51</i>&nbsp;     * @param oOrder Order.
+<i>52</i>&nbsp;     * @param oProduct Product.
+<i>53</i>&nbsp;     * @param intQuantity Quantity.
+<i>54</i>&nbsp;     * @return true if everything works out, false if it doesn&#39;t.
+<i>55</i>&nbsp;     */
+<i>56</i>&nbsp;    public boolean getStockFromAnotherPharamacy(Order oOrder, Product oProduct, Integer intQuantity) {
+<i>57</i>&nbsp;        try {
+<b class="fc"><i>58</i>&nbsp;            this.moPharmacy = moPharmacyService.getClosestPharmacyWithStock(oOrder, oProduct, intQuantity);</b>
+<b class="fc"><i>59</i>&nbsp;            PharmacyTransfer oPharmacyTransfer = moPharmacyTransferService.newPharmacyTransfer(oOrder, oProduct, intQuantity, this.moPharmacy);</b>
+<b class="fc"><i>60</i>&nbsp;            this.moPharmacyTransferService.registerPharmacyTransfer(oPharmacyTransfer);</b>
+<b class="fc"><i>61</i>&nbsp;            return this.moIssueTransferNoteController.issueTransferNote(oPharmacyTransfer);</b>
+<b class="fc"><i>62</i>&nbsp;        } catch (Exception ex) {</b>
+<b class="fc"><i>63</i>&nbsp;            return false;</b>
+<i>64</i>&nbsp;        }
+<i>65</i>&nbsp;    }
+<i>66</i>&nbsp;
+<i>67</i>&nbsp;    /**
+<i>68</i>&nbsp;     * The method sets the Pharmacy.
+<i>69</i>&nbsp;     * @param strPharmacyEmail Pharmacy&#39;s Email.
+<i>70</i>&nbsp;     */
+<i>71</i>&nbsp;    public void setPharmacy(String strPharmacyEmail){
+<b class="fc"><i>72</i>&nbsp;        this.moPharmacy = this.moPharmacyService.getPharmacy(strPharmacyEmail);</b>
+<b class="fc"><i>73</i>&nbsp;    }</b>
+<i>74</i>&nbsp;
+<i>75</i>&nbsp;    /**
+<i>76</i>&nbsp;     * The method gets the Pharmacy management class.
+<i>77</i>&nbsp;     * @return The Pharmacy management class.
+<i>78</i>&nbsp;     */
+<i>79</i>&nbsp;    public PharmacyService getPharmacyService() {
+<b class="fc"><i>80</i>&nbsp;        return moPharmacyService;</b>
+<i>81</i>&nbsp;    }
+<i>82</i>&nbsp;
+<i>83</i>&nbsp;    /**
+<i>84</i>&nbsp;     * The method sets the Pharmacy management class.
+<i>85</i>&nbsp;     * @param oPharmacyService The Pharmacy management class.
+<i>86</i>&nbsp;     */
+<i>87</i>&nbsp;    public void setPharmacyService(PharmacyService oPharmacyService) {
+<b class="fc"><i>88</i>&nbsp;        this.moPharmacyService = oPharmacyService;</b>
+<b class="fc"><i>89</i>&nbsp;    }</b>
+<i>90</i>&nbsp;
+<i>91</i>&nbsp;    /**
+<i>92</i>&nbsp;     * The method gets the Pharmacy management class.
+<i>93</i>&nbsp;     * @return The Pharmacy management class.
+<i>94</i>&nbsp;     */
+<i>95</i>&nbsp;    public PharmacyTransferService getPharmacyTransferService() {
+<b class="fc"><i>96</i>&nbsp;        return moPharmacyTransferService;</b>
+<i>97</i>&nbsp;    }
+<i>98</i>&nbsp;
+<i>99</i>&nbsp;    /**
+<i>100</i>&nbsp;     * The method sets the Pharmacy Transfer management class.
+<i>101</i>&nbsp;     * @param oPharmacyTransferService The Pharmacy Transfer management class.
+<i>102</i>&nbsp;     */
+<i>103</i>&nbsp;    public void setPharmacyTransferService(PharmacyTransferService oPharmacyTransferService) {
+<b class="fc"><i>104</i>&nbsp;        this.moPharmacyTransferService = oPharmacyTransferService;</b>
+<b class="fc"><i>105</i>&nbsp;    }</b>
+<i>106</i>&nbsp;
+<i>107</i>&nbsp;    /**
+<i>108</i>&nbsp;     * The method gets the Controller for a Issuing Transfer Note.
+<i>109</i>&nbsp;     * @return The Controller for a Issuing Transfer Note.
+<i>110</i>&nbsp;     */
+<i>111</i>&nbsp;    public IssueTransferNoteController getIssueTransferNoteController() {
+<b class="fc"><i>112</i>&nbsp;        return moIssueTransferNoteController;</b>
+<i>113</i>&nbsp;    }
+<i>114</i>&nbsp;
+<i>115</i>&nbsp;    /**
+<i>116</i>&nbsp;     * The method sets the Controller for a Issuing Transfer Note.
+<i>117</i>&nbsp;     * @param oIssueTransferNoteController The Controller for a Issuing Transfer Note.
+<i>118</i>&nbsp;     */
+<i>119</i>&nbsp;    public void setIssueTransferNoteController(IssueTransferNoteController oIssueTransferNoteController) {
+<b class="fc"><i>120</i>&nbsp;        this.moIssueTransferNoteController = oIssueTransferNoteController;</b>
+<b class="fc"><i>121</i>&nbsp;    }</b>
+<i>122</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2021-01-31 18:27</div>
+</div>
+</body>
+</html>

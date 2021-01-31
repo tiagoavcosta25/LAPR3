@@ -1,0 +1,313 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: Invoice</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">lapr.project.model</a> ]
+</div>
+
+<h1>Coverage Summary for Class: Invoice (lapr.project.model)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Invoice</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (18/ 18)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (52/ 52)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package lapr.project.model;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import java.sql.Date;
+<i>4</i>&nbsp;import java.util.Map;
+<i>5</i>&nbsp;import java.util.Objects;
+<i>6</i>&nbsp;import java.util.TreeMap;
+<i>7</i>&nbsp;
+<i>8</i>&nbsp;/**
+<i>9</i>&nbsp; * Invoice.
+<i>10</i>&nbsp; *
+<i>11</i>&nbsp; * Group: Team Lisa [G-021]
+<i>12</i>&nbsp; * ______________________________________________________
+<i>13</i>&nbsp; * @author António Barbosa &lt;1190404@isep.ipp.pt&gt;
+<i>14</i>&nbsp; * @author Ernesto Rodrigues &lt;1190560@isep.ipp.pt&gt;
+<i>15</i>&nbsp; * @author Jessica Alves &lt;1190682@isep.ipp.pt&gt;
+<i>16</i>&nbsp; * @author Pedro Santos &lt;1190967@isep.ipp.pt&gt;
+<i>17</i>&nbsp; * @author Rodrigo Costa &lt;1191014@isep.ipp.pt&gt;
+<i>18</i>&nbsp; * @author Tiago Costa &lt;1191460@isep.ipp.pt&gt;
+<i>19</i>&nbsp; */
+<i>20</i>&nbsp;public class Invoice {
+<i>21</i>&nbsp;    /**
+<i>22</i>&nbsp;     * ID.
+<i>23</i>&nbsp;     */
+<i>24</i>&nbsp;    private int mintId;
+<i>25</i>&nbsp;
+<i>26</i>&nbsp;    /**
+<i>27</i>&nbsp;     * Invoice Date.
+<i>28</i>&nbsp;     */
+<i>29</i>&nbsp;    private Date mdtInvoiceDate;
+<i>30</i>&nbsp;
+<i>31</i>&nbsp;    /**
+<i>32</i>&nbsp;     * Total Price.
+<i>33</i>&nbsp;     */
+<i>34</i>&nbsp;    private Double mdblTotalPrice;
+<i>35</i>&nbsp;
+<i>36</i>&nbsp;    /**
+<i>37</i>&nbsp;     * Order.
+<i>38</i>&nbsp;     */
+<i>39</i>&nbsp;    private Order moOrder;
+<i>40</i>&nbsp;
+<i>41</i>&nbsp;    /**
+<i>42</i>&nbsp;     * Payment Map.
+<i>43</i>&nbsp;     */
+<i>44</i>&nbsp;    private Map&lt;CreditCard, Double&gt; mMapPayments;
+<i>45</i>&nbsp;
+<i>46</i>&nbsp;    /**
+<i>47</i>&nbsp;     * Default Value for the ID.
+<i>48</i>&nbsp;     */
+<b class="fc"><i>49</i>&nbsp;    private static int mDEFAULTID = -1;</b>
+<i>50</i>&nbsp;
+<i>51</i>&nbsp;    /**
+<i>52</i>&nbsp;     * Default Value for the Order.
+<i>53</i>&nbsp;     */
+<b class="fc"><i>54</i>&nbsp;    private static Order mDEFAULTORDER = new Order();</b>
+<i>55</i>&nbsp;
+<i>56</i>&nbsp;    /**
+<i>57</i>&nbsp;     * Default Value for the Payment Map.
+<i>58</i>&nbsp;     */
+<b class="fc"><i>59</i>&nbsp;    private static Map&lt;CreditCard, Double&gt; mDEFAULTPAYMENTS = new TreeMap&lt;&gt;();</b>
+<i>60</i>&nbsp;
+<i>61</i>&nbsp;    /**
+<i>62</i>&nbsp;     * Invoice Constructor.
+<i>63</i>&nbsp;     * @param intId ID.
+<i>64</i>&nbsp;     * @param dtDate Invoice Date.
+<i>65</i>&nbsp;     * @param dblTotalAmount Total Amont.
+<i>66</i>&nbsp;     * @param oOrder Order.
+<i>67</i>&nbsp;     */
+<b class="fc"><i>68</i>&nbsp;    public Invoice(int intId, Date dtDate, Double dblTotalAmount, Order oOrder) {</b>
+<b class="fc"><i>69</i>&nbsp;        this.mintId = intId;</b>
+<b class="fc"><i>70</i>&nbsp;        this.mdtInvoiceDate = (Date) dtDate.clone();</b>
+<b class="fc"><i>71</i>&nbsp;        this.mdblTotalPrice = dblTotalAmount;</b>
+<b class="fc"><i>72</i>&nbsp;        this.moOrder = oOrder;</b>
+<b class="fc"><i>73</i>&nbsp;        this.mMapPayments = mDEFAULTPAYMENTS;</b>
+<b class="fc"><i>74</i>&nbsp;    }</b>
+<i>75</i>&nbsp;
+<i>76</i>&nbsp;    /**
+<i>77</i>&nbsp;     * Invoice Constructor.
+<i>78</i>&nbsp;     * @param intId ID.
+<i>79</i>&nbsp;     * @param oOrder Order.
+<i>80</i>&nbsp;     * @param mapPayments Payment Map.
+<i>81</i>&nbsp;     */
+<b class="fc"><i>82</i>&nbsp;    public Invoice(int intId, Order oOrder, Map&lt;CreditCard, Double&gt; mapPayments) {</b>
+<b class="fc"><i>83</i>&nbsp;        this.mintId = intId;</b>
+<b class="fc"><i>84</i>&nbsp;        this.mdtInvoiceDate = (Date) oOrder.getOrderDate().clone();</b>
+<b class="fc"><i>85</i>&nbsp;        this.mdblTotalPrice = oOrder.getAmount();</b>
+<b class="fc"><i>86</i>&nbsp;        this.moOrder = oOrder;</b>
+<b class="fc"><i>87</i>&nbsp;        this.mMapPayments = mapPayments;</b>
+<b class="fc"><i>88</i>&nbsp;    }</b>
+<i>89</i>&nbsp;
+<i>90</i>&nbsp;    /**
+<i>91</i>&nbsp;     * Invoice Constructor.
+<i>92</i>&nbsp;     * @param oOrder Order.
+<i>93</i>&nbsp;     * @param mapPayments Payment Map.
+<i>94</i>&nbsp;     */
+<b class="fc"><i>95</i>&nbsp;    public Invoice(Order oOrder, Map&lt;CreditCard, Double&gt; mapPayments) {</b>
+<b class="fc"><i>96</i>&nbsp;        this.mintId = mDEFAULTID;</b>
+<b class="fc"><i>97</i>&nbsp;        this.mdtInvoiceDate = (Date) oOrder.getOrderDate().clone();</b>
+<b class="fc"><i>98</i>&nbsp;        this.mdblTotalPrice = oOrder.getAmount();</b>
+<b class="fc"><i>99</i>&nbsp;        this.moOrder = oOrder;</b>
+<b class="fc"><i>100</i>&nbsp;        this.mMapPayments = mapPayments;</b>
+<b class="fc"><i>101</i>&nbsp;    }</b>
+<i>102</i>&nbsp;
+<i>103</i>&nbsp;    /**
+<i>104</i>&nbsp;     * Empty Invoice Constructor.
+<i>105</i>&nbsp;     */
+<b class="fc"><i>106</i>&nbsp;    public Invoice() {</b>
+<b class="fc"><i>107</i>&nbsp;        this.mintId = mDEFAULTID;</b>
+<b class="fc"><i>108</i>&nbsp;        this.mdtInvoiceDate = mDEFAULTORDER.getOrderDate();</b>
+<b class="fc"><i>109</i>&nbsp;        this.mdblTotalPrice = mDEFAULTORDER.getAmount();</b>
+<b class="fc"><i>110</i>&nbsp;        this.moOrder = mDEFAULTORDER;</b>
+<b class="fc"><i>111</i>&nbsp;        this.mMapPayments = mDEFAULTPAYMENTS;</b>
+<b class="fc"><i>112</i>&nbsp;    }</b>
+<i>113</i>&nbsp;
+<i>114</i>&nbsp;    /**
+<i>115</i>&nbsp;     * Getter for the ID.
+<i>116</i>&nbsp;     * @return ID.
+<i>117</i>&nbsp;     */
+<i>118</i>&nbsp;    public int getId() {
+<b class="fc"><i>119</i>&nbsp;        return mintId;</b>
+<i>120</i>&nbsp;    }
+<i>121</i>&nbsp;
+<i>122</i>&nbsp;    /**
+<i>123</i>&nbsp;     * Setter for the ID.
+<i>124</i>&nbsp;     * @param intId ID:
+<i>125</i>&nbsp;     */
+<i>126</i>&nbsp;    public void setId(int intId) {
+<b class="fc"><i>127</i>&nbsp;        this.mintId = intId;</b>
+<b class="fc"><i>128</i>&nbsp;    }</b>
+<i>129</i>&nbsp;
+<i>130</i>&nbsp;    /**
+<i>131</i>&nbsp;     * Getter for the Invoice Date.
+<i>132</i>&nbsp;     * @return Getter for the Invoice Date.
+<i>133</i>&nbsp;     */
+<i>134</i>&nbsp;    public Date getInvoiceDate() {
+<b class="fc"><i>135</i>&nbsp;        return (Date) mdtInvoiceDate.clone();</b>
+<i>136</i>&nbsp;    }
+<i>137</i>&nbsp;
+<i>138</i>&nbsp;    /**
+<i>139</i>&nbsp;     * Setter for the Invoice Date.
+<i>140</i>&nbsp;     * @param dtInvoiceDate Invoice Date.
+<i>141</i>&nbsp;     */
+<i>142</i>&nbsp;    public void setInvoiceDate(Date dtInvoiceDate) {
+<b class="fc"><i>143</i>&nbsp;        this.mdtInvoiceDate = (Date) dtInvoiceDate.clone();</b>
+<b class="fc"><i>144</i>&nbsp;    }</b>
+<i>145</i>&nbsp;
+<i>146</i>&nbsp;    /**
+<i>147</i>&nbsp;     * Getter for the Total Price.
+<i>148</i>&nbsp;     * @return Total Price.
+<i>149</i>&nbsp;     */
+<i>150</i>&nbsp;    public Double getTotalPrice() {
+<b class="fc"><i>151</i>&nbsp;        return mdblTotalPrice;</b>
+<i>152</i>&nbsp;    }
+<i>153</i>&nbsp;
+<i>154</i>&nbsp;    /**
+<i>155</i>&nbsp;     * Setter for the Total Price.
+<i>156</i>&nbsp;     * @param dblTotalPrice Total Price.
+<i>157</i>&nbsp;     */
+<i>158</i>&nbsp;    public void setTotalPrice(Double dblTotalPrice) {
+<b class="fc"><i>159</i>&nbsp;        this.mdblTotalPrice = dblTotalPrice;</b>
+<b class="fc"><i>160</i>&nbsp;    }</b>
+<i>161</i>&nbsp;
+<i>162</i>&nbsp;    /**
+<i>163</i>&nbsp;     * Getter for the Order.
+<i>164</i>&nbsp;     * @return Order.
+<i>165</i>&nbsp;     */
+<i>166</i>&nbsp;    public Order getOrder() {
+<b class="fc"><i>167</i>&nbsp;        return moOrder;</b>
+<i>168</i>&nbsp;    }
+<i>169</i>&nbsp;
+<i>170</i>&nbsp;    /**
+<i>171</i>&nbsp;     * Setter for the Order.
+<i>172</i>&nbsp;     * @param oOrder Order.
+<i>173</i>&nbsp;     */
+<i>174</i>&nbsp;    public void setOrder(Order oOrder) {
+<b class="fc"><i>175</i>&nbsp;        this.moOrder = oOrder;</b>
+<b class="fc"><i>176</i>&nbsp;    }</b>
+<i>177</i>&nbsp;
+<i>178</i>&nbsp;    /**
+<i>179</i>&nbsp;     * Getter for the Map of Payments.
+<i>180</i>&nbsp;     * @return Map of Payments.
+<i>181</i>&nbsp;     */
+<i>182</i>&nbsp;    public Map&lt;CreditCard, Double&gt; getPayments() {
+<b class="fc"><i>183</i>&nbsp;        return mMapPayments;</b>
+<i>184</i>&nbsp;    }
+<i>185</i>&nbsp;
+<i>186</i>&nbsp;    /**
+<i>187</i>&nbsp;     * Setter for the Map of Payments.
+<i>188</i>&nbsp;     * @param mapPayments Map of Payments.
+<i>189</i>&nbsp;     */
+<i>190</i>&nbsp;    public void setPayments(Map&lt;CreditCard, Double&gt; mapPayments) {
+<b class="fc"><i>191</i>&nbsp;        this.mMapPayments = mapPayments;</b>
+<b class="fc"><i>192</i>&nbsp;    }</b>
+<i>193</i>&nbsp;
+<i>194</i>&nbsp;    /**
+<i>195</i>&nbsp;     * Equals override.
+<i>196</i>&nbsp;     * @param o object.
+<i>197</i>&nbsp;     * @return true if the objects are equal, false they are not.
+<i>198</i>&nbsp;     */
+<i>199</i>&nbsp;    @Override
+<i>200</i>&nbsp;    public boolean equals(Object o) {
+<b class="fc"><i>201</i>&nbsp;        if (this == o) return true;</b>
+<b class="fc"><i>202</i>&nbsp;        if (o == null || getClass() != o.getClass()) return false;</b>
+<b class="fc"><i>203</i>&nbsp;        Invoice invoice = (Invoice) o;</b>
+<b class="fc"><i>204</i>&nbsp;        return mintId == invoice.mintId;</b>
+<i>205</i>&nbsp;    }
+<i>206</i>&nbsp;
+<i>207</i>&nbsp;    /**
+<i>208</i>&nbsp;     * Hash Code Override.
+<i>209</i>&nbsp;     * @return Hash Code Value.
+<i>210</i>&nbsp;     */
+<i>211</i>&nbsp;    @Override
+<i>212</i>&nbsp;    public int hashCode() {
+<b class="fc"><i>213</i>&nbsp;        return Objects.hash(mintId);</b>
+<i>214</i>&nbsp;    }
+<i>215</i>&nbsp;
+<i>216</i>&nbsp;    /**
+<i>217</i>&nbsp;     * toString Override.
+<i>218</i>&nbsp;     * @return Invoice Information.
+<i>219</i>&nbsp;     */
+<i>220</i>&nbsp;    @Override
+<i>221</i>&nbsp;    public String toString() {
+<b class="fc"><i>222</i>&nbsp;        return &quot;Invoice{&quot; +</b>
+<i>223</i>&nbsp;                &quot;m_intId=&quot; + mintId +
+<i>224</i>&nbsp;                &quot;, m_dtInvoiceDate=&quot; + mdtInvoiceDate +
+<i>225</i>&nbsp;                &quot;, m_fltTotalPrice=&quot; + mdblTotalPrice +
+<i>226</i>&nbsp;                &quot;, m_oOrder=&quot; + moOrder +
+<i>227</i>&nbsp;                &quot;, m_mapPayments=&quot; + mMapPayments +
+<i>228</i>&nbsp;                &#39;}&#39;;
+<i>229</i>&nbsp;    }
+<i>230</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2021-01-31 18:27</div>
+</div>
+</body>
+</html>

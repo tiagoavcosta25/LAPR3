@@ -1,0 +1,385 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: Pharmacy</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">lapr.project.model</a> ]
+</div>
+
+<h1>Coverage Summary for Class: Pharmacy (lapr.project.model)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Pharmacy</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (23/ 23)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (72/ 72)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package lapr.project.model;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import java.util.*;
+<i>4</i>&nbsp;
+<i>5</i>&nbsp;/**
+<i>6</i>&nbsp; * Pharmacy.
+<i>7</i>&nbsp; *
+<i>8</i>&nbsp; * Group: Team Lisa [G-021]
+<i>9</i>&nbsp; * ______________________________________________________
+<i>10</i>&nbsp; * @author António Barbosa &lt;1190404@isep.ipp.pt&gt;
+<i>11</i>&nbsp; * @author Ernesto Rodrigues &lt;1190560@isep.ipp.pt&gt;
+<i>12</i>&nbsp; * @author Jessica Alves &lt;1190682@isep.ipp.pt&gt;
+<i>13</i>&nbsp; * @author Pedro Santos &lt;1190967@isep.ipp.pt&gt;
+<i>14</i>&nbsp; * @author Rodrigo Costa &lt;1191014@isep.ipp.pt&gt;
+<i>15</i>&nbsp; * @author Tiago Costa &lt;1191460@isep.ipp.pt&gt;
+<i>16</i>&nbsp; */
+<i>17</i>&nbsp;public class Pharmacy {
+<i>18</i>&nbsp;
+<i>19</i>&nbsp;    /**
+<i>20</i>&nbsp;     * Id.
+<i>21</i>&nbsp;     */
+<i>22</i>&nbsp;    private int mintId;
+<i>23</i>&nbsp;
+<i>24</i>&nbsp;    /**
+<i>25</i>&nbsp;     * Pharamcy&#39;s Name.
+<i>26</i>&nbsp;     */
+<i>27</i>&nbsp;    private String mstrName;
+<i>28</i>&nbsp;
+<i>29</i>&nbsp;    /**
+<i>30</i>&nbsp;     * Pharamcy&#39;s Email.
+<i>31</i>&nbsp;     */
+<i>32</i>&nbsp;    private String mstrEmail;
+<i>33</i>&nbsp;
+<i>34</i>&nbsp;    /**
+<i>35</i>&nbsp;     * Pharamcy&#39;s Address.
+<i>36</i>&nbsp;     */
+<i>37</i>&nbsp;    private Address moAddress;
+<i>38</i>&nbsp;
+<i>39</i>&nbsp;    /**
+<i>40</i>&nbsp;     * Pharmacy&#39;s Park List.
+<i>41</i>&nbsp;     */
+<i>42</i>&nbsp;    private List&lt;Park&gt; mlstParks;
+<i>43</i>&nbsp;
+<i>44</i>&nbsp;    /**
+<i>45</i>&nbsp;     * Pharamcy&#39;s Stock.
+<i>46</i>&nbsp;     */
+<i>47</i>&nbsp;    private Map&lt;Product, Integer&gt; mMapStock;
+<i>48</i>&nbsp;
+<i>49</i>&nbsp;    /**
+<i>50</i>&nbsp;     * Default Id.
+<i>51</i>&nbsp;     */
+<b class="fc"><i>52</i>&nbsp;    private static int mDEFAULTID = -1;</b>
+<i>53</i>&nbsp;
+<i>54</i>&nbsp;    /**
+<i>55</i>&nbsp;     * Default Name.
+<i>56</i>&nbsp;     */
+<b class="fc"><i>57</i>&nbsp;    private static String mDEFAULTNAME = &quot;No name.&quot;;</b>
+<i>58</i>&nbsp;
+<i>59</i>&nbsp;    /**
+<i>60</i>&nbsp;     * Default Email.
+<i>61</i>&nbsp;     */
+<b class="fc"><i>62</i>&nbsp;    private static String mDEFAULTEMAIL = &quot;No email.&quot;;</b>
+<i>63</i>&nbsp;
+<i>64</i>&nbsp;    /**
+<i>65</i>&nbsp;     * Default Address.
+<i>66</i>&nbsp;     */
+<b class="fc"><i>67</i>&nbsp;    private static Address mDEFAULTADDRESS = new Address();</b>
+<i>68</i>&nbsp;
+<i>69</i>&nbsp;    /**
+<i>70</i>&nbsp;     * Default Parks List.
+<i>71</i>&nbsp;     */
+<b class="fc"><i>72</i>&nbsp;    private static List&lt;Park&gt; mDEFAULTPARKS = new ArrayList&lt;&gt;();</b>
+<i>73</i>&nbsp;
+<i>74</i>&nbsp;    /**
+<i>75</i>&nbsp;     * Default Stock.
+<i>76</i>&nbsp;     */
+<b class="fc"><i>77</i>&nbsp;    private static Map&lt;Product, Integer&gt; mDEFAULTSTOCK = new TreeMap&lt;&gt;();</b>
+<i>78</i>&nbsp;
+<i>79</i>&nbsp;    /**
+<i>80</i>&nbsp;     * Pharamcy Constructor.
+<i>81</i>&nbsp;     * @param intId id.
+<i>82</i>&nbsp;     * @param strName name.
+<i>83</i>&nbsp;     * @param strEmail email.
+<i>84</i>&nbsp;     * @param oAddress address.
+<i>85</i>&nbsp;     * @param mapStock stock.
+<i>86</i>&nbsp;     */
+<b class="fc"><i>87</i>&nbsp;    public Pharmacy(int intId, String strName, String strEmail, Address oAddress, Map&lt;Product, Integer&gt; mapStock) {</b>
+<b class="fc"><i>88</i>&nbsp;        this.mintId = intId;</b>
+<b class="fc"><i>89</i>&nbsp;        this.mstrName = strName;</b>
+<b class="fc"><i>90</i>&nbsp;        this.mstrEmail = strEmail;</b>
+<b class="fc"><i>91</i>&nbsp;        this.moAddress = oAddress;</b>
+<b class="fc"><i>92</i>&nbsp;        this.mlstParks = mDEFAULTPARKS;</b>
+<b class="fc"><i>93</i>&nbsp;        this.mMapStock = mapStock;</b>
+<b class="fc"><i>94</i>&nbsp;    }</b>
+<i>95</i>&nbsp;
+<i>96</i>&nbsp;    /**
+<i>97</i>&nbsp;     * Pharamcy Constructor.
+<i>98</i>&nbsp;     * @param strName name.
+<i>99</i>&nbsp;     * @param strEmail email.
+<i>100</i>&nbsp;     * @param oAddress address.
+<i>101</i>&nbsp;     * @param mapStock stock.
+<i>102</i>&nbsp;     */
+<b class="fc"><i>103</i>&nbsp;    public Pharmacy(String strName, String strEmail, Address oAddress, Map&lt;Product, Integer&gt; mapStock) {</b>
+<b class="fc"><i>104</i>&nbsp;        this.mintId = mDEFAULTID;</b>
+<b class="fc"><i>105</i>&nbsp;        this.mstrName = strName;</b>
+<b class="fc"><i>106</i>&nbsp;        this.mstrEmail = strEmail;</b>
+<b class="fc"><i>107</i>&nbsp;        this.moAddress = oAddress;</b>
+<b class="fc"><i>108</i>&nbsp;        this.mlstParks = mDEFAULTPARKS;</b>
+<b class="fc"><i>109</i>&nbsp;        this.mMapStock = mapStock;</b>
+<b class="fc"><i>110</i>&nbsp;    }</b>
+<i>111</i>&nbsp;
+<i>112</i>&nbsp;    /**
+<i>113</i>&nbsp;     * Pharamcy Constructor.
+<i>114</i>&nbsp;     * @param intId id.
+<i>115</i>&nbsp;     * @param strName name.
+<i>116</i>&nbsp;     * @param strEmail email.
+<i>117</i>&nbsp;     * @param oAddress address.
+<i>118</i>&nbsp;     */
+<b class="fc"><i>119</i>&nbsp;    public Pharmacy(int intId, String strName, String strEmail, Address oAddress) {</b>
+<b class="fc"><i>120</i>&nbsp;        this.mintId = intId;</b>
+<b class="fc"><i>121</i>&nbsp;        this.mstrName = strName;</b>
+<b class="fc"><i>122</i>&nbsp;        this.mstrEmail = strEmail;</b>
+<b class="fc"><i>123</i>&nbsp;        this.moAddress = oAddress;</b>
+<b class="fc"><i>124</i>&nbsp;        this.mlstParks = mDEFAULTPARKS;</b>
+<b class="fc"><i>125</i>&nbsp;        this.mMapStock = mDEFAULTSTOCK;</b>
+<b class="fc"><i>126</i>&nbsp;    }</b>
+<i>127</i>&nbsp;
+<i>128</i>&nbsp;    /**
+<i>129</i>&nbsp;     * Pharamcy Constructor.
+<i>130</i>&nbsp;     * @param strName name.
+<i>131</i>&nbsp;     * @param strEmail email.
+<i>132</i>&nbsp;     * @param oAddress address.
+<i>133</i>&nbsp;     */
+<b class="fc"><i>134</i>&nbsp;    public Pharmacy(String strName, String strEmail, Address oAddress) {</b>
+<b class="fc"><i>135</i>&nbsp;        this.mintId = mDEFAULTID;</b>
+<b class="fc"><i>136</i>&nbsp;        this.mstrName = strName;</b>
+<b class="fc"><i>137</i>&nbsp;        this.mstrEmail = strEmail;</b>
+<b class="fc"><i>138</i>&nbsp;        this.moAddress = oAddress;</b>
+<b class="fc"><i>139</i>&nbsp;        this.mlstParks = mDEFAULTPARKS;</b>
+<b class="fc"><i>140</i>&nbsp;        this.mMapStock = mDEFAULTSTOCK;</b>
+<b class="fc"><i>141</i>&nbsp;    }</b>
+<i>142</i>&nbsp;
+<i>143</i>&nbsp;    /**
+<i>144</i>&nbsp;     * Empty Pharamcy Constructor.
+<i>145</i>&nbsp;     */
+<b class="fc"><i>146</i>&nbsp;    public Pharmacy() {</b>
+<b class="fc"><i>147</i>&nbsp;        this.mintId = mDEFAULTID;</b>
+<b class="fc"><i>148</i>&nbsp;        this.mstrName = mDEFAULTNAME;</b>
+<b class="fc"><i>149</i>&nbsp;        this.mstrEmail = mDEFAULTEMAIL;</b>
+<b class="fc"><i>150</i>&nbsp;        this.moAddress = mDEFAULTADDRESS;</b>
+<b class="fc"><i>151</i>&nbsp;        this.mlstParks = mDEFAULTPARKS;</b>
+<b class="fc"><i>152</i>&nbsp;        this.mMapStock = mDEFAULTSTOCK;</b>
+<b class="fc"><i>153</i>&nbsp;    }</b>
+<i>154</i>&nbsp;
+<i>155</i>&nbsp;    /**
+<i>156</i>&nbsp;     * Getter for the id.
+<i>157</i>&nbsp;     * @return id.
+<i>158</i>&nbsp;     */
+<i>159</i>&nbsp;    public int getId() {
+<b class="fc"><i>160</i>&nbsp;        return mintId;</b>
+<i>161</i>&nbsp;    }
+<i>162</i>&nbsp;
+<i>163</i>&nbsp;    /**
+<i>164</i>&nbsp;     * Setter for the id.
+<i>165</i>&nbsp;     * @param intId id.
+<i>166</i>&nbsp;     */
+<i>167</i>&nbsp;    public void setId(int intId) {
+<b class="fc"><i>168</i>&nbsp;        this.mintId = intId;</b>
+<b class="fc"><i>169</i>&nbsp;    }</b>
+<i>170</i>&nbsp;
+<i>171</i>&nbsp;    /**
+<i>172</i>&nbsp;     * Method that checks if a pharmacy has an id.
+<i>173</i>&nbsp;     * @param intId id.
+<i>174</i>&nbsp;     * @return true or false, if it has or not.
+<i>175</i>&nbsp;     */
+<b class="fc"><i>176</i>&nbsp;    public boolean hasId(Integer intId) {return this.getId() == intId;}</b>
+<i>177</i>&nbsp;
+<i>178</i>&nbsp;    /**
+<i>179</i>&nbsp;     * Getter for the name.
+<i>180</i>&nbsp;     * @return name.
+<i>181</i>&nbsp;     */
+<i>182</i>&nbsp;    public String getName() {
+<b class="fc"><i>183</i>&nbsp;        return mstrName;</b>
+<i>184</i>&nbsp;    }
+<i>185</i>&nbsp;
+<i>186</i>&nbsp;    /**
+<i>187</i>&nbsp;     * Setter for the name.
+<i>188</i>&nbsp;     * @param strName name.
+<i>189</i>&nbsp;     */
+<i>190</i>&nbsp;    public void setName(String strName) {
+<b class="fc"><i>191</i>&nbsp;        this.mstrName = strName;</b>
+<b class="fc"><i>192</i>&nbsp;    }</b>
+<i>193</i>&nbsp;
+<i>194</i>&nbsp;    /**
+<i>195</i>&nbsp;     * Getter for the email.
+<i>196</i>&nbsp;     * @return email.
+<i>197</i>&nbsp;     */
+<i>198</i>&nbsp;    public String getEmail() {
+<b class="fc"><i>199</i>&nbsp;        return mstrEmail;</b>
+<i>200</i>&nbsp;    }
+<i>201</i>&nbsp;
+<i>202</i>&nbsp;    /**
+<i>203</i>&nbsp;     * Setter for the email.
+<i>204</i>&nbsp;     * @param strEmail email.
+<i>205</i>&nbsp;     */
+<i>206</i>&nbsp;    public void setEmail(String strEmail) {
+<b class="fc"><i>207</i>&nbsp;        this.mstrEmail = strEmail;</b>
+<b class="fc"><i>208</i>&nbsp;    }</b>
+<i>209</i>&nbsp;
+<i>210</i>&nbsp;    /**
+<i>211</i>&nbsp;     * Method that checks if a pharmacy has an email.
+<i>212</i>&nbsp;     * @param strEmail email.
+<i>213</i>&nbsp;     * @return true or false, if it has or not.
+<i>214</i>&nbsp;     */
+<b class="fc"><i>215</i>&nbsp;    public boolean hasEmail(String strEmail) {return this.mstrEmail.equalsIgnoreCase(strEmail);}</b>
+<i>216</i>&nbsp;
+<i>217</i>&nbsp;    /**
+<i>218</i>&nbsp;     * Getter for the address.
+<i>219</i>&nbsp;     * @return address.
+<i>220</i>&nbsp;     */
+<i>221</i>&nbsp;    public Address getAddress() {
+<b class="fc"><i>222</i>&nbsp;        return moAddress;</b>
+<i>223</i>&nbsp;    }
+<i>224</i>&nbsp;
+<i>225</i>&nbsp;    /**
+<i>226</i>&nbsp;     * Setter for the address.
+<i>227</i>&nbsp;     * @param oAddress address.
+<i>228</i>&nbsp;     */
+<i>229</i>&nbsp;    public void setAddress(Address oAddress) {
+<b class="fc"><i>230</i>&nbsp;        this.moAddress = oAddress;</b>
+<b class="fc"><i>231</i>&nbsp;    }</b>
+<i>232</i>&nbsp;
+<i>233</i>&nbsp;    /**
+<i>234</i>&nbsp;     * Getter for the parks.
+<i>235</i>&nbsp;     * @return parks.
+<i>236</i>&nbsp;     */
+<i>237</i>&nbsp;    public List&lt;Park&gt; getParks() {
+<b class="fc"><i>238</i>&nbsp;        return new ArrayList&lt;&gt;(mlstParks);</b>
+<i>239</i>&nbsp;    }
+<i>240</i>&nbsp;
+<i>241</i>&nbsp;    /**
+<i>242</i>&nbsp;     * Setter for the parks.
+<i>243</i>&nbsp;     * @param lstParks
+<i>244</i>&nbsp;     */
+<i>245</i>&nbsp;    public void setParks(List&lt;Park&gt; lstParks) {
+<b class="fc"><i>246</i>&nbsp;        this.mlstParks = new ArrayList&lt;&gt;(lstParks);</b>
+<b class="fc"><i>247</i>&nbsp;    }</b>
+<i>248</i>&nbsp;
+<i>249</i>&nbsp;    /**
+<i>250</i>&nbsp;     * Getter for the stock.
+<i>251</i>&nbsp;     * @return stock.
+<i>252</i>&nbsp;     */
+<i>253</i>&nbsp;    public Map&lt;Product, Integer&gt; getStock() {
+<b class="fc"><i>254</i>&nbsp;        return mMapStock;</b>
+<i>255</i>&nbsp;    }
+<i>256</i>&nbsp;
+<i>257</i>&nbsp;    /**
+<i>258</i>&nbsp;     * Setter for the stock.
+<i>259</i>&nbsp;     * @param mapStock
+<i>260</i>&nbsp;     */
+<i>261</i>&nbsp;    public void setStock(Map&lt;Product, Integer&gt; mapStock) {
+<b class="fc"><i>262</i>&nbsp;        this.mMapStock = mapStock;</b>
+<b class="fc"><i>263</i>&nbsp;    }</b>
+<i>264</i>&nbsp;
+<i>265</i>&nbsp;    /**
+<i>266</i>&nbsp;     * Equals Override.
+<i>267</i>&nbsp;     * @param o object.
+<i>268</i>&nbsp;     * @return true or false, if its the same or not.
+<i>269</i>&nbsp;     */
+<i>270</i>&nbsp;    @Override
+<i>271</i>&nbsp;    public boolean equals(Object o) {
+<b class="fc"><i>272</i>&nbsp;        if (this == o) return true;</b>
+<b class="fc"><i>273</i>&nbsp;        if (o == null || getClass() != o.getClass()) return false;</b>
+<b class="fc"><i>274</i>&nbsp;        Pharmacy pharmacy = (Pharmacy) o;</b>
+<b class="fc"><i>275</i>&nbsp;        return mintId == pharmacy.mintId;</b>
+<i>276</i>&nbsp;    }
+<i>277</i>&nbsp;
+<i>278</i>&nbsp;    /**
+<i>279</i>&nbsp;     * Hash Code Override.
+<i>280</i>&nbsp;     * @return hash code value.
+<i>281</i>&nbsp;     */
+<i>282</i>&nbsp;    @Override
+<i>283</i>&nbsp;    public int hashCode() {
+<b class="fc"><i>284</i>&nbsp;        return Objects.hash(mintId);</b>
+<i>285</i>&nbsp;    }
+<i>286</i>&nbsp;
+<i>287</i>&nbsp;    /**
+<i>288</i>&nbsp;     * ToString override.
+<i>289</i>&nbsp;     * @return information.
+<i>290</i>&nbsp;     */
+<i>291</i>&nbsp;    @Override
+<i>292</i>&nbsp;    public String toString() {
+<b class="fc"><i>293</i>&nbsp;        return &quot;Pharmacy{&quot; +</b>
+<i>294</i>&nbsp;                &quot;m_intId=&quot; + mintId +
+<i>295</i>&nbsp;                &quot;, m_strName=&#39;&quot; + mstrName + &#39;\&#39;&#39; +
+<i>296</i>&nbsp;                &quot;, m_strEmail=&#39;&quot; + mstrEmail + &#39;\&#39;&#39; +
+<i>297</i>&nbsp;                &quot;, m_oAddress=&quot; + moAddress +
+<i>298</i>&nbsp;                &quot;, m_lstParks=&quot; + mlstParks +
+<i>299</i>&nbsp;                &quot;, m_mapStock=&quot; + mMapStock +
+<i>300</i>&nbsp;                &#39;}&#39;;
+<i>301</i>&nbsp;    }
+<i>302</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2021-01-31 18:27</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,438 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: CourierService</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">lapr.project.model.service</a> ]
+</div>
+
+<h1>Coverage Summary for Class: CourierService (lapr.project.model.service)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">CourierService</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (13/ 13)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    89,8%
+  </span>
+  <span class="absValue">
+    (106/ 118)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">CourierService$MockitoMock$117481742</td>
+  </tr>
+  <tr>
+    <td class="name">CourierService$MockitoMock$117481742$auxiliary$4nZHwGfC</td>
+  </tr>
+  <tr>
+    <td class="name">CourierService$MockitoMock$117481742$auxiliary$52JFMIZp</td>
+  </tr>
+  <tr>
+    <td class="name">CourierService$MockitoMock$117481742$auxiliary$6nGRrvGX</td>
+  </tr>
+  <tr>
+    <td class="name">CourierService$MockitoMock$117481742$auxiliary$jUcbFxsY</td>
+  </tr>
+  <tr>
+    <td class="name">CourierService$MockitoMock$117481742$auxiliary$klHcquJm</td>
+  </tr>
+  <tr>
+    <td class="name">CourierService$MockitoMock$117481742$auxiliary$NFlNuxte</td>
+  </tr>
+  <tr>
+    <td class="name">CourierService$MockitoMock$117481742$auxiliary$pIlOp81A</td>
+  </tr>
+  <tr>
+    <td class="name">CourierService$MockitoMock$117481742$auxiliary$pKCDbyWW</td>
+  </tr>
+  <tr>
+    <td class="name">CourierService$MockitoMock$117481742$auxiliary$T3RXA1ko</td>
+  </tr>
+  <tr>
+    <td class="name">CourierService$MockitoMock$117481742$auxiliary$wF4S1L4h</td>
+  </tr>
+  <tr>
+    <td class="name">CourierService$MockitoMock$117481742$auxiliary$wOqVBlpS</td>
+  </tr>
+  <tr>
+    <td class="name">CourierService$MockitoMock$117481742$auxiliary$YE6XsmXw</td>
+  </tr>
+  <tr>
+    <td class="name">CourierService$MockitoMock$117481742$auxiliary$YSmcj3n4</td>
+  </tr>
+<tr>
+  <td class="name"><strong>total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (13/ 13)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    89,8%
+  </span>
+  <span class="absValue">
+    (106/ 118)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package lapr.project.model.service;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import javafx.util.Pair;
+<i>4</i>&nbsp;import lapr.project.data.CourierDB;
+<i>5</i>&nbsp;import lapr.project.data.ScooterDB;
+<i>6</i>&nbsp;import lapr.project.model.*;
+<i>7</i>&nbsp;import lapr.project.utils.Constants;
+<i>8</i>&nbsp;import lapr.project.utils.EmailSender;
+<i>9</i>&nbsp;import lapr.project.utils.WriteFile;
+<i>10</i>&nbsp;
+<i>11</i>&nbsp;import java.io.FileWriter;
+<i>12</i>&nbsp;import java.io.IOException;
+<i>13</i>&nbsp;import java.security.NoSuchAlgorithmException;
+<i>14</i>&nbsp;import java.time.LocalDateTime;
+<i>15</i>&nbsp;import java.util.List;
+<i>16</i>&nbsp;import java.util.logging.Level;
+<i>17</i>&nbsp;
+<i>18</i>&nbsp;/**
+<i>19</i>&nbsp; * Courier Service.
+<i>20</i>&nbsp; *
+<i>21</i>&nbsp; * Group: Team Lisa [G-021]
+<i>22</i>&nbsp; * ______________________________________________________
+<i>23</i>&nbsp; * @author António Barbosa &lt;1190404@isep.ipp.pt&gt;
+<i>24</i>&nbsp; * @author Ernesto Rodrigues &lt;1190560@isep.ipp.pt&gt;
+<i>25</i>&nbsp; * @author Jessica Alves &lt;1190682@isep.ipp.pt&gt;
+<i>26</i>&nbsp; * @author Pedro Santos &lt;1190967@isep.ipp.pt&gt;
+<i>27</i>&nbsp; * @author Rodrigo Costa &lt;1191014@isep.ipp.pt&gt;
+<i>28</i>&nbsp; * @author Tiago Costa &lt;1191460@isep.ipp.pt&gt;
+<i>29</i>&nbsp; */
+<i>30</i>&nbsp;public class CourierService {
+<i>31</i>&nbsp;    /**
+<i>32</i>&nbsp;     * Logger which is used to generate warnings or information, with
+<i>33</i>&nbsp;     * a custom message
+<i>34</i>&nbsp;     */
+<b class="fc"><i>35</i>&nbsp;    private static final java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(CourierService.class.getName());</b>
+<i>36</i>&nbsp;
+<i>37</i>&nbsp;    /**
+<i>38</i>&nbsp;     * Subject for email sender and file writer
+<i>39</i>&nbsp;     */
+<i>40</i>&nbsp;    private static final String SUBJECT = &quot;Scooter parking automated response.&quot;;
+<i>41</i>&nbsp;
+<i>42</i>&nbsp;    /**
+<i>43</i>&nbsp;     * Courier Database class
+<i>44</i>&nbsp;     */
+<i>45</i>&nbsp;    private CourierDB moCourierDB;
+<i>46</i>&nbsp;
+<i>47</i>&nbsp;    /**
+<i>48</i>&nbsp;     * Scooter Database class
+<i>49</i>&nbsp;     */
+<i>50</i>&nbsp;    private ScooterDB moScooterDB;
+<i>51</i>&nbsp;
+<i>52</i>&nbsp;    /**
+<i>53</i>&nbsp;     * Password.
+<i>54</i>&nbsp;     */
+<i>55</i>&nbsp;    private String mstrPassword;
+<i>56</i>&nbsp;
+<i>57</i>&nbsp;    /**
+<i>58</i>&nbsp;     * Initializes the Courier Service with an instance of CourierDB and ScooterDB.
+<i>59</i>&nbsp;     */
+<b class="fc"><i>60</i>&nbsp;    public CourierService() {</b>
+<b class="fc"><i>61</i>&nbsp;        moCourierDB = new CourierDB();</b>
+<b class="fc"><i>62</i>&nbsp;        moScooterDB = new ScooterDB();</b>
+<b class="fc"><i>63</i>&nbsp;    }</b>
+<i>64</i>&nbsp;
+<i>65</i>&nbsp;    /**
+<i>66</i>&nbsp;     * The method receives Courier&#39;s name, email, nif, iban and Courier&#39;s pharmacy.
+<i>67</i>&nbsp;     * The method generates a password and returns a new Courier.
+<i>68</i>&nbsp;     *
+<i>69</i>&nbsp;     * @param strName  Courier&#39;s name.
+<i>70</i>&nbsp;     * @param strEmail Courier&#39;s email.
+<i>71</i>&nbsp;     * @param intNIF   Courier&#39;s nif.
+<i>72</i>&nbsp;     * @param strIBAN  Courier&#39;s iban.
+<i>73</i>&nbsp;     * @param oPharmacy  Courier&#39;s Pharmacy.
+<i>74</i>&nbsp;     */
+<i>75</i>&nbsp;    public Courier newCourier(String strName, String strEmail, Integer intNIF, String strIBAN, Pharmacy oPharmacy) throws NoSuchAlgorithmException {
+<b class="fc"><i>76</i>&nbsp;        PassGenerator pass = new PassGenerator();</b>
+<b class="fc"><i>77</i>&nbsp;        this.mstrPassword = pass.generatePassword();</b>
+<i>78</i>&nbsp;
+<b class="fc"><i>79</i>&nbsp;        return new Courier(strName, strEmail, this.mstrPassword, intNIF, strIBAN, oPharmacy);</b>
+<i>80</i>&nbsp;    }
+<i>81</i>&nbsp;
+<i>82</i>&nbsp;    /**
+<i>83</i>&nbsp;     * The methods registers a Courier on the Database.
+<i>84</i>&nbsp;     * @param c Courier instance
+<i>85</i>&nbsp;     * @return true if the Courier is registered on the Database. False otherwise.
+<i>86</i>&nbsp;     */
+<i>87</i>&nbsp;    public boolean registersCourier(Courier c) {
+<b class="fc"><i>88</i>&nbsp;        String body = String.format(&quot;Account Information:%n%nName: %s%nNIF: %s%nPassword: %s%n&quot;</b>
+<b class="fc"><i>89</i>&nbsp;                , c.getName(), c.getNif(), this.mstrPassword);</b>
+<b class="fc"><i>90</i>&nbsp;        EmailSender.sendEmail(c.getEmail(), &quot;Account Creation&quot;, body</b>
+<i>91</i>&nbsp;        );
+<b class="fc"><i>92</i>&nbsp;        WriteFile.write(&quot;CourierRegistration_&quot; + c.getEmail(), body);</b>
+<b class="fc"><i>93</i>&nbsp;        return moCourierDB.addCourierToDB(c.getName(), c.getEmail(), c.getPw(), c.getNif(), c.getIban(), c.getPharmacy().getId());</b>
+<i>94</i>&nbsp;    }
+<i>95</i>&nbsp;
+<i>96</i>&nbsp;    /**
+<i>97</i>&nbsp;     * The methods recieves the Courier&#39;s email and returns the Courier&#39;s instance.
+<i>98</i>&nbsp;     * @param email Courier&#39;s email
+<i>99</i>&nbsp;     * @return Courier&#39;s instance
+<i>100</i>&nbsp;     */
+<i>101</i>&nbsp;    public Courier getCourierByEmail(String email) {
+<b class="fc"><i>102</i>&nbsp;        return moCourierDB.getCourierByEmail(email);</b>
+<i>103</i>&nbsp;    }
+<i>104</i>&nbsp;
+<i>105</i>&nbsp;    /**
+<i>106</i>&nbsp;     * The method recieves the Courier&#39;s instance, name, email, nif, iban and Courier&#39;s pharmacy and updates the values.
+<i>107</i>&nbsp;     *
+<i>108</i>&nbsp;     * @param courier Courier&#39;s instance
+<i>109</i>&nbsp;     * @param strName Courier&#39;s name
+<i>110</i>&nbsp;     * @param strEmail Courier&#39;s email
+<i>111</i>&nbsp;     * @param intNif Courier&#39;s nif
+<i>112</i>&nbsp;     * @param strIban Courier&#39;s iban
+<i>113</i>&nbsp;     * @param oPharmacy Courier&#39;s pharmacy
+<i>114</i>&nbsp;     * @return the Courier&#39;s instance
+<i>115</i>&nbsp;     */
+<i>116</i>&nbsp;    public Courier updateCourier(Courier courier, String strName, String strEmail, Integer intNif, String strIban, Pharmacy oPharmacy) {
+<b class="fc"><i>117</i>&nbsp;        if (strName != null) courier.setName(strName);</b>
+<b class="fc"><i>118</i>&nbsp;        if (strEmail != null) courier.setEmail(strEmail);</b>
+<b class="fc"><i>119</i>&nbsp;        if (intNif != null) courier.setNif(intNif);</b>
+<b class="fc"><i>120</i>&nbsp;        if (strIban != null) courier.setIban(strIban);</b>
+<b class="fc"><i>121</i>&nbsp;        if (oPharmacy != null) courier.setPharmacy(oPharmacy);</b>
+<b class="fc"><i>122</i>&nbsp;        return courier;</b>
+<i>123</i>&nbsp;    }
+<i>124</i>&nbsp;
+<i>125</i>&nbsp;    /**
+<i>126</i>&nbsp;     * Recieves a Courier&#39;s instance and update&#39;s it on the Database.
+<i>127</i>&nbsp;     * @param oCourier Courier&#39;s instance
+<i>128</i>&nbsp;     * @return true if the Courier is updated on the Database. False otherwise.
+<i>129</i>&nbsp;     */
+<i>130</i>&nbsp;    public boolean updateCourierDB(Courier oCourier) {
+<b class="fc"><i>131</i>&nbsp;        return moCourierDB.updateCourierDB(oCourier);</b>
+<i>132</i>&nbsp;    }
+<i>133</i>&nbsp;
+<i>134</i>&nbsp;    /**
+<i>135</i>&nbsp;     * Recieves the Courier&#39;s email and removes it from the Database.
+<i>136</i>&nbsp;     * @param email Courier&#39;s email
+<i>137</i>&nbsp;     * @return true if the Courier is removed. False if otherwise.
+<i>138</i>&nbsp;     */
+<i>139</i>&nbsp;    public boolean removeCourier(String email) {
+<i>140</i>&nbsp;        try {
+<b class="fc"><i>141</i>&nbsp;            return moCourierDB.removeCourier(email);</b>
+<b class="fc"><i>142</i>&nbsp;        } catch (Exception e) {</b>
+<b class="fc"><i>143</i>&nbsp;            return false;</b>
+<i>144</i>&nbsp;        }
+<i>145</i>&nbsp;    }
+<i>146</i>&nbsp;
+<i>147</i>&nbsp;    /**
+<i>148</i>&nbsp;     * Recieves the Scooter&#39;s Id and sets the Scooter as parked on the Database.
+<i>149</i>&nbsp;     * @param intIdScooter Scooter&#39;s Id
+<i>150</i>&nbsp;     * @return true if the Scooter is set as parked. False if otherwise.
+<i>151</i>&nbsp;     */
+<i>152</i>&nbsp;    public boolean parkScooter(int intIdScooter, String strEmailCourier) {
+<i>153</i>&nbsp;        //Prepare print
+<i>154</i>&nbsp;        String temp;
+<b class="fc"><i>155</i>&nbsp;        String fileName = String.format(&quot;Park_log_%d&quot;, intIdScooter);</b>
+<b class="fc"><i>156</i>&nbsp;        StringBuilder outputBody = new StringBuilder();</b>
+<b class="fc"><i>157</i>&nbsp;        outputBody.append(SUBJECT).append(&quot;\n\n&quot;);</b>
+<i>158</i>&nbsp;
+<i>159</i>&nbsp;        //Check if scooter and Courier belong to the same pharmacy
+<b class="fc"><i>160</i>&nbsp;        boolean samePh = moCourierDB.checkIfScooterAndCourierFromSamePh(intIdScooter, strEmailCourier);</b>
+<b class="fc"><i>161</i>&nbsp;        if(!samePh) {</b>
+<b class="fc"><i>162</i>&nbsp;            temp = String.format(&quot;Courier with email %s and scooter with id %d are not from the &quot; +</b>
+<b class="fc"><i>163</i>&nbsp;                    &quot;same pharmacy!&quot;, strEmailCourier, intIdScooter);</b>
+<b class="fc"><i>164</i>&nbsp;            outputBody.append(temp);</b>
+<b class="fc"><i>165</i>&nbsp;            LOGGER.log(Level.WARNING, temp);</b>
+<b class="fc"><i>166</i>&nbsp;            WriteFile.write(fileName, outputBody.toString());</b>
+<b class="fc"><i>167</i>&nbsp;            EmailSender.sendEmail(strEmailCourier, SUBJECT, outputBody.toString());</b>
+<b class="fc"><i>168</i>&nbsp;            return false;</b>
+<i>169</i>&nbsp;        }
+<i>170</i>&nbsp;
+<i>171</i>&nbsp;        //Id of avaiable park
+<b class="fc"><i>172</i>&nbsp;        int parkId = moCourierDB.getFreeParkingSlot(intIdScooter);</b>
+<i>173</i>&nbsp;        boolean chargingSlot;
+<i>174</i>&nbsp;        boolean flag;
+<i>175</i>&nbsp;
+<i>176</i>&nbsp;        //If -1 no park avaiable
+<b class="fc"><i>177</i>&nbsp;        if(parkId == -1) {</b>
+<b class="fc"><i>178</i>&nbsp;            temp = String.format(&quot;There are no avaiable parks to park the scooter with id %d or it&#39;s already parked!&quot;,</b>
+<b class="fc"><i>179</i>&nbsp;                    intIdScooter);</b>
+<b class="fc"><i>180</i>&nbsp;            outputBody.append(temp);</b>
+<b class="fc"><i>181</i>&nbsp;            LOGGER.log(Level.WARNING, temp);</b>
+<b class="fc"><i>182</i>&nbsp;            WriteFile.write(fileName, outputBody.toString());</b>
+<b class="fc"><i>183</i>&nbsp;            EmailSender.sendEmail(strEmailCourier, SUBJECT, outputBody.toString());</b>
+<b class="fc"><i>184</i>&nbsp;            return false;</b>
+<i>185</i>&nbsp;        }
+<i>186</i>&nbsp;
+<i>187</i>&nbsp;        //Check if it&#39;s charing slot
+<i>188</i>&nbsp;        else
+<b class="fc"><i>189</i>&nbsp;            chargingSlot = moCourierDB.checkIfChargingSlot(parkId);</b>
+<i>190</i>&nbsp;
+<i>191</i>&nbsp;        //If it&#39;s charging slot ask for file verification
+<b class="fc"><i>192</i>&nbsp;        if(chargingSlot) {</b>
+<b class="fc"><i>193</i>&nbsp;            double currentDouble = moScooterDB.getCurrentPerCharger(parkId);</b>
+<b class="fc"><i>194</i>&nbsp;            String parkCurrent = String.format(&quot;Park id: %d - Current: %.2f A&quot;, parkId, currentDouble);</b>
+<b class="fc"><i>195</i>&nbsp;            LOGGER.log(Level.INFO, parkCurrent);</b>
+<b class="fc"><i>196</i>&nbsp;            flag = moCourierDB.parkScooterDirectory(intIdScooter);</b>
+<i>197</i>&nbsp;
+<i>198</i>&nbsp;            //If file verification returns false end with error
+<b class="fc"><i>199</i>&nbsp;            if (!flag) {</b>
+<b class="fc"><i>200</i>&nbsp;                temp = String.format(&quot;Scooter with id %d was not locked correctly!&quot;,</b>
+<b class="fc"><i>201</i>&nbsp;                        intIdScooter);</b>
+<b class="fc"><i>202</i>&nbsp;                outputBody.append(temp);</b>
+<b class="fc"><i>203</i>&nbsp;                LOGGER.log(Level.WARNING, temp);</b>
+<b class="fc"><i>204</i>&nbsp;                WriteFile.write(fileName, outputBody.toString());</b>
+<b class="fc"><i>205</i>&nbsp;                EmailSender.sendEmail(strEmailCourier, SUBJECT, outputBody.toString());</b>
+<b class="fc"><i>206</i>&nbsp;                return false;</b>
+<i>207</i>&nbsp;            }
+<i>208</i>&nbsp;
+<i>209</i>&nbsp;            //If file verification returns true start prints
+<b class="fc"><i>210</i>&nbsp;            List&lt;Pair&lt;String, Scooter&gt;&gt; lst = moScooterDB.getEmailPerChargingScooter(parkId);</b>
+<b class="fc"><i>211</i>&nbsp;            int current = (int) currentDouble;</b>
+<b class="fc"><i>212</i>&nbsp;            for(Pair&lt;String, Scooter&gt; pair : lst) {</b>
+<i>213</i>&nbsp;
+<b class="fc"><i>214</i>&nbsp;                LocalDateTime now = LocalDateTime.now();</b>
+<b class="fc"><i>215</i>&nbsp;                int year = now.getYear();</b>
+<b class="fc"><i>216</i>&nbsp;                int month = now.getMonthValue();</b>
+<b class="fc"><i>217</i>&nbsp;                int day = now.getDayOfMonth();</b>
+<b class="fc"><i>218</i>&nbsp;                int hour = now.getHour();</b>
+<b class="fc"><i>219</i>&nbsp;                int minute = now.getMinute();</b>
+<b class="fc"><i>220</i>&nbsp;                int second = now.getSecond();</b>
+<b class="fc"><i>221</i>&nbsp;                String body = String.format(&quot;lock_%d_%02d_%02d_%02d_%02d_%02d.data&quot;, year, month, day, hour, minute, second);</b>
+<b class="fc"><i>222</i>&nbsp;                int capacity = pair.getValue().getModel().getBattery().getBatteryCapacity();</b>
+<b class="fc"><i>223</i>&nbsp;                int charge = (int) pair.getValue().getBatteryPerc();</b>
+<b class="fc"><i>224</i>&nbsp;                String email = pair.getKey();</b>
+<b class="fc"><i>225</i>&nbsp;                String fileText = String.format(&quot;%d;%d;%d;%s&quot;, capacity,current,charge,email);</b>
+<b class="fc"><i>226</i>&nbsp;                try (FileWriter myWriter = new FileWriter(Constants.LOCK_FILE_PATH + body);){</b>
+<b class="fc"><i>227</i>&nbsp;                    myWriter.write(fileText);</b>
+<b class="fc"><i>228</i>&nbsp;                } catch (IOException e) {</b>
+<b class="nc"><i>229</i>&nbsp;                    temp = String.format(&quot;Scooter with id %d was not locked successfully!&quot;,</b>
+<b class="nc"><i>230</i>&nbsp;                            intIdScooter);</b>
+<b class="nc"><i>231</i>&nbsp;                    outputBody.append(temp);</b>
+<b class="nc"><i>232</i>&nbsp;                    WriteFile.write(fileName, outputBody.toString());</b>
+<b class="nc"><i>233</i>&nbsp;                    EmailSender.sendEmail(strEmailCourier, SUBJECT, outputBody.toString());</b>
+<b class="nc"><i>234</i>&nbsp;                    return false;</b>
+<b class="fc"><i>235</i>&nbsp;                }</b>
+<b class="fc"><i>236</i>&nbsp;                try (FileWriter myWriter = new FileWriter(Constants.LOCK_FILE_PATH + body + Constants.FILTER);){</b>
+<b class="fc"><i>237</i>&nbsp;                    myWriter.write(fileText);</b>
+<b class="fc"><i>238</i>&nbsp;                } catch (IOException e) {</b>
+<b class="nc"><i>239</i>&nbsp;                    temp = String.format(&quot;Scooter with id %d was not locked successfully!&quot;,</b>
+<b class="nc"><i>240</i>&nbsp;                            intIdScooter);</b>
+<b class="nc"><i>241</i>&nbsp;                    outputBody.append(temp);</b>
+<b class="nc"><i>242</i>&nbsp;                    WriteFile.write(fileName, outputBody.toString());</b>
+<b class="nc"><i>243</i>&nbsp;                    EmailSender.sendEmail(strEmailCourier, SUBJECT, outputBody.toString());</b>
+<b class="nc"><i>244</i>&nbsp;                    return false;</b>
+<b class="fc"><i>245</i>&nbsp;                }</b>
+<b class="fc"><i>246</i>&nbsp;                moCourierDB.parkScooterDirectory(pair.getValue().getId());</b>
+<b class="fc"><i>247</i>&nbsp;            }</b>
+<i>248</i>&nbsp;        }
+<i>249</i>&nbsp;
+<i>250</i>&nbsp;        //Check if parked successfully
+<b class="fc"><i>251</i>&nbsp;        boolean parked = moCourierDB.parkScooter(intIdScooter, parkId);</b>
+<i>252</i>&nbsp;
+<i>253</i>&nbsp;        //If not parked successfully end with error
+<b class="fc"><i>254</i>&nbsp;        if(!parked) {</b>
+<b class="fc"><i>255</i>&nbsp;            temp = String.format(&quot;Scooter with id %d was not locked successfully!&quot;,</b>
+<b class="fc"><i>256</i>&nbsp;                    intIdScooter);</b>
+<b class="fc"><i>257</i>&nbsp;            outputBody.append(temp);</b>
+<b class="fc"><i>258</i>&nbsp;            WriteFile.write(fileName, outputBody.toString());</b>
+<b class="fc"><i>259</i>&nbsp;            EmailSender.sendEmail(strEmailCourier, SUBJECT, outputBody.toString());</b>
+<b class="fc"><i>260</i>&nbsp;            return false;</b>
+<i>261</i>&nbsp;        }
+<i>262</i>&nbsp;
+<i>263</i>&nbsp;        //If scooter didn&#39;t need to charge and nothing went wrong, prepare output for non charing spot
+<b class="fc"><i>264</i>&nbsp;        if(!chargingSlot) {</b>
+<b class="fc"><i>265</i>&nbsp;            temp = String.format(&quot;Scooter with id %d was parked successfully on a non charging parking spot!&quot;,</b>
+<b class="fc"><i>266</i>&nbsp;                    intIdScooter);</b>
+<b class="fc"><i>267</i>&nbsp;            outputBody.append(temp);</b>
+<b class="fc"><i>268</i>&nbsp;            LOGGER.log(Level.WARNING, temp);</b>
+<b class="fc"><i>269</i>&nbsp;            WriteFile.write(fileName, outputBody.toString());</b>
+<b class="fc"><i>270</i>&nbsp;            EmailSender.sendEmail(strEmailCourier, SUBJECT, outputBody.toString());</b>
+<i>271</i>&nbsp;        }
+<b class="fc"><i>272</i>&nbsp;        return true;</b>
+<i>273</i>&nbsp;    }
+<i>274</i>&nbsp;
+<i>275</i>&nbsp;    /**
+<i>276</i>&nbsp;     * Returns the Courier&#39;s Database
+<i>277</i>&nbsp;     * @return Courier DataBase
+<i>278</i>&nbsp;     */
+<i>279</i>&nbsp;    public CourierDB getCourierDB() {
+<b class="fc"><i>280</i>&nbsp;        return moCourierDB;</b>
+<i>281</i>&nbsp;    }
+<i>282</i>&nbsp;
+<i>283</i>&nbsp;    /**
+<i>284</i>&nbsp;     * The methods sets the Courier&#39;s Database
+<i>285</i>&nbsp;     * @param oCourierDB Courier Database
+<i>286</i>&nbsp;     */
+<i>287</i>&nbsp;    public void setCourierDB(CourierDB oCourierDB) {
+<b class="fc"><i>288</i>&nbsp;        this.moCourierDB = oCourierDB;</b>
+<b class="fc"><i>289</i>&nbsp;    }</b>
+<i>290</i>&nbsp;
+<i>291</i>&nbsp;    /**
+<i>292</i>&nbsp;     * Returns the Scooter&#39;s Database
+<i>293</i>&nbsp;     * @return Scooter DataBase
+<i>294</i>&nbsp;     */
+<i>295</i>&nbsp;    public ScooterDB getMoScooterDB() {
+<b class="fc"><i>296</i>&nbsp;        return moScooterDB;</b>
+<i>297</i>&nbsp;    }
+<i>298</i>&nbsp;
+<i>299</i>&nbsp;    /**
+<i>300</i>&nbsp;     * The methods sets the Scooter&#39;s Database
+<i>301</i>&nbsp;     * @param moScooterDB Scooter Database
+<i>302</i>&nbsp;     */
+<i>303</i>&nbsp;    public void setMoScooterDB(ScooterDB moScooterDB) {
+<b class="fc"><i>304</i>&nbsp;        this.moScooterDB = moScooterDB;</b>
+<b class="fc"><i>305</i>&nbsp;    }</b>
+<i>306</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2021-01-31 18:27</div>
+</div>
+</body>
+</html>

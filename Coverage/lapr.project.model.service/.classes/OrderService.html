@@ -1,0 +1,243 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: OrderService</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">lapr.project.model.service</a> ]
+</div>
+
+<h1>Coverage Summary for Class: OrderService (lapr.project.model.service)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">OrderService</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (10/ 10)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (13/ 13)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">OrderService$MockitoMock$717044949</td>
+  </tr>
+  <tr>
+    <td class="name">OrderService$MockitoMock$717044949$auxiliary$1NkVn2VW</td>
+  </tr>
+  <tr>
+    <td class="name">OrderService$MockitoMock$717044949$auxiliary$ELJyVbhb</td>
+  </tr>
+  <tr>
+    <td class="name">OrderService$MockitoMock$717044949$auxiliary$iMvbsIV2</td>
+  </tr>
+  <tr>
+    <td class="name">OrderService$MockitoMock$717044949$auxiliary$jtIVQj06</td>
+  </tr>
+  <tr>
+    <td class="name">OrderService$MockitoMock$717044949$auxiliary$lDmTrFxG</td>
+  </tr>
+  <tr>
+    <td class="name">OrderService$MockitoMock$717044949$auxiliary$Md7B2R7T</td>
+  </tr>
+  <tr>
+    <td class="name">OrderService$MockitoMock$717044949$auxiliary$MzKTfHXt</td>
+  </tr>
+  <tr>
+    <td class="name">OrderService$MockitoMock$717044949$auxiliary$oIaWorMx</td>
+  </tr>
+  <tr>
+    <td class="name">OrderService$MockitoMock$717044949$auxiliary$um66J7tQ</td>
+  </tr>
+  <tr>
+    <td class="name">OrderService$MockitoMock$717044949$auxiliary$x7MRG7k7</td>
+  </tr>
+  <tr>
+    <td class="name">OrderService$MockitoMock$717044949$auxiliary$xPUUEqxE</td>
+  </tr>
+<tr>
+  <td class="name"><strong>total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (10/ 10)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (13/ 13)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package lapr.project.model.service;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import lapr.project.data.OrderDB;
+<i>4</i>&nbsp;import lapr.project.model.*;
+<i>5</i>&nbsp;
+<i>6</i>&nbsp;import java.util.Map;
+<i>7</i>&nbsp;
+<i>8</i>&nbsp;/**
+<i>9</i>&nbsp; * Order Service.
+<i>10</i>&nbsp; *
+<i>11</i>&nbsp; * Group: Team Lisa [G-021]
+<i>12</i>&nbsp; * ______________________________________________________
+<i>13</i>&nbsp; * @author António Barbosa &lt;1190404@isep.ipp.pt&gt;
+<i>14</i>&nbsp; * @author Ernesto Rodrigues &lt;1190560@isep.ipp.pt&gt;
+<i>15</i>&nbsp; * @author Jessica Alves &lt;1190682@isep.ipp.pt&gt;
+<i>16</i>&nbsp; * @author Pedro Santos &lt;1190967@isep.ipp.pt&gt;
+<i>17</i>&nbsp; * @author Rodrigo Costa &lt;1191014@isep.ipp.pt&gt;
+<i>18</i>&nbsp; * @author Tiago Costa &lt;1191460@isep.ipp.pt&gt;
+<i>19</i>&nbsp; */
+<i>20</i>&nbsp;public class OrderService {
+<i>21</i>&nbsp;
+<i>22</i>&nbsp;    /**
+<i>23</i>&nbsp;     * Order Database Class.
+<i>24</i>&nbsp;     */
+<i>25</i>&nbsp;    private OrderDB moOrderDB;
+<i>26</i>&nbsp;
+<i>27</i>&nbsp;    /**
+<i>28</i>&nbsp;     * Getter For the Order Database Class.
+<i>29</i>&nbsp;     * @return Order Database Class.
+<i>30</i>&nbsp;     */
+<i>31</i>&nbsp;    public OrderDB getOrderDB() {
+<b class="fc"><i>32</i>&nbsp;        return moOrderDB;</b>
+<i>33</i>&nbsp;    }
+<i>34</i>&nbsp;
+<i>35</i>&nbsp;    /**
+<i>36</i>&nbsp;     * Setter For the Order Database Class.
+<i>37</i>&nbsp;     * @param oOrderDB Order Database Class.
+<i>38</i>&nbsp;     */
+<i>39</i>&nbsp;    public void setOrderDB(OrderDB oOrderDB) {
+<b class="fc"><i>40</i>&nbsp;        this.moOrderDB = oOrderDB;</b>
+<b class="fc"><i>41</i>&nbsp;    }</b>
+<i>42</i>&nbsp;
+<i>43</i>&nbsp;    /**
+<i>44</i>&nbsp;     * Empty Constructor.
+<i>45</i>&nbsp;     */
+<b class="fc"><i>46</i>&nbsp;    public OrderService() {</b>
+<b class="fc"><i>47</i>&nbsp;        this.moOrderDB = new OrderDB();</b>
+<b class="fc"><i>48</i>&nbsp;    }</b>
+<i>49</i>&nbsp;
+<i>50</i>&nbsp;    /**
+<i>51</i>&nbsp;     * Method that gets an Order from the database based on the ID.
+<i>52</i>&nbsp;     * @param strId ID.
+<i>53</i>&nbsp;     * @return Order.
+<i>54</i>&nbsp;     */
+<i>55</i>&nbsp;    public Order getOrder(int strId) {
+<b class="fc"><i>56</i>&nbsp;        return this.moOrderDB.getOrder(strId);</b>
+<i>57</i>&nbsp;    }
+<i>58</i>&nbsp;
+<i>59</i>&nbsp;    /**
+<i>60</i>&nbsp;     * Method that removes an Order from the database based on the ID.
+<i>61</i>&nbsp;     * @param intId ID.
+<i>62</i>&nbsp;     * @return true if it removes, false if it does not.
+<i>63</i>&nbsp;     */
+<i>64</i>&nbsp;    public boolean removeOrder(int intId) {
+<b class="fc"><i>65</i>&nbsp;        return this.moOrderDB.removeOrder(intId);</b>
+<i>66</i>&nbsp;    }
+<i>67</i>&nbsp;
+<i>68</i>&nbsp;    /**
+<i>69</i>&nbsp;     * Method that registers an Order in the database.
+<i>70</i>&nbsp;     * @param oOrder
+<i>71</i>&nbsp;     * @return true if it registers, false if it does not.
+<i>72</i>&nbsp;     */
+<i>73</i>&nbsp;    public int registerOrder(Order oOrder) {
+<b class="fc"><i>74</i>&nbsp;        return this.moOrderDB.registerOrder(oOrder);</b>
+<i>75</i>&nbsp;    }
+<i>76</i>&nbsp;
+<i>77</i>&nbsp;    /**
+<i>78</i>&nbsp;     * Method that creates an instance of an Order.
+<i>79</i>&nbsp;     * @param strDescription Description.
+<i>80</i>&nbsp;     * @param blIsHomeDelivery Home Delivery Boolean.
+<i>81</i>&nbsp;     * @param oClient Client.
+<i>82</i>&nbsp;     * @param oPharmacy Pharmacy.
+<i>83</i>&nbsp;     * @param mapProducts Map of Products.
+<i>84</i>&nbsp;     * @return Order.
+<i>85</i>&nbsp;     */
+<i>86</i>&nbsp;    public Order newOrder(String strDescription, boolean blIsHomeDelivery, Client oClient, Pharmacy oPharmacy, Map&lt;Product, Integer&gt; mapProducts) {
+<b class="fc"><i>87</i>&nbsp;        return new Order(strDescription, blIsHomeDelivery, oClient, oPharmacy, mapProducts);</b>
+<i>88</i>&nbsp;    }
+<i>89</i>&nbsp;
+<i>90</i>&nbsp;    /**
+<i>91</i>&nbsp;     * Gets the lastest order from a client.
+<i>92</i>&nbsp;     * @param oClient Client.
+<i>93</i>&nbsp;     * @return Order.
+<i>94</i>&nbsp;     */
+<i>95</i>&nbsp;    public Order getLatestOrder(Client oClient) {
+<b class="fc"><i>96</i>&nbsp;        return this.moOrderDB.getLatestOrder(oClient);</b>
+<i>97</i>&nbsp;    }
+<i>98</i>&nbsp;
+<i>99</i>&nbsp;    /**
+<i>100</i>&nbsp;     * Gets the lastest order from a courier.
+<i>101</i>&nbsp;     * @param strEmail courier email.
+<i>102</i>&nbsp;     * @return Order.
+<i>103</i>&nbsp;     */
+<i>104</i>&nbsp;    public Order getOrderByCourier(String strEmail) {
+<b class="fc"><i>105</i>&nbsp;        return this.moOrderDB.getOrderByCourier(strEmail);</b>
+<i>106</i>&nbsp;    }
+<i>107</i>&nbsp;
+<i>108</i>&nbsp;    /**
+<i>109</i>&nbsp;     * Notifies a Client and Removes the Out of Stock Products.
+<i>110</i>&nbsp;     * @param oOrder Order.
+<i>111</i>&nbsp;     * @return Map of products.
+<i>112</i>&nbsp;     */
+<i>113</i>&nbsp;    public Map&lt;Product,Integer&gt; notifyAndRemove(Order oOrder) {
+<b class="fc"><i>114</i>&nbsp;        return this.moOrderDB.notifyAndRemove(oOrder);</b>
+<i>115</i>&nbsp;    }
+<i>116</i>&nbsp;
+<i>117</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2021-01-31 18:27</div>
+</div>
+</body>
+</html>

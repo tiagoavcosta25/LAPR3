@@ -161,7 +161,9 @@ public class DeliveryRunService {
         } else if (lst.get(1) == null) {
             return lst.get(0).getVehicleModel();
         } else {
-            if (lst.get(0).getTotalEnergy() < lst.get(1).getTotalEnergy()) return lst.get(0).getVehicleModel();
+            if (lst.get(0).getTotalEnergy() < lst.get(1).getTotalEnergy()){
+                return lst.get(0).getVehicleModel();
+            }
             else return lst.get(1).getVehicleModel();
         }
     }
