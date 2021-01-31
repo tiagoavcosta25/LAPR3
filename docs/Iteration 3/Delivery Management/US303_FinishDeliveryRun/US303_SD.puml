@@ -1,0 +1,53 @@
+@startuml
+autonumber
+actor "Courier" as C
+participant ":FinishDeliveryRunUI" as UI
+participant ":FinishDeliveryRunController" as CTRL
+participant "PotApplication" as PA
+participant "app \n:PotApplication" as APA
+participant "deliveryRunServ \n:DeliveryRunService" as DRS
+participant "deliveryRunDB : DeliveryRunDB" as DDB
+activate C
+
+C -> UI : Starts the process to finish a Delivery Run
+activate UI
+
+UI --> C : Asks for the Delivery Run ID and \nthe Scooter battery percentage
+deactivate UI
+
+C -> UI : Inserts the required infromation
+activate UI
+
+
+UI -> CTRL : finishDeliveryRun()
+activate CTRL
+CTRL -> DRS : create()
+activate DRS
+DRS -> DDB** : create()
+deactivate DRS
+CTRL -> PA : app = getInstance()
+activate PA
+deactivate PA
+CTRL -> APA : session = getCurrentSession()
+activate APA
+deactivate APA
+
+CTRL -> APA : email = getCurrentUserEmail()
+activate APA
+deactivate APA
+CTRL -> DRS : finishDeliveryRun(deliveryRunID, batteryPercentage, email)
+activate DRS
+DRS -> DDB : finishDeliveryRun(deliveryRunID, batteryPercentage, email)
+ref over DDB
+SD_CONNECTIONS
+end ref
+activate DDB
+deactivate DDB
+deactivate DRS
+
+UI --> C : Informs of the success of the operation
+deactivate CTRL
+deactivate UI
+deactivate C
+
+@enduml

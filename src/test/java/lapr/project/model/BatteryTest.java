@@ -106,4 +106,13 @@ class BatteryTest {
         int real = oBattery.hashCode();
         assertEquals(expected, real);
     }
+
+    @Test
+    void toStringRoute() {
+        Battery b = new Battery();
+        System.out.println(b.toString());
+        String expResult = ", battery efficiency->-1.0, battery capacity->-1, battery voltage->-1.0.";
+        String result = b.toStringRoute();
+        assertEquals(expResult, result);
+    }
 }

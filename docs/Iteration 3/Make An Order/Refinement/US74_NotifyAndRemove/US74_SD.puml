@@ -5,7 +5,7 @@ actor "Client" as Client
 participant ":NotifyAndRemoveUI" as UI
 participant ":NotifyAndRemoveController" as CTRL
 participant "orderService \n:OrderService" as ORDERSV
-participant "orderReg \n:OrderRegistration" as RF
+participant "orderReg \n:OrderDB" as RF
 
 
 activate Client
@@ -22,6 +22,7 @@ deactivate ORDERSV
 CTRL -> ORDERSV : notifyAndRemove(order)
 activate ORDERSV
 ORDERSV -> RF : notifyAndRemove(order)
+ref over RF : SD_CONNECTIONS
 activate RF
 deactivate ORDERSV
 deactivate RF

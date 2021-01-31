@@ -56,7 +56,7 @@ public class EmailSender {
 
                     @Override
                     protected PasswordAuthentication getPasswordAuthentication() {
-                        return new PasswordAuthentication("farmacyservice.g21@gmail.com", "g21rumoAo20");
+                        return new PasswordAuthentication("info.teamlisa@gmail.com", "g21rumoAo20");
                     }
                 });
         try {
@@ -64,7 +64,7 @@ public class EmailSender {
                     "%s\n\n______________________________________________________________________________________\n\n" +
                     "Thank you for choosing us.\nKing regards,\nPharmacy Service G21.",body);
             String strHtmlBody = htmlBody(strBody);
-            if(emailToFoward.equals("") || strHtmlBody.equals("") || subject.equals("") || body.equals("")) {
+            if(emailToFoward.equals("") || subject.equals("")) {
                 throw new MessagingException();
             }
             Message message = new MimeMessage(session);

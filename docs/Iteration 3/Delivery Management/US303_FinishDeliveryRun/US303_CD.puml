@@ -1,0 +1,104 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+package "UI" #DDDDDD{
+class FinishDeliveryRunUI {
+
+}
+}
+package "Controller" #DDDDDD {
+class FinishDeliveryRunController{
++finishDeliveryRun()
+}
+
+
+
+class ApplicationPOT
+{
+  +static getInstance()
+  +getCurrentUserEmail()
+}
+}
+
+
+package "Model" #DDDDDD {
+package "Service" #DDDDDD {
+   class DeliveryRunService{
+          +finishDeliveryRun(deliveryRunID, batteryPercentage, email)
+
+      }
+
+
+ }
+}
+
+package "Model" #DDDDDD {
+abstract class User{
+-Integer id
+-String email
+-String password
+-String name
+-Integer nif
+}
+
+class Courier {
+      -String iban
+}
+
+
+
+class DeliveryRun{
+-Integer id
+}
+
+class Vehicle{
+  -int id
+  -float batteryPerc
+  -String charginStatus
+  -float potency
+  -float weight
+  -int batteryCapacity
+  -float maxPayload
+}
+
+class Battery{
+  -int id
+  -float batteryPercentage
+  -int batteryCapacity
+  -float batteryVoltage
+}
+
+
+}
+
+
+package "Data" #DDDDDD {
+class DataHandler{
+    +openConnection()
+    +closeAll()
+}
+
+class DeliveryRunDB{
+ +finishDeliveryRun(deliveryRunID, batteryPercentage, email)
+  }
+
+}
+database database{
+
+}
+class DeliveryRunDB extends DataHandler
+
+FinishDeliveryRunController ..> ApplicationPOT
+FinishDeliveryRunUI ..> FinishDeliveryRunController
+FinishDeliveryRunController ..> DeliveryRunService : has
+DeliveryRunService ..> DeliveryRunDB : has
+DeliveryRunDB --> database : manages
+
+Courier "1" -- "1" User : acts as >
+Courier "1" -- "1" DeliveryRun : does a >
+Vehicle "1" -- "1" Battery : has a >
+DeliveryRun "1" -- "1" Vehicle :  has a >
+database "1" -- "*" Courier : has registered
+database "1" -- "*" DeliveryRun : has registered
+
+@enduml

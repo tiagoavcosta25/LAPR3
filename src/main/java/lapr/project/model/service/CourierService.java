@@ -223,10 +223,8 @@ public class CourierService {
                 int charge = (int) pair.getValue().getBatteryPerc();
                 String email = pair.getKey();
                 String fileText = String.format("%d;%d;%d;%s", capacity,current,charge,email);
-                try {
-                    FileWriter myWriter = new FileWriter(Constants.LOCK_FILE_PATH + body);
+                try (FileWriter myWriter = new FileWriter(Constants.LOCK_FILE_PATH + body);){
                     myWriter.write(fileText);
-                    myWriter.close();
                 } catch (IOException e) {
                     temp = String.format("Scooter with id %d was not locked successfully!",
                             intIdScooter);
@@ -235,10 +233,8 @@ public class CourierService {
                     EmailSender.sendEmail(strEmailCourier, SUBJECT, outputBody.toString());
                     return false;
                 }
-                try {
-                    FileWriter myWriter = new FileWriter(Constants.LOCK_FILE_PATH + body + Constants.FILTER);
+                try (FileWriter myWriter = new FileWriter(Constants.LOCK_FILE_PATH + body + Constants.FILTER);){
                     myWriter.write(fileText);
-                    myWriter.close();
                 } catch (IOException e) {
                     temp = String.format("Scooter with id %d was not locked successfully!",
                             intIdScooter);

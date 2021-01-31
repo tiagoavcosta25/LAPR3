@@ -1,0 +1,21 @@
+@startuml
+autonumber
+hide footbox
+
+actor "Courier" as C
+
+participant ":System" as SYST
+
+activate C
+C -> SYST : Starts the process to finish a Delivery Run
+activate SYST
+SYST --> C : Asks for the Delivery Run ID and \nthe Scooter battery percentage
+deactivate SYST
+C -> SYST : Inserts the required infromation
+activate SYST
+SYST --> C : Informs of the success of the operation
+deactivate SYST
+
+deactivate C
+
+@enduml

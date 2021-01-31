@@ -41,6 +41,8 @@ deactivate PA
 CTRL -> RF : courier = getCourierByEmail(email)
 activate RF
 RF -> CDB : courier = getCourierByEmail(email)
+ref over CDB : SD_CONNECTIONS
+
 activate CDB
 deactivate RF
 deactivate CDB
@@ -59,6 +61,8 @@ CTRL -> CTRL : validateInput(name,email,nif,iban,pharmacyID)
 CTRL -> PR : pharmacy = getPharmacyByID(pharmacyID)
 activate PR
 PR -> PDB : pharmacy = getPharmacyByID(pharmacyID)
+ref over PDB : SD_CONNECTIONS
+
 activate PDB
 
 deactivate PR
@@ -77,6 +81,7 @@ activate CTRL
 CTRL -> RF : updateCourierDB(courier)
 activate RF
 RF -> CDB : updateCourierDB(courier)
+ref over CDB : SD_CONNECTIONS
 activate CDB
 deactivate CDB
 deactivate RF

@@ -48,6 +48,18 @@ class RouteTest {
         List<Address> real = r.getAddressList();
         List<Address> expected = new ArrayList<>();
         assertEquals(expected, real);
+
+        Address a = new Address();
+        Address b = new Address();
+        a.setLongitude(1d);
+        b.setLongitude(2d);
+        expected.add(a);
+        expected.add(b);
+        real = r.getAddressList();
+        assertNotEquals(expected, real);
+        r.setAddressList(expected);
+        real = r.getAddressList();
+        assertEquals(expected, real);
     }
 
     @Test
@@ -66,6 +78,16 @@ class RouteTest {
         r.setPathList(expected);
         List<Path> real = r.getPathList();
         assertEquals(expected, real);
+
+        Path p = new Path();
+        expected.add(p);
+        real = r.getPathList();
+        assertNotEquals(expected, real);
+
+        r.setPathList(expected);
+        real = r.getPathList();
+        assertEquals(expected, real);
+
     }
 
     @Test
@@ -235,8 +257,11 @@ class RouteTest {
         Route oRoute = new Route();
         int real = oRoute.hashCode();
         int expected = oRoute.hashCode();;
-
+        System.out.println(expected);
         assertEquals(expected, real);
+
+        expected = 0;
+        assertNotEquals(expected, real);
     }
 
     @Test
@@ -262,6 +287,23 @@ class RouteTest {
                 11d, "", "", "", "", ""))));
         result = oRoute.toString().substring(0, 33);
         expResult = "\nBest vehicle model for delivery:";
+        assertEquals(expResult, result);
+    }
+
+    @Test
+    void testToString2() {
+        String expResult = "";
+        Route route = new Route();
+        String result = route.toString();
+        System.out.println(result);
+        expResult = "\nBest vehicle model for delivery:";
+        assertNotEquals(expResult, result);
+        expResult = "";
+        assertEquals(expResult, result);
+
+        route.setVehicleModel(new VehicleModel());
+        result = route.toString();
+        expResult = route.toString();
         assertEquals(expResult, result);
     }
 }

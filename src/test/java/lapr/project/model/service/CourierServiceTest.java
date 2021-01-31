@@ -115,14 +115,16 @@ class CourierServiceTest {
         c21 = courierService.updateCourier(c2,"testeteste","email",null,
                 "123",null);
         assertNotNull(c21);
-        assertEquals("testeteste", c21.getName());
+        assertEquals(0, c21.getNif());
+        assertNotNull(c21.getNif());
         assertEquals(c2,c21);
 
         c21 = courierService.updateCourier(c2,"testeteste","email",123456787,
                 "123",null);
         assertNotNull(c21);
-        assertEquals("testeteste", c21.getName());
+        assertEquals(new Pharmacy(), c21.getPharmacy());
         assertEquals(c2,c21);
+        assertNotNull(c21.getPharmacy());
 
         c21 = courierService.updateCourier(c2,"testeteste","email",123456787,
                 "123",new Pharmacy());
@@ -225,6 +227,12 @@ class CourierServiceTest {
         when(mockCourierDB.parkScooterDirectory(1)).thenReturn(true);
         when(mockCourierDB.parkScooter(1, 1)).thenReturn(false);
         assertFalse(courierService.parkScooter(1, "email@gmail.com"));
+        when(mockCourierDB.getFreeParkingSlot(1)).thenReturn(-1);
+        assertFalse(courierService.parkScooter(1, "email@gmail.com"));
+        when(mockCourierDB.parkScooter(1, 1)).thenReturn(true);
+        when(mockCourierDB.checkIfChargingSlot(1)).thenReturn(false);
+        when(mockCourierDB.getFreeParkingSlot(1)).thenReturn(1);
+        assertTrue(courierService.parkScooter(1, "email@gmail.com"));
     }
 
     @Test

@@ -196,4 +196,15 @@ public class DeliveryRunService {
         }
         return flag;
     }
+
+    /**
+     * Finshes a Delivery Run.
+     * @param intID ID:
+     * @param intBatteryPerc Battery Percentage.
+     * @param strCurrentUserEmail Courier's Email.
+     * @return true if it finishes a delivery run, false otherwise.
+     */
+    public boolean finishDeliveryRun(int intID, int intBatteryPerc, String strCurrentUserEmail) {
+        return this.moDeliveryRunDB.finishDeliveryRun(intID, intBatteryPerc, strCurrentUserEmail);
+    }
 }
