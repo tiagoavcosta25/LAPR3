@@ -43,13 +43,7 @@ public class MakeAnOrderUI implements UI {
                 }
 
                 Order oOrder = oCtrl.newOrder(strDescription, blnHomeDelivery);
-
-                System.out.printf("Order:\n\n-Pharmacy: %s\n-Description: %s\n-Total: %.2f€", oOrder.getPharmacy().getName(),
-                        oOrder.getDescription(), oOrder.getAmount() + oOrder.getAdditionalFee());
-
-                System.out.print("\n\nDo you want to confirm this order? (Y/N): ");
-                strCheck = sc.nextLine();
-                Menu.clear();
+                strCheck = confirmOrder(oOrder);
 
                 if(strCheck.equalsIgnoreCase("Y")){
                     chooseCC(oCtrl);
@@ -64,7 +58,7 @@ public class MakeAnOrderUI implements UI {
                         flag = false;
                     }
                 } else{
-                    flag = false;
+                    flag = true;
                 }
             } while(!flag);
 
@@ -73,13 +67,24 @@ public class MakeAnOrderUI implements UI {
         }
     }
 
+    private String confirmOrder(Order oOrder) {
+
+        System.out.printf("Order:%n%n-Pharmacy: %s%n-Description: %s%n-Total: %.2f€", oOrder.getPharmacy().getName(),
+                oOrder.getDescription(), oOrder.getAmount() + oOrder.getAdditionalFee());
+
+        System.out.print("\n\nDo you want to confirm this order? (Y/N): ");
+        String strCheck = sc.nextLine();
+        Menu.clear();
+        return strCheck;
+    }
+
     public static void chooseProducts(MakeAnOrderController oCtrl){
         Integer intProductId;
         List<Product> lstProducts = oCtrl.getAvailableProducts();
         do{
             if(lstProducts.isEmpty()){break;}
             for(Product p : lstProducts){
-                System.out.printf("[%d] %s (%.2f€)\n", p.getId(), p.getName(), p.getUnitaryPrice());
+                System.out.printf("[%d] %s (%.2f€)%n", p.getId(), p.getName(), p.getUnitaryPrice());
             }
             System.out.println("\n[0] to stop the product insertion");
 
@@ -87,28 +92,26 @@ public class MakeAnOrderUI implements UI {
             intProductId = Integer.parseInt(sc.nextLine());
             System.out.println();
 
-            if(intProductId == 0){
-                break;
-            }
-
-            Product oProduct = new Product();
-            Integer intQuantity = 0;
-            for(Product p : lstProducts){
-                if (p.hasId(intProductId)){
-                    oProduct = p;
-                    break;
+            if(intProductId != 0){
+                Product oProduct = new Product();
+                Integer intQuantity = 0;
+                for(Product p : lstProducts){
+                    if (p.hasId(intProductId)){
+                        oProduct = p;
+                        break;
+                    }
                 }
-            }
 
-            System.out.print("\nChoose the Product's Quantity: ");
-            intQuantity = Integer.parseInt(sc.nextLine());
-            System.out.println();
+                System.out.print("\nChoose the Product's Quantity: ");
+                intQuantity = Integer.parseInt(sc.nextLine());
+                System.out.println();
 
-            if(!oProduct.getName().equalsIgnoreCase("") && intQuantity > 0){
-                oCtrl.addProductToOrder(oProduct, intQuantity);
-                lstProducts.remove(oProduct);
+                if(!oProduct.getName().equalsIgnoreCase("") && intQuantity > 0){
+                    oCtrl.addProductToOrder(oProduct, intQuantity);
+                    lstProducts.remove(oProduct);
+                }
+                Menu.clear();
             }
-            Menu.clear();
         }while(intProductId != 0);
     }
 
@@ -118,10 +121,10 @@ public class MakeAnOrderUI implements UI {
         int blnPaymentFlag = -1;
 
         do{
-            System.out.printf("Total Amount to Pay: %.2f€\nTotal Left To Pay: %.2f€\n-----------------------------------------------------\n\nCredit Cards:\n",
+            System.out.printf("Total Amount to Pay: %.2f€%nTotal Left To Pay: %.2f€%n-----------------------------------------------------%n%nCredit Cards:%n",
                     oCtrl.getExpectedPayment(), oCtrl.getExpectedPayment() - oCtrl.getCurrentPayment());
             for(CreditCard c : lstCC){
-                System.out.printf("[%d]\n", c.getCreditCardNr());
+                System.out.printf("[%d]%n", c.getCreditCardNr());
             }
             System.out.println("\n[0] to stop the credit card insertion");
 

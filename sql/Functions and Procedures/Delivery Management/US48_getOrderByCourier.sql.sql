@@ -3,21 +3,18 @@ create or replace function getOrderByCourier(p_email "User".EMAIL%type) RETURN S
     order_not_found exception;
 begin
     open v_order for
-        select distinct O.ID, O.DESCRIPTION, O.ORDERSTATUS, O.ORDERDATE, O.TOTALWEIGHT, O.AMOUNT, O.ADDITIONALFEE,
-                        C.CREDITS, U.*, A.*, CC.*,
-                        op.quantity, P.*
+        select O.ID, O.DESCRIPTION, O.ORDERSTATUS, O.ORDERDATE, O.TOTALWEIGHT, O.AMOUNT, O.ADDITIONALFEE, O.ISHOMEDELIVERY, U.*,
+               C.CREDITS, A1.*, P.ID, P.NAME, P.EMAIL, A3.*
         from "Order" O
-                 inner join DELIVERY D on D.ORDERID= O.ID
-                 inner join DELIVERYRUN DR on D.DELIVERYRUNID = DR.ID
-                 inner join COURIER CO on DR.COURIERID = CO.USERID
-                 inner join "User" U on CO.USERID = U.ID
-                 inner join CLIENT C on C.USERID = O.CLIENTID
-                 inner join CREDITCARDCLIENT CCC on CCC.CLIENTID = C.USERID
-                 inner join CREDITCARD CC on CCC.CREDITCARDNR = CC.CREDITCARDNR
-                 inner join ADDRESS A on C.ADDRESSID = A.ID
-                 inner join ORDERPRODUCT OP on O.ID = OP.ORDERID
-                 inner join PRODUCT P on P.id = OP.PRODUCTID
-        where U.EMAIL = p_email and DR.DELIVERYSTATUS = 'idle';
+                 inner join CLIENT C on O.CLIENTID = C.USERID
+                 inner join "User" U on C.USERID = U.ID
+                 inner join ADDRESS A1 on (A1.LATITUDE = C.ADDRESSLATITUDE AND A1.LONGITUDE = C.ADDRESSLONGITUDE)
+                 inner join PHARMACY P on O.PHARMACYID = P.ID
+                 inner join ADDRESS A3 on (P.ADDRESSLATITUDE = A3.LATITUDE AND P.ADDRESSLONGITUDE = A3.LONGITUDE)
+                 INNER JOIN "User" U2 ON U.EMAIL = p_email
+                 inner join COURIER C ON C.USERID = U.ID
+                 INNER JOIN DELIVERYRUN DR ON DR.COURIERID = C.USERID
+        where DR.DELIVERYSTATUS = 'Idle';
 
     if v_order is null then
         raise order_not_found;

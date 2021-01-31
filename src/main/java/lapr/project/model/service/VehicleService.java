@@ -1,5 +1,6 @@
 package lapr.project.model.service;
 
+import lapr.project.controller.ApplicationPOT;
 import lapr.project.data.VehicleDB;
 import lapr.project.model.*;
 import lapr.project.utils.QRCode;
@@ -110,7 +111,7 @@ public class VehicleService {
      * @return the Vehicle Payload.
      */
     public double getVehiclePayload(int vehicleId){
-        return this.moVehicleDB.getVehiclePayload(vehicleId);
+        return this.moVehicleDB.getVehiclePayload(vehicleId, ApplicationPOT.getInstance().getCurrentSession().getCurrentUserEmail());
     }
 
 }

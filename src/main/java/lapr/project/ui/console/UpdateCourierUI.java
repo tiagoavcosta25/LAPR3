@@ -2,6 +2,7 @@ package lapr.project.ui.console;
 
 import lapr.project.controller.UpdateCourierController;
 import lapr.project.model.Courier;
+import lapr.project.ui.Menu;
 import lapr.project.ui.UI;
 
 import java.util.Scanner;
@@ -19,32 +20,34 @@ public class UpdateCourierUI implements UI {
             Integer input;
             while (flag) {
                 System.out.println("Introduce the Courier's email from the User you want to update:\n");
-                System.out.println("Email: ");
+                System.out.print("Email: ");
                 String email = reader.nextLine();
+                Menu.clear();
                 UpdateCourierController ctrl = new UpdateCourierController();
                 Courier c = ctrl.getCourierByEmail(email);
-                if (c != null) {
-                    LOGGER.log(Level.INFO, "Courier was found with success!");
-                } else {
+                if (c == null) {
                     LOGGER.log(Level.WARNING, "There was a problem founding a Courier");
                     break;
                 }
                 System.out.println("Introduce the new Courier's email data to update:\n");
-                System.out.println("Name: ");
+                System.out.print("Name: ");
                 String name = reader.nextLine();
-                System.out.println("Nif: ");
+                System.out.print("Nif: ");
                 Integer nif = Integer.parseInt(reader.nextLine());
-                System.out.println("IBAN: ");
+                System.out.print("IBAN: ");
                 String iban = reader.nextLine();
-                System.out.println("Pharmacy's email: ");
+                System.out.print("Pharmacy's email: ");
                 String pharmacyEmail = reader.nextLine();
+                Menu.clear();
                 System.out.println("Do you wish to update a courier with the following data?");
                 System.out.println("Name: " + name + "\nEmail: " + email + "\nNif: " + nif + "\nIban: " + iban + "\nPharmacy's Email: " + pharmacyEmail);
                 System.out.println();
-                System.out.println("YES[1]");
-                System.out.println("NO[2]");
-                System.out.println("CANCEL[3]");
+                System.out.println("[1] YES");
+                System.out.println("[2] NO");
+                System.out.println("[3] CANCEL");
+                System.out.print("\nYour Option: ");
                 input = Integer.parseInt(reader.nextLine());
+                Menu.clear();
                 if (input == 1) {
                     ctrl.updateCourier(c, name, email, nif, iban, pharmacyEmail);
                     if (ctrl.updateCourierDB()) {

@@ -122,7 +122,7 @@ public class Order {
     /**
      * Default Status.
      */
-    private static String mDEFAULTSTATUS = "ordered";
+    private static String mDEFAULTSTATUS = "Ordered";
 
     /**
      * Default Home Delivery.

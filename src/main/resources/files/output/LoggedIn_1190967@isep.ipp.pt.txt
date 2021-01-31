@@ -1,7 +1,10 @@
 ______________________________________________________________________________________
-Dear costumer, I'm sorry to inform you but the products: 
-{No name. (0.0€)%n=2}
- are out of Stock in our Pharmacy. We will send it to you as soon as possible from another one of our providers.
+You are now logged in with the following account:
+
+-Email: 1190967@isep.ipp.pt
+-Password: rnHrQ55
+-EncryptedPassword: 43790d4d43d899784ab573ea919e2f61
+
 
 ______________________________________________________________________________________
 

@@ -54,8 +54,15 @@ public class NotifyAndRemoveController {
     public boolean notifyAndRemove(Order order) {
         Map<Product, Integer> lstProdcuts = moOrderService.notifyAndRemove(order);
         if (lstProdcuts == null) {
+            String strProducts = "";
+            for(Map.Entry<Product, Integer> e : order.getProducts().entrySet()){
+                strProducts += e.getKey().getName() + ", ";
+            }
+
+            strProducts = strProducts.substring(0, strProducts.length() - 2);
+
             String strBody = "Dear costumer, I'm sorry to inform you but some of the products: \n"
-                    + order.getProducts().toString() + "\n are out of Stock in every Pharmacy";
+                    + strProducts + " are out of Stock in every Pharmacy";
 
             EmailSender.sendEmail(order.getClient().getEmail(), "Unsuccessful Order", strBody);
 
@@ -63,22 +70,22 @@ public class NotifyAndRemoveController {
             return false;
 
         } else {
-            if (lstProdcuts.isEmpty()) {
-                return true;
-            } else {
+            if (!lstProdcuts.isEmpty()) {
+                String strProducts = "";
                 for (Map.Entry<Product, Integer> entry : lstProdcuts.entrySet()) {
                     ctrl.getStockFromAnotherPharamacy(order, entry.getKey(), entry.getValue());
+                    strProducts += entry.getKey().getName() + ", ";
                 }
+                strProducts = strProducts.substring(0, strProducts.length() - 2);
 
                 String strBody = "Dear costumer, I'm sorry to inform you but the products: \n"
-                        + lstProdcuts.toString() + "\n are out of Stock in our Pharmacy. We will send it to you as soon as possible from another one of our providers.";
+                        + strProducts + "\n are out of Stock in our Pharmacy. We will send it to you as soon as possible from another one of our providers.";
 
                 EmailSender.sendEmail(order.getClient().getEmail(), "Order In Transit", strBody);
 
                 WriteFile.write("OrderInTransit_" + order.getId(), strBody);
-                return false;
             }
-
+            return true;
         }
     }
 

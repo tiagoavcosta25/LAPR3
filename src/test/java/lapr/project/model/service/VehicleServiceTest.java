@@ -1,6 +1,7 @@
 package lapr.project.model.service;
 
 import com.google.zxing.WriterException;
+import lapr.project.controller.ApplicationPOT;
 import lapr.project.data.VehicleDB;
 import lapr.project.model.*;
 import org.junit.jupiter.api.BeforeEach;
@@ -92,7 +93,8 @@ class VehicleServiceTest {
     @Test
     void getVehiclePayload() {
         System.out.println("getVehiclePayload");
-        when(m_oVehicleDB.getVehiclePayload(1)).thenReturn(10.0);
+        ApplicationPOT.getInstance().setCurrentSession(new UserSession("email1@gmail.com"));
+        when(m_oVehicleDB.getVehiclePayload(1, "email1@gmail.com")).thenReturn(10.0);
         double result = m_service.getVehiclePayload(1);
         assertEquals(10.0, result);
     }

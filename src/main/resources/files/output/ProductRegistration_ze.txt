@@ -1,7 +1,10 @@
 ______________________________________________________________________________________
-Dear costumer, I'm sorry to inform you but the products: 
-{No name. (0.0€)%n=2}
- are out of Stock in our Pharmacy. We will send it to you as soon as possible from another one of our providers.
+Product Information:
+
+-Name: ze
+-Description: tr
+-Unitary Price: 1.00€
+-Unitary Weight: 2.00kg
 
 ______________________________________________________________________________________
 
