@@ -56,11 +56,12 @@ public class EmailSender {
 
                     @Override
                     protected PasswordAuthentication getPasswordAuthentication() {
-                        return new PasswordAuthentication("info.teamlisa@gmail.com", "g21rumoAo20");
+                        return new PasswordAuthentication("pharmacyservice.g21@gmail.com", "g21rumoAo20");
                     }
                 });
         try {
             if(body.isEmpty()){throw new MessagingException();}
+
 
             String strBody = String.format("______________________________________________________________________________________\n" +
                     "%s\n\n______________________________________________________________________________________\n\n" +
