@@ -218,7 +218,7 @@ About the project, we want to mention this **6** topics:
    4.3 **Delivery Run**
       - 4.3.1 An administrator should be able of register a Delivery Run. ([US206_RegisterDeliveryRun](docs/Iteration 3/Delivery Management/Refinement/US206_RegisterDeliveryRun/US206_RegisterDeliveryRun.md))
       - 4.3.2 A courier should be able of starting a Delivery Run. ([US205_StartDeliveryRun](docs/Iteration 3/Delivery Management/Refinement/US205_StartDeliveryRun/US205_StartDeliveryRun.md))
-
+      - 4.3.3 A courier should be able of end a Delivery Run. ([US303_FinishDeliveryRun](docs/Iteration 3/Delivery Management/US303_FinishDeliveryRun/US303_FinishDeliveryRun.md))
 5. **Users**
    
    5.1 A user has to be capable of loging in ([US67_Login](docs/Iteration 3/User Management/Refinement/US67_Login/US67_Login.md))
@@ -345,6 +345,9 @@ So, the overall drone consumption is:
 
 ![TotalEnergyDrone](PhysicFormulas/TotalEnergyDrone.svg)
 
+**where**
+- E is the total energy in kWh
+
 ### Scooter
 
 In order to calculate the scooter energy consumption, we first calculated the forces that actuated in the scooter during the path.
@@ -399,6 +402,10 @@ and using the formula
 
 ![EnergyForceDistance](PhysicFormulas/EnergyForceDistance.svg)
 
+**where**
+
+- E is the total energy in kWh
+
 we got the energy that the scooter spends doing the path.
 
 ###Calculation considerations
@@ -414,6 +421,7 @@ we got the energy that the scooter spends doing the path.
 - v is the total velocity (in m/s)
 
 When the vehicle wasn't able to make the path, we reduced the velocity (in a 0.01 m/s ratio in a recursive way) and calculated again the force, until the F.v fited the vehicle power, or until the velocity be 0, what made the vehicle not capable of make the path. 
+We used the final energy in kWh but during the calculation we use Joules. We just convert to kWh at the final to make it easier to the battery integration.
 
 - The constants used were:
 

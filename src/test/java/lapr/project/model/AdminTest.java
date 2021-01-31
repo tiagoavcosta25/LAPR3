@@ -39,13 +39,7 @@ class AdminTest {
 
         assertEquals(oAdmin,oAdmin);
 
-        oAdmin.setId(1);
-        oAdmin2.setId(1);
-
         assertEquals(oAdmin,oAdmin2);
-
-        oAdmin2.setId(3);
-        assertNotEquals(oAdmin,oAdmin2);
 
         assertNotEquals(oAdmin,null);
         String s = "";
