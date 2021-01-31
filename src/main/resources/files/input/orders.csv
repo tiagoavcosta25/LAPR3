@@ -1,4 +1,4 @@
 #client_email;order_descr;is_home_delivery(true/false);pharmacy_email;product_name;quantity...cc_number;amount_to_pay
-fernando@gmail.com;Para Presente, Enviar Embrulhado.;true;info@alianca.com;COVID-19 Vaccine;2;Ben-u-ron;1;9412348029177724;38.5
-alexandre@gmail.com;Levantamento em Loja às 19h.;false;info@sabandeira.com;Ben-u-ron;2;5861817093218144;5
-joana@gmail.com;Deixar na Porta de Entrada.;true;info@alianca.com;COVID-19 Vaccine;1;5323943797733841;10;8292933502275238;8
+fernando@gmail.com;Its a Gift, Wrap it.;true;info@alianca.com;COVID-19 Vaccine;2;Ben-u-ron;1;9412348029177724;38.5
+alexandre@gmail.com;Store Pick up at 7 p.m.;false;info@sabandeira.com;Ben-u-ron;2;5861817093218144;5
+joana@gmail.com;Leave at the door.;true;info@alianca.com;COVID-19 Vaccine;1;5323943797733841;10;8292933502275238;8

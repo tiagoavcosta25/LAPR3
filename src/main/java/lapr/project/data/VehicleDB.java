@@ -163,15 +163,15 @@ public class VehicleDB extends DataHandler {
      * @return Vehicle Payload.
      */
     public double getVehiclePayload(int vehicleId, String email){
-        try(CallableStatement callStmt = getConnection().prepareCall("{ ? = call getVehiclePayload(?) }");) {
+        try(CallableStatement callStmt = getConnection().prepareCall("{ ? = call getVehiclePayload(?,?) }");) {
 
-            callStmt.registerOutParameter(1, OracleTypes.INTEGER);
+            callStmt.registerOutParameter(1, OracleTypes.DOUBLE);
             callStmt.setInt(2, vehicleId);
             callStmt.setString(3,email);
             callStmt.execute();
             return callStmt.getDouble(1);
         } catch (SQLException e) {
-            throw new IllegalArgumentException("Couldn't return value.");
+            return -1;
         } finally {
             closeAll();
         }

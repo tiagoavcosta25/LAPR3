@@ -1,4 +1,4 @@
-create or replace function getOrdersByPharmacyEmail(p_pharEmail IN PHARMACY.EMAIL%type)
+create or replace function getDistinctOrdersByPharmacyEmail(p_pharEmail IN PHARMACY.EMAIL%type)
     return sys_refcursor is
     v_cursor sys_refcursor;
 begin
@@ -12,7 +12,8 @@ begin
                      inner join ADDRESS A1 on A1.LONGITUDE = C.ADDRESSLONGITUDE and A1.LATITUDE = C.ADDRESSLATITUDE
                      inner join PHARMACY P on O.PHARMACYID = P.ID
                      inner join ADDRESS A2 on A2.LONGITUDE = P.ADDRESSLONGITUDE and A2.LATITUDE = P.ADDRESSLATITUDE
-            where P.EMAIL = p_pharEmail;
+            where P.EMAIL = p_pharEmail
+            and o.DELIVERYRUNID IS NULL;
 
     return v_cursor;
 

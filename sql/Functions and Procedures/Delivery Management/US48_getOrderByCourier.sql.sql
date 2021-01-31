@@ -11,10 +11,12 @@ begin
                  inner join ADDRESS A1 on (A1.LATITUDE = C.ADDRESSLATITUDE AND A1.LONGITUDE = C.ADDRESSLONGITUDE)
                  inner join PHARMACY P on O.PHARMACYID = P.ID
                  inner join ADDRESS A3 on (P.ADDRESSLATITUDE = A3.LATITUDE AND P.ADDRESSLONGITUDE = A3.LONGITUDE)
-                 INNER JOIN "User" U2 ON U.EMAIL = p_email
-                 inner join COURIER C ON C.USERID = U.ID
-                 INNER JOIN DELIVERYRUN DR ON DR.COURIERID = C.USERID
-        where DR.DELIVERYSTATUS = 'Idle';
+                 INNER JOIN DELIVERYRUN DR ON DR.ID = O.DELIVERYRUNID
+                 INNER JOIN "User" U2 ON U2.ID = DR.COURIERID
+        where DR.DELIVERYSTATUS = 'Idle'
+          and U2.EMAIL = p_email
+        ORDER BY O.ORDERDATE ASC
+        fetch first row only;
 
     if v_order is null then
         raise order_not_found;

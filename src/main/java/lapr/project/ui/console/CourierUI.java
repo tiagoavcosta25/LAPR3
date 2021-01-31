@@ -18,22 +18,22 @@ public class CourierUI implements UI {
         do{
             Menu.sleep();
             Menu.clear();
-            Menu.displayMenu("COURIER", "[1] Start Delivery Run\n[2] Park Scooter\n[3] Know Delivery\n" +
+            Menu.displayMenu("COURIER", "[1] Know Delivery Run\n[2] Start Delivery Run\n[3] Park Scooter\n" +
                     "[4] Check Vehicle Payload\n\n[0] Log Out");
             intOp = sc.nextInt();
             Menu.clear();
 
             switch(intOp){
                 case 1:
-                    Menu.runUI(new StartDeliveryRunUI());
+                    Menu.runUI(new KnowDeliveryUI());
                     break;
 
                 case 2:
-                    Menu.runUI(new ParkScooterUI());
+                    Menu.runUI(new StartDeliveryRunUI());
                     break;
 
                 case 3:
-                    Menu.runUI(new KnowDeliveryUI());
+                    Menu.runUI(new ParkScooterUI());
                     break;
 
                 case 4:

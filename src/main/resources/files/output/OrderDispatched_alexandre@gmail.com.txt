@@ -1,10 +1,7 @@
 ______________________________________________________________________________________
-Delivery Run Information
-
-Responsible Courier: Mace Windu
-Status: DeliveryStatus{m_strDesignation='Idle'}
-Vehicle: modelSuperTop, id-24
-Order ID List: 3
+Your order has been dispatched!
+Tracking number: 2
+Order description: Levantamento em Loja às 19h.
 
 ______________________________________________________________________________________
 

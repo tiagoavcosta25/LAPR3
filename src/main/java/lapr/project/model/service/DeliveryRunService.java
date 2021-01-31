@@ -183,15 +183,13 @@ public class DeliveryRunService {
      * @param lstClients List of Clients that will be notified
      * @return True if the email was sent, false if otherwise
      */
-    public boolean sendsEmail(Map lstClients) {
+    public boolean sendsEmail(Map<String,String> lstClients) {
         boolean flag = true;
         try {
-            Iterator it = lstClients.entrySet().iterator();
-            while (it.hasNext()) {
-                Map.Entry pair = (Map.Entry) it.next();
-                EmailSender.sendEmail(pair.getKey().toString(), "Order Status",
-                        "Your order has been dispatched!\n" + pair.getValue().toString());
-                WriteFile.write("OrderDispatched_" + pair.getValue().toString(), "Your order has been dispatched!\n" + pair.getValue().toString());
+            for(Map.Entry<String,String> e : lstClients.entrySet()){
+                EmailSender.sendEmail(e.getKey(), "Order Status",
+                        "Your order has been dispatched!\n" + e.getValue());
+                WriteFile.write("OrderDispatched_" + e.getKey(), "Your order has been dispatched!\n" + e.getValue());
             }
         } catch (Exception e) {
             flag = false;

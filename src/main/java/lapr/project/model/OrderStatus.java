@@ -19,6 +19,7 @@ public enum OrderStatus {
      */
 
     TRANFERINGPRODUCTS("Transfering Products"),
+    CANCELLED("Cancelled"),
     ORDERED("Ordered"),
     DELIVERING("Delivering"),
     DELIVERED("Delivered");

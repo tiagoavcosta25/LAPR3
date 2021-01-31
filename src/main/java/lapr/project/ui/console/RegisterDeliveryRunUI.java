@@ -48,7 +48,7 @@ public class RegisterDeliveryRunUI implements UI {
                 List<Order> lstOrdersByPharmacy = oCtrl.getOrdersList(strPharmacyEmail);
                 List<Order> lstOrdered = new ArrayList<>();
                 for (Order ord : lstOrdersByPharmacy) {
-                    if (ord.getStatus().equalsIgnoreCase(OrderStatus.ORDERED.getDesignation()) && !ord.isHomeDelivery()) {
+                    if (ord.getStatus().equalsIgnoreCase(OrderStatus.ORDERED.getDesignation()) && ord.isHomeDelivery()) {
                         lstOrdered.add(ord);
                     }
                 }

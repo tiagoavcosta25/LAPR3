@@ -200,7 +200,7 @@ public class PharmacyDB extends DataHandler {
      * @return The list of orders.
      */
     public List<Order> getOrdersByPharmacyEmail(Pharmacy oPharmacy) {
-        try(CallableStatement callStmt = getConnection().prepareCall("{ ? = call getOrdersByPharmacyEmail(?) }");
+        try(CallableStatement callStmt = getConnection().prepareCall("{ ? = call getDistinctOrdersByPharmacyEmail(?) }");
             CallableStatement callStmt2 = getConnection().prepareCall("{ ? = call getProductsByOrder(?) }");) {
 
             callStmt.setString(2, oPharmacy.getEmail());

@@ -17,7 +17,8 @@ public class KnowDeliveryUI implements UI {
         try {
             System.out.print("Know delivery:\n\n");
             Order oOrder = oCtrl.getOrderByCour();
-            System.out.printf("For the Courier with the email %s, the order assigned is:%n%s%n", ApplicationPOT.getInstance().getCurrentSession(), oOrder.toString());
+            System.out.printf("For the Courier with the email %s, the order assigned is:%n%n%s%n",
+                    ApplicationPOT.getInstance().getCurrentSession().getCurrentUserEmail(), oOrder.toString());
         } catch (Exception e) {
             LOGGER.log(Level.WARNING, "Error Finding the delivery.");
         }

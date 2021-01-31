@@ -21,9 +21,14 @@ public class VehiclePayloadUI implements UI {
                 String strId = sc.nextLine();
                 Menu.clear();
                 double payload = oCtrl.getVehiclePayload(Integer.parseInt(strId));
-                System.out.printf("For the Vehicle with the id %s, the max payload is:%f%n", strId, payload);
+
+                if(payload < 0d){
+                    throw new Exception();
+                }
+                System.out.printf("For the Vehicle with the id %s, the max payload is: %.2f kg%n", strId, payload);
+                Menu.sleep();
             } catch (Exception e) {
-                LOGGER.log(Level.WARNING, "Error Finding the vehicle.");
+                LOGGER.log(Level.WARNING, "Error finding the vehicle.");
             }
     }
 

@@ -120,8 +120,8 @@ class DeliveryRunServiceTest {
 
     @Test
     void testSendsEmail() {
-        Map<String,Order> lstClients = new HashMap<String,Order>();
-        lstClients.put("email@gmail.com",new Order());
+        Map<String,String> lstClients = new HashMap<String,String>();
+        lstClients.put("email@gmail.com","");
         boolean real = m_oDeliveryRunService.sendsEmail(lstClients);
         assertTrue(real);
 
