@@ -71,6 +71,7 @@ activate RF
 RF -> CDB : registersCourier(courier)
 activate CDB
 deactivate CDB
+ref over CDB : SD_CONNECTIONS
 UI -> ADMIN : informs the success of the operation
 deactivate RF
 deactivate CTRL

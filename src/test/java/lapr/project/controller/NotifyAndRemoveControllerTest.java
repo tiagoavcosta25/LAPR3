@@ -42,11 +42,16 @@ class NotifyAndRemoveControllerTest {
     @Test
     void notifyAndRemove() {
         Map<Product,Integer> map = new TreeMap<>();
-        map.put(new Product("dadwa", "adda", 1d, 1d), 420);
         Order oOrder = new Order();
         oOrder.setProducts(map);
+        when(mockOrderService.notifyAndRemove(new Order())).thenReturn(map);
+        boolean result = notifyAndRemoveController.notifyAndRemove(new Order());
+        assertTrue(result);
+
+        map.put(new Product("dadwa", "adda", 1d, 1d), 420);
+        oOrder.setProducts(map);
         when(mockOrderService.notifyAndRemove(oOrder)).thenReturn(null);
-        boolean result = notifyAndRemoveController.notifyAndRemove(oOrder);
+        result = notifyAndRemoveController.notifyAndRemove(oOrder);
         assertFalse(result);
 
         when(mockOrderService.notifyAndRemove(new Order())).thenReturn(map);

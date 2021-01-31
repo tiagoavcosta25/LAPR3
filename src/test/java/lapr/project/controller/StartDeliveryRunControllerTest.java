@@ -50,9 +50,16 @@ class StartDeliveryRunControllerTest {
         boolean result =  startDeliveryRunController.startDeliveryRun();
         assertEquals(assertTrue,result);
 
+        when(mockDeliveryService.startDeliveryRun(ApplicationPOT.getInstance().getCurrentSession().getCurrentUserEmail())).thenReturn(lst);
+        when(mockDeliveryService.sendsEmail(lst)).thenReturn(false);
+        result =  startDeliveryRunController.startDeliveryRun();
+        assertEquals(false,result);
+
         when(mockDeliveryService.startDeliveryRun(ApplicationPOT.getInstance().getCurrentSession().getCurrentUserEmail())).thenThrow(new NullPointerException());
         when(mockDeliveryService.sendsEmail(lst)).thenReturn(assertTrue);
         result =  startDeliveryRunController.startDeliveryRun();
         assertEquals(false,result);
+
     }
+
 }

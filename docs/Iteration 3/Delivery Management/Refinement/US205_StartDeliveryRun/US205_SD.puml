@@ -1,0 +1,48 @@
+@startuml
+autonumber
+actor "Courier" as ADMIN
+participant ":StartDeliveryRunUI" as UI
+participant ":StartDeliveryRunController" as CTRL
+participant ":SeeSuitableVehicleController" as CTRLS
+participant "PotApplication" as PA
+participant "app \n:PotApplication" as APA
+participant "deliveryServ \n:DeliveryRunService" as PR
+participant "deliveryDB : \nDeliveryDB" as PDB
+activate ADMIN
+
+ADMIN -> UI : Starts a delivery run
+activate UI
+
+UI -> CTRL : startDeliveryRun()
+activate CTRL
+CTRL -> PR : create()
+activate PR
+PR -> PDB** : create()
+deactivate PR
+CTRL -> PA : app = getInstance()
+activate PA
+deactivate PA
+CTRL -> APA : session = getCurrentSession()
+activate APA
+deactivate APA
+
+CTRL -> APA : email = getCurrentUserEmail()
+activate APA
+deactivate APA
+CTRL -> PR : clientsEmail = updateDeliveryRun(email)
+activate PR
+PR -> PDB : clientsEmail = updateDeliveryRun(email)
+ref over PDB : SD_CONNECTIONS
+activate PDB
+deactivate PDB
+deactivate PR
+
+CTRL -> PR : sendsEmail(clientsEmail)
+activate PR
+PR -> PR : sendsEmail(clientsEmail)
+deactivate PR
+deactivate CTRL
+UI -> ADMIN : informs of the success of the operation
+deactivate UI
+
+@enduml
