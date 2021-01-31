@@ -218,7 +218,7 @@ class CourierServiceTest {
         assertFalse(courierService.parkScooter(1, "email@gmail.com"));
         when(mockCourierDB.checkIfScooterAndCourierFromSamePh(1, "email@gmail.com")).thenReturn(true);
         when(mockCourierDB.checkIfChargingSlot(1)).thenReturn(false);
-        assertFalse(courierService.parkScooter(1, "email@gmail.com"));
+        assertTrue(courierService.parkScooter(1, "email@gmail.com"));
         when(mockCourierDB.checkIfChargingSlot(1)).thenReturn(true);
         when(mockCourierDB.parkScooterDirectory(1)).thenReturn(false);
         assertFalse(courierService.parkScooter(1, "email@gmail.com"));

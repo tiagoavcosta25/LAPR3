@@ -597,8 +597,12 @@ public class GraphService {
                         distanceUsingCoordinates,vModel.getPotency());
             }
             tempEnergy = tempPair.getKey();
-            route.getEnergyList().add(tempEnergy);
-            route.getTimeList().add(tempPair.getValue() / 60);
+            List<Double> energyList = route.getEnergyList();
+            energyList.add(tempEnergy);
+            route.setEnergyList(energyList);
+            List<Double> timeList = route.getTimeList();
+            timeList.add(tempPair.getValue() / 60);
+            route.setTimeList(timeList);
             energyCost += tempEnergy;
             energyRemaining -= tempEnergy;
             if (energyRemaining < 0) {

@@ -1,7 +1,7 @@
 ______________________________________________________________________________________
 Scooter parking automated response.
 
-Courier with email email@gmail.com and scooter with id 1 are not from the same pharmacy!
+Scooter with id 1 was not locked successfully!
 
 ______________________________________________________________________________________
 
