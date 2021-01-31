@@ -7,7 +7,7 @@ participant ":SeeSuitableVehicleController" as CTRLS
 participant "PotApplication" as PA
 participant "app \n:PotApplication" as APA
 participant "deliveryServ \n:DeliveryRunService" as PR
-participant "deliveryDB : DeliveryDB" as PDB
+participant "deliveryDB : \nDeliveryDB" as PDB
 activate ADMIN
 
 ADMIN -> UI : Starts a delivery run
@@ -32,6 +32,7 @@ deactivate APA
 CTRL -> PR : clientsEmail = updateDeliveryRun(email)
 activate PR
 PR -> PDB : clientsEmail = updateDeliveryRun(email)
+ref over PDB : SD_CONNECTIONS
 activate PDB
 deactivate PDB
 deactivate PR
