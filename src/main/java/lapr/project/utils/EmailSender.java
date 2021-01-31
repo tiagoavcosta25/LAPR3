@@ -86,7 +86,7 @@ public class EmailSender {
      * @param body Body.
      * @return HTML Body.
      */
-    private static String htmlBody(String body) {
+    public static String htmlBody(String body) {
         return body.replace("\n", "<br />");
     }
 }
