@@ -224,6 +224,40 @@ class DeliveryRunServiceTest {
 
         real = m_oDeliveryRunService.getMostEfficientVehicleModel(lst);
         assertEquals(new VehicleModel(),real);
+
+//
+        lst = new ArrayList<>();
+        r1 = new Route(VehicleType.SCOOTER,new ArrayList<>());
+        r1.setVehicleModel(new VehicleModel());
+        lst.add(new Route(VehicleType.SCOOTER,new ArrayList<>()));
+        lst.add(new Route(VehicleType.SCOOTER,new ArrayList<>()));
+
+        real = m_oDeliveryRunService.getMostEfficientVehicleModel(lst);
+        assertNull(real);
+
+        lst = new ArrayList<>();
+        lst.add(null);
+        lst.add(r1);
+
+        real = m_oDeliveryRunService.getMostEfficientVehicleModel(lst);
+        assertEquals(new VehicleModel(),real);
+
+        lst = new ArrayList<>();
+        lst.add(r1);
+        lst.add(null);
+
+        real = m_oDeliveryRunService.getMostEfficientVehicleModel(lst);
+        assertEquals(new VehicleModel(),real);
+
+        lst = new ArrayList<>();
+        lst.add(null);
+        lst.add(null);
+
+        real = m_oDeliveryRunService.getMostEfficientVehicleModel(lst);
+        assertNull(real);
+
+        real = m_oDeliveryRunService.getMostEfficientVehicleModel(new ArrayList<>());
+        assertNull(real);
     }
 
     @Test
