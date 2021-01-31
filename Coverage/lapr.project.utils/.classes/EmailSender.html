@@ -47,10 +47,10 @@
 </td>
 <td class="coverageStat">
   <span class="percent">
-    92%
+    92,3%
   </span>
   <span class="absValue">
-    (23/ 25)
+    (24/ 26)
   </span>
 </td>
 </tr>
@@ -74,13 +74,13 @@
 </td>
   </tr>
   <tr>
-    <td class="name">EmailSender$MockitoMock$194467257</td>
+    <td class="name">EmailSender$MockitoMock$220393853</td>
   </tr>
   <tr>
-    <td class="name">EmailSender$MockitoMock$194467257$auxiliary$oAhuaPen</td>
+    <td class="name">EmailSender$MockitoMock$220393853$auxiliary$4eC9B03b</td>
   </tr>
   <tr>
-    <td class="name">EmailSender$MockitoMock$194467257$auxiliary$PlcTldsZ</td>
+    <td class="name">EmailSender$MockitoMock$220393853$auxiliary$XgRo3G17</td>
   </tr>
 <tr>
   <td class="name"><strong>total</strong></td>
@@ -94,10 +94,10 @@
 </td>
 <td class="coverageStat">
   <span class="percent">
-    92,6%
+    92,9%
   </span>
   <span class="absValue">
-    (25/ 27)
+    (26/ 28)
   </span>
 </td>
 </tr>
@@ -169,42 +169,44 @@
 <i>60</i>&nbsp;                    }
 <i>61</i>&nbsp;                });
 <i>62</i>&nbsp;        try {
-<b class="fc"><i>63</i>&nbsp;            String strBody = String.format(&quot;______________________________________________________________________________________\n&quot; +</b>
-<i>64</i>&nbsp;                    &quot;%s\n\n______________________________________________________________________________________\n\n&quot; +
-<i>65</i>&nbsp;                    &quot;Thank you for choosing us.\nKing regards,\nPharmacy Service G21.&quot;,body);
-<b class="fc"><i>66</i>&nbsp;            String strHtmlBody = htmlBody(strBody);</b>
-<b class="fc"><i>67</i>&nbsp;            if(emailToFoward.equals(&quot;&quot;) || subject.equals(&quot;&quot;)) {</b>
-<b class="fc"><i>68</i>&nbsp;                throw new MessagingException();</b>
-<i>69</i>&nbsp;            }
-<b class="fc"><i>70</i>&nbsp;            Message message = new MimeMessage(session);</b>
-<b class="fc"><i>71</i>&nbsp;            message.setFrom(new InternetAddress(&quot;FarmacyService&quot;));</b>
-<b class="fc"><i>72</i>&nbsp;            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(emailToFoward));</b>
-<b class="fc"><i>73</i>&nbsp;            message.setSubject(subject);</b>
-<b class="fc"><i>74</i>&nbsp;            message.setContent(strHtmlBody, Constants.EMAIL_BODY_TYPE);</b>
-<b class="fc"><i>75</i>&nbsp;            Transport.send(message);</b>
-<b class="fc"><i>76</i>&nbsp;            LOGGER.log(Level.INFO, &quot;Email Sent!&quot;);</b>
-<b class="fc"><i>77</i>&nbsp;            return true;</b>
-<b class="fc"><i>78</i>&nbsp;        } catch (MessagingException e) {</b>
-<b class="fc"><i>79</i>&nbsp;            LOGGER.log(Level.WARNING, &quot;Error sending the email.&quot;);</b>
-<i>80</i>&nbsp;        }
-<b class="fc"><i>81</i>&nbsp;        return false;</b>
-<i>82</i>&nbsp;    }
-<i>83</i>&nbsp;
-<i>84</i>&nbsp;    /**
-<i>85</i>&nbsp;     * HTML Body.
-<i>86</i>&nbsp;     * @param body Body.
-<i>87</i>&nbsp;     * @return HTML Body.
-<i>88</i>&nbsp;     */
-<i>89</i>&nbsp;    private static String htmlBody(String body) {
-<b class="fc"><i>90</i>&nbsp;        return body.replace(&quot;\n&quot;, &quot;&lt;br /&gt;&quot;);</b>
-<i>91</i>&nbsp;    }
-<i>92</i>&nbsp;}
+<b class="fc"><i>63</i>&nbsp;            if(body.isEmpty()){throw new MessagingException();}</b>
+<i>64</i>&nbsp;
+<b class="fc"><i>65</i>&nbsp;            String strBody = String.format(&quot;______________________________________________________________________________________\n&quot; +</b>
+<i>66</i>&nbsp;                    &quot;%s\n\n______________________________________________________________________________________\n\n&quot; +
+<i>67</i>&nbsp;                    &quot;Thank you for choosing us.\nKing regards,\nPharmacy Service G21.&quot;,body);
+<b class="fc"><i>68</i>&nbsp;            String strHtmlBody = htmlBody(strBody);</b>
+<b class="fc"><i>69</i>&nbsp;            if(emailToFoward.equals(&quot;&quot;) || subject.equals(&quot;&quot;)) {</b>
+<b class="fc"><i>70</i>&nbsp;                throw new MessagingException();</b>
+<i>71</i>&nbsp;            }
+<b class="fc"><i>72</i>&nbsp;            Message message = new MimeMessage(session);</b>
+<b class="fc"><i>73</i>&nbsp;            message.setFrom(new InternetAddress(&quot;FarmacyService&quot;));</b>
+<b class="fc"><i>74</i>&nbsp;            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(emailToFoward));</b>
+<b class="fc"><i>75</i>&nbsp;            message.setSubject(subject);</b>
+<b class="fc"><i>76</i>&nbsp;            message.setContent(strHtmlBody, Constants.EMAIL_BODY_TYPE);</b>
+<b class="fc"><i>77</i>&nbsp;            Transport.send(message);</b>
+<b class="fc"><i>78</i>&nbsp;            LOGGER.log(Level.INFO, &quot;Email Sent!&quot;);</b>
+<b class="fc"><i>79</i>&nbsp;            return true;</b>
+<b class="fc"><i>80</i>&nbsp;        } catch (MessagingException e) {</b>
+<b class="fc"><i>81</i>&nbsp;            LOGGER.log(Level.WARNING, &quot;Error sending the email.&quot;);</b>
+<i>82</i>&nbsp;        }
+<b class="fc"><i>83</i>&nbsp;        return false;</b>
+<i>84</i>&nbsp;    }
+<i>85</i>&nbsp;
+<i>86</i>&nbsp;    /**
+<i>87</i>&nbsp;     * HTML Body.
+<i>88</i>&nbsp;     * @param body Body.
+<i>89</i>&nbsp;     * @return HTML Body.
+<i>90</i>&nbsp;     */
+<i>91</i>&nbsp;    public static String htmlBody(String body) {
+<b class="fc"><i>92</i>&nbsp;        return body.replace(&quot;\n&quot;, &quot;&lt;br /&gt;&quot;);</b>
+<i>93</i>&nbsp;    }
+<i>94</i>&nbsp;}
 </div>
 </div>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2021-01-31 20:04</div>
+    <div style="float:right;">generated on 2021-01-31 21:29</div>
 </div>
 </body>
 </html>

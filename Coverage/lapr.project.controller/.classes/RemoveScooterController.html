@@ -53,7 +53,7 @@
     100%
   </span>
   <span class="absValue">
-    (4/ 4)
+    (8/ 8)
   </span>
 </td>
 <td class="coverageStat">
@@ -61,7 +61,7 @@
     100%
   </span>
   <span class="absValue">
-    (9/ 9)
+    (15/ 15)
   </span>
 </td>
 </tr>
@@ -142,13 +142,45 @@
 <b class="fc"><i>68</i>&nbsp;        return moScooterService.removeScooterFromDB(intScooterId);</b>
 <i>69</i>&nbsp;    }
 <i>70</i>&nbsp;
-<i>71</i>&nbsp;}
+<i>71</i>&nbsp;    /**
+<i>72</i>&nbsp;     * Getter Method for the Pharmacy Management Class.
+<i>73</i>&nbsp;     * @return Pharmacy Management Class.
+<i>74</i>&nbsp;     */
+<i>75</i>&nbsp;    public PharmacyService getPharmacyService() {
+<b class="fc"><i>76</i>&nbsp;        return moPharmacyService;</b>
+<i>77</i>&nbsp;    }
+<i>78</i>&nbsp;
+<i>79</i>&nbsp;    /**
+<i>80</i>&nbsp;     * Setter Method for the Pharmacy Management Class.
+<i>81</i>&nbsp;     * @param oPharmacyService Pharmacy Management Class.
+<i>82</i>&nbsp;     */
+<i>83</i>&nbsp;    public void setPharmacyService(PharmacyService oPharmacyService) {
+<b class="fc"><i>84</i>&nbsp;        this.moPharmacyService = oPharmacyService;</b>
+<b class="fc"><i>85</i>&nbsp;    }</b>
+<i>86</i>&nbsp;
+<i>87</i>&nbsp;    /**
+<i>88</i>&nbsp;     * Getter Method for the Scooter Management Class.
+<i>89</i>&nbsp;     * @return Scooter Management Class.
+<i>90</i>&nbsp;     */
+<i>91</i>&nbsp;    public ScooterService getScooterService() {
+<b class="fc"><i>92</i>&nbsp;        return moScooterService;</b>
+<i>93</i>&nbsp;    }
+<i>94</i>&nbsp;
+<i>95</i>&nbsp;    /**
+<i>96</i>&nbsp;     * Setter Method for the Scooter Management Class.
+<i>97</i>&nbsp;     * @param oScooterService Scooter Management Class.
+<i>98</i>&nbsp;     */
+<i>99</i>&nbsp;    public void setScooterService(ScooterService oScooterService) {
+<b class="fc"><i>100</i>&nbsp;        this.moScooterService = oScooterService;</b>
+<b class="fc"><i>101</i>&nbsp;    }</b>
+<i>102</i>&nbsp;
+<i>103</i>&nbsp;}
 </div>
 </div>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2021-01-31 20:04</div>
+    <div style="float:right;">generated on 2021-01-31 21:29</div>
 </div>
 </body>
 </html>

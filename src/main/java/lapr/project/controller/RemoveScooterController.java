@@ -68,4 +68,36 @@ public class RemoveScooterController {
         return moScooterService.removeScooterFromDB(intScooterId);
     }
 
+    /**
+     * Getter Method for the Pharmacy Management Class.
+     * @return Pharmacy Management Class.
+     */
+    public PharmacyService getPharmacyService() {
+        return moPharmacyService;
+    }
+
+    /**
+     * Setter Method for the Pharmacy Management Class.
+     * @param oPharmacyService Pharmacy Management Class.
+     */
+    public void setPharmacyService(PharmacyService oPharmacyService) {
+        this.moPharmacyService = oPharmacyService;
+    }
+
+    /**
+     * Getter Method for the Scooter Management Class.
+     * @return Scooter Management Class.
+     */
+    public ScooterService getScooterService() {
+        return moScooterService;
+    }
+
+    /**
+     * Setter Method for the Scooter Management Class.
+     * @param oScooterService Scooter Management Class.
+     */
+    public void setScooterService(ScooterService oScooterService) {
+        this.moScooterService = oScooterService;
+    }
+
 }

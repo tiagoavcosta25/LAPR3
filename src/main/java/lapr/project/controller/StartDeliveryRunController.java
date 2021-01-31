@@ -26,7 +26,7 @@ public class StartDeliveryRunController {
      * A constructor of RegisterCourierController that initiates the platform variable by getting it from the ApplicationPOT.
      */
     public StartDeliveryRunController() {
-        this.setMoDeliveryRunService(new DeliveryRunService());
+        this.moDeliveryRunService = new DeliveryRunService();
     }
 
     /**

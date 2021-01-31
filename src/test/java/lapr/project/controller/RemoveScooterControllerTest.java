@@ -1,7 +1,5 @@
 package lapr.project.controller;
 
-import lapr.project.data.PharmacyDB;
-import lapr.project.data.ScooterDB;
 import lapr.project.model.Pharmacy;
 import lapr.project.model.Scooter;
 import lapr.project.model.UserSession;
@@ -81,5 +79,41 @@ class RemoveScooterControllerTest {
         when(m_mockScooterService.removeScooterFromDB(1)).thenReturn(false);
         result = m_ctrl.removeScooter(1);
         assertFalse(result);
+    }
+
+    @Test
+    void getPharmacyService() {
+        RemoveScooterController ctrl = new RemoveScooterController();
+        PharmacyService expected = new PharmacyService();
+        ctrl.setPharmacyService(expected);
+        PharmacyService real = ctrl.getPharmacyService();
+        assertEquals(expected, real);
+    }
+
+    @Test
+    void setPharmacyService() {
+        RemoveScooterController ctrl = new RemoveScooterController();
+        PharmacyService expected = new PharmacyService();
+        ctrl.setPharmacyService(expected);
+        PharmacyService real = ctrl.getPharmacyService();
+        assertEquals(expected, real);
+    }
+
+    @Test
+    void getScooterService() {
+        RemoveScooterController ctrl = new RemoveScooterController();
+        ScooterService expected = new ScooterService();
+        ctrl.setScooterService(expected);
+        ScooterService real = ctrl.getScooterService();
+        assertEquals(expected, real);
+    }
+
+    @Test
+    void setScooterService() {
+        RemoveScooterController ctrl = new RemoveScooterController();
+        ScooterService expected = new ScooterService();
+        ctrl.setScooterService(expected);
+        ScooterService real = ctrl.getScooterService();
+        assertEquals(expected, real);
     }
 }
