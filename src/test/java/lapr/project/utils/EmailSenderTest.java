@@ -14,13 +14,13 @@ class EmailSenderTest {
         boolean result = EmailSender.sendEmail("", "Test", "Test");
         assertFalse(result);
 
-        result = EmailSender.sendEmail("teste@gmail.com", "Test", "");
+        result = EmailSender.sendEmail("g21@trash-mail.com", "Test", "");
         assertTrue(result);
 
-        result = EmailSender.sendEmail("teste@gmail.com", "", "Test");
+        result = EmailSender.sendEmail("g21@trash-mail.com", "", "Test");
         assertFalse(result);
 
-        result = EmailSender.sendEmail("teste@gmail.com", "Test", "");
+        result = EmailSender.sendEmail("g21@trash-mail.com", "Test", "");
         assertTrue(result);
     }
 
