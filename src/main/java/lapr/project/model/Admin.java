@@ -1,7 +1,6 @@
 package lapr.project.model;
 
 import java.security.NoSuchAlgorithmException;
-import java.util.Objects;
 
 /**
  * Admin.

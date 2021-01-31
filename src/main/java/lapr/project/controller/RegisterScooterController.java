@@ -4,7 +4,6 @@ import lapr.project.model.Pharmacy;
 import lapr.project.model.Scooter;
 import lapr.project.model.VehicleModel;
 import lapr.project.model.VehicleType;
-import lapr.project.model.service.DroneService;
 import lapr.project.model.service.PharmacyService;
 import lapr.project.model.service.ScooterService;
 import lapr.project.model.service.VehicleService;

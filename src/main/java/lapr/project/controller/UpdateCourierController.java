@@ -58,11 +58,12 @@ public class UpdateCourierController {
             if (validateInput(email)) {
                 this.moCourier = moCourierService.getCourierByEmail(email);
                 return moCourier;
+            }else{
+                throw new Exception();
             }
         } catch (Exception ex) {
-            this.moCourier = null;
+            return null;
         }
-        return this.moCourier;
     }
 
     /**
