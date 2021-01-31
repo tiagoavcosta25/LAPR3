@@ -34,6 +34,7 @@ begin
     IF v_numberOfScootersParked = 0 then
         v_currentPerCharger := v_totalCurrent;
     ELSE
+        v_numberOfScootersParked := v_numberOfScootersParked + 1;
         v_currentPerCharger := v_totalCurrent / v_numberOfScootersParked;
     end if;
 

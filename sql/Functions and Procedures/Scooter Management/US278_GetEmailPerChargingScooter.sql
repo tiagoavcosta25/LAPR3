@@ -1,8 +1,13 @@
-create or replace function getEmailPerChargingScooter(p_parkId IN PARK.ID%TYPE)
+create or replace function getEmailPerChargingScooter(p_parkSlotId IN PARK.ID%TYPE)
     return sys_refcursor is
     v_scooters sys_refcursor;
     scooter_not_found exception;
+    v_parkId number;
 begin
+
+    SELECT PARKINGSLOT.PARKID INTO v_parkId
+    FROM PARKINGSLOT
+    WHERE PARKINGSLOT.ID = p_parkSlotId;
 
     OPEN v_scooters FOR
         SELECT U.EMAIL, S.VEHICLEID, V.BATTERYPERC, VM.ID, VM.DESIGNATION, VM.POTENCY, VM.WEIGHT, VM.MAXPAYLOAD, VM.VEHICLETYPE, B.*, P.ID, P.NAME,
@@ -19,8 +24,8 @@ begin
                  INNER JOIN DELIVERYRUN D on V.ID = D.VEHICLEID
                  INNER JOIN COURIER C on D.COURIERID = C.USERID
                  INNER JOIN "User" U on C.USERID = U.ID
-        WHERE PK.ID = p_parkId
-        AND D.ID = (
+        WHERE PS.ID = v_parkId
+          AND D.ID = (
             SELECT MAX(ID)
             FROM DELIVERYRUN DR
             WHERE DR.VEHICLEID = V.ID);
