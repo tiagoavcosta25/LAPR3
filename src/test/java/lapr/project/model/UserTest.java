@@ -117,6 +117,9 @@ class UserTest {
         Client oUser2 = null;
         assertNotEquals(u,oUser2);
 
+        real = u.equals(oUser1);
+        assertFalse(real);
+
     }
 
     @Test

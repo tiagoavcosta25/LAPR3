@@ -131,6 +131,10 @@ class PharmacyTransferTest {
         assertFalse(real);
         real = oPharmacyTransfer.equals(null);
         assertFalse(real);
+        PharmacyTransfer oPharmacyTransfer2 = new PharmacyTransfer();
+        oPharmacyTransfer2.setId(10);
+        real = oPharmacyTransfer2.equals(oPharmacyTransfer);
+        assertFalse(real);
     }
 
     @Test
