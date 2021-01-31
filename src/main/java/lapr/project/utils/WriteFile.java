@@ -43,10 +43,8 @@ public class WriteFile {
                             "%s\n\n______________________________________________________________________________________\n\n" +
                             "Thank you for choosing us.\nKing regards,\nPharmacy Service G21.",strContent);
 
-        try(FileWriter fw = new FileWriter(strFilePath);) {
+        try(FileWriter fw = new FileWriter(strFilePath)) {
             fw.write(body);
-            fw.close();
-
             return true;
 
         } catch (Exception e){
